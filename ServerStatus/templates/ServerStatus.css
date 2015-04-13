@@ -1,0 +1,7 @@
+table.servers-mini tbody tr td {
+	background-color: #FFFFFF;
+	border: none;
+}
+
+.status-picture { width: 15%; }
+.very-small { font-size: 9px; }

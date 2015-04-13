@@ -1,0 +1,6 @@
+.users-birthday-vertical {
+	text-align: left;
+	list-style: none outside none;
+}
+
+.users-birthday-horizontal { padding-right: 25px; }
