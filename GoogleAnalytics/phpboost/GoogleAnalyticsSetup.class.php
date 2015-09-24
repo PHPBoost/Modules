@@ -1,9 +1,9 @@
 <?php
 /*##################################################
- *                         BirthdaySetup.class.php
+ *                         GoogleAnalyticsSetup.class.php
  *                            -------------------
- *   begin                : August 27, 2013
- *   copyright            : (C) 2013 Julien BRISWALTER
+ *   begin                : September 24, 2015
+ *   copyright            : (C) 2015 Julien BRISWALTER
  *   email                : julienseth78@phpboost.com
  *
  *
@@ -25,7 +25,7 @@
  *
  ###################################################*/
 
-class BirthdaySetup extends DefaultModuleSetup
+class GoogleAnalyticsSetup extends DefaultModuleSetup
 {
 	public function upgrade($installed_version)
 	{
@@ -39,7 +39,7 @@ class BirthdaySetup extends DefaultModuleSetup
 	
 	private function delete_configuration()
 	{
-		ConfigManager::delete('birthday', 'config');
+		ConfigManager::delete('GoogleAnalytics', 'config');
 	}
 }
 ?>
