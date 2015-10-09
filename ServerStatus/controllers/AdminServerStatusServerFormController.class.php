@@ -92,22 +92,15 @@ class AdminServerStatusServerFormController extends AdminController
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('address_type', $this->lang['server.address_type'], $server->get_address_type(),
 			array(
 				new FormFieldSelectChoiceOption($this->lang['server.address_type.dns'], AbstractServerStatusServer::DNS),
-				new FormFieldSelectChoiceOption($this->lang['server.address_type.ip'], AbstractServerStatusServer::IP),
-				new FormFieldSelectChoiceOption($this->lang['server.address_type.ipv6'], AbstractServerStatusServer::IPV6)
+				new FormFieldSelectChoiceOption($this->lang['server.address_type.ip'], AbstractServerStatusServer::IP)
 			),
 			array('events' => array('change' => '
 				if (HTMLForms.getField("address_type").getValue() == \'' . AbstractServerStatusServer::DNS . '\') {
 					HTMLForms.getField("ip_address").disable();
-					HTMLForms.getField("ipv6_address").disable();
 					HTMLForms.getField("dns_address").enable();
-				} else if (HTMLForms.getField("address_type").getValue() == \'' . AbstractServerStatusServer::IP . '\') {
-					HTMLForms.getField("dns_address").disable();
-					HTMLForms.getField("ipv6_address").disable();
-					HTMLForms.getField("ip_address").enable();
 				} else {
 					HTMLForms.getField("dns_address").disable();
-					HTMLForms.getField("ip_address").disable();
-					HTMLForms.getField("ipv6_address").enable();
+					HTMLForms.getField("ip_address").enable();
 				}'
 			))
 		));
@@ -118,12 +111,7 @@ class AdminServerStatusServerFormController extends AdminController
 		
 		$fieldset->add_field(new FormFieldTextEditor('ip_address', $this->lang['server.address.ip'], $server->address_type_is_ip() ? $server->get_address() : '', array(
 			'class' => 'text', 'description' => $this->lang['server.address.ip.explain'], 'hidden' => !$server->address_type_is_ip()),
-			array(new FormFieldConstraintRegex('`^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`i'))
-		));
-		
-		$fieldset->add_field(new FormFieldTextEditor('ipv6_address', $this->lang['server.address.ipv6'], $server->address_type_is_ipv6() ? $server->get_address() : '', array(
-			'class' => 'text', 'description' => $this->lang['server.address.ipv6.explain'], 'hidden' => !$server->address_type_is_ipv6()),
-			array(new FormFieldConstraintRegex('`^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(([0-9A-Fa-f]{1,4}:){0,5}:((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(::([0-9A-Fa-f]{1,4}:){0,5}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$`i'))
+			array(new FormFieldConstraintRegex('`^((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$|^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(([0-9A-Fa-f]{1,4}:){0,5}:((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(::([0-9A-Fa-f]{1,4}:){0,5}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$`i'))
 		));
 		
 		$types_properties = $this->get_types_properties();
@@ -139,12 +127,7 @@ class AdminServerStatusServerFormController extends AdminController
 			array(new FormFieldConstraintIntegerRange(1, 65535))
 		));
 		
-		$fieldset->add_field(new FormFieldRadioChoice('display', $this->lang['server.display'], $server->is_displayed(),
-			array(
-				new FormFieldRadioChoiceOption($main_lang['yes'], 1),
-				new FormFieldRadioChoiceOption($main_lang['no'], 0)
-			)
-		));
+		$fieldset->add_field(new FormFieldCheckbox('display', $this->lang['server.display'], $server->is_displayed()));
 		
 		$auth_settings = new AuthorizationsSettings(array(
 			new ActionAuthorization($this->lang['admin.authorizations.display_server'], AbstractServerStatusServer::DISPLAY_SERVER_AUTHORIZATIONS),
@@ -183,10 +166,10 @@ class AdminServerStatusServerFormController extends AdminController
 	{
 		$array_select = array(new FormFieldSelectChoiceOption('', 'ServerStatusDefaultServerType'));
 		$events = 'if (HTMLForms.getField("type").getValue() == "ServerStatusDefaultServerType") {
-				$(\'' . __CLASS__ . '_port\').value = \'0\';
-				$(\'preview_icon\').src = \'\';
-				$(\'preview_icon\').style.display = \'none\';
-				$(\'preview_icon_none\').style.display = \'inline\';
+				HTMLForms.getField("port").setValue(\'0\');
+				jQuery(\'#preview_icon\').attr(\'src\', \'\');
+				jQuery(\'#preview_icon\').hide();
+				jQuery(\'#preview_icon_none\').show();
 			}';
 		
 		$types = ServerStatusService::get_types();
@@ -203,12 +186,12 @@ class AdminServerStatusServerFormController extends AdminController
 					$array_select[] = new FormFieldSelectChoiceOption($options['name'], $id);
 				
 				$events .= 'if (HTMLForms.getField("type").getValue() == "' . $id . '") {
-					$(\'' . __CLASS__ . '_port\').value = \'' . $options['default_port'] . '\';
-					' . ($options['icon'] ? '$(\'preview_icon\').src = \'' . $options['icon'] . '\';
-					$(\'preview_icon\').style.display = \'inline\';
-					$(\'preview_icon_none\').style.display = \'none\';' : '$(\'preview_icon\').src = \'\';
-					$(\'preview_icon\').style.display = \'none\';
-					$(\'preview_icon_none\').style.display = \'inline\';') . '
+					HTMLForms.getField("port").setValue(\'' . $options['default_port'] . '\');
+					' . ($options['icon'] ? 'jQuery(\'#preview_icon\').attr(\'src\', \'' . $options['icon'] . '\');
+					jQuery(\'#preview_icon\').show();
+					jQuery(\'#preview_icon_none\').hide();' : 'jQuery(\'#preview_icon\').attr(\'src\', \'\');
+					jQuery(\'#preview_icon\').hide();
+					jQuery(\'#preview_icon_none\').show();') . '
 				}';
 			}
 			
@@ -242,7 +225,7 @@ class AdminServerStatusServerFormController extends AdminController
 		$server->set_address($address);
 		$server->set_port($this->form->get_value('port'));
 		
-		if ((bool)$this->form->get_value('display')->get_raw_value())
+		if ((bool)$this->form->get_value('display'))
 			$server->displayed();
 		else
 			$server->not_displayed();

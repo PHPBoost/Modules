@@ -33,10 +33,13 @@ class AdminServerStatusServersListController extends AdminController
 	
 	public function execute(HTTPRequestCustom $request)
 	{
-		if ($request->get_value('regenerate_status', false))
-			ServerStatusService::check_servers_status(true);
-		
 		$this->init();
+		
+		if ($request->get_value('regenerate_status', false))
+		{
+			ServerStatusService::check_servers_status(true);
+			$this->view->put('MSG', MessageHelper::display(LangLoader::get_message('process.success', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+		}
 		
 		$this->update_servers($request);
 		
@@ -70,43 +73,24 @@ class AdminServerStatusServersListController extends AdminController
 		$this->config = ServerStatusConfig::load();
 	}
 	
-	private function update_servers($request)
+	private function update_servers(HTTPRequestCustom $request)
 	{
 		if ($request->get_value('submit', false))
 		{
 			$this->update_position($request);
-		}
-		$this->change_display($request);
-	}
-	
-	private function change_display($request)
-	{
-		$id = $request->get_value('id', 0);
-		
-		if ($id !== 0)
-		{
-			$servers_list = $this->config->get_servers_list();
-			if ($request->get_bool('display', true))
-				$servers_list[$id]->displayed();
-			else
-				$servers_list[$id]->not_displayed();
-			$this->config->set_servers_list($servers_list);
-			
-			ServerStatusConfig::save();
+			$this->view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.position.update', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 	}
 	
-	private function update_position($request)
+	private function update_position(HTTPRequestCustom $request)
 	{
-		$servers_list = $this->config->get_servers_list();
+		$servers = $this->config->get_servers_list();
 		$sorted_servers_list = array();
 		
-		$value = '&' . $request->get_value('position', array());
-		$array = @explode('&servers_list[]=', $value);
-		foreach($array as $position => $id)
+		$servers_list = json_decode(TextHelper::html_entity_decode($request->get_value('tree')));
+		foreach($servers_list as $position => $tree)
 		{
-			if ($position > 0)
-				$sorted_servers_list[$position] = $servers_list[$id];
+			$sorted_servers_list[$position + 1] = $servers[$tree->id];
 		}
 		$this->config->set_servers_list($sorted_servers_list);
 		

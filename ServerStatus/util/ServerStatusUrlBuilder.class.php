@@ -52,6 +52,11 @@ class ServerStatusUrlBuilder
 		return DispatchManager::get_url(self::$dispatcher, '/admin/servers/delete/');
 	}
 	
+	public static function change_display()
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/admin/servers/change_display/');
+	}
+	
 	public static function servers_management()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/servers/');

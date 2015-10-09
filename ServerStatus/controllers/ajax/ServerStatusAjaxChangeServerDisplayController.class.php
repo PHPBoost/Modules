@@ -1,8 +1,8 @@
 <?php
 /*##################################################
- *                          ServerStatusAjaxDeleteServerController.class.php
+ *                          ServerStatusAjaxChangeServerDisplayController.class.php
  *                            -------------------
- *   begin                : August 8, 2013
+ *   begin                : October 8, 2015
  *   copyright            : (C) 2013 Julien BRISWALTER
  *   email                : julienseth78@phpboost.com
  *
@@ -25,37 +25,33 @@
  *
  ###################################################*/
 
-class ServerStatusAjaxDeleteServerController extends AbstractController
+class ServerStatusAjaxChangeServerDisplayController extends AbstractController
 {
 	public function execute(HTTPRequestCustom $request)
 	{
 		$id = $request->get_int('id', 0);
 		
-		$code = -1;
-		if (!empty($id))
+		$display = -1;
+		if ($id !== 0)
 		{
 			$config = ServerStatusConfig::load();
-			$servers = $config->get_servers_list();
-			if (isset($servers[$id]))
+			$servers_list = $config->get_servers_list();
+			if ($servers_list[$id]->is_displayed())
 			{
-				unset($servers[$id]);
-				$new_servers_list = array();
-				
-				$position = 0;
-				foreach ($servers as $key => $server)
-				{
-					$position++;
-					$new_servers_list[$position] = $server;
-				}
-				
-				$config->set_servers_list($new_servers_list);
-				
-				ServerStatusConfig::save();
-				$code = $position;
+				$display = 0;
+				$servers_list[$id]->not_displayed();
 			}
+			else
+			{
+				$display = 1;
+				$servers_list[$id]->displayed();
+			}
+			$config->set_servers_list($servers_list);
+			
+			ServerStatusConfig::save();
 		}
 		
-		return new JSONResponse(array('code' => $code));
+		return new JSONResponse(array('id' => $id, 'display' => $display));
 	}
 }
 ?>

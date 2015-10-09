@@ -37,7 +37,6 @@ abstract class AbstractServerStatusServer
 	
 	const DNS = 'dns';
 	const IP = 'ip';
-	const IPV6 = 'ipv6';
 	
 	const TCP = 'tcp';
 	const UDP = 'udp';
@@ -115,11 +114,6 @@ abstract class AbstractServerStatusServer
 	public function address_type_is_ip()
 	{
 		return $this->address_type == self::IP;
-	}
-	
-	public function address_type_is_ipv6()
-	{
-		return $this->address_type == self::IPV6;
 	}
 	
 	public function set_address($value)

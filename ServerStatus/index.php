@@ -38,6 +38,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('AdminServerStatusServerFormController', '`^/admin/servers/add/?$`'),
 	new UrlControllerMapper('AdminServerStatusServerFormController', '`^/admin/servers/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('ServerStatusAjaxDeleteServerController', '`^/admin/servers/delete/?$`'),
+	new UrlControllerMapper('ServerStatusAjaxChangeServerDisplayController', '`^/admin/servers/change_display/?$`'),
 	
 	//Servers list
 	new UrlControllerMapper('ServerStatusController', '`^(?:/([0-9]+))?/?$`', array('id'))
