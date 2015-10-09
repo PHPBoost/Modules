@@ -1,21 +1,18 @@
 <script>
 <!--
 	function RefreshViewer() {
-		new Ajax.Updater(
-			'ts3',
-			'${relative_url(TeamspeakUrlBuilder::refresh_viewer())}',
-			{
-				onLoading: function () {
-					$('ts3_refresh_picture').style.display = 'inline';
-				},
-				onComplete: function(response) {
-					$('ts3_refresh_picture').style.display = 'none';
-				}
+		jQuery('#ts3_refresh_picture').show();
+		jQuery.ajax({
+			url: '${relative_url(TeamspeakUrlBuilder::refresh_viewer())}',
+			data: {'token' : '{TOKEN}'},
+			success: function(returnData){
+				jQuery('#ts3_refresh_picture').hide();
+				jQuery('#ts3').html(returnData);
 			}
-		);
+		});
 	}
 	
-	Event.observe(window, 'load', function() {
+	jQuery(document).ready(function() {
 		RefreshViewer();
 		# IF C_REFRESH_ENABLED #
 		setInterval(RefreshViewer, {REFRESH_DELAY});
