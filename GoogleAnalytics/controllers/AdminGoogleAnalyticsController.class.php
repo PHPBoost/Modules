@@ -52,7 +52,7 @@ class AdminGoogleAnalyticsController extends AdminController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), E_USER_SUCCESS, 5));
+			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 
 		$tpl->put('FORM', $this->form->display());
@@ -76,7 +76,7 @@ class AdminGoogleAnalyticsController extends AdminController
 		$fieldset->add_field(new FormFieldTextEditor('identifier', $this->lang['identifier'], $this->config->get_identifier(),
 			array('description' => $this->lang['identifier.explain'], 'required' => true)));
 
-		$fieldset->add_field(new FormFieldFree('login', LangLoader::get_message('connect', 'user-common'), 
+		$fieldset->add_field(new FormFieldFree('login', LangLoader::get_message('connection', 'user-common'), 
 			StringVars::replace_vars($this->lang['analytics_login'], array('link' => 'https://www.google.com/analytics/'))
 		));
 		

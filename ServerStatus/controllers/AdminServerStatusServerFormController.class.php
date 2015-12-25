@@ -56,7 +56,7 @@ class AdminServerStatusServerFormController extends AdminController
 			if ($this->save())
 				AppContext::get_response()->redirect(ServerStatusUrlBuilder::servers_management());
 			else
-				$this->tpl->put('MSG', MessageHelper::display($this->lang['message.empty_address'], E_USER_ERROR));
+				$this->tpl->put('MSG', MessageHelper::display($this->lang['message.empty_address'], MessageHelper::ERROR));
 		}
 		
 		$this->tpl->put('FORM', $this->form->display());
