@@ -29,7 +29,7 @@ class ServerStatusSetup extends DefaultModuleSetup
 {
 	public function upgrade($installed_version)
 	{
-		return '4.1.0';
+		return '5.0.0';
 	}
 	
 	public function uninstall()
