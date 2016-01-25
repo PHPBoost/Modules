@@ -53,7 +53,8 @@ class AdminServerStatusConfigController extends AdminController
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 		
-		if (!extension_loaded('curl'))
+		$server_configuration = new ServerConfiguration();
+		if ($server_configuration->has_curl_library())
 		{
 			$tpl->put('CURL_WARNING_MSG', MessageHelper::display($this->lang['admin.config.curl_extension_disabled'], MessageHelper::WARNING));
 		}
