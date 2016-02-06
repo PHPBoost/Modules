@@ -18,42 +18,21 @@ class Smallads
 	}
 	
     /**
-	*  @method  Actions sur changement de jour
-	*/
-	function on_changeday()
-	{
-		global $Cache, $CONFIG_SMALLADS;
-
-		$Cache->load('smallads');
-
-		$delay = empty($CONFIG_SMALLADS['max_weeks']) ? 0 : abs(intval($CONFIG_SMALLADS['max_weeks']));
-		if (!empty($delay))
-		{
-			$sql = "DELETE FROM ".PREFIX."smallads
-				WHERE (approved = 1)
-					AND (DATEDIFF(NOW(), FROM_UNIXTIME(date_approved)) > 7 * IFNULL(max_weeks, " . $delay . "))";
-			$result = PersistenceContext::get_sql()->query_inject($sql, __LINE__, __FILE__);
-		}
-
-		$Cache->generate_module_file('smallads');
-	}
-	
-    /**
      * @desc Check if access OK
      * @param int mask of the access
      * @return bool True, if the access is OK, false otherwise.
      */
 	function access_ok($mask)
 	{
-		global $CONFIG_SMALLADS;
-
+		$auth = SmalladsConfig::load()->get_authorizations();
+		
 		if ($this->current_user->is_admin())
 		{
 			return TRUE;
 		}
-		elseif (isset($CONFIG_SMALLADS['auth']))
+		elseif ($auth)
 		{
-			return $this->current_user->check_auth($CONFIG_SMALLADS['auth'], $mask);
+			return $this->current_user->check_auth($auth, $mask);
 		}
 		return FALSE; //Fall thru
 	}
@@ -91,23 +70,6 @@ class Smallads
 	}
 
     /**
-     * @desc Get a config parameter
-     * @param string name of parameter
-     * @param string default value
-     * @return value of parameter, default value otherwise
-     */
-	function config_get($name, $default)
-	{
-		global $CONFIG_SMALLADS;
-		
-		if (is_string($name))
-		{
-			return !empty($CONFIG_SMALLADS[$name]) ? $CONFIG_SMALLADS[$name] : $default;
-		}
-		return FALSE;
-	}
-
-    /**
      * @desc Build selected attribute
      * @param string name of argument
      * @param mixed  value of argument
@@ -132,7 +94,7 @@ class Smallads
 			
 			if (is_writable($dir))
 			{
-				$upload->file('smallads_picture', '`\.(jpeg|jpg|gif|png)$`i', FALSE, MAX_FILESIZE_KO, FALSE);
+				$upload->file('smallads_picture', '`\.(jpeg|jpg|gif|png)$`i', FALSE, 300, FALSE);
 				if (!empty($upload->error)) //Erreur, on arrête ici
 				{
 					$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), $upload->error);
@@ -142,10 +104,7 @@ class Smallads
 				{
 					$path = $dir . $upload->get_filename();
 					
-					$width  = $this->config_get('width_maxi', 130);
-					$height = $this->config_get('height_maxi', 130);
-					
-					$res = $this->Resize_pics($path, $id, $width, $height);
+					$res = $this->Resize_pics($path, $id, 130, 130);
 					if ( !empty($smallads->error) )
 					{
 						$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), $smallads->error);
@@ -170,7 +129,7 @@ class Smallads
      */	
 	function Resize_pics($path, $id, $dst_w = 150, $dst_h = 150)
 	{
-		global $LANG, $Sql;
+		global $LANG;
 		
 		$this->error = '';
 		if (file_exists($path))
@@ -220,13 +179,13 @@ class Smallads
 			if ($source === false)
 			{
 				$this->error = 'sa_unsupported_format';
-				return  false;				
+				return  false;
 			}
 			else
 			{
 				//Préparation de l'image redimensionnée.
 				if (!function_exists('imagecreatetruecolor'))
-				{	
+				{
 					$thumbnail = @imagecreate($width, $height);
 					if ($thumbnail === false)
 					{
@@ -243,6 +202,9 @@ class Smallads
 						return false;
 					}
 				}
+				
+				imagealphablending($thumbnail, false);
+				imagesavealpha($thumbnail, true);
 				
 				//Redimensionnement.
 				if (!function_exists('imagecopyresampled'))
@@ -286,13 +248,7 @@ class Smallads
 			}
 			else
 			{
-
-				$Sql->query_inject(
-					"UPDATE ".PREFIX."smallads
-					SET picture = '" . $id.$ext . "'
-					WHERE id ='".$id."'
-					LIMIT 1",
-					__LINE__, __FILE__);
+				PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array('picture' => $id.$ext), 'WHERE id=:id', array('id' => $id));
 			}
 			return empty($this->error); // true si not error
 		}
@@ -303,7 +259,7 @@ class Smallads
 	
 	function contribution_add($id, $description)
 	{
-		global $CONFIG_SMALLADS, $LANG;
+		global $LANG;
 
 		$user_id = $this->current_user->get_id();
 		$contribution = new Contribution();
@@ -313,7 +269,7 @@ class Smallads
 		$contribution->set_fixing_url('/smallads/smallads.php?edit=' . $id);
 		$contribution->set_poster_id($user_id);
 		$contribution->set_module('smallads');
-		$contribution->set_auth(Authorizations::capture_and_shift_bit_auth($CONFIG_SMALLADS['auth'], SMALLADS_UPDATE_ACCESS, SMALLADS_CONTRIB_ACCESS));
+		$contribution->set_auth(Authorizations::capture_and_shift_bit_auth(SmalladsConfig::load()->get_authorizations(), SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS));
 		ContributionService::save_contribution($contribution);
 	}
 	
@@ -353,13 +309,13 @@ class Smallads
 	
 	function contribution_delete($id)
 	{
-		$contributions = ContributionService::find_by_criteria('smallads', $id);	
+		$contributions = ContributionService::find_by_criteria('smallads', $id);
 		if (count($contributions) > 0)
 		{
 			foreach($contributions as $contribution) {
 				if ( EVENT_STATUS_UNREAD == $contribution->get_status())
 				{
-					ContributionService::delete_contribution($contribution);						
+					ContributionService::delete_contribution($contribution);
 				}
 			}
 		}
@@ -380,28 +336,5 @@ class Smallads
 			}
 		}
 		return $in_progress;
-	}
-	
-	function save_cgu($str)
-	{
-		global $LANG;
-		$filename = dirname(__FILE__).'/lang/'.get_ulang().'/cgu.html';
-		$ret = @file_put_contents($filename, $str);
-		if ($ret == 0) 
-		{
-			$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), $LANG['sa_e_cgu_file_invalid']);
-			DispatchManager::redirect($controller);
-		}
-	}
-	
-	function get_cgu()
-	{
-		$filename = dirname(__FILE__).'/lang/'.get_ulang().'/cgu.html';
-		$str = @file_get_contents($filename);
-		if ($str === FALSE) 
-		{
-			return 'Renseigner ici vos Conditions Générales / Fill in there your general usage terms';
-		}		
-		return $str;
 	}
 }

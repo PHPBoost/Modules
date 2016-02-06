@@ -27,7 +27,7 @@
 
 class SmalladsSetup extends DefaultModuleSetup
 {
-	private static $smallads_table;
+	public static $smallads_table;
 
 	public static function __static()
 	{
@@ -42,12 +42,30 @@ class SmalladsSetup extends DefaultModuleSetup
 	
 	public function upgrade($installed_version)
 	{
-		return '4.1.3';
+		$columns = PersistenceContext::get_dbms_utils()->desc_table(PREFIX . 'smallads');
+		
+		if (!$columns['title']['key'])
+			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads ADD FULLTEXT KEY `title` (`title`)');
+		if (!$columns['contents']['key'])
+			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads ADD FULLTEXT KEY `contents` (`contents`)');
+		
+		//Delete old files
+		$file = new File(Url::to_rel('/smallads/admin_smallads.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/smallads.inc.php'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/templates/admin_smallads_config.tpl'));
+		$file->delete();
+		$file = new File(Url::to_rel('/smallads/templates/smallads_search_form.tpl'));
+		$file->delete();
+		
+		return '5.0.0';
 	}
 
 	public function uninstall()
 	{
 		$this->drop_tables();
+		ConfigManager::delete('smallads', 'config');
 	}
 
 	private function drop_tables()
@@ -84,6 +102,8 @@ class SmalladsSetup extends DefaultModuleSetup
 		$options = array(
 			'primary' => array('id'),
 			'indexes' => array(
+				'title' => array('type' => 'fulltext', 'fields' => 'title'),
+				'contents' => array('type' => 'fulltext', 'fields' => 'contents'),
 				'date_created' => array('type' => 'key', 'fields' => 'date_created'),
 				'vid' => array('type' => 'key', 'fields' => 'vid'),
 				'date_approved' => array('type' => 'key', 'fields' => 'date_approved'),

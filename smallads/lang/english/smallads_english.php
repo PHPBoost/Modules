@@ -8,9 +8,7 @@
  * @license        GPL
  */
 
-$LANG['sa_config'] 		= 'Small Ads configuration';
 $LANG['sa_rank_post'] 	= 'Level to post';
-$LANG['sa_list_size'] 	= 'Items list\'s size';
 
 $LANG['sa_title'] 			= 'Small Ads';
 $LANG['sa_title_all'] 		= 'All small ads';
@@ -55,13 +53,8 @@ $LANG['sa_add_legend']		= 'Add small ads';
 $LANG['sa_update_legend']	= 'Modify small ads';
 $LANG['sa_view_legend']		= 'Voir une petite annonce';
 
-$LANG['sa_items_per_page']	= 'Maxi number of items per page';
-$LANG['sa_max_links'] 		= 'Maxi number of links per page';
-$LANG['sa_list_size']		= 'Liste size';
-$LANG['sa_maxlen_contents']	= 'Maxi number of Characters in contents';
-$LANG['sa_max_weeks']		= 'Nombre of weeks to display';
-$LANG['sa_usage_terms']		= 'Afficher des conditions générales d\'utilisation';
-$LANG['sa_max_weeks_default'] = '(%d sem. si laissé vide)';
+$LANG['sa_max_weeks']		= 'Number of weeks to display';
+$LANG['sa_max_weeks_default'] = '(%d weeks if empty)';
 
 $LANG['sa_auth_message']	= 'Except identifed cases, Allow authorization for guests will be ignored';
 $LANG['sa_own_crud']		= 'Add, Update or Delete owned small ads';
@@ -95,10 +88,6 @@ $LANG['sa_error_resample']		= 'Error in function resample';
 $LANG['sa_no_gd']				= 'Extension gd not found';
 $LANG['sa_no_getimagesize']		= 'Function getimagsize not found';
 
-$LANG['sa_return_to_list']		= 'Return to list after modification';
-$LANG['sa_view_mail']			= 'Show link to mail';
-$LANG['sa_view_pm']				= 'Show link to pm';
-
 $LANG['sa_contrib_in_progress']	= 'Contribution been processed. Retry later';
 $LANG['sa_not_approved']		= 'Not approved yet';
 
@@ -106,7 +95,6 @@ $LANG['sa_xml_desc'] 			= 'Suscribe to last Smallads on ';
 
 $LANG['sa_usage_legend']		= 'General usage terms';
 $LANG['sa_agree_terms']			= 'I agree with the general usage terms';
-$LANG['sa_cgu_contents']		= 'Contents of general usage terms';
 
 $LANG['sa_e_cgu_invalid']		= 'You choose to display general usage terms but the content is empty';
 $LANG['sa_e_cgu_file_invalid']	= 'Acces problem with general usage terms file';

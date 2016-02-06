@@ -29,56 +29,16 @@ if (defined('PHPBOOST') !== true) exit;
 
 class SmalladsExtensionPointProvider extends ExtensionPointProvider
 {
-	private $sql_querier;
-
 	public function __construct()
 	{
-		$this->sql_querier = PersistenceContext::get_sql();
 		parent::__construct('smallads');
 	}
 	
-	/**
-	*  @method  Mise à jour du cache
-	*/
-	function get_cache()
+	public function css_files()
 	{
-		$smallads_code = 'global $CONFIG_SMALLADS;' . "\n";
-
-		//Récupération du tableau linéarisé dans la bdd.
-		$CONFIG_SMALLADS = unserialize($this->sql_querier->query("SELECT value FROM " . DB_TABLE_CONFIGS . " WHERE name = 'smallads'", __LINE__, __FILE__));
-		$CONFIG_SMALLADS = is_array($CONFIG_SMALLADS) ? $CONFIG_SMALLADS : array();
-
-		$smallads_code .= '$CONFIG_SMALLADS = ' . var_export($CONFIG_SMALLADS, true) . ";\n";
-
-		$rand_limit = !empty($CONFIG_SMALLADS['list_size']) ? $CONFIG_SMALLADS['list_size'] : 1;
-
-		$smallads_code .= "\n\n" . 'global $_smallads_mini;' . "\n";
-
-		$result = $this->sql_querier->query_while(
-			"SELECT q.*, m.login AS mlogin
-			FROM ".PREFIX."smallads q
-			LEFT JOIN ".PREFIX."member m ON m.user_id = q.id_created
-			WHERE (q.approved = 1)
-			ORDER BY q.date_approved DESC "
-			. $this->sql_querier->limit(0, $rand_limit),
-			__LINE__, __FILE__);
-
-		$items = array();
-		while ($row = $this->sql_querier->fetch_assoc($result))
-		{
-			$items[] = $row;
-		}
-		
-		$smallads_code .= '$_smallads_mini = ' . var_export($items, true) .";\n";
-		
-		$smallads_code .= "\n\n" . 'global $_smallads_mini_info;' . "\n";
-		
-		$last = !empty($items[0]['date_approved']) ? $items[0]['date_approved'] : time();
-		$count = $this->sql_querier->query("SELECT COUNT(1) FROM ".PREFIX."smallads WHERE (approved = 1) ", __LINE__, __FILE__);
-		
-		$smallads_code .= '$_smallads_mini_info = ' . var_export(array('count'=>$count, 'date_last'=>$last), true) .";\n";
-
-		return $smallads_code;
+		$module_css_files = new ModuleCssFiles();
+		$module_css_files->adding_running_module_displayed_file('smallads.css');
+		return $module_css_files;
 	}
 	
 	public function home_page()
@@ -104,6 +64,11 @@ class SmalladsExtensionPointProvider extends ExtensionPointProvider
 	public function tree_links()
 	{
 		return new SmalladsTreeLinks();
+	}
+	
+	public function url_mappings()
+	{
+		return new UrlMappings(array(new DispatcherUrlMapping('/smallads/index.php')));
 	}
 }
 ?>

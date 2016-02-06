@@ -32,16 +32,14 @@ class SmalladsTreeLinks implements ModuleTreeLinksExtensionPoint
 {
 	public function get_actions_tree_links()
 	{
-		global $LANG, $CONFIG_SMALLADS, $Cache;
+		global $LANG;
 		load_module_lang('smallads'); //Chargement de la langue du module.
-		$Cache->load('smallads');
-		require_once(PATH_TO_ROOT . '/smallads/smallads.inc.php');
 		
 		$tree = new ModuleTreeLinks();
 		
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin'), new Url('/smallads/admin_smallads.php')));
+		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin'), SmalladsUrlBuilder::configuration()));
 		
-		$tree->add_link(new ModuleLink($LANG['sa_create'], new Url('/smallads/smallads.php?add=1'), AppContext::get_current_user()->check_auth($CONFIG_SMALLADS['auth'], SMALLADS_OWN_CRUD_ACCESS) || AppContext::get_current_user()->check_auth($CONFIG_SMALLADS['auth'], SMALLADS_CONTRIB_ACCESS)));
+		$tree->add_link(new ModuleLink($LANG['sa_create'], new Url('/smallads/smallads.php?add=1'), SmalladsAuthorizationsService::check_authorizations()->own_crud() || SmalladsAuthorizationsService::check_authorizations()->contribution()));
 		
 		return $tree;
 	}

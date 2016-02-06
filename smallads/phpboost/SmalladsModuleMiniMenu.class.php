@@ -32,16 +32,31 @@ class SmalladsModuleMiniMenu extends ModuleMiniMenu
 		return self::BLOCK_POSITION__LEFT;
 	}
 	
-	public function display($tpl = false)
+	public function get_menu_id()
 	{
-		global $Cache, $User, $CONFIG_SMALLADS, $LANG;
-		global $_smallads_mini, $_smallads_mini_info;
+		return 'module-mini-smallads';
+	}
+	
+	public function get_menu_title()
+	{
+		global $LANG;
+		load_module_lang('smallads');
 		
-		define('SMALLADS_LIST',		0x08);
-		define('SMALLADS_CONTRIB',	0x10);
+		return $LANG['sa_title'];
+	}
+	
+	public function is_displayed()
+	{
+		return SmalladsAuthorizationsService::check_authorizations()->read();
+	}
+	
+	public function get_menu_content()
+	{
+		global $LANG;
 		
 		load_module_lang('smallads');
-		$Cache->load('smallads'); //Chargement du cache
+		
+		$smallads_cache = SmalladsCache::load();
 		
 		$type_options = array();
 		for ($i = 1; $i <= 9; $i++) {
@@ -53,26 +68,26 @@ class SmalladsModuleMiniMenu extends ModuleMiniMenu
 
 		$tpl = new FileTemplate('smallads/SmalladsModuleMiniMenu.tpl');
 		
-		MenuService::assign_positions_conditions($tpl, $this->get_block());
+		$last_smallad_date = new Date($smallads_cache->get_last_smallad_date(), Timezone::SERVER_TIMEZONE);
 		
 		$tpl->put_all(array(
-			'C_LIST_ACCES' 		=> $User->check_auth($CONFIG_SMALLADS['auth'], SMALLADS_LIST|SMALLADS_CONTRIB),
-			'L_TITLE'			=> $LANG['sa_title'],
 			'L_ALL_SMALLADS' 	=> $LANG['sa_title_all'],
 			'L_PRICE_UNIT'		=> $LANG['sa_price_unit'],
 			'U_HREF'			=> TPL_PATH_TO_ROOT.'/smallads/smallads.php',
-			'L_INFO' 			=> sprintf($LANG['sa_mini_info'],$_smallads_mini_info['count'],gmdate_format('date_format', $_smallads_mini_info['date_last'])),
-			));
+			'L_INFO' 			=> sprintf($LANG['sa_mini_info'],$smallads_cache->get_number_smallads(), $last_smallad_date->format(Date::FORMAT_DAY_MONTH_YEAR)),
+		));
 		
-		foreach($_smallads_mini as $v)
+		foreach($smallads_cache->get_smallads() as $v)
 		{
+			$date_created = !empty($v['date_created']) ? new Date($v['date_created'], Timezone::SERVER_TIMEZONE) : null;
+			
 			$tpl->assign_block_vars('item', array(
 				'ID' 		=> $v['id'],
 				'TITLE' 	=> $v['title'],
 				'CONTENTS'	=> FormatingHelper::second_parse($v['contents']),
 				'TYPE' 		=> $type_options[intval($v['type'])],
 				'PRICE' 	=> $v['price'],
-				'DATE'		=> $LANG['sa_created'].gmdate_format('date_format_short', $v['date_created']),
+				'DATE'		=> (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR) : '',
 				'C_PICTURE'	 => !empty($v['picture']),
 				'PICTURE'	 => !empty($v['picture']) ? TPL_PATH_TO_ROOT.'/smallads/pics/'.$v['picture'] : '',
 				));

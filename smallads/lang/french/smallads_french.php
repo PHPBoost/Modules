@@ -8,9 +8,7 @@
  * @license        GPL
  */
 
-$LANG['sa_config'] 		= 'Configuration des petites annonces';
 $LANG['sa_rank_post'] 	= 'Niveau pour pouvoir poster';
-$LANG['sa_list_size'] 	= 'Taille de la liste pour menu';
 
 $LANG['sa_title'] 			= 'Petites annonces';
 $LANG['sa_title_all'] 		= 'Toutes les petites annonces';
@@ -55,16 +53,10 @@ $LANG['sa_add_legend']		= 'Ajouter une petite annonce';
 $LANG['sa_update_legend']	= 'Modifier une petite annonce';
 $LANG['sa_view_legend']		= 'Voir une petite annonce';
 
-$LANG['sa_items_per_page']	= 'Nombre items maxi dans pagination';
-$LANG['sa_max_links'] 		= 'Nombre liens maxi dans pagination';
-$LANG['sa_list_size']		= 'Taille de la liste pour mini';
-$LANG['sa_maxlen_contents']	= 'Nombre Maxi de caractères dans contenu';
 $LANG['sa_max_weeks']		= 'Nombre de semaines d\'affichage';
-$LANG['sa_usage_terms']		= 'Afficher des conditions générales d\'utilisation';
-$LANG['sa_max_weeks_default'] = '(%d sem. si laissé vide)';
+$LANG['sa_max_weeks_default'] = '(%d semaines si laissé vide)';
 
 $LANG['sa_auth_message']	= 'Sauf dans quelques cas signalés, Attribuer des droits sur les visiteurs sera ignoré';
-$LANG['sa_own_crud'] 		= 'Ajouter, Modifier, Supprimer ses propres petites annonces';
 $LANG['sa_create'] 			= 'Ajouter une petite annonce';
 $LANG['sa_update'] 			= 'Modifier les petites annonces<br />et approuver les contributions';
 $LANG['sa_delete'] 			= 'Supprimer les petites annonces';
@@ -95,10 +87,6 @@ $LANG['sa_error_resample']		= 'Erreur fonction resample';
 $LANG['sa_no_gd']				= 'Il manque l\'extension gd';
 $LANG['sa_no_getimagesize']		= 'Fonction getimagsize non trouvée';
 
-$LANG['sa_return_to_list']		= 'Revenir à la liste après une modification';
-$LANG['sa_view_mail']			= 'Afficher le lien vers mail';
-$LANG['sa_view_pm']				= 'Afficher le lien vers mp';
-
 $LANG['sa_contrib_in_progress']	= 'Contribution en cours de traitement. Recommencer plus tard';
 $LANG['sa_not_approved']		= 'Non approuvée à ce jour';
 
@@ -106,7 +94,6 @@ $LANG['sa_xml_desc'] 			= 'Suivez les dernières Petites Annonces sur ';
 
 $LANG['sa_usage_legend']		= 'Conditions générales d\'utilisation';
 $LANG['sa_agree_terms']			= 'J\'accepte les conditions générales d\'utilisation';
-$LANG['sa_cgu_contents']		= 'Contenu de vos conditions générales d\'utilisation';
 
 $LANG['sa_e_cgu_invalid']		= 'Vous avez sélectionné l\'affichage des conditions générales d\'utilisation mais leur contenu est vide';
 $LANG['sa_e_cgu_file_invalid']	= 'Problème d\'accès au fichier des conditions générales';

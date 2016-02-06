@@ -1,15 +1,15 @@
 # IF C_VIEW #
 # START item #
-<article>
+<article id="article-smallads-{item.ID}">
 	<header>
 		<h1>
 			<span>{item.TYPE} - {item.TITLE}</span>
 			<span class="actions">
 				# IF item.C_EDIT #
-					<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_EDIT}&token={TOKEN}" title="${LangLoader::get_message('edit', 'main')}" class="fa fa-edit"></a>
+					<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_EDIT}" title="${LangLoader::get_message('edit', 'common')}" class="fa fa-edit"></a>
 				# ENDIF #
 				# IF item.C_DELETE #
-					<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_DELETE}&token={TOKEN}" title="${LangLoader::get_message('delete', 'main')}" class="fa fa-delete" data-confirmation="delete-element"></a>
+					<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_DELETE}&token={TOKEN}" title="${LangLoader::get_message('delete', 'common')}" class="fa fa-delete" data-confirmation="delete-element"></a>
 				# ENDIF #
 			</span>
 		</h1>
@@ -80,7 +80,7 @@
 	-->
 </script>
 
-<section>
+<section id="module-smallads">
 	<header>
 		<h1>
 			{L_TITLE}
@@ -98,7 +98,9 @@
 		# END type_options #
 		&nbsp;&nbsp;<button class="button" onclick="change_filter()" value="true">OK</button>
 		</p>
+		# IF C_DISPLAY_NOT_APPROVED #
 		<p style="margin-top:1.5em"><button class="button" onclick="view_not_approved()" value="true">{L_LIST_NOT_APPROVED}</button></p>
+		# ENDIF #
 		<hr style="margin-top:10px;" />
 			<div class="spacer">&nbsp;</div>
 		
@@ -129,10 +131,10 @@
 							<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_VIEW}" style="font-size:large">{item.TYPE} - {item.TITLE}</a>
 							# IF item.C_EDIT #
 								&nbsp;&nbsp;
-								<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_EDIT}&token={TOKEN}" title="${LangLoader::get_message('edit', 'main')}" class="fa fa-edit"></a>
+								<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_EDIT}" title="${LangLoader::get_message('edit', 'common')}" class="fa fa-edit"></a>
 							# ENDIF #
 							# IF item.C_DELETE #
-								<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_DELETE}&token={TOKEN}" title="${LangLoader::get_message('delete', 'main')}" class="fa fa-delete" data-confirmation="delete-element"></a>
+								<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_DELETE}&token={TOKEN}" title="${LangLoader::get_message('delete', 'common')}" class="fa fa-delete" data-confirmation="delete-element"></a>
 							# ENDIF #
 						</p>
 						# IF NOT item.C_DB_APPROVED #
@@ -231,14 +233,26 @@
 			return true;
 		}
 
-		<!-- Original:  Ronnie T. Moore -->
-		<!-- Dynamic 'fix' by: Nannette Thacker -->
+		// Original:  Ronnie T. Moore
+		// Dynamic 'fix' by: Nannette Thacker
 		function textCounter(field, countfield, maxlimit) {
-			if (field.value.length > maxlimit) // if too long...trim it!
+			field = document.getElementById(field);
+			countfield = document.getElementById(countfield);
+			var reg = new RegExp("\r\n", "g");
+			
+			value = field.value;
+			length = value.replace(reg,"").length;
+			
+			if (length > maxlimit) // if too long...trim it!
 				field.value = field.value.substring(0, maxlimit);
 			// otherwise, update 'characters left' counter
-			else
-				countfield.value = maxlimit - field.value.length;
+			else {
+				new_value = maxlimit - (length + 1);
+				if (new_value > 0)
+					countfield.value = new_value;
+				else
+					countfield.value = 0;
+			}
 		}
 
 		-->
@@ -271,7 +285,7 @@
 		<fieldset>
 			<legend>{L_LEGEND}</legend>
 			<div class="form-element">
-				<label for="smallads_type">*&nbsp;{L_DB_TYPE}</label>
+				<label for="smallads_type">{L_DB_TYPE}</label>
 				<div class="form-field">
 					<label>
 					<select id="smallads_type" name="smallads_type">
@@ -292,7 +306,9 @@
 			<div class="form-element-textarea">
 				<label for="smallads_contents">*&nbsp;{L_DB_CONTENTS}</label>
 				{KERNEL_EDITOR}
-				<label><textarea rows="10" cols="50" id="smallads_contents" name="smallads_contents" onKeyDown="textCounter(this.form.smallads_contents,this.form.remLen,{DB_MAXLEN});">{DB_CONTENTS}</textarea></label>
+				<div class="form-field-textarea">
+					<textarea rows="10" cols="50" id="smallads_contents" name="smallads_contents" onKeyDown="textCounter('smallads_contents','remLen',{DB_MAXLEN});">{DB_CONTENTS}</textarea>
+				</div>
 				<br />
 				<center>
 				<font size="1">car. restants : <input readonly="readonly" type=text name="remLen" id="remLen" size="4" maxlength="3" value="{DB_CONTENTS_REMAIN}"></font>
@@ -302,13 +318,13 @@
 
 			<div class="form-element">
 				<label for="smallads_picture">{L_DB_PICTURE}
-				<span class="field-description">Max : {MAX_FILESIZE_KO}&nbsp;ko</span>
+				<span class="field-description">Max : 300&nbsp;ko</span>
 				</label>
 				<div class="form-field">
 					# IF C_PICTURE #
 					<div style="float:left">
 						<img src="{DB_PICTURE}" />
-						<a href="{PATH_TO_ROOT}/smallads/smallads.php?delete_picture={ID}&token={TOKEN}" title="${LangLoader::get_message('delete', 'main')}" class="fa fa-delete" data-confirmation="delete-element"></a>
+						<a href="{PATH_TO_ROOT}/smallads/smallads.php?delete_picture={ID}&token={TOKEN}" title="${LangLoader::get_message('delete', 'common')}" class="fa fa-delete" data-confirmation="delete-element"></a>
 					</div>
 					# ENDIF #
 					<label><input type="file" id="smallads_picture" name="smallads_picture" value="" accept="image/jpeg,image/png,image/gif" /></label>
@@ -326,14 +342,18 @@
 					<label><input type="text" maxlength="10" size="10" id="smallads_shipping" name="smallads_shipping" value="{DB_SHIPPING}" />&nbsp{L_SHIPPING_UNIT}</label>
 				</div>
 			</div>
-			# START checkbox #
 			<div class="form-element">
-				<label for="{checkbox.NAME}">{checkbox.L_LABEL}</label>
+				<label for="view_mail">{L_VIEW_MAIL_ENABLED}</label>
 				<div class="form-field">
-					<label><input type="checkbox" name="{checkbox.NAME}" id="{checkbox.NAME}" value="{checkbox.VALUE}" {checkbox.CHECKED}/></label>
+					<label><input type="checkbox" name="view_mail" id="view_mail" # IF C_VIEW_MAIL_CHECKED # checked="checked"# ENDIF #></label>
 				</div>
 			</div>
-			# END checkbox #
+			<div class="form-element">
+				<label for="view_pm">{L_VIEW_PM_ENABLED}</label>
+				<div class="form-field">
+					<label><input type="checkbox" name="view_pm" id="view_pm" # IF C_VIEW_PM_CHECKED # checked="checked"# ENDIF #></label>
+				</div>
+			</div>
 			<div class="form-element">
 				<label for="smallads_max_weeks">{L_DB_MAX_WEEKS}</label>
 				<div class="form-field">

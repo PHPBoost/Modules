@@ -32,16 +32,13 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 	 */
 	public function on_changeday(Date $yesterday, Date $today)
 	{
-		global $Cache, $CONFIG_SMALLADS;
-
-		$Cache->load('smallads');
-
-		$delay = empty($CONFIG_SMALLADS['max_weeks']) ? 0 : abs(intval($CONFIG_SMALLADS['max_weeks']));
+		$delay = (int)SmalladsConfig::load()->get_max_weeks_number();
+		
 		if (!empty($delay))
-			PersistenceContext::get_querier()->delete(PREFIX . 'smallads',
+			PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
 				'WHERE (approved = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(date_approved)) > 7 * IFNULL(max_weeks, :delay))', array('delay' => $delay));
-
-		$Cache->generate_module_file('smallads');
+		
+		SmalladsCache::invalidate();
 	}
 }
 ?>

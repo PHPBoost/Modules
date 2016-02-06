@@ -16,22 +16,20 @@ require_once(PATH_TO_ROOT.'/smallads/smallads_begin.php');
 require_once(PATH_TO_ROOT.'/smallads/smallads.class.php');
 require_once(PATH_TO_ROOT.'/kernel/header.php');
 
-//Chargement du cache
-$Cache->load('smallads');
+$config = SmalladsConfig::load();
+$request = AppContext::get_request();
 
 $smallads = new Smallads();
-$smallads->on_changeday();
 
 $id_delete		= retrieve(GET, 'delete', 0, TINTEGER);
 $id_delete_pict	= retrieve(GET, 'delete_picture', 0, TINTEGER);
 $id_edit 		= retrieve(GET, 'edit', 0, TINTEGER);
 $id_add 		= retrieve(GET, 'add', 0, TINTEGER);
 $id_view 		= retrieve(GET, 'id', 0, TINTEGER);
-$vendor_id 		= retrieve(GET, 'vendor_id', 0, TINTEGER);
 
 function render_view($smallads, $row, $tpl)
 {
-	global $LANG, $type_options, $checkboxes;
+	global $LANG, $type_options;
 
 	$user = AppContext::get_current_user()->get_id();
 	$id_created = (int)$row['id_created'];
@@ -40,14 +38,14 @@ function render_view($smallads, $row, $tpl)
 	$c_delete	= FALSE;
 	$url_delete	= '';
 
-	$v = $smallads->check_access(SMALLADS_UPDATE_ACCESS, (SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS), $id_created);
+	$v = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), $id_created);
 	if ($v)
 	{
 		$url_edit 	= url('.php?edit=' . $row['id']);
 		$c_edit 	= TRUE;
 	}
 
-	$v = $smallads->check_access(SMALLADS_DELETE_ACCESS, (SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS), $id_created);
+	$v = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), $id_created);
 	if ($v)
 	{
 		$url_delete	= url('.php?delete=' . $row['id']);
@@ -59,23 +57,33 @@ function render_view($smallads, $row, $tpl)
 
 	$is_pm 		= ((!empty($row['id_created']))
 						&& (intval($row['id_created']) != $user)
-						&& ($smallads->config_get('view_pm',0))
-                        && ($row['links_flag'] & $checkboxes['view_pm']['mask']));
+						&& ($config->is_pm_displayed())
+                        && (in_array($row['links_flag'], array(2, 3))));
 
-	$is_mail 	= ((!empty($row['user_mail']))
-						&& (!empty($row['user_show_mail']))
+	$is_mail 	= ((!empty($row['email']))
 						&& (!empty($row['id_created']))
 						&& (intval($row['id_created']) != $user)
-						&& ($smallads->config_get('view_mail',0))
-                        && ($row['links_flag'] & $checkboxes['view_mail']['mask']));
+						&& ($config->is_mail_displayed())
+                        && (in_array($row['links_flag'], array(1, 3))));
 
 	if ($is_mail)
 	{
-		$mailto = $row['user_mail'];
+		$mailto = $row['email'];
 		$mailto .= "?subject=Petite annonce #".$row['id']." : ".$row['title'];
 		$mailto .= "&body=Bonjour,";
 	}
 
+	$date_created = !empty($row['date_created']) ? new Date($row['date_created'], Timezone::SERVER_TIMEZONE) : null;
+	$date_updated = !empty($row['date_updated']) ? new Date($row['date_updated'], Timezone::SERVER_TIMEZONE) : null;
+	
+	$author = new User();
+	if (!empty($row['user_id']))
+		$author->set_properties($row);
+	else
+		$author->init_visitor_user();
+	
+	$author_group_color = User::get_group_color($author->get_groups(), $author->get_level(), true);
+	
 	$tpl->assign_block_vars('item',array(
 		'ID' 		=> $row['id'],
 		'VID'		=> empty($row['vid']) ? '' : $row['vid'],
@@ -86,8 +94,8 @@ function render_view($smallads, $row, $tpl)
 		'SHIPPING'	=> $row['shipping'],
 		'C_SHIPPING' 	=> $row['shipping'] != '0.00',
 		
-		'DB_CREATED' => (!empty($row['date_created'])) ? $LANG['sa_created'].gmdate_format('date_format', $row['date_created']) : '',
-		'DB_UPDATED' => (!empty($row['date_updated'])) ? $LANG['sa_updated'].gmdate_format('date_format', $row['date_updated']) : '',
+		'DB_CREATED' => (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
+		'DB_UPDATED' => (!empty($date_updated)) ? $LANG['sa_updated'] . $date_updated->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
 		'C_DB_APPROVED'	 => !empty($row['approved']),
 		'L_NOT_APPROVED' => $LANG['sa_not_approved'],
 
@@ -101,9 +109,9 @@ function render_view($smallads, $row, $tpl)
 		'C_PICTURE'	 => !empty($row['picture']),
 		'PICTURE'	 => PATH_TO_ROOT.'/smallads/pics/'.$row['picture'],
 
-		'USER'		=> $is_user ? '<a href="'.UserUrlBuilder::profile($row['id_created'])->absolute() .'">'.$row['login'].'</a>' : '',
+		'USER'		=> $is_user && $author->get_id() !== User::VISITOR_LEVEL ? '<a itemprop="author" href="'.UserUrlBuilder::profile($author->get_id())->absolute().'" class="'.UserService::get_level_class($author->get_level()).'" ' . ($author_group_color ? 'style="color:' . $author_group_color . '"' : '') . '>'.$author->get_display_name().'</a>' : '',
 		'USER_PM' 	=> $is_pm ? '&nbsp;: <a href="'.PATH_TO_ROOT.'/user/pm' . url('.php?pm=' . $row['id_created'], '-' . $row['id_created'] . '.php') . '" class="basic-button smaller">' . $LANG['pm'] . '</a>' : '',
-		'USER_MAIL' => $is_mail ? '&nbsp;<a href="mailto:' . $mailto . '" class="basic-button smaller" title="' . $row['user_mail']  . '">' . $LANG['mail'] . '</a>' : '',
+		'USER_MAIL' => $is_mail ? '&nbsp;<a href="mailto:' . $mailto . '" class="basic-button smaller" title="' . $row['email']  . '">' . $LANG['mail'] . '</a>' : '',
 	));
 }
 
@@ -113,11 +121,11 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 
 	if (empty($id_post)) // Creation
 	{
-		$smallads->check_autorisation(SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS);
+		$smallads->check_autorisation(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 	}
 	else
 	{
-		$smallads->check_autorisation(SMALLADS_OWN_CRUD_ACCESS|SMALLADS_UPDATE_ACCESS|SMALLADS_CONTRIB_ACCESS);
+		$smallads->check_autorisation(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 	}
 
 	$sa_title 		= retrieve(POST, 'smallads_title', '', TSTRING_UNCHANGE);
@@ -130,15 +138,12 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 	$sa_max_weeks	= empty($sa_max_weeks) ? 'NULL' : abs($sa_max_weeks);
 
 	$flag = 0;
-    $config_flag = 0;
-	foreach($checkboxes as $k => $v)
-	{
-		$link = retrieve(POST, $k, $v['default'], $v['type']);
-        $config_link = $smallads->config_get($k, 0) * $v['mask'];
-		$flag |= $link; // logical or between each checkbox value
-        $config_flag |= $config_link; // logical or between each checkbox value
-	}
-    $flag &= $config_flag; // verifie par rapport aux parametres admin
+	
+	$view_mail = (int)($request->has_postparameter('view_mail') && $request->get_value('view_mail') == 'on');
+	$flag += (int)$config->is_mail_displayed() * $view_mail;
+	
+	$view_pm = 2 * (int)($request->has_postparameter('view_pm') && $request->get_value('view_pm') == 'on');
+	$flag += (int)$config->is_pm_displayed() * $view_pm;
 
 	if ( empty($sa_contents) || empty($sa_title) )
 	{
@@ -148,13 +153,12 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 
 	//Mod anti-flood
 	$check_time = 0;
-	$user_id = $User->get_id();
+	$user_id = AppContext::get_current_user()->get_id();
 	if ($user_id > 0 && ContentManagementConfig::load()->is_anti_flood_enabled())
 	{
-		$check_time = $Sql->query("SELECT MAX(date_created) as date_created
-									FROM ".PREFIX."smallads
-									WHERE id_created = '" . $user_id . "'",
-									__LINE__, __FILE__);
+		try {
+			$check_time = PersistenceContext::get_querier()->get_column_value(SmalladsSetup::$smallads_table, 'MAX(date_created)', 'WHERE id_created = ' . $user_id . ')');
+		} catch (RowNotFoundException $e) {}
 	}
 	if (!empty($check_time))
 	{
@@ -173,42 +177,33 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 			DispatchManager::redirect($error_controller);
 		}
 
-		$db_approved = $smallads->access_ok(SMALLADS_OWN_CRUD_ACCESS) ? 1 : 0;
+		$db_approved = (int)SmalladsAuthorizationsService::check_authorizations()->own_crud();
 		$date = time();
+		
+		$result = PersistenceContext::get_querier()->insert(SmalladsSetup::$smallads_table, array(
+			'title' => addslashes($sa_title),
+			'contents' => addslashes($sa_contents),
+			'type' => $sa_type,
+			'price' => $sa_price,
+			'shipping' => $sa_shipping,
+			'id_created' => $user_id,
+			'date_created' => $date,
+			'links_flag' => $flag,
+			'max_weeks' => $sa_max_weeks,
+			'approved' => (int)$db_approved,
+			'date_approved' => $db_approved ? $date : 0
+		));
 
-		$sql = "INSERT INTO ".PREFIX."smallads
-				SET
-					title     = '" . addslashes($sa_title) . "',
-					contents  = '" . addslashes($sa_contents) . "',
-					type      = '" . $sa_type . "',
-					price     = " . $sa_price . ",
-					shipping     = " . $sa_shipping . ",
-					id_created    = " . $user_id . ",
-					date_created  = " . $date . ",
-					links_flag    = " . $flag . ",
-					max_weeks = " . $sa_max_weeks;
-
-		if ($db_approved) {
-			$sql .= ",
-					approved      = " . $db_approved.",
-					date_approved = " . $date;
-		} else {
-			$sql .= ",
-					approved      = 0,
-					date_approved = 0";
-		}
-
-		$Sql->query_inject($sql, __LINE__, __FILE__);
-
-		$last_id = intval($Sql->insert_id(""));
+		$last_id = $result->get_last_inserted_id();
+		
 		$smallads->upload_picture($last_id);
 
 		// Feeds Regeneration
 		Feed::clear_cache('smallads');
 		// Cache Regeneration
-		$Cache->generate_module_file('smallads');
+		SmalladsCache::invalidate();
 
-		if (!$smallads->access_ok(SMALLADS_OWN_CRUD_ACCESS) && $smallads->access_ok(SMALLADS_CONTRIB_ACCESS))
+		if (!$smallads->access_ok(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS) && $smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS))
 		{
 			$contribution_counterpart = retrieve(POST, 'contribution_counterpart', '', TSTRING_UNCHANGE);
 			$smallads->contribution_add($last_id, $contribution_counterpart);
@@ -218,108 +213,97 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 
 	} else { // Modification
 
-		$smallads_properties = $Sql->query_array(PREFIX . "smallads", 'approved', 'id_created', "WHERE id = '" . $id_post . "'", __LINE__, __FILE__);
-
-		if ( $smallads_properties === FALSE) {
-			DispatchManager::redirect(PHPBoostErrors::unexisting_page());
+		try {
+			$smallads_properties = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('approved', 'id_created'), 'WHERE id=:id', array('id' => $id_post));
+		} catch (RowNotFoundException $e) {
+			$error_controller = PHPBoostErrors::unexisting_element();
+			DispatchManager::redirect($error_controller);
 		}
 
-		$update_ok = $smallads->check_access(SMALLADS_UPDATE_ACCESS, (SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS), intval($smallads_properties['id_created']));
+		$update_ok = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), intval($smallads_properties['id_created']));
 		if (!$update_ok)
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
 		}
 
-		if ($smallads->access_ok(SMALLADS_UPDATE_ACCESS|SMALLADS_OWN_CRUD_ACCESS))
+		if ($smallads->access_ok(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS|SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS))
 		{
 			if ( !empty($smallads_properties['approved']) )
 			{
-				$Sql->query_inject(
-					"UPDATE ".PREFIX."smallads
-						SET
-							title     = '" . addslashes($sa_title) . "',
-							contents  = '" . addslashes($sa_contents) . "',
-							type      = " . $sa_type . ",
-							price     = " . $sa_price . ",
-							shipping     = " . $sa_shipping . ",
-							id_updated   = " . $user_id . ",
-							date_updated = " . time() . ",
-							links_flag   = " . $flag . ",
-							max_weeks = " . $sa_max_weeks . "
-						WHERE id ='".$id_post."'
-						LIMIT 1",
-						__LINE__, __FILE__);
-
+				PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array(
+					'title' => addslashes($sa_title),
+					'contents' => addslashes($sa_contents),
+					'type' => $sa_type,
+					'price' => $sa_price,
+					'shipping' => $sa_shipping,
+					'id_updated' => $user_id,
+					'date_updated' => time(),
+					'links_flag' => $flag,
+					'max_weeks' => $sa_max_weeks
+				), 'WHERE id=:id', array('id' => $id_post));
+				
 				$smallads->upload_picture($id_post);
 			}
 
 			$sa_approved  	= retrieve(POST, 'smallads_approved', '', TNONE);
 			$db_approved	= !empty($sa_approved) ? 1 : 0;
 
-			if ($smallads->access_ok(SMALLADS_UPDATE_ACCESS) && $db_approved && empty($smallads_properties['approved']))
+			if ($smallads->access_ok(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS) && $db_approved && empty($smallads_properties['approved']))
 			{
 				$date = time();
-
-				$doublon = $Sql->query_array(PREFIX . "smallads", 'vid', 'id_created', 'date_created', "WHERE id = " . $id_post, __LINE__, __FILE__);
-				if ( !empty($doublon['vid']) )
+				$doublon = array();
+				try {
+					$doublon = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('vid', 'id_created', 'date_created'), 'WHERE id=:id', array('id' => $id_post));
+				} catch (RowNotFoundException $e) {}
+				
+				if (!empty($doublon) &&  !empty($doublon['vid']) )
 				{
-					$Sql->query_inject(
-						"UPDATE ".PREFIX."smallads
-							SET
-								title     = '" . addslashes($sa_title) . "',
-								contents  = '" . addslashes($sa_contents) . "',
-								type      = " . $sa_type . ",
-								price     = " . $sa_price . ",
-								shipping     = " . $sa_shipping . ",
-								id_created    = ".$doublon['id_created'].",
-								date_created  = ".$doublon['date_created'].",
-								id_updated    = " . $user_id . ",
-								date_updated  = " . $date . ",
-								links_flag    = " . $flag . ",
-								approved  	  = " . $db_approved . ",
-								date_approved = " . $date . "
-							WHERE id =".$doublon['vid']."
-							LIMIT 1",
-							__LINE__, __FILE__);
+					PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array(
+						'title' => addslashes($sa_title),
+						'contents' => addslashes($sa_contents),
+						'type' => $sa_type,
+						'price' => $sa_price,
+						'shipping' => $sa_shipping,
+						'id_created' => $doublon['id_created'],
+						'date_created' => $doublon['date_created'],
+						'id_updated' => $user_id,
+						'date_updated' => $date,
+						'links_flag' => $flag,
+						'approved' => $db_approved,
+						'date_approved' => $date
+					), 'WHERE id=:id', array('id' => $doublon['vid']));
+					
+					PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array(
+						'title' => '',
+						'contents' => '',
+						'type' => 0,
+						'price' => 0.0,
+						'shipping' => 0.0,
+						'id_created' => 0,
+						'date_created' => 0,
+						'id_updated' => 0,
+						'date_updated' => 0,
+						'links_flag' => 0,
+						'approved' => 2,
+						'date_approved' => 0
+					), 'WHERE id=:id', array('id' => $id_post));
 
-					$Sql->query_inject(
-						"UPDATE ".PREFIX."smallads
-							SET
-								title     	= '',
-								contents  	= '',
-								type      	= 0,
-								price     	= 0.0,
-								shipping     	= 0.0,
-								id_created    	= 0,
-								date_created 	= 0,
-								id_updated   	= 0,
-								date_updated 	= 0,
-								links_flag   	= 0,
-								approved  		= 2,
-								date_approved 	= 0
-							WHERE id =". $id_post."
-							LIMIT 1",
-							__LINE__, __FILE__);
 				}
 				else
 				{
-					$Sql->query_inject(
-						"UPDATE ".PREFIX."smallads
-							SET
-								title     = '" . addslashes($sa_title) . "',
-								contents  = '" . addslashes($sa_contents) . "',
-								type      = " . $sa_type . ",
-								price     = " . $sa_price . ",
-								shipping     = " . $sa_shipping . ",
-								id_updated    = " . $user_id . ",
-								date_updated  = " . $date . ",
-								links_flag    = " . $flag . ",
-								approved  	  = " . $db_approved . ",
-								date_approved = " . $date . "
-							WHERE id =".$id_post."
-							LIMIT 1",
-							__LINE__, __FILE__);
+					PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array(
+						'title' => addslashes($sa_title),
+						'contents' => addslashes($sa_contents),
+						'type' => $sa_type,
+						'price' => $sa_price,
+						'shipping' => $sa_shipping,
+						'id_updated' => $user_id,
+						'date_updated' => $date,
+						'links_flag' => $flag,
+						'approved' => $db_approved,
+						'date_approved' => $date
+					), 'WHERE id=:id', array('id' => $id_post));
 				}
 
 				$smallads->contribution_set_processed($id_post);
@@ -328,9 +312,9 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 			// Feeds Regeneration
 			Feed::clear_cache('smallads');
 			// Cache Regeneration
-			$Cache->generate_module_file('smallads');
+			SmalladsCache::invalidate();
 		}
-		elseif($smallads->access_ok(SMALLADS_CONTRIB_ACCESS))
+		elseif($smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS))
 		{
 			$in_progress = $smallads->contribution_is_in_progress($id_post);
 			if ($in_progress)
@@ -341,71 +325,67 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 
 			if ( empty($smallads_properties['approved']) )
 			{
-				$Sql->query_inject(
-					"UPDATE ".PREFIX."smallads
-						SET
-							title     = '" . addslashes($sa_title) . "',
-							contents  = '" . addslashes($sa_contents) . "',
-							type      = " . $sa_type . ",
-							price     = " . $sa_price . ",
-							shipping     = " . $sa_shipping . ",
-							id_updated   = " . $user_id . ",
-							date_updated = " . time() . ",
-							links_flag   = " . $flag . "
-						WHERE id ='".$id_post."'
-						LIMIT 1",
-						__LINE__, __FILE__);
-
+				PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array(
+					'title' => addslashes($sa_title),
+					'contents' => addslashes($sa_contents),
+					'type' => $sa_type,
+					'price' => $sa_price,
+					'shipping' => $sa_shipping,
+					'id_updated' => $user_id,
+					'date_updated' => time(),
+					'links_flag' => $flag
+				), 'WHERE id=:id', array('id' => $id_post));
+				
 				$id_picture = $id_post;
 				$id_contrib = $id_post;
 			}
 			else
 			{
-				$row = $Sql->query_array(PREFIX . "smallads", 'id',"WHERE vid = " . $id_post, __LINE__, __FILE__);
-				$row2 = $Sql->query_array(PREFIX . "smallads", '*',"WHERE id = " . $id_post, __LINE__, __FILE__);
+				$row = $row2 = array();
+				try {
+					$row = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('id'), 'WHERE vid=:id', array('id' => $id_post));
+				} catch (RowNotFoundException $e) {}
+				
+				try {
+					$row2 = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('*'), 'WHERE id=:id', array('id' => $id_post));
+				} catch (RowNotFoundException $e) {}
+				
 				//Le doublon existe-t-il ?
-				if ( $row === FALSE ) {
+				if ( !empty($row) ) {
 					// NON on le crée
-					$sql = "INSERT INTO ".PREFIX."smallads
-							SET
-								title     = '" . addslashes($sa_title) . "',
-								contents  = '" . addslashes($sa_contents) . "',
-								type      = '" . $sa_type . "',
-								price     = " . $sa_price . ",
-								shipping     = " . $sa_shipping . ",
-								id_created    = " . $user_id . ",
-								date_created  = " . $row2['date_created'] . ",
-								approved  	  = 0,
-								date_approved = 0,
-								vid           = " . $row2['id'] .",
-								links_flag    = " . $flag;
+					$result = PersistenceContext::get_querier()->insert(SmalladsSetup::$smallads_table, array(
+						'title' => addslashes($sa_title),
+						'contents' => addslashes($sa_contents),
+						'type' => $sa_type,
+						'price' => $sa_price,
+						'shipping' => $sa_shipping,
+						'id_created' => $user_id,
+						'date_created' => $row2['date_created'],
+						'links_flag' => $flag,
+						'vid' => $row2['id'],
+						'approved' => 0,
+						'date_approved' => 0
+					));
 
-					$Sql->query_inject($sql, __LINE__, __FILE__);
-
-					$id_contrib = intval($Sql->insert_id(''));
-					$id_picture = $id_contrib;
+					$id_picture = $id_contrib = $result->get_last_inserted_id();
 				}
 				else
 				{
 					// OUI Mise a jour du doublon
-					$Sql->query_inject(
-						"UPDATE ".PREFIX."smallads
-							SET
-								title     = '" . addslashes($sa_title) . "',
-								contents  = '" . addslashes($sa_contents) . "',
-								type      = " . $sa_type . ",
-								price     = " . $sa_price . ",
-								shipping     = " . $sa_shipping . ",
-								id_created    = " . $user_id . ",
-								date_created  = " . $row2['date_created'] . ",
-								id_updated    = " . $user_id . ",
-								date_updated  = " . time() . ",
-								approved      = 0,
-								date_approved = 0,
-								links_flag    = " . $flag . "
-							WHERE id = ".$row['id']."
-							LIMIT 1",
-							__LINE__, __FILE__);
+					PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array(
+						'title' => addslashes($sa_title),
+						'contents' => addslashes($sa_contents),
+						'type' => $sa_type,
+						'price' => $sa_price,
+						'shipping' => $sa_shipping,
+						'id_created' => $user_id,
+						'date_created' => $row2['date_created'],
+						'id_updated' => $user_id,
+						'date_updated' => 0,
+						'approved' => 0,
+						'date_approved' => time(),
+						'links_flag' => $flag
+					), 'WHERE id=:id', array('id' => $row['id']));
 
 					$id_contrib = $row['id'];
 					$id_picture = $id_contrib;
@@ -425,7 +405,7 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 			// Feeds Regeneration
 			Feed::clear_cache('smallads');
 			// Cache Regeneration
-			$Cache->generate_module_file('smallads');
+			SmalladsCache::invalidate();
 			AppContext::get_response()->redirect(UserUrlBuilder::contribution_success());
 			exit;
 		}
@@ -433,18 +413,18 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 
 	if (empty($id_post))
 	{
-		AppContext::get_response()->redirect(HOST . SCRIPT . SID2);
+		AppContext::get_response()->redirect(HOST . SCRIPT);
 	}
 	else
 	{
-		$v = $smallads->config_get('return_to_list',0);
+		$v = $config->is_return_to_list_displayed();
 		if ( $v == 0 )
 		{
-			AppContext::get_response()->redirect(HOST . SCRIPT . SID2 . '?edit=' . $id_post . '&s=1');
+			AppContext::get_response()->redirect(HOST . SCRIPT . '?edit=' . $id_post . '&s=1');
 		}
 		else
 		{
-			AppContext::get_response()->redirect(HOST . SCRIPT . SID2);
+			AppContext::get_response()->redirect(HOST . SCRIPT);
 		}
 	}
 	exit;
@@ -453,14 +433,16 @@ elseif ($id_delete)
 {
 	AppContext::get_session()->csrf_post_protect(); //Protection csrf
 
-	$smallads->check_autorisation(SMALLADS_DELETE_ACCESS|SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS);
+	$smallads->check_autorisation(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS|SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 
-	$row = $Sql->query_array(PREFIX . "smallads", 'picture', 'id_created', 'approved', 'vid', "WHERE id = " . $id_delete, __LINE__, __FILE__);
-	if ( $row === FALSE) {
-		DispatchManager::redirect(PHPBoostErrors::unexisting_page());
+	try {
+		$row = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('picture', 'id_created', 'approved', 'vid'), 'WHERE id=:id', array('id' => $id_delete));
+	} catch (RowNotFoundException $e) {
+		$error_controller = PHPBoostErrors::unexisting_element();
+		DispatchManager::redirect($error_controller);
 	}
-
-	$delete_ok = $smallads->check_access(SMALLADS_DELETE_ACCESS, (SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS), intval($row['id_created']));
+	
+	$delete_ok = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), intval($row['id_created']));
 	if (!$delete_ok)
 	{
 		$error_controller = PHPBoostErrors::user_not_authorized();
@@ -471,20 +453,25 @@ elseif ($id_delete)
 
 	if ( $id_delete > 0 )
 	{
-		if ($smallads->access_ok(SMALLADS_DELETE_ACCESS|SMALLADS_OWN_CRUD_ACCESS))
+		if ($smallads->access_ok(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS|SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS))
 		{
-			$Sql->query_inject("DELETE FROM ".PREFIX."smallads WHERE (id = " . $id_delete .") LIMIT 1", __LINE__, __FILE__);
+			PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table, 'WHERE id=:id', array('id' => $id_delete));
+			
 			if ( !empty($filename) )
 			{
 				@unlink (PATH_TO_ROOT.'/smallads/pics/'.$filename);
 			}
 		}
-		elseif($smallads->access_ok(SMALLADS_CONTRIB_ACCESS))
+		elseif($smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS))
 		{
 			// PA originale
 			if ( empty($row['vid']) )
 			{
-				$doublon = 	$row = $Sql->query_array(PREFIX . "smallads", 'approved', 'id', 'picture', "WHERE vid = " . $id_delete, __LINE__, __FILE__);
+				$doublon = false;
+				
+				try {
+					$doublon = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('approved', 'id', 'picture'), 'WHERE vid=:id', array('id' => $id_delete));
+				} catch (RowNotFoundException $e) {}
 
 				if ( $doublon === FALSE ) // Pas de doublon
 				{
@@ -496,7 +483,7 @@ elseif ($id_delete)
 					}
 					$smallads->contribution_delete($id_delete);
 
-					$Sql->query_inject("DELETE FROM ".PREFIX."smallads WHERE (id = " . $id_delete .") LIMIT 1", __LINE__, __FILE__);
+					PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table, 'WHERE id=:id', array('id' => $id_delete));
 					if ( !empty($filename) )
 					{
 						@unlink (PATH_TO_ROOT.'/smallads/pics/'.$filename);
@@ -513,7 +500,7 @@ elseif ($id_delete)
 					}
 					$smallads->contribution_delete($id_doublon);
 
-					$Sql->query_inject("DELETE FROM ".PREFIX."smallads WHERE (id = " . $id_doublon .") LIMIT 1", __LINE__, __FILE__);
+					PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table, 'WHERE id=:id', array('id' => $id_doublon));
 					if ( !empty($filename) )
 					{
 						@unlink (PATH_TO_ROOT.'/smallads/pics/'.$doublon['picture']);
@@ -530,25 +517,22 @@ elseif ($id_delete)
 						$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), $LANG['sa_contrib_in_progress']);
 						DispatchManager::redirect($controller);
 					}
-
-					$Sql->query_inject(
-						"UPDATE ".PREFIX."smallads
-							SET
-								title     	= '',
-								contents  	= '',
-								type      	= 0,
-								price     	= 0.0,
-								shipping     	= 0.0,
-								id_created    	= 0,
-								date_created 	= 0,
-								id_updated   	= 0,
-								date_updated 	= 0,
-								links_flag   	= 0,
-								approved  		= 2,
-								date_approved 	= 0
-							WHERE id =". $id_delete."
-							LIMIT 1",
-							__LINE__, __FILE__);
+					
+					PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array(
+						'title' => '',
+						'contents' => '',
+						'type' => 0,
+						'price' => 0.0,
+						'shipping' => 0.0,
+						'id_created' => 0,
+						'date_created' => 0,
+						'id_updated' => 0,
+						'date_updated' => 0,
+						'links_flag' => 0,
+						'approved' => 2,
+						'date_approved' => 0
+					), 'WHERE id=:id', array('id' => $id_delete));
+					
 					$smallads->contribution_delete($id_delete);
 				}
 			}
@@ -557,24 +541,26 @@ elseif ($id_delete)
 		// Feeds Regeneration
 		Feed::clear_cache('smallads');
 		// Cache Regeneration
-		$Cache->generate_module_file('smallads');
+		SmalladsCache::invalidate();
 	}
-	AppContext::get_response()->redirect(HOST . SCRIPT . SID2);
+	AppContext::get_response()->redirect(HOST . SCRIPT);
 	exit;
 }
 elseif ($id_delete_pict)
 {
 	AppContext::get_session()->csrf_post_protect(); //Protection csrf
 
-	$smallads->check_autorisation(SMALLADS_UPDATE_ACCESS|SMALLADS_OWN_CRUD_ACCESS);
+	$smallads->check_autorisation(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS|SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS);
 
-	$row = $Sql->query_array(PREFIX . "smallads", 'picture', 'id_created', "WHERE id = " . $id_delete_pict, __LINE__, __FILE__);
-	if ( $row === FALSE) {
-		DispatchManager::redirect(PHPBoostErrors::unexisting_page());
+	try {
+		$row = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('picture', 'id_created'), 'WHERE id=:id', array('id' => $id_delete_pict));
+	} catch (RowNotFoundException $e) {
+		$error_controller = PHPBoostErrors::unexisting_element();
+		DispatchManager::redirect($error_controller);
 	}
 
-	$delete_ok = $smallads->check_access(SMALLADS_UPDATE_ACCESS, (SMALLADS_OWN_CRUD_ACCESS), intval($row['id_created']));
-	if (!delete_ok)
+	$delete_ok = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS), intval($row['id_created']));
+	if (!$delete_ok)
 	{
 		$error_controller = PHPBoostErrors::user_not_authorized();
 		DispatchManager::redirect($error_controller);
@@ -584,38 +570,36 @@ elseif ($id_delete_pict)
 
 	if ( $id_delete_pict > 0 )
 	{
-		$Sql->query_inject("UPDATE ".PREFIX."smallads SET picture = NULL WHERE id = " . $id_delete_pict . " LIMIT 1", __LINE__, __FILE__);
+		PersistenceContext::get_querier()->update(SmalladsSetup::$smallads_table, array('picture' => ''), 'WHERE id=:id', array('id' => $id_delete_pict));
 		if ( !empty($filename) )
 		{
 			@unlink (PATH_TO_ROOT.'/smallads/pics/'.$filename);
 		}
-		$Cache->generate_module_file('smallads'); //Régénération du cache
+		SmalladsCache::invalidate(); //Régénération du cache
 	}
 
-	AppContext::get_response()->redirect(HOST . SCRIPT . SID2 . '?edit=' . $id_delete_pict . '&s=1');
+	AppContext::get_response()->redirect(HOST . SCRIPT . '?edit=' . $id_delete_pict . '&s=1');
 	exit;
 }
 elseif ($id_view)
 {
-	$result = $Sql->query_while("SELECT q.*, m.*
-		FROM ".PREFIX."smallads q
+	$row = PersistenceContext::get_querier()->select_single_row_query("SELECT q.*, m.*
+		FROM " . SmalladsSetup::$smallads_table . " q
 		LEFT JOIN ".PREFIX."member m ON m.user_id = q.id_created
-		WHERE  id=" . $id_view ."
-		LIMIT 1",
-		__LINE__, __FILE__);
+		WHERE id = :id", array('id' => $id_view));
 
-	$row = $Sql->fetch_assoc($result);
-	if ( $row === FALSE) {
+	if (empty($row)) {
 		DispatchManager::redirect(PHPBoostErrors::unexisting_page());
 	}
-	else
+	else if (!SmalladsAuthorizationsService::check_authorizations()->read())
 	{
-		$smallads->check_autorisation(SMALLADS_LIST_ACCESS);
+		$error_controller = PHPBoostErrors::user_not_authorized();
+		DispatchManager::redirect($error_controller);
 	}
 
 	$tpl = new FileTemplate('smallads/smallads.tpl');
 
-	$v = ($smallads->access_ok(SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS));
+	$v = ($smallads->access_ok(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS));
 	if ($v)
 	{
 		$url_edit 	= url('.php?edit='.$id_view);
@@ -623,7 +607,7 @@ elseif ($id_view)
 	}
 	unset($v);
 
-	$v = ($smallads->access_ok(SMALLADS_DELETE_ACCESS));
+	$v = ($smallads->access_ok(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS));
 	if ($v)
 	{
 		$url_delete	= url('.php?delete='.$id_view);
@@ -635,8 +619,6 @@ elseif ($id_view)
 		'C_VIEW'         => TRUE,
 		'C_DESCRIPTION'	 => FALSE,
 		'DESCRIPTION'	 => 'Champ description',
-		'THEME'			 => get_utheme(),
-		'LANG'			 => get_ulang(),
 		'C_NB_SMALLADS'	 => TRUE,
 		'L_NO_SMALLADS'	 => $LANG['sa_no_smallads'],
 		'L_LIST_NOT_APPROVED'	=> $LANG['sa_list_not_approved'],
@@ -655,11 +637,11 @@ elseif ($id_edit || $id_add)
 {
 	if ($id_edit != 0)
 	{
-		$smallads->check_autorisation(SMALLADS_UPDATE_ACCESS|SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS);
+		$smallads->check_autorisation(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS|SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 	}
 	elseif($id_add != 0)
 	{
-		$smallads->check_autorisation(SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS);
+		$smallads->check_autorisation(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 	}
 	else
 	{
@@ -678,80 +660,86 @@ elseif ($id_edit || $id_add)
 	$id = 0;
 	$c_contribution = FALSE;
 	$c_can_approve 	= FALSE;
-
+	
+	$Bread_crumb->add($LANG['sa_title'], SmalladsUrlBuilder::home());
+	
 	if ($id_edit != 0)
 	{
-		$row = $Sql->query_array(PREFIX . "smallads", '*', "WHERE id = " . $id_edit, __LINE__, __FILE__);
-		if ( $row === FALSE)
-		{
-			DispatchManager::redirect(PHPBoostErrors::unexisting_page());
+		try {
+			$row = PersistenceContext::get_querier()->select_single_row(SmalladsSetup::$smallads_table, array('*'), 'WHERE id=:id', array('id' => $id_edit));
+		} catch (RowNotFoundException $e) {
+			$error_controller = PHPBoostErrors::unexisting_element();
+			DispatchManager::redirect($error_controller);
 		}
-
-		$update_ok = $smallads->check_access(SMALLADS_UPDATE_ACCESS, (SMALLADS_OWN_CRUD_ACCESS|SMALLADS_CONTRIB_ACCESS), intval($row['id_created']));
+		
+		$update_ok = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), intval($row['id_created']));
 		if (!$update_ok)
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
 		}
-
+		
+		$Bread_crumb->add($LANG['sa_update_legend'], url('smallads.php?edit=' . $id_edit));
 		$legend 		= $LANG['sa_update_legend'];
 		$id 			= $id_edit;
-		$c_contribution = (!$smallads->access_ok(SMALLADS_OWN_CRUD_ACCESS|SMALLADS_UPDATE_ACCESS) && $smallads->access_ok(SMALLADS_CONTRIB_ACCESS));
-		$c_can_approve	= ( $smallads->access_ok(SMALLADS_UPDATE_ACCESS) && empty($row['approved']));
+		$c_contribution = (!$smallads->access_ok(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS) && $smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS));
+		$c_can_approve	= ( $smallads->access_ok(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS) && empty($row['approved']));
 	}
 	elseif($id_add != 0)
 	{
-		$result = $Sql->query_while("SHOW COLUMNS FROM ".PREFIX."smallads", __LINE__, __FILE__);
+		$Bread_crumb->add($LANG['sa_add_legend'], url('smallads.php?add=1'));
+		$columns = PersistenceContext::get_dbms_utils()->desc_table(SmalladsSetup::$smallads_table);
 		$row = array();
-		while ($field = $Sql->fetch_assoc($result)) {
-			$row[$field['Field']] = '';
+		foreach (array_keys($columns) as $column) {
+			$row[$column] = '';
 		}
 		$row['approved'] = 1; // on simule "approuvé" sur add
 		$legend 		= $LANG['sa_add_legend'];
-		$c_contribution = !$smallads->access_ok(SMALLADS_OWN_CRUD_ACCESS) AND $smallads->access_ok(SMALLADS_CONTRIB_ACCESS);
+		$c_contribution = !$smallads->access_ok(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS) AND $smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 	}
 
-	$maxlen = $smallads->config_get('maxlen_contents', MAXLEN_CONTENTS);
+	$maxlen = $config->get_max_contents_length();
 
-	$usage_terms = $smallads->config_get('usage_terms',0);
+	$usage_terms = $config->are_usage_terms_displayed();
 	$cgu_contents = '';
 	if (!empty($usage_terms))
-		$cgu_contents = $smallads->get_cgu();
+		$cgu_contents = FormatingHelper::second_parse($config->get_usage_terms());
 
 	$max_weeks_default = '';
-	if (!empty($CONFIG_SMALLADS['max_weeks']))
+	if ($config->get_max_weeks_number())
 	{
-		$max_weeks_default = sprintf($LANG['sa_max_weeks_default'], $CONFIG_SMALLADS['max_weeks']);
+		$max_weeks_default = sprintf($LANG['sa_max_weeks_default'], $config->get_max_weeks_number());
 	}
 	
 	$editor = AppContext::get_content_formatting_service()->get_default_editor();
 	$editor->set_identifier('smallads_contents');
 	$editor->set_forbidden_tags($forbidden_tags);
 	
+	$date_created = !empty($row['date_created']) ? new Date($row['date_created'], Timezone::SERVER_TIMEZONE) : null;
+	$date_updated = !empty($row['date_updated']) ? new Date($row['date_updated'], Timezone::SERVER_TIMEZONE) : null;
+	
+	$flag = empty($row['links_flag']) ? 0 : intval($row['links_flag']);
+
 	$tpl->put_all(array(
 		'C_FORM'			=> TRUE,
 		'C_CONTRIBUTION'	=> $c_contribution,
 		'C_CAN_APPROVE'		=> $c_can_approve,
-		'C_PICTURE'			=> empty($row['picture']) ? FALSE : TRUE,
+		'C_PICTURE'			=> !empty($row['picture']),
 
-		'THEME'				=> get_utheme(),
-		'LANG'				=> get_ulang(),
 		'KERNEL_EDITOR'		=> $editor->display(),
 
 		'L_ALERT_TEXT'		=> $LANG['require_text'],
 		'L_ALERT_FLOAT'		=> $LANG['sa_require_float'],
 		'L_ALERT_UPLOAD'	=> $LANG['sa_require_upload'],
-		'L_REQUIRE'			=> $LANG['require'],
+		'L_REQUIRE'			=> LangLoader::get_message('form.explain_required_fields', 'status-messages-common'),
 		'L_LEGEND'			=> $legend,
 		'L_CONFIRM_DELETE_PICTURE' 	=> $LANG['sa_confirm_delete_picture'],
-		'C_USAGE_TERMS'		=> $smallads->config_get('usage_terms',0),
+		'C_USAGE_TERMS'		=> $config->are_usage_terms_displayed(),
 		'L_USAGE_LEGEND'	=> $LANG['sa_usage_legend'],
 		'L_AGREE_TERMS'		=> $LANG['sa_agree_terms'],
 		'CGU_CONTENTS'		=> FormatingHelper::second_parse($cgu_contents),
 		'L_CGU_NOT_AGREED'	=> $LANG['sa_e_cgu_not_agreed'],
 		'L_MAX_WEEKS_DEFAULT' => $max_weeks_default,
-
-		'MAX_FILESIZE_KO'	=> MAX_FILESIZE_KO,
 
 		'ID'				=> $id,
 		'DB_TYPE'	 		=> $type_options[intval($row['type'])],
@@ -760,13 +748,13 @@ elseif ($id_edit || $id_add)
 		'DB_PRICE'			=> !empty($row['price']) ? $row['price'] : '0.00',
 		'DB_SHIPPING'		=> !empty($row['shipping']) ? $row['shipping'] : '0.00',
 		'DB_APPROVED'		=> $row['approved'] != 0 ? 'checked' : '',
-		'DB_CREATED'		=> (!empty($row['date_created'])) ? $LANG['sa_created'].gmdate_format('date_format', $row['date_created']) : '',
-		'DB_UPDATED'		=> (!empty($row['date_updated'])) ? $LANG['sa_updated'].gmdate_format('date_format', $row['date_updated']) : '',
+		'DB_CREATED'		=> (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
+		'DB_UPDATED'		=> (!empty($date_updated)) ? $LANG['sa_updated'] . $date_updated->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
 		'DB_PICTURE'		=> PATH_TO_ROOT.'/smallads/pics/'.$row['picture'].'?'.uniqid(rand()),
 		'DB_MAX_WEEKS'		=> $row['max_weeks'],
 
 		'DB_MAXLEN'			=> $maxlen,
-		'DB_CONTENTS_REMAIN'	=>  $maxlen - strlen($row['contents']),
+		'DB_CONTENTS_REMAIN'	=> max($maxlen - strlen(@strip_tags($row['contents'], '<br><br/><br />')), 0),
 
 		'L_DB_TYPE'			=> $LANG['sa_db_type'],
 		'L_DB_TITLE'		=> $LANG['sa_db_title'],
@@ -779,6 +767,11 @@ elseif ($id_edit || $id_add)
 
 		'L_PRICE_UNIT'		=> $LANG['sa_price_unit'],
 		'L_SHIPPING_UNIT'	=> $LANG['sa_shipping_unit'],
+		
+		'L_VIEW_MAIL_ENABLED'	=> LangLoader::get_message('config.display_mail_enabled', 'common', 'smallads'),
+		'C_VIEW_MAIL_CHECKED'	=> $config->is_mail_displayed() ? ($id_edit > 0 ? in_array($flag, array(1, 3)) : true) : false,
+		'L_VIEW_PM_ENABLED'	=> LangLoader::get_message('config.display_pm_enabled', 'common', 'smallads'),
+		'C_VIEW_PM_CHECKED'	=> $config->is_pm_displayed() ? ($id_edit > 0 ? in_array($flag, array(2, 3)) : true) : false,
 
 		'L_SUBMIT'			=> $LANG['submit'],
 		'L_PREVIEW'			=> $LANG['preview'],
@@ -786,30 +779,7 @@ elseif ($id_edit || $id_add)
 	));
 
 
-	$flag = empty($row['links_flag']) ? 0 : intval($row['links_flag']);
-
-	foreach ($checkboxes as $k => $v)
-	{
-		if ($id_edit != 0)
-		{
-			$t = $v['mask'] & $flag;
-		}
-		elseif($id_add != 0)
-		{
-			$t = 1; // Force to not empty
-		}
-        if ($smallads->config_get($k, 0))
-        {
-            $tpl->assign_block_vars('checkbox', array(
-                'L_LABEL' => $LANG['sa_'.$k],
-                'NAME'    => $k,
-                'CHECKED' => (!empty($t)) ? 'checked="checked"' : '',
-                'VALUE'   => $v['mask']
-            ));
-        }
-	}
-
-	$c_contrib = !$smallads->access_ok(SMALLADS_OWN_CRUD_ACCESS) && $smallads->access_ok(SMALLADS_CONTRIB_ACCESS);
+	$c_contrib = !$smallads->access_ok(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS) && $smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 	
 	$editor_counterpart = AppContext::get_content_formatting_service()->get_default_editor();
 	$editor_counterpart->set_identifier('counterpart');
