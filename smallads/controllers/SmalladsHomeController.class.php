@@ -205,7 +205,7 @@ class SmalladsHomeController extends ModuleController
 					'VID'		=> empty($row['vid']) ? '' : $row['vid'],
 					'TYPE'	 	=> $type_options[intval($row['type'])],
 					'TITLE' 	=> $row['title'],
-					'CONTENTS' 	=> FormatingHelper::second_parse($row['contents']),
+					'CONTENTS' 	=> FormatingHelper::second_parse(stripslashes($row['contents'])),
 					'PRICE'		=> $row['price'],
 					'SHIPPING'		=> $row['shipping'],
 					'C_SHIPPING' 	=> $row['shipping'] != '0.00',

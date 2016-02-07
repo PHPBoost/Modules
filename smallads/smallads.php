@@ -89,7 +89,7 @@ function render_view($smallads, $row, $tpl)
 		'VID'		=> empty($row['vid']) ? '' : $row['vid'],
 		'TYPE'	 	=> $type_options[intval($row['type'])],
 		'TITLE' 	=> htmlentities($row['title']),
-		'CONTENTS' 	=> FormatingHelper::second_parse($row['contents']),
+		'CONTENTS' 	=> FormatingHelper::second_parse(stripslashes($row['contents'])),
 		'PRICE'		=> $row['price'],
 		'SHIPPING'	=> $row['shipping'],
 		'C_SHIPPING' 	=> $row['shipping'] != '0.00',
@@ -703,7 +703,7 @@ elseif ($id_edit || $id_add)
 	$usage_terms = $config->are_usage_terms_displayed();
 	$cgu_contents = '';
 	if (!empty($usage_terms))
-		$cgu_contents = FormatingHelper::second_parse($config->get_usage_terms());
+		$cgu_contents = $config->get_usage_terms();
 
 	$max_weeks_default = '';
 	if ($config->get_max_weeks_number())
@@ -737,7 +737,7 @@ elseif ($id_edit || $id_add)
 		'C_USAGE_TERMS'		=> $config->are_usage_terms_displayed(),
 		'L_USAGE_LEGEND'	=> $LANG['sa_usage_legend'],
 		'L_AGREE_TERMS'		=> $LANG['sa_agree_terms'],
-		'CGU_CONTENTS'		=> FormatingHelper::second_parse($cgu_contents),
+		'CGU_CONTENTS'		=> FormatingHelper::second_parse(stripslashes($cgu_contents)),
 		'L_CGU_NOT_AGREED'	=> $LANG['sa_e_cgu_not_agreed'],
 		'L_MAX_WEEKS_DEFAULT' => $max_weeks_default,
 

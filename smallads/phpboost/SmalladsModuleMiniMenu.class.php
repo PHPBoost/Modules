@@ -84,7 +84,7 @@ class SmalladsModuleMiniMenu extends ModuleMiniMenu
 			$tpl->assign_block_vars('item', array(
 				'ID' 		=> $v['id'],
 				'TITLE' 	=> $v['title'],
-				'CONTENTS'	=> FormatingHelper::second_parse($v['contents']),
+				'CONTENTS'	=> FormatingHelper::second_parse(stripslashes($v['contents'])),
 				'TYPE' 		=> $type_options[intval($v['type'])],
 				'PRICE' 	=> $v['price'],
 				'DATE'		=> (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR) : '',

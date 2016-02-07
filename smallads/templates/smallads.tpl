@@ -20,7 +20,7 @@
 		# ENDIF #
 		# IF item.C_PICTURE #
 		<div style="float:left;margin:10px">
-			<img src="{item.PICTURE}" />
+			<a href="{item.PICTURE}" data-lightbox="formatter"><img src="{item.PICTURE}" /></a>
 		</div>
 		# ENDIF #
 		<div>{item.CONTENTS}</div>
@@ -142,7 +142,7 @@
 						# ENDIF #
 						# IF item.C_PICTURE #
 						<div style="float:left;margin:10px">
-							<img src="{item.PICTURE}" />
+							<a href="{item.PICTURE}" data-lightbox="formatter"><img src="{item.PICTURE}" /></a>
 						</div>
 						# ENDIF #
 						<div>{item.CONTENTS}</div>
@@ -323,7 +323,7 @@
 				<div class="form-field">
 					# IF C_PICTURE #
 					<div style="float:left">
-						<img src="{DB_PICTURE}" />
+						<a href="{DB_PICTURE}" data-lightbox="formatter"><img src="{DB_PICTURE}" /></a>
 						<a href="{PATH_TO_ROOT}/smallads/smallads.php?delete_picture={ID}&token={TOKEN}" title="${LangLoader::get_message('delete', 'common')}" class="fa fa-delete" data-confirmation="delete-element"></a>
 					</div>
 					# ENDIF #
