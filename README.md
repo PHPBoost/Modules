@@ -1,1 +1,1 @@
-phpboost-modules
+Modules non officiels de PHPBoost
