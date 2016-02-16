@@ -37,7 +37,7 @@ class SmalladsSearchable extends AbstractSearchableExtensionPoint
 			q.id AS id_content,
 			q.title AS title,
 			( 2 * FT_SEARCH_RELEVANCE(q.title, '" . $args['search'] . "') + FT_SEARCH_RELEVANCE(q.contents, '" . $args['search'] . "') ) / 3 * " . $weight . " AS relevance,
-			CONCAT('" . PATH_TO_ROOT . "smallads/smallads.php?id=', q.id) AS link
+			CONCAT('" . PATH_TO_ROOT . "/smallads/smallads.php?id=', q.id) AS link
 			FROM " . PREFIX . "smallads q
 			WHERE ( FT_SEARCH(q.title, '" . $args['search'] . "') OR FT_SEARCH(q.contents, '" . $args['search'] . "') )
 			ORDER BY relevance DESC

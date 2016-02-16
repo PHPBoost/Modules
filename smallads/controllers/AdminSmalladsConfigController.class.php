@@ -133,7 +133,7 @@ class AdminSmalladsConfigController extends AdminModuleController
 		$auth_settings = new AuthorizationsSettings(array(
 			new ActionAuthorization($common_lang['authorizations.read'], SmalladsAuthorizationsService::READ_AUTHORIZATIONS),
 			new ActionAuthorization($this->lang['authorizations.own_crud'], SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS),
-			new ActionAuthorization($common_lang['authorizations.write'], SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
+			new ActionAuthorization($common_lang['authorizations.contribution'], SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
 			new ActionAuthorization($common_lang['authorizations.moderation'], SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS)
 		));
 		$auth_setter = new FormFieldAuthorizationsSetter('authorizations', $auth_settings);
