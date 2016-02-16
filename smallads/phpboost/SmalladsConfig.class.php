@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                               Smallads.class.php
+ *                               SmalladsConfig.class.php
  *                            -------------------
  *   begin                : February 2, 2016
  *   copyright            : (C) 2016 Julien BRISWALTER
