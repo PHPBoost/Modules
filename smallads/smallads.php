@@ -157,7 +157,7 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 	if ($user_id > 0 && ContentManagementConfig::load()->is_anti_flood_enabled())
 	{
 		try {
-			$check_time = PersistenceContext::get_querier()->get_column_value(SmalladsSetup::$smallads_table, 'MAX(date_created)', 'WHERE id_created = ' . $user_id . ')');
+			$check_time = PersistenceContext::get_querier()->get_column_value(SmalladsSetup::$smallads_table, 'MAX(date_created)', 'WHERE id_created = ' . $user_id);
 		} catch (RowNotFoundException $e) {}
 	}
 	if (!empty($check_time))
