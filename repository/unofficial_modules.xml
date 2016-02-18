@@ -143,6 +143,18 @@
 		</version>
 	</app>
 	<app id="dictionary" type="module">
+		<version num="5.0.0" language="french" localized_language="Francais" name="dictionary" priority="low" security-update="false" pubdate="2016/02/17">
+			<compatibility min="4.1"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/dictionary/dictionary.zip">Module Dictionnaire</download>
+			<authors>
+				<author name="crunchfamily" email="crunchfamily@free.fr"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 du module Dictionnaire</description>
+			<whatsnew>
+				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+			</whatsnew>
+		</version>
 		<version num="4.1.0" language="french" localized_language="Francais" name="dictionary" priority="low" security-update="false" pubdate="2014/07/13">
 			<compatibility min="4.1"/>
 			<download url="http://dl.phpboost.com/4.1/modules/unofficial/dictionary/dictionary.zip">Module Dictionnaire</download>
@@ -183,6 +195,30 @@
 		</version>
 	</app>
 	<app id="smallads" type="module">
+		<version num="5.0.1" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/02/18">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
+			<authors>
+				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 of the Smallads module</description>
+			<whatsnew>
+				<new type="bug">Fix a bug concerning search results</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.1" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2016/02/18">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
+			<authors>
+				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 du module Petites annonces</description>
+			<whatsnew>
+				<new type="bug">Correction d'un bug sur les résultats de recherche</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/02/11">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
