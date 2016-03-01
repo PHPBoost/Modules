@@ -54,12 +54,12 @@ class DictionarySetup extends DefaultModuleSetup
 		if ($columns['word']['key'] == 'word')
 		{
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'dictionary ADD FULLTEXT KEY `title` (`word`)');
-			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'member DROP KEY `word`');
+			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'dictionary DROP KEY `word`');
 		}
 		if ($columns['description']['key'] == 'description')
 		{
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'dictionary ADD FULLTEXT KEY `contents` (`description`)');
-			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'member DROP KEY `description`');
+			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'dictionary DROP KEY `description`');
 		}
 		
 		//Delete old files
