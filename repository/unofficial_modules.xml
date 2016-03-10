@@ -169,6 +169,30 @@
 		</version>
 	</app>
 	<app id="quotes" type="module">
+		<version num="5.0.0" language="english" localized_language="English" name="quotes" priority="low" security-update="false" pubdate="2016/03/10">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/quotes/quotes.zip">Quotes module</download>
+			<authors>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 of the Quotes module</description>
+			<whatsnew>
+				<new type="improvment">Module compatible with PHPBoost 5.0 version</new>
+				<new type="improvment">Module rewritten with a new functionality : quotes by author</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.0" language="french" localized_language="Francais" name="quotes" priority="low" security-update="false" pubdate="2016/03/10">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/quotes/quotes.zip">Module Citations</download>
+			<authors>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 du module Citations</description>
+			<whatsnew>
+				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvment">Réécriture complète du module et ajout d'une page pour afficher les citations par auteur</new>
+			</whatsnew>
+		</version>
 		<version num="4.1.0" language="english" localized_language="English" name="quotes" priority="low" security-update="false" pubdate="2014/07/13">
 			<compatibility min="4.1"/>
 			<download url="http://dl.phpboost.com/4.1/modules/unofficial/quotes/quotes.zip">Quotes module</download>
