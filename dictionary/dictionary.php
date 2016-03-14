@@ -36,7 +36,7 @@ $Template = new FileTemplate('dictionary/dictionary.tpl');
 $get_l_error = retrieve(GET, 'erroru', '');
 
 if (!empty($get_l_error))
-	$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], E_USER_WARNING));
+	$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
 
 if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(POST, 'valid', false) || $id_get = retrieve(GET, 'edit', 0, TINTEGER))// ajout, previsualisation,edition.
 {

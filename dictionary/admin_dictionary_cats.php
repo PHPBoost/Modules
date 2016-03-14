@@ -66,7 +66,7 @@ $Template->put_all(array(
 
 if (!empty($get_l_error))
 {
-	$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], E_USER_WARNING));
+	$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
 	$name = "";
 	$id = "";
 }
@@ -76,7 +76,7 @@ if (retrieve(GET,'add',false))
 	$row = '';
 	if (!empty($get_l_error))
 	{
-		$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], E_USER_WARNING)); 
+		$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING)); 
 		$name = "";
 		
 		if ($id = retrieve(GET,'id_cat',false,TINTEGER))
@@ -94,7 +94,7 @@ if (retrieve(GET,'add',false))
 	}
 	elseif (!empty($errstr))
 	{
-		$Template->put('MSG', MessageHelper::display($LANG['error_upload_img'], E_USER_NOTICE));
+		$Template->put('MSG', MessageHelper::display($LANG['error_upload_img'], MessageHelper::NOTICE));
 		$name = "";
 		$id = "";
 	}
