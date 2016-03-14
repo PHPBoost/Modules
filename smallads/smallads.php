@@ -583,15 +583,17 @@ elseif ($id_delete_pict)
 }
 elseif ($id_view)
 {
-	$row = PersistenceContext::get_querier()->select_single_row_query("SELECT q.*, m.*
+	try {
+		$row = PersistenceContext::get_querier()->select_single_row_query("SELECT q.*, m.*
 		FROM " . SmalladsSetup::$smallads_table . " q
 		LEFT JOIN ".PREFIX."member m ON m.user_id = q.id_created
 		WHERE id = :id", array('id' => $id_view));
-
-	if (empty($row)) {
-		DispatchManager::redirect(PHPBoostErrors::unexisting_page());
+	} catch (RowNotFoundException $e) {
+		$error_controller = PHPBoostErrors::unexisting_page();
+		DispatchManager::redirect($error_controller);
 	}
-	else if (!SmalladsAuthorizationsService::check_authorizations()->read())
+	
+	if (!SmalladsAuthorizationsService::check_authorizations()->read())
 	{
 		$error_controller = PHPBoostErrors::user_not_authorized();
 		DispatchManager::redirect($error_controller);
