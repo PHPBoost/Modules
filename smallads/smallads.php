@@ -29,7 +29,7 @@ $id_view 		= retrieve(GET, 'id', 0, TINTEGER);
 
 function render_view($smallads, $row, $tpl)
 {
-	global $LANG, $type_options;
+	global $LANG, $type_options, $config;
 
 	$user = AppContext::get_current_user()->get_id();
 	$id_created = (int)$row['id_created'];

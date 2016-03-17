@@ -231,6 +231,30 @@
 		</version>
 	</app>
 	<app id="smallads" type="module">
+		<version num="5.0.3" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/03/17">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
+			<authors>
+				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.3 of the Smallads module</description>
+			<whatsnew>
+				<new type="bug">Fix a bug in smallad display</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.3" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2016/03/17">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
+			<authors>
+				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.3 du module Petites annonces</description>
+			<whatsnew>
+				<new type="bug">Correction d'un bug dans l'affichage des petites annonces</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.2" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/03/14">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
