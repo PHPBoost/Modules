@@ -4,6 +4,28 @@
 	<header/>
 	<!--  ReidLos  -->
 	<app id="GoogleAnalytics" type="module">
+		<version num="5.0.1" language="english" localized_language="English" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/04/29">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/GoogleAnalytics/GoogleAnalytics.zip">GoogleAnalytics module</download>
+			<authors>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 of the GoogleAnalytics module</description>
+			<whatsnew>
+				<new type="improvment">GoogleAnalytics template update</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.1" language="french" localized_language="Francais" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/04/29">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/GoogleAnalytics/GoogleAnalytics.zip">Module GoogleAnalytics</download>
+			<authors>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 du module GoogleAnalytics</description>
+			<whatsnew>
+				<new type="improvment">Mise à jour du template avec le nouveau code js GoogleAnalytics</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/02/11">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/GoogleAnalytics/GoogleAnalytics.zip">GoogleAnalytics module</download>
