@@ -165,6 +165,17 @@
 		</version>
 	</app>
 	<app id="dictionary" type="module">
+		<version num="5.0.2" language="french" localized_language="Francais" name="dictionary" priority="low" security-update="false" pubdate="2016/05/13">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/dictionary/dictionary.zip">Module Dictionnaire</download>
+			<authors>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.2 du module Dictionnaire</description>
+			<whatsnew>
+				<new type="bug">Correction de l'affichage des définitions dans le menu</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.1" language="french" localized_language="Francais" name="dictionary" priority="low" security-update="false" pubdate="2016/03/14">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/dictionary/dictionary.zip">Module Dictionnaire</download>
