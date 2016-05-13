@@ -74,7 +74,7 @@ class DictionarySetup extends DefaultModuleSetup
 		$file = new File(Url::to_rel('/dictionary/templates/dictionary_search_form.tpl'));
 		$file->delete();
 		
-		return '5.0.1';
+		return '5.0.2';
 	}
 
 	public function uninstall()

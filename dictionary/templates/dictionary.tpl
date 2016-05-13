@@ -136,7 +136,12 @@
 		clearTimeout()
 		
 		# START dictionary #
-		if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('\#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL' )
+		if ('{dictionary.CAT}' !='ALL' )
+		{
+			jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').show();
+			document.getElementById("category_list").value=document.getElementById("category_list").value+"-"+{dictionary.CAT};
+		}
+		else if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('\#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
 		{
 			jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').hide();
 			tab_cat_list=document.getElementById("category_list").value.split('-');
@@ -154,11 +159,6 @@
 				}
 			}
 			document.getElementById("category_list").value=list_cat;
-		}
-		else if ('{dictionary.CAT}' !='ALL' )
-		{
-			jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').show();
-			document.getElementById("category_list").value=document.getElementById("category_list").value+"-"+{dictionary.CAT};
 		}
 		j=j+1;
 		if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('\#ALL').is(':hidden'))
@@ -266,10 +266,10 @@
 		<br>
 		</noscript>
 		# START dictionary #
-			<div class="dictionary_word" style="" id="{dictionary.CAT}_cat_{dictionary.NAME}" name="{dictionary.CAT}_cat_{dictionary.NAME}">
+			<div class="dictionary_word" style="" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
 				<div>
 					<div style="float:left;" >
-					<a href="javascript:affCacheCat('{dictionary.CAT}');"  style="text-decoration:none;">{dictionary.CAT_IMG}</a>&nbsp;&bull;&nbsp;<a href="javascript:affCache('{dictionary.NAME}');"  style="text-decoration:none;">{dictionary.PROPER_NAME}</a>
+					<a href="javascript:affCacheCat('{dictionary.CAT}');"  style="text-decoration:none;">{dictionary.CAT_IMG}</a>&nbsp;&bull;&nbsp;<a href="javascript:affCache('{dictionary.ID}');"  style="text-decoration:none;">{dictionary.PROPER_NAME}</a>
 					</div>
 					<div style="float:right">
 						# IF dictionary.EDIT_CODE #
@@ -282,17 +282,17 @@
 					<br />
 				</div>
 				# IF NOT dictionary.C_AFF #
-				<div id="{dictionary.NAME}" style="display:none;" class="dictionary_definition">
+				<div id="{dictionary.ID}" style="display:none;" class="dictionary_definition">
 					{dictionary.DESC}
 				</div>
 				# ENDIF #
 				# IF dictionary.C_AFF #
-				<div id="{dictionary.NAME}" style="display:block;" class="dictionary_definition">
+				<div id="{dictionary.ID}" style="display:block;" class="dictionary_definition">
 					{dictionary.DESC}
 				</div>
 				# ENDIF #
 				<noscript>
-					<div id="{dictionary.NAME}"  class="dictionary_definition">
+					<div id="{dictionary.ID}"  class="dictionary_definition">
 						{dictionary.DESC}
 					</div>
 				</noscript>
