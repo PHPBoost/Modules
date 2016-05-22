@@ -37,9 +37,9 @@ $lang['module_title'] = 'Anniversaires';
 $lang['admin.config.members_age_displayed'] = 'Afficher l\'âge des membres dans le menu';
 $lang['admin.config.send_pm_for_members_birthday'] = 'Envoyer un MP à l\'anniversaire des membres';
 $lang['admin.config.pm_for_members_birthday_title'] = 'Titre du MP';
-$lang['admin.config.pm_for_members_birthday_title.explain'] = 'Utilisez <b>:user_login</b> pour afficher le pseudo du membre dans le titre et <b>:user_age</b> pour afficher son âge si besoin.';
+$lang['admin.config.pm_for_members_birthday_title.explain'] = 'Utilisez <b>:user_display_name</b> pour afficher le pseudo du membre dans le titre et <b>:user_age</b> pour afficher son âge si besoin.';
 $lang['admin.config.pm_for_members_birthday_content'] = 'Contenu du MP';
-$lang['admin.config.pm_for_members_birthday_content.explain'] = 'Utilisez <b>:user_login</b> pour afficher le pseudo du membre dans le texte et <b>:user_age</b> pour afficher son âge si besoin.';
+$lang['admin.config.pm_for_members_birthday_content.explain'] = 'Utilisez <b>:user_display_name</b> pour afficher le pseudo du membre dans le texte et <b>:user_age</b> pour afficher son âge si besoin.';
 $lang['admin.authorizations'] = 'Autorisations';
 $lang['admin.authorizations.read']  = 'Autorisation d\'afficher le menu anniversaires';
 

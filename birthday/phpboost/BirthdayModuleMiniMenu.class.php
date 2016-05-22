@@ -53,7 +53,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 				
 				$tpl->assign_block_vars('birthday', array(
 					'C_USER_GROUP_COLOR' => !empty($user_group_color),
-					'LOGIN' => $user['login'],
+					'LOGIN' => $user['display_name'],
 					'USER_LEVEL_CLASS' => UserService::get_level_class($user['level']),
 					'USER_GROUP_COLOR' => $user_group_color,
 					'AGE' => $user['age'],

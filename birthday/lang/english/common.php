@@ -37,9 +37,9 @@ $lang['module_title'] = 'Birthdays';
 $lang['admin.config.members_age_displayed'] = 'Display members age in the menu';
 $lang['admin.config.send_pm_for_members_birthday'] = 'Send a PM on members birthday';
 $lang['admin.config.pm_for_members_birthday_title'] = 'PM title';
-$lang['admin.config.pm_for_members_birthday_title.explain'] = 'Use <b>:user_login</b> to display the login of the member in the title and <b>:user_age</b> to display his age if needed.';
+$lang['admin.config.pm_for_members_birthday_title.explain'] = 'Use <b>:user_display_name</b> to display the name of the member in the title and <b>:user_age</b> to display his age if needed.';
 $lang['admin.config.pm_for_members_birthday_content'] = 'PM content';
-$lang['admin.config.pm_for_members_birthday_content.explain'] = 'Use <b>:user_login</b> to display the login of the member in the content and <b>:user_age</b> to display his age if needed';
+$lang['admin.config.pm_for_members_birthday_content.explain'] = 'Use <b>:user_display_name</b> to display the name of the member in the content and <b>:user_age</b> to display his age if needed';
 $lang['admin.authorizations'] = 'Authorizations';
 $lang['admin.authorizations.read']  = 'Authorization to display the menu birthdays';
 
