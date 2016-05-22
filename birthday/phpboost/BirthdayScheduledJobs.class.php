@@ -45,8 +45,8 @@ class BirthdayScheduledJobs extends AbstractScheduledJobExtensionPoint
 				//Send the PM
 				PrivateMsg::start_conversation(
 					$user['user_id'],
-					StringVars::replace_vars($config->get_pm_for_members_birthday_title(), array('user_login' => $user['login'], 'user_age' => $user['age'])),
-					StringVars::replace_vars($config->get_pm_for_members_birthday_content(), array('user_login' => $user['login'], 'user_age' => $user['age'])),
+					StringVars::replace_vars($config->get_pm_for_members_birthday_title(), array('user_display_name' => $user['display_name'], 'user_age' => $user['age'])),
+					StringVars::replace_vars($config->get_pm_for_members_birthday_content(), array('user_display_name' => $user['display_name'], 'user_age' => $user['age'])),
 					'-1',
 					PrivateMsg::SYSTEM_PM
 				);
