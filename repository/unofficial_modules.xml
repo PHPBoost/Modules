@@ -457,6 +457,46 @@
 			</whatsnew>
 		</version>
 	</app>
+	<!--  babsolune  -->
+	<app id="HomeLanding" type="module">
+		<version num="5.0.0" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/06/15">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">HomeLanding module</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 of the HomeLanding module</description>
+		</version>
+		<version num="5.0.0" language="french" localized_language="Francais" name="HomeLanding" priority="low" security-update="false" pubdate="2016/06/15">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">Module Page d'accueil</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 du module Page d'accueil</description>
+		</version>
+	</app>
+	<!--  papertoss  -->
+	<app id="easycss" type="module">
+		<version num="5.0.0" language="english" localized_language="English" name="easycss" priority="low" security-update="false" pubdate="2016/06/15">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/easycss/easycss.zip">EasyCss module</download>
+			<authors>
+				<author name="papertoss" email="papertoss@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 of the easycss module</description>
+		</version>
+		<version num="5.0.0" language="french" localized_language="Francais" name="easycss" priority="low" security-update="false" pubdate="2016/06/15">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/easycss/easycss.zip">Module Personnalisation CSS</download>
+			<authors>
+				<author name="papertoss" email="papertoss@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 du module Personnalisation CSS</description>
+		</version>
+	</app>
 	<!--  MrToine  -->
 	<app id="partners" type="module">
 		<version num="2.1.0" language="english" localized_language="English" name="partners" priority="low" security-update="false" pubdate="2014/11/24">
