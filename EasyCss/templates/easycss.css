@@ -1,0 +1,80 @@
+ul.tabs{
+    margin: 10px 0 0 0;
+    padding: 0px;
+    list-style: none;
+}
+
+ul.tabs li{
+    background: none;
+    color: #222;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+ul.tabs li.current{
+    background: #fff;
+    color: #222;
+}
+
+.tab-content{
+    display: none;
+    background: #fff;
+    padding: 15px;
+}
+
+.tab-content.current{
+    display: inherit;
+}
+
+.easycss-element {
+    width: 31.5%;
+    margin-right: 1%;
+    display: inline-block;
+}
+
+.easycss-element label {
+    width: 46%;
+    display: inline-block;
+    text-align: right;
+}
+
+.easycss-block {
+    width: 100%;
+    margin-bottom: 10px;
+    padding:5px;
+    background-color: #fff;
+    box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.easycss-block > h6{
+    border-bottom:1px solid #ccc;
+    margin-bottom: 5px;
+}
+
+.easycss-field {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding:5px;
+    margin-bottom: 10px;
+}
+
+.easycss-block-title {
+    margin-bottom: 5px;
+}
+
+.easycss-block-title + .easycss-block > h6 {
+    display: none;
+}
+
+/* Fields */
+input[type="text"], input[type="url"], input[type="number"], input[type="color"] {
+    padding:5px;
+    width: 46%;
+    height:30px;
+    margin:3px;
+}
+
+    
+
+    
