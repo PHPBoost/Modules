@@ -479,18 +479,18 @@
 		</version>
 	</app>
 	<!--  papertoss  -->
-	<app id="easycss" type="module">
-		<version num="5.0.0" language="english" localized_language="English" name="easycss" priority="low" security-update="false" pubdate="2016/06/15">
+	<app id="EasyCss" type="module">
+		<version num="5.0.0" language="english" localized_language="English" name="EasyCss" priority="low" security-update="false" pubdate="2016/06/15">
 			<compatibility min="5.0"/>
-			<download url="http://dl.phpboost.com/5.0/modules/unofficial/easycss/easycss.zip">EasyCss module</download>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/EasyCss/EasyCss.zip">EasyCss module</download>
 			<authors>
 				<author name="papertoss" email="papertoss@phpboost.com"/>
 			</authors>
-			<description>Version 5.0.0 of the easycss module</description>
+			<description>Version 5.0.0 of the EasyCss module</description>
 		</version>
-		<version num="5.0.0" language="french" localized_language="Francais" name="easycss" priority="low" security-update="false" pubdate="2016/06/15">
+		<version num="5.0.0" language="french" localized_language="Francais" name="EasyCss" priority="low" security-update="false" pubdate="2016/06/15">
 			<compatibility min="5.0"/>
-			<download url="http://dl.phpboost.com/5.0/modules/unofficial/easycss/easycss.zip">Module Personnalisation CSS</download>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/EasyCss/EasyCss.zip">Module Personnalisation CSS</download>
 			<authors>
 				<author name="papertoss" email="papertoss@phpboost.com"/>
 			</authors>
