@@ -134,8 +134,8 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 	$sa_price 		= retrieve(POST, 'smallads_price', 0.0, TFLOAT);
 	$sa_shipping	= retrieve(POST, 'smallads_shipping', 0.0, TFLOAT);
 	$sa_type   		= retrieve(POST, 'smallads_type', 0, TINTEGER);
-	$sa_max_weeks	= retrieve(POST, 'smallads_max_weeks', 0, TINTEGER);
-	$sa_max_weeks	= empty($sa_max_weeks) ? 'NULL' : abs($sa_max_weeks);
+	$sa_max_weeks	= $config->is_max_weeks_number_displayed() ? retrieve(POST, 'smallads_max_weeks', 0, TINTEGER) : 0;
+	$sa_max_weeks	= abs($sa_max_weeks);
 
 	$flag = 0;
 	
@@ -206,9 +206,8 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 		if (!$smallads->access_ok(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS) && $smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS))
 		{
 			$contribution_counterpart = retrieve(POST, 'contribution_counterpart', '', TSTRING_UNCHANGE);
-			$smallads->contribution_add($last_id, $contribution_counterpart);
-			AppContext::get_response()->redirect(UserUrlBuilder::contribution_success());
-			exit;
+			$smallads->contribution_add($last_id, $sa_title, $contribution_counterpart);
+			DispatchManager::redirect(new UserContributionSuccessController());
 		}
 
 	} else { // Modification
@@ -396,18 +395,17 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 
 			// update d'une contribution non traitée
 			$contribution_counterpart = retrieve(POST, 'contribution_counterpart', '', TSTRING_UNCHANGE);
-			if (!$smallads->contribution_update($id_contrib, 'Modif id # '.$row2['id'].' - '.$contribution_counterpart))
+			if (!$smallads->contribution_update($row2['id'], 'Modif id # '.$row2['id'].' - '.$contribution_counterpart))
 			{
 				// il faut creer une nouvelle demande de contribution
-				$smallads->contribution_add($id_contrib, 'Modif id # '.$row2['id'].' - '.$contribution_counterpart);
+				$smallads->contribution_add($row2['id'], $sa_title, 'Modif id # '.$row2['id'].' - '.$contribution_counterpart);
 			}
 
 			// Feeds Regeneration
 			Feed::clear_cache('smallads');
 			// Cache Regeneration
 			SmalladsCache::invalidate();
-			AppContext::get_response()->redirect(UserUrlBuilder::contribution_success());
-			exit;
+			DispatchManager::redirect(new UserContributionSuccessController());
 		}
 	}
 
@@ -624,6 +622,7 @@ elseif ($id_view)
 		'C_NB_SMALLADS'	 => TRUE,
 		'L_NO_SMALLADS'	 => $LANG['sa_no_smallads'],
 		'L_LIST_NOT_APPROVED'	=> $LANG['sa_list_not_approved'],
+		'L_MAX_PICTURE_WEIGHT' => $LANG['sa_max_picture_weight'],
 		'L_PRICE'		 => $LANG['sa_db_price'],
 		'L_PRICE_UNIT'	 => $LANG['sa_price_unit'],
 		'L_SHIPPING'		 => $LANG['sa_db_shipping'],
@@ -725,6 +724,7 @@ elseif ($id_edit || $id_add)
 	$tpl->put_all(array(
 		'C_FORM'			=> TRUE,
 		'C_CONTRIBUTION'	=> $c_contribution,
+		'C_MAX_WEEKS'		=> $config->is_max_weeks_number_displayed(),
 		'C_CAN_APPROVE'		=> $c_can_approve,
 		'C_PICTURE'			=> !empty($row['picture']),
 
@@ -736,6 +736,7 @@ elseif ($id_edit || $id_add)
 		'L_REQUIRE'			=> LangLoader::get_message('form.explain_required_fields', 'status-messages-common'),
 		'L_LEGEND'			=> $legend,
 		'L_CONFIRM_DELETE_PICTURE' 	=> $LANG['sa_confirm_delete_picture'],
+		'L_MAX_PICTURE_WEIGHT' => $LANG['sa_max_picture_weight'],
 		'C_USAGE_TERMS'		=> $config->are_usage_terms_displayed(),
 		'L_USAGE_LEGEND'	=> $LANG['sa_usage_legend'],
 		'L_AGREE_TERMS'		=> $LANG['sa_agree_terms'],

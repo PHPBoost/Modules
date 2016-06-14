@@ -36,6 +36,7 @@ $lang['module_config_title'] = 'Configuration des petites annonces';
 //config
 $lang['config.list_size'] = 'Taille de la liste pour mini';
 $lang['config.max_contents_length'] = 'Nombre de caractères maximum dans le contenu';
+$lang['config.max_weeks_number_displayed'] = 'Limiter le nombre de semaines d\'affichage';
 $lang['config.max_weeks_number'] = 'Nombre de semaines d\'affichage';
 $lang['config.display_mail_enabled'] = 'Afficher le lien vers mail';
 $lang['config.display_pm_enabled'] = 'Afficher le lien vers mp';

@@ -36,6 +36,7 @@ $lang['module_config_title'] = 'Small Ads configuration';
 //config
 $lang['config.list_size'] = 'Items list\'s size';
 $lang['config.max_contents_length'] = 'Maxi number of Characters in contents';
+$lang['config.max_weeks_number_displayed'] = 'Limit number of weeks to display';
 $lang['config.max_weeks_number'] = 'Number of weeks to display';
 $lang['config.display_mail_enabled'] = 'Show link to mail';
 $lang['config.display_pm_enabled'] = 'Show link to pm';

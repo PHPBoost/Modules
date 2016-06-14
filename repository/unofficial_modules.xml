@@ -264,7 +264,7 @@
 			<compatibility min="4.1"/>
 			<download url="http://dl.phpboost.com/4.1/modules/unofficial/quotes/quotes.zip">Quotes module</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 4.1.0 of the Quotes module</description>
@@ -276,7 +276,7 @@
 			<compatibility min="4.1"/>
 			<download url="http://dl.phpboost.com/4.1/modules/unofficial/quotes/quotes.zip">Module Citations</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 4.1.0 du module Citations</description>
@@ -286,11 +286,43 @@
 		</version>
 	</app>
 	<app id="smallads" type="module">
+		<version num="5.0.4" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/06/15">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
+			<authors>
+				<author name="Alain91" email="contact@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.4 of the Smallads module</description>
+			<whatsnew>
+				<new type="bug">Fix smallads number in menu</new>
+				<new type="bug">Fix disappearing smallads</new>
+				<new type="bug">Fix message displayed to members after a contribution</new>
+				<new type="bug">Contribution set to processed after smallad validation</new>
+				<new type="bug">Error displayed if picture weight is too high</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.4" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2016/06/15">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
+			<authors>
+				<author name="Alain91" email="contact@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.4 du module Petites annonces</description>
+			<whatsnew>
+				<new type="bug">Correction du nombre de petites annonces dans le mini menu</new>
+				<new type="bug">Correction des annonces qui disparaissent</new>
+				<new type="bug">Correction du message affiché aux membres après une contribution</new>
+				<new type="bug">Passage d'une contribution en traité après validation d'une annonce</new>
+				<new type="bug">Affichage d'un message d'erreur si le poids d'une image est trop important</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.3" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/03/17">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.3 of the Smallads module</description>
@@ -302,7 +334,7 @@
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.3 du module Petites annonces</description>
@@ -314,7 +346,7 @@
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.2 of the Smallads module</description>
@@ -326,7 +358,7 @@
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.2 du module Petites annonces</description>
@@ -338,7 +370,7 @@
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.1 of the Smallads module</description>
@@ -350,7 +382,7 @@
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.1 du module Petites annonces</description>
@@ -362,7 +394,7 @@
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.0 of the Smallads module</description>
@@ -374,7 +406,7 @@
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 5.0.0 du module Petites annonces</description>
@@ -386,7 +418,7 @@
 			<compatibility min="4.1"/>
 			<download url="http://dl.phpboost.com/4.1/modules/unofficial/smallads/smallads.zip">Smallads module</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 4.1.3 of the Smallads module</description>
@@ -399,7 +431,7 @@
 			<compatibility min="4.1"/>
 			<download url="http://dl.phpboost.com/4.1/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
 			<authors>
-				<author name="Alain91" email="alain091@gmail.com"/>
+				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
 			</authors>
 			<description>Version 4.1.3 du module Petites annonces</description>

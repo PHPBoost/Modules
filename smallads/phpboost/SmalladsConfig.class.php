@@ -34,6 +34,7 @@ class SmalladsConfig extends AbstractConfigData
 	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
 	const LIST_SIZE = 'list_size';
 	const MAX_CONTENTS_LENGTH = 'max_contents_length';
+	const MAX_WEEKS_NUMBER_DISPLAYED = 'max_weeks_number_displayed';
 	const MAX_WEEKS_NUMBER = 'max_weeks_number';
 	const DISPLAY_MAIL_ENABLED = 'display_mail_enabled';
 	const DISPLAY_PM_ENABLED = 'display_pm_enabled';
@@ -41,6 +42,8 @@ class SmalladsConfig extends AbstractConfigData
 	const USAGE_TERMS_ENABLED = 'usage_terms_enabled';
 	const USAGE_TERMS = 'usage_terms';
 	const AUTHORIZATIONS = 'authorizations';
+	
+	const MAX_PICTURE_WEIGHT = 1024;
 	
 	public function get_items_number_per_page()
 	{
@@ -70,6 +73,21 @@ class SmalladsConfig extends AbstractConfigData
 	public function set_max_contents_length($value)
 	{
 		$this->set_property(self::MAX_CONTENTS_LENGTH, $value);
+	}
+	
+	public function display_max_weeks_number()
+	{
+		$this->set_property(self::MAX_WEEKS_NUMBER_DISPLAYED, true);
+	}
+	
+	public function hide_max_weeks_number()
+	{
+		$this->set_property(self::MAX_WEEKS_NUMBER_DISPLAYED, false);
+	}
+	
+	public function is_max_weeks_number_displayed()
+	{
+		return $this->get_property(self::MAX_WEEKS_NUMBER_DISPLAYED);
 	}
 	
 	public function get_max_weeks_number()
@@ -171,6 +189,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::ITEMS_NUMBER_PER_PAGE => 10,
 			self::LIST_SIZE => 1,
 			self::MAX_CONTENTS_LENGTH => 1000,
+			self::MAX_WEEKS_NUMBER_DISPLAYED => true,
 			self::MAX_WEEKS_NUMBER => 12,
 			self::DISPLAY_MAIL_ENABLED => true,
 			self::DISPLAY_PM_ENABLED => true,
