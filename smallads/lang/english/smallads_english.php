@@ -53,6 +53,7 @@ $LANG['sa_add_legend']		= 'Add small ads';
 $LANG['sa_update_legend']	= 'Modify small ads';
 $LANG['sa_view_legend']		= 'Voir une petite annonce';
 
+$LANG['sa_max_picture_weight'] = 'Max : ' . SmalladsConfig::MAX_PICTURE_WEIGHT . 'Ko';
 $LANG['sa_max_weeks']		= 'Number of weeks to display';
 $LANG['sa_max_weeks_default'] = '(%d weeks if empty)';
 
@@ -68,7 +69,6 @@ $LANG['sa_contribution_legend'] 				= 'Introduce your contribution';
 $LANG['sa_contribution_notice'] 				= 'You are not authorized to create small ads, but you can suggest a proposal. Your contribution may or may not be approved.';
 $LANG['sa_contribution_counterpart'] 			= 'Complément de contribution';
 $LANG['sa_contribution_counterpart_explain'] 	= 'Explain motivations of your contribution. this is an optional field.';
-$LANG['sa_contribution_entitled'] 				= 'A small ads arrived : %d';
 $LANG['sa_contribution_confirmation'] 			= 'Thank you for your contribution';
 $LANG['sa_contribution_confirmation_explain'] 	= '<p>You may follow the process oh this contribution in <a href="' . url('../user/contribution_panel.php') . '">contribution panel of PHPBoost</a> and, if you would, argue with validators.</p><p>Thank you !</p>';
 $LANG['sa_contribution_success'] 				= 'Your contribution have been saved.';
@@ -80,6 +80,7 @@ $LANG['sa_sort_price']	= 'Price';
 $LANG['sa_mode_asc']	= 'Ascending';
 $LANG['sa_mode_desc']	= 'Descendind';
 
+$LANG['sa_error_picture_weight']= 'Picture weight is too high, please reduce it before uploading (' . SmalladsConfig::MAX_PICTURE_WEIGHT . 'Ko max)';
 $LANG['sa_error_upload']		= 'Error during picture upload';
 $LANG['sa_unsupported_format']	= 'File format not supported';
 $LANG['sa_unabled_create_pics']	= 'Unable to create picture';

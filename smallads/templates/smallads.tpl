@@ -318,7 +318,7 @@
 
 			<div class="form-element">
 				<label for="smallads_picture">{L_DB_PICTURE}
-				<span class="field-description">Max : 300&nbsp;ko</span>
+				<span class="field-description">{L_MAX_PICTURE_WEIGHT}</span>
 				</label>
 				<div class="form-field">
 					# IF C_PICTURE #
@@ -354,12 +354,14 @@
 					<label><input type="checkbox" name="view_pm" id="view_pm" # IF C_VIEW_PM_CHECKED # checked="checked"# ENDIF #></label>
 				</div>
 			</div>
+			# IF C_MAX_WEEKS #
 			<div class="form-element">
 				<label for="smallads_max_weeks">{L_DB_MAX_WEEKS}</label>
 				<div class="form-field">
 					<label><input type="text" size="3" maxlength="2" id="smallads_max_weeks" name="smallads_max_weeks" value="{DB_MAX_WEEKS}" />&nbsp{L_MAX_WEEKS_DEFAULT}</label>
 				</div>
 			</div>
+			# ENDIF #
 
 			# IF C_CAN_APPROVE #
 			<div class="form-element">
@@ -378,14 +380,15 @@
 		<fieldset>
 			<legend>{L_CONTRIBUTION}</legend>
 			<div class="message-helper notice">
-				<i class="fa fa-notice"></i>
 				<div class="message-helper-content">{L_CONTRIBUTION_NOTICE}</div>
 			</div>
 			<div class="form-element-textarea">
 				<label for="contribution_counterpart">{L_CONTRIBUTION_COUNTERPART}</label>
 				<span class="field-description">{L_CONTRIBUTION_COUNTERPART_EXPLAIN}</span>
 				{CONTRIBUTION_COUNTERPART_EDITOR}
-				<label><textarea rows="20" cols="40" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea></label>
+				<div class="form-field-textarea">
+					<textarea rows="20" cols="40" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
+				</div>
 			</div>
 		</fieldset>
 		# ENDIF #

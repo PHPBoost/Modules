@@ -87,17 +87,24 @@ class Smallads
      */	
 	function upload_picture($id)
 	{
+		global $LANG;
+		
 		if ( !empty($_FILES['smallads_picture']['name']) ) //Upload
 		{ 
-			$dir = 'pics/';
+			$dir = PATH_TO_ROOT . '/smallads/pics/';
 			$upload = new Upload($dir);
 			
 			if (is_writable($dir))
 			{
-				$upload->file('smallads_picture', '`\.(jpeg|jpg|gif|png)$`i', FALSE, 300, FALSE);
+				$upload->file('smallads_picture', '`\.(jpeg|jpg|gif|png)$`i', FALSE, SmalladsConfig::MAX_PICTURE_WEIGHT, FALSE);
 				if (!empty($upload->error)) //Erreur, on arrête ici
 				{
 					$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), $upload->error);
+					DispatchManager::redirect($controller);
+				}
+				else if ($upload->get_size() > SmalladsConfig::MAX_PICTURE_WEIGHT * 1000) //Poids trop important
+				{
+					$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), $LANG['sa_error_picture_weight']);
 					DispatchManager::redirect($controller);
 				}
 				else
@@ -257,7 +264,7 @@ class Smallads
 		return false;
 	}
 	
-	function contribution_add($id, $description)
+	function contribution_add($id, $title, $description)
 	{
 		global $LANG;
 
@@ -265,7 +272,7 @@ class Smallads
 		$contribution = new Contribution();
 		$contribution->set_id_in_module($id);
 		$contribution->set_description($description);
-		$contribution->set_entitled(sprintf($LANG['sa_contribution_entitled'], $id));
+		$contribution->set_entitled($title);
 		$contribution->set_fixing_url('/smallads/smallads.php?edit=' . $id);
 		$contribution->set_poster_id($user_id);
 		$contribution->set_module('smallads');
@@ -275,13 +282,13 @@ class Smallads
 	
 	function contribution_set_processed($id)
 	{
-		$contributions = ContributionService::find_by_criteria('smallads', $id);
-		if (count($contributions) > 0)
+		$corresponding_contributions = ContributionService::find_by_criteria('smallads', $id);
+		
+		if (count($corresponding_contributions) > 0)
 		{
-			foreach($contributions as $contribution) {
-				$contribution->set_status(EVENT_STATUS_PROCESSED);
-				ContributionService::save_contribution($contribution);
-			}
+			$contribution = $corresponding_contributions[0];
+			$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
+			ContributionService::save_contribution($contribution);
 		}
 	}
 	
@@ -293,12 +300,11 @@ class Smallads
 		if (count($contributions) > 0)
 		{
 			foreach($contributions as $contribution) { // On tente d'actualiser une demande existante
-				if ( EVENT_STATUS_UNREAD == $contribution->get_status())
+				if (Event::EVENT_STATUS_UNREAD == $contribution->get_status())
 				{
 					$date = new Date();
 					$contribution->set_creation_date($date);
 					$contribution->set_description($description);
-					$contribution->set_entitled(sprintf($LANG['sa_contribution_entitled'], $id));
 					ContributionService::save_contribution($contribution);
 					return true;
 				}
@@ -313,7 +319,7 @@ class Smallads
 		if (count($contributions) > 0)
 		{
 			foreach($contributions as $contribution) {
-				if ( EVENT_STATUS_UNREAD == $contribution->get_status())
+				if (Event::EVENT_STATUS_UNREAD == $contribution->get_status())
 				{
 					ContributionService::delete_contribution($contribution);
 				}
@@ -328,7 +334,7 @@ class Smallads
 		if (count($contributions) > 0)
 		{
 			foreach($contributions as $contribution) {
-				if ( EVENT_STATUS_BEING_PROCESSED == $contribution->get_status())
+				if (Event::EVENT_STATUS_BEING_PROCESSED == $contribution->get_status())
 				{
 					$in_progress = true;
 					break;

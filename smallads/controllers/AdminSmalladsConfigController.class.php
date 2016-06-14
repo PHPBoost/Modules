@@ -60,6 +60,7 @@ class AdminSmalladsConfigController extends AdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
+			$this->form->get_field_by_id('max_weeks_number')->set_hidden(!$this->config->is_max_weeks_number_displayed());
 			$this->form->get_field_by_id('usage_terms')->set_hidden(!$this->config->are_usage_terms_displayed());
 			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
@@ -98,8 +99,18 @@ class AdminSmalladsConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(255, 65535))
 		));
 		
+		$fieldset->add_field(new FormFieldCheckbox('max_weeks_number_displayed', $this->lang['config.max_weeks_number_displayed'], $this->config->is_max_weeks_number_displayed(), array(
+			'events' => array('click' => '
+				if (HTMLForms.getField("max_weeks_number_displayed").getValue()) {
+					HTMLForms.getField("max_weeks_number").enable();
+				} else {
+					HTMLForms.getField("max_weeks_number").disable();
+				}'
+			)
+		)));
+		
 		$fieldset->add_field(new FormFieldNumberEditor('max_weeks_number', $this->lang['config.max_weeks_number'], $this->config->get_max_weeks_number(), 
-			array('min' => 0, 'max' => 520, 'required' => true),
+			array('min' => 0, 'max' => 520, 'required' => true, 'hidden' => !$this->config->is_max_weeks_number_displayed()),
 			array(new FormFieldConstraintIntegerRange(0, 520))
 		));
 		
@@ -152,7 +163,14 @@ class AdminSmalladsConfigController extends AdminModuleController
 		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
 		$this->config->set_list_size($this->form->get_value('list_size'));
 		$this->config->set_max_contents_length($this->form->get_value('max_contents_length'));
-		$this->config->set_max_weeks_number($this->form->get_value('max_weeks_number'));
+		
+		if ($this->form->get_value('max_weeks_number_displayed'))
+		{
+			$this->config->display_max_weeks_number();
+			$this->config->set_max_weeks_number($this->form->get_value('max_weeks_number'));
+		}
+		else
+			$this->config->hide_max_weeks_number();
 		
 		if ($this->form->get_value('display_mail_enabled'))
 			$this->config->display_mail();

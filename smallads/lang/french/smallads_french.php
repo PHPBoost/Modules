@@ -53,6 +53,7 @@ $LANG['sa_add_legend']		= 'Ajouter une petite annonce';
 $LANG['sa_update_legend']	= 'Modifier une petite annonce';
 $LANG['sa_view_legend']		= 'Voir une petite annonce';
 
+$LANG['sa_max_picture_weight'] = 'Max : ' . SmalladsConfig::MAX_PICTURE_WEIGHT . 'Ko';
 $LANG['sa_max_weeks']		= 'Nombre de semaines d\'affichage';
 $LANG['sa_max_weeks_default'] = '(%d semaines si laissé vide)';
 
@@ -67,7 +68,6 @@ $LANG['sa_contribution_legend'] 				= 'Présenter une contribution';
 $LANG['sa_contribution_notice'] 				= 'Vous n\'êtes pas autorisé à créer une petite annonce, cependant vous pouvez en proposer une. Votre contribution suivra le parcours classique et sera traitée dans le panneau de contribution de PHPBoost. Vous pouvez, dans le champ suivant, justifier votre contribution de façon à expliquer votre démarche à un approbateur.';
 $LANG['sa_contribution_counterpart'] 			= 'Complément de contribution';
 $LANG['sa_contribution_counterpart_explain'] 	= 'Expliquez les raisons de votre contribution. Ce champ est facultatif.';
-$LANG['sa_contribution_entitled'] 				= 'Une petite annonce a été proposée : %d';
 $LANG['sa_contribution_confirmation'] 			= 'Confirmation de contribution';
 $LANG['sa_contribution_confirmation_explain'] 	= '<p>Vous pourrez la suivre dans le <a href="' . url('../user/contribution_panel.php') . '">panneau de contribution de PHPBoost</a> et éventuellement discuter avec les validateurs si leur choix n\'est pas franc.</p><p>Merci d\'avoir participé à la vie du site !</p>';
 $LANG['sa_contribution_success'] 				= 'Votre contribution a bien été enregistrée.';
@@ -79,6 +79,7 @@ $LANG['sa_sort_price']	= 'Prix';
 $LANG['sa_mode_asc']	= 'Croissant';
 $LANG['sa_mode_desc']	= 'Décroissant';
 
+$LANG['sa_error_picture_weight']= 'Le poids de l\'image est trop important, veuillez la réduire avant de l\'uploader (' . SmalladsConfig::MAX_PICTURE_WEIGHT . 'Ko max)';
 $LANG['sa_error_upload']		= 'Erreur durant chargement photo';
 $LANG['sa_unsupported_format']	= 'Format fichier image non supporté';
 $LANG['sa_unabled_create_pics']	= 'Impossible de créer les images';

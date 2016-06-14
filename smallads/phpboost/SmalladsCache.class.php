@@ -89,7 +89,7 @@ class SmalladsCache implements CacheData
 	
 	public function get_number_smallads()
 	{
-		return count($this->smallads_number);
+		return $this->smallads_number;
 	}
 	
 	public function get_last_smallad_date()
