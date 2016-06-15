@@ -26,18 +26,6 @@
     margin-bottom: 5px;
 }
 
-#module-homelanding article:nth-child(even) {
-    background-color: #f5f5f5;
-}
-
-.main-with-left.main-with-right .options {
-    float:none;
-}
-
-.main-with-left.main-with-right .options p {
-    margin-bottom: 0.2em;
-}
-
 #module-homelanding h3 {
     padding-bottom: 5px;
 }
@@ -148,7 +136,19 @@
     opacity: 0;
 }
 
-/* --- Last articles --- */
+/** --- Edito --- */
+
+#home_edito {
+    margin: 10px 0;
+}
+
+/** --- last comments --- */
+
+#last_coms ul {
+    list-style-type: none;
+}
+
+/** --- Last articles --- */
 
 #last_articles img {
     margin: 0 10px 5px;
@@ -236,25 +236,6 @@
     }
 }
 
-/* --- Last news --- */
-
-#last_news img {
-    margin: 0 10px 5px;
-}
-
-@media (min-width:769px){
-    #last_news img {
-        max-width: 200px;
-        float: left;
-    }
-    #last_news_cat .item-content {
-        margin-right: 1%;
-        display: inline-block;
-        width: calc(100% / 3 - 2%);
-        vertical-align: top;
-    }
-}
-
 /* --- Last media --- */
 
 #last_media .media-content {
@@ -276,21 +257,25 @@
 
 /* --- Last news --- */
 
-/* --- Last news --- */
-@media (min-width: 769px){
-    .last-news-img {
+#last_news img {
+    margin: 0 10px 5px;
+}
+
+@media (min-width:769px){
+    #last_news img {
+        max-width: 200px;
         float: left;
-        max-width: 50%;
     }
 }
 
-#last_news img {
-    margin: 0;
-}
+/* --- last news cat --- */
 
-@media (min-width: 769px) {
-    #last_news img {
-        margin: 0 10px 5px;
+@media (min-width:769px){
+    #last_news_cat .item-content {
+        margin-right: 1%;
+        display: inline-block;
+        width: calc(100% / 3 - 2%);
+        vertical-align: top;
     }
 }
 
@@ -329,13 +314,15 @@
 }
 
 /* --- HomeLanding Module configuration --- */
-textarea.slider-description {
-	float: left;
-	height: 70px;
-	width: 45%;
-}
-
-input.slider-url {
-	margin: 5px;
-	width: 40%;
+@media (min-width: 769px){
+    textarea.slider-description {
+        float: left;
+        height: 70px;
+        width: 45%;
+    }
+    
+    input.slider-url {
+        margin: 5px;
+        width: 40%;
+    }
 }
