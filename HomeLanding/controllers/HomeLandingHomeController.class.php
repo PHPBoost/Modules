@@ -822,13 +822,11 @@ class HomeLandingHomeController extends ModuleController
 		
 		while ($row = $result->fetch())
 		{
-			$img_url =  PATH_TO_ROOT. '/gallery/pics/' . $row['path'];
- 
 			$tpl->assign_block_vars('gallery_items', array(
-				'IMG_CAT' => $row['idcat'],
-				'U_IMG' => $img_url,
+				'U_IMG' => PATH_TO_ROOT . '/gallery/pics/' . $row['path'],
 				'TITLE' => $row['name'],
-				'NB_VIEWS' => $row['views']
+				'NB_VIEWS' => $row['views'],
+				'U_CATEGORY' => PATH_TO_ROOT . '/gallery/gallery' . url('.php?cat=' . $row['idcat'], '-' . $row['idcat'] . '.php')
 			));
 		}
 		$result->dispose();

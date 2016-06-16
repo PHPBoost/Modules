@@ -11,13 +11,13 @@
 		</h2>
 	</header>
 	<div class="content"> 
-	# START gallery_items #	
+	# START gallery_items #
 		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-			<a href="{PATH_TO_ROOT}/gallery/gallery-{gallery_items.IMG_CAT}.php">
+			<a href="{gallery_items.U_CATEGORY}">
 				<img src="{gallery_items.U_IMG}" alt="{gallery_items.TITLE}" />
 				<p>{gallery_items.TITLE} <br /><i class="fa fa-eye"></i> {gallery_items.NB_VIEWS}</p>
-			</a>						
-		</div>	
+			</a>
+		</div>
 	# END gallery_items #
 	<div class="spacer"></div>
 	</div>            

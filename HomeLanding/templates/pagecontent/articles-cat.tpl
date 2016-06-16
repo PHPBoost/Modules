@@ -20,7 +20,7 @@
 		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 			
 			<h3 class="item-title">
-				<a href="{item.U_LINK}">{item.TITLE}</a>
+				<a href="{item.U_ARTICLE}">{item.TITLE}</a>
 			</h3>
 			
 			<div class="more">
@@ -35,7 +35,7 @@
 			# ENDIF #
 			
 			<p class="item-desc">
-				<div itemprop="text"># IF item.C_DESCRIPTION #{item.DESCRIPTION}# ELSE #{item.CONTENTS}# ENDIF ## IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
+				<div itemprop="text"># IF item.C_DESCRIPTION #{item.DESCRIPTION}# ELSE #{item.CONTENTS}# ENDIF ## IF item.C_READ_MORE #... <a href="{item.U_ARTICLE}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
 			</p>
 			
 		</div>
