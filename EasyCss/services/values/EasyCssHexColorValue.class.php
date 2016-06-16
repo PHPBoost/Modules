@@ -45,7 +45,7 @@ class EasyCssHexColorValue extends EasyCssAbstractValue
     
     public function get_form($label)
     {
-        $tpl = new FileTemplate('easycss/fields/EasyCssColorField.tpl');
+        $tpl = new FileTemplate('EasyCss/fields/EasyCssColorField.tpl');
         $tpl->put_all(array(
             'NAME' =>$this->id,
             'ID' => $this->id,

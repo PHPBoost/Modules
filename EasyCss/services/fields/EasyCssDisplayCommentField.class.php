@@ -49,7 +49,7 @@ class EasyCssDisplayCommentField extends EasyCssAbstractField
 
     public function get_form($label)
     {
-        $tpl = new FileTemplate('easycss/fields/EasyCssDisplayCommentField.tpl');
+        $tpl = new FileTemplate('EasyCss/fields/EasyCssDisplayCommentField.tpl');
         $tpl->put_all(array(
             'VALUE' => $this->title,
         ));

@@ -271,7 +271,7 @@ abstract class EasyCssAbstractAttribut
      */
     private function get_important_tpl()
     {
-        $imp_tpl = new FileTemplate('easycss/fields/EasyCssImportantField.tpl');
+        $imp_tpl = new FileTemplate('EasyCss/fields/EasyCssImportantField.tpl');
         $imp_tpl->put_all(array(
             'NAME' => $this->important_field_id,
             'ID' => $this->important_field_id,

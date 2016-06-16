@@ -1,14 +1,13 @@
 <?php
-
-/* #################################################
- *                           index.php
+/*##################################################
+ *                         EasyCssSetup.class.php
  *                            -------------------
- *   begin                : 2016/04/22
+ *   begin                : 2016/00/22
  *   copyright            : (C) 2016 PaperToss
  *   email                : t0ssp4p3r@gmail.com
  *
  *
-  ###################################################
+ ###################################################
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,17 +21,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
-  ################################################### */
+ ###################################################*/
 
-define('PATH_TO_ROOT', '..');
-
-require_once PATH_TO_ROOT . '/kernel/init.php';
-
-$url_controller_mappers = array(
-//Admin
-    new UrlControllerMapper('AdminEasyCssThemeController', '`^/theme/?$`'),
-    new UrlControllerMapper('AdminEasyCssEditController', '`^/edit/(.+)/(.+)/?$`', array('theme', 'file')),
-);
-DispatchManager::dispatch($url_controller_mappers);
+class EasyCssSetup extends DefaultModuleSetup
+{
+	public function upgrade($installed_version)
+	{
+		return '5.0.1';
+	}
+}
+?>

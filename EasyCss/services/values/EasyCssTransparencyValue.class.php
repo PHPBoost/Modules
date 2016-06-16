@@ -56,7 +56,7 @@ class EasyCssTransparencyValue extends EasyCssAbstractValue
     
     public function get_form($label)
     {
-        $tpl = new FileTemplate('easycss/fields/EasyCssTransparencyField.tpl');
+        $tpl = new FileTemplate('EasyCss/fields/EasyCssTransparencyField.tpl');
         $tpl->put_all(array(
             'NAME' => $this->id,
             'ID' => $this->id,
