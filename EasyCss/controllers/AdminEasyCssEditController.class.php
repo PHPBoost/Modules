@@ -93,8 +93,8 @@ class AdminEasyCssEditController extends ModuleController
      */
     private function init()
     {
-        self::$lang = LangLoader::get('common', 'easycss');
-        $this->view = new FileTemplate('easycss/AdminEditController.tpl');
+        self::$lang = LangLoader::get('common', 'EasyCss');
+        $this->view = new FileTemplate('EasyCss/AdminEditController.tpl');
         $this->view->add_lang(self::$lang);
     }
 

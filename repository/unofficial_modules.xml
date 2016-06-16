@@ -512,6 +512,28 @@
 	</app>
 	<!--  papertoss  -->
 	<app id="EasyCss" type="module">
+		<version num="5.0.1" language="english" localized_language="English" name="EasyCss" priority="low" security-update="false" pubdate="2016/06/16">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/EasyCss/EasyCss.zip">EasyCss module</download>
+			<authors>
+				<author name="papertoss" email="papertoss@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 of the EasyCss module</description>
+			<whatsnew>
+				<new type="bug">Fix lang and templates files display</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.1" language="french" localized_language="Francais" name="EasyCss" priority="low" security-update="false" pubdate="2016/06/16">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/EasyCss/EasyCss.zip">Module Personnalisation CSS</download>
+			<authors>
+				<author name="papertoss" email="papertoss@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 du module Personnalisation CSS</description>
+			<whatsnew>
+				<new type="bug">Correction de l'appel des fichiers de langue et des templates</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="EasyCss" priority="low" security-update="false" pubdate="2016/06/15">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/EasyCss/EasyCss.zip">EasyCss module</download>

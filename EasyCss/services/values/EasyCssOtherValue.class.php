@@ -53,7 +53,7 @@ class EasyCssOtherValue extends EasyCssAbstractValue
     
     public function get_form($label)
     {
-        $tpl = new FileTemplate('easycss/fields/EasyCssOtherField.tpl');
+        $tpl = new FileTemplate('EasyCss/fields/EasyCssOtherField.tpl');
         $tpl->put_all(array(
             'NAME' => $this->id,
             'ID' => $this->id,

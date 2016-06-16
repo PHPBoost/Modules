@@ -73,7 +73,7 @@ class EasyCssMediaBlock extends EasyCssAbstractBlock
     
     private function get_title_block()
     {
-        $title = LangLoader::get_message(trim($this->type), 'common', 'easycss');
+        $title = LangLoader::get_message(trim($this->type), 'common', 'EasyCss');
         return $title . ' : ' . $this->size;
     }
     

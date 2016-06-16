@@ -49,8 +49,8 @@ class AdminEasyCssThemeController extends ModuleController
     
     private function init()
     {
-        $this->lang = LangLoader::get('common', 'easycss');
-        $this->view = new FileTemplate('easycss/AdminThemeController.tpl');
+        $this->lang = LangLoader::get('common', 'EasyCss');
+        $this->view = new FileTemplate('EasyCss/AdminThemeController.tpl');
         $this->view->add_lang($this->lang);
     }
     
