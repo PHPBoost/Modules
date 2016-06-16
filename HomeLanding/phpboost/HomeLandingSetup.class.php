@@ -34,7 +34,10 @@ class HomeLandingSetup extends DefaultModuleSetup
 	
 	public function upgrade($installed_version)
 	{
-		return '5.0.0';
+		$file = new File(Url::to_rel('/HomeLanding/templates/pagecontent/HomeLandingFormFieldSelectCarousel.tpl'));
+		$file->delete();
+		
+		return '5.0.1';
 	}
 	
 	private function delete_configuration()
