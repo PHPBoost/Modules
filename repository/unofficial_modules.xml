@@ -286,6 +286,32 @@
 		</version>
 	</app>
 	<app id="smallads" type="module">
+		<version num="5.0.5" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/06/29">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
+			<authors>
+				<author name="Alain91" email="contact@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.5 of the Smallads module</description>
+			<whatsnew>
+				<new type="bug">Contribution set to processed after modified smallad validation</new>
+				<new type="bug">Error in the archived errors</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.5" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2016/06/29">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
+			<authors>
+				<author name="Alain91" email="contact@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.5 du module Petites annonces</description>
+			<whatsnew>
+				<new type="bug">Passage d'une contribution en traité après validation d'une annonce éditée</new>
+				<new type="bug">Correction d'une erreur reportée dans les erreurs archivées</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.4" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/06/15">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
