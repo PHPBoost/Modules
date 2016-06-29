@@ -384,10 +384,9 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 						'approved' => 0,
 						'date_approved' => time(),
 						'links_flag' => $flag
-					), 'WHERE id=:id', array('id' => $row['id']));
+					), 'WHERE id=:id', array('id' => $id_post));
 
-					$id_contrib = $row['id'];
-					$id_picture = $id_contrib;
+					$id_picture = $id_contrib = $id_post;
 				}
 			}
 

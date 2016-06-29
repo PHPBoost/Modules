@@ -286,9 +286,11 @@ class Smallads
 		
 		if (count($corresponding_contributions) > 0)
 		{
-			$contribution = $corresponding_contributions[0];
-			$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
-			ContributionService::save_contribution($contribution);
+			foreach ($corresponding_contributions as $contribution)
+			{
+				$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
+				ContributionService::save_contribution($contribution);
+			}
 		}
 	}
 	
