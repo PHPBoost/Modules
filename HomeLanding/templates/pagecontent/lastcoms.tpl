@@ -15,7 +15,7 @@
 		# START lastcoms_items #
 			<li>
 				# IF lastcoms_items.C_AUTHOR_EXIST #<a class="{lastcoms_items.USER_LEVEL_CLASS}" href="{lastcoms_items.U_AUTHOR_PROFILE}"# IF lastcoms_items.C_USER_GROUP_COLOR # style="{lastcoms_items.USER_GROUP_COLOR}"# ENDIF #>{lastcoms_items.PSEUDO}</a># ELSE #{lastcoms_items.PSEUDO}# ENDIF #
-				${Langloader::get_message('in.modules', 'common', 'HomeLanding')} <i><a href="{lastcoms_items.ARTICLE}">{lastcoms_items.MODULE_NAME}</a></i>
+				# IF C_MODULE_NAME #${Langloader::get_message('in.modules', 'common', 'HomeLanding')} <i><a href="{lastcoms_items.ARTICLE}">{lastcoms_items.MODULE_NAME}</a></i># ENDIF #
 				({lastcoms_items.DATE}) :
 				<p><a href="{lastcoms_items.U_LINK}"><i class="fa fa-hand-o-right"></i> </a>{lastcoms_items.CONTENTS}# IF lastcoms_items.C_READ_MORE #... <a href="{lastcoms_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</p>
 			</li>

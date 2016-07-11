@@ -64,7 +64,6 @@ $lang['link.to.articles'] = 'Voir tous les articles';
 $lang['no.articles.item'] = 'Il n\'y a pas d\'article dans cette catégorie';
 
 // contact
-$lang['home.contact'] = 'Contacter les gestionnaires du site';
 $lang['link.to.contact'] = 'Voir la page contact';
 $lang['send.email.success'] = 'Votre message a bien été envoyé. ';
 $lang['send.email.error'] = 'Votre message n\'a pas pu être envoyé. ';

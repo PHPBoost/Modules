@@ -517,6 +517,38 @@
 	</app>
 	<!--  babsolune  -->
 	<app id="HomeLanding" type="module">
+		<version num="5.0.1" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/07/11">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">HomeLanding module</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 of the HomeLanding module</description>
+			<whatsnew>
+				<new type="bug">Fix on modules positions page : hidden modules were not displayed on the page</new>
+				<new type="bug">Fix links [Read more] in articles</new>
+				<new type="bug">Fix 404 errors in gallery</new>
+				<new type="bug">Fix contact module title</new>
+				<new type="improvment">Possibility to use lastcoms if url rewriting is not enabled</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.1" language="french" localized_language="Francais" name="HomeLanding" priority="low" security-update="false" pubdate="2016/07/11">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">Module Page d'accueil</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.1 du module Page d'accueil</description>
+			<whatsnew>
+				<new type="bug">Correction d'un soucis sur la page de choix des positions : les modules non activés n'étaient pas affichés</new>
+				<new type="bug">Correction de l'affichage des liens [Lire la suite] des articles</new>
+				<new type="bug">Correction d'erreurs 404 dans la galerie</new>
+				<new type="bug">Correction du titre du module contact</new>
+				<new type="improvment">Possibilité d'utiliser les derniers commentaires même si la réécriture d'url n'est pas activée</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/06/15">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">HomeLanding module</download>

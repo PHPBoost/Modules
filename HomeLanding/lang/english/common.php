@@ -64,7 +64,6 @@ $lang['link.to.articles'] = 'View all articles';
 $lang['no.articles.item'] = 'There is no article in this category';
 
 // contact
-$lang['home.contact'] = 'Contact the managers of the site';
 $lang['link.to.contact'] = 'See contact page';
 $lang['send.email.success'] = 'Your email has been sent. ';
 $lang['send.email.error'] = 'Your email could not be sent. ';
