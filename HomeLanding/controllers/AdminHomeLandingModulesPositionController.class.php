@@ -43,16 +43,13 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 			$module = new HomeLandingModule();
 			$module->set_properties($properties);
 			
-			if ($module->is_displayed())
-			{
-				$this->view->assign_block_vars('modules_list', array(
-					'C_DISPLAY' => $module->is_displayed(),
-					'ID' => $id,
-					'NAME' => $module->get_name(),
-					'U_EDIT' => HomeLandingUrlBuilder::configuration($module->get_config_module_id())->rel()
-				));
-				$modules_number++;
-			}
+			$this->view->assign_block_vars('modules_list', array(
+				'C_DISPLAY' => $module->is_displayed(),
+				'ID' => $id,
+				'NAME' => $module->get_name(),
+				'U_EDIT' => HomeLandingUrlBuilder::configuration($module->get_config_module_id())->rel()
+			));
+			$modules_number++;
 		}
 		
 		$this->view->put_all(array(

@@ -70,11 +70,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			
 			$this->form->get_field_by_id('edito')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed());
 			
-			if (ServerEnvironmentConfig::load()->is_url_rewriting_enabled())
-			{
-				$this->form->get_field_by_id('lastcoms_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
-				$this->form->get_field_by_id('lastcoms_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
-			}
+			$this->form->get_field_by_id('lastcoms_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
+			$this->form->get_field_by_id('lastcoms_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
 			
 			if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))
 			{
@@ -262,32 +259,29 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed())
 		));
 		
-		if (ServerEnvironmentConfig::load()->is_url_rewriting_enabled())
-		{
-			$fieldset_lastcoms = new FormFieldsetHTML('admin_lastcoms', LangLoader::get_message('admin.lastcoms', 'common', 'HomeLanding'));
-			$form->add_fieldset($fieldset_lastcoms);
+		$fieldset_lastcoms = new FormFieldsetHTML('admin_lastcoms', LangLoader::get_message('admin.lastcoms', 'common', 'HomeLanding'));
+		$form->add_fieldset($fieldset_lastcoms);
+	
+		$fieldset_lastcoms->add_field(new FormFieldCheckbox('lastcoms_enabled', $this->lang['admin.lastcoms.enabled'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
+			array('events' => array('click' => '
+			if (HTMLForms.getField("lastcoms_enabled").getValue()) {
+				HTMLForms.getField("lastcoms_limit").enable();
+				HTMLForms.getField("lastcoms_char").enable();
+			} else { 
+				HTMLForms.getField("lastcoms_limit").disable();
+				HTMLForms.getField("lastcoms_char").disable();
+			}'))
+		));
 		
-			$fieldset_lastcoms->add_field(new FormFieldCheckbox('lastcoms_enabled', $this->lang['admin.lastcoms.enabled'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
-				array('events' => array('click' => '
-				if (HTMLForms.getField("lastcoms_enabled").getValue()) {
-					HTMLForms.getField("lastcoms_limit").enable();
-					HTMLForms.getField("lastcoms_char").enable();
-				} else { 
-					HTMLForms.getField("lastcoms_limit").disable();
-					HTMLForms.getField("lastcoms_char").disable();
-				}'))
-			));
-			
-			$fieldset_lastcoms->add_field(new FormFieldNumberEditor('lastcoms_limit', $this->lang['admin.lastcoms.limit'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed(),
-				array('min' => 1, 'max' => 100, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
-				array(new FormFieldConstraintIntegerRange(1, 100))
-			));
-			
-			$fieldset_lastcoms->add_field(new FormFieldNumberEditor('lastcoms_char', $this->lang['admin.char'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_characters_number_displayed(),
-				array('min' => 1, 'max' => 512, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
-				array(new FormFieldConstraintIntegerRange(1, 512))
-			));
-		}
+		$fieldset_lastcoms->add_field(new FormFieldNumberEditor('lastcoms_limit', $this->lang['admin.lastcoms.limit'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed(),
+			array('min' => 1, 'max' => 100, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
+			array(new FormFieldConstraintIntegerRange(1, 100))
+		));
+		
+		$fieldset_lastcoms->add_field(new FormFieldNumberEditor('lastcoms_char', $this->lang['admin.char'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_characters_number_displayed(),
+			array('min' => 1, 'max' => 512, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
+			array(new FormFieldConstraintIntegerRange(1, 512))
+		));
 		
 		//Articles
 		if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))
@@ -727,17 +721,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->modules[HomeLandingConfig::MODULE_EDITO]->hide();
 		
 		//Lastcoms
-		if (ServerEnvironmentConfig::load()->is_url_rewriting_enabled())
+		if ($this->form->get_value('lastcoms_enabled'))
 		{
-			if ($this->form->get_value('lastcoms_enabled'))
-			{
-				$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->display();
-				$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->set_elements_number_displayed($this->form->get_value('lastcoms_limit'));
-				$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->set_characters_number_displayed($this->form->get_value('lastcoms_char'));
-			}
-			else
-				$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->hide();
+			$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->display();
+			$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->set_elements_number_displayed($this->form->get_value('lastcoms_limit'));
+			$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->set_characters_number_displayed($this->form->get_value('lastcoms_char'));
 		}
+		else
+			$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->hide();
 		
 		//Articles
 		if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))

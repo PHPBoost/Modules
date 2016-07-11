@@ -52,7 +52,17 @@
  /* #####  #   #  #   #  #   #  #####  #####  #####  #####  #####
  */
  
- 08/06/2016 alpha 1.9 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ 11/07/2016 5.0.1
+ #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Correction d'un soucis sur la page de choix des positions : les modules non activés n'étaient pas affichés
+ Correction de l'affichage des liens [Lire la suite] des articles
+ Correction d'erreurs 404 dans la galerie
+ Correction du titre du module contact
+ Possibilité d'utiliser les derniers commentaires même si la réécriture d'url n'est pas activée
+ 
+ 08/06/2016 5.0.0
+ #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  affichage gallery quand pas de titre sur l'image
  Forum : remplacement de l'icône de la main par [Lire la suite] si tout le message n'est pas affiché (comme pour les autres modules)
  catégories articles / news / download / web : mettre un message si la catégorie est vide

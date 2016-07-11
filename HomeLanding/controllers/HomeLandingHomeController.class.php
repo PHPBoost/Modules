@@ -87,7 +87,7 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
 			$this->build_carousel_view();
 		
-		if (ServerEnvironmentConfig::load()->is_url_rewriting_enabled() && $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed())
+		if ($this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed())
 			$this->build_lastcoms_view();
 		
 		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && ArticlesAuthorizationsService::check_authorizations()->read())
@@ -408,11 +408,12 @@ class HomeLandingHomeController extends ModuleController
 			$tpl->assign_block_vars('lastcoms_items', array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
 				'C_AUTHOR_EXIST' => $author->get_id() !== User::VISITOR_LEVEL,
+				'C_MODULE_NAME' => $modules_config->get_module($row['module_id']),
 				'PSEUDO' => $author->get_display_name(),
 				'USER_LEVEL_CLASS' => UserService::get_level_class($author->get_level()),
 				'USER_GROUP_COLOR' => $user_group_color,
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($author->get_id())->rel(),
-				'MODULE_NAME' => $modules_config->get_module($row['module_id'])->get_configuration()->get_name(),
+				'MODULE_NAME' => $modules_config->get_module($row['module_id']) ? $modules_config->get_module($row['module_id'])->get_configuration()->get_name() : '',
 				'C_READ_MORE' => $cut_contents != $contents,
 				'ARTICLE' => Url::to_rel($row['path']),
 				'CONTENTS' => $cut_contents,
@@ -566,7 +567,7 @@ class HomeLandingHomeController extends ModuleController
 		$contact_config = ContactConfig::load();
 		$form = new HTMLForm(__CLASS__, '', false);
 		
-		$fieldset = new FormFieldsetHTML('contact', $this->lang['home.contact']);
+		$fieldset = new FormFieldsetHTML('contact', $contact_config->get_title());
 		$form->add_fieldset($fieldset);
 		
 		foreach($contact_config->get_fields() as $id => $properties)
