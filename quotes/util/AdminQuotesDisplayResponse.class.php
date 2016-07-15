@@ -38,10 +38,6 @@ class AdminQuotesDisplayResponse extends AdminMenuDisplayResponse
 		$lang = LangLoader::get('common', 'quotes');
 		$this->set_title($lang['module_title']);
 		
-		$this->add_link(LangLoader::get_message('categories.management', 'categories-common'), QuotesUrlBuilder::manage_categories());
-		$this->add_link(LangLoader::get_message('category.add', 'categories-common'), QuotesUrlBuilder::add_category());
-		$this->add_link($lang['quotes.management'], QuotesUrlBuilder::manage());
-		$this->add_link($lang['quotes.actions.add'], QuotesUrlBuilder::add());
 		$this->add_link(LangLoader::get_message('configuration', 'admin'), QuotesUrlBuilder::configuration());
 		
 		$env = $this->get_graphical_environment();

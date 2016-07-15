@@ -34,17 +34,17 @@ define('PATH_TO_ROOT', '..');
 require_once PATH_TO_ROOT . '/kernel/init.php';
 
 $url_controller_mappers = array(
-	//Categories
-	new UrlControllerMapper('QuotesCategoriesManageController', '`^/admin/categories/?$`'),
-	new UrlControllerMapper('QuotesCategoriesFormController', '`^/admin/categories/add/?([0-9]+)?/?$`', array('id_parent')),
-	new UrlControllerMapper('QuotesCategoriesFormController', '`^/admin/categories/([0-9]+)/edit/?$`', array('id')),
-	new UrlControllerMapper('QuotesDeleteCategoryController', '`^/admin/categories/([0-9]+)/delete/?$`', array('id')),
-	
 	//Admin
-	new UrlControllerMapper('AdminQuotesManageController', '`^/admin/manage/?$`'),
 	new UrlControllerMapper('AdminQuotesConfigController', '`^/admin(?:/config)?/?$`'),
 	
+	//Categories
+	new UrlControllerMapper('QuotesCategoriesManageController', '`^/categories/?$`'),
+	new UrlControllerMapper('QuotesCategoriesFormController', '`^/categories/add/?([0-9]+)?/?$`', array('id_parent')),
+	new UrlControllerMapper('QuotesCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('QuotesDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
+	
 	//Management
+	new UrlControllerMapper('QuotesManageController', '`^/manage/?$`'),
 	new UrlControllerMapper('QuotesFormController', '`^/add/?([0-9]+)?/?([a-z0-9-_]+)?/?$`', array('id_category', 'author')),
 	new UrlControllerMapper('QuotesFormController', '`^/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('QuotesDeleteController', '`^/([0-9]+)/delete/?$`', array('id')),

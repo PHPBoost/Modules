@@ -1,6 +1,6 @@
 <?php
 /*##################################################
- *                      AdminQuotesManageController.class.php
+ *                      QuotesManageController.class.php
  *                            -------------------
  *   begin                : February 18, 2016
  *   copyright            : (C) 2016 Julien BRISWALTER
@@ -29,18 +29,20 @@
  * @author Julien BRISWALTER <j1.seth@phpboost.com>
  */
 
-class AdminQuotesManageController extends AdminModuleController
+class QuotesManageController extends AdminModuleController
 {
 	private $lang;
 	private $view;
 	
 	public function execute(HTTPRequestCustom $request)
 	{
+		$this->check_authorizations();
+		
 		$this->init();
 		
 		$this->build_table();
 		
-		return new AdminQuotesDisplayResponse($this->view, $this->lang['quotes.management']);
+		return $this->generate_response();
 	}
 	
 	private function init()
@@ -90,6 +92,31 @@ class AdminQuotesManageController extends AdminModuleController
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
 		$this->view->put('table', $table->display());
+	}
+	
+	private function check_authorizations()
+	{
+		if (!QuotesAuthorizationsService::check_authorizations()->moderation())
+		{
+			$error_controller = PHPBoostErrors::user_not_authorized();
+			DispatchManager::redirect($error_controller);
+		}
+	}
+	
+	private function generate_response()
+	{
+		$response = new SiteDisplayResponse($this->view);
+
+		$graphical_environment = $response->get_graphical_environment();
+		$graphical_environment->set_page_title($this->lang['quotes.management'], $this->lang['module_title']);
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::manage());
+		
+		$breadcrumb = $graphical_environment->get_breadcrumb();
+		$breadcrumb->add($this->lang['module_title'], QuotesUrlBuilder::home());
+		
+		$breadcrumb->add($this->lang['quotes.management'], QuotesUrlBuilder::manage());
+		
+		return $response;
 	}
 }
 ?>

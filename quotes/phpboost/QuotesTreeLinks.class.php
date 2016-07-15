@@ -36,19 +36,19 @@ class QuotesTreeLinks implements ModuleTreeLinksExtensionPoint
 		$lang = LangLoader::get('common', 'quotes');
 		$tree = new ModuleTreeLinks();
 		
-		$manage_categories_link = new AdminModuleLink(LangLoader::get_message('categories.manage', 'categories-common'), QuotesUrlBuilder::manage_categories());
-		$manage_categories_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('categories.manage', 'categories-common'), QuotesUrlBuilder::manage_categories()));
-		$manage_categories_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('category.add', 'categories-common'), QuotesUrlBuilder::add_category(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY))));
+		$manage_categories_link = new ModuleLink(LangLoader::get_message('categories.manage', 'categories-common'), QuotesUrlBuilder::manage_categories(), QuotesAuthorizationsService::check_authorizations()->manage_categories());
+		$manage_categories_link->add_sub_link(new ModuleLink(LangLoader::get_message('categories.manage', 'categories-common'), QuotesUrlBuilder::manage_categories(), QuotesAuthorizationsService::check_authorizations()->manage_categories()));
+		$manage_categories_link->add_sub_link(new ModuleLink(LangLoader::get_message('category.add', 'categories-common'), QuotesUrlBuilder::add_category(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY)), QuotesAuthorizationsService::check_authorizations()->manage_categories()));
 		$tree->add_link($manage_categories_link);
 		
-		$manage_link = new AdminModuleLink($lang['quotes.manage'], QuotesUrlBuilder::manage());
-		$manage_link->add_sub_link(new AdminModuleLink($lang['quotes.manage'], QuotesUrlBuilder::manage()));
-		$manage_link->add_sub_link(new AdminModuleLink($lang['quotes.add'], QuotesUrlBuilder::add(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY), AppContext::get_request()->get_getvalue('author', ''))));
+		$manage_link = new ModuleLink($lang['quotes.manage'], QuotesUrlBuilder::manage(), QuotesAuthorizationsService::check_authorizations()->moderation());
+		$manage_link->add_sub_link(new ModuleLink($lang['quotes.manage'], QuotesUrlBuilder::manage(), QuotesAuthorizationsService::check_authorizations()->moderation()));
+		$manage_link->add_sub_link(new ModuleLink($lang['quotes.add'], QuotesUrlBuilder::add(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY), AppContext::get_request()->get_getvalue('author', '')), QuotesAuthorizationsService::check_authorizations()->moderation()));
 		$tree->add_link($manage_link);
 		
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin'), QuotesUrlBuilder::configuration()));
 		
-		if (!AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
+		if (!QuotesAuthorizationsService::check_authorizations()->moderation())
 		{
 			$tree->add_link(new ModuleLink($lang['quotes.add'], QuotesUrlBuilder::add(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY)), QuotesAuthorizationsService::check_authorizations()->write() || QuotesAuthorizationsService::check_authorizations()->contribution()));
 		}
