@@ -84,10 +84,13 @@ class QuotesFormController extends ModuleController
 		$fieldset = new FormFieldsetHTML('quotes', $this->lang['module_title']);
 		$form->add_fieldset($fieldset);
 		
-		$search_category_children_options = new SearchCategoryChildrensOptions();
-		$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
-		$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
-		$fieldset->add_field(QuotesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_quote()->get_id_category(), $search_category_children_options));
+		if (QuotesService::get_categories_manager()->get_categories_cache()->has_categories())
+		{
+			$search_category_children_options = new SearchCategoryChildrensOptions();
+			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
+			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
+			$fieldset->add_field(QuotesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_quote()->get_id_category(), $search_category_children_options));
+		}
 		
 		$fieldset->add_field(new FormFieldAjaxCompleter('author', $this->common_lang['author'], $this->get_quote()->get_author(),
 			array('required' => true, 'file' => QuotesUrlBuilder::ajax_authors()->rel())
@@ -193,7 +196,10 @@ class QuotesFormController extends ModuleController
 		$quotes = $this->get_quote();
 		
 		$previous_category_id = $quotes->get_id_category();
-		$quotes->set_id_category($this->form->get_value('id_category')->get_raw_value());
+		
+		if (QuotesService::get_categories_manager()->get_categories_cache()->has_categories())
+			$quotes->set_id_category($this->form->get_value('id_category')->get_raw_value());
+		
 		if (!$this->is_contributor_member() && $this->form->get_value('approved'))
 			$quotes->approve();
 		else
@@ -214,11 +220,8 @@ class QuotesFormController extends ModuleController
 		
 		$this->contribution_actions($quotes, $id);
 		
-		if ($quotes->is_approved())
-			QuotesCache::invalidate();
-		
-		if ($previous_category_id != $quotes->get_id_category())
-			QuotesCategoriesCache::invalidate();
+		QuotesCache::invalidate();
+		QuotesCategoriesCache::invalidate();
 	}
 	
 	private function contribution_actions(Quote $quotes, $id)
