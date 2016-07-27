@@ -39,9 +39,8 @@
 				<img class="item-picture" src="{download_items.U_PICTURE}" alt="{download_items.NAME}" />
 			# ENDIF #
 			<p class="item-desc">
-				{download_items.DESCRIPTION}...
+				{download_items.DESCRIPTION}# IF download_items.C_READ_MORE #... <a href="{download_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 			</p>
-			<a href="{download_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a>
 			
 		</div>		
 	# END download_items #

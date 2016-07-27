@@ -36,14 +36,13 @@
 			</div>
 			
 			# IF articles_items.C_HAS_PICTURE #
-				<img class="item-picture" src="{articles_items.PICTURE}" alt="{articles_items.NAME}" />
+				<img class="item-picture" src="{articles_items.PICTURE}" alt="{articles_items.TITLE}" />
 			# ENDIF #
 			<p class="item-desc">
-				{articles_items.DESCRIPTION} ...
+				{articles_items.DESCRIPTION}# IF articles_items.C_READ_MORE #... <a href="{articles_items.U_ARTICLE}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 			</p>
-			<a href="{articles_items.U_ARTICLE}">[${LangLoader::get_message('read-more', 'common')}]</a>
 			
-		</div>	
+		</div>
 	# END articles_items #
 	</div>
 	<footer></footer>
