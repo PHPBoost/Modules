@@ -49,7 +49,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 			
 			foreach ($users_birthday as $user)
 			{
-				$user_group_color = User::get_group_color($user['user_groups'], $user['level'], false);
+				$user_group_color = User::get_group_color($user['groups'], $user['level'], false);
 				
 				$tpl->assign_block_vars('birthday', array(
 					'C_USER_GROUP_COLOR' => !empty($user_group_color),
