@@ -81,7 +81,7 @@
 			</authors>
 			<description>Version 5.0.2 of the Birthday module</description>
 			<whatsnew>
-				<new type="bug">Error in SQL request in the menu cache (was not working in leap years)</new>
+				<new type="bug">Fix error in SQL request in the menu cache (was not working in leap years)</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.2" language="french" localized_language="Francais" name="birthday" priority="low" security-update="false" pubdate="2016/08/04">
@@ -92,7 +92,7 @@
 			</authors>
 			<description>Version 5.0.2 du module Anniversaires</description>
 			<whatsnew>
-				<new type="bug">Erreur dans a requête SQL du cache du menu (ne fonctionnait pas les années bissextiles</new>
+				<new type="bug">Correction d'une erreur dans a requête SQL du cache du menu (ne fonctionnait pas les années bissextiles)</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="english" localized_language="English" name="birthday" priority="low" security-update="false" pubdate="2016/05/22">
@@ -147,7 +147,7 @@
 			</authors>
 			<description>Version 4.1.3 of the Birthday module</description>
 			<whatsnew>
-				<new type="bug">Error in SQL request in the menu cache (was not working in leap years)</new>
+				<new type="bug">Fix error in SQL request in the menu cache (was not working in leap years)</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.3" language="french" localized_language="Francais" name="birthday" priority="low" security-update="false" pubdate="2016/08/04">
@@ -158,7 +158,7 @@
 			</authors>
 			<description>Version 4.1.3 du module Anniversaires</description>
 			<whatsnew>
-				<new type="bug">Erreur dans a requête SQL du cache du menu (ne fonctionnait pas les années bissextiles</new>
+				<new type="bug">Correction d'une erreur dans a requête SQL du cache du menu (ne fonctionnait pas les années bissextiles)</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.2" language="english" localized_language="English" name="birthday" priority="low" security-update="false" pubdate="2014/10/02">
