@@ -29,7 +29,7 @@ class BirthdaySetup extends DefaultModuleSetup
 {
 	public function upgrade($installed_version)
 	{
-		return '4.1.2';
+		return '4.1.3';
 	}
 	
 	public function uninstall()
