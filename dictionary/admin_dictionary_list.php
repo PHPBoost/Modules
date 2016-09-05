@@ -34,7 +34,7 @@ $Cache->load('dictionary');
 $Template = new FileTemplate('dictionary/admin_dictionary_list.tpl');
 $nbr_l = $Sql->count_table(PREFIX . 'dictionary', __LINE__, __FILE__);
 
-//On crée une pagination si le nombre de web est trop important.
+//On crÃ©e une pagination si le nombre de web est trop important.
 $page = AppContext::get_request()->get_getint('p', 1);
 $pagination = new ModulePagination($page, $nbr_l, $CONFIG_DICTIONARY['pagination']);
 $pagination->set_url(new Url('/dictionary/admin_dictionary_list.php?p=%d'));
@@ -77,9 +77,9 @@ ORDER BY timestamp DESC
 while ($row = $Sql->fetch_assoc($result))
 {
 	$aprob = ($row['dictionary_approved'] == 1) ? $LANG['yes'] : $LANG['no'];
-	//On reccourci le lien si il est trop long pour éviter de déformer l'administration.s
+	//On reccourci le lien si il est trop long pour Ã©viter de dÃ©former l'administration.s
 	$title = $row['word'];
-	$title = strlen($title) > 45 ? substr_html($title, 0, 45) . '...' : $title;
+	$title = strlen($title) > 45 ? substr($title, 0, 45) . '...' : $title;
 	$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';
 	$Template->assign_block_vars('dictionary_list', array(
 		'ID' => $row['dictionary_id'],
