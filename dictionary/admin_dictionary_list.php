@@ -35,7 +35,7 @@ $config = DictionaryConfig::load();
 $Template = new FileTemplate('dictionary/admin_dictionary_list.tpl');
 $nbr_l = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table);
 
-//On crée une pagination si le nombre de web est trop important.
+//On crÃ©e une pagination si le nombre de web est trop important.
 $page = AppContext::get_request()->get_getint('p', 1);
 $pagination = new ModulePagination($page, $nbr_l, $config->get_items_number_per_page());
 $pagination->set_url(new Url('/dictionary/admin_dictionary_list.php?p=%d'));
@@ -76,9 +76,9 @@ LIMIT :number_items_per_page OFFSET :display_from", array(
 while ($row = $result->fetch())
 {
 	$aprob = ($row['dictionary_approved'] == 1) ? $LANG['yes'] : $LANG['no'];
-	//On reccourci le lien si il est trop long pour éviter de déformer l'administration.s
+	//On reccourci le lien si il est trop long pour Ã©viter de dÃ©former l'administration.s
 	$title = $row['word'];
-	$title = strlen($title) > 45 ? substr_html($title, 0, 45) . '...' : $title;
+	$title = strlen($title) > 45 ? substr($title, 0, 45) . '...' : $title;
 	$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';
 	$date_created = !empty($row['timestamp']) ? new Date($row['timestamp'], Timezone::SERVER_TIMEZONE) : null;
 	
