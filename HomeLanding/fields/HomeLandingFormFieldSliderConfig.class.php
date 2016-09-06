@@ -54,12 +54,12 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 		$this->assign_common_template_variables($template);
 
 		$i = 0;
-		foreach ($this->get_value() as $description => $url)
+		foreach ($this->get_value() as $id => $options)
 		{
 			$tpl->assign_block_vars('fieldelements', array(
 				'ID' => $i,
-				'URL' => $url,
-				'DESCRIPTION' => $description
+				'URL' => $options['url'],
+				'DESCRIPTION' => $options['description']
 			));
 			$i++;
 		}
@@ -91,15 +91,15 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 		$values = array();
 		for ($i = 0; $i < $this->max_input; $i++)
 		{
-			$field_description_id = 'field_description_' . $this->get_html_id() . '_' . $i;
-			if ($request->has_postparameter($field_description_id))
+			$field_url_id = 'field_url_' . $this->get_html_id() . '_' . $i;
+			if ($request->has_postparameter($field_url_id))
 			{
-				$field_url_id = 'field_url_' . $this->get_html_id() . '_' . $i;
+				$field_description_id = 'field_description_' . $this->get_html_id() . '_' . $i;
 				$field_description = $request->get_poststring($field_description_id);
 				$field_url = $request->get_poststring($field_url_id);
 				
-				if (!empty($field_description) && !empty($field_url))
-					$values[$field_description] = $field_url;
+				if (!empty($field_url))
+					$values[] = array('description' => $field_description, 'url' => $field_url);
 			}
 		}
 		$this->set_value($values);
@@ -112,10 +112,10 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 			$attribute = strtolower($attribute);
 			switch ($attribute)
 			{
-			case 'max_input':
-				$this->max_input = $value;
-				unset($field_options['max_input']);
-				break;
+				case 'max_input':
+					$this->max_input = $value;
+					unset($field_options['max_input']);
+					break;
 			}
 		}
 		parent::compute_options($field_options);

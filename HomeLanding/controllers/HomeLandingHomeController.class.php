@@ -361,11 +361,12 @@ class HomeLandingHomeController extends ModuleController
 			'CAROUSEL_MINI' => $this->config->get_carousel_mini(),
 		));
 		
-		foreach ($carousel as $description => $url)
+		foreach ($carousel as $id => $options)
 		{
 			$tpl->assign_block_vars('carousel', array(
-				'DESCRIPTION' => $description,
-				'URL' => $url,
+				'DESCRIPTION' => $options['description'],
+				'PICTURE_TITLE' => $options['description'] ? $options['description'] : basename($options['url']),
+				'URL' => $options['url'],
 			));
 		}
 		$this->view->put('CAROUSEL', $tpl);
