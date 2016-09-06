@@ -7,8 +7,8 @@
 		<ul class="slides">
             # START carousel #            
 			<li class="slide">
-                <p class="slideCaption">{carousel.DESCRIPTION}</p>
-                <img class="slideImage" src="{PATH_TO_ROOT}{carousel.URL}" alt="{carousel.DESCRIPTION}" />
+                # IF carousel.DESCRIPTION #<p class="slideCaption">{carousel.DESCRIPTION}</p># ENDIF #
+                <img class="slideImage" src="{PATH_TO_ROOT}{carousel.URL}" alt="{carousel.PICTURE_TITLE}" />
             </li>
             # END carousel #
         </ul>
