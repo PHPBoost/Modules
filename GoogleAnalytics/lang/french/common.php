@@ -3,7 +3,7 @@
  *                            common.php
  *                            -------------------
  *   begin                : December 20, 2012
- *   copyright            : (C) 2012 Kévin MASSY
+ *   copyright            : (C) 2012 KÃ©vin MASSY
  *   email                : kevin.massy@phpboost.com
  *
  *  
@@ -34,7 +34,7 @@ $lang['name'] = 'Google Analytics';
 
 $lang['configuration'] = 'Configuration';
 $lang['identifier'] = 'Identifiant de suivi du site';
-$lang['identifier.explain'] = 'Fourni dans l\'interface de Google Analytics. Commençant généralement par UA-';
-$lang['identifier_required'] = 'L\'idenfiant de Google Analytics n\'est pas présent dans la configuration du module. <a href=":link">Veuillez le renseigner pour faire fonctionner le module correctement.</a>';
-$lang['analytics_login'] = '<a href=":link">Connectez vous à votre compte Google Analytics pour voir l\'audience et les statistiques.</a>';
+$lang['identifier.explain'] = 'Fourni dans l\'interface de Google Analytics. CommenÃ§ant gÃ©nÃ©ralement par UA-';
+$lang['identifier_required'] = 'L\'idenfiant de Google Analytics n\'est pas prÃ©sent dans la configuration du module. <a href=":link">Veuillez le renseigner pour faire fonctionner le module correctement.</a>';
+$lang['analytics_login'] = '<a href=":link">Connectez vous Ã  votre compte Google Analytics pour voir l\'audience et les statistiques.</a>';
 ?>

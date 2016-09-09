@@ -37,14 +37,14 @@ $lang['quotes.actions.add'] = 'Ajouter une citation';
 $lang['quotes.add'] = 'Ajout d\'une citation';
 $lang['quotes.edit'] = 'Modification d\'une citation';
 $lang['quotes.pending'] = 'Citations en attente';
-$lang['quotes.manage'] = 'Gérer les citations';
+$lang['quotes.manage'] = 'GÃ©rer les citations';
 $lang['quotes.management'] = 'Gestion des citations';
 
 $lang['quote'] = 'Citation';
 $lang['quotes'] = 'Citations';
 
 //contribution
-$lang['quotes.form.contribution.explain'] = 'Vous n\'êtes pas autorisé à ajouter une citation, cependant vous pouvez en proposer une.';
+$lang['quotes.form.contribution.explain'] = 'Vous n\'Ãªtes pas autorisÃ© Ã  ajouter une citation, cependant vous pouvez en proposer une.';
 
 //SEO
 $lang['quotes.seo.description.pending'] = 'Toutes les citations en attente.';

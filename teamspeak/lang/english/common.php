@@ -1,7 +1,7 @@
 <?php
 /*
  ####################################################
- #						English						# 
+ #			English		            # 
  ####################################################
 */
 $lang['ts_title'] = 'TeamSpeak 3';
@@ -9,7 +9,7 @@ $lang['ts_title'] = 'TeamSpeak 3';
 $lang['ts_ip'] = 'IP Address';
 $lang['ts_ip_explain'] = 'IP Address for TS3 server';
 $lang['ts_voice'] = 'Voice Port';
-$lang['ts_voice_explain'] = 'Port for Voice  (défault : 9987)';
+$lang['ts_voice_explain'] = 'Port for Voice  (dÃ©fault : 9987)';
 $lang['ts_query'] = 'Request Port';
 $lang['ts_query_explain'] = 'Port for server request (default : 10011)';
 $lang['ts_user'] = 'User';

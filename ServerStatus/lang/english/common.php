@@ -1,7 +1,7 @@
 <?php
 /*##################################################
- *								common.php
- *								-------------------
+ *			common.php
+ *			-------------------
  *   begin                : August 4, 2013
  *   copyright            : (C) 2013 Julien BRISWALTER
  *   email                : j1.seth@phpboost.com

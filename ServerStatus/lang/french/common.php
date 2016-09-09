@@ -1,7 +1,7 @@
 <?php
 /*##################################################
- *								common.php
- *								-------------------
+ *				common.php
+ *				-------------------
  *   begin                : August 4, 2013
  *   copyright            : (C) 2013 Julien BRISWALTER
  *   email                : j1.seth@phpboost.com
@@ -34,7 +34,7 @@ $lang['module_title'] = 'Etat des serveurs';
 
 //Admin
 $lang['admin.config.servers.management'] = 'Gestion des serveurs';
-$lang['admin.config.servers.manage'] = 'Gérer les serveurs';
+$lang['admin.config.servers.manage'] = 'GÃ©rer les serveurs';
 $lang['admin.config.servers.title.add_server'] = 'Ajout d\'un nouveau serveur';
 $lang['admin.config.servers.title.edit_server'] = 'Edition d\'un serveur';
 $lang['admin.config.servers.action.add_server'] = 'Ajouter un serveur';
@@ -45,14 +45,14 @@ $lang['admin.config.servers.update_fields_position'] = 'Valider la position des 
 $lang['admin.config.servers.move_up'] = 'Monter le serveur';
 $lang['admin.config.servers.move_down'] = 'Descendre le serveur';
 $lang['admin.config.servers.no_server'] = 'Aucun serveur';
-$lang['admin.config.servers.status_refresh'] = 'Regénérer le statut de tous les serveurs';
+$lang['admin.config.servers.status_refresh'] = 'RegÃ©nÃ©rer le statut de tous les serveurs';
 
 //Config
-$lang['admin.config.curl_extension_disabled'] = 'L\'extension <b>php_curl</b> est désactivée sur ce serveur. Certains tests d\'accès aux serveurs risquent de ne pas fonctionner correctement.';
-$lang['admin.config.refresh_delay'] = 'Délai de rafraîchissement automatique du statut des serveurs';
-$lang['admin.config.refresh_delay.explain'] = 'En minutes. 15 minutes par défaut.';
-$lang['admin.config.timeout'] = 'Durée du test avant de considérer un serveur <b>Hors ligne</b>';
-$lang['admin.config.timeout.explain'] = 'En millisecondes. 800 millisecondes par défaut. Augmentez un peu la valeur si votre serveur est toujours considéré comme <b>Hors ligne</b> alors qu\'il ne l\'est pas.';
+$lang['admin.config.curl_extension_disabled'] = 'L\'extension <b>php_curl</b> est dÃ©sactivÃ©e sur ce serveur. Certains tests d\'accÃ¨s aux serveurs risquent de ne pas fonctionner correctement.';
+$lang['admin.config.refresh_delay'] = 'DÃ©lai de rafraÃ®chissement automatique du statut des serveurs';
+$lang['admin.config.refresh_delay.explain'] = 'En minutes. 15 minutes par dÃ©faut.';
+$lang['admin.config.timeout'] = 'DurÃ©e du test avant de considÃ©rer un serveur <b>Hors ligne</b>';
+$lang['admin.config.timeout.explain'] = 'En millisecondes. 800 millisecondes par dÃ©faut. Augmentez un peu la valeur si votre serveur est toujours considÃ©rÃ© comme <b>Hors ligne</b> alors qu\'il ne l\'est pas.';
 $lang['admin.config.address_displayed'] = 'Afficher l\'adresse des serveurs';
 $lang['admin.config.address_displayed.explain'] = 'Affiche l\'adresse et le port des serveurs dans la liste';
 $lang['admin.authorizations'] = 'Autorisations';
@@ -74,7 +74,7 @@ $lang['server.address.ip.explain'] = 'Exemple : <b>1.2.3.4</b> ou <b>2001:67c:2e
 $lang['server.port'] = 'Port';
 $lang['server.port.explain'] = 'Compris entre <b>1</b> et <b>65535</b>.';
 $lang['server.type'] = 'Type';
-$lang['server.icon'] = 'Icône';
+$lang['server.icon'] = 'IcÃ´ne';
 $lang['server.icon.none_e'] = 'Aucune';
 $lang['server.display'] = 'Afficher';
 $lang['server.not_display'] = 'Ne pas afficher';
@@ -83,5 +83,5 @@ $lang['server.games'] = 'Jeux';
 
 //Messages
 $lang['message.empty_address'] = 'Veuillez renseigner l\'adresse du serveur';
-$lang['message.unexist_address'] = 'L\'adresse indiquée est invalide';
+$lang['message.unexist_address'] = 'L\'adresse indiquÃ©e est invalide';
 ?>

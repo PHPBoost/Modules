@@ -35,14 +35,14 @@ $lang['module_config_title'] = 'Configuration des petites annonces';
 
 //config
 $lang['config.list_size'] = 'Taille de la liste pour mini';
-$lang['config.max_contents_length'] = 'Nombre de caractères maximum dans le contenu';
+$lang['config.max_contents_length'] = 'Nombre de caractÃ¨res maximum dans le contenu';
 $lang['config.max_weeks_number_displayed'] = 'Limiter le nombre de semaines d\'affichage';
 $lang['config.max_weeks_number'] = 'Nombre de semaines d\'affichage';
 $lang['config.display_mail_enabled'] = 'Afficher le lien vers mail';
 $lang['config.display_pm_enabled'] = 'Afficher le lien vers mp';
-$lang['config.return_to_list_enabled'] = 'Revenir à la liste après une modification';
-$lang['config.usage_terms_enabled'] = 'Afficher des conditions générales d\'utilisation';
-$lang['config.usage_terms'] = 'Contenu de vos conditions générales d\'utilisation';
+$lang['config.return_to_list_enabled'] = 'Revenir Ã  la liste aprÃ¨s une modification';
+$lang['config.usage_terms_enabled'] = 'Afficher des conditions gÃ©nÃ©rales d\'utilisation';
+$lang['config.usage_terms'] = 'Contenu de vos conditions gÃ©nÃ©rales d\'utilisation';
 
 //authorizations
 $lang['authorizations.own_crud'] = 'Autorisation d\'Ajouter, Modifier, Supprimer ses propres petites annonces';

@@ -1,6 +1,6 @@
 <?php
 /**
- * smallads_french.php
+ * smallads_english.php
  *
  * @author         alain91
  * @copyright      (C) 2009-2010 Alain Gandon
@@ -32,11 +32,11 @@ $LANG['sa_db_price'] 		= 'Price';
 $LANG['sa_db_shipping'] 	= 'Shipping';
 $LANG['sa_db_approved'] 	= 'Small ads approved';
 $LANG['sa_db_picture']		= 'Picture';
-$LANG['sa_db_max_weeks']	= 'Photo associée';
+$LANG['sa_db_max_weeks']	= 'Photo associÃ©e';
 
 $LANG['sa_group_all'] 		= 'Tout';
 $LANG['sa_group_1']			= 'Vend';
-$LANG['sa_group_2']			= 'Achète';
+$LANG['sa_group_2']			= 'AchÃ¨te';
 $LANG['sa_group_3'] 		= 'Echange';
 $LANG['sa_group_4'] 		= ''; // empty if end of list
 $LANG['sa_group_5'] 		= '';
@@ -67,7 +67,7 @@ $LANG['sa_contrib'] 		= 'Add, Update or Delete contributions';
 
 $LANG['sa_contribution_legend'] 				= 'Introduce your contribution';
 $LANG['sa_contribution_notice'] 				= 'You are not authorized to create small ads, but you can suggest a proposal. Your contribution may or may not be approved.';
-$LANG['sa_contribution_counterpart'] 			= 'Complément de contribution';
+$LANG['sa_contribution_counterpart'] 			= 'ComplÃ©ment de contribution';
 $LANG['sa_contribution_counterpart_explain'] 	= 'Explain motivations of your contribution. this is an optional field.';
 $LANG['sa_contribution_confirmation'] 			= 'Thank you for your contribution';
 $LANG['sa_contribution_confirmation_explain'] 	= '<p>You may follow the process oh this contribution in <a href="' . url('../user/contribution_panel.php') . '">contribution panel of PHPBoost</a> and, if you would, argue with validators.</p><p>Thank you !</p>';

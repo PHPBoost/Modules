@@ -32,5 +32,5 @@
 
 //Default birthday PM values
 $lang['birthday.config.pm_for_members_birthday.default_title'] = 'Joyeux anniversaire';
-$lang['birthday.config.pm_for_members_birthday.default_content'] = 'La communauté vous souhaite un joyeux anniversaire !';
+$lang['birthday.config.pm_for_members_birthday.default_content'] = 'La communautÃ© vous souhaite un joyeux anniversaire !';
 ?>

@@ -32,11 +32,11 @@
 
 $lang['module_title'] = 'Personnalisation CSS';
 
-$lang['theme_choice'] = 'Choix du thème';
+$lang['theme_choice'] = 'Choix du thÃ¨me';
 $lang['file_edit'] = 'Edition du fichier ';
-$lang['edit_description'] = 'Modifiez les éléments ci-dessous puis validez en cliquant sur \'Envoyer\'';
+$lang['edit_description'] = 'Modifiez les Ã©lÃ©ments ci-dessous puis validez en cliquant sur \'Envoyer\'';
 
-$lang['file_edit_success'] = 'Le fichier a bien été modifié';
+$lang['file_edit_success'] = 'Le fichier a bien Ã©tÃ© modifiÃ©';
 
 // Blocs
 $lang['min-width'] = 'Largeur minimale';
@@ -51,7 +51,7 @@ $lang['border_left_description'] = 'Bordure gauche';
 $lang['border_right_description'] = 'Bordure droite';
 $lang['border_top_description'] = 'Bordure haute';
 $lang['border_color_description'] = 'Couleur de bordure';
-$lang['transparency_description'] = 'Opacité';
+$lang['transparency_description'] = 'OpacitÃ©';
 
 $lang['left'] = 'Gauche';
 $lang['right'] = 'Droit';

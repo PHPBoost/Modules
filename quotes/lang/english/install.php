@@ -25,22 +25,22 @@
  *
  ###################################################*/
 
-$lang['quotes.1.quote'] = 'Rien de sert de courir, il faut partir à point.
-Le lièvre et la tortue en sont un témoignage.
-Gageons dit celle-ci que vous n\'atteindrez pas sitôt que moi ce but.';
+$lang['quotes.1.quote'] = 'Rien de sert de courir, il faut partir Ã  point.
+Le liÃ¨vre et la tortue en sont un tÃ©moignage.
+Gageons dit celle-ci que vous n\'atteindrez pas sitÃ´t que moi ce but.';
 $lang['quotes.1.author'] = 'Jean de la Fontaine';
 
-$lang['quotes.2.quote'] = 'La cigale ayant chanté tout l\'été
-se trouva fort dépourvue
+$lang['quotes.2.quote'] = 'La cigale ayant chantÃ© tout l\'Ã©tÃ©
+se trouva fort dÃ©pourvue
 quand la bise fut venue.';
 $lang['quotes.2.author'] = 'Jean de la Fontaine';
 
-$lang['quotes.3.quote'] = 'Un agneau se désaltérait dans le courant d\'une onde pure,
-un loup survint à jeun qui cherchait aventure.';
+$lang['quotes.3.quote'] = 'Un agneau se dÃ©saltÃ©rait dans le courant d\'une onde pure,
+un loup survint Ã  jeun qui cherchait aventure.';
 $lang['quotes.3.author'] = 'Jean de la Fontaine';
 
 $lang['quotes.4.quote'] = 'Je suis venu, j\'ai vu et j\'ai vaincu';
-$lang['quotes.4.author'] = 'Jules César';
+$lang['quotes.4.author'] = 'Jules CÃ©sar';
 
 $lang['quotes.5.quote'] = 'Je vous promets du sang et des larmes';
 $lang['quotes.5.author'] = 'Winston Churchill';
