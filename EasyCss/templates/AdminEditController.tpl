@@ -35,7 +35,7 @@
                                 <fieldset id="AdminEasyCssEditController_fbuttons" class="fieldset-submit">
                                     <div class="fieldset-inset">
                                         <button type="submit" name="AdminEasyCssEditController_submit" class="submit" onclick="" value="true">Envoyer</button>
-                                        <button type="reset" value="true">Défaut</button>
+                                        <button type="reset" value="true">DÃ©faut</button>
                                     </div>
                                 </fieldset>
                             </form>

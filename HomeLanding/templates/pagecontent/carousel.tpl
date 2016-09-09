@@ -24,8 +24,8 @@
            
                     animationSpeed: ${escape(CAROUSEL_SPEED)}, //Vitesse d'animation
                     animationPause: ${escape(CAROUSEL_TIME)}, //Temps d'affichage des images              
-                    arrowNav: ${escape(CAROUSEL_NAV)}, //Navigation suivant/précédent
-                    hoverHandler: ${escape(CAROUSEL_HOVER)}, //Met le défilement en pause au survol des images
+                    arrowNav: ${escape(CAROUSEL_NAV)}, //Navigation suivant/prÃ©cÃ©dent
+                    hoverHandler: ${escape(CAROUSEL_HOVER)}, //Met le dÃ©filement en pause au survol des images
                     nav: ${escapejs(CAROUSEL_MINI)} //Options de navigations, 'dot' (affiche des points), 'img' (affiche les images en miniature) ou null (aucun)
                     // pour supprimmer la navigation par miniature remplacer ${escapejs(CAROUSEL_MINI)} par null
                 }, options);
@@ -35,7 +35,7 @@
                     $slideContainer = $slider.find('.slides'),
                     $slide = $slideContainer.find('.slide');
            
-                //Variables générales
+                //Variables gÃ©nÃ©rales
                 var  currentSlide = 0,
                      interval,
                      resizeId,
@@ -73,7 +73,7 @@
                     });
                 }
                 
-                //Flèches de navigation
+                //FlÃ¨ches de navigation
                 if (settings.arrowNav === true) {
                     $slider.append('<div class="previous hideArrow"><p>&#x27E8;</p></div>');
                     $slider.append('<div class="next hideArrow"><p>&#x27E9;</p></div>');
@@ -165,7 +165,7 @@
                }
              });
            
-             //Défilement
+             //DÃ©filement
            
              function slider() {
                pauseSlider();
@@ -223,7 +223,7 @@
                clearInterval(interval);
              }
            
-             //Démarrage du carrousel
+             //DÃ©marrage du carrousel
              slider();
            };
         }(jQuery));
