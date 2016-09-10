@@ -495,42 +495,11 @@ class HomeLandingHomeController extends ModuleController
 		));
 		
 		while ($row = $result->fetch())
-		{
-			$row['rewrited_name'] = !empty($row['id_category']) ? $row['rewrited_name'] : 'root';
-			$contents = @strip_tags(FormatingHelper::second_parse($row['contents']));
-			$nb_char = $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed();
-			$link = CalendarUrlBuilder::display_event($row['id_category'], $row['rewrited_name'], $row['id_event'], $row['rewrited_title']);
-			
-			$tpl->assign_block_vars('events_items', array(
-				'U_LINK' => $link->absolute(),
-				'TITLE' => $row['title'],
-				'CONTENTS' => trim(substr($contents, 0, $nb_char)),
-				'PSEUDO' => $row['display_name'],
-				'LOCATION' => $row['location'],
-				'LAST_DATE' => strftime('%d/%m/%Y', $row['last_registration_date']),
-				'MAX_MEMBER' => $row['max_registered_members'],
-				'START_DATE' => strftime('%d/%m/%Y', $row['start_date']),
-				'END_DATE' => strftime('%d/%m/%Y', $row['end_date']),
-				'CAT' => $row['name'],
-				'START_DATE_FULL' => strftime('%d %b %Y', $row['start_date']),
+		{			
+			$event = new CalendarEvent();
+			$event->set_properties($row);
  
-				// date de début jour
-				// start date of day
-				'START_DATE_DAY_FULL' => strftime('%A', $row['start_date']),
-				'START_DATE_DAY_SHORT' => strftime('%a', $row['start_date']),
-				'START_DATE_DAY_FIGURE' => strftime('%d', $row['start_date']),
- 
-				// date de début mois
-				// start date of month
-				'START_DATE_MONTH_FULL' => strftime('%B', $row['start_date']),
-				'START_DATE_MONTH_SHORT' => strftime('%b', $row['start_date']),
-				'START_DATE_MONTH_FIGURE' => strftime('%m', $row['start_date']),
- 
-				// date de début année
-				// start date of year
-				'START_DATE_YEAR_FULL' => strftime('%Y', $row['start_date']),
-				'START_DATE_YEAR_SHORT' => strftime('%y', $row['start_date'])
-			));
+			$tpl->assign_block_vars('events_items', $event->get_array_tpl_vars());			
 		}
 		$result->dispose();
 		

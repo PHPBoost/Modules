@@ -25,7 +25,7 @@
 			<div class="more">
 				${LangLoader::get_message('event.date', 'common', 'HomeLanding')} <time datetime="{events_items.START_DATE}" itemprop="datePublished">{events_items.START_DATE}</time>
 			</div>
-			
+			# IF events_items.C_HAS_PICTURE #<img itemprop="thumbnailUrl" src="{events_items.PICTURE}" alt="{events_items.TITLE}" /># ENDIF #
 			<p class="item-desc">
 				{events_items.CONTENTS}  ...
 			</p>
