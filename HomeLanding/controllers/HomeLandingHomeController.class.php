@@ -495,11 +495,16 @@ class HomeLandingHomeController extends ModuleController
 		));
 		
 		while ($row = $result->fetch())
-		{			
+		{
 			$event = new CalendarEvent();
 			$event->set_properties($row);
- 
-			$tpl->assign_block_vars('events_items', $event->get_array_tpl_vars());			
+			
+			$description = substr(@strip_tags(FormatingHelper::second_parse($row['contents']), '<br><br/>'), 0, $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed());
+			
+			$tpl->assign_block_vars('events_items', array_merge($event->get_array_tpl_vars(), array(
+				'C_READ_MORE' => strlen(FormatingHelper::second_parse($row['contents'])) >= $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed(),
+				'DESCRIPTION' => $description
+			)));
 		}
 		$result->dispose();
 		

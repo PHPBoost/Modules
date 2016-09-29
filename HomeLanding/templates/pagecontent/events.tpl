@@ -27,11 +27,9 @@
 			</div>
 			# IF events_items.C_HAS_PICTURE #<img itemprop="thumbnailUrl" src="{events_items.PICTURE}" alt="{events_items.TITLE}" /># ENDIF #
 			<p class="item-desc">
-				{events_items.CONTENTS}  ...
+				{events_items.DESCRIPTION}# IF events_items.C_READ_MORE #... <a href="{events_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 			</p>
-			<a href="{events_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a>
-			
-		</div>	
+		</div>
 	# END events_items #
 	</div>
 	<footer></footer>
