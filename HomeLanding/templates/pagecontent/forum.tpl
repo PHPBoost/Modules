@@ -11,7 +11,8 @@
 		</h2>
 	</header>
 	<div class="content">
-	# START forum_items #	
+	# START forum_items #
+		# IF forum_items.C_READABLE #	
 		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 			
 			<img class="avatar" src="{forum_items.U_AVATAR}" alt="{forum_items.PSEUDO}" />
@@ -27,6 +28,7 @@
 			</p>
 						
 		</div>	
+		# ENDIF #
 	# END forum_items #
 	</div>            
 	<footer></footer>
