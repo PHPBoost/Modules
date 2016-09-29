@@ -11,7 +11,8 @@
 		</h2>
 	</header>
 	<div class="content">
-	# START forum_items #	
+	# START forum_items #
+		# IF forum_items.C_READABLE #
 		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 			
 			<img class="avatar" src="{forum_items.U_AVATAR}" alt="{forum_items.PSEUDO}" />
@@ -26,7 +27,8 @@
 				{forum_items.CONTENTS} ... <a href="{forum_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</i></a>
 			</p>
 						
-		</div>	
+		</div>
+		# ENDIF #
 	# END forum_items #
 	</div>            
 	<footer></footer>

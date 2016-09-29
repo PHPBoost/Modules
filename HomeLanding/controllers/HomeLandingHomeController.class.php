@@ -757,7 +757,10 @@ class HomeLandingHomeController extends ModuleController
 			
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_FORUM]->get_characters_number_displayed();
 			
+			$readable_topic = ForumAuthorizationsService::check_authorizations($row['idcat'])->read();
+			
 			$tpl->assign_block_vars('forum_items', array(
+				'C_READABLE' => $readable_topic,
 				'U_AVATAR' => $user_avatar,
 				'CONTENTS' => stripcslashes(trim(substr($contents, 0, $nb_char))),
 				'PSEUDO' => $row['last_login'],
