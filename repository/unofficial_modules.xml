@@ -561,6 +561,30 @@
 	</app>
 	<!--  babsolune  -->
 	<app id="HomeLanding" type="module">
+		<version num="5.0.3" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/09/29">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">HomeLanding module</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.3 of the HomeLanding module</description>
+			<whatsnew>
+				<new type="bug">Forum messages for admin only were displayed</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.3" language="french" localized_language="Francais" name="HomeLanding" priority="low" security-update="false" pubdate="2016/09/29">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">Module Page d'accueil</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.3 du module Page d'accueil</description>
+			<whatsnew>
+				<new type="bug">Les messages du forum pour les admins étaient affichés sur la page d'accueil</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.2" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/09/06">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">HomeLanding module</download>
