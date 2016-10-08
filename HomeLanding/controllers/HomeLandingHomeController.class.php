@@ -434,6 +434,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/articles.tpl');
+		$authorized_categories = ArticlesService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select('SELECT articles.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'articles articles
@@ -442,9 +443,10 @@ class HomeLandingHomeController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = articles.id AND com.module_id = \'articles\'
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = articles.id AND notes.module_name = \'articles\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = articles.id AND note.module_name = \'articles\' AND note.user_id = :user_id
-		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
+		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0))) AND id_category IN :authorized_categories
 		ORDER BY articles.date_created DESC
 		LIMIT :articles_limit', array(
+			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'timestamp_now' => $now->get_timestamp(),
 			'articles_limit' => $this->modules[HomeLandingConfig::MODULE_ARTICLES]->get_elements_number_displayed()
@@ -475,16 +477,18 @@ class HomeLandingHomeController extends ModuleController
 		$today->set_minutes(0);
 		$today->set_seconds(0);
 		$tpl = new FileTemplate('HomeLanding/pagecontent/events.tpl');
+		$authorized_categories = CalendarService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select('SELECT *
 		FROM '. PREFIX . 'calendar_events event
 		LEFT JOIN ' . PREFIX . 'calendar_events_content event_content ON event_content.id = event.content_id
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_id
 		LEFT JOIN '. PREFIX . 'calendar_cats cat ON cat.id = event_content.id_category
-		WHERE approved = 1
+		WHERE approved = 1 AND id_category IN :authorized_categories
 		AND start_date >= :timestamp_today
 		ORDER BY start_date
 		LIMIT :calendar_limit', array(
+			'authorized_categories' => $authorized_categories,
 			'timestamp_today' => $today->get_timestamp(),
 			'calendar_limit' => $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_elements_number_displayed()
 		));
@@ -495,16 +499,16 @@ class HomeLandingHomeController extends ModuleController
 		));
 		
 		while ($row = $result->fetch())
-		{
+		{			
 			$event = new CalendarEvent();
 			$event->set_properties($row);
-			
+ 
 			$description = substr(@strip_tags(FormatingHelper::second_parse($row['contents']), '<br><br/>'), 0, $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed());
 			
 			$tpl->assign_block_vars('events_items', array_merge($event->get_array_tpl_vars(), array(
 				'C_READ_MORE' => strlen(FormatingHelper::second_parse($row['contents'])) >= $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed(),
 				'DESCRIPTION' => $description
-			)));
+			)));		
 		}
 		$result->dispose();
 		
@@ -701,6 +705,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/download.tpl');
+		$authorized_categories = DownloadService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select('SELECT download.*, member.*, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'download download
@@ -708,9 +713,10 @@ class HomeLandingHomeController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = download.author_user_id
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = :user_id
-		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))
+		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0))) AND id_category IN :authorized_categories
 		ORDER BY download.creation_date DESC
 		LIMIT :download_limit', array(
+			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'timestamp_now' => $now->get_timestamp(),
 			'download_limit' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->get_elements_number_displayed()
@@ -734,15 +740,18 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/forum.tpl');
 		$user_accounts_config = UserAccountsConfig::load();
+		$authorized_categories = ForumService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select('SELECT t.id, t.idcat, t.title, member.display_name AS last_login, t.last_timestamp, t.last_user_id, t.last_msg_id, t.display_msg, t.nbr_msg AS t_nbr_msg, msg.id mid, msg.contents, t.user_id as glogin, ext_field.user_avatar
-		FROM ' . PREFIX . 'forum_topics t
+		FROM ' . PREFIX . 'forum_topics t		
+		LEFT JOIN ' . PREFIX . 'forum_cats cat ON cat.id = t.idcat
 		LEFT JOIN ' . PREFIX . 'forum_msg msg ON msg.id = t.last_msg_id
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = t.last_user_id
 		LEFT JOIN ' . DB_TABLE_MEMBER_EXTENDED_FIELDS . ' ext_field ON ext_field.user_id = member.user_id
-		WHERE t.display_msg = 0
+		WHERE t.display_msg = 0 AND idcat IN :authorized_categories
 		ORDER BY t.last_timestamp DESC
 		LIMIT :forum_limit', array(
+			'authorized_categories' => $authorized_categories,
 			'forum_limit' => $this->modules[HomeLandingConfig::MODULE_FORUM]->get_elements_number_displayed()
 		));
 		
@@ -762,10 +771,7 @@ class HomeLandingHomeController extends ModuleController
 			
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_FORUM]->get_characters_number_displayed();
 			
-			$readable_topic = ForumAuthorizationsService::check_authorizations($row['idcat'])->read();
-			
 			$tpl->assign_block_vars('forum_items', array(
-				'C_READABLE' => $readable_topic,
 				'U_AVATAR' => $user_avatar,
 				'CONTENTS' => stripcslashes(trim(substr($contents, 0, $nb_char))),
 				'PSEUDO' => $row['last_login'],
@@ -784,15 +790,19 @@ class HomeLandingHomeController extends ModuleController
 	private function build_gallery_view()
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/gallery.tpl');
+		$authorized_categories = GalleryService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select("SELECT g.id, g.idcat, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob, m.display_name, m.groups, m.level, notes.average_notes, notes.number_notes, note.note
 		FROM " . GallerySetup::$gallery_table . " g
+		LEFT JOIN " . PREFIX . "gallery_cats cat ON cat.id = g.idcat
 		LEFT JOIN " . DB_TABLE_MEMBER . " m ON m.user_id = g.user_id
 		LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " com ON com.id_in_module = g.id AND com.module_id = 'gallery'
 		LEFT JOIN " . DB_TABLE_AVERAGE_NOTES . " notes ON notes.id_in_module = g.id AND notes.module_name = 'gallery'
 		LEFT JOIN " . DB_TABLE_NOTE . " note ON note.id_in_module = g.id AND note.module_name = 'gallery' AND note.user_id = :user_id
+		WHERE idcat IN :authorized_categories
 		ORDER BY g.timestamp DESC
 		LIMIT :gallery_limit", array(
+			'authorized_categories' => $authorized_categories,
 			'gallery_limit' => $this->modules[HomeLandingConfig::MODULE_GALLERY]->get_elements_number_displayed(),
 			'user_id' => AppContext::get_current_user()->get_id(),
 		));
@@ -858,6 +868,7 @@ class HomeLandingHomeController extends ModuleController
 	private function build_media_view()
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/media.tpl');
+		$authorized_categories = MediaService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select('SELECT media.*, mb.display_name, mb.groups, mb.level, notes.average_notes, notes.number_notes, note.note
 		FROM ' . PREFIX . 'media AS media
@@ -865,8 +876,10 @@ class HomeLandingHomeController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' AS mb ON media.iduser = mb.user_id
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = media.id AND notes.module_name = \'media\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = media.id AND note.module_name = \'media\' AND note.user_id = :user_id
+		WHERE idcat IN :authorized_categories
 		ORDER BY media.timestamp DESC
 		LIMIT :media_limit', array(
+			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'media_limit' => $this->modules[HomeLandingConfig::MODULE_MEDIA]->get_elements_number_displayed()
 		));
@@ -942,14 +955,16 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/news.tpl');
+		$authorized_categories = NewsService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select('SELECT news.*, member.*, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'news news
 		LEFT JOIN ' . PREFIX . 'news_cats cat ON cat.id = news.id_category
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = news.author_user_id
-		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))
+		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0))) AND id_category IN :authorized_categories
 		ORDER BY news.creation_date DESC
 		LIMIT :news_limit', array(
+			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'timestamp_now' => $now->get_timestamp(),
 			'news_limit' => $this->modules[HomeLandingConfig::MODULE_NEWS]->get_elements_number_displayed()
@@ -973,6 +988,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/web.tpl');
+		$authorized_categories = WebService::get_authorized_categories(Category::ROOT_CATEGORY);
 		
 		$result = $this->querier->select('SELECT web.*, member.*, cat.rewrited_name AS rewrited_name_cat, notes.average_notes, notes.number_notes, note.note
 		FROM ' . PREFIX . 'web web
@@ -980,9 +996,10 @@ class HomeLandingHomeController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = web.author_user_id
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = web.id AND notes.module_name = \'web\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = web.id AND note.module_name = \'web\'
-		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0))) AND partner = 1
+		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0))) AND partner = 1 AND id_category IN :authorized_categories
 		ORDER BY web.rewrited_name ASC
 		LIMIT :web_limit', array(
+			'authorized_categories' => $authorized_categories,
 			'timestamp_now' => $now->get_timestamp(),
 			'web_limit' => $this->modules[HomeLandingConfig::MODULE_WEB]->get_elements_number_displayed()
 		));
