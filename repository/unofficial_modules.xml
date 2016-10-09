@@ -561,6 +561,32 @@
 	</app>
 	<!--  babsolune  -->
 	<app id="HomeLanding" type="module">
+		<version num="5.0.4" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/10/09">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">HomeLanding module</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.4 of the HomeLanding module</description>
+			<whatsnew>
+				<new type="bug">Pending elements were displayed</new>
+				<new type="bug">Categories authorizations were not completely verified</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.4" language="french" localized_language="Francais" name="HomeLanding" priority="low" security-update="false" pubdate="2016/10/09">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">Module Page d'accueil</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.4 du module Page d'accueil</description>
+			<whatsnew>
+				<new type="bug">Les éléments en attente de publication étaient affichés</new>
+				<new type="bug">Les autorisations sur les catégories n'étaient pas complètement vérifiées</new>
+			</whatsnew>
+		</version>
 		<version num="5.0.3" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/09/29">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/HomeLanding/HomeLanding.zip">HomeLanding module</download>
