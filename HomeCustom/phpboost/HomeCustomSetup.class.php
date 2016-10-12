@@ -1,9 +1,9 @@
 <?php
 /*##################################################
- *                         ServerStatusSetup.class.php
+ *                         HomeCustomSetup.class.php
  *                            -------------------
- *   begin                : August 4, 2013
- *   copyright            : (C) 2013 Julien BRISWALTER
+ *   begin                : October 12, 2016
+ *   copyright            : (C) 2016 Julien BRISWALTER
  *   email                : j1.seth@phpboost.com
  *
  *
@@ -25,21 +25,11 @@
  *
  ###################################################*/
 
-class ServerStatusSetup extends DefaultModuleSetup
+class HomeCustomSetup extends DefaultModuleSetup
 {
 	public function upgrade($installed_version)
 	{
 		return '5.1.0';
-	}
-	
-	public function uninstall()
-	{
-		$this->delete_configuration();
-	}
-	
-	private function delete_configuration()
-	{
-		ConfigManager::delete('serverstatus', 'config');
 	}
 }
 ?>

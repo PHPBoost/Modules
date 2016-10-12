@@ -29,7 +29,7 @@ class EasyCssSetup extends DefaultModuleSetup
 {
 	public function upgrade($installed_version)
 	{
-		return '5.0.1';
+		return '5.1.0';
 	}
 }
 ?>

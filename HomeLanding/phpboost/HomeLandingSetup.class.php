@@ -48,7 +48,7 @@ class HomeLandingSetup extends DefaultModuleSetup
 		$config->set_carousel($new_carousel);
 		HomeLandingConfig::save();
 		
-		return '5.0.2';
+		return '5.1.0';
 	}
 	
 	private function delete_configuration()
