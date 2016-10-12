@@ -12,7 +12,7 @@
 			</authors>
 			<description>Version 5.0.1 of the GoogleAnalytics module</description>
 			<whatsnew>
-				<new type="improvment">GoogleAnalytics template update</new>
+				<new type="improvement">GoogleAnalytics template update</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="french" localized_language="Francais" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/04/29">
@@ -23,7 +23,7 @@
 			</authors>
 			<description>Version 5.0.1 du module GoogleAnalytics</description>
 			<whatsnew>
-				<new type="improvment">Mise à jour du template avec le nouveau code js GoogleAnalytics</new>
+				<new type="improvement">Mise à jour du template avec le nouveau code js GoogleAnalytics</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/02/11">
@@ -34,7 +34,7 @@
 			</authors>
 			<description>Version 5.0.0 of the GoogleAnalytics module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 5.0 version</new>
+				<new type="improvement">Module compatible with PHPBoost 5.0 version</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="french" localized_language="Francais" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/02/11">
@@ -45,7 +45,7 @@
 			</authors>
 			<description>Version 5.0.0 du module GoogleAnalytics</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="english" localized_language="English" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2014/07/13">
@@ -56,7 +56,7 @@
 			</authors>
 			<description>Version 4.1.0 of the GoogleAnalytics module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 4.1 version</new>
+				<new type="improvement">Module compatible with PHPBoost 4.1 version</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="french" localized_language="Francais" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2014/07/13">
@@ -67,7 +67,7 @@
 			</authors>
 			<description>Version 4.1.0 du module GoogleAnalytics</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 4.1</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 4.1</new>
 			</whatsnew>
 		</version>
 	</app>
@@ -125,7 +125,7 @@
 			</authors>
 			<description>Version 5.0.0 of the Birthday module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 5.0 version</new>
+				<new type="improvement">Module compatible with PHPBoost 5.0 version</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="french" localized_language="Francais" name="birthday" priority="low" security-update="false" pubdate="2016/02/11">
@@ -136,7 +136,7 @@
 			</authors>
 			<description>Version 5.0.0 du module Anniversaires</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.3" language="english" localized_language="English" name="birthday" priority="low" security-update="false" pubdate="2016/08/04">
@@ -193,7 +193,7 @@
 			</authors>
 			<description>Version 5.0.0 of the Server Status module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 5.0 version</new>
+				<new type="improvement">Module compatible with PHPBoost 5.0 version</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="french" localized_language="Francais" name="ServerStatus" priority="low" security-update="false" pubdate="2016/02/11">
@@ -204,7 +204,7 @@
 			</authors>
 			<description>Version 5.0.0 du module Statut des serveurs</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="english" localized_language="English" name="ServerStatus" priority="low" security-update="false" pubdate="2014/07/13">
@@ -215,7 +215,7 @@
 			</authors>
 			<description>Version 4.1.0 of the Server Status module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 4.1 version</new>
+				<new type="improvement">Module compatible with PHPBoost 4.1 version</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="french" localized_language="Francais" name="ServerStatus" priority="low" security-update="false" pubdate="2014/07/13">
@@ -226,7 +226,7 @@
 			</authors>
 			<description>Version 4.1.0 du module Statut des serveurs</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 4.1</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 4.1</new>
 			</whatsnew>
 		</version>
 	</app>
@@ -263,7 +263,7 @@
 			</authors>
 			<description>Version 5.0.0 du module Dictionnaire</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="french" localized_language="Francais" name="dictionary" priority="low" security-update="false" pubdate="2014/07/13">
@@ -275,7 +275,7 @@
 			</authors>
 			<description>Version 4.1.0 du module Dictionnaire</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 4.1</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 4.1</new>
 			</whatsnew>
 		</version>
 	</app>
@@ -288,8 +288,8 @@
 			</authors>
 			<description>Version 5.0.0 of the Quotes module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 5.0 version</new>
-				<new type="improvment">Module rewritten with a new functionality : quotes by author</new>
+				<new type="improvement">Module compatible with PHPBoost 5.0 version</new>
+				<new type="improvement">Module rewritten with a new functionality : quotes by author</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="french" localized_language="Francais" name="quotes" priority="low" security-update="false" pubdate="2016/03/10">
@@ -300,8 +300,8 @@
 			</authors>
 			<description>Version 5.0.0 du module Citations</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
-				<new type="improvment">Réécriture complète du module et ajout d'une page pour afficher les citations par auteur</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvement">Réécriture complète du module et ajout d'une page pour afficher les citations par auteur</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="english" localized_language="English" name="quotes" priority="low" security-update="false" pubdate="2014/07/13">
@@ -313,7 +313,7 @@
 			</authors>
 			<description>Version 4.1.0 of the Quotes module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 4.1 version</new>
+				<new type="improvement">Module compatible with PHPBoost 4.1 version</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="french" localized_language="Francais" name="quotes" priority="low" security-update="false" pubdate="2014/07/13">
@@ -325,7 +325,7 @@
 			</authors>
 			<description>Version 4.1.0 du module Citations</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 4.1</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 4.1</new>
 			</whatsnew>
 		</version>
 	</app>
@@ -469,7 +469,7 @@
 			</authors>
 			<description>Version 5.0.0 of the Smallads module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 5.0 version</new>
+				<new type="improvement">Module compatible with PHPBoost 5.0 version</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2016/02/11">
@@ -481,7 +481,7 @@
 			</authors>
 			<description>Version 5.0.0 du module Petites annonces</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.3" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2014/10/15">
@@ -520,7 +520,7 @@
 			</authors>
 			<description>Version 5.0.0 of the Teamspeak 3 module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 5.0 version</new>
+				<new type="improvement">Module compatible with PHPBoost 5.0 version</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="french" localized_language="Francais" name="teamspeak" priority="low" security-update="false" pubdate="2016/02/11">
@@ -531,7 +531,7 @@
 			</authors>
 			<description>Version 5.0.0 du module Teamspeak 3</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 5.0</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="english" localized_language="English" name="teamspeak" priority="low" security-update="false" pubdate="2014/10/03">
@@ -542,8 +542,8 @@
 			</authors>
 			<description>Version 4.1.0 of the Teamspeak 3 module</description>
 			<whatsnew>
-				<new type="improvment">Module compatible with PHPBoost 4.1 version</new>
-				<new type="improvment">Various optimisations</new>
+				<new type="improvement">Module compatible with PHPBoost 4.1 version</new>
+				<new type="improvement">Various optimisations</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="french" localized_language="Francais" name="teamspeak" priority="low" security-update="false" pubdate="2014/10/03">
@@ -554,8 +554,8 @@
 			</authors>
 			<description>Version 4.1.0 du module Teamspeak 3</description>
 			<whatsnew>
-				<new type="improvment">Passage du module en version compatible PHPBoost 4.1</new>
-				<new type="improvment">Optimisations diverses</new>
+				<new type="improvement">Passage du module en version compatible PHPBoost 4.1</new>
+				<new type="improvement">Optimisations diverses</new>
 			</whatsnew>
 		</version>
 	</app>
@@ -620,7 +620,7 @@
 			</authors>
 			<description>Version 5.0.2 of the HomeLanding module</description>
 			<whatsnew>
-				<new type="improvment">Possibility to let description empty in slider</new>
+				<new type="improvement">Possibility to let description empty in slider</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.2" language="french" localized_language="Francais" name="HomeLanding" priority="low" security-update="false" pubdate="2016/09/06">
@@ -632,7 +632,7 @@
 			</authors>
 			<description>Version 5.0.2 du module Page d'accueil</description>
 			<whatsnew>
-				<new type="improvment">Possibilité de laisser la description vide pour les images du carousel</new>
+				<new type="improvement">Possibilité de laisser la description vide pour les images du carousel</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/07/11">
@@ -648,7 +648,7 @@
 				<new type="bug">Fix links [Read more] in articles</new>
 				<new type="bug">Fix 404 errors in gallery</new>
 				<new type="bug">Fix contact module title</new>
-				<new type="improvment">Possibility to use lastcoms if url rewriting is not enabled</new>
+				<new type="improvement">Possibility to use lastcoms if url rewriting is not enabled</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="french" localized_language="Francais" name="HomeLanding" priority="low" security-update="false" pubdate="2016/07/11">
@@ -664,7 +664,7 @@
 				<new type="bug">Correction de l'affichage des liens [Lire la suite] des articles</new>
 				<new type="bug">Correction d'erreurs 404 dans la galerie</new>
 				<new type="bug">Correction du titre du module contact</new>
-				<new type="improvment">Possibilité d'utiliser les derniers commentaires même si la réécriture d'url n'est pas activée</new>
+				<new type="improvement">Possibilité d'utiliser les derniers commentaires même si la réécriture d'url n'est pas activée</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/06/15">
