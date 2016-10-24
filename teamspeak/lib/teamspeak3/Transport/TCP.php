@@ -69,7 +69,7 @@ class TeamSpeak3_Transport_TCP extends TeamSpeak3_Transport_Abstract
 
     $this->stream = null;
 
-    TeamSpeak3_Helper_Signal::getInstance()->emit(strtolower($this->getAdapterType()) . "Disconnected");
+    TeamSpeak3_Helper_Signal::getInstance()->emit(mb_strtolower($this->getAdapterType()) . "Disconnected");
   }
 
   /**
@@ -146,14 +146,14 @@ class TeamSpeak3_Transport_TCP extends TeamSpeak3_Transport_Abstract
    */
   public function sendLine($data, $separator = "\n")
   {
-    $size = strlen($data);
+    $size = mb_strlen($data);
     $pack = 4096;
 
     for($seek = 0 ;$seek < $size;)
     {
       $rest = $size-$seek;
       $pack = $rest < $pack ? $rest : $pack;
-      $buff = substr($data, $seek, $pack);
+      $buff = mb_substr($data, $seek, $pack);
       $seek = $seek+$pack;
 
       if($seek >= $size) $buff .= $separator;

@@ -112,7 +112,7 @@ class TeamSpeak3_Adapter_ServerQuery extends TeamSpeak3_Adapter_Abstract
   {
     $query = TeamSpeak3_Helper_String::factory($cmd)->section(TeamSpeak3::SEPARATOR_CELL);
 
-    if(strstr($cmd, "\r") || strstr($cmd, "\n"))
+    if(mb_strstr($cmd, "\r") || mb_strstr($cmd, "\n"))
     {
       throw new TeamSpeak3_Adapter_Exception("illegal characters in command '" . $query . "'");
     }
@@ -178,7 +178,7 @@ class TeamSpeak3_Adapter_ServerQuery extends TeamSpeak3_Adapter_Abstract
 
     foreach($params as $ident => $value)
     {
-      $ident = is_numeric($ident) ? "" : strtolower($ident) . TeamSpeak3::SEPARATOR_PAIR;
+      $ident = is_numeric($ident) ? "" : mb_strtolower($ident) . TeamSpeak3::SEPARATOR_PAIR;
 
       if(is_array($value))
       {

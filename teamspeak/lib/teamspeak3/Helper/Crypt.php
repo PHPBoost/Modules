@@ -74,12 +74,12 @@ class TeamSpeak3_Helper_Crypt
   {
     $string = trim($string);
     $encryp = "";
-    $length = strlen($string);
+    $length = mb_strlen($string);
     $string .= str_repeat(chr(0), (8-($length%8))%8);
 
     for($i = 0; $i < $length; $i += 8)
     {
-      list(,$xl,$xr) = unpack("N2", substr($string, $i, 8));
+      list(,$xl,$xr) = unpack("N2", mb_substr($string, $i, 8));
       $this->encipher($xl, $xr);
       $encryp .= pack("N2", $xl, $xr);
     }
@@ -97,12 +97,12 @@ class TeamSpeak3_Helper_Crypt
   {
     $string = base64_decode($string);
     $decryp = "";
-    $length = strlen($string);
+    $length = mb_strlen($string);
     $string .= str_repeat(chr(0), (8-($length%8))%8);
 
     for($i = 0; $i < $length; $i += 8)
     {
-      list(,$xl,$xr) = unpack("N2", substr($string, $i, 8));
+      list(,$xl,$xr) = unpack("N2", mb_substr($string, $i, 8));
       $this->decipher($xl, $xr);
       $decryp .= pack("N2", $xl, $xr);
     }
@@ -158,9 +158,9 @@ class TeamSpeak3_Helper_Crypt
    */
   protected function setSecretKey($passphrase)
   {
-    $length = strlen($passphrase);
+    $length = mb_strlen($passphrase);
 
-    if(strlen($passphrase) < 1 || strlen($passphrase) > 56)
+    if(mb_strlen($passphrase) < 1 || mb_strlen($passphrase) > 56)
     {
       throw new TeamSpeak3_Helper_Exception("secret passphrase must contain at least one but less than 56 characters");
     }

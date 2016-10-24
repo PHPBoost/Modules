@@ -70,7 +70,7 @@ class TeamSpeak3_Adapter_FileTransfer extends TeamSpeak3_Adapter_Abstract
    */
   protected function init($ftkey)
   {
-    if(strlen($ftkey) != 32)
+    if(mb_strlen($ftkey) != 32)
     {
       throw new TeamSpeak3_Adapter_Exception("invalid file transfer key format");
     }
@@ -94,7 +94,7 @@ class TeamSpeak3_Adapter_FileTransfer extends TeamSpeak3_Adapter_Abstract
   {
     $this->init($ftkey);
 
-    $size = strlen($data);
+    $size = mb_strlen($data);
     $seek = intval($seek);
     $pack = 4096;
 
@@ -104,7 +104,7 @@ class TeamSpeak3_Adapter_FileTransfer extends TeamSpeak3_Adapter_Abstract
     {
       $rest = $size-$seek;
       $pack = $rest < $pack ? $rest : $pack;
-      $buff = substr($data, $seek, $pack);
+      $buff = mb_substr($data, $seek, $pack);
       $seek = $seek+$pack;
 
       $this->getTransport()->send($buff);
@@ -162,7 +162,7 @@ class TeamSpeak3_Adapter_FileTransfer extends TeamSpeak3_Adapter_Abstract
 
     TeamSpeak3_Helper_Signal::getInstance()->emit("filetransferDownloadFinished", $ftkey, count($buff), $size);
 
-    if(strlen($buff) != $size)
+    if(mb_strlen($buff) != $size)
     {
       throw new TeamSpeak3_Adapter_Exception("incomplete file download (" . count($buff) . " of " . $size . " bytes)");
     }

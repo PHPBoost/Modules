@@ -428,7 +428,7 @@ class TeamSpeak3
    */
   public static function autoload($class)
   {
-    if(substr($class, 0, strlen(__CLASS__)) != __CLASS__) return;
+    if(mb_substr($class, 0, mb_strlen(__CLASS__)) != __CLASS__) return;
 
     try
     {

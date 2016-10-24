@@ -210,7 +210,7 @@ abstract class TeamSpeak3_Transport_Abstract
     {
       $string = TeamSpeak3_Helper_String::factory(get_class($this->adapter));
 
-      return $string->substr($string->findLast("_"))->replace(array("_", " "), "")->toString();
+      return $string->mb_substr($string->findLast("_"))->replace(array("_", " "), "")->toString();
     }
 
     return "Unknown";
@@ -259,7 +259,7 @@ abstract class TeamSpeak3_Transport_Abstract
 
       if($time)
       {
-        TeamSpeak3_Helper_Signal::getInstance()->emit(strtolower($this->getAdapterType()) . "WaitTimeout", $time, $this->getAdapter());
+        TeamSpeak3_Helper_Signal::getInstance()->emit(mb_strtolower($this->getAdapterType()) . "WaitTimeout", $time, $this->getAdapter());
       }
 
       $time = $time+$this->config["timeout"];

@@ -77,12 +77,12 @@ class TeamSpeak3_Adapter_ServerQuery_Event implements ArrayAccess
     $fake = new TeamSpeak3_Helper_String(TeamSpeak3::ERROR . TeamSpeak3::SEPARATOR_CELL . "id" . TeamSpeak3::SEPARATOR_PAIR . 0 . TeamSpeak3::SEPARATOR_CELL . "msg" . TeamSpeak3::SEPARATOR_PAIR . "ok");
     $repl = new TeamSpeak3_Adapter_ServerQuery_Reply(array($data, $fake), $type);
 
-    $this->type = $type->substr(strlen(TeamSpeak3::EVENT));
+    $this->type = $type->mb_substr(mb_strlen(TeamSpeak3::EVENT));
     $this->data = $repl->toList();
     $this->mesg = $data;
 
     TeamSpeak3_Helper_Signal::getInstance()->emit("notifyEvent", $this, $con);
-    TeamSpeak3_Helper_Signal::getInstance()->emit("notify" . ucfirst($this->type), $this, $con);
+    TeamSpeak3_Helper_Signal::getInstance()->emit("notify" . Texthelper::uppercase_first($this->type), $this, $con);
   }
 
   /**

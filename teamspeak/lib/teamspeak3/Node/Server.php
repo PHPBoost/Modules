@@ -1525,7 +1525,7 @@ class TeamSpeak3_Node_Server extends TeamSpeak3_Node_Abstract
   public function iconUpload($data)
   {
     $crc = crc32($data);
-    $size = strlen($data);
+    $size = mb_strlen($data);
 
     $upload = $this->transferInitUpload($this->getId(), 0, "/icon_" . $crc, $size);
     $transfer = TeamSpeak3::factory("filetransfer://" . $upload["host"] . ":" . $upload["port"]);
@@ -2095,7 +2095,7 @@ class TeamSpeak3_Node_Server extends TeamSpeak3_Node_Abstract
       return ($a["client_is_talker"] > $b["client_is_talker"]) ? -1 : 1;
     }
 
-    return strcmp(strtolower($a["client_nickname"]), strtolower($b["client_nickname"]));
+    return strcmp(mb_strtolower($a["client_nickname"]), mb_strtolower($b["client_nickname"]));
   }
 
   /**
@@ -2139,7 +2139,7 @@ class TeamSpeak3_Node_Server extends TeamSpeak3_Node_Abstract
       throw new TeamSpeak3_Adapter_ServerQuery_Exception("invalid parameter", 0x602);
     }
 
-    return strcmp(strtolower($a["src"]), strtolower($b["src"]));
+    return strcmp(mb_strtolower($a["src"]), mb_strtolower($b["src"]));
   }
 
   /**
