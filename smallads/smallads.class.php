@@ -97,7 +97,7 @@ class Smallads
 			if (is_writable($dir))
 			{
 				$upload->file('smallads_picture', '`\.(jpeg|jpg|gif|png)$`i', FALSE, SmalladsConfig::MAX_PICTURE_WEIGHT, FALSE);
-				if (!empty($upload->error)) //Erreur, on arrête ici
+				if (!empty($upload->error)) //Erreur, on arrÃªte ici
 				{
 					$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), $upload->error);
 					DispatchManager::redirect($controller);
@@ -154,7 +154,7 @@ class Smallads
 			// Teste les dimensions tenant dans la zone
 			$test_h = round(($dst_w / $src_w) * $src_h);
 			$test_w = round(($dst_h / $src_h) * $src_w);
-			// Si Height ou Width final non précisé (0)
+			// Si Height ou Width final non prÃ©cisÃ© (0)
 			if (!$dst_h)
 				$height = $test_h;
 			elseif (!$dst_w)
@@ -190,7 +190,7 @@ class Smallads
 			}
 			else
 			{
-				//Préparation de l'image redimensionnée.
+				//PrÃ©paration de l'image redimensionnÃ©e.
 				if (!function_exists('imagecreatetruecolor'))
 				{
 					$thumbnail = @imagecreate($width, $height);

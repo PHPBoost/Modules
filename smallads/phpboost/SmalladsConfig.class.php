@@ -195,7 +195,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::DISPLAY_PM_ENABLED => true,
 			self::RETURN_TO_LIST_ENABLED => false,
 			self::USAGE_TERMS_ENABLED => false,
-			self::USAGE_TERMS => 'Renseigner ici vos Conditions Générales / Fill in there your general usage terms',
+			self::USAGE_TERMS => 'Renseigner ici vos Conditions GÃ©nÃ©rales / Fill in there your general usage terms',
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 7, 'r1' => 15)
 		);
 	}

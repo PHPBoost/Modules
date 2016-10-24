@@ -351,7 +351,7 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 				
 				//Le doublon existe-t-il ?
 				if ( !empty($row) ) {
-					// NON on le crée
+					// NON on le crÃ©e
 					$result = PersistenceContext::get_querier()->insert(SmalladsSetup::$smallads_table, array(
 						'title' => addslashes($sa_title),
 						'contents' => addslashes($sa_contents),
@@ -392,7 +392,7 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 
 			$smallads->upload_picture($id_picture);
 
-			// update d'une contribution non traitée
+			// update d'une contribution non traitÃ©e
 			$contribution_counterpart = retrieve(POST, 'contribution_counterpart', '', TSTRING_UNCHANGE);
 			if (!$smallads->contribution_update($row2['id'], 'Modif id # '.$row2['id'].' - '.$contribution_counterpart))
 			{
@@ -572,7 +572,7 @@ elseif ($id_delete_pict)
 		{
 			@unlink (PATH_TO_ROOT.'/smallads/pics/'.$filename);
 		}
-		SmalladsCache::invalidate(); //Régénération du cache
+		SmalladsCache::invalidate(); //RÃ©gÃ©nÃ©ration du cache
 	}
 
 	AppContext::get_response()->redirect(HOST . SCRIPT . '?edit=' . $id_delete_pict . '&s=1');
@@ -693,7 +693,7 @@ elseif ($id_edit || $id_add)
 		foreach (array_keys($columns) as $column) {
 			$row[$column] = '';
 		}
-		$row['approved'] = 1; // on simule "approuvé" sur add
+		$row['approved'] = 1; // on simule "approuvÃ©" sur add
 		$legend 		= $LANG['sa_add_legend'];
 		$c_contribution = !$smallads->access_ok(SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS) AND $smallads->access_ok(SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS);
 	}
@@ -756,7 +756,7 @@ elseif ($id_edit || $id_add)
 		'DB_MAX_WEEKS'		=> $row['max_weeks'],
 
 		'DB_MAXLEN'			=> $maxlen,
-		'DB_CONTENTS_REMAIN'	=> max($maxlen - strlen(@strip_tags($row['contents'], '<br><br/><br />')), 0),
+		'DB_CONTENTS_REMAIN'	=> max($maxlen - mb_strlen(@strip_tags($row['contents'], '<br><br/><br />')), 0),
 
 		'L_DB_TYPE'			=> $LANG['sa_db_type'],
 		'L_DB_TITLE'		=> $LANG['sa_db_title'],
@@ -806,7 +806,7 @@ elseif ($id_edit || $id_add)
 
 	$tpl->display();
 }
-else //Affichage en liste par défaut
+else //Affichage en liste par dÃ©faut
 {
 	$modulesLoader = AppContext::get_extension_provider_service();
 	$module_name = 'smallads';
