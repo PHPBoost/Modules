@@ -33,32 +33,32 @@
  */
 abstract class EasyCssAbstractBlock
 {
-    /** @var string         ID de l'élément */
+    /** @var string         ID de l'Ã©lÃ©ment */
     public $id;
     
     /** @var string         ID du parent direct */
     protected $parent_id;
     
-    /** @var string         Contenu CSS original de l'élément */
+    /** @var string         Contenu CSS original de l'Ã©lÃ©ment */
     protected $css_content;
     
-    /** @var string         Contenu du fichier parsé */
+    /** @var string         Contenu du fichier parsÃ© */
     protected $parsed_css;
     
-    /** @var array          Blocks ou éléments enfants (si EasyCssBlock) */
+    /** @var array          Blocks ou Ã©lÃ©ments enfants (si EasyCssBlock) */
     protected $children = [];
     
     /** @var integer        Compteur de remplacement */
     protected $counter = 0;
     
-    /** @var boolean        Si le contenu du bloc doit être affiché lors de l'édition */
+    /** @var boolean        Si le contenu du bloc doit Ãªtre affichÃ© lors de l'Ã©dition */
     public $to_display;
     
     public $on_error = false;
 
 
     /**
-     * Récupération des templates des blocs enfants
+     * RÃ©cupÃ©ration des templates des blocs enfants
      * 
      * @return \FileTemplate array      Tableau de templates des enfants du bloc
      */
@@ -75,7 +75,7 @@ abstract class EasyCssAbstractBlock
                 $block = $this->children[$matches[1]];
                 if ($block->to_display && $block->on_error === false)
                 {
-                    // Si le bloc doit être affiché
+                    // Si le bloc doit Ãªtre affichÃ©
                     $templates = $block->get_templates();
                     if (!is_array($templates))
                         $templates = [$templates];
@@ -90,9 +90,9 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Récupération du code CSS du bloc et ses enfants
+     * RÃ©cupÃ©ration du code CSS du bloc et ses enfants
      * 
-     * @return string   Contenu CSS des éléments
+     * @return string   Contenu CSS des Ã©lÃ©ments
      */
     public function get_css_to_save()
     {
@@ -120,11 +120,11 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Indique à l'enfant qu'il doit aller récupérer sa valeur depuis le POST
+     * Indique Ã  l'enfant qu'il doit aller rÃ©cupÃ©rer sa valeur depuis le POST
      * 
      * @param string                Chemin de l'enfant
      * @param \HTTPRequestCustom    $request
-     * @return mixed                Nouvelle valeur si l'élément a été modifié, sinon false
+     * @return mixed                Nouvelle valeur si l'Ã©lÃ©ment a Ã©tÃ© modifiÃ©, sinon false
      */
     protected function set_value_from_post($path_child, \HTTPRequestCustom $request)
     {
@@ -136,10 +136,10 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Parse les éléments de type EasyCssTitleBlock
+     * Parse les Ã©lÃ©ments de type EasyCssTitleBlock
      * 
      * @param   string  Contenu CSS du bloc
-     * @return  string  Contenu CSS parsé
+     * @return  string  Contenu CSS parsÃ©
      */
     protected function parse_title_block($css)
     {
@@ -147,10 +147,10 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Parse les éléments de type EasyCssDisplayCommentBlock
+     * Parse les Ã©lÃ©ments de type EasyCssDisplayCommentBlock
      * 
      * @param   string  Contenu CSS du bloc
-     * @return  string  Contenu CSS parsé
+     * @return  string  Contenu CSS parsÃ©
      */
     protected function parse_display_comment_block($css)
     {
@@ -158,10 +158,10 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Parse les éléments de type EasyCssCommentBlock
+     * Parse les Ã©lÃ©ments de type EasyCssCommentBlock
      * 
      * @param   string  Contenu CSS du bloc
-     * @return  string  Contenu CSS parsé
+     * @return  string  Contenu CSS parsÃ©
      */
     protected function parse_comment_block($css)
     {
@@ -169,10 +169,10 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Parse les éléments de type EasyCssMediaBlock
+     * Parse les Ã©lÃ©ments de type EasyCssMediaBlock
      * 
      * @param   string  Contenu CSS du bloc
-     * @return  string  Contenu CSS parsé
+     * @return  string  Contenu CSS parsÃ©
      */
     protected function parse_media_block($css)
     {
@@ -180,10 +180,10 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Parse les éléments de type EasyCssBlock
+     * Parse les Ã©lÃ©ments de type EasyCssBlock
      * 
      * @param   string  Contenu CSS du bloc
-     * @return  string  Contenu CSS parsé
+     * @return  string  Contenu CSS parsÃ©
      */
     protected function parse_block($css)
     {
@@ -192,7 +192,7 @@ abstract class EasyCssAbstractBlock
     
     /**
      * Remplace le code CSS complet du bloc EasyCssTitleBlock
-     * Créé un nouvel objet EasyCssTitleBlock et le stocke dans le tableau $children du bloc parent
+     * CrÃ©Ã© un nouvel objet EasyCssTitleBlock et le stocke dans le tableau $children du bloc parent
      * Retourne la chaine de remplacement
      * 
      * @param   array   Elements de la recherche du preg_replace
@@ -208,7 +208,7 @@ abstract class EasyCssAbstractBlock
     
     /**
      * Remplace le code CSS complet du bloc EasyCssDisplayCommentBlock
-     * Créé un nouvel objet EasyCssDisplayCommentBlock et le stocke dans le tableau $children du bloc parent
+     * CrÃ©Ã© un nouvel objet EasyCssDisplayCommentBlock et le stocke dans le tableau $children du bloc parent
      * Retourne la chaine de remplacement
      * 
      * @param   array   Elements de la recherche du preg_replace
@@ -224,7 +224,7 @@ abstract class EasyCssAbstractBlock
     
     /**
      * Remplace le code CSS complet du bloc EasyCssCommentBlock
-     * Créé un nouvel objet EasyCssCommentBlock et le stocke dans le tableau $children du bloc parent
+     * CrÃ©Ã© un nouvel objet EasyCssCommentBlock et le stocke dans le tableau $children du bloc parent
      * Retourne la chaine de remplacement
      * 
      * @param   array   Elements de la recherche du preg_replace
@@ -240,7 +240,7 @@ abstract class EasyCssAbstractBlock
     
     /**
      * Remplace le code CSS complet du bloc EasyCssMediaBlock
-     * Créé un nouvel objet EasyCssMediaBlock et le stocke dans le tableau $children du bloc parent
+     * CrÃ©Ã© un nouvel objet EasyCssMediaBlock et le stocke dans le tableau $children du bloc parent
      * Retourne la chaine de remplacement
      * 
      * @param   array   Elements de la recherche du preg_replace
@@ -256,7 +256,7 @@ abstract class EasyCssAbstractBlock
     
     /**
      * Remplace le code CSS complet du bloc EasyCssBlock
-     * Créé un nouvel objet EasyCssBlock et le stocke dans le tableau $children du bloc parent
+     * CrÃ©Ã© un nouvel objet EasyCssBlock et le stocke dans le tableau $children du bloc parent
      * Retourne la chaine de remplacement
      * 
      * @param   array   Elements de la recherche du preg_replace
@@ -272,7 +272,7 @@ abstract class EasyCssAbstractBlock
     }
     
     /**
-     * Créé l'indentation
+     * CrÃ©Ã© l'indentation
      * 
      * Retourne un certain nombre d'espaces en fonction du parent du bloc
      * 

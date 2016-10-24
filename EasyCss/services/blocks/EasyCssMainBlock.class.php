@@ -69,7 +69,7 @@ class EasyCssMainBlock extends EasyCssAbstractBlock
             $modif = $this->set_value_from_post($path, $request);
             if ($modif !== false)
             {
-                //echo $this->get_child_full_name($element) . ' est modifié ' . $modif . "<br/>";
+                //echo $this->get_child_full_name($element) . ' est modifiÃ© ' . $modif . "<br/>";
             }
         }
     }

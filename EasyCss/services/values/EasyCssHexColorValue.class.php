@@ -64,14 +64,14 @@ class EasyCssHexColorValue extends EasyCssAbstractValue
     public function set_value($color)
     {
         $color=trim($color);
-        if (substr($color,0,1) == '#' )
-                $color = substr($color,1);
-        if (strlen($color) == 3)
+        if (mb_substr($color,0,1) == '#' )
+                $color = mb_substr($color,1);
+        if (mb_strlen($color) == 3)
         {
             $str = '';
             for ($i=0; $i<= 2; $i++)
             {
-                $str .= str_repeat(substr($color, $i, 1),2);
+                $str .= str_repeat(mb_substr($color, $i, 1),2);
             }
             $color = $str;
         }

@@ -35,7 +35,7 @@ class EasyCssUrlBuilder
     private static $dispatcher = '/EasyCss';
 
     /**
-     * URL du choix du thème
+     * URL du choix du thÃ¨me
      * 
      * @return Url
      */
@@ -45,7 +45,7 @@ class EasyCssUrlBuilder
     }
     
     /**
-     * URL d'édition d'un fichier css
+     * URL d'Ã©dition d'un fichier css
      * 
      * @return Url
      */

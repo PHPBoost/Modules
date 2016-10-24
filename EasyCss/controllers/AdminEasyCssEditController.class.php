@@ -27,7 +27,7 @@
   ################################################### */
 
 /**
- * Cette page permet la modification des fichiers CSS contenus dans le dossier 'theme' des thèmes installés
+ * Cette page permet la modification des fichiers CSS contenus dans le dossier 'theme' des thÃ¨mes installÃ©s
  *
  * @author PaperToss
  */
@@ -40,10 +40,10 @@ class AdminEasyCssEditController extends ModuleController
     /** @staticvar array          Array de langue */
     private static $lang;
 
-    /** @var \File          Fichier CSS chargé */
+    /** @var \File          Fichier CSS chargÃ© */
     private $file;
 
-    /** @var string         Nom du thème */
+    /** @var string         Nom du thÃ¨me */
     private $theme_id;
 
     /** @var string         Nom du fichier css */
@@ -52,20 +52,20 @@ class AdminEasyCssEditController extends ModuleController
     /** @staticvar int      Compteur de remplacement */
     public static $counter;
 
-    /** @staticvar array    Elements remplacés */
+    /** @staticvar array    Elements remplacÃ©s */
     public static $vars;
 
-    /** @staticvar string   Contenu du champ hidden (ID des éléments à modifier) */
+    /** @staticvar string   Contenu du champ hidden (ID des Ã©lÃ©ments Ã  modifier) */
     private static $hidden_input_content = '';
 
-    /** @staticvar array    Erreurs à afficher */
+    /** @staticvar array    Erreurs Ã  afficher */
     private static $errors = [];
 
     /** @staticvar \EasyCssMainBlock  Bloc Principal du CSS */
     private static $main_block;
 
     /**
-     * Exécution de la page
+     * ExÃ©cution de la page
      * 
      * @param \HTTPRequestCustom $request
      * @return \AdminDisplayResponse
@@ -89,7 +89,7 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Création de la langue et la vue
+     * CrÃ©ation de la langue et la vue
      */
     private function init()
     {
@@ -103,7 +103,7 @@ class AdminEasyCssEditController extends ModuleController
         return isset(self::$lang[$title]) ? self::$lang[$title] : '';
     }
     /**
-     * Récupération du fichier CSS à modifier
+     * RÃ©cupÃ©ration du fichier CSS Ã  modifier
      * 
      * @param \HTTPRequestCustom $request
      */
@@ -123,7 +123,7 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Création de l'objet MainBlock et de tous ses enfants
+     * CrÃ©ation de l'objet MainBlock et de tous ses enfants
      * Parsage du CSS
      */
     private function create_objects_elements()
@@ -133,7 +133,7 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Envoi des templates et du contenu du hidden à la vue
+     * Envoi des templates et du contenu du hidden Ã  la vue
      */
     private function put_templates()
     {
@@ -151,7 +151,7 @@ class AdminEasyCssEditController extends ModuleController
             $error_tpls[] = array('SUBTEMPLATE' => $error_tpl);
         }
 
-        // Pousse à la vue
+        // Pousse Ã  la vue
         $this->view->put_all([
             'errors' => $error_tpls,
             'elements' => $tpls,
@@ -161,8 +161,8 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Exécution des éléments POST
-     * Récupération du champ hidden, remplacement des objets avec les nouvelles valeurs
+     * ExÃ©cution des Ã©lÃ©ments POST
+     * RÃ©cupÃ©ration du champ hidden, remplacement des objets avec les nouvelles valeurs
      * Ecriture du CSS et suppression du cache CSS
      * 
      * @param \HTTPRequestCustom $request
@@ -177,7 +177,7 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Création et retour de la reponse
+     * CrÃ©ation et retour de la reponse
      * 
      * @param View $view
      * @return \AdminDisplayResponse
@@ -199,7 +199,7 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Suppression du cache CSS si activé
+     * Suppression du cache CSS si activÃ©
      */
     private function clear_css_cache()
     {
@@ -211,10 +211,10 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Ajoute un élément au champ hidden
+     * Ajoute un Ã©lÃ©ment au champ hidden
      * 
      * @static
-     * @param string    ID complet du champ à ajouter
+     * @param string    ID complet du champ Ã  ajouter
      */
     public static function add_field_to_hidden_input($id)
     {
@@ -225,7 +225,7 @@ class AdminEasyCssEditController extends ModuleController
      * Ajoute une erreur de contenu
      * 
      * @static
-     * @param string    Erreur à afficher
+     * @param string    Erreur Ã  afficher
      */
     public static function add_error(\Template $tpl)
     {
@@ -236,7 +236,7 @@ class AdminEasyCssEditController extends ModuleController
      * Retourne un attribut depuis son ID
      * 
      * @static
-     * @param string    ID complet de l'élément
+     * @param string    ID complet de l'Ã©lÃ©ment
      * @return \EasyCssAbstractAttribut
      */
     public static function get_element($id)

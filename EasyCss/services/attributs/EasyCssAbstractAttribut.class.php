@@ -27,7 +27,7 @@
   ################################################### */
 
 /**
- * Classe mère des attributs à parser
+ * Classe mÃ¨re des attributs Ã  parser
  *
  * @abstract
  * @author PaperToss
@@ -43,37 +43,37 @@ abstract class EasyCssAbstractAttribut
     /** @var string     Contenu CSS brut de l'attribut */
     protected $raw_value;
     
-    /** @var array      Eléments enfants de l'attribut */
+    /** @var array      ElÃ©ments enfants de l'attribut */
     protected $values = [];
 
-    /** @var bool     Si l'attribut à la propriété !important */
+    /** @var bool     Si l'attribut Ã  la propriÃ©tÃ© !important */
     private $is_important = false;
     
     /** @var bool       Attribut mis en erreur */
     public $on_error = false;
     
-    /** @var bool       Attribut modifié sur la page d'édition */
+    /** @var bool       Attribut modifiÃ© sur la page d'Ã©dition */
     protected $is_modified = false;
 
     /** @var string     Nom de l'attribut, sert pour l'affichage des erreurs */
     protected $name_attribut = '';
     
-    /** @var string     Template à afficher avant les éléments */
+    /** @var string     Template Ã  afficher avant les Ã©lÃ©ments */
     protected $begin_block = '<div class="easycss-field">';
     
-    /** @var string     Template à afficher après les éléments */
+    /** @var string     Template Ã  afficher aprÃ¨s les Ã©lÃ©ments */
     protected $end_block = '</div>';
     
-    /** @var bool       Attribut à afficher sur la page d'édition */
+    /** @var bool       Attribut Ã  afficher sur la page d'Ã©dition */
     public $to_display = true;
     
-    /** @var string     Separateur d'éléments, false si l'attribut ne doit comporter qu'un élément */
+    /** @var string     Separateur d'Ã©lÃ©ments, false si l'attribut ne doit comporter qu'un Ã©lÃ©ment */
     protected $separator = ' ';
     
-    /** @var string     ID du champ important sur la page d'édition */
+    /** @var string     ID du champ important sur la page d'Ã©dition */
     private $important_field_id;
     
-    /** @var \EasyCssAbstractAttribut array  Attributs à parser*/
+    /** @var \EasyCssAbstractAttribut array  Attributs Ã  parser*/
     public static $attributs = [
         'EasyCssColorAttribut',
         'EasyCssBorderColorAttribut',
@@ -84,13 +84,13 @@ abstract class EasyCssAbstractAttribut
         'EasyCssBorderXAttribut',
     ];
     
-    /** @staticvar array Différents Regex de l'attribut */
+    /** @staticvar array DiffÃ©rents Regex de l'attribut */
     public static $regex = [];
 
     /**
-     * Constructeur protégé à appeler depuis chaque attribut
+     * Constructeur protÃ©gÃ© Ã  appeler depuis chaque attribut
      * 
-     * @param string ID de l'élément
+     * @param string ID de l'Ã©lÃ©ment
      * @param string ID du parent
      * @param string Valeur brute du contenu de l'attribut
      */
@@ -105,8 +105,8 @@ abstract class EasyCssAbstractAttribut
     }
     
     /**
-     * Ajoute une erreur à l'attribut
-     * Met cet attribut en erreur et donc ne sera pas affiché
+     * Ajoute une erreur Ã  l'attribut
+     * Met cet attribut en erreur et donc ne sera pas affichÃ©
      * 
      * @param type $msg
      */
@@ -118,8 +118,8 @@ abstract class EasyCssAbstractAttribut
     }
     
     /**
-     * Templates à afficher
-     * Retourne les templates des différents fields qui composent l'élément
+     * Templates Ã  afficher
+     * Retourne les templates des diffÃ©rents fields qui composent l'Ã©lÃ©ment
      * 
      * @return \FileTemplate Template ou tableau de templates
      */
@@ -162,13 +162,13 @@ abstract class EasyCssAbstractAttribut
         return false;
     }
     /**
-     * Récupération et assignation auto des propriétés communes
+     * RÃ©cupÃ©ration et assignation auto des propriÃ©tÃ©s communes
      * 
      * @param \HTTPRequestCustom $request
      */
     protected function set_autovalues_from_post(\HTTPRequestCustom $request)
     {
-        // Propriété !important
+        // PropriÃ©tÃ© !important
         $imp = $request->get_poststring($this->important_field_id, false);
         $imp = ($imp !== false) ? true : false;
         if ($imp !== $this->is_important)
@@ -179,9 +179,9 @@ abstract class EasyCssAbstractAttribut
 
     /**
      * Texte de retour
-     * Retourne le texte qui sera écrit dans le fichier CSS après modification
+     * Retourne le texte qui sera Ã©crit dans le fichier CSS aprÃ¨s modification
      * 
-     * @return string Déclaration pour enregistrement dans le fichier CSS
+     * @return string DÃ©claration pour enregistrement dans le fichier CSS
      */
     public function get_text_to_file()
     {
@@ -193,9 +193,9 @@ abstract class EasyCssAbstractAttribut
     }
     
     /**
-     * Retourne le contenu CSS des éléments de l'attribut
+     * Retourne le contenu CSS des Ã©lÃ©ments de l'attribut
      * 
-     * @return string Valeur des éléments de l'attribut
+     * @return string Valeur des Ã©lÃ©ments de l'attribut
      */
     protected function get_values_text()
     {
@@ -212,9 +212,9 @@ abstract class EasyCssAbstractAttribut
     }
     
     /**
-     * Retourne le nom de la classe de l'élément
+     * Retourne le nom de la classe de l'Ã©lÃ©ment
      * 
-     * @return string   Nom de la classe de l'élément
+     * @return string   Nom de la classe de l'Ã©lÃ©ment
      */
     public function get_child_name()
     {
@@ -227,11 +227,11 @@ abstract class EasyCssAbstractAttribut
     }
 
     /**
-     * Définition de la propriété is_important au constructeur
+     * DÃ©finition de la propriÃ©tÃ© is_important au constructeur
      */
     private function check_important()
     {
-        $pos = strpos($this->raw_value, '!important');
+        $pos = mb_strpos($this->raw_value, '!important');
         if ($pos !== false)
         {
             $this->raw_value = str_replace('!important', '', $this->raw_value);
@@ -240,7 +240,7 @@ abstract class EasyCssAbstractAttribut
     }
     
     /**
-     * Explosion des valeurs selon le séparateur
+     * Explosion des valeurs selon le sÃ©parateur
      * 
      * @return array    Valeurs
      */
@@ -265,9 +265,9 @@ abstract class EasyCssAbstractAttribut
     }
     
     /**
-     * Création et récupération du template de la propriété !important
+     * CrÃ©ation et rÃ©cupÃ©ration du template de la propriÃ©tÃ© !important
      * 
-     * @return \FileTemplate Template de la propriété Important
+     * @return \FileTemplate Template de la propriÃ©tÃ© Important
      */
     private function get_important_tpl()
     {

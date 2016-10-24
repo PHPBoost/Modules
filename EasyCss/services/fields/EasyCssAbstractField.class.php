@@ -37,9 +37,9 @@ abstract class EasyCssAbstractField
     protected $id;
     
     /**
-     * Récupération du template du champ
+     * RÃ©cupÃ©ration du template du champ
      * 
-     * @param   string   Label à afficher
+     * @param   string   Label Ã  afficher
      */
     abstract public function get_form($label);
 }

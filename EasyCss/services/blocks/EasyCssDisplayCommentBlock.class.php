@@ -27,7 +27,7 @@
   ################################################### */
 
 /**
- * Commentaire affiché ( /** commentaire * / )
+ * Commentaire affichÃ© ( /** commentaire * / )
  *
  * @author PaperToss
  */

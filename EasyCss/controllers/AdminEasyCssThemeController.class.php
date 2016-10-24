@@ -27,7 +27,7 @@
   ################################################### */
 
 /**
- * Recense et affiche les fichiers CSS utilisés par thème installé
+ * Recense et affiche les fichiers CSS utilisÃ©s par thÃ¨me installÃ©
  *
  * @author PaperToss
  */
@@ -62,7 +62,7 @@ class AdminEasyCssThemeController extends ModuleController
     }
     
     /**
-     * Retourne les dossiers 'theme' des différents thèmes installés
+     * Retourne les dossiers 'theme' des diffÃ©rents thÃ¨mes installÃ©s
      * 
      * @return \Folder
      */
