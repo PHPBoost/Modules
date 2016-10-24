@@ -54,7 +54,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 	{ 
 		$Template->assign_block_vars('cat_list_add', array(
 			'VALUE' => $row_cat['id'],
-			'NAME' => strtoupper(stripslashes($row_cat['name'])),
+			'NAME' => mb_strtoupper(stripslashes($row_cat['name'])),
 		));
 	}
 	$result_cat->dispose();
@@ -96,7 +96,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 		'C_APPROVED' => TRUE
 	));
 	
-	if (retrieve(POST, 'previs', false)) // prévisualisation
+	if (retrieve(POST, 'previs', false)) // prÃ©visualisation
 	{
 		$word = retrieve(POST, 'word', 'word', TSTRING);
 		$contents = retrieve(POST, 'contents', '', TSTRING_AS_RECEIVED);
@@ -202,7 +202,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 		}
 		AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary.php');
 	}
-	elseif ($id_get = retrieve(GET, 'edit', 0, TINTEGER)) // édition
+	elseif ($id_get = retrieve(GET, 'edit', 0, TINTEGER)) // Ã©dition
 	{
 		if (!DictionaryAuthorizationsService::check_authorizations()->moderation())
 		{
@@ -233,7 +233,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 			'NAME_CAT_SELECT' => $row['cat_name'],
 		));
 	}
-	DictionaryCache::invalidate(); //Régénération du cache
+	DictionaryCache::invalidate(); //RÃ©gÃ©nÃ©ration du cache
 	$Template->display();
 }
 elseif ($id_get = retrieve(GET, 'del', 0, TINTEGER))//Supression
@@ -252,7 +252,7 @@ elseif ($id_get = retrieve(GET, 'del', 0, TINTEGER))//Supression
 			DispatchManager::redirect($error_controller);
 		}
 		PersistenceContext::get_querier()->delete(DictionarySetup::$dictionary_table, 'WHERE id=:id', array('id' => $id_get));
-		DictionaryCache::invalidate(); //Régénération du cache du mini-module.
+		DictionaryCache::invalidate(); //RÃ©gÃ©nÃ©ration du cache du mini-module.
 		AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary.php');
 	}
 }

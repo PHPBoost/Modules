@@ -79,7 +79,7 @@ class DictionaryHomeController extends ModuleController
 				$nb_word = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE (approved = 1)");
 
 			}
-			elseif ($letter != "tous" && strlen($letter) > 1)
+			elseif ($letter != "tous" && mb_strlen($letter) > 1)
 			{
 				$result1 = PersistenceContext::get_querier()->select("SELECT l.id, l.description, l.word,l.cat,c.images
 				FROM ".PREFIX."dictionary AS l
@@ -114,14 +114,14 @@ class DictionaryHomeController extends ModuleController
 			while ($row = $result1->fetch())
 			{ 
 				$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';
-				$name = ucfirst(strtolower(str_replace("'", "", stripslashes($row['word']))));
+				$name = Texthelper::uppercase_first(mb_strtolower(str_replace("'", "", stripslashes($row['word']))));
 				
 				$this->view->assign_block_vars('dictionary', array(
 					'NAME' => $name,
 					'ID' => Url::encode_rewrite($name),
-					'PROPER_NAME' => ucfirst(strtolower(stripslashes($row['word']))),
-					'DESC' => ucfirst(FormatingHelper::second_parse(stripslashes($row['description']))),
-					'CAT' => strtoupper($row['cat']),
+					'PROPER_NAME' => Texthelper::uppercase_first(mb_strtolower(stripslashes($row['word']))),
+					'DESC' => Texthelper::uppercase_first(FormatingHelper::second_parse(stripslashes($row['description']))),
+					'CAT' => mb_strtoupper($row['cat']),
 					'CAT_IMG' => $img,
 					'EDIT_CODE' => $edit,
 					'ID_EDIT' => $row['id'],
@@ -136,7 +136,7 @@ class DictionaryHomeController extends ModuleController
 			foreach ($letters as $key => $value) 
 			{
 				$this->view->assign_block_vars('letter', array(
-					'LETTER' => strtoupper($value),
+					'LETTER' => mb_strtoupper($value),
 				));
 			}
 			
@@ -148,7 +148,7 @@ class DictionaryHomeController extends ModuleController
 			{ 
 				$this->view->assign_block_vars('cat', array(
 					'ID' => $row_cat['id'],
-					'NAME' => strtoupper($row_cat['name']),
+					'NAME' => mb_strtoupper($row_cat['name']),
 				));
 			}
 			$result_cat->dispose();
@@ -160,7 +160,7 @@ class DictionaryHomeController extends ModuleController
 			{ 
 				$this->view->assign_block_vars('cat_list', array(
 					'ID' => $row_cat['id'],
-					'NAME' => strtoupper($row_cat['name']),
+					'NAME' => mb_strtoupper($row_cat['name']),
 				));
 			}
 			$result_cat->dispose();

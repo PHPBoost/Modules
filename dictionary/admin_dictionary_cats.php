@@ -149,7 +149,7 @@ if (retrieve(GET,'add',false))
 			if ($_FILES['images']['size'] > 0)
 			{
 				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`i', Upload::UNIQ_NAME, 20*1024);
-				if (!empty($Upload->error)) //Erreur, on arrête ici
+				if (!empty($Upload->error)) //Erreur, on arrÃªte ici
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&id_cat='.$id_cat.'&erroru=' . $Upload->error) . '#message_helper');
 				}
@@ -157,13 +157,13 @@ if (retrieve(GET,'add',false))
 				{
 					$path = $dir . $Upload->get_filename();
 					$error = $Upload->check_img(16, 16, Upload::DELETE_ON_ERROR);
-					if (!empty($error)) //Erreur, on arrête ici
+					if (!empty($error)) //Erreur, on arrÃªte ici
 					{
 						AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&id_cat='.$id_cat.'&erroru=' . $error) . '#message_helper');
 					}
 					else
 					{
-						$cat_img = $path; //image uploadé et validé.
+						$cat_img = $path; //image uploadÃ© et validÃ©.
 					}
 				}
 			}
@@ -172,16 +172,16 @@ if (retrieve(GET,'add',false))
 		{
 			$path = strprotect(retrieve(POST, 'image', ''));
 			$error = $Upload->check_img(16, 16,false);
-			if (!empty($error)) //Erreur, on arrête ici
+			if (!empty($error)) //Erreur, on arrÃªte ici
 				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $error) . '#message_helper&id_cat='.$id_cat);
 			else
-				$cat_img = $path; //image uploadé et validé.
+				$cat_img = $path; //image uploadÃ© et validÃ©.
 		}
 		$cat_img = !empty($cat_img) ? $cat_img : (!empty($row['images']) ? $row['images'] : '');
 		$name_cat = retrieve(POST,'name_cat','',TSTRING);
 		
 		PersistenceContext::get_querier()->update(DictionarySetup::$dictionary_cat_table, array(
-			'name' => addslashes(strtoupper($name_cat)),
+			'name' => addslashes(mb_strtoupper($name_cat)),
 			'images' => addslashes($cat_img)
 		), 'WHERE id=:id', array('id' => $id_cat));
 		
@@ -197,7 +197,7 @@ if (retrieve(GET,'add',false))
 			if ($_FILES['images']['size'] > 0)
 			{
 				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`i',Upload::UNIQ_NAME, 20*1024);
-				if ($Upload->get_error() != '') //Erreur, on arrête ici
+				if ($Upload->get_error() != '') //Erreur, on arrÃªte ici
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $Upload->error) . '#message_helper');
 				}
@@ -205,13 +205,13 @@ if (retrieve(GET,'add',false))
 				{
 					$path = $dir . $Upload->get_filename();
 					$error = $Upload->check_img(16, 16, Upload::DELETE_ON_ERROR);
-					if (!empty($error)) //Erreur, on arrête ici
+					if (!empty($error)) //Erreur, on arrÃªte ici
 					{
 						AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $error) . '#message_helper');
 					}
 					else
 					{
-						$cat_img = $path; //image uploadé et validé.
+						$cat_img = $path; //image uploadÃ© et validÃ©.
 					}
 				}
 			}
@@ -220,15 +220,15 @@ if (retrieve(GET,'add',false))
 		{
 			$path = strprotect(retrieve(POST, 'image', ''));
 			$error = $Upload->check_img(16, 16,false);
-			if (!empty($error)) //Erreur, on arrête ici
+			if (!empty($error)) //Erreur, on arrÃªte ici
 				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $error) . '#message_helper');
 			else
-				$cat_img = $path; //image uploadé et validé.
+				$cat_img = $path; //image uploadÃ© et validÃ©.
 		}
 		$name_cat = retrieve(POST,'name_cat','',TSTRING);
 		
 		PersistenceContext::get_querier()->insert(DictionarySetup::$dictionary_cat_table, array(
-			'name' => addslashes(strtoupper($name_cat)),
+			'name' => addslashes(mb_strtoupper($name_cat)),
 			'images' => addslashes($cat_img)
 		));
 		
@@ -296,7 +296,7 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 		while ($row = $result->fetch())
 		{ 
 			$Template->assign_block_vars('cat_list', array(
-				'NAME' => strtoupper($row['name']),
+				'NAME' => mb_strtoupper($row['name']),
 				'ID' => $row['id']
 			));
 		}
@@ -324,7 +324,7 @@ else
 	{ 
 		$img = empty($row_cat['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row_cat['images'] . '" alt="' . $row_cat['images'] . '" />';
 		$Template->assign_block_vars('cat', array(
-			'NAME' => strtoupper($row_cat['name']),
+			'NAME' => mb_strtoupper($row_cat['name']),
 			'IMAGES' => $img,
 			'ID_CAT' => $row_cat['id']
 		));
