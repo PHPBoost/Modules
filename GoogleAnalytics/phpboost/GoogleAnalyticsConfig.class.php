@@ -3,7 +3,7 @@
  *		                  GoogleAnalyticsConfig.class.php
  *                            -------------------
  *   begin                : December 20, 2012
- *   copyright            : (C) 2012 Kévin MASSY
+ *   copyright            : (C) 2012 KÃ©vin MASSY
  *   email                : kevin.massy@phpboost.com
  *
  *
@@ -27,7 +27,7 @@
 
 /**
  * This class contains the configuration of the GoogleAnalytics module.
- * @author Kévin MASSY <kevin.massy@phpboost.com>
+ * @author KÃ©vin MASSY <kevin.massy@phpboost.com>
  *
  */
 class GoogleAnalyticsConfig extends AbstractConfigData

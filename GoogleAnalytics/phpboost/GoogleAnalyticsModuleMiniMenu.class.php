@@ -3,7 +3,7 @@
  *                          GoogleAnalyticsModuleMiniMenu.class.php
  *                            -------------------
  *   begin                : December 20, 2012
- *   copyright            : (C) 2012 Kévin MASSY
+ *   copyright            : (C) 2012 KÃ©vin MASSY
  *   email                : kevin.massy@phpboost.com
  *
  *
