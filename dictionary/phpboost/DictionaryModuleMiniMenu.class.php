@@ -57,11 +57,11 @@ class DictionaryModuleMiniMenu extends ModuleMiniMenu
 		$dictionary_cache = DictionaryCache::load();
 		$random_def = $dictionary_cache->get_dictionary_word(array_rand($dictionary_cache->get_dictionary_words()));
 		$description = stripslashes($random_def['description']);
-		$word = Url::encode_rewrite(mb_strtolower($random_def['word']));
+		$word = Url::encode_rewrite(TextHelper::strtolower($random_def['word']));
 		
 		$tpl->put_all(array(
 			'RANDOM_NAME' => stripslashes($random_def['word']),
-			'RANDOM_DEF' => (mb_strlen($description) > 149) ? mb_substr($description, 0, 150) . "..." : $description,
+			'RANDOM_DEF' => (TextHelper::strlen($description) > 149) ? TextHelper::substr($description, 0, 150) . "..." : $description,
 			'URL'=> PATH_TO_ROOT . "/dictionary/".url('dictionary.php?l=' . $word . '&amp;cat=' . $random_def['cat'], 'dictionary-' . $word . '-' . $random_def['cat'] . '.php'),
 		));
 		

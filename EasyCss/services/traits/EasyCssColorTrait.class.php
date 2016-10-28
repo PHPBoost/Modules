@@ -43,24 +43,24 @@ trait EasyCssColorTrait
         $index1 = (int) ($n - ($n % 16)) / 16;
         $index2 = (int) $n % 16;
 
-        return mb_substr("0123456789ABCDEF", $index1, 1)
-                . mb_substr("0123456789ABCDEF", $index2, 1);
+        return TextHelper::substr("0123456789ABCDEF", $index1, 1)
+                . TextHelper::substr("0123456789ABCDEF", $index2, 1);
     }
 
     protected static function hex_to_rgb($hex)
     {
         $hex = str_replace("#", "", $hex);
 
-        if (mb_strlen($hex) == 3)
+        if (TextHelper::strlen($hex) == 3)
         {
-            $r = hexdec(mb_substr($hex, 0, 1) . mb_substr($hex, 0, 1));
-            $g = hexdec(mb_substr($hex, 1, 1) . mb_substr($hex, 1, 1));
-            $b = hexdec(mb_substr($hex, 2, 1) . mb_substr($hex, 2, 1));
+            $r = hexdec(TextHelper::substr($hex, 0, 1) . TextHelper::substr($hex, 0, 1));
+            $g = hexdec(TextHelper::substr($hex, 1, 1) . TextHelper::substr($hex, 1, 1));
+            $b = hexdec(TextHelper::substr($hex, 2, 1) . TextHelper::substr($hex, 2, 1));
         } else
         {
-            $r = hexdec(mb_substr($hex, 0, 2));
-            $g = hexdec(mb_substr($hex, 2, 2));
-            $b = hexdec(mb_substr($hex, 4, 2));
+            $r = hexdec(TextHelper::substr($hex, 0, 2));
+            $g = hexdec(TextHelper::substr($hex, 2, 2));
+            $b = hexdec(TextHelper::substr($hex, 4, 2));
         }
         $rgb = array($r, $g, $b);
         return implode(",", $rgb); 

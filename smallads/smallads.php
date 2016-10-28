@@ -756,7 +756,7 @@ elseif ($id_edit || $id_add)
 		'DB_MAX_WEEKS'		=> $row['max_weeks'],
 
 		'DB_MAXLEN'			=> $maxlen,
-		'DB_CONTENTS_REMAIN'	=> max($maxlen - mb_strlen(@strip_tags($row['contents'], '<br><br/><br />')), 0),
+		'DB_CONTENTS_REMAIN'	=> max($maxlen - TextHelper::strlen(@strip_tags($row['contents'], '<br><br/><br />')), 0),
 
 		'L_DB_TYPE'			=> $LANG['sa_db_type'],
 		'L_DB_TITLE'		=> $LANG['sa_db_title'],

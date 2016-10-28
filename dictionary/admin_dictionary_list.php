@@ -78,15 +78,15 @@ while ($row = $result->fetch())
 	$aprob = ($row['dictionary_approved'] == 1) ? $LANG['yes'] : $LANG['no'];
 	//On reccourci le lien si il est trop long pour éviter de déformer l'administration.s
 	$title = $row['word'];
-	$title = mb_strlen($title) > 45 ? mb_substr($title, 0, 45) . '...' : $title;
+	$title = TextHelper::strlen($title) > 45 ? TextHelper::substr($title, 0, 45) . '...' : $title;
 	$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';
 	$date_created = !empty($row['timestamp']) ? new Date($row['timestamp'], Timezone::SERVER_TIMEZONE) : null;
 	
 	$Template->assign_block_vars('dictionary_list', array(
 		'ID' => $row['dictionary_id'],
-		'NAME' => Texthelper::uppercase_first(mb_strtolower(stripslashes($title))),
+		'NAME' => Texthelper::uppercase_first(TextHelper::strtolower(stripslashes($title))),
 		'IDCAT' => $row['cat'],
-		'CAT' => mb_strtoupper($row['name']),
+		'CAT' => TextHelper::strtoupper($row['name']),
 		'DATE' => (!empty($date_created)) ? $date_created->format(Date::FORMAT_DAY_MONTH_YEAR) : '',
 		'APROBATION' => $aprob,
 		'IMG' => $img,

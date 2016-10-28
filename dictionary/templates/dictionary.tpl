@@ -84,8 +84,8 @@
 		var str_location = String(location);
 		if(str_location.search('/dictionary-') != -1 )
 		{
-			url=String(location).mb_substr(str_location.search('/dictionary-') + 12);
-			url=url.mb_substr(0,url.length - 4);
+			url=String(location).substr(str_location.search('/dictionary-') + 12);
+			url=url.substr(0,url.length - 4);
 			tab=url.split('-');
 			return tab[1] ? tab[1] : 'ALL';
 		}

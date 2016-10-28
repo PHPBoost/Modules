@@ -77,8 +77,8 @@ class EasyCssRGBColorValue extends EasyCssAbstractValue
             return false;
         }
         $this->rgb_color = $rgbcolor;
-        if (mb_substr($hexcolor,0,1) == '#' )
-                $hexcolor = mb_substr($hexcolor,1);
+        if (TextHelper::substr($hexcolor,0,1) == '#' )
+                $hexcolor = TextHelper::substr($hexcolor,1);
         $this->hex_color = $hexcolor;
         return $this->rgb_color;
     }

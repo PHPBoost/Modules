@@ -100,7 +100,7 @@ class SmalladsHomeController extends ModuleController
 			if (!empty($_SERVER['QUERY_STRING'])) {
 				$t = explode('&', $_SERVER['QUERY_STRING']);
 				foreach ($t as $k => $v) {
-					if (mb_strstr($v,'p=')) unset($t[$k]);
+					if (TextHelper::strstr($v,'p=')) unset($t[$k]);
 				}
 				if (count($t)>0) {
 					$qs = implode('&', $t);

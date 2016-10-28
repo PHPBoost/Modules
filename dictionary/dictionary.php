@@ -54,7 +54,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 	{ 
 		$Template->assign_block_vars('cat_list_add', array(
 			'VALUE' => $row_cat['id'],
-			'NAME' => mb_strtoupper(stripslashes($row_cat['name'])),
+			'NAME' => TextHelper::strtoupper(stripslashes($row_cat['name'])),
 		));
 	}
 	$result_cat->dispose();

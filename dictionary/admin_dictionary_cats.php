@@ -181,7 +181,7 @@ if (retrieve(GET,'add',false))
 		$name_cat = retrieve(POST,'name_cat','',TSTRING);
 		
 		PersistenceContext::get_querier()->update(DictionarySetup::$dictionary_cat_table, array(
-			'name' => addslashes(mb_strtoupper($name_cat)),
+			'name' => addslashes(TextHelper::strtoupper($name_cat)),
 			'images' => addslashes($cat_img)
 		), 'WHERE id=:id', array('id' => $id_cat));
 		
@@ -228,7 +228,7 @@ if (retrieve(GET,'add',false))
 		$name_cat = retrieve(POST,'name_cat','',TSTRING);
 		
 		PersistenceContext::get_querier()->insert(DictionarySetup::$dictionary_cat_table, array(
-			'name' => addslashes(mb_strtoupper($name_cat)),
+			'name' => addslashes(TextHelper::strtoupper($name_cat)),
 			'images' => addslashes($cat_img)
 		));
 		
@@ -296,7 +296,7 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 		while ($row = $result->fetch())
 		{ 
 			$Template->assign_block_vars('cat_list', array(
-				'NAME' => mb_strtoupper($row['name']),
+				'NAME' => TextHelper::strtoupper($row['name']),
 				'ID' => $row['id']
 			));
 		}
@@ -324,7 +324,7 @@ else
 	{ 
 		$img = empty($row_cat['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row_cat['images'] . '" alt="' . $row_cat['images'] . '" />';
 		$Template->assign_block_vars('cat', array(
-			'NAME' => mb_strtoupper($row_cat['name']),
+			'NAME' => TextHelper::strtoupper($row_cat['name']),
 			'IMAGES' => $img,
 			'ID_CAT' => $row_cat['id']
 		));

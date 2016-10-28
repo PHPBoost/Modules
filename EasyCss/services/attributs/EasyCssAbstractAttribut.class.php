@@ -231,7 +231,7 @@ abstract class EasyCssAbstractAttribut
      */
     private function check_important()
     {
-        $pos = mb_strpos($this->raw_value, '!important');
+        $pos = TextHelper::strpos($this->raw_value, '!important');
         if ($pos !== false)
         {
             $this->raw_value = str_replace('!important', '', $this->raw_value);
