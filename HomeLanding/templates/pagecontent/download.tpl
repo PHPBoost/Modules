@@ -31,8 +31,8 @@
 					${LangLoader::get_message('by', 'common')}
 					# IF download_items.C_AUTHOR_EXIST #<a itemprop="author" href="{download_items.U_AUTHOR}" class="{download_items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{download_items.USER_GROUP_COLOR}"# ENDIF #>{download_items.PSEUDO}</a># ELSE #{download_items.PSEUDO}# ENDIF #,
 				# ENDIF # 
-				${TextHelper::lowercase_first(LangLoader::get_message('the', 'common'))} <time datetime="{download_items.DATE_ISO8601}" itemprop="datePublished">{download_items.DATE}</time> 
-				${TextHelper::lowercase_first(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{download_items.U_CATEGORY}">{download_items.CATEGORY_NAME}</a>
+				${TextHelper::lcfirst(LangLoader::get_message('the', 'common'))} <time datetime="{download_items.DATE_ISO8601}" itemprop="datePublished">{download_items.DATE}</time> 
+				${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{download_items.U_CATEGORY}">{download_items.CATEGORY_NAME}</a>
 			</div>
 			
 			# IF download_items.C_PICTURE #

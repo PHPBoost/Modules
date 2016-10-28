@@ -32,8 +32,8 @@
 					${LangLoader::get_message('by', 'common')}
 					# IF news_items.C_AUTHOR_EXIST #<a itemprop="author" class="{news_items.USER_LEVEL_CLASS}" href="{news_items.U_AUTHOR_PROFILE}"# IF news_items.C_USER_GROUP_COLOR # style="{news_items.USER_GROUP_COLOR}"# ENDIF #>{news_items.PSEUDO}</a>, # ELSE #{news_items.PSEUDO}# ENDIF #
 				# ENDIF #
-				${TextHelper::lowercase_first(LangLoader::get_message('the', 'common'))} <time datetime="{news_items.DATE_ISO8601}" itemprop="datePublished">{news_items.DATE_DAY}/{news_items.DATE_MONTH}/{news_items.DATE_YEAR}</time>
-				${TextHelper::lowercase_first(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{news_items.U_CATEGORY}">{news_items.CATEGORY_NAME}</a>
+				${TextHelper::lcfirst(LangLoader::get_message('the', 'common'))} <time datetime="{news_items.DATE_ISO8601}" itemprop="datePublished">{news_items.DATE_DAY}/{news_items.DATE_MONTH}/{news_items.DATE_YEAR}</time>
+				${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{news_items.U_CATEGORY}">{news_items.CATEGORY_NAME}</a>
 			</div>
 			
 			# IF news_items.C_PICTURE #

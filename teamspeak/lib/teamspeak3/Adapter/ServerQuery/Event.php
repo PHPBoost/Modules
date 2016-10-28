@@ -82,7 +82,7 @@ class TeamSpeak3_Adapter_ServerQuery_Event implements ArrayAccess
     $this->mesg = $data;
 
     TeamSpeak3_Helper_Signal::getInstance()->emit("notifyEvent", $this, $con);
-    TeamSpeak3_Helper_Signal::getInstance()->emit("notify" . uppercase_first($this->type), $this, $con);
+    TeamSpeak3_Helper_Signal::getInstance()->emit("notify" . ucfirst($this->type), $this, $con);
   }
 
   /**

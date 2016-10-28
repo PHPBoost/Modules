@@ -19,7 +19,7 @@
 				<br />
 				<a itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a>
 				<br />
-				<span class="small">{sub_categories_list.ELEMENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ELEMENT #${TextHelper::lowercase_first(LangLoader::get_message('quotes', 'common', 'quotes'))}# ELSE #${TextHelper::lowercase_first(LangLoader::get_message('quote', 'common', 'quotes'))}# ENDIF #</span>
+				<span class="small">{sub_categories_list.ELEMENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ELEMENT #${TextHelper::lcfirst(LangLoader::get_message('quotes', 'common', 'quotes'))}# ELSE #${TextHelper::lcfirst(LangLoader::get_message('quote', 'common', 'quotes'))}# ENDIF #</span>
 			</div>
 		</div>
 		# END sub_categories_list #

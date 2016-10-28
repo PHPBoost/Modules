@@ -84,7 +84,7 @@ while ($row = $result->fetch())
 	
 	$Template->assign_block_vars('dictionary_list', array(
 		'ID' => $row['dictionary_id'],
-		'NAME' => Texthelper::uppercase_first(TextHelper::strtolower(stripslashes($title))),
+		'NAME' => Texthelper::ucfirst(TextHelper::strtolower(stripslashes($title))),
 		'IDCAT' => $row['cat'],
 		'CAT' => TextHelper::strtoupper($row['name']),
 		'DATE' => (!empty($date_created)) ? $date_created->format(Date::FORMAT_DAY_MONTH_YEAR) : '',
