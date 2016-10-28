@@ -282,7 +282,7 @@ class TeamSpeak3_Adapter_ServerQuery_Reply
     {
       if($permid = $this->getErrorProperty("failed_permid"))
       {
-        $suffix = " (failed on " . $this->cmd->section(TeamSpeak3::SEPARATOR_CELL) . " " . $permid . "/0x" . mb_strtoupper(dechex($permid)) . ")";
+        $suffix = " (failed on " . $this->cmd->section(TeamSpeak3::SEPARATOR_CELL) . " " . $permid . "/0x" . strtoupper(dechex($permid)) . ")";
       }
       elseif($details = $this->getErrorProperty("extra_msg"))
       {

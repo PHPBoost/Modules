@@ -87,12 +87,12 @@ class TeamSpeak3_Exception extends Exception
   {
     if(array_key_exists((int) $code, self::$messages))
     {
-      throw new self("custom message for code 0x" . mb_strtoupper(dechex($code)) . " is already registered");
+      throw new self("custom message for code 0x" . strtoupper(dechex($code)) . " is already registered");
     }
 
     if(!is_string($mesg))
     {
-      throw new self("custom message for code 0x" . mb_strtoupper(dechex($code)) . " must be a string");
+      throw new self("custom message for code 0x" . strtoupper(dechex($code)) . " must be a string");
     }
 
     self::$messages[(int) $code] = new TeamSpeak3_Helper_String($mesg);
@@ -109,7 +109,7 @@ class TeamSpeak3_Exception extends Exception
   {
     if(!array_key_exists((int) $code, self::$messages))
     {
-      throw new self("custom message for code 0x" . mb_strtoupper(dechex($code)) . " is not registered");
+      throw new self("custom message for code 0x" . strtoupper(dechex($code)) . " is not registered");
     }
 
     unset(self::$messages[intval($code)]);

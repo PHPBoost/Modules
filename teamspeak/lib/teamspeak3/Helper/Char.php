@@ -47,7 +47,7 @@ class TeamSpeak3_Helper_Char
    */
   public function __construct($char)
   {
-    if(mb_strlen($char) != 1)
+    if(strlen($char) != 1)
     {
       throw new TeamSpeak3_Helper_Exception("char parameter may not contain more or less than one character");
     }
@@ -132,7 +132,7 @@ class TeamSpeak3_Helper_Char
    */
   public function isUpper()
   {
-    return ($this->char === mb_strtoupper($this->char)) ? TRUE : FALSE;
+    return ($this->char === strtoupper($this->char)) ? TRUE : FALSE;
   }
 
   /**
@@ -142,7 +142,7 @@ class TeamSpeak3_Helper_Char
    */
   public function isLower()
   {
-    return ($this->char === mb_strtolower($this->char)) ? TRUE : FALSE;
+    return ($this->char === strtolower($this->char)) ? TRUE : FALSE;
   }
 
   /**
@@ -152,7 +152,7 @@ class TeamSpeak3_Helper_Char
    */
   public function toUpper()
   {
-    return ($this->isUpper()) ? $this : new self(mb_strtoupper($this));
+    return ($this->isUpper()) ? $this : new self(strtoupper($this));
   }
 
   /**
@@ -162,7 +162,7 @@ class TeamSpeak3_Helper_Char
    */
   public function toLower()
   {
-    return ($this->isLower()) ? $this : new self(mb_strtolower($this));
+    return ($this->isLower()) ? $this : new self(strtolower($this));
   }
 
   /**
@@ -217,7 +217,7 @@ class TeamSpeak3_Helper_Char
    */
   public function toHex()
   {
-    return mb_strtoupper(dechex($this->toAscii()));
+    return strtoupper(dechex($this->toAscii()));
   }
 
   /**
@@ -229,7 +229,7 @@ class TeamSpeak3_Helper_Char
    */
   public static function fromHex($hex)
   {
-    if(mb_strlen($hex) != 2)
+    if(strlen($hex) != 2)
     {
       throw new TeamSpeak3_Helper_Exception("given parameter '" . $hex . "' is not a valid hexadecimal number");
     }

@@ -117,7 +117,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function startsWith($pattern)
   {
-    return (mb_substr($this->string, 0, mb_strlen($pattern)) == $pattern) ? TRUE : FALSE;
+    return (substr($this->string, 0, strlen($pattern)) == $pattern) ? TRUE : FALSE;
   }
 
   /**
@@ -128,7 +128,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function endsWith($pattern)
   {
-    return (mb_substr($this->string, mb_strlen($pattern)*-1) == $pattern) ? TRUE : FALSE;
+    return (substr($this->string, strlen($pattern)*-1) == $pattern) ? TRUE : FALSE;
   }
 
   /**
@@ -139,7 +139,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function findFirst($needle)
   {
-    return mb_strpos($this->string, $needle);
+    return strpos($this->string, $needle);
   }
 
   /**
@@ -150,7 +150,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function findLast($needle)
   {
-    return mb_strrpos($this->string, $needle);
+    return strrpos($this->string, $needle);
   }
 
   /**
@@ -160,7 +160,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function toLower()
   {
-    return new self(mb_strtolower($this->string));
+    return new self(strtolower($this->string));
   }
 
   /**
@@ -170,7 +170,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function toUpper()
   {
-    return new self(mb_strtoupper($this->string));
+    return new self(strtoupper($this->string));
   }
 
   /**
@@ -204,9 +204,9 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    * @param  integer $length
    * @return TeamSpeak3_Helper_String
    */
-  public function mb_substr($start, $length = null)
+  public function substr($start, $length = null)
   {
-    $string = ($length !== null) ? mb_substr($this->string, $start, $length) : mb_substr($this->string, $start);
+    $string = ($length !== null) ? substr($this->string, $start, $length) : substr($this->string, $start);
 
     return new self($string);
   }
@@ -288,7 +288,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
 
     if($chars < 0)
     {
-      $this->string = mb_substr($this->string, 0, $chars);
+      $this->string = substr($this->string, 0, $chars);
     }
     elseif($chars > 0)
     {
@@ -503,7 +503,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
   {
     $string = "";
 
-    if(mb_strlen($hex)%2 == 1)
+    if(strlen($hex)%2 == 1)
     {
       throw new TeamSpeak3_Helper_Exception("given parameter '" . $hex . "' is not a valid hexadecimal number");
     }
@@ -596,7 +596,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function count()
   {
-    return mb_strlen($this->string);
+    return strlen($this->string);
   }
 
   /**
@@ -644,7 +644,7 @@ class TeamSpeak3_Helper_String implements ArrayAccess, Iterator, Countable
    */
   public function offsetExists($offset)
   {
-    return ($offset < mb_strlen($this->string)) ? TRUE : FALSE;
+    return ($offset < strlen($this->string)) ? TRUE : FALSE;
   }
 
   /**

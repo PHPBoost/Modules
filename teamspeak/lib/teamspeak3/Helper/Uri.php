@@ -105,7 +105,7 @@ class TeamSpeak3_Helper_Uri
   {
     $uri = explode(":", strval($uri), 2);
 
-    $this->scheme = mb_strtolower($uri[0]);
+    $this->scheme = strtolower($uri[0]);
     $uriString = isset($uri[1]) ? $uri[1] : "";
 
     if(!ctype_alnum($this->scheme))
@@ -123,7 +123,7 @@ class TeamSpeak3_Helper_Uri
     $this->regex["path"] = "(?:\/" . $this->regex["segment"] . "?)+";
     $this->regex["uric"] = "(?:" . $this->regex["reserved"] . "|" . $this->regex["unreserved"] . "|" . $this->regex["escaped"] . ")";
 
-    if(mb_strlen($uriString) > 0)
+    if(strlen($uriString) > 0)
     {
       $this->parseUri($uriString);
     }
@@ -207,7 +207,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasScheme()
   {
-    return mb_strlen($this->scheme) ? TRUE : FALSE;
+    return strlen($this->scheme) ? TRUE : FALSE;
   }
 
   /**
@@ -235,7 +235,7 @@ class TeamSpeak3_Helper_Uri
       $username = $this->user;
     }
 
-    if(mb_strlen($username) == 0)
+    if(strlen($username) == 0)
     {
       return TRUE;
     }
@@ -258,7 +258,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasUser()
   {
-    return mb_strlen($this->user) ? TRUE : FALSE;
+    return strlen($this->user) ? TRUE : FALSE;
   }
 
   /**
@@ -285,7 +285,7 @@ class TeamSpeak3_Helper_Uri
       $password = $this->pass;
     }
 
-    if(mb_strlen($password) == 0)
+    if(strlen($password) == 0)
     {
       return TRUE;
     }
@@ -308,7 +308,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasPass()
   {
-    return mb_strlen($this->pass) ? TRUE : FALSE;
+    return strlen($this->pass) ? TRUE : FALSE;
   }
 
   /**
@@ -345,7 +345,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasHost()
   {
-    return mb_strlen($this->host) ? TRUE : FALSE;
+    return strlen($this->host) ? TRUE : FALSE;
   }
 
   /**
@@ -382,7 +382,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasPort()
   {
-    return mb_strlen($this->port) ? TRUE : FALSE;
+    return strlen($this->port) ? TRUE : FALSE;
   }
 
   /**
@@ -410,7 +410,7 @@ class TeamSpeak3_Helper_Uri
       $path = $this->path;
     }
 
-    if(mb_strlen($path) == 0)
+    if(strlen($path) == 0)
     {
       return TRUE;
     }
@@ -433,7 +433,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasPath()
   {
-    return mb_strlen($this->path) ? TRUE : FALSE;
+    return strlen($this->path) ? TRUE : FALSE;
   }
 
   /**
@@ -461,7 +461,7 @@ class TeamSpeak3_Helper_Uri
       $query = $this->query;
     }
 
-    if(mb_strlen($query) == 0)
+    if(strlen($query) == 0)
     {
       return TRUE;
     }
@@ -484,7 +484,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasQuery()
   {
-    return mb_strlen($this->query) ? TRUE : FALSE;
+    return strlen($this->query) ? TRUE : FALSE;
   }
 
   /**
@@ -567,7 +567,7 @@ class TeamSpeak3_Helper_Uri
       $fragment = $this->fragment;
     }
 
-    if(mb_strlen($fragment) == 0)
+    if(strlen($fragment) == 0)
     {
       return TRUE;
     }
@@ -590,7 +590,7 @@ class TeamSpeak3_Helper_Uri
    */
   public function hasFragment()
   {
-    return mb_strlen($this->fragment) ? TRUE : FALSE;
+    return strlen($this->fragment) ? TRUE : FALSE;
   }
 
   /**

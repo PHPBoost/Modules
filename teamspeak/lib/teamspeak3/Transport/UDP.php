@@ -69,7 +69,7 @@ class TeamSpeak3_Transport_UDP extends TeamSpeak3_Transport_Abstract
 
     $this->stream = null;
 
-    TeamSpeak3_Helper_Signal::getInstance()->emit(mb_strtolower($this->getAdapterType()) . "Disconnected");
+    TeamSpeak3_Helper_Signal::getInstance()->emit(strtolower($this->getAdapterType()) . "Disconnected");
   }
 
   /**
