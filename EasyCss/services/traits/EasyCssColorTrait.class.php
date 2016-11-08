@@ -68,19 +68,19 @@ trait EasyCssColorTrait
     
     protected static function get_hex_value_from_str($value)
     {
-        preg_match('`^\s*#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\s*$`iu', $value, $matches);
+        preg_match('`^\s*#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\s*$`i', $value, $matches);
         return $matches[1];
     }
     
     protected static function get_rgba_value_from_str($value)
     {
-        preg_match('`\s*rgba\s*\((.*)\)\s*`iu', $value, $matches);
+        preg_match('`\s*rgba\s*\((.*)\)\s*`i', $value, $matches);
         return $matches[1];
     }
     
     protected static function get_rgb_value_from_str($value)
     {
-        preg_match('`\s*rgb\s*\((.*)\)\s*`iu', $value, $matches);
+        preg_match('`\s*rgb\s*\((.*)\)\s*`i', $value, $matches);
         return $matches[1];
     }
 }

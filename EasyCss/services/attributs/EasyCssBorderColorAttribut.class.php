@@ -42,7 +42,7 @@ class EasyCssBorderColorAttribut extends EasyCssAbstractAttribut
 
     /** @staticvar array Regex */
     public static $regex = [
-        '`(?<=[^-])border-color\s*:(.*);`isu',
+        '`(?<=[^-])border-color\s*:(.*);`isU',
     ];
     
     public function __construct($id, $parent_id, $matches)

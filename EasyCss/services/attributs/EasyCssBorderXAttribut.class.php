@@ -41,7 +41,7 @@ class EasyCssBorderXAttribut extends EasyCssAbstractAttribut
 
     /** @staticvar array Regex */
     public static $regex = [
-        '`(?<=[^-])border-(top|right|bottom|left)\s*:(.*);`isu',
+        '`(?<=[^-])border-(top|right|bottom|left)\s*:(.*);`isU',
     ];
     
     protected $key;

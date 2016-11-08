@@ -39,7 +39,7 @@ class EasyCssBackgroundAttribut extends EasyCssAbstractAttribut
     
     /** @staticvar array Regex */
     public static $regex = [
-        '`(?<=[^-])background\s*:(.*);`isu',
+        '`(?<=[^-])background\s*:(.*);`isU',
     ];
     
     protected $separator = ' ';

@@ -38,7 +38,7 @@ class EasyCssBackgroundColorAttribut extends EasyCssColorAttribut
 
     /** @staticvar array Regex */
     public static $regex = [
-        '`(?<=[^-])background-color\s*:(.*);`isu',
+        '`(?<=[^-])background-color\s*:(.*);`isU',
     ];
     
     public function get_templates()

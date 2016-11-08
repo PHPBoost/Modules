@@ -69,7 +69,7 @@ abstract class EasyCssAbstractBlock
         $lines = explode("\n", $this->parsed_css);
         foreach ($lines as $line)
         {
-            if (preg_match('`###(\d+)\/###`isu', $line, $matches))
+            if (preg_match('`###(\d+)\/###`isU', $line, $matches))
             {
                 /* @var $block \EasyCssAbstractBlock */       
                 $block = $this->children[$matches[1]];
@@ -100,7 +100,7 @@ abstract class EasyCssAbstractBlock
         $lines = explode("\n", $this->parsed_css);
         foreach ($lines as $line)
         {
-            if (preg_match('`###(\d+)\/###`isu', $line, $matches))
+            if (preg_match('`###(\d+)\/###`isU', $line, $matches))
             {
                 /** @var \EasyCssAbstractBlock $block */       
                 $block = $this->children[$matches[1]];
@@ -143,7 +143,7 @@ abstract class EasyCssAbstractBlock
      */
     protected function parse_title_block($css)
     {
-        return preg_replace_callback('`\/\*\*\s*-{3}(.+)-{3}\s*\*\/`isu', array($this, 'replace_parse_title_block'), $css );
+        return preg_replace_callback('`\/\*\*\s*-{3}(.+)-{3}\s*\*\/`isU', array($this, 'replace_parse_title_block'), $css );
     }
     
     /**
@@ -154,7 +154,7 @@ abstract class EasyCssAbstractBlock
      */
     protected function parse_display_comment_block($css)
     {
-        return preg_replace_callback('`\/\*\*(.+)\*\/`isu', array($this, 'replace_parse_display_comment_block'), $css );
+        return preg_replace_callback('`\/\*\*(.+)\*\/`isU', array($this, 'replace_parse_display_comment_block'), $css );
     }
     
     /**
@@ -165,7 +165,7 @@ abstract class EasyCssAbstractBlock
      */
     protected function parse_comment_block($css)
     {
-        return preg_replace_callback('`\/\*(.+)\*\/`isu', array($this, 'replace_parse_comment_block'), $css );
+        return preg_replace_callback('`\/\*(.+)\*\/`isU', array($this, 'replace_parse_comment_block'), $css );
     }
     
     /**
@@ -176,7 +176,7 @@ abstract class EasyCssAbstractBlock
      */
     protected function parse_media_block($css)
     {
-        return preg_replace_callback('`@media\s*\((.+)\)\s*\{(.*)\}\s*\}`isu', array($this, 'replace_parse_media_block'), $css );
+        return preg_replace_callback('`@media\s*\((.+)\)\s*\{(.*)\}\s*\}`isU', array($this, 'replace_parse_media_block'), $css );
     }
     
     /**
@@ -187,7 +187,7 @@ abstract class EasyCssAbstractBlock
      */
     protected function parse_block($css)
     {
-        return preg_replace_callback('`\s*((?:(?!#\s|\/).)*)\{(.*)\}`isu', array($this, 'replace_parse_block'), $css );
+        return preg_replace_callback('`\s*((?:(?!#\s|\/).)*)\{(.*)\}`isU', array($this, 'replace_parse_block'), $css );
     }
     
     /**
@@ -250,7 +250,7 @@ abstract class EasyCssAbstractBlock
     {
         $this->counter++;
 
-        $this->children[$this->counter] = new EasyCssMediaBlock($this->counter, $this->parent_id .'/' . $this->id,preg_replace('/\s{2,}/u', ' ', trim(str_replace("\n\n", "\n", $matches[1]))), $matches[2]);
+        $this->children[$this->counter] = new EasyCssMediaBlock($this->counter, $this->parent_id .'/' . $this->id,preg_replace('/\s{2,}/', ' ', trim(str_replace("\n\n", "\n", $matches[1]))), $matches[2]);
         return "\n" . '###' . $this->counter . '/###' . "\n";
     }
     
@@ -267,7 +267,7 @@ abstract class EasyCssAbstractBlock
         if (!isset($matches[1])) return '';
         
         $this->counter++;
-        $this->children[$this->counter] = new EasyCssBlock($this->counter, $this->parent_id .'/' . $this->id, preg_replace('/\s{2,}/u', ' ', trim(str_replace("\n\n", "\n", $matches[1]))), $matches[2]);
+        $this->children[$this->counter] = new EasyCssBlock($this->counter, $this->parent_id .'/' . $this->id, preg_replace('/\s{2,}/', ' ', trim(str_replace("\n\n", "\n", $matches[1]))), $matches[2]);
         return "\n" . '###' . $this->counter . '/###' . "\n";
     }
     
