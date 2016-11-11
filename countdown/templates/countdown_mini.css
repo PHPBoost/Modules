@@ -1,0 +1,45 @@
+.pbt-timer {
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.timer-unit {
+    width:23%;
+    float: left;
+    text-align: center;
+}
+
+.timer-unit:first-child { width:31%; }
+
+.timer-date {
+    font-size:1.2em;
+    padding: 10px 5px;
+    margin: 0 2px;
+    color: #f5f5f5;
+    background: #353535;
+    background-image:linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0%, rgba(56, 56, 56, 0.1) 100%);
+    border-radius: 4px
+}
+
+.timer-unit:first-child .timer-date { background: #366393 }
+
+.timer-name { font-size:10px; }
+
+.horizontal-timer { overflow: hidden; }
+
+.horizontal-timer .pbt-timer {
+    width:60%;
+    float: right;
+}
+
+.horizontal-timer span.event-title {
+    margin-top: 20px;
+    padding-left: 20px;
+    float: left;
+    width: 40%;
+}
+
+input.input-hours,
+input.input-minutes {
+    width: 80px;
+}

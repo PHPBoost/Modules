@@ -1,0 +1,7 @@
+ul.lastcoms {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.lastcoms li {text-align: left;}
