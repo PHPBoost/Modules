@@ -79,7 +79,7 @@ class AdminServerStatusConfigController extends AdminController
 		
 		$fieldset->add_field(new FormFieldTextEditor('refresh_delay', $this->lang['admin.config.refresh_delay'], $this->config->get_refresh_delay(), array(
 			'maxlength' => 4, 'size' => 4, 'description' => $this->lang['admin.config.refresh_delay.explain'], 'required' => true),
-			array(new FormFieldConstraintRegex('`^[0-9]+$`i'))
+			array(new FormFieldConstraintRegex('`^[0-9]+$`iu'))
 		));
 		
 		$fieldset->add_field(new FormFieldTextEditor('timeout', $this->lang['admin.config.timeout'], $this->config->get_timeout(),

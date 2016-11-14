@@ -148,7 +148,7 @@ if (retrieve(GET,'add',false))
 		{
 			if ($_FILES['images']['size'] > 0)
 			{
-				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`i', Upload::UNIQ_NAME, 20*1024);
+				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`iu', Upload::UNIQ_NAME, 20*1024);
 				if (!empty($Upload->error)) //Erreur, on arrête ici
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&id_cat='.$id_cat.'&erroru=' . $Upload->error) . '#message_helper');
@@ -196,7 +196,7 @@ if (retrieve(GET,'add',false))
 		{
 			if ($_FILES['images']['size'] > 0)
 			{
-				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`i',Upload::UNIQ_NAME, 20*1024);
+				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`iu',Upload::UNIQ_NAME, 20*1024);
 				if ($Upload->get_error() != '') //Erreur, on arrête ici
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $Upload->error) . '#message_helper');

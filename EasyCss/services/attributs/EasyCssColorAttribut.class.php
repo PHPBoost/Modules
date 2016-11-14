@@ -42,7 +42,7 @@ class EasyCssColorAttribut extends EasyCssAbstractAttribut
 
     /** @staticvar array Regex */
     public static $regex = [
-        '`(?<=[^-])color\s*:(.*);`isU',
+        '`(?<=[^-])color\s*:(.*);`isuU',
     ];
 
     public function __construct($id, $parent_id, $matches)

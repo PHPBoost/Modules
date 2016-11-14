@@ -222,7 +222,7 @@ class EasyCssColorsManager
     
     public static function sanitise($value)
     {
-        $val = preg_split('`\((.*)\)`isU', $value, NULL, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        $val = preg_split('`\((.*)\)`isuU', $value, NULL, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $strval = '';
         foreach ($val as $key => $v)
         {
@@ -242,17 +242,17 @@ class EasyCssColorsManager
     
     protected static function is_rgba_color($value)
     {
-        return preg_match('`\s*rgba\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d?\.?\d{1,}\s*\)`i', $value);
+        return preg_match('`\s*rgba\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d?\.?\d{1,}\s*\)`iu', $value);
     }
     
     protected static function is_rgb_color($value)
     {
-        return preg_match('`\s*rgb\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)`i', $value);
+        return preg_match('`\s*rgb\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)`iu', $value);
     }
     
     protected static function is_hex_color($value)
     {
-        return preg_match('`^\s*#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\s*$`i', $value);
+        return preg_match('`^\s*#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\s*$`iu', $value);
     }
     
     protected static function is_other_color_value($value)

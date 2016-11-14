@@ -81,7 +81,7 @@ class AdminEasyCssThemeController extends ModuleController
 
             $theme_folder = new Folder(PATH_TO_ROOT . '/templates/' . $theme->get_id() . '/theme');
             
-            foreach ($theme_folder->get_files('`\.css$`i') as $file)
+            foreach ($theme_folder->get_files('`\.css$`iu') as $file)
             {
                 $this->view->assign_block_vars('themes.css', array(
                     'NAME'  => $file->get_name(),

@@ -68,7 +68,7 @@ class EasyCssBlock extends EasyCssAbstractBlock
         }
 
         // Parsage des éléments génériques
-        $css = preg_replace_callback('`([^#{3}|^\/| ]*)\s*:\s*(.*)\s*;`isU', function ($matches)
+        $css = preg_replace_callback('`([^#{3}|^\/| ]*)\s*:\s*(.*)\s*;`isuU', function ($matches)
         {
             $this->counter++;
             $this->children[$this->counter] = new EasyCssGenericAttribut($this->counter, $this->parent_id . '/' . $this->id, $matches[1], $matches[2]);
