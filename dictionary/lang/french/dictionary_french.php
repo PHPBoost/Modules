@@ -31,12 +31,12 @@
 
 $LANG['dictionary'] = "Dictionnaire";
 $LANG['dictionary_contribution_legend'] = "Présenter une contribution";
-$LANG['dictionary_contribution_notice'] = "Vous n\'êtes pas autorisé à ajouter un mot au lexique, cependant vous pouvez en proposer une. Votre contribution suivra le parcours classique et sera traitée dans le panneau de contribution de PHPBoost. Vous pouvez, dans le champ suivant, justifier votre contribution de façon à expliquer votre démarche à un approbateur.";
+$LANG['dictionary_contribution_notice'] = "Vous n\'êtes pas autorisé à ajouter un mot au lexique, cependant vous pouvez en proposer une. Votre contribution suivra le parcours classique et sera traitée dans le panneau de contribution. Vous pouvez, dans le champ suivant, justifier votre contribution de façon à expliquer votre démarche à un approbateur.";
 $LANG['dictionary_contribution_counterpart'] = 'Complément de contribution';
 $LANG['dictionary_contribution_counterpart_explain'] = 'Expliquez les raisons de votre contribution. Ce champ est facultatif.';
 $LANG['dictionary_contribution_entitled'] = 'Un mot a été proposée : %d';
 $LANG['contribution_confirmation'] = 'Confirmation de contribution';
-$LANG['contribution_confirmation_explain'] = '<p>Vous pourrez la suivre dans le <a href="' . url('../member/contribution_panel.php') . '">panneau de contribution de PHPBoost</a> et éventuellement discuter avec les validateurs si leur choix n\'est pas franc.</p><p>Merci d\'avoir participé à la vie du site !</p>';
+$LANG['contribution_confirmation_explain'] = '<p>Vous pourrez la suivre dans le <a href="' . url('../member/contribution_panel.php') . '">panneau de contribution</a> et éventuellement discuter avec les validateurs si leur choix n\'est pas franc.</p><p>Merci d\'avoir participé à la vie du site !</p>';
 $LANG['contribution_success'] = 'Votre contribution a bien été enregistrée.';
 $LANG['require_text_desc'] = 'Vous devez rentrer une définition';
 $LANG['require_text_word'] = 'Vous devez remplir le champs mots';
