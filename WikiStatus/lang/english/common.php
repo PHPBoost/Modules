@@ -31,6 +31,7 @@
  ####################################################
 
 $lang['menu_title'] = 'Articles created or updated';
+$lang['statut_legend'] = 'Only documents whose status has been declared (predefined or customized) are displayed';
 $lang['title_date_and_time'] = 'Date and time';
 $lang['title_author'] = 'Author';
 $lang['statut_1'] = 'Article OK';
