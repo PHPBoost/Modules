@@ -34,9 +34,9 @@ $lang['menu_title'] = 'Articles WIKI créés ou mis à jour';
 $lang['statut_legend'] = 'Seuls les documents dont le statut a été déclaré (prédéfini ou personnalisé) sont affichés';
 $lang['title_date_and_time'] = 'Date et heure';
 $lang['title_author'] = 'Auteur';
-$lang['statut_1'] = 'Article OK';
-$lang['statut_2'] = 'Incomplet';
-$lang['statut_3'] = 'En travaux';
-$lang['statut_4'] = 'A refaire';
-$lang['statut_5'] = 'Obsolète';
+$lang['status_1'] = 'Article OK';
+$lang['status_2'] = 'Incomplet';
+$lang['status_3'] = 'En travaux';
+$lang['status_4'] = 'A refaire';
+$lang['status_5'] = 'Obsolète';
 ?>
