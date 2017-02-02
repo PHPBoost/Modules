@@ -31,6 +31,7 @@
  ####################################################
 
 $lang['menu_title'] = 'Articles WIKI créés ou mis à jour';
+$lang['statut_legend'] = 'Seuls les documents dont le statut a été déclaré (prédéfini ou personnalisé) sont affichés';
 $lang['title_date_and_time'] = 'Date et heure';
 $lang['title_author'] = 'Auteur';
 $lang['statut_1'] = 'Article OK';

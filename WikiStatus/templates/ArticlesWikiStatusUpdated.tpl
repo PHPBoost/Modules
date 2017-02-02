@@ -1,5 +1,5 @@
 <span class="span-mini-wiki-status">
-Seuls les documents dont le statut a été déclaré (prédéfini ou personnalisé) sont affichés.
+{@statut_legend}
 </span>
 <table id="table-mini-wiki-status">
 	<thead>
