@@ -34,9 +34,9 @@ $lang['menu_title'] = 'Articles created or updated';
 $lang['statut_legend'] = 'Only documents whose status has been declared (predefined or customized) are displayed';
 $lang['title_date_and_time'] = 'Date and time';
 $lang['title_author'] = 'Author';
-$lang['statut_1'] = 'Article OK';
-$lang['statut_2'] = 'Incomplete';
-$lang['statut_3'] = 'Pending';
-$lang['statut_4'] = 'Redo';
-$lang['statut_5'] = 'Obsolete';
+$lang['status_1'] = 'Article OK';
+$lang['status_2'] = 'Incomplete';
+$lang['status_3'] = 'Pending';
+$lang['status_4'] = 'Redo';
+$lang['status_5'] = 'Obsolete';
 ?>
