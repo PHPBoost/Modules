@@ -54,8 +54,8 @@ class TeamspeakCache implements CacheData
 			
 			$number_clients = $ts3->clientCount();
 			
-			$viewer_pictures = new Url(PATH_TO_ROOT . '/teamspeak/templates/images/viewer/');
-			$flags_pictures = new Url(PATH_TO_ROOT . '/teamspeak/templates/images/flags/');
+			$viewer_pictures = new Url(PATH_TO_ROOT . '/teamspeak/templates/images/viewer/'); /* Specific Flags used by teamspeak */
+			$flags_pictures = new Url(PATH_TO_ROOT . '/images/stats/countries/'); /* Flags used for PHPBoost stats */
 			
 			/* display viewer for selected TeamSpeak3_Node_Server */
 			$viewer = $ts3->getViewer(new TeamSpeak3_Viewer_Html($viewer_pictures->rel(), $flags_pictures->rel()));
