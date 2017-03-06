@@ -38,7 +38,7 @@ $lang['module.edito'] = 'Edito';
 $lang['module.lastcoms'] = 'Derniers commentaires';
 $lang['module.articles'] = 'Derniers articles';
 $lang['module.articles_category'] = 'Derniers articles d\'une catégorie';
-$lang['module.calendar'] = 'Evénements à venir du calendrier';
+$lang['module.calendar'] = 'Événements à venir du calendrier';
 $lang['module.contact'] = 'Formulaire de contact';
 $lang['module.download'] = 'Derniers téléchargements';
 $lang['module.download_category'] = 'Derniers téléchargements d\'une catégorie';
@@ -82,7 +82,7 @@ $lang['no.download.item'] = 'Il n\'y a pas de fichier dans cette catégorie';
 // events
 $lang['next.events'] = 'Les événements à venir';
 $lang['link.to.events'] = 'Voir le calendrier';
-$lang['event.date'] = 'Evévement prévu le';
+$lang['event.date'] = 'Événement prévu le';
 $lang['no.events'] = 'Aucun événement à venir';
 
 // Forum

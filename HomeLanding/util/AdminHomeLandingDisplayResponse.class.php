@@ -36,6 +36,7 @@ class AdminHomeLandingDisplayResponse extends AdminMenuDisplayResponse
 		
 		$this->add_link(LangLoader::get_message('configuration', 'admin-common'), HomeLandingUrlBuilder::configuration());
 		$this->add_link(LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding'), HomeLandingUrlBuilder::positions());
+		$this->add_link(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('HomeLanding')->get_configuration()->get_documentation());
 
 		$env = $this->get_graphical_environment();
 		$env->set_page_title($title_page, $lang['module_title']);

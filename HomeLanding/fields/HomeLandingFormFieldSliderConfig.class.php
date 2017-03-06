@@ -109,7 +109,7 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 	{
 		foreach($field_options as $attribute => $value)
 		{
-			$attribute = TextHelper::strtolower($attribute);
+			$attribute = strtolower($attribute);
 			switch ($attribute)
 			{
 				case 'max_input':

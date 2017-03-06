@@ -33,6 +33,7 @@ class HomeLandingTreeLinks implements ModuleTreeLinksExtensionPoint
 		
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), HomeLandingUrlBuilder::configuration()));
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding'), HomeLandingUrlBuilder::positions()));
+		$tree->add_link(new ModuleLink(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('HomeLanding')->get_configuration()->get_documentation()));
 		
 		return $tree;
 	}

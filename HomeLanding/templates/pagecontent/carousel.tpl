@@ -88,8 +88,8 @@
                             $slideContainer.css('margin-left', -containerWidth * currentSlide);                  
                         }
                         
-                        $('.dotNavigation').removeClass('active');
-                        $('#' + currentSlide).addClass('active');
+                        $('.dotNavigation').removeClass('slide-active');
+                        $('#' + currentSlide).addClass('slide-active');
                     });
               
                     $('.next').on('click', function() {
@@ -102,8 +102,8 @@
                           $slideContainer.css('margin-left', 0);
                         }
                   
-                        $('.dotNavigation').removeClass('active');
-                        $('#' + currentSlide).addClass('active');
+                        $('.dotNavigation').removeClass('slide-active');
+                        $('#' + currentSlide).addClass('slide-active');
                         $slideContainer.css('margin-left', -nextSlide);
                     });
                     
@@ -124,8 +124,8 @@
            
              $('.dotNavigation').on('click', function() {
                menuHandler($(this));
-               $('.dotNavigation').removeClass('active');
-               $(this).addClass('active');
+               $('.dotNavigation').removeClass('slide-active');
+               $(this).addClass('slide-active');
              });
            
              $('.imageNavigation').on('click', function() {
@@ -179,7 +179,7 @@
                $slideContainer.css('margin-left', movementLeft);
                $('.clonedAppend').remove();
                $slideContainer.append($slide.first().clone().addClass('clonedAppend'));
-               $('#' + currentSlide).addClass('active');
+               $('#' + currentSlide).addClass('slide-active');
            
                startSlider($slideContainer, containerWidth);
              }
@@ -211,8 +211,8 @@
                      sContainer.css('margin-left', 0);
                    }
            
-                   $('.dotNavigation').removeClass('active');
-                   $('#' + currentSlide).addClass('active');
+                   $('.dotNavigation').removeClass('slide-active');
+                   $('#' + currentSlide).addClass('slide-active');
                  });
                }, settings.animationPause);
              }

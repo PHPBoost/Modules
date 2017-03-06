@@ -1,4 +1,5 @@
-/* Design */
+/** --- General design
+----------------------------------------------------------------------------- */
 
 #module-homelanding {
     display: flex;
@@ -35,7 +36,8 @@
     padding: 10px;
 }
 
-/** --- Carousel --- */
+/** --- Carousel
+----------------------------------------------------------------------------- */
 #slider{
     position: relative;
     width: 100%;
@@ -88,7 +90,7 @@
 }
 
 .dotNavigation:hover,
-.active{
+.slide-active{
     background: rgba(255, 255, 255, .8);
 }
 
@@ -136,19 +138,22 @@
     opacity: 0;
 }
 
-/** --- Edito --- */
+/** --- Edito
+----------------------------------------------------------------------------- */
 
 #home_edito {
     margin: 10px 0;
 }
 
-/** --- last comments --- */
+/** --- last comments
+----------------------------------------------------------------------------- */
 
 #last_coms ul {
     list-style-type: none;
 }
 
-/** --- Last articles --- */
+/** --- Last articles
+----------------------------------------------------------------------------- */
 
 #last_articles img {
     margin: 0 10px 5px;
@@ -161,7 +166,8 @@
     }
 }
 
-/* --- Last articles cat --- */
+/* --- Last articles from categories
+----------------------------------------------------------------------------- */
 
 @media (min-width: 769px){
     #last_articles_cat .item-content {
@@ -172,9 +178,14 @@
     }
 }
 
-/* --- Calendar --- */
+/* --- Last calendar events
+----------------------------------------------------------------------------- */
 
-/* --- Last download --- */
+/* --- Contact
+----------------------------------------------------------------------------- */
+
+/* --- Last downloads
+----------------------------------------------------------------------------- */
 
 #last_download img {
     margin: 0 10px 5px;
@@ -187,9 +198,11 @@
     }
 }
 
-/* --- Last download cat --- */
+/* --- Last downloads from categories
+----------------------------------------------------------------------------- */
 
-/* --- Last forum topic --- */
+/* --- Last forum topics
+----------------------------------------------------------------------------- */
 #last_messages .avatar {
     float: left;
     max-width: 60px;
@@ -208,7 +221,8 @@
     }
 }
 
-/* --- Last Gallery --- */
+/* --- Last pictures from Gallery
+----------------------------------------------------------------------------- */
 
 #last_gallery .item-content {
     display: inline-block;
@@ -220,7 +234,9 @@
     max-width: 300px;
 }
 
-/* --- Last guestbook --- */
+/* --- Last messages from Guestbook
+----------------------------------------------------------------------------- */
+
 #last_guestbook .avatar {
     float: left;
     max-width: 60px;
@@ -236,7 +252,8 @@
     }
 }
 
-/* --- Last media --- */
+/* --- Last media
+----------------------------------------------------------------------------- */
 
 #last_media .media-content {
 	position: relative;
@@ -245,9 +262,10 @@
 	padding-top: 25px;
 	height: 0;
 }
- 
+
 #last_media .media-content object,
-#last_media .media-content embed  {
+#last_media .media-content embed,
+#last_media .media-content video {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -255,7 +273,8 @@
 	height: 100%;
 }
 
-/* --- Last news --- */
+/* --- Last news
+----------------------------------------------------------------------------- */
 
 #last_news img {
     margin: 0 10px 5px;
@@ -268,7 +287,8 @@
     }
 }
 
-/* --- last news cat --- */
+/* --- Last news from categories
+----------------------------------------------------------------------------- */
 
 @media (min-width:769px){
     #last_news_cat .item-content {
@@ -279,14 +299,16 @@
     }
 }
 
-/* --- External Rss --- */
+/* --- External Rss
+----------------------------------------------------------------------------- */
 
 #rssreader ul {
     margin: 0;
     list-style-type: none;
 }
 
-/* --- Partners --- */
+/* --- Last partners links
+----------------------------------------------------------------------------- */
 
 #last_web ul {
     display: table;
@@ -313,14 +335,18 @@
     display: block;
 }
 
-/* --- HomeLanding Module configuration --- */
+/* --- Last partners links from categories
+----------------------------------------------------------------------------- */
+
+/* --- HomeLanding Module configuration
+----------------------------------------------------------------------------- */
 @media (min-width: 769px){
     textarea.slider-description {
         float: left;
         height: 70px;
         width: 45%;
     }
-    
+
     input.slider-url {
         margin: 5px;
         width: 40%;

@@ -31,12 +31,12 @@ class HomeLandingSetup extends DefaultModuleSetup
 	{
 		$this->delete_configuration();
 	}
-	
+
 	public function upgrade($installed_version)
 	{
 		$config = HomeLandingConfig::load();
 		$new_carousel = array();
-		
+
 		foreach ($config->get_carousel() as $description => $url)
 		{
 			if (!is_array($url))
@@ -44,13 +44,13 @@ class HomeLandingSetup extends DefaultModuleSetup
 			else
 				$new_carousel[] = $url;
 		}
-		
+
 		$config->set_carousel($new_carousel);
 		HomeLandingConfig::save();
-		
-		return '5.1.0';
+
+		return '5.1 alpha 0.0.3';
 	}
-	
+
 	private function delete_configuration()
 	{
 		ConfigManager::delete('homelanding', 'config');
