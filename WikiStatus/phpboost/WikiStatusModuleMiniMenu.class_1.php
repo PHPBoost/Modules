@@ -28,6 +28,7 @@
 /**
  * @author Julien BRISWALTER <j1.seth@phpboost.com>
  */
+/* indent + 8 */
 class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 {
 
