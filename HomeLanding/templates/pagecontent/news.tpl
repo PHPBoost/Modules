@@ -10,13 +10,13 @@
 			</span>
 		</h2>
 	</header>
-	<div class="content">     
-	# START news_items #	
+	<div class="content">
+	# START news_items #
 		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-			
+
 			<h3 class="item-title">
 				<a href="{news_items.U_LINK}">{news_items.NAME}</a>
-				
+
 				<span class="actions">
 					# IF news_items.C_EDIT #
 						<a href="{news_items.U_EDIT}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
@@ -26,7 +26,7 @@
 					# ENDIF #
 				</span>
 			</h3>
-			
+
 			<div class="more">
 				# IF news_items.C_AUTHOR_DISPLAYED #
 					${LangLoader::get_message('by', 'common')}
@@ -35,16 +35,16 @@
 				${TextHelper::lcfirst(LangLoader::get_message('the', 'common'))} <time datetime="{news_items.DATE_ISO8601}" itemprop="datePublished">{news_items.DATE_DAY}/{news_items.DATE_MONTH}/{news_items.DATE_YEAR}</time>
 				${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{news_items.U_CATEGORY}">{news_items.CATEGORY_NAME}</a>
 			</div>
-			
+
 			# IF news_items.C_PICTURE #
 				<img class="item-picture" src="{news_items.U_PICTURE}" alt="{news_items.NAME}" />
 			# ENDIF #
 			<p class="item-desc">
 				<div itemprop="text">{news_items.DESCRIPTION}# IF news_items.C_READ_MORE #... <a href="{news_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
 			</p>
-			
-		</div>	
+
+		</div>
 	# END news_items #
-	</div>            
+	</div>
 	<footer></footer>
 </article>

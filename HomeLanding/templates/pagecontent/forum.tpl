@@ -13,21 +13,21 @@
 	<div class="content">
 	# START forum_items #
 		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-			
+
 			<img class="avatar" src="{forum_items.U_AVATAR}" alt="{forum_items.PSEUDO}" />
-			
+
 			<div class="more">
 				<p class="color-topic"><i class="fa fa-user"></i> {forum_items.PSEUDO}</p>
 				<p><i class="fa fa-clock-o"></i>  {forum_items.DATE}</p>
-				<p><i class="fa fa-file-o"></i>  <span class="color-topic"><a href="{forum_items.U_MESSAGE}">{forum_items.MESSAGE}</a></p>
+				<p><i class="fa fa-file-o"></i>  <span class="color-topic"><a href="{forum_items.U_MESSAGE}">{forum_items.MESSAGE}</a></span></p>
 			</div>
-			
-			<p class="item-desc">				
+
+			<p class="item-desc">
 				{forum_items.CONTENTS} ... <a href="{forum_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</i></a>
 			</p>
-						
+
 		</div>
 	# END forum_items #
-	</div>            
+	</div>
 	<footer></footer>
 </article>

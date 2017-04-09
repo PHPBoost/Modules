@@ -49,19 +49,22 @@
  /* #####  #   #  #   #  #   #  #####  #####  #####  #####  #####
  */
 
+ 09/04/2017 5.1.0
+ #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Ajout du poster dans les media
+ Fix span forum
 
-
- 01/03/2017 5.1 alpha 0.0.3
+ 01/03/2017 5.1.0
  #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Ajout du lien vers la doc
  Media modifs suite au bug sur vidéo mp4/flv
  Media ajout du player video HTML5 + lien vers la fiche de l'item sur le titre
 
- 02/02/2017 5.1 alpha 0.0.2
+ 02/02/2017 5.1.0
  #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Modifs UTF-8
 
- 29/09/2016 5.1 alpha 0.0.1
+ 29/09/2016 5.1.0
  #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Fix bug #1663 probleme affichage message admin du forum
 
@@ -75,7 +78,7 @@ Fix bug #1663 probleme affichage message admin du forum
  Correction de l'affichage des liens [Lire la suite] des articles
  Correction d'erreurs 404 dans la galerie
  Correction du titre du module contact
- Possibilit� d'utiliser les derniers commentaires même si la réécriture d'url n'est pas activée
+ Possibilité d'utiliser les derniers commentaires même si la réécriture d'url n'est pas activée
 
  08/06/2016 5.0.0
  #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -84,12 +87,12 @@ Fix bug #1663 probleme affichage message admin du forum
  catégories articles / news / download / web : mettre un message si la catégorie est vide
  Ajout du module contact
 
- 05/06/2016 5.0 alpha 1.8 -----# Modifications j1.seth #--------------------------------------------------------------------------------------------------------------------------------------------
+ 05/06/2016 alpha 1.8 -----# Modifications j1.seth #--------------------------------------------------------------------------------------------------------------------------------------------
  déplacement, changement de nom et design du field pour le carousel : HomeLandingFormFieldSliderConfig
  création d'une page pour gérer les positions des menus
  création des objets pour gérer la liste des modules et les modules
  refactoring de la configuration
- optimisation du nombre de requètes SQL à l'affichage de la page d'accueil
+ optimisation du nombre de requètes SQL a l'affichage de la page d'accueil
  vérification des autorisations d'affichage des modules et catégories
  possibilité d'afficher les sous-catégories ou non
  Si une catégorie est limitée => ne pas afficher les entrées
@@ -98,8 +101,7 @@ Fix bug #1663 probleme affichage message admin du forum
  Ajout de la position du module dans admin news-cat
  modif rss + condition sur le controller
 
- 20/04/2016 5.0 alpha 1.7
- #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 20/04/2016 alpha 1.7 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Fix bug Rss quand désactivé
 
  11/04/2016
@@ -119,63 +121,57 @@ Fix bug #1663 probleme affichage message admin du forum
  Amélioration tpl/css
  Ajout du lien vers le topic
 
- 08/04/2016 5.0 alpha 1.6
- #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 08/04/2016 alpha 1.6 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  fix bug des vérif de présence de module
  Affinage de l'admin séparation de l'édito et des lastcoms
  # RSS #
  ajout de la date et heure
 
- 08/04/2016 5.0 alpha 1.5
- #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 08/04/2016 alpha 1.5 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Fix du bug apostrophe sur les titres et les messages du forum
  Ajout d'un bloc Fil RSS pour un site externe
  Ajout de la vérification de l'url rewriting activée pour les lastcoms
  suppression des tpl de secours : news_feed.tpl, news-last.tpl, forum-feed.tpl
  Mise en place du positionnement des blocs
- Ajout du nombre de partenaires affich�s pour le module web
+ Ajout du nombre de partenaires affichés pour le module web
 
- 07/04/2016 5.0 alpha 1.4
- #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 07/04/2016  alpha 1.4 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Fix du bug des liens de l'édito
  Fix du bug des liens du calendrier quand l'événement est dans une catégorie
  Fichier lang/english/common.php
  # FORUM #
  Ajout de la date et l'heure du message
  # MULTIMEDIA #
- Gestion de l'affichage du module entier => nb de media
+ Gestion de l'affichage du module entier => nb d'items
 
- 23/03/2016 5.0 alpha 1.3
- #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 23/03/2016 alpha 1.3 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Gestion de l'affichage d'un module dans la config si module activé/installé => bug (cf to do list)
  Gestion de l'affichage en backoffice d'un module s'il est installé ET s'il est activé
 
- 22/03/2016 5.0 alpha 1.2
- #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 22/03/2016 alpha 1.2 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Gestion de l'affichage en frontoffice d'un module s'il est installé ET s'il est activé
  Gestion du choix d'une catégorie => select parmis la liste des catégories d'un module
  gestion de l'affichage des emplacements de menu (gauche/droite/top/bottom/top-footer)
  # FORUM #
  Affichage des derniers posts du forum
 
- 21/03/2016 5.0 alpha 1.0
- #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 21/03/2016 alpha 1.0 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  Gestion du titre du module
- Getion de l'affichage d'un �dito => textarea
- Gestion de l'affichage des derniers commentaires => nb de com => nb de caractères par com
+ Getion de l'affichage d'un édito => textarea
+ Gestion de l'affichage des derniers commentaires => nb d'item' => nb de caractères par item
  # ARTICLES #
- Gestion de l'affichage du module entier => nb d'articles
- Gestion de l'affichage d'une seule catégorie du module => nb d'articles => nb de caractères par article
+ Gestion de l'affichage du module entier => nb d'items
+ Gestion de l'affichage d'une seule catégorie du module => nb d'items => nb de caractères par item
  # CALENDAR #
- Gestion de l'affichage des événements => nb d'événements => nb de caractères par événement
+ Gestion de l'affichage des événements => nb d'items => nb de caractères par événement
  # DOWNLOAD #
- Gestion de l'affichage du module entier => nb d'articles
- Gestion de l'affichage d'une seule catégorie du module => nb d'articles => nb de caractères par article
+ Gestion de l'affichage du module entier => nb d'items
+ Gestion de l'affichage d'une seule catégorie du module => nb d'items => nb de caractères par item
  # GUESTBOOK #
- Gestion de l'affichage du module => nb d'articles => nb de caractères par article
+ Gestion de l'affichage du module => nb d'items => nb de caractères par item
  # NEWS #
  Gestion de l'affichage du module entier => nb d'articles
- Gestion de l'affichage d'une seule catégorie du module => nb d'articles => nb de caractères par article
+ Gestion de l'affichage d'une seule catégorie du module => nb d'items => nb de caractères par item
  # WEB #
  Gestion de l'affichage du module entier => nb d'articles
- Gestion de l'affichage d'une seule catégorie du module => nb d'articles => nb de caractères par article
+ Gestion de l'affichage d'une seule catégorie du module => nb d'items => nb de caractères par item
