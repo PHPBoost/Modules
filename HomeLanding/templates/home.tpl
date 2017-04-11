@@ -12,7 +12,7 @@
 		</div>
 	# ENDIF #
 
-	# INCLUDE LASTCOMS # 
+	# INCLUDE LASTCOMS #
 
 
 	# INCLUDE ARTICLES #
@@ -48,7 +48,7 @@
 	# INCLUDE NEWS_CAT #
 
 
-	# INCLUDE RSS #
+	<!-- # INCLUDE RSS # -->
 
 
 	# INCLUDE  WEB #
