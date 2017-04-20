@@ -53,7 +53,7 @@ class GoogleAnalyticsModuleMiniMenu extends ModuleMiniMenu
 		}
 
 		$tpl->put_all(array(
-			'C_DISPLAY' => !empty($identifier) && (!$cookiebar_config->is_cookiebar_enabled() || ($cookiebar_config->get_cookiebar_tracking_mode() == CookieBarConfig::TRACKING_COOKIE && getCookie('pbt-cookiebar-choice') == 1)),
+			'C_DISPLAY' => !empty($identifier) && (!$cookiebar_config->is_cookiebar_enabled() || ($cookiebar_config->get_cookiebar_tracking_mode() == CookieBarConfig::TRACKING_COOKIE && AppContext::get_request()->get_cookie('pbt-cookiebar-choice', 0) == 1)),
 			'IDENTIFIER' => $identifier
 		));
 		
