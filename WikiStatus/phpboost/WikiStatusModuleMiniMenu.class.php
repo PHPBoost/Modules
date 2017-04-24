@@ -65,7 +65,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 		//Load module config
 		$querier = PersistenceContext::get_querier();
         $maj_article = 1;
-        $results = $querier->select('SELECT a.title, a.encoded_title, a.undefined_status, a.defined_status, c.timestamp, c.user_id, m.display_name, m.groups, m.level, c.id_article, c.activ
+        $results = $querier->select('SELECT a.title, a.encoded_title, a.undefined_status, a.defined_status, c.timestamp, c.user_id, c.user_ip, m.display_name, m.groups, m.level, c.id_article, c.activ
 		FROM ' . PREFIX . 'wiki_contents c
 		LEFT JOIN ' . PREFIX . 'wiki_articles a ON a.id = c.id_article AND a.id_contents = c.id_contents
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' m ON m.user_id = c.user_id
@@ -80,7 +80,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 			$tpl->assign_block_vars('articles_wiki_items', array(
 				'TITLE' => stripslashes($row['title']),
 				'STATUS_CLASS' => $status_classes['defined_status'],
-				'STATUS' => $row['undefined_status'] ? $row['undefined_status'] : $lang['status_' . $row['defined_status']],
+				'STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['status_' . $row['defined_status']] ? $lang['status_' . $row['defined_status']] : ''),
 				'C_AUTHOR_EXIST' => !empty($row['display_name']),
 				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
