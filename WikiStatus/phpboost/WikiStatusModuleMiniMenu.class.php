@@ -79,7 +79,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 			$user_group_color = User::get_group_color($row['groups'], $row['level']);
 			$tpl->assign_block_vars('articles_wiki_items', array(
 				'TITLE' => stripslashes($row['title']),
-				'STATUS_CLASS' => $status_classes['defined_status'],
+				'STATUS_CLASS' => $status_classes[$row['defined_status']],
 				'STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['status_' . $row['defined_status']] ? $lang['status_' . $row['defined_status']] : ''),
 				'C_AUTHOR_EXIST' => !empty($row['display_name']),
 				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
