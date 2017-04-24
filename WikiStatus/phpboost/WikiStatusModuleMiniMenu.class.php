@@ -56,10 +56,10 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 		
 		$status_classes = array(
 			1 => 'success',
-			1 => 'question',
-			1 => 'notice',
-			1 => 'warning',
-			1 => 'error'
+			2 => 'question',
+			3 => 'notice',
+			4 => 'warning',
+			5 => 'error'
 		);
 		
 		//Load module config
