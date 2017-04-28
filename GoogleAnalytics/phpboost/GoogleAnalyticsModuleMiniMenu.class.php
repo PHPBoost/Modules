@@ -43,17 +43,17 @@ class GoogleAnalyticsModuleMiniMenu extends ModuleMiniMenu
 		$cookiebar_config = CookieBarConfig::load();
 		
 		if (!$config->get_identifier() && AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
-                {
-                        $message = StringVars::replace_vars(LangLoader::get_message('identifier_required','common', 'GoogleAnalytics'), array(
-                                'link' => Url::to_absolute('/GoogleAnalytics/' . url('index.php?url=/admin', 'admin/'))
-                        ));
-                        return MessageHelper::display($message, MessageHelper::WARNING)->render();
-                }
+		{
+			$message = StringVars::replace_vars(LangLoader::get_message('identifier_required','common', 'GoogleAnalytics'), array(
+				'link' => Url::to_absolute('/GoogleAnalytics/' . url('index.php?url=/admin', 'admin/'))
+			));
+			return MessageHelper::display($message, MessageHelper::WARNING)->render();
+		}
 
-                $tpl->put_all(array(
-                        'C_DISPLAY' => $config->get_identifier() && $cookiebar_config->is_cookiebar_enabled() && $cookiebar_config->get_cookiebar_tracking_mode() == CookieBarConfig::TRACKING_COOKIE && AppContext::get_request()->get_cookie('pbt-cookiebar-choice', 0) == 1,
-                        'IDENTIFIER' => $config->get_identifier()
-                ));
+		$tpl->put_all(array(
+			'C_DISPLAY' => $config->get_identifier() && $cookiebar_config->is_cookiebar_enabled() && $cookiebar_config->get_cookiebar_tracking_mode() == CookieBarConfig::TRACKING_COOKIE && AppContext::get_request()->get_cookie('pbt-cookiebar-choice', 0) == 1,
+			'IDENTIFIER' => $config->get_identifier()
+		));
 		
 		return $tpl->render();
 	}
