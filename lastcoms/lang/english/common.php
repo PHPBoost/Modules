@@ -2,10 +2,10 @@
 /*##################################################
  *                                 english.php
  *                            -------------------
- *   begin                       : July 26, 2009
- *   copyright                   : (C) 2009 ROGUELON Geoffrey
- *   email                       : liaght@gmail.com
- *   Adapted for Phpboost 4.1 by : babsolune - babso@web33.fr
+ *   begin                             : July 26, 2009
+ *   copyright                         : (C) 2009 ROGUELON Geoffrey
+ *   email                             : liaght@gmail.com
+ *   Adapted for Phpboost since 4.1 by : babsolune - babsolune@phpboost.com
  *
  *
  ###################################################
@@ -30,12 +30,12 @@
  ####################################################
 #                     English                       #
  ####################################################
-$lang['title'] = 'Latest comments';
-$lang['module_config_title'] = 'Configuration of the latest comments module';
+$lang['lastcoms.title'] = 'Latest comments';
+$lang['module.config.title'] = 'Configuration of the latest comments module';
 $lang['admin.authorizations.read']  = 'Authorization to display the latest comments';
 
-$lang['lastcoms_number'] = 'Number of comments';
-$lang['lastcoms_char'] = 'Number of characters';
-$lang['lastcoms_number.explain'] = 'Maximum number of comments to display';
-$lang['lastcoms_char.explain'] = 'Maximum number of characters to display';
+$lang['lastcoms.number'] = 'Number of comments';
+$lang['lastcoms.char'] = 'Number of characters';
+$lang['lastcoms.number.explain'] = 'Maximum number of comments to display';
+$lang['lastcoms.char.explain'] = 'Maximum number of characters to display';
 ?>

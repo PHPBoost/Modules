@@ -2,10 +2,10 @@
 /*##################################################
  *                                 index.php
  *                            -------------------
- *   begin                       : July 26, 2009
- *   copyright                   : (C) 2009 ROGUELON Geoffrey
- *   email                       : liaght@gmail.com
- *   Adapted for Phpboost 4.1 by : babsolune - babso@web33.fr
+ *   begin                             : July 26, 2009
+ *   copyright                         : (C) 2009 ROGUELON Geoffrey
+ *   email                             : liaght@gmail.com
+ *   Adapted for Phpboost since 4.1 by : babsolune - babsolune@phpboost.com
  *
  *
  ###################################################
@@ -14,7 +14,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the

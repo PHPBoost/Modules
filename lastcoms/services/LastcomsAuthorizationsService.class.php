@@ -2,10 +2,10 @@
 /*##################################################
  *                        LastcomsAuthorizationsService.class.php
  *                            -------------------
- *   begin                       : July 26, 2009
- *   copyright                   : (C) 2009 ROGUELON Geoffrey
- *   email                       : liaght@gmail.com
- *   Adapted for Phpboost 4.1 by : babsolune - babso@web33.fr
+ *   begin                             : July 26, 2009
+ *   copyright                         : (C) 2009 ROGUELON Geoffrey
+ *   email                             : liaght@gmail.com
+ *   Adapted for Phpboost since 4.1 by : babsolune - babsolune@phpboost.com
  *
  *
  ###################################################
@@ -28,18 +28,18 @@
 class LastcomsAuthorizationsService
 {
 	const READ_AUTHORIZATIONS = 1;
-	
+
 	public static function check_authorizations()
 	{
 		$instance = new self();
 		return $instance;
 	}
-	
+
 	public function read()
 	{
 		return $this->get_authorizations(self::READ_AUTHORIZATIONS);
 	}
-	
+
 	private function get_authorizations($bit)
 	{
 		return AppContext::get_current_user()->check_auth(LastcomsConfig::load()->get_authorizations(), $bit);

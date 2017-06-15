@@ -1,11 +1,10 @@
 <?php
 /*##################################################
- *		                AdminLastcomsDisplayResponse.class.php
+ *                             LastcomsSetup.class.php
  *                            -------------------
- *   begin                             : July 26, 2009
- *   copyright                         : (C) 2009 ROGUELON Geoffrey
- *   email                             : liaght@gmail.com
- *   Adapted for Phpboost since 4.1 by : babsolune - babsolune@phpboost.com
+ *   begin                : May 30, 2017
+ *   copyright            : (C) 2017 Sebastien LARTIGUE
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
@@ -26,20 +25,20 @@
  *
  ###################################################*/
 
-class AdminLastcomsDisplayResponse extends AdminMenuDisplayResponse
+/**
+ * @author Sebastien LARTIGUE <babsolune@phpboost.com>
+ */
+
+class LastcomsSetup extends DefaultModuleSetup
 {
-	public function __construct($view, $title_page)
+	public function upgrade($installed_version)
 	{
-		parent::__construct($view);
+		return '5.1.0';
+	}
 
-		$lang = LangLoader::get('common', 'lastcoms');
-		$this->set_title($lang['lastcoms.title']);
-		$img = 'lastcoms.png';
-
-		$this->add_link(LangLoader::get_message('configuration', 'admin'), LastcomsUrlBuilder::config(), $img);
-
-		$env = $this->get_graphical_environment();
-		$env->set_page_title($title_page);
+	public function uninstall()
+	{
+		ConfigManager::delete('lastcoms', 'config');
 	}
 }
 ?>

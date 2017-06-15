@@ -2,10 +2,10 @@
 /*##################################################
  *		                   LastcomsConfig.class.php
  *                            -------------------
- *   begin                       : July 26, 2009
- *   copyright                   : (C) 2009 ROGUELON Geoffrey
- *   email                       : liaght@gmail.com
- *   Adapted for Phpboost 4.1 by : babsolune - babso@web33.fr
+ *   begin                             : July 26, 2009
+ *   copyright                         : (C) 2009 ROGUELON Geoffrey
+ *   email                             : liaght@gmail.com
+ *   Adapted for Phpboost since 4.1 by : babsolune - babsolune@phpboost.com
  *
  *
  ###################################################
@@ -31,7 +31,7 @@ class LastcomsConfig extends AbstractConfigData
 	const LASTCOMS_NUMBER = 'lastcoms_number';
 	const LASTCOMS_CHAR = 'lastcoms_char';
 	const AUTHORIZATIONS = 'authorizations';
-	
+
 	public function get_lastcoms_number()
 	{
 		return $this->get_property(self::LASTCOMS_NUMBER);
@@ -41,7 +41,7 @@ class LastcomsConfig extends AbstractConfigData
 	{
 		$this->set_property(self::LASTCOMS_NUMBER, $lastcoms_number);
 	}
-	
+
 	public function get_lastcoms_char()
 	{
 		return $this->get_property(self::LASTCOMS_CHAR);
@@ -51,7 +51,7 @@ class LastcomsConfig extends AbstractConfigData
 	{
 		$this->set_property(self::LASTCOMS_CHAR, $lastcoms_char);
 	}
-	
+
 	 /**
 	 * @method Get authorizations
 	 */
@@ -59,7 +59,7 @@ class LastcomsConfig extends AbstractConfigData
 	{
 		return $this->get_property(self::AUTHORIZATIONS);
 	}
-	
+
 	 /**
 	 * @method Set authorizations
 	 * @params string[] $array Array of authorizations
