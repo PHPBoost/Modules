@@ -175,8 +175,8 @@ class HomeLandingHomeController extends ModuleController
 			$contents = @strip_tags(FormatingHelper::second_parse($article->get_contents()));
 			$short_contents = @strip_tags(FormatingHelper::second_parse($article->get_description()));
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_characters_number_displayed();
-			$description = trim(substr($short_contents, 0, $nb_char));
-			$cut_contents = trim(substr($contents, 0, $nb_char));
+			$description = trim(TextHelper::substr($short_contents, 0, $nb_char));
+			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
 			$tpl->assign_block_vars('item', array_merge($article->get_array_tpl_vars(), array(
 				'C_DESCRIPTION' => $article->get_description(),
@@ -228,8 +228,8 @@ class HomeLandingHomeController extends ModuleController
 			$contents = @strip_tags(FormatingHelper::second_parse($file->get_contents()));
 			$short_contents = @strip_tags(FormatingHelper::second_parse($file->get_short_contents()));
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_characters_number_displayed();
-			$description = trim(substr($short_contents, 0, $nb_char));
-			$cut_contents = trim(substr($contents, 0, $nb_char));
+			$description = trim(TextHelper::substr($short_contents, 0, $nb_char));
+			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
 			$tpl->assign_block_vars('item', array_merge($file->get_array_tpl_vars(), array(
 				'C_DESCRIPTION' => $file->get_short_contents(),
@@ -277,8 +277,8 @@ class HomeLandingHomeController extends ModuleController
 			$contents = @strip_tags(FormatingHelper::second_parse($news->get_contents()));
 			$short_contents = @strip_tags(FormatingHelper::second_parse($news->get_short_contents()));
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_characters_number_displayed();
-			$description = trim(substr($short_contents, 0, $nb_char));
-			$cut_contents = trim(substr($contents, 0, $nb_char));
+			$description = trim(TextHelper::substr($short_contents, 0, $nb_char));
+			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
 			$tpl->assign_block_vars('item', array_merge($news->get_array_tpl_vars(), array(
 				'C_DESCRIPTION' => $news->get_short_contents(),
@@ -330,8 +330,8 @@ class HomeLandingHomeController extends ModuleController
 			$contents = @strip_tags(FormatingHelper::second_parse($link->get_contents()));
 			$short_contents = @strip_tags(FormatingHelper::second_parse($link->get_short_contents()));
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_characters_number_displayed();
-			$description = trim(substr($short_contents, 0, $nb_char));
-			$cut_contents = trim(substr($contents, 0, $nb_char));
+			$description = trim(TextHelper::substr($short_contents, 0, $nb_char));
+			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
 			$tpl->assign_block_vars('item', array_merge($link->get_array_tpl_vars(), array(
 				'C_DESCRIPTION' => $link->get_short_contents(),
@@ -396,7 +396,7 @@ class HomeLandingHomeController extends ModuleController
 		{
 			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_characters_number_displayed();
-			$cut_contents = trim(substr($contents, 0, $nb_char));
+			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 			$date = new Date($row['timestamp'], Timezone::SERVER_TIMEZONE);
 
 			$author = new User();
@@ -503,10 +503,10 @@ class HomeLandingHomeController extends ModuleController
 			$event = new CalendarEvent();
 			$event->set_properties($row);
 
-			$description = substr(@strip_tags(FormatingHelper::second_parse($row['contents']), '<br><br/>'), 0, $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed());
+			$description = TextHelper::substr(@strip_tags(FormatingHelper::second_parse($row['contents']), '<br><br/>'), 0, $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed());
 
 			$tpl->assign_block_vars('events_items', array_merge($event->get_array_tpl_vars(), array(
-				'C_READ_MORE' => strlen(FormatingHelper::second_parse($row['contents'])) >= $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed(),
+				'C_READ_MORE' => TextHelper::strlen(FormatingHelper::second_parse($row['contents'])) >= $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed(),
 				'DESCRIPTION' => $description
 			)));
 		}
@@ -775,7 +775,7 @@ class HomeLandingHomeController extends ModuleController
 
 			$tpl->assign_block_vars('forum_items', array(
 				'U_AVATAR' => $user_avatar,
-				'CONTENTS' => stripcslashes(trim(substr($contents, 0, $nb_char))),
+				'CONTENTS' => stripcslashes(trim(TextHelper::substr($contents, 0, $nb_char))),
 				'PSEUDO' => $row['last_login'],
 				'DATE' => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
 				'MESSAGE' => stripslashes($row['title']),
@@ -853,7 +853,7 @@ class HomeLandingHomeController extends ModuleController
 			$contents = @strip_tags(FormatingHelper::second_parse($message->get_contents()));
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->get_characters_number_displayed();
 			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : ($user_accounts_config->is_default_avatar_enabled() ? Url::to_rel('/templates/' . AppContext::get_current_user()->get_theme() . '/images/' .  $user_accounts_config->get_default_avatar_name()) : '');
-			$cut_contents = trim(substr($contents, 0, $nb_char));
+			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
 			$tpl->assign_block_vars('guestbook_items', array_merge($message->get_array_tpl_vars(), array(
 				'C_READ_MORE' => $cut_contents != $contents,

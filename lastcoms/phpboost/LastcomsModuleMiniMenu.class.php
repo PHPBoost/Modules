@@ -83,7 +83,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		{
 			$nb_coms = count($row['id']);
 			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
-			$content_limited = TextHelper::substr($contents, 0, (int)$coms_char);
+			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
 
 			$tpl->put_all(array(
 				'C_COMS' => $nb_coms > 0
