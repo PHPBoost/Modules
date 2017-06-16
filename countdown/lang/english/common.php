@@ -48,8 +48,13 @@ $lang['config.timer.disabled'] = 'Disable the countdown';
 $lang['config.no.event'] = 'No event';
 $lang['config.no.event.desc'] = 'Message to display if the countdown is disabled';
 $lang['config.authorizations.read']  = 'Authorization to display the countdown';
+$lang['config.stop.counter'] = 'Stop the counter at the end of the countdown';
+$lang['config.stop.counter.desc'] = 'If unchecked, the counter continue';
+$lang['config.hidden.counter'] = 'Hide the counter at the end of the countdown';
+$lang['config.stopped.event'] = 'The event is ended';
+$lang['config.stopped.event.desc'] = 'Message to display when the counter stops';
 
-// Screendisplay 
+// Screendisplay
 $lang['day'] = 'Day';
 $lang['hour'] = 'Hour';
 $lang['mini.hour'] = 'Hr';

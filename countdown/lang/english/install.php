@@ -33,8 +33,9 @@
  ####################################################
 #                     French                        #
  ####################################################
-$lang['countdown.no.javas'] = 'Next event the 1st of january 2017 at midnight';
+$lang['countdown.no.javas'] = 'Next event the 1st of january 2018 at midnight';
 $lang['countdown.next.event'] = 'Next event in :';
 $lang['countdown.last.event'] = 'Last event ended since :';
 $lang['countdown.no.event'] = 'No scheduled event';
+$lang['countdown.stoped.event'] = 'The scheduled event is ended';
 ?>

@@ -48,8 +48,13 @@ $lang['config.timer.disabled'] = 'Désactiver le compte à rebours';
 $lang['config.no.event'] = 'Aucun événement';
 $lang['config.no.event.desc'] = 'Message à afficher si le compte à rebours est désactivé';
 $lang['config.authorizations.read']  = 'Autorisation d\'afficher le compte à rebours';
+$lang['config.stop.counter'] = 'Arrêter le compteur à la fin du décompte';
+$lang['config.stop.counter.desc'] = 'Si non coché, le compteur continue';
+$lang['config.hidden.counter'] = 'Cacher le compteur à la fin du décompte';
+$lang['config.stopped.event'] = 'Événement Terminé';
+$lang['config.stopped.event.desc'] = 'Message à afficher quand le décompte s\'arrête';
 
-// Gestion de l'affichage 
+// Gestion de l'affichage
 $lang['day'] = 'Jour';
 $lang['hour'] = 'Heure';
 $lang['mini.hour'] = 'Hr';

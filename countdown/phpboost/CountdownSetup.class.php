@@ -36,5 +36,10 @@ class CountdownSetup extends DefaultModuleSetup
 	{
 		return '5.1.0';
 	}
+
+	public function uninstall()
+	{
+		ConfigManager::delete('countdown', 'config');
+	}
 }
 ?>
