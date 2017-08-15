@@ -60,11 +60,11 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 			'TIMER_HOUR' => $event_date->get_hours(),
 			'TIMER_MINUTE' => $event_date->get_minutes(),
 
-			'NO_JAVAS' => addslashes($countdown_config->get_no_javas()),
+			'NO_JAVAS' => $countdown_config->get_no_javas(),
 			'NEXT_EVENT' => addslashes($countdown_config->get_next_event()),
 			'LAST_EVENT' => addslashes($countdown_config->get_last_event()),
 			'STOPPED_EVENT' => addslashes($countdown_config->get_stopped_event()),
-			'NO_EVENT' => addslashes($countdown_config->get_no_event()),
+			'NO_EVENT' => $countdown_config->get_no_event(),
 
 			'L_DAY' => $lang['day'],
 			'L_HOUR' => $lang['hour'],
