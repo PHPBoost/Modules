@@ -72,7 +72,7 @@ class TeamspeakCache implements CacheData
 			$this->view->put_all(array(
 				'C_ERROR' => true,
 				'ERROR_CODE' => dechex($e->getCode()),
-				'ERROR_MESSAGE' => TextHelper::htmlentities($e->getMessage())
+				'ERROR_MESSAGE' => TextHelper::htmlspecialchars($e->getMessage())
 			));
 		}
 		
