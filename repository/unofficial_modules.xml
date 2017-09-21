@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE repository SYSTEM "http://www.phpboost.com/repository/repository.dtd">
 <repository>
 	<header/>
@@ -23,7 +23,7 @@
 			</authors>
 			<description>Version 5.0.1 du module GoogleAnalytics</description>
 			<whatsnew>
-				<new type="improvement">Mise à jour du template avec le nouveau code js GoogleAnalytics</new>
+				<new type="improvement">Mise Ã  jour du template avec le nouveau code js GoogleAnalytics</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/02/11">
@@ -92,7 +92,7 @@
 			</authors>
 			<description>Version 5.0.2 du module Anniversaires</description>
 			<whatsnew>
-				<new type="bug">Correction d'une erreur dans a requête SQL du cache du menu (ne fonctionnait pas les années bissextiles)</new>
+				<new type="bug">Correction d'une erreur dans la requete SQL du cache du menu (ne fonctionnait pas les annees bissextiles)</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="english" localized_language="English" name="birthday" priority="low" security-update="false" pubdate="2016/05/22">
@@ -114,7 +114,7 @@
 			</authors>
 			<description>Version 5.0.1 du module Anniversaires</description>
 			<whatsnew>
-				<new type="bug">Erreur dans a requête SQL du cache du menu</new>
+				<new type="bug">Erreur dans a requete SQL du cache du menu</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="birthday" priority="low" security-update="false" pubdate="2016/02/11">
@@ -158,7 +158,7 @@
 			</authors>
 			<description>Version 4.1.3 du module Anniversaires</description>
 			<whatsnew>
-				<new type="bug">Correction d'une erreur dans a requête SQL du cache du menu (ne fonctionnait pas les années bissextiles)</new>
+				<new type="bug">Correction d'une erreur dans a requete SQL du cache du menu (ne fonctionnait pas les annees bissextiles)</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.2" language="english" localized_language="English" name="birthday" priority="low" security-update="false" pubdate="2014/10/02">
@@ -180,7 +180,7 @@
 			</authors>
 			<description>Version 4.1.2 du module Anniversaires</description>
 			<whatsnew>
-				<new type="bug">Correction de la sauvegarde des paramètres dans la configuration du module</new>
+				<new type="bug">Correction de la sauvegarde des parametres dans la configuration du module</new>
 			</whatsnew>
 		</version>
 	</app>
@@ -239,7 +239,7 @@
 			</authors>
 			<description>Version 5.0.2 du module Dictionnaire</description>
 			<whatsnew>
-				<new type="bug">Correction de l'affichage des définitions dans le menu</new>
+				<new type="bug">Correction de l'affichage des dÃ©finitions dans le menu</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="french" localized_language="Francais" name="dictionary" priority="low" security-update="false" pubdate="2016/03/14">
@@ -301,7 +301,7 @@
 			<description>Version 5.0.0 du module Citations</description>
 			<whatsnew>
 				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
-				<new type="improvement">Réécriture complète du module et ajout d'une page pour afficher les citations par auteur</new>
+				<new type="improvement">RÃ©Ã©criture complÃ¨te du module et ajout d'une page pour afficher les citations par auteur</new>
 			</whatsnew>
 		</version>
 		<version num="4.1.0" language="english" localized_language="English" name="quotes" priority="low" security-update="false" pubdate="2014/07/13">
@@ -352,8 +352,8 @@
 			</authors>
 			<description>Version 5.0.5 du module Petites annonces</description>
 			<whatsnew>
-				<new type="bug">Passage d'une contribution en traité après validation d'une annonce éditée</new>
-				<new type="bug">Correction d'une erreur reportée dans les erreurs archivées</new>
+				<new type="bug">Passage d'une contribution en traite aprÃ¨s validation d'une annonce editee</new>
+				<new type="bug">Correction d'une erreur reportee dans les erreurs archivees</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.4" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/06/15">
@@ -383,8 +383,8 @@
 			<whatsnew>
 				<new type="bug">Correction du nombre de petites annonces dans le mini menu</new>
 				<new type="bug">Correction des annonces qui disparaissent</new>
-				<new type="bug">Correction du message affiché aux membres après une contribution</new>
-				<new type="bug">Passage d'une contribution en traité après validation d'une annonce</new>
+				<new type="bug">Correction du message affichÃ© aux membres apres une contribution</new>
+				<new type="bug">Passage d'une contribution en traite apres validation d'une annonce</new>
 				<new type="bug">Affichage d'un message d'erreur si le poids d'une image est trop important</new>
 			</whatsnew>
 		</version>
@@ -433,7 +433,7 @@
 			</authors>
 			<description>Version 5.0.2 du module Petites annonces</description>
 			<whatsnew>
-				<new type="bug">Correction d'un bug dans l'exécution d'une requête</new>
+				<new type="bug">Correction d'un bug dans l'exÃ©cution d'une requÃªte</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/02/18">
@@ -457,7 +457,7 @@
 			</authors>
 			<description>Version 5.0.1 du module Petites annonces</description>
 			<whatsnew>
-				<new type="bug">Correction d'un bug sur les résultats de recherche</new>
+				<new type="bug">Correction d'un bug sur les rÃ©sultats de recherche</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/02/11">
@@ -506,8 +506,8 @@
 			</authors>
 			<description>Version 4.1.3 du module Petites annonces</description>
 			<whatsnew>
-				<new type="bug">Correction de l'affichage du message de succès lors d'une contribution</new>
-				<new type="bug">Correction de l'affichage du message d'erreur lorsqu'on est pas autorisé à afficher la liste des petites annonces</new>
+				<new type="bug">Correction de l'affichage du message de succÃ¨s lors d'une contribution</new>
+				<new type="bug">Correction de l'affichage du message d'erreur lorsqu'on est pas autorisÃ© Ã  afficher la liste des petites annonces</new>
 			</whatsnew>
 		</version>
 	</app>
@@ -583,8 +583,8 @@
 			</authors>
 			<description>Version 5.0.4 du module Page d'accueil</description>
 			<whatsnew>
-				<new type="bug">Les éléments en attente de publication étaient affichés</new>
-				<new type="bug">Les autorisations sur les catégories n'étaient pas complètement vérifiées</new>
+				<new type="bug">Les Ã©lÃ©ments en attente de publication Ã©taient affichÃ©s</new>
+				<new type="bug">Les autorisations sur les catÃ©gories n'Ã©taient pas complÃ¨tement vÃ©rifiÃ©es</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.3" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/09/29">
@@ -608,7 +608,7 @@
 			</authors>
 			<description>Version 5.0.3 du module Page d'accueil</description>
 			<whatsnew>
-				<new type="bug">Les messages du forum pour les admins étaient affichés sur la page d'accueil</new>
+				<new type="bug">Les messages du forum pour les admins Ã©taient affichÃ©s sur la page d'accueil</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.2" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/09/06">
@@ -632,7 +632,7 @@
 			</authors>
 			<description>Version 5.0.2 du module Page d'accueil</description>
 			<whatsnew>
-				<new type="improvement">Possibilité de laisser la description vide pour les images du carousel</new>
+				<new type="improvement">PossibilitÃ© de laisser la description vide pour les images du carousel</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.1" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/07/11">
@@ -660,11 +660,11 @@
 			</authors>
 			<description>Version 5.0.1 du module Page d'accueil</description>
 			<whatsnew>
-				<new type="bug">Correction d'un soucis sur la page de choix des positions : les modules non activés n'étaient pas affichés</new>
+				<new type="bug">Correction d'un soucis sur la page de choix des positions : les modules non activÃ©s n'Ã©taient pas affichÃ©s</new>
 				<new type="bug">Correction de l'affichage des liens [Lire la suite] des articles</new>
 				<new type="bug">Correction d'erreurs 404 dans la galerie</new>
 				<new type="bug">Correction du titre du module contact</new>
-				<new type="improvement">Possibilité d'utiliser les derniers commentaires même si la réécriture d'url n'est pas activée</new>
+				<new type="improvement">PossibilitÃ© d'utiliser les derniers commentaires mÃªme si la rÃ©Ã©criture d'url n'est pas activÃ©e</new>
 			</whatsnew>
 		</version>
 		<version num="5.0.0" language="english" localized_language="English" name="HomeLanding" priority="low" security-update="false" pubdate="2016/06/15">
