@@ -12,7 +12,8 @@ defined('PHPBOOST') OR die('Direct script access not allowed');
 
 load_module_lang('smallads'); //Chargement de la langue du module.
 define('TITLE', $LANG['sa_title']);
-
+$module_title = LangLoader::get_message('module_title', 'common', 'smallads');
+$Bread_crumb->add($module_title, SmalladsUrlBuilder::home());
 $type_options = array(0 => $LANG['sa_group_all']);
 for ($i = 1; $i <= 9; $i++) {
 	if (!empty($LANG['sa_group_'.$i]))

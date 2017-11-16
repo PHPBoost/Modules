@@ -38,7 +38,7 @@ class SmalladsHomeController extends ModuleController
 	
 	private function build_view()
 	{
-		global $LANG, $type_options, $mode_options, $sort_options;
+		global $LANG, $type_options, $mode_options, $sort_options, $Bread_crumb;
 	
 		require_once(PATH_TO_ROOT . '/smallads/smallads_begin.php');
 		require_once(PATH_TO_ROOT.'/smallads/smallads.class.php');

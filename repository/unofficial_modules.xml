@@ -330,6 +330,38 @@
 		</version>
 	</app>
 	<app id="smallads" type="module">
+        <version num="5.1.1" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2017/11/16">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
+			<authors>
+				<author name="Alain91" email="contact@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.1.1 of the Smallads module</description>
+			<whatsnew>
+                <new type = "bug"> Removed default value on text field in setup </ new>
+                <new type = "bug"> Fixed breadcrump that did not return to main menu </ new>
+                <new type = "bug"> Fixed in TinyMCE the insertion of a file that did not work </ new>
+			</whatsnew>
+		</version>
+		<version num="5.1.1" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2017/11/16">
+			<compatibility min="5.0"/>
+			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
+			<authors>
+				<author name="Alain91" email="contact@phpboost.com"/>
+				<author name="j1.seth" email="j1.seth@phpboost.com"/>
+			</authors>
+			<description>Version 5.1.1 du module Petites annonces</description>
+			<whatsnew>
+				<new type="bug">Suppression valeur par défaut sur champ de type text dans le setup</new>
+				<new type="bug">Correction du breadcrump qui ne renvoyait pas au menu principal</new>
+				<new type="bug">Correction dans TinyMCE de l'insertion d'un fichier qui ne fonctionnait pas</new>
+			</whatsnew>
+		</version>
+        
+        
+        
+        
 		<version num="5.0.5" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/06/29">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
