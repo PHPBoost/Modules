@@ -331,8 +331,8 @@
 	</app>
 	<app id="smallads" type="module">
         <version num="5.1.1" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2017/11/16">
-			<compatibility min="5.0"/>
-			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
+			<compatibility min="5.1"/>
+			<download url="http://dl.phpboost.com/5.1/modules/smallads/smallads.zip">Smallads module</download>
 			<authors>
 				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
@@ -345,8 +345,8 @@
 			</whatsnew>
 		</version>
 		<version num="5.1.1" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2017/11/16">
-			<compatibility min="5.0"/>
-			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Module Petites annonces</download>
+			<compatibility min="5.1"/>
+			<download url="http://dl.phpboost.com/5.1/modules/smallads/smallads.zip">Module Petites annonces</download>
 			<authors>
 				<author name="Alain91" email="contact@phpboost.com"/>
 				<author name="j1.seth" email="j1.seth@phpboost.com"/>
