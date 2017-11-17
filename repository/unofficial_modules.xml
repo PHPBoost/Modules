@@ -339,9 +339,9 @@
 			</authors>
 			<description>Version 5.1.1 of the Smallads module</description>
 			<whatsnew>
-                <new type = "bug"> Removed default value on text field in setup </ new>
-                <new type = "bug"> Fixed breadcrump that did not return to main menu </ new>
-                <new type = "bug"> Fixed in TinyMCE the insertion of a file that did not work </ new>
+                <new type="bug">Removed default value on text field in setup</new>
+                <new type="bug">Fixed breadcrump that did not return to main menu</new>
+                <new type="bug">Fixed in TinyMCE the insertion of a file that did not work</new>
 			</whatsnew>
 		</version>
 		<version num="5.1.1" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2017/11/16">
