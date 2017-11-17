@@ -59,7 +59,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		$file = new File(Url::to_rel('/smallads/templates/smallads_search_form.tpl'));
 		$file->delete();
 		
-		return '5.0.5';
+		return '5.1.1';
 	}
 
 	public function uninstall()
