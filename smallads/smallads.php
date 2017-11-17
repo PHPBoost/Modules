@@ -129,7 +129,7 @@ if( retrieve(POST, 'submit', false) ) //Enregistrement du formulaire
 	}
 
 	$sa_title 		= retrieve(POST, 'smallads_title', '', TSTRING_UNCHANGE);
-	$sa_contents 	= retrieve(POST, 'smallads_contents', '', TSTRING_UNCHANGE);
+	$sa_contents 	= retrieve(POST, 'contents', '', TSTRING_UNCHANGE);
 	$sa_contents	= FormatingHelper::strparse($sa_contents, $forbidden_tags, FALSE); // TSTRING_PARSE ne permet pas les parametres
 	$sa_price 		= retrieve(POST, 'smallads_price', 0.0, TFLOAT);
 	$sa_shipping	= retrieve(POST, 'smallads_shipping', 0.0, TFLOAT);
@@ -712,7 +712,7 @@ elseif ($id_edit || $id_add)
 	}
 	
 	$editor = AppContext::get_content_formatting_service()->get_default_editor();
-	$editor->set_identifier('smallads_contents');
+	$editor->set_identifier('contents');
 	$editor->set_forbidden_tags($forbidden_tags);
 	
 	$date_created = !empty($row['date_created']) ? new Date($row['date_created'], Timezone::SERVER_TIMEZONE) : null;

@@ -84,7 +84,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
 			'cat_id' => array('type' => 'integer', 'length' => 11),
 			'title' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
-			'contents' => array('type' => 'text', 'length' => 65000, 'notnull' => 1, 'default' => "''"),
+			'contents' => array('type' => 'text', 'length' => 65000, 'notnull' => 1),
 			'picture' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'id_created' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'date_created' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),

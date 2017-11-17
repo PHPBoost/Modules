@@ -225,7 +225,7 @@
 
 		function check_form(o){
 			if (!check_item(o.smallads_title, "{L_DB_TITLE}")) return false;
-			if (!check_item(o.smallads_contents, "{L_DB_CONTENTS}")) return false;
+			if (!check_item(o.contents, "{L_DB_CONTENTS}")) return false;
 			if (!check_num(o.smallads_price, "{L_DB_PRICE}")) return false;
 			if (!check_num(o.smallads_shipping, "{L_DB_SHIPPING}")) return false;
 			if (!check_upload(o.smallads_picture, "{L_DB_PICTURE}")) return false;
@@ -304,10 +304,10 @@
 			</div>
 			
 			<div class="form-element-textarea">
-				<label for="smallads_contents">*&nbsp;{L_DB_CONTENTS}</label>
+				<label for="contents">*&nbsp;{L_DB_CONTENTS}</label>
 				{KERNEL_EDITOR}
 				<div class="form-field-textarea">
-					<textarea rows="10" cols="50" id="smallads_contents" name="smallads_contents" onKeyDown="textCounter('smallads_contents','remLen',{DB_MAXLEN});">{DB_CONTENTS}</textarea>
+					<textarea rows="10" cols="50" id="contents" name="contents" onKeyDown="textCounter('contents','remLen',{DB_MAXLEN});">{DB_CONTENTS}</textarea>
 				</div>
 				<br />
 				<center>
