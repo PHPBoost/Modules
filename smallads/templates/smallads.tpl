@@ -1,6 +1,6 @@
 # IF C_VIEW #
 # START item #
-<article id="article-smallads-{item.ID}">
+<article id="article-smallads-{item.ID}" # IF item.C_NEW_CONTENT #class="new-content"# ENDIF #>
 	<header>
 		<h1>
 			<span>{item.TYPE} - {item.TITLE}</span>
@@ -28,7 +28,7 @@
 		<div class="small">
 			<p>{L_PRICE}&nbsp;: {item.PRICE}&nbsp;{L_PRICE_UNIT}</p>
 			# IF item.C_SHIPPING #<p>{L_SHIPPING}&nbsp;: {item.SHIPPING}&nbsp;{L_SHIPPING_UNIT}</p># ENDIF #
-			<p>{item.DB_CREATED}<br />{item.DB_UPDATED}</p>
+			<p># IF item.C_CREATED #{item.L_CREATED}{item.DATE_CREATED_FULL}# ENDIF ## IF item.C_UPDATED #<br />{item.L_UPDATED}{item.DATE_UPDATED_FULL}# ENDIF #</p>
 			<p>id \#{item.ID}</p>
 			# IF item.VID #
 			<p>Contribution de modification de \#{item.VID}</p>
@@ -125,7 +125,7 @@
 			<div class="spacer">&nbsp;</div>
 
 			# START item #
-				<div id="smallads_{item.ID}" class="block-container" style="margin-bottom:20px;">
+				<div id="smallads_{item.ID}" class="block-container# IF item.C_NEW_CONTENT # new-content# ENDIF #" style="margin-bottom:20px;">
 					<div class="block_contents">
 						<p style="margin-bottom:10px">
 							<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_VIEW}" style="font-size:large">{item.TYPE} - {item.TITLE}</a>
@@ -150,7 +150,7 @@
 						<div class="small">
 							<p>{L_PRICE}&nbsp;: {item.PRICE}&nbsp;{L_PRICE_UNIT}</p>
 							# IF item.C_SHIPPING #<p>{L_SHIPPING}&nbsp;: {item.SHIPPING}&nbsp;{L_SHIPPING_UNIT}</p># ENDIF #
-							<p>{item.DB_CREATED}<br />{item.DB_UPDATED}</p>
+							<p># IF item.C_CREATED #{item.L_CREATED}{item.DATE_CREATED_FULL}# ENDIF ## IF item.C_UPDATED #<br />{item.L_UPDATED}{item.DATE_UPDATED_FULL}# ENDIF #</p>
 							<p>id \#{item.ID}</p>
 							# IF item.VID #
 							<p>Contribution de modification de \#{item.VID}</p>
@@ -282,7 +282,7 @@
 		</fieldset>
 		# ENDIF #
 
-		<fieldset>
+		<fieldset# IF C_NEW_CONTENT # class="new-content"# ENDIF #>
 			<legend>{L_LEGEND}</legend>
 			<div class="form-element">
 				<label for="smallads_type">{L_DB_TYPE}</label>
@@ -372,7 +372,7 @@
 			</div>
 			# ENDIF #
 			<div class="small">
-				<p>{DB_CREATED}<br />{DB_UPDATED}</p>
+				<p># IF C_CREATED #{L_CREATED}{DATE_CREATED_FULL}# ENDIF ## IF C_UPDATED #<br />{L_UPDATED}{DATE_UPDATED_FULL}# ENDIF #</p>
 			</div>
 		</fieldset>
 

@@ -37,6 +37,7 @@ function render_view($smallads, $row, $tpl)
 	$url_edit	= '';
 	$c_delete	= FALSE;
 	$url_delete	= '';
+	$new_content = new SmalladsNewContent();
 
 	$v = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), $id_created);
 	if ($v)
@@ -84,7 +85,10 @@ function render_view($smallads, $row, $tpl)
 	
 	$author_group_color = User::get_group_color($author->get_groups(), $author->get_level(), true);
 	
-	$tpl->assign_block_vars('item',array(
+	$tpl->assign_block_vars('item',array_merge(
+		Date::get_array_tpl_vars($date_created,'date_created'),
+		Date::get_array_tpl_vars($date_updated,'date_updated'),
+		array(
 		'ID' 		=> $row['id'],
 		'VID'		=> empty($row['vid']) ? '' : $row['vid'],
 		'TYPE'	 	=> $type_options[intval($row['type'])],
@@ -93,9 +97,15 @@ function render_view($smallads, $row, $tpl)
 		'PRICE'		=> $row['price'],
 		'SHIPPING'	=> $row['shipping'],
 		'C_SHIPPING' 	=> $row['shipping'] != '0.00',
-		
-		'DB_CREATED' => (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
-		'DB_UPDATED' => (!empty($date_updated)) ? $LANG['sa_updated'] . $date_updated->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
+
+		'L_CREATED' => $LANG['sa_created'],
+		'L_UPDATED' => $LANG['sa_updated'],
+		'C_CREATED' => !empty($date_created),
+		'C_UPDATED' => !empty($date_updated),
+
+		'C_NEW_CONTENT' => $new_content->check_if_is_new_content($row['date_created']),
+		'C_NEW_UPDATED' => $new_content->check_if_is_new_content($row['date_updated']),
+
 		'C_DB_APPROVED'	 => !empty($row['approved']),
 		'L_NOT_APPROVED' => $LANG['sa_not_approved'],
 
@@ -111,7 +121,8 @@ function render_view($smallads, $row, $tpl)
 
 		'USER'		=> $is_user && $author->get_id() !== User::VISITOR_LEVEL ? '<a itemprop="author" href="'.UserUrlBuilder::profile($author->get_id())->absolute().'" class="'.UserService::get_level_class($author->get_level()).'" ' . ($author_group_color ? 'style="color:' . $author_group_color . '"' : '') . '>'.$author->get_display_name().'</a>' : '',
 		'USER_PM' 	=> $is_pm ? '&nbsp;: <a href="'.PATH_TO_ROOT.'/user/pm' . url('.php?pm=' . $row['id_created'], '-' . $row['id_created'] . '.php') . '" class="basic-button smaller">' . $LANG['pm'] . '</a>' : '',
-		'USER_MAIL' => $is_mail ? '&nbsp;<a href="mailto:' . $mailto . '" class="basic-button smaller" title="' . $row['email']  . '">' . $LANG['mail'] . '</a>' : '',
+		'USER_MAIL' => $is_mail ? '&nbsp;<a href="mailto:' . $mailto . '" class="basic-button smaller" title="' . $row['email']  . '">' . $LANG['mail'] . '</a>' : ''
+		)
 	));
 }
 
@@ -720,7 +731,10 @@ elseif ($id_edit || $id_add)
 	
 	$flag = empty($row['links_flag']) ? 0 : intval($row['links_flag']);
 
-	$tpl->put_all(array(
+	$tpl->put_all(array_merge(
+		Date::get_array_tpl_vars($date_created,'date_created'),
+		Date::get_array_tpl_vars($date_updated,'date_updated'),
+		array(
 		'C_FORM'			=> TRUE,
 		'C_CONTRIBUTION'	=> $c_contribution,
 		'C_MAX_WEEKS'		=> $config->is_max_weeks_number_displayed(),
@@ -750,8 +764,13 @@ elseif ($id_edit || $id_add)
 		'DB_PRICE'			=> !empty($row['price']) ? $row['price'] : '0.00',
 		'DB_SHIPPING'		=> !empty($row['shipping']) ? $row['shipping'] : '0.00',
 		'DB_APPROVED'		=> $row['approved'] != 0 ? 'checked' : '',
-		'DB_CREATED'		=> (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
-		'DB_UPDATED'		=> (!empty($date_updated)) ? $LANG['sa_updated'] . $date_updated->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
+
+		'L_CREATED' => $LANG['sa_created'],
+		'L_UPDATED' => $LANG['sa_updated'],
+		'C_CREATED' => !empty($date_created),
+		'C_UPDATED' => !empty($date_updated),
+		'C_NEW_CONTENT' => $new_content->check_if_is_new_content($date_created),
+
 		'DB_PICTURE'		=> PATH_TO_ROOT.'/smallads/pics/'.$row['picture'].'?'.uniqid(rand()),
 		'DB_MAX_WEEKS'		=> $row['max_weeks'],
 
@@ -778,6 +797,7 @@ elseif ($id_edit || $id_add)
 		'L_SUBMIT'			=> $LANG['submit'],
 		'L_PREVIEW'			=> $LANG['preview'],
 		'L_RESET'			=> $LANG['reset']
+		)
 	));
 
 

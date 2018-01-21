@@ -50,6 +50,11 @@ class SmalladsExtensionPointProvider extends ExtensionPointProvider
 	{
 		return new ModuleMenus(array(new SmalladsModuleMiniMenu()));
 	}
+	
+	public function newcontent()
+	{
+		return new SmalladsNewContent();
+	}
 
 	public function scheduled_jobs()
 	{

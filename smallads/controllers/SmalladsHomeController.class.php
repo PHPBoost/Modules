@@ -148,11 +148,12 @@ class SmalladsHomeController extends ModuleController
 
 			while ($row = $result->fetch())
 			{
-				$id_created = (int)$row['id_created'];
-				$c_edit 	= FALSE;
-				$url_edit	= '';
-				$c_delete	= FALSE;
-				$url_delete	= '';
+				$id_created  = (int)$row['id_created'];
+				$c_edit      = FALSE;
+				$url_edit    = '';
+				$c_delete    = FALSE;
+				$url_delete  = '';
+				$new_content = new SmalladsNewContent();
 
 				$v = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), $id_created);
 				if ($v)
@@ -200,7 +201,10 @@ class SmalladsHomeController extends ModuleController
 				
 				$author_group_color = User::get_group_color($author->get_groups(), $author->get_level(), true);
 				
-				$this->view->assign_block_vars('item',array(
+				$this->view->assign_block_vars('item',array_merge(
+					Date::get_array_tpl_vars($date_created,'date_created'),
+					Date::get_array_tpl_vars($date_updated,'date_updated'),
+					array(
 					'ID' 		=> $row['id'],
 					'VID'		=> empty($row['vid']) ? '' : $row['vid'],
 					'TYPE'	 	=> $type_options[intval($row['type'])],
@@ -210,10 +214,17 @@ class SmalladsHomeController extends ModuleController
 					'SHIPPING'		=> $row['shipping'],
 					'C_SHIPPING' 	=> $row['shipping'] != '0.00',
 
-					'DB_CREATED' => (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
-					'DB_UPDATED' => (!empty($date_updated)) ? $LANG['sa_updated'] . $date_updated->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE_TEXT) : '',
+					'L_CREATED' => $LANG['sa_created'],
+					'L_UPDATED' => $LANG['sa_updated'],
+					'C_CREATED' => !empty($date_created),
+					'C_UPDATED' => !empty($date_updated),
+
+					'C_NEW_CONTENT' => $new_content->check_if_is_new_content($row['date_created']),
+					'C_NEW_UPDATED' => $new_content->check_if_is_new_content($row['date_updated']),
+
 					'C_DB_APPROVED'	 => !empty($row['approved']),
 					'L_NOT_APPROVED' => $LANG['sa_not_approved'],
+					
 
 					'C_EDIT' 	=> $c_edit,
 					'URL_EDIT'	=> $url_edit,
@@ -227,7 +238,8 @@ class SmalladsHomeController extends ModuleController
 
 					'USER'		=> $is_user && $author->get_id() !== User::VISITOR_LEVEL ? '<a itemprop="author" href="'.UserUrlBuilder::profile($author->get_id())->absolute().'" class="'.UserService::get_level_class($author->get_level()).'" ' . ($author_group_color ? 'style="color:' . $author_group_color . '"' : '') . '>'.$author->get_display_name().'</a>' : '',
 					'USER_PM' 	=> $is_pm ? '&nbsp;: <a href="'.PATH_TO_ROOT.'/user/pm' . url('.php?pm=' . $row['id_created'], '-' . $row['id_created'] . '.php') . '" class="basic-button smaller">' . $LANG['pm'] . '</a>' : '',
-					'USER_MAIL' => $is_mail ? '&nbsp;<a href="mailto:' . $mailto . '" class="basic-button smaller" title="' . $row['email']  . '">' . $LANG['mail'] . '</a>' : '',
+					'USER_MAIL' => $is_mail ? '&nbsp;<a href="mailto:' . $mailto . '" class="basic-button smaller" title="' . $row['email']  . '">' . $LANG['mail'] . '</a>' : ''
+					)
 				));
 			}
 			$result->dispose();

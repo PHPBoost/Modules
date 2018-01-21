@@ -68,6 +68,8 @@ class SmalladsModuleMiniMenu extends ModuleMiniMenu
 
 		$tpl = new FileTemplate('smallads/SmalladsModuleMiniMenu.tpl');
 		
+		$new_content = new SmalladsNewContent();
+
 		$last_smallad_date = new Date($smallads_cache->get_last_smallad_date(), Timezone::SERVER_TIMEZONE);
 		
 		$tpl->put_all(array(
@@ -81,15 +83,20 @@ class SmalladsModuleMiniMenu extends ModuleMiniMenu
 		{
 			$date_created = !empty($v['date_created']) ? new Date($v['date_created'], Timezone::SERVER_TIMEZONE) : null;
 			
-			$tpl->assign_block_vars('item', array(
-				'ID' 		=> $v['id'],
-				'TITLE' 	=> $v['title'],
-				'CONTENTS'	=> FormatingHelper::second_parse(stripslashes($v['contents'])),
-				'TYPE' 		=> $type_options[intval($v['type'])],
-				'PRICE' 	=> $v['price'],
-				'DATE'		=> (!empty($date_created)) ? $LANG['sa_created'] . $date_created->format(Date::FORMAT_DAY_MONTH_YEAR) : '',
-				'C_PICTURE'	 => !empty($v['picture']),
-				'PICTURE'	 => !empty($v['picture']) ? TPL_PATH_TO_ROOT.'/smallads/pics/'.$v['picture'] : '',
+			$tpl->assign_block_vars('item',array_merge(
+				Date::get_array_tpl_vars($date_created,'date_created'),
+				array(
+				'ID'            => $v['id'],
+				'TITLE'         => $v['title'],
+				'CONTENTS'      => FormatingHelper::second_parse(stripslashes($v['contents'])),
+				'TYPE'          => $type_options[intval($v['type'])],
+				'PRICE'         => $v['price'],
+				'C_DATE'        => !empty($date_created),
+				'L_CREATED'     => $LANG['sa_created']	,
+				'C_NEW_CONTENT' => $new_content->check_if_is_new_content($v['date_created']),
+				'C_PICTURE'     => !empty($v['picture']),
+				'PICTURE'       => !empty($v['picture']) ? TPL_PATH_TO_ROOT.'/smallads/pics/'.$v['picture'] : ''
+				)
 				));
 		}
 		
