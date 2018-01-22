@@ -27,7 +27,7 @@ $id_edit        = retrieve(GET, 'edit', 0, TINTEGER);
 $id_add         = retrieve(GET, 'add', 0, TINTEGER);
 $id_view        = retrieve(GET, 'id', 0, TINTEGER);
 
-$new_content = new SmalladsNewContent();
+
 
 function render_view($smallads, $row, $tpl)
 {
@@ -39,6 +39,7 @@ function render_view($smallads, $row, $tpl)
 	$url_edit	= '';
 	$c_delete	= FALSE;
 	$url_delete	= '';
+	$new_content = new SmalladsNewContent();
 
 	$v = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), $id_created);
 	if ($v)
@@ -730,6 +731,8 @@ elseif ($id_edit || $id_add)
 	$date_created = !empty($row['date_created']) ? new Date($row['date_created'], Timezone::SERVER_TIMEZONE) : null;
 	$date_updated = !empty($row['date_updated']) ? new Date($row['date_updated'], Timezone::SERVER_TIMEZONE) : null;
 	
+	$new_content = new SmalladsNewContent();
+
 	$flag = empty($row['links_flag']) ? 0 : intval($row['links_flag']);
 
 	$tpl->put_all(array_merge(

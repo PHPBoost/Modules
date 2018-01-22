@@ -92,12 +92,12 @@ class SmalladsModuleMiniMenu extends ModuleMiniMenu
 				'TYPE'          => $type_options[intval($v['type'])],
 				'PRICE'         => $v['price'],
 				'C_DATE'        => !empty($date_created),
-				'L_CREATED'     => $LANG['sa_created']	,
+				'L_CREATED'     => $LANG['sa_created'],
 				'C_NEW_CONTENT' => $new_content->check_if_is_new_content($v['date_created']),
 				'C_PICTURE'     => !empty($v['picture']),
 				'PICTURE'       => !empty($v['picture']) ? TPL_PATH_TO_ROOT.'/smallads/pics/'.$v['picture'] : ''
 				)
-				));
+			));
 		}
 		
 		return $tpl->render();
