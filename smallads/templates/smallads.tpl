@@ -16,27 +16,29 @@
 	</header>
 	<div class="content">
 		# IF NOT item.C_DB_APPROVED #
-		<p style="font-weight:bold; font-size:large; color:red">{L_NOT_APPROVED}</p>
+		<p class="smallads-not-approved">{L_NOT_APPROVED}</p>
 		# ENDIF #
 		# IF item.C_PICTURE #
-		<div style="float:left;margin:10px">
+		<div class="smallads-picture">
 			<a href="{item.PICTURE}" data-lightbox="formatter"><img src="{item.PICTURE}" /></a>
 		</div>
 		# ENDIF #
-		<div>{item.CONTENTS}</div>
+		<div class="smallads-item-content">{item.CONTENTS}</div>
 		<br />
 		<div class="small">
-			<p>{L_PRICE}&nbsp;: {item.PRICE}&nbsp;{L_PRICE_UNIT}</p>
-			# IF item.C_SHIPPING #<p>{L_SHIPPING}&nbsp;: {item.SHIPPING}&nbsp;{L_SHIPPING_UNIT}</p># ENDIF #
-			<p># IF item.C_CREATED #{item.L_CREATED}{item.DATE_CREATED_FULL}# ENDIF ## IF item.C_UPDATED #<br />{item.L_UPDATED}{item.DATE_UPDATED_FULL}# ENDIF #</p>
-			<p>id \#{item.ID}</p>
+			<p class="smallads-price-container">{L_PRICE}&nbsp;: <span class="smallads-item-price">{item.PRICE}</span>&nbsp;<span class="smallads-item-unit">{L_PRICE_UNIT}</span></p>
+			# IF item.C_SHIPPING #
+			<p class="smallads-shipping-container">{L_SHIPPING}&nbsp;: <span class="smallads-item-shipping">{item.SHIPPING}</span>&nbsp;<span class="smallads-shipping-unit">{L_SHIPPING_UNIT}</span></p>
+			# ENDIF #
+			<p class="smallads-date-container"># IF item.C_CREATED #{item.L_CREATED}{item.DATE_CREATED_FULL}# ENDIF ## IF item.C_UPDATED #<br />{item.L_UPDATED}{item.DATE_UPDATED_FULL}# ENDIF #</p>
+			<p class="smallads-item-id">id \#{item.ID}</p>
 			# IF item.VID #
-			<p>Contribution de modification de \#{item.VID}</p>
+			<p class="smallads-item-contribution">Contribution de modification de \#{item.VID}</p>
 			# ENDIF #
 		</div>
 		<br />
-		<span style="float:left;">
-			{item.USER} {item.USER_PM} {item.USER_MAIL}
+		<span class="smallads-user-container">
+			<span class="smallads-user">{item.USER}</span> <span class="smallads-user-pm">{item.USER_PM}</span> <span class="smallads-user-mail">{item.USER_MAIL}</span>
 		</span>
 	</div>
 	<footer></footer>
@@ -125,8 +127,8 @@
 			<div class="spacer">&nbsp;</div>
 
 			# START item #
-				<div id="smallads_{item.ID}" class="block-container# IF item.C_NEW_CONTENT # new-content# ENDIF #" style="margin-bottom:20px;">
-					<div class="block_contents">
+				<div id="smallads_{item.ID}" class="block-container smallads-item-container# IF item.C_NEW_CONTENT # new-content# ENDIF #">
+					<div class="block-contents">
 						<p style="margin-bottom:10px">
 							<a href="{PATH_TO_ROOT}/smallads/smallads{item.URL_VIEW}" style="font-size:large">{item.TYPE} - {item.TITLE}</a>
 							# IF item.C_EDIT #
@@ -138,27 +140,29 @@
 							# ENDIF #
 						</p>
 						# IF NOT item.C_DB_APPROVED #
-						<p style="font-weight:bold; font-size:large; color:red">{item.L_NOT_APPROVED}</p>
+						<p class="smallads-not-approved">{item.L_NOT_APPROVED}</p>
 						# ENDIF #
 						# IF item.C_PICTURE #
-						<div style="float:left;margin:10px">
+						<div class="smallads-picture">
 							<a href="{item.PICTURE}" data-lightbox="formatter"><img src="{item.PICTURE}" /></a>
 						</div>
 						# ENDIF #
-						<div>{item.CONTENTS}</div>
+						<div class="smallads-item-content">{item.CONTENTS}</div>
 						<br />
 						<div class="small">
-							<p>{L_PRICE}&nbsp;: {item.PRICE}&nbsp;{L_PRICE_UNIT}</p>
-							# IF item.C_SHIPPING #<p>{L_SHIPPING}&nbsp;: {item.SHIPPING}&nbsp;{L_SHIPPING_UNIT}</p># ENDIF #
-							<p># IF item.C_CREATED #{item.L_CREATED}{item.DATE_CREATED_FULL}# ENDIF ## IF item.C_UPDATED #<br />{item.L_UPDATED}{item.DATE_UPDATED_FULL}# ENDIF #</p>
-							<p>id \#{item.ID}</p>
+							<p class="smallads-price-container">{L_PRICE}&nbsp;: <span class="smallads-item-price">{item.PRICE}</span>&nbsp;<span class="smallads-item-unit">{L_PRICE_UNIT}</span></p>
+							# IF item.C_SHIPPING #
+							<p class="smallads-shipping-container">{L_SHIPPING}&nbsp;: <span class="smallads-item-shipping">{item.SHIPPING}</span>&nbsp;<span class="smallads-shipping-unit">{L_SHIPPING_UNIT}</span></p>
+							# ENDIF #
+							<p class="smallads-date-container"># IF item.C_CREATED #{item.L_CREATED}{item.DATE_CREATED_FULL}# ENDIF ## IF item.C_UPDATED #<br />{item.L_UPDATED}{item.DATE_UPDATED_FULL}# ENDIF #</p>
+							<p class="smallads-item-id">id \#{item.ID}</p>
 							# IF item.VID #
-							<p>Contribution de modification de \#{item.VID}</p>
+							<p class="smallads-item-contribution">Contribution de modification de \#{item.VID}</p>
 							# ENDIF #
 						</div>
 						<br />
-						<span style="float:left;">
-							{item.USER} {item.USER_PM} {item.USER_MAIL}
+						<span class="smallads-user-container">
+							<span class="smallads-user">{item.USER}</span> <span class="smallads-user-pm">{item.USER_PM}</span> <span class="smallads-user-mail">{item.USER_MAIL}</span>
 						</span>
 						<div class="spacer"></div>
 					</div>
@@ -270,11 +274,11 @@
 				{L_USAGE_LEGEND}
 			</legend>
 			<br />
-			<div style="width:auto;height:250px;overflow-y:scroll;border:1px solid \#DFDFDF;background-color:\#F1F4F1">
+			<div class="smallads-cgu-container">
 				{CGU_CONTENTS}
 			</div>
-			<div style="text-align:center;margin:1.5em;">
-				<label style="cursor:pointer;">
+			<div class="agree-terms-container">
+				<label>
 					<input type="checkbox" name="usage_agreement" id="usage_agreement" class="valign-middle" />
 					{L_AGREE_TERMS}
 				</label>

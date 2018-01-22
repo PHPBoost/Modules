@@ -1,0 +1,35 @@
+.smallads-picture {
+	float: left;
+	margin: 10px;
+}
+
+.smallads-not-approved {
+	font-weight: bold;
+	font-size: large;
+	color: red;
+}
+
+.smallads-user {
+	float: left;
+}
+
+.smallads-item-container {
+	margin-bottom: 20px;
+}
+
+.smallads-cgu-container {
+	height: 250px;
+	width: auto;
+	overflow-y: scroll;
+	border: 1px solid #DFDFDF;
+	background-color: #F1F4F1;
+}
+
+.agree-terms-container {
+	margin: 1.5em;
+	text-align: center;
+}
+
+.agree-terms-container label {
+	cursor: pointer;
+}
