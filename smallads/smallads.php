@@ -16,16 +16,18 @@ require_once(PATH_TO_ROOT.'/smallads/smallads_begin.php');
 require_once(PATH_TO_ROOT.'/smallads/smallads.class.php');
 require_once(PATH_TO_ROOT.'/kernel/header.php');
 
-$config = SmalladsConfig::load();
+$config  = SmalladsConfig::load();
 $request = AppContext::get_request();
 
 $smallads = new Smallads();
 
-$id_delete		= retrieve(GET, 'delete', 0, TINTEGER);
-$id_delete_pict	= retrieve(GET, 'delete_picture', 0, TINTEGER);
-$id_edit 		= retrieve(GET, 'edit', 0, TINTEGER);
-$id_add 		= retrieve(GET, 'add', 0, TINTEGER);
-$id_view 		= retrieve(GET, 'id', 0, TINTEGER);
+$id_delete      = retrieve(GET, 'delete', 0, TINTEGER);
+$id_delete_pict = retrieve(GET, 'delete_picture', 0, TINTEGER);
+$id_edit        = retrieve(GET, 'edit', 0, TINTEGER);
+$id_add         = retrieve(GET, 'add', 0, TINTEGER);
+$id_view        = retrieve(GET, 'id', 0, TINTEGER);
+
+$new_content = new SmalladsNewContent();
 
 function render_view($smallads, $row, $tpl)
 {
@@ -37,7 +39,6 @@ function render_view($smallads, $row, $tpl)
 	$url_edit	= '';
 	$c_delete	= FALSE;
 	$url_delete	= '';
-	$new_content = new SmalladsNewContent();
 
 	$v = $smallads->check_access(SmalladsAuthorizationsService::MODERATION_AUTHORIZATIONS, (SmalladsAuthorizationsService::OWN_CRUD_AUTHORIZATIONS|SmalladsAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS), $id_created);
 	if ($v)
