@@ -28,7 +28,7 @@
 class HomeLandingUrlBuilder
 {
 	private static $dispatcher = '/HomeLanding';
-	
+
 	/**
 	 * @return Url
 	 */
@@ -37,7 +37,7 @@ class HomeLandingUrlBuilder
 		$anchor = $anchor !== null ? '#AdminHomeLandingConfigController_admin_' . $anchor : '';
 		return DispatchManager::get_url(self::$dispatcher, '/admin/config/' . $anchor);
 	}
-	
+
 	/**
 	 * @return Url
 	 */
@@ -45,7 +45,7 @@ class HomeLandingUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/positions/');
 	}
-	
+
 	/**
 	 * @return Url
 	 */
@@ -53,7 +53,31 @@ class HomeLandingUrlBuilder
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/positions/change_display/');
 	}
-	
+
+    /**
+     * @return Url
+     */
+    public static function sticky_manage()
+    {
+        return DispatchManager::get_url(self::$dispatcher, '/admin/sticky/');
+    }
+
+    /**
+     * @return Url
+     */
+    public static function sticky()
+    {
+        return DispatchManager::get_url(self::$dispatcher, '/sticky/');
+    }
+
+    /**
+     * @return Url
+     */
+    public static function documentation()
+    {
+        return DispatchManager::get_url(self::$dispatcher, '/documentation/');
+    }
+
 	/**
 	 * @return Url
 	 */

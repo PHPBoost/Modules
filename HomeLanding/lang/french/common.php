@@ -31,9 +31,12 @@
  */
 
 $lang['module_title'] = 'Page d\'accueil';
+$lang['module.views'] = 'vue(s)';
+
 
 //Modules position
 $lang['module.carousel'] = 'Carousel';
+$lang['module.onepage_menu'] = 'Menu Onepage';
 $lang['module.edito'] = 'Edito';
 $lang['module.lastcoms'] = 'Derniers commentaires';
 $lang['module.articles'] = 'Derniers articles';
@@ -51,6 +54,22 @@ $lang['module.news_category'] = 'Dernières news d\'une catégorie';
 $lang['module.rss'] = 'Flux RSS externe';
 $lang['module.web'] = 'Liste des sites partenaires';
 $lang['module.web_category'] = 'Liste des sites partenaires d\'une catégorie';
+
+// One page menu
+$lang['onepage.title'] = 'Menu Onepage';
+$lang['onepage.edito'] = 'Édito';
+$lang['onepage.carousel'] = 'Carrousel';
+$lang['onepage.lastcoms'] = 'Commentaires';
+$lang['onepage.articles'] = 'Articles';
+$lang['onepage.contact'] = 'Contact';
+$lang['onepage.events'] = 'Événements';
+$lang['onepage.download'] = 'Téléchargements';
+$lang['onepage.forum'] = 'Forum';
+$lang['onepage.gallery'] = 'Galerie';
+$lang['onepage.guestbook'] = 'Livre d\'or';
+$lang['onepage.media'] = 'Multimédia';
+$lang['onepage.news'] = 'News';
+$lang['onepage.web'] = 'Liens web';
 
 //Last Comments
 $lang['last.comments'] = 'Derniers commentaires';
@@ -150,6 +169,10 @@ $lang['admin.form.carousel.mini'] = 'Affichage des miniatures';
 $lang['admin.form.carousel.mini.dots'] = 'Points';
 $lang['admin.form.carousel.mini.imgs'] = 'Images';
 
+//Admin - One page Menu
+$lang['admin.onepage'] = 'Affichage du menu onepage';
+$lang['admin.menu.onepage'] = 'Afficher le menu onepage';
+
 //Admin - Edito
 $lang['admin.edito'] = 'Affichage de l\'édito';
 $lang['admin.edito.enabled'] = 'Afficher l\'édito';
@@ -227,4 +250,5 @@ $lang['admin.web.limit'] = 'Nombre de liens à afficher';
 $lang['admin.web.enabled.desc'] = 'Affiche seulement les liens partenaires';
 $lang['admin.web.cat.enabled'] = 'Afficher une catégorie du module Web';
 $lang['admin.web.cat.limit'] = 'Nombre de liens de la catégorie à afficher';
+
 ?>

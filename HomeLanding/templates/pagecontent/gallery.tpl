@@ -1,5 +1,5 @@
 
-<article id="last_gallery" style="order: {GALLERY_POSITION}; -webkit-order: {GALLERY_POSITION}; -ms-flex-order: {GALLERY_POSITION}">
+<article id="gallery" style="order: {GALLERY_POSITION}; -webkit-order: {GALLERY_POSITION}; -ms-flex-order: {GALLERY_POSITION}">
 	<header>
 		<h2>
 			${Langloader::get_message('last.gallery', 'common', 'HomeLanding')}
@@ -10,16 +10,16 @@
 			</span>
 		</h2>
 	</header>
-	<div class="content"> 
-	# START gallery_items #
-		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-			<a href="{gallery_items.U_CATEGORY}">
-				<img src="{gallery_items.U_IMG}" alt="{gallery_items.TITLE}" />
-				<p>{gallery_items.TITLE} <br /><i class="fa fa-eye"></i> {gallery_items.NB_VIEWS}</p>
+	<div class="elements-container columns-{COL_NBR} no-style">
+	# START item #
+		<div class="item-content block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+			<a href="{item.U_CATEGORY}">
+				<img src="{item.U_IMG}" alt="{item.TITLE}" />
+				<p>{item.TITLE} <br /><i class="fa fa-eye"></i> {item.NB_VIEWS}</p>
 			</a>
 		</div>
-	# END gallery_items #
+	# END item #
 	<div class="spacer"></div>
-	</div>            
+	</div>
 	<footer></footer>
 </article>

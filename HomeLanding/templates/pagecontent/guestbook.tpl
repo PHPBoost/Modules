@@ -1,5 +1,5 @@
 
-<article id="last_guestbook" style="order: {GUESTBOOK_POSITION}; -webkit-order: {GUESTBOOK_POSITION}; -ms-flex-order: {GUESTBOOK_POSITION}">
+<article id="guestbook" style="order: {GUESTBOOK_POSITION}; -webkit-order: {GUESTBOOK_POSITION}; -ms-flex-order: {GUESTBOOK_POSITION}">
 	<header>
 		<h2>
 			${Langloader::get_message('last.guestbook', 'common', 'HomeLanding')}
@@ -10,33 +10,35 @@
 			</span>
 		</h2>
 	</header>
-	<div class="content"> 
+	<div class="elements-container columns-3 no-style">
 		# IF C_EMPTY_GUESTBOOK #
 		<div class="center">
 			${LangLoader::get_message('empty.guestbook', 'common', 'HomeLanding')}
 		</div>
 		# ENDIF #
-	# START guestbook_items #	
-		<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-			
-			<img class="avatar" src="{guestbook_items.U_AVATAR}" alt="{guestbook_items.PSEUDO}" />
-			
+	# START item #
+		<div class="item-content block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+
+			<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" />
+
 			<div class="more">
-				${LangLoader::get_message('by', 'common')}
-				# IF guestbook_items.C_AUTHOR_EXIST #
-				<a href="{guestbook_items.U_AUTHOR_PROFILE}" class="{guestbook_items.USER_LEVEL_CLASS}" # IF guestbook_items.C_USER_GROUP_COLOR # style="color:{guestbook_items.USER_GROUP_COLOR}" # ENDIF #>{guestbook_items.PSEUDO}</a>
-				# ELSE #
-				{guestbook_items.PSEUDO}
-				# ENDIF #
-				<p>{guestbook_items.DATE}</p>
+				<p>
+					<i class="fa fa-fw fa-user"></i> # IF item.C_AUTHOR_EXIST #
+					<a href="{item.U_AUTHOR_PROFILE}" class="{item.USER_LEVEL_CLASS}" # IF item.C_USER_GROUP_COLOR # style="color:{item.USER_GROUP_COLOR}" # ENDIF #>{item.PSEUDO}</a>
+					# ELSE #
+					{item.PSEUDO}
+					# ENDIF #
+				</p>
+				<p><i class="fa fa-fw fa-clock-o"></i> {item.DATE}</p>
+				<p><i class="fa fa-hand-o-right"></i> <a href="{item.U_ANCHOR}">${Langloader::get_message('guestbook.user.message', 'common', 'HomeLanding')}</a></p>
 			</div>
-			
-			<p class="item-desc">				
-				{guestbook_items.CONTENTS}# IF guestbook_items.C_READ_MORE #...# ENDIF #
+
+			<p class="item-desc">
+				{item.CONTENTS}# IF item.C_READ_MORE #...# ENDIF #
 			</p>
-			
-		</div>	
-	# END guestbook_items #
-	</div>            
+
+		</div>
+	# END item #
+	</div>
 	<footer></footer>
 </article>

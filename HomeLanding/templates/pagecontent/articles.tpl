@@ -1,5 +1,5 @@
 
-<article id="last_articles" style="order: {ARTICLES_POSITION}; -webkit-order: {ARTICLES_POSITION}; -ms-flex-order: {ARTICLES_POSITION}">
+<article id="articles" style="order: {ARTICLES_POSITION}; -webkit-order: {ARTICLES_POSITION}; -ms-flex-order: {ARTICLES_POSITION}">
 	<header>
 		<h2>
 			${Langloader::get_message('last.articles', 'common', 'HomeLanding')}
@@ -10,40 +10,44 @@
 			</span>
 		</h2>
 	</header>
-	<div class="content">
-	# START articles_items #
-		<div class="item-content">
-			
+	# IF C_DISPLAY_BLOCK #
+		<div class="elements-container columns-{COL_NBR}">
+	# ELSE #
+		<div class="content">
+	# ENDIF #
+	# START item #
+		<div class="item-content# IF C_DISPLAY_BLOCK # block# ENDIF #">
+
 			<h3>
-				<a href="{articles_items.U_ARTICLE}">{articles_items.TITLE}</a>
+				<a href="{item.U_ARTICLE}">{item.TITLE}</a>
 				<span class="actions">
-					# IF articles_items.C_EDIT #
-						<a href="{articles_items.U_EDIT_ARTICLE}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+					# IF item.C_EDIT #
+						<a href="{item.U_EDIT_ARTICLE}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
 					# ENDIF #
-					# IF articles_items.C_DELETE #
-						<a href="{articles_items.U_DELETE_ARTICLE}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
+					# IF item.C_DELETE #
+						<a href="{item.U_DELETE_ARTICLE}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
 					# ENDIF #
 				</span>
 			</h3>
-			
+
 			<div class="more">
-				# IF articles_items.C_AUTHOR_DISPLAYED #
+				# IF item.C_AUTHOR_DISPLAYED #
 					${LangLoader::get_message('by', 'common')}
-					# IF articles_items.C_AUTHOR_EXIST #<a itemprop="author" href="{articles_items.U_AUTHOR}" class="{articles_items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{articles_items.USER_GROUP_COLOR}"# ENDIF #>{articles_items.PSEUDO}</a># ELSE #{articles_items.PSEUDO}# ENDIF #,
-				# ENDIF # 
-				${TextHelper::lcfirst(LangLoader::get_message('the', 'common'))} <time datetime="{articles_items.DATE_ISO8601}" itemprop="datePublished">{articles_items.DATE_SHORT}</time> 
-				${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{articles_items.U_CATEGORY}">{articles_items.CATEGORY_NAME}</a>
+					# IF item.C_AUTHOR_EXIST #<a itemprop="author" href="{item.U_AUTHOR}" class="{item.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{item.USER_GROUP_COLOR}"# ENDIF #>{item.PSEUDO}</a># ELSE #{item.PSEUDO}# ENDIF #,
+				# ENDIF #
+				${TextHelper::lcfirst(LangLoader::get_message('the', 'common'))} <time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE_SHORT}</time>
+				${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{item.U_CATEGORY}">{item.CATEGORY_NAME}</a> - {item.NUMBER_VIEW} ${LangLoader::get_message('module.views', 'common', 'HomeLanding')}
 			</div>
-			
-			# IF articles_items.C_HAS_PICTURE #
-				<a href="{articles_items.U_ARTICLE}"><img class="item-picture" src="{articles_items.PICTURE}" alt="{articles_items.TITLE}" /></a>
+
+			# IF item.C_HAS_PICTURE #
+				<a href="{item.U_ARTICLE}" class="item-picture"><img src="{item.PICTURE}" alt="{item.TITLE}" /></a>
 			# ENDIF #
 			<p class="item-desc">
-				{articles_items.DESCRIPTION}# IF articles_items.C_READ_MORE #... <a href="{articles_items.U_ARTICLE}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+				{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_ARTICLE}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 			</p>
-			
+
 		</div>
-	# END articles_items #
+	# END item #
 	</div>
 	<footer></footer>
 </article>

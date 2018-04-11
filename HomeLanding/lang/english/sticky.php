@@ -1,10 +1,10 @@
 <?php
 /*##################################################
- *                           index.php
+ *                      common.php
  *                            -------------------
  *   begin                : January 2, 2016
- *   copyright            : (C) 2016 Sebastien Lartigue
- *   email                : babso@web33.fr
+ *   copyright            : (C) 2016 Sebastien LARTIGUE - Julien BRISWALTER
+ *   email                : babsolune@phpboost.com - j1.seth@phpboost.com
  *
  *
  ###################################################
@@ -25,20 +25,17 @@
  *
  ###################################################*/
 
-define('PATH_TO_ROOT', '..');
+/**
+ * @author Sebastien Lartigue <babsolune@phpboost.com>
+ * @author Julien Briswalter <j1.seth@phpboost.com>
+ */
 
-require_once PATH_TO_ROOT . '/kernel/init.php';
 
-$url_controller_mappers = array(
-	new UrlControllerMapper('AdminHomeLandingConfigController', '`^/admin(?:/config)?/?$`'),
-	new UrlControllerMapper('AdminHomeLandingModulesPositionController', '`^/admin/positions/?$`'),
-	new UrlControllerMapper('HomeLandingAjaxChangeModuleDisplayController', '`^/admin/positions/change_display/?$`'),
-
-	new UrlControllerMapper('AdminHomeLandingStickyConfigController', '`^/admin/sticky/?$`'),
-	new UrlControllerMapper('HomeLandingStickyController', '`^/sticky/?$`'),
-
-	new UrlControllerMapper('HomeLandingHomeController', '`^(?:/([0-9]+))?/?$`')
-);
-DispatchManager::dispatch($url_controller_mappers);
-
+ //  Sticky
+ $lang['homelanding.sticky'] = 'Free Text';
+ $lang['homelanding.sticky.title'] = 'Free Text';
+ $lang['homelanding.sticky.title.name'] = 'Title of the page';
+ $lang['homelanding.sticky.manage'] = 'Modify';
+ $lang['homelanding.sticky.content.label'] = 'Content of the page';
+ $lang['homelanding.sticky.content'] = 'This page allows you to display a free text. You can modify title and content in the <a href="' . HomeLandingUrlBuilder::sticky_manage()->relative() . '">administration</a>';
 ?>

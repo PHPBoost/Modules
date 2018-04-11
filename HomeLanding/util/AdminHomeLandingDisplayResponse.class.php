@@ -33,10 +33,12 @@ class AdminHomeLandingDisplayResponse extends AdminMenuDisplayResponse
 
 		$lang = LangLoader::get('common', 'HomeLanding');
 		$this->set_title($lang['module_title']);
-		
+		$sticky_title = HomeLandingConfig::load()->get_sticky_title();
+
 		$this->add_link(LangLoader::get_message('configuration', 'admin-common'), HomeLandingUrlBuilder::configuration());
 		$this->add_link(LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding'), HomeLandingUrlBuilder::positions());
-		$this->add_link(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('HomeLanding')->get_configuration()->get_documentation());
+		$this->add_link(LangLoader::get_message('homelanding.sticky.manage', 'sticky', 'HomeLanding').': '. $sticky_title, HomeLandingUrlBuilder::sticky_manage());
+		$this->add_link($sticky_title, HomeLandingUrlBuilder::sticky());
 
 		$env = $this->get_graphical_environment();
 		$env->set_page_title($title_page, $lang['module_title']);

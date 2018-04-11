@@ -84,6 +84,9 @@ class HomeLandingHomeController extends ModuleController
 			'EDITO_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_EDITO),
 		));
 
+		if ($this->modules[HomeLandingConfig::MODULE_ONEPAGE_MENU]->is_displayed())
+			$this->build_onepage_menu_view();
+
 		if ($this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
 			$this->build_carousel_view();
 
@@ -142,6 +145,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/articles-cat.tpl');
+		$articles_config = ArticlesConfig::load();
 
 		$categories_id = $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed() ? ArticlesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category()) : array($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
 
@@ -164,7 +168,9 @@ class HomeLandingHomeController extends ModuleController
 		$tpl->put_all(array(
 			'ARTICLES_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
-			'C_NO_ARTICLES_ITEM' => $result->get_rows_count() == 0
+			'C_NO_ARTICLES_ITEM' => $result->get_rows_count() == 0,
+			'C_DISPLAY_BLOCK' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_MOSAIC,
+			'COL_NBR' => $articles_config->get_number_cols_display_per_line()
 		));
 
 		while ($row = $result->fetch())
@@ -195,6 +201,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/download-cat.tpl');
+		$download_config = DownloadConfig::load();
 
 		$categories_id = $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed() ? DownloadService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category()) : array($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category());
 
@@ -217,7 +224,10 @@ class HomeLandingHomeController extends ModuleController
 		$tpl->put_all(array(
 			'DOWNLOAD_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
-			'C_NO_DOWNLOAD_ITEM' => $result->get_rows_count() == 0
+			'C_NO_DOWNLOAD_ITEM' => $result->get_rows_count() == 0,
+			'C_DISPLAY_BLOCK' => $download_config->is_category_displayed_summary(),
+			'C_DISPLAY_TABLE' => $download_config->is_category_displayed_table(),
+			'COL_NBR' => $download_config->get_columns_number_per_line()
 		));
 
 		while ($row = $result->fetch())
@@ -248,6 +258,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/news-cat.tpl');
+		$news_config = NewsConfig::load();
 
 		$categories_id = $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_subcategories_content_displayed() ? NewsService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category()) : array($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
 
@@ -266,7 +277,9 @@ class HomeLandingHomeController extends ModuleController
 		$tpl->put_all(array(
 			'NEWS_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
-			'C_NO_NEWS_ITEM' => $result->get_rows_count() == 0
+			'C_NO_NEWS_ITEM' => $result->get_rows_count() == 0,
+			'C_DISPLAY_BLOCK' => $news_config->get_display_type() == NewsConfig::DISPLAY_BLOCK,
+			'COL_NBR' => $news_config->get_number_columns_display_news()
 		));
 
 		while ($row = $result->fetch())
@@ -307,7 +320,7 @@ class HomeLandingHomeController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = web.id AND notes.module_name = \'web\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = web.id AND note.module_name = \'web\' AND note.user_id = :user_id
 		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0))) AND partner = 1 AND id_category IN :categories_id
-		ORDER BY web.name DESC
+		ORDER BY web.rewrited_name ASC
 		LIMIT :web_cat_limit', array(
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'timestamp_now' => $now->get_timestamp(),
@@ -363,13 +376,79 @@ class HomeLandingHomeController extends ModuleController
 
 		foreach ($carousel as $id => $options)
 		{
+			if(filter_var($options['picture_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
+				$ptr = false;
+			else
+				$ptr = true;
+
+			if(filter_var($options['link'], FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))
+				$int_link = false;
+			else
+				$int_link = true;
+
 			$tpl->assign_block_vars('carousel', array(
+				'C_PTR' => $ptr,
+				'C_INT_LINK' => $int_link,
 				'DESCRIPTION' => $options['description'],
-				'PICTURE_TITLE' => $options['description'] ? $options['description'] : basename($options['url']),
-				'URL' => $options['url'],
+				'PICTURE_TITLE' => $options['description'] ? $options['description'] : basename($options['picture_url']),
+				'PICTURE_URL' => $options['picture_url'],
+				'LINK' => $options['link']
 			));
 		}
 		$this->view->put('CAROUSEL', $tpl);
+	}
+
+	// One page Menu
+	private function build_onepage_menu_view()
+	{
+		$tpl = new FileTemplate('HomeLanding/pagecontent/onepage.tpl');
+
+		if($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
+			$articles_cat = ArticlesService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->get_name();
+		else
+			$articles_cat = '';
+
+		if($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
+			$download_cat = DownloadService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->get_name();
+		else
+			$download_cat = '';
+
+		if($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed())
+			$news_cat = NewsService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category())->get_name();
+		else
+			$news_cat = '';
+
+		if($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed())
+			$web_cat = WebService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->get_name();
+		else
+			$web_cat = '';
+
+		$tpl->put_all(array(
+			'ONEPAGE_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ONEPAGE_MENU),
+			'C_DISPLAYED_EDITO' => $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
+			'C_DISPLAYED_CAROUSEL' => $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
+			'C_DISPLAYED_LASTCOMS' => $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
+			'C_DISPLAYED_ARTICLES' => $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && ArticlesAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_ARTICLES_CAT' => $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && ArticlesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->read(),
+			'ARTICLES_CAT' => $category = $articles_cat,
+			'C_DISPLAYED_CONTACT' => $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_EVENTS' => $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CalendarAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_DOWNLOAD' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && DownloadAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_DOWNLOAD_CAT' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && DownloadAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->read(),
+			'DOWNLOAD_CAT' => $category = $download_cat,
+			'C_DISPLAYED_FORUM' => $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed() && ForumAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_GALLERY' => $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && GalleryAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_GUESTBOOK' => $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed() && GuestbookAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_MEDIA' => $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && MediaAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_NEWS' => $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && NewsAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_NEWS_CAT' => $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && NewsAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category())->read(),
+			'NEWS_CAT' => $category = $news_cat,
+			'C_DISPLAYED_WEB' => $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && WebAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_WEB_CAT' => $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && WebAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read(),
+			'WEB_CAT' => $category = $web_cat,
+		));
+
+		$this->view->put('ONEPAGE_MENU', $tpl);
 	}
 
 	//Lastcoms
@@ -377,11 +456,12 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/lastcoms.tpl');
 		$modules_config = ModulesConfig::load();
-
-		$result = $this->querier->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.module_id, ct.path, m.*
+		$user_accounts_config = UserAccountsConfig::load();
+		$result = $this->querier->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.module_id, ct.path, m.*, ext_field.user_avatar
 		FROM ' . DB_TABLE_COMMENTS . ' AS c
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' AS ct ON ct.id_topic = c.id_topic
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' AS m ON c.user_id = m.user_id
+		LEFT JOIN ' . DB_TABLE_MEMBER_EXTENDED_FIELDS . ' ext_field ON ext_field.user_id = m.user_id
 		ORDER BY c.timestamp DESC
 		LIMIT :last_coms_limit', array(
 			'last_coms_limit' => $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed()
@@ -399,6 +479,8 @@ class HomeLandingHomeController extends ModuleController
 			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 			$date = new Date($row['timestamp'], Timezone::SERVER_TIMEZONE);
 
+			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : ($user_accounts_config->is_default_avatar_enabled() ? Url::to_rel('/templates/' . AppContext::get_current_user()->get_theme() . '/images/' .  $user_accounts_config->get_default_avatar_name()) : '');
+
 			$author = new User();
 			if (!empty($row['user_id']))
 				$author->set_properties($row);
@@ -406,10 +488,10 @@ class HomeLandingHomeController extends ModuleController
 				$author->init_visitor_user();
 			$user_group_color = User::get_group_color($author->get_groups(), $author->get_level(), true);
 
-			$tpl->assign_block_vars('lastcoms_items', array(
+			$tpl->assign_block_vars('item', array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
 				'C_AUTHOR_EXIST' => $author->get_id() !== User::VISITOR_LEVEL,
-				'C_MODULE_NAME' => $modules_config->get_module($row['module_id']),
+				'U_AVATAR' => $user_avatar,
 				'PSEUDO' => $author->get_display_name(),
 				'USER_LEVEL_CLASS' => UserService::get_level_class($author->get_level()),
 				'USER_GROUP_COLOR' => $user_group_color,
@@ -435,6 +517,7 @@ class HomeLandingHomeController extends ModuleController
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/articles.tpl');
 		$authorized_categories = ArticlesService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$articles_config = ArticlesConfig::load();
 
 		$result = $this->querier->select('SELECT articles.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'articles articles
@@ -457,11 +540,13 @@ class HomeLandingHomeController extends ModuleController
 			$article = new Article();
 			$article->set_properties($row);
 
-			$tpl->assign_block_vars('articles_items', $article->get_array_tpl_vars());
+			$tpl->assign_block_vars('item', $article->get_array_tpl_vars());
 			$tpl->put_all(array(
 				'DATE_DAY' => strftime('%d', $article->get_date_created()->get_timestamp()),
 				'DATE_MONTH_A' => strftime('%b', $article->get_date_created()->get_timestamp()),
-				'ARTICLES_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES)
+				'ARTICLES_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
+				'C_DISPLAY_BLOCK' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_MOSAIC,
+				'COL_NBR' => $articles_config->get_number_cols_display_per_line()
 			));
 		}
 		$result->dispose();
@@ -505,7 +590,7 @@ class HomeLandingHomeController extends ModuleController
 
 			$description = TextHelper::substr(@strip_tags(FormatingHelper::second_parse($row['contents']), '<br><br/>'), 0, $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed());
 
-			$tpl->assign_block_vars('events_items', array_merge($event->get_array_tpl_vars(), array(
+			$tpl->assign_block_vars('item', array_merge($event->get_array_tpl_vars(), array(
 				'C_READ_MORE' => TextHelper::strlen(FormatingHelper::second_parse($row['contents'])) >= $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed(),
 				'DESCRIPTION' => $description
 			)));
@@ -519,8 +604,12 @@ class HomeLandingHomeController extends ModuleController
 	private function build_contact_view()
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/contact.tpl');
+		$contact_config = ContactConfig::load();
 		$tpl->put_all(array(
-			'CONTACT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CONTACT)
+			'CONTACT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CONTACT),
+			'C_MAP_ENABLED' => $contact_config->is_map_enabled(),
+			'C_MAP_TOP' => $contact_config->is_map_enabled() && $contact_config->is_map_top(),
+			'C_MAP_BOTTOM' => $contact_config->is_map_enabled() && $contact_config->is_map_bottom(),
 		));
 
 		$this->build_contact_form();
@@ -536,9 +625,26 @@ class HomeLandingHomeController extends ModuleController
 				$tpl->put('MSG', MessageHelper::display($this->lang['send.email.error'], MessageHelper::ERROR, 5));
 		}
 
-		$tpl->put('CONTACT_FORM', $this->form->display());
+		if ($contact_config->is_map_enabled()) {
+			$this->build_map_view();
+			$displayed_map = $this->map->display();
+		} else {
+			$displayed_map = '';
+		}
+
+		$tpl->put_all(array(
+			'CONTACT_FORM' => $this->form->display(),
+			'MAP' => $displayed_map
+		));
 
 		$this->view->put('CONTACT', $tpl);
+	}
+
+	public function build_map_view()
+	{
+		$contact_config = ContactConfig::load();
+		$map = new GoogleMapsDisplayMap($contact_config->get_map_markers());
+		$this->map = $map;
 	}
 
 	private function build_contact_form()
@@ -708,6 +814,7 @@ class HomeLandingHomeController extends ModuleController
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/download.tpl');
 		$authorized_categories = DownloadService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$download_config = DownloadConfig::load();
 
 		$result = $this->querier->select('SELECT download.*, member.*, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'download download
@@ -729,8 +836,13 @@ class HomeLandingHomeController extends ModuleController
 			$download = new DownloadFile();
 			$download->set_properties($row);
 
-			$tpl->put('DOWNLOAD_POSITION', $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD));
-			$tpl->assign_block_vars('download_items', $download->get_array_tpl_vars());
+			$tpl->put_all(array(
+				'DOWNLOAD_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD),
+				'C_DISPLAY_BLOCK' => $download_config->is_category_displayed_summary(),
+				'C_DISPLAY_TABLE' => $download_config->is_category_displayed_table(),
+				'COL_NBR' => $download_config->get_columns_number_per_line()
+			));
+			$tpl->assign_block_vars('item', $download->get_array_tpl_vars());
 		}
 		$result->dispose();
 
@@ -761,7 +873,7 @@ class HomeLandingHomeController extends ModuleController
 
 		while ($row = $result->fetch())
 		{
-			$contents = @strip_tags(FormatingHelper::second_parse($row['contents']));
+			$contents = FormatingHelper::second_parse($row['contents']);
 			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : ($user_accounts_config->is_default_avatar_enabled() ? Url::to_rel('/templates/' . AppContext::get_current_user()->get_theme() . '/images/' .  $user_accounts_config->get_default_avatar_name()) : '');
 
 			$config = ForumConfig::load();
@@ -773,9 +885,9 @@ class HomeLandingHomeController extends ModuleController
 
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_FORUM]->get_characters_number_displayed();
 
-			$tpl->assign_block_vars('forum_items', array(
+			$tpl->assign_block_vars('item', array(
 				'U_AVATAR' => $user_avatar,
-				'CONTENTS' => stripcslashes(trim(TextHelper::substr($contents, 0, $nb_char))),
+				'CONTENTS' => TextHelper::cut_string(@strip_tags(stripslashes($contents), 0), (int)$nb_char),
 				'PSEUDO' => $row['last_login'],
 				'DATE' => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
 				'MESSAGE' => stripslashes($row['title']),
@@ -793,6 +905,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/gallery.tpl');
 		$authorized_categories = GalleryService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$gallery_config = GalleryConfig::load();
 
 		$result = $this->querier->select("SELECT g.id, g.idcat, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob, m.display_name, m.groups, m.level, notes.average_notes, notes.number_notes, note.note
 		FROM " . GallerySetup::$gallery_table . " g
@@ -809,11 +922,14 @@ class HomeLandingHomeController extends ModuleController
 			'user_id' => AppContext::get_current_user()->get_id(),
 		));
 
-		$tpl->put('GALLERY_POSITION', $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_GALLERY));
+		$tpl->put_all(array(
+			'GALLERY_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_GALLERY),
+			'COL_NBR' => $gallery_config->get_columns_number()
+		));
 
 		while ($row = $result->fetch())
 		{
-			$tpl->assign_block_vars('gallery_items', array(
+			$tpl->assign_block_vars('item', array(
 				'U_IMG' => PATH_TO_ROOT . '/gallery/pics/' . $row['path'],
 				'TITLE' => $row['name'],
 				'NB_VIEWS' => $row['views'],
@@ -855,7 +971,7 @@ class HomeLandingHomeController extends ModuleController
 			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : ($user_accounts_config->is_default_avatar_enabled() ? Url::to_rel('/templates/' . AppContext::get_current_user()->get_theme() . '/images/' .  $user_accounts_config->get_default_avatar_name()) : '');
 			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
-			$tpl->assign_block_vars('guestbook_items', array_merge($message->get_array_tpl_vars(), array(
+			$tpl->assign_block_vars('item', array_merge($message->get_array_tpl_vars(), array(
 				'C_READ_MORE' => $cut_contents != $contents,
 				'U_AVATAR' => $user_avatar,
 				'CONTENTS' => $cut_contents,
@@ -933,6 +1049,7 @@ class HomeLandingHomeController extends ModuleController
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
 					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
 					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
@@ -950,6 +1067,7 @@ class HomeLandingHomeController extends ModuleController
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
 					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
 					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
@@ -967,6 +1085,7 @@ class HomeLandingHomeController extends ModuleController
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
 					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
 					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
@@ -988,6 +1107,7 @@ class HomeLandingHomeController extends ModuleController
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/news.tpl');
 		$authorized_categories = NewsService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$news_config = NewsConfig::load();
 
 		$result = $this->querier->select('SELECT news.*, member.*, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'news news
@@ -1007,8 +1127,13 @@ class HomeLandingHomeController extends ModuleController
 			$news = new News();
 			$news->set_properties($row);
 
-			$tpl->put('NEWS_POSITION', $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS));
-			$tpl->assign_block_vars('news_items', $news->get_array_tpl_vars());
+			$tpl->put_all(array(
+				'NEWS_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS),
+				'C_DISPLAY_BLOCK' => $news_config->get_display_type() == NewsConfig::DISPLAY_BLOCK,
+				'COL_NBR' => $news_config->get_number_columns_display_news()
+			));
+
+			$tpl->assign_block_vars('item', $news->get_array_tpl_vars());
 		}
 		$result->dispose();
 
@@ -1042,7 +1167,7 @@ class HomeLandingHomeController extends ModuleController
 			$web->set_properties($row);
 
 			$tpl->put('WEB_POSITION', $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB));
-			$tpl->assign_block_vars('web_items', $web->get_array_tpl_vars());
+			$tpl->assign_block_vars('item', $web->get_array_tpl_vars());
 		}
 		$result->dispose();
 

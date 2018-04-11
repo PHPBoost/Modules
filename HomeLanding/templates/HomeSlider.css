@@ -1,0 +1,123 @@
+
+#pbt-slider{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+#pbt-slider .slides{
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#pbt-slider .slide{
+    float: left;
+    list-style-type: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#pbt-slider .slide img{
+    display: none;
+}
+
+#pbt-slider .slideLink{
+    display: block;
+}
+
+.slideCaption{
+    position: absolute;
+    background: rgba(255, 255, 255, .8);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    padding: 0.618em;
+    top: 20%;
+    transform: translateY(-50%);
+    margin: 0;
+    min-width: 50%;
+    text-align: center;
+}
+
+#dotsNavigation{
+    position: absolute;
+    z-index: 98;
+    bottom: 2%;
+    list-style-type: none;
+    margin: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dotNavigation{
+    display:inline-block;
+    cursor: pointer;
+    height:13px;
+    width: 13px;
+    margin-left: 10px;
+    border:2px solid #222;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .3);
+}
+
+.dotNavigation:hover,
+.slide-active{
+    background: rgba(255, 255, 255, .8);
+}
+
+#imagesNavigation{
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+}
+
+@media (min-width: 769px) {
+    #imagesNavigation{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.imageNavigation{
+    display: inline-block;
+    border:1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 50px;
+    height:auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.previous,
+.next{
+    position: absolute;
+    background: rgba(0, 0, 0, .4);
+    color: #ffffff;
+    z-index: 9998;
+    top:45%;
+    left:10px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 25px;
+    line-height: 50px;
+    padding: 15px 30px 5px;
+    font-weight: 700;
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+}
+
+.next{
+    left: auto;
+    right: 10px;
+}
+
+.hideArrow{
+    opacity: 0;
+}

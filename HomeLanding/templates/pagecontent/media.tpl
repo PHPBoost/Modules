@@ -1,5 +1,5 @@
 
-<article id="last_media" style="order: {MEDIA_POSITION}; -webkit-order: {MEDIA_POSITION}; -ms-flex-order: {MEDIA_POSITION}">
+<article id="media" style="order: {MEDIA_POSITION}; -webkit-order: {MEDIA_POSITION}; -ms-flex-order: {MEDIA_POSITION}">
 	<header>
 		<h2>
 			${Langloader::get_message('last.media', 'common', 'HomeLanding')}
@@ -30,7 +30,7 @@
 						<param name="wmode" value="transparent" />
 						<param name="bgcolor" value="#000000" />
 					</object>
-				</p>		
+				</p>
 			</div>
 		# END media_swf #
 
@@ -39,7 +39,7 @@
 				<h3><a href="{media_flv.U_MEDIA_LINK}">{media_flv.TITLE}</a></h3>
 				<div class="more">
 					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_flv.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_flv.DATE}
-				</div>				
+				</div>
 				<p class="media-content media-flv">
 					<a href="{media_flv.URL}" id="media_flv-{media_flv.ID}" class="media-flv" style="width:{media_flv.WIDTH}px;height:{media_flv.HEIGHT}px;"></a>
 					<script>
@@ -50,7 +50,7 @@
 					-->
 					</script>
 				</p>
-			</div>		
+			</div>
 		# END media_flv #
 
 		# START media_mp4 #
@@ -58,28 +58,28 @@
 				<h3><a href="{media_mp4.U_MEDIA_LINK}">{media_mp4.TITLE}</a></h3>
 				<div class="more">
 					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_mp4.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_mp4.DATE}
-				</div>				
+				</div>
 				<p class="media-content media-mp4">
-					<video class="video-player" width="{media_mp4.WIDTH}" height="{media_mp4.HEIGHT}" controls>
+					<video class="video-player" width="{media_mp4.WIDTH}" height="{media_mp4.HEIGHT}"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
 						<source src="{media_mp4.URL}" type="{media_mp4.MIME}" />
 					</video>
 				</p>
-			</div>		
+			</div>
 		# END media_mp4 #
 
-		# START media_mp3 #		
+		# START media_mp3 #
 			<div class="item-content-audio" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<h3><a href="{media_mp3.U_MEDIA_LINK}">{media_mp3.TITLE}</a></h3>
 				<div class="more">
 					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_mp3.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_mp3.DATE}
 				</div>
-				
+
 				<p class="media-content-audio" id="media_mp3-{media_mp3.ID}">
 					<audio controls>
 						<source src="{media_mp3.URL}" type="{media_mp3.MIME}"></source>
 					</audio>
 				</p>
-			</div>		
+			</div>
 		# END media_mp3 #
 
 		# START media_other #
@@ -88,15 +88,15 @@
 				<div class="more">
 					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_other.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_other.DATE}
 				</div>
-				
+
 				<p class="media-content" id="media_other-{media_other.ID}">
 					<video class="youtube-player" controls="" src="{media_other.URL}">
 						<source src="{media_other.URL}" type="video/mp4"></source>
 					</video>
 				</p>
-			</div>		
+			</div>
 		# END media_other #
 
-	</div>            
+	</div>
 	<footer></footer>
 </article>

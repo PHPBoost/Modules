@@ -185,6 +185,12 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$fieldset_config->add_field(new FormFieldCheckbox('top_footer', $this->lang['admin.menu.top.footer'], $this->config->get_top_footer()
 		));
 
+		$fieldset_onepage = new FormFieldsetHTML('admin_onepage', LangLoader::get_message('admin.onepage', 'common', 'HomeLanding'));
+		$form->add_fieldset($fieldset_onepage);
+
+		$fieldset_onepage->add_field(new FormFieldCheckbox('onepage_menu', $this->lang['admin.menu.onepage'], $this->config->get_onepage_menu()
+		));
+
 		$fieldset_carousel = new FormFieldsetHTML('admin_carousel', LangLoader::get_message('admin.carousel', 'common', 'HomeLanding'));
 		$form->add_fieldset($fieldset_carousel);
 
@@ -710,6 +716,16 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 		else
 			$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->hide();
+
+		// One page Menu
+		if ($this->form->get_value('onepage_menu'))
+		{
+			$this->modules[HomeLandingConfig::MODULE_ONEPAGE_MENU]->display();
+			$this->config->set_onepage_menu($this->form->get_value('onepage_menu'));
+		}
+		else
+			$this->modules[HomeLandingConfig::MODULE_ONEPAGE_MENU]->hide();
+
 
 		//Edito
 		if ($this->form->get_value('edito_enabled'))

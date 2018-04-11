@@ -32,7 +32,7 @@
 class HomeLandingFormFieldSliderConfig extends AbstractFormField
 {
 	private $max_input = 20;
-	
+
 	public function __construct($id, $label, array $value = array(), array $field_options = array(), array $constraints = array())
 	{
 		parent::__construct($id, $label, $value, $field_options, $constraints);
@@ -44,7 +44,7 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 
 		$tpl = new FileTemplate('HomeLanding/HomeLandingFormFieldSliderConfig.tpl');
 		$tpl->add_lang(LangLoader::get('common'));
-		
+
 		$tpl->put_all(array(
 			'NAME' => $this->get_html_id(),
 			'ID' => $this->get_html_id(),
@@ -58,8 +58,9 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 		{
 			$tpl->assign_block_vars('fieldelements', array(
 				'ID' => $i,
-				'URL' => $options['url'],
-				'DESCRIPTION' => $options['description']
+				'PICTURE_URL' => $options['picture_url'],
+				'DESCRIPTION' => $options['description'],
+				'LINK' => $options['link']
 			));
 			$i++;
 		}
@@ -68,8 +69,9 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 		{
 			$tpl->assign_block_vars('fieldelements', array(
 				'ID' => $i,
-				'URL' => '',
-				'DESCRIPTION' => ''
+				'PICTURE_URL' => '',
+				'DESCRIPTION' => '',
+				'LINK' => ''
 			));
 		}
 
@@ -91,15 +93,17 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 		$values = array();
 		for ($i = 0; $i < $this->max_input; $i++)
 		{
-			$field_url_id = 'field_url_' . $this->get_html_id() . '_' . $i;
-			if ($request->has_postparameter($field_url_id))
+			$field_picture_url_id = 'field_picture_url_' . $this->get_html_id() . '_' . $i;
+			if ($request->has_postparameter($field_picture_url_id))
 			{
 				$field_description_id = 'field_description_' . $this->get_html_id() . '_' . $i;
 				$field_description = $request->get_poststring($field_description_id);
-				$field_url = $request->get_poststring($field_url_id);
-				
-				if (!empty($field_url))
-					$values[] = array('description' => $field_description, 'url' => $field_url);
+				$field_link_id = 'field_link_' . $this->get_html_id() . '_' . $i;
+				$field_link = $request->get_poststring($field_link_id);
+				$field_picture_url = $request->get_poststring($field_picture_url_id);
+
+				if (!empty($field_picture_url))
+					$values[] = array('description' => $field_description, 'picture_url' => $field_picture_url, 'link' => $field_link);
 			}
 		}
 		$this->set_value($values);

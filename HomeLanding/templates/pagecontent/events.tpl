@@ -1,5 +1,5 @@
-       
-<article id="next_events" style="order: {CALENDAR_POSITION}; -webkit-order: {CALENDAR_POSITION}; -ms-flex-order: {CALENDAR_POSITION}">
+
+<article id="events" style="order: {CALENDAR_POSITION}; -webkit-order: {CALENDAR_POSITION}; -ms-flex-order: {CALENDAR_POSITION}">
 	<header>
 		<h2>
 			${Langloader::get_message('next.events', 'common', 'HomeLanding')}
@@ -10,27 +10,31 @@
 			</span>
 		</h2>
 	</header>
-	<div class="content"> 
+	<div class="content">
 		# IF C_NO_EVENT #
 		<div class="center">
 			${LangLoader::get_message('no.events', 'common', 'HomeLanding')}
 		</div>
 		# ENDIF #
-	# START events_items #
+	# START item #
 		<div class="item-content">
 			<h3>
-				<a href="{events_items.U_LINK}" title="{events_items.TITLE}">{events_items.TITLE}</a>
+				<a href="{item.U_LINK}" title="{item.TITLE}">{item.TITLE}</a>
 			</h3>
-			
+
 			<div class="more">
-				${LangLoader::get_message('event.date', 'common', 'HomeLanding')} <time datetime="{events_items.START_DATE}" itemprop="datePublished">{events_items.START_DATE}</time>
+				${LangLoader::get_message('event.date', 'common', 'HomeLanding')} <time datetime="{item.START_DATE}" itemprop="datePublished">{item.START_DATE}</time>
 			</div>
-			# IF events_items.C_HAS_PICTURE #<img itemprop="thumbnailUrl" src="{events_items.PICTURE}" alt="{events_items.TITLE}" /># ENDIF #
+			# IF item.C_HAS_PICTURE #
+                <a href="{item.U_LINK}" class="item-picture">
+                    <img itemprop="thumbnailUrl" src="{item.PICTURE}" alt="{item.TITLE}" />
+                </a>
+            # ENDIF #
 			<p class="item-desc">
-				{events_items.DESCRIPTION}# IF events_items.C_READ_MORE #... <a href="{events_items.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+				{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 			</p>
 		</div>
-	# END events_items #
+	# END item #
 	</div>
 	<footer></footer>
 </article>

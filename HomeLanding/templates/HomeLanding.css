@@ -16,167 +16,57 @@
 
 #module-homelanding h2 {
     overflow: hidden;
-    font-size: 1.2rem;
+    font-size: 1.228em;
 }
 
 #module-homelanding h3 .actions a {
-    font-size: .6em;
+    font-size: 0.618em;
 }
 
 #module-homelanding .more {
-    margin-bottom: 5px;
+    margin-bottom: 0.309em;
 }
 
 #module-homelanding h3 {
-    padding-bottom: 5px;
+    padding-bottom: 0.309em;
 }
 
 .item-content {
     overflow: hidden;
-    padding: 10px;
+    padding: 0.618em;
 }
 
-/** --- Carousel
------------------------------------------------------------------------------ */
-#slider{
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    margin: 0 0 20px;
-}
-
-#slider .slides{
-    display: block;
-    margin: 0;
-    padding: 0;
-}
-
-#slider .slide,
-#slider .slide img{
-    float: left;
-    list-style-type: none;
-}
-
-#slider .slide img{
-    width: 100%;
-}
-
-.slideCaption{
-    position: absolute;
-    background: rgba(0, 0, 0, .2);
-    color: #ffffff;
-    width: 100%;
-    padding: 20px;
-    margin: 0;
-}
-
-#dotsNavigation{
-    position: absolute;
-    z-index: 98;
-    bottom: 0;
-    list-style-type: none;
-}
-
-.dotNavigation{
-    display:inline-block;
-    cursor: pointer;
-    height:13px;
-    width: 13px;
-    margin-left: 10px;
-    border:2px solid #222;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, .3);
-}
-
-.dotNavigation:hover,
-.slide-active{
-    background: rgba(255, 255, 255, .8);
-}
-
-#imagesNavigation{
-    position: absolute;
-    bottom: -10px;
-}
-
-.imageNavigation{
-    display: inline-block;
-    border:1px solid black;
-    padding: 10px;
-    margin: 10px;
-    width: 50px;
-    height:auto;
-    background-size: 50px auto;
-    cursor: pointer;
-}
-
-.previous,
-.next{
-    position: absolute;
-    background: rgba(0, 0, 0, .4);
-    color: #ffffff;
-    z-index: 9998;
-    top:45%;
-    left:10px;
-    cursor: pointer;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 25px;
-    line-height: 50px;
-    padding: 15px 30px 5px;
-    font-weight: 700;
-    opacity: 1;
-    transition: opacity 250ms ease-in-out;
-}
-
-.next{
-    left: auto;
-    right: 10px;
-}
-
-.hideArrow{
-    opacity: 0;
-}
-
-/** --- Edito
------------------------------------------------------------------------------ */
-
-#home_edito {
-    margin: 10px 0;
-}
-
-/** --- last comments
------------------------------------------------------------------------------ */
-
-#last_coms ul {
-    list-style-type: none;
-}
-
-/** --- Last articles
------------------------------------------------------------------------------ */
-
-#last_articles img {
-    margin: 0 10px 5px;
+.content .item-picture {
+    padding: 0 0.618em 0.309em;
 }
 
 @media (min-width:769px){
-    #last_articles img {
+    .content .item-picture {
         max-width: 200px;
         float: left;
     }
 }
 
-/* --- Last articles from categories
+/** --- Edito
 ----------------------------------------------------------------------------- */
 
-@media (min-width: 769px){
-    #last_articles_cat .item-content {
-        width: calc(100% / 3 - 2%);
-        margin: .5%;
-        display: inline-block;
-        vertical-align: top;
-    }
+#edito {
+    margin: 0.618em 0;
 }
+
+/** --- last comments
+----------------------------------------------------------------------------- */
+#lastcoms .avatar {
+    float: left;
+    max-width: 60px;
+    margin: 0 0.618em 0 0;
+}
+
+/** --- Last articles
+----------------------------------------------------------------------------- */
+
+/* --- Last articles from categories
+----------------------------------------------------------------------------- */
 
 /* --- Last calendar events
 ----------------------------------------------------------------------------- */
@@ -187,49 +77,26 @@
 /* --- Last downloads
 ----------------------------------------------------------------------------- */
 
-#last_download img {
-    margin: 0 10px 5px;
-}
-
-@media (min-width:769px){
-    #last_download img {
-        max-width: 200px;
-        float: left;
-    }
-}
-
 /* --- Last downloads from categories
 ----------------------------------------------------------------------------- */
 
 /* --- Last forum topics
 ----------------------------------------------------------------------------- */
-#last_messages .avatar {
+#forum .avatar {
     float: left;
     max-width: 60px;
-    margin: 0 8px 0 0;
-}
-#last_messages .color-topic {
-    color: #000000;
-}
-
-@media (min-width: 769px){
-    #last_messages .item-content {
-        width: calc(100% / 3 - 2%);
-        margin: .5%;
-        display: inline-block;
-        vertical-align: top;
-    }
+    margin: 0 0.618em 0 0;
 }
 
 /* --- Last pictures from Gallery
 ----------------------------------------------------------------------------- */
 
-#last_gallery .item-content {
+#gallery .item-content {
     display: inline-block;
     text-align: center;
 }
 
-#last_gallery .item-content img {
+#gallery .item-content img {
     max-height: 150px;
     max-width: 300px;
 }
@@ -237,35 +104,24 @@
 /* --- Last messages from Guestbook
 ----------------------------------------------------------------------------- */
 
-#last_guestbook .avatar {
+#guestbook .avatar {
     float: left;
     max-width: 60px;
-    margin: 0 8px 8px 0;
-}
-
-@media (min-width: 769px){
-    #last_guestbook .item-content {
-        width: calc(100% / 3 - 2%);
-        margin: .5%;
-        display: inline-block;
-        vertical-align: top;
-    }
+    margin: 0 0.618em 0.618em 0;
 }
 
 /* --- Last media
 ----------------------------------------------------------------------------- */
 
-#last_media .media-content {
+#media .media-content {
 	position: relative;
-	margin: 25px auto;
 	padding-bottom: 56.25%; /* 16:9 */
-	padding-top: 25px;
 	height: 0;
 }
 
-#last_media .media-content object,
-#last_media .media-content embed,
-#last_media .media-content video {
+#media .media-content object,
+#media .media-content embed,
+#media .media-content video {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -276,28 +132,8 @@
 /* --- Last news
 ----------------------------------------------------------------------------- */
 
-#last_news img {
-    margin: 0 10px 5px;
-}
-
-@media (min-width:769px){
-    #last_news img {
-        max-width: 200px;
-        float: left;
-    }
-}
-
 /* --- Last news from categories
 ----------------------------------------------------------------------------- */
-
-@media (min-width:769px){
-    #last_news_cat .item-content {
-        margin-right: 1%;
-        display: inline-block;
-        width: calc(100% / 3 - 2%);
-        vertical-align: top;
-    }
-}
 
 /* --- External Rss
 ----------------------------------------------------------------------------- */
@@ -310,28 +146,28 @@
 /* --- Last partners links
 ----------------------------------------------------------------------------- */
 
-#last_web ul {
+#web ul {
     display: table;
     margin: auto;
 }
 
-#last_web li {
+#web li {
     display: inline-block;
     vertical-align: middle;
-    margin: 5px auto;
+    margin: 0.309em auto;
 }
 
-#last_web img {
+#web img {
     width: 100%;
 }
 
 @media (min-width:769px){
-    #last_web img {
+    #web img {
         max-width: 150px;
     }
 }
 
-#last_web .content a {
+#web .content a {
     display: block;
 }
 
@@ -348,7 +184,11 @@
     }
 
     input.slider-url {
-        margin: 5px;
+        margin: 0.309em;
         width: 40%;
     }
+}
+
+#module-homelanding h2.formatter-title {
+    font-size: 2rem;
 }
