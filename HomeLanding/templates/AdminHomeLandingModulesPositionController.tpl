@@ -27,7 +27,7 @@ HomeLandingModules.prototype = {
 				jQuery("#move-up-" + sequence[i].id).hide();
 			else
 				jQuery("#move-up-" + sequence[i].id).show();
-			
+
 			if (jQuery('#list-' + sequence[i].id).is(':last-child'))
 				jQuery("#move-down-" + sequence[i].id).hide();
 			else
@@ -39,7 +39,7 @@ HomeLandingModules.prototype = {
 var HomeLandingModule = function(id, modules){
 	this.id = id;
 	this.HomeLandingModules = modules;
-	
+
 	# IF C_MORE_THAN_ONE_MODULE #
 	this.HomeLandingModules.change_reposition_pictures();
 	# ENDIF #
@@ -78,7 +78,7 @@ jQuery(document).ready(function() {
 # INCLUDE MSG #
 <form action="{REWRITED_SCRIPT}" method="post" onsubmit="HomeLandingModules.serialize_sortable();">
 	<fieldset id="homelanding_modules_management">
-	<legend>${LangLoader::get_message('admin.fields.manage', 'common', 'contact')}</legend>
+	<legend>${LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding')}</legend>
 		<ul id="modules_list" class="sortable-block">
 			# START modules_list #
 				<li class="sortable-element" id="list-{modules_list.ID}" data-id="{modules_list.ID}">
@@ -99,18 +99,18 @@ jQuery(document).ready(function() {
 					<!--
 					jQuery(document).ready(function() {
 						var module = new HomeLandingModule({modules_list.ID}, HomeLandingModules);
-						
+
 						jQuery("#change-display-{modules_list.ID}").on('click',function(){
 							module.change_display();
 						});
-						
+
 						# IF C_MORE_THAN_ONE_MODULE #
 						jQuery("#move-up-{modules_list.ID}").on('click',function(){
 							var li = jQuery(this).closest('li');
 							li.insertBefore( li.prev() );
 							HomeLandingModules.change_reposition_pictures();
 						});
-						
+
 						jQuery("#move-down-{modules_list.ID}").on('click',function(){
 							var li = jQuery(this).closest('li');
 							li.insertAfter( li.next() );
