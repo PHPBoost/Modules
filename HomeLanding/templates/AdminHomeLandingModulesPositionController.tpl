@@ -76,23 +76,23 @@ jQuery(document).ready(function() {
 -->
 </script>
 # INCLUDE MSG #
-<form action="{REWRITED_SCRIPT}" method="post" onsubmit="HomeLandingModules.serialize_sortable();">
+<form action="{REWRITED_SCRIPT}" method="post" onsubmit="HomeLandingModules.serialize_sortable();" class="fieldset-content">
 	<fieldset id="homelanding_modules_management">
-	<legend>${LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding')}</legend>
+		<legend>${LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding')}</legend>
 		<ul id="modules_list" class="sortable-block">
 			# START modules_list #
 				<li class="sortable-element" id="list-{modules_list.ID}" data-id="{modules_list.ID}">
 					<div class="sortable-selector" title="${LangLoader::get_message('position.move', 'common')}"></div>
 					<div class="sortable-title">
 						{modules_list.NAME}
-						<div class="sortable-actions">
-							# IF C_MORE_THAN_ONE_MODULE #
-							<a href="" title="${LangLoader::get_message('position.move_up', 'common')}" id="move-up-{modules_list.ID}" onclick="return false;"><i class="fa fa-arrow-up"></i></a>
-							<a href="" title="${LangLoader::get_message('position.move_down', 'common')}" id="move-down-{modules_list.ID}" onclick="return false;"><i class="fa fa-arrow-down"></i></a>
-							# ENDIF #
-							<a href="{modules_list.U_EDIT}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
-							<a href="" onclick="return false;" id="change-display-{modules_list.ID}"><i # IF modules_list.C_DISPLAY #class="fa fa-eye" title="{@field.display}"# ELSE #class="fa fa-eye-slash" title="{@field.not_display}"# ENDIF #></i></a>
-						</div>
+					</div>
+					<div class="sortable-actions">
+						# IF C_MORE_THAN_ONE_MODULE #
+						<a href="" title="${LangLoader::get_message('position.move_up', 'common')}" id="move-up-{modules_list.ID}" onclick="return false;"><i class="fa fa-arrow-up"></i></a>
+						<a href="" title="${LangLoader::get_message('position.move_down', 'common')}" id="move-down-{modules_list.ID}" onclick="return false;"><i class="fa fa-arrow-down"></i></a>
+						# ENDIF #
+						<a href="{modules_list.U_EDIT}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+						<a href="" onclick="return false;" id="change-display-{modules_list.ID}"><i # IF modules_list.C_DISPLAY #class="fa fa-eye" title="{@field.display}"# ELSE #class="fa fa-eye-slash" title="{@field.not_display}"# ENDIF #></i></a>
 					</div>
 					<div class="spacer"></div>
 					<script>
@@ -126,9 +126,11 @@ jQuery(document).ready(function() {
 	</fieldset>
 	# IF C_MORE_THAN_ONE_MODULE #
 	<fieldset class="fieldset-submit">
-		<button type="submit" name="submit" value="true" class="submit">${LangLoader::get_message('position.update', 'common')}</button>
-		<input type="hidden" name="token" value="{TOKEN}">
-		<input type="hidden" name="tree" id="tree" value="">
+		<div class="fieldset-inset">
+			<button type="submit" name="submit" value="true" class="submit">${LangLoader::get_message('position.update', 'common')}</button>
+			<input type="hidden" name="token" value="{TOKEN}">
+			<input type="hidden" name="tree" id="tree" value="">
+		</div>
 	</fieldset>
 	# ENDIF #
 </form>
