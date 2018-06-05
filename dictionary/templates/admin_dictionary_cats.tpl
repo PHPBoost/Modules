@@ -9,7 +9,7 @@
 		    SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
 		  return SRRr;
 	}
- 
+
 	 function FormatStr(Str){
 		var replace = new Array("'", '"', ".",",",'\\','/','^',':');
 		Str=str_replace2(Str,replace[0],"");
@@ -20,7 +20,7 @@
 		Str=str_replace2(Str,replace[5],"");
 		Str=str_replace2(Str,replace[6],"");
 		Str=str_replace2(Str,replace[7],"");
-		
+
 	    StrNewStr="";
 		 for(i=0;i<=Str.length;i++){
 			 StrChar=Str.substring(i,i+1);
@@ -39,9 +39,9 @@
 			StrNewStr='';
 		 }
 		 return StrNewStr;
-	 } 
-	
-	
+	 }
+
+
 	function trim(stringToTrim) {
 		return stringToTrim.replace(/^\s+|\s+$/g,"");
 	}
@@ -51,7 +51,7 @@
 		i.value = trim(i.value);
 		if(i.value == "") {
 			return false;
-		} 
+		}
 		return true;
 	}
 
@@ -109,15 +109,18 @@
 		<form action="admin_dictionary_cats.php?add=1" method="post" enctype="multipart/form-data" onsubmit="return check_form_conf(this);" class="fieldset-content">
 			<fieldset>
 				<legend>{add.L_CATEGORY}</legend>
+				<div class="fieldset-inset">
 					<div class="form-element">
 						<label for="title">* {add.L_NAME_CAT}</label>
 						<div class="form-field">
 							<label><input type="text" size="25" id="name_cat" name="name_cat" value="{add.NAME_CAT}" onchange="check_onchange(this);" /></label>
 						</div>
 					</div>
+				</div>
 			</fieldset>
 			<fieldset>
 				<legend>{add.L_IMAGE}</legend>
+				<div class="fieldset-inset">
 					<div class="form-element">
 						<label>{add.L_IMAGE_A}</label>
 						<div class="form-field">
@@ -155,10 +158,11 @@
 							<label><input maxlength="40" size="40" name="image" id="image" type="text" /></label>
 						</div>
 					</div>
+				</div>
 			</fieldset>
 			<fieldset class="fieldset-submit">
 				<legend>{add.L_VALIDATION}</legend>
-				<button type="submit" name="valid" value="true">{add.L_SUBMIT}</button>
+				<button class="submit" type="submit" name="valid" value="true">{add.L_SUBMIT}</button>
 				<button type="reset" value="true">{add.L_RESET}</button>
 				<input type="hidden" value="{add.ID_CAT}" name="id_cat" />
 				<input type="hidden" name="token" value="{TOKEN}" />

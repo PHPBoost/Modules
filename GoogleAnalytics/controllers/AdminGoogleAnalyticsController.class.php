@@ -72,21 +72,22 @@ class AdminGoogleAnalyticsController extends AdminController
 
 		$fieldset = new FormFieldsetHTML('configuration', $this->lang['configuration']);
 		$form->add_fieldset($fieldset);
-		
-		$fieldset->add_field(new FormFieldTextEditor('identifier', $this->lang['identifier'], $this->config->get_identifier(),
-			array('description' => $this->lang['identifier.explain'], 'required' => true)));
 
-		$fieldset->add_field(new FormFieldFree('login', LangLoader::get_message('connection', 'user-common'), 
-			StringVars::replace_vars($this->lang['analytics_login'], array('link' => 'https://www.google.com/analytics/'))
+		$fieldset->add_field(new FormFieldTextEditor('identifier', $this->lang['identifier'], $this->config->get_identifier(),
+			array('class' => 'half-field', 'description' => $this->lang['identifier.explain'], 'required' => true)));
+
+		$fieldset->add_field(new FormFieldFree('login', LangLoader::get_message('connection', 'user-common'),
+			StringVars::replace_vars($this->lang['analytics_login'], array('link' => 'https://www.google.com/analytics/')),
+			array('class' => 'half-field')
 		));
-		
+
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
 		$form->add_button(new FormButtonReset());
-		
+
 		$this->form = $form;
 	}
-	
+
 	private function save()
 	{
 		$this->config->set_identifier($this->form->get_value('identifier'));

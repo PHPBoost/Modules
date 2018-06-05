@@ -141,7 +141,7 @@ $lang['no.web.item'] = 'Il n\'y a pas de liens dans cette catégorie';
 $lang['admin.char'] = 'Limiter le nombre de caractères';
 $lang['admin.cat'] = 'Choisir une catégorie';
 $lang['admin.subcategories_content_displayed'] = 'Afficher le contenu des sous-catégories';
-$lang['admin.elements_position'] = 'Position des éléments sur la page d\'accueil';
+$lang['admin.elements_position'] = 'Position des éléments';
 
 //Config
 $lang['admin.module.title'] = 'Titre du module';

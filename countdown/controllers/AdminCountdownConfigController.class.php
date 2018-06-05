@@ -81,28 +81,18 @@ class AdminCountdownConfigController extends AdminController
 		$fieldset = new FormFieldsetHTML('configuration', LangLoader::get_message('configuration', 'admin'));
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldDateTime('event_date', $this->lang['config.event.date'], $this->config->get_event_date()));
-
-		$fieldset->add_field(new FormFieldTextEditor('no_javas', $this->lang['config.no.script'], $this->config->get_no_javas(),
-			array('description' => $this->lang['config.no.script.desc'])));
-
-		$fieldset->add_field(new FormFieldTextEditor('next_event', $this->lang['config.next.event'], $this->config->get_next_event(),
-			array('description' => $this->lang['config.next.event.desc'])));
-
-		$fieldset->add_field(new FormFieldTextEditor('last_event', $this->lang['config.last.event'], $this->config->get_last_event(),
-			array('description' => $this->lang['config.last.event.desc'])));
-
-		$fieldset->add_field(new FormFieldCheckbox('timer_disabled', $this->lang['config.timer.disabled'], $this->config->get_timer_disabled(),
-			array('events' => array('click' => '
-			if (HTMLForms.getField("timer_disabled").getValue()) {
-				HTMLForms.getField("no_event").enable();
-			} else {
-				HTMLForms.getField("no_event").disable();
-			}'))
+		$fieldset->add_field(new FormFieldDateTime('event_date', $this->lang['config.event.date'], $this->config->get_event_date(),
+			array('class' => 'half-field')
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('no_event', $this->lang['config.no.event'], $this->config->get_no_event(),
-			array('hidden' => !$this->config->get_timer_disabled(), 'description' => $this->lang['config.no.event.desc'])));
+		$fieldset->add_field(new FormFieldTextEditor('no_javas', $this->lang['config.no.script'], $this->config->get_no_javas(),
+			array('class' => 'half-field', 'description' => $this->lang['config.no.script.desc'])));
+
+		$fieldset->add_field(new FormFieldTextEditor('next_event', $this->lang['config.next.event'], $this->config->get_next_event(),
+			array('class' => 'half-field', 'description' => $this->lang['config.next.event.desc'])));
+
+		$fieldset->add_field(new FormFieldTextEditor('last_event', $this->lang['config.last.event'], $this->config->get_last_event(),
+			array('class' => 'half-field', 'description' => $this->lang['config.last.event.desc'])));
 
 		$fieldset->add_field(new FormFieldCheckbox('stop_counter', $this->lang['config.stop.counter'], $this->config->get_stop_counter(),
 			array('events' => array('click' => '
@@ -116,10 +106,27 @@ class AdminCountdownConfigController extends AdminController
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('hidden_counter', $this->lang['config.hidden.counter'], $this->config->get_hidden_counter(),
-				array('hidden' => !$this->config->get_stop_counter())));
+			array('hidden' => !$this->config->get_stop_counter())
+		));
 
 		$fieldset->add_field(new FormFieldTextEditor('stopped_event', $this->lang['config.stopped.event'], $this->config->get_stopped_event(),
-				array('hidden' => !$this->config->get_stop_counter(), 'description' => $this->lang['config.stopped.event.desc'])));
+			array('class' => 'half-field', 'hidden' => !$this->config->get_stop_counter(), 'description' => $this->lang['config.stopped.event.desc'])
+		));
+
+		$fieldset->add_field(new FormFieldFree('1_separator', '', ''));
+
+		$fieldset->add_field(new FormFieldCheckbox('timer_disabled', $this->lang['config.timer.disabled'], $this->config->get_timer_disabled(),
+			array('events' => array('click' => '
+			if (HTMLForms.getField("timer_disabled").getValue()) {
+				HTMLForms.getField("no_event").enable();
+			} else {
+				HTMLForms.getField("no_event").disable();
+			}'))
+		));
+
+		$fieldset->add_field(new FormFieldTextEditor('no_event', $this->lang['config.no.event'], $this->config->get_no_event(),
+			array('class' => 'half-field', 'hidden' => !$this->config->get_timer_disabled(), 'description' => $this->lang['config.no.event.desc'])
+		));
 
 		$common_lang = LangLoader::get('common');
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $common_lang['authorizations']);
