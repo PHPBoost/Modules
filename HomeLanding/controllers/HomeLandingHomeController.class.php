@@ -457,14 +457,17 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/lastcoms.tpl');
 		$modules_config = ModulesConfig::load();
 		$user_accounts_config = UserAccountsConfig::load();
-		$result = $this->querier->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.module_id, ct.path, m.*, ext_field.user_avatar
+		$result = $this->querier->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.module_id, ct.is_locked, ct.path, m.*, ext_field.user_avatar
 		FROM ' . DB_TABLE_COMMENTS . ' AS c
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' AS ct ON ct.id_topic = c.id_topic
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' AS m ON c.user_id = m.user_id
 		LEFT JOIN ' . DB_TABLE_MEMBER_EXTENDED_FIELDS . ' ext_field ON ext_field.user_id = m.user_id
+		WHERE ct.is_locked = 0
+		AND ct.module_id != :forbidden_module
 		ORDER BY c.timestamp DESC
 		LIMIT :last_coms_limit', array(
-			'last_coms_limit' => $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed()
+			'last_coms_limit' => $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed(),
+			'forbidden_module' => 'user'
 		));
 
 		$tpl->put_all(array(
