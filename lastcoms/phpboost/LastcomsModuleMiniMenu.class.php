@@ -68,14 +68,17 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		$level = array(0 => '', 1 => ' class="modo"', 2 => ' class="admin"');
 
 		$querier = PersistenceContext::get_querier();
-
-		$results = $querier->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, m.level
-			FROM ' . DB_TABLE_COMMENTS . ' AS c
-			LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' AS ct ON ct.id_topic = c.id_topic
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' AS m ON c.user_id = m.user_id
+		$results = $querier->select("SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, ct.module_id, ct.is_locked, m.level
+			FROM " . DB_TABLE_COMMENTS . " AS c
+			LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " AS ct ON ct.id_topic = c.id_topic
+			LEFT JOIN " . DB_TABLE_MEMBER . " AS m ON c.user_id = m.user_id
+			WHERE ct.is_locked = 0
+			AND ct.module_id != :forbidden_module
 			ORDER BY c.timestamp DESC
-			LIMIT :lastcoms_number', array(
-				'lastcoms_number' => (int)$coms_number
+			LIMIT :lastcoms_number",
+			array(
+				'lastcoms_number' => (int)$coms_number,
+				'forbidden_module' => 'user'
 			)
 		);
 
