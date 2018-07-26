@@ -1,0 +1,388 @@
+#smallads-module hr {
+	margin: 10px 0;
+}
+
+#smallads-module .formatter-content {display: table;}
+
+/* --- categories
+-------------------------------------- */
+.smallads-category-list,
+.smallads-category-list .field-description {
+    text-align: right;
+	z-index: 5;
+}
+
+.smallads-category-list label,
+.smallads-category-list .field-description {padding: 0 0 0.618em;}
+
+/* --- Mosaic --- */
+.block .thumbnail-item {margin-bottom: 0.618em;}
+
+/* --- List --- */
+.block-list {
+	overflow: hidden;
+	padding: 0.618em;
+}
+
+@media (min-width: 769px) {
+	.block-list .thumbnail-item {
+		float: left;
+		width: calc(100% / 3);
+		margin: 0.618em 0;
+	}
+	.block-list header,
+	.block-list .content {
+		float: right;
+		width: calc((100% / 3 * 2) - 1.618em)
+	}
+}
+
+/* --- Table --- */
+.smallads-title {
+	width: 250px;
+}
+
+/* --- Sold item --- */
+.completed-smallad {
+	position: relative;
+	opacity: 0.5;
+	color: #CC0000;
+}
+
+.completed-item {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.5);
+	z-index: 9;
+}
+
+.completed-item span {
+	display: block;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2.618em;
+	color: #CC0000;
+}
+
+.completed-article {
+	color: #CC0000;
+}
+
+.new-content {
+	color: #04b504;
+}
+
+tr.new-content td {
+	background-color: #67e967;
+}
+
+tr.completed-smallad td {
+	background-color: #f06363;
+	color: #CC0000;
+}
+
+/* --- thumbnails --- */
+.carousel-thumbnail,
+.navigation-link-thumbnail { max-width: 150px;}
+
+.carousel-thumbnail {
+	display: inline-block;
+	margin-bottom: 0.618em;
+}
+
+.carousel-thumbnail figcaption { text-align: center;}
+
+.suggested-thumbnail a {
+	display: block;
+	text-align: center;
+}
+
+[class*='navigation-link-'] a {text-decoration: none;}
+
+.navigation-link-previous {float: left;}
+.navigation-link-next {float: right;}
+
+.smallad-price {
+	text-align: right;
+	font-size: 2.618em;
+}
+
+.thumbnail-item {
+	margin-bottom: 1.618em;
+}
+
+@media (min-width: 769px) {
+	.options.infos.thumbnail-item {
+		max-width: calc(100% / 3);
+	}
+}
+
+.no-style {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+a[data-lightbox] {
+	text-decoration: none;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* --- Modal --- */
+.smallad-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 1.618em 0.618em;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+	overflow-y: auto;
+}
+
+.smallad-modal:target {
+	visibility: visible;
+	opacity: 1;
+	transition: all 0.3s ease;
+	z-index: 10;
+}
+
+/* --- email --- */
+.email-form,
+.tel-form {
+	padding: 1.618em;
+	background-color: #FFFFFF;
+	overflow-y: auto;
+}
+
+.tel-form.is-connected {
+	font-size: 2.618em;
+	text-align: center;
+}
+
+.tel-form.is-connected .modal-close {
+	font-size: 0.309em;
+}
+
+.tel-form.is-connected,
+.is-not-connected {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal-close {
+	position: absolute;
+	top: 0.618em;
+	right: 0.618em;
+	text-align: right;
+	background-color: #FFFFFF;
+	padding: 0.456em 0.618em 0.618em 0.61em;
+	border: 2px solid #366493;
+	border-radius: 100%;
+}
+
+@media (min-width: 769px) {
+	.email-form,
+	.tel-form {
+		width: 75%;
+		margin: auto;
+	}
+
+	.email-form {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+/* --- Sort/filter Options
+---------------------------------------------------------------------------- */
+.jplist-panel .block {
+	position: relative;
+}
+
+.bg-container {
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	box-shadow: 0 3px 6px #BBBBBB;
+	z-index: 10;
+}
+
+/* --- Pagination --- */
+
+.jplist-panel .pagination {
+	margin-bottom: 20px;
+	min-height: 30px;
+}
+.pagination .jplist-label {
+	display: none;
+}
+
+.jplist-pagingprev,
+.jplist-pagingmid,
+.jplist-pagingnext { display: inline-block; }
+
+.jplist-hidden { display: none; }
+
+.jplist-current { background-color: rgba(0, 0, 0, 0.2); }
+
+.jplist-pagingmid button:not(:first-child) { margin-left: -3px; }
+
+/* Category-nav */
+.category-selected {
+	cursor: pointer;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.category-selected i.fa {
+	float: right;
+}
+
+.category-select #category-nav.cssmenu.small-screen .menu-button {
+	display: none;
+}
+
+.category-select #category-nav.cssmenu.small-screen .close {
+	left: 0 !important;
+	height: auto;
+}
+
+.category-select #category-nav {
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+	top: 150%;
+	left: 0;
+	right: -205.5%;
+	transition: all 0.5s ease;
+	padding-bottom: 10px;
+}
+
+.category-select.reveal-subcat #category-nav {
+	opacity: 1;
+	visibility: visible;
+	top: 100%;
+	transition: top 0.5s ease;
+}
+
+/* --- Filter types --- */
+.jplist-type-filter {
+	position: relative;
+}
+
+.selected-label {
+	cursor: pointer;
+}
+
+.selected-label span {
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.selected-label i.fa {
+	float: right;
+}
+
+.label-list {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	top: 150%;
+	left: 0;
+	width: 100%;
+	transition: 0.3s;
+    border-radius: 0 0 3px 3px;
+}
+
+.label-list.reveal-list {
+	opacity: 1;
+	visibility: visible;
+	top: 100%;
+	transition: 0.3s;
+}
+
+.jplist-type-filter .jplist-label {
+	display: block;
+	line-height: 30px;
+	padding: 0 5px;
+}
+
+.jplist-type-filter .jplist-label:hover {
+	background-color: #ECECEC;
+}
+
+.jplist-label [type="radio"]{ margin: 0 2px 2px 0; }
+
+/* --- Sort field --- */
+.sort-list {
+	position: relative;
+}
+
+.jplist-drop-down .jplist-dd-panel {
+	overflow: hidden;
+	cursor: pointer;
+	position: relative;
+	font-size: 1.4rem;
+	font-weight: bold;
+	height: 100%;
+}
+
+.jplist-drop-down .jplist-dd-panel::after {
+	content: '\f0d7';
+	font-family: 'fontawesome';
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+}
+
+.jplist-drop-down ul {
+    position: absolute;
+    top: 150%;
+	left: 0;
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+}
+
+.jplist-drop-down ul.reveal-ul {
+	opacity: 1;
+	visibility: visible;
+	transition: all 0.3s ease;
+	top: 100%;
+}
+
+.jplist-drop-down ul li {
+	width: 100%;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 10px;
+	cursor: pointer;
+}
+
+.jplist-drop-down ul li:hover {
+    background-color: #ececec;
+}
+
+.jplist-drop-down ul li .sort-type {
+	float: right;
+	margin: 0 15px 0 0;
+}

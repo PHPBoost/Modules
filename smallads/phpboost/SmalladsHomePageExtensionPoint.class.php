@@ -1,10 +1,10 @@
 <?php
 /*##################################################
- *                     SmalladsHomePageExtensionPoint.class.php
+ *                        SmalladsHomePageExtensionPoint.class.php
  *                            -------------------
- *   begin                : January 29, 2013
- *   copyright            : (C) 2013 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
+ *   begin                : March 15, 2018 
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
@@ -25,20 +25,20 @@
  *
  ###################################################*/
 
+/**
+ * @author Sebastien LARTIGUE <babsolune@phpboost.com>
+ */
+
 class SmalladsHomePageExtensionPoint implements HomePageExtensionPoint
 {
 	public function get_home_page()
 	{
-		return new DefaultHomePage($this->get_title(), SmalladsHomeController::get_view());
+		return new DefaultHomePage($this->get_title(), SmalladsDisplayCategoryController::get_view());
 	}
-	
+
 	private function get_title()
 	{
-		global $LANG;
-		
-		load_module_lang('smallads');
-		
-		return $LANG['sa_title'];
+		return LangLoader::get_message('smallads.module.title', 'common', 'smallads');
 	}
 }
 ?>
