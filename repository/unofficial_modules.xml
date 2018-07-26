@@ -330,6 +330,30 @@
 		</version>
 	</app>
 	<app id="smallads" type="module">
+        <version num="5.1.2" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2018/07/26">
+			<compatibility min="5.1"/>
+			<download url="http://dl.phpboost.com/5.1/modules/smallads/smallads.zip">Smallads module</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="mipel" email="mipel@phpboost.com"/>
+			</authors>
+			<description>Version 5.1.2 of the Smallads module</description>
+			<whatsnew>
+                <new type="bug">Redesigned module. See the documentation for new features.</new>
+			</whatsnew>
+		</version>
+		<version num="5.1.2" language="french" localized_language="Francais" name="smallads" priority="low" security-update="false" pubdate="2018/07/26">
+			<compatibility min="5.1"/>
+			<download url="http://dl.phpboost.com/5.1/modules/smallads/smallads.zip">Module Petites annonces</download>
+			<authors>
+				<author name="babsolune" email="babsolune@phpboost.com"/>
+				<author name="mipel" email="mipel@phpboost.com"/>
+			</authors>
+			<description>Version 5.1.2 du module Petites annonces</description>
+			<whatsnew>
+				<new type="bug">Module remanié. lire la documentation pour voir les nouveautés.</new>
+			</whatsnew>
+		</version>
         <version num="5.1.1" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2017/11/16">
 			<compatibility min="5.1"/>
 			<download url="http://dl.phpboost.com/5.1/modules/smallads/smallads.zip">Smallads module</download>
@@ -358,10 +382,6 @@
 				<new type="bug">Correction dans TinyMCE de l'insertion d'un fichier qui ne fonctionnait pas</new>
 			</whatsnew>
 		</version>
-        
-        
-        
-        
 		<version num="5.0.5" language="english" localized_language="English" name="smallads" priority="low" security-update="false" pubdate="2016/06/29">
 			<compatibility min="5.0"/>
 			<download url="http://dl.phpboost.com/5.0/modules/unofficial/smallads/smallads.zip">Smallads module</download>
