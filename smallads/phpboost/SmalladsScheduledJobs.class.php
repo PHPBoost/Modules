@@ -2,9 +2,9 @@
 /*##################################################
  *                         SmalladsScheduledJobs.class.php
  *                            -------------------
- *   begin                : February 11, 2013
- *   copyright            : (C) 2013 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
+ *   begin                : March 15, 2018
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
@@ -25,22 +25,70 @@
  *
  ###################################################*/
 
+/**
+ * @author Sebastien LARTIGUE <babsolune@phpboost.com>
+ */
+
 class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 {
+	public function on_changepage()
+	{
+		$config = SmalladsConfig::load();
+		$deferred_operations = $config->get_deferred_operations();
+
+		if (!empty($deferred_operations))
+		{
+			$now = new Date();
+			$is_modified = false;
+
+			foreach ($deferred_operations as $id => $timestamp)
+			{
+				if ($timestamp <= $now->get_timestamp())
+				{
+					unset($deferred_operations[$id]);
+					$is_modified = true;
+				}
+			}
+
+			if ($is_modified)
+			{
+				Feed::clear_cache('smallads');
+				SmalladsCache::invalidate();
+				SmalladsCategoriesCache::invalidate();
+
+				$config->set_deferred_operations($deferred_operations);
+				SmalladsConfig::save();
+			}
+		}
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public function on_changeday(Date $yesterday, Date $today)
 	{
 		$config = SmalladsConfig::load();
-		
+
+		// Delete item at the end of max_weeks
 		if ($config->is_max_weeks_number_displayed())
 		{
 			PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
-				'WHERE (approved = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(date_approved)) > 7 * IF(max_weeks IS NULL OR max_weeks = 0, :delay, max_weeks))', array('delay' => (int)$config->get_max_weeks_number()));
-			
+				'WHERE (published = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(creation_date)) > (7 * max_weeks))');
+
+			Feed::clear_cache('smallads');
 			SmalladsCache::invalidate();
+			SmalladsCategoriesCache::invalidate();
 		}
+
+		// Delete item if "ad completed" is checked
+		PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
+			'WHERE (published = 1) AND (completed = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(updated_date)) > :delay)', array('delay' => (int)$config->get_display_delay_before_delete())
+		);
+
+		Feed::clear_cache('smallads');
+		SmalladsCache::invalidate();
+		SmalladsCategoriesCache::invalidate();
+
 	}
 }
 ?>

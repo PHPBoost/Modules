@@ -2,9 +2,9 @@
 /*##################################################
  *                           index.php
  *                            -------------------
- *   begin                : January 30, 2013
- *   copyright            : (C) 2013 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
+ *   begin                : March 15, 2018
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
@@ -25,15 +25,46 @@
  *
  ###################################################*/
 
+/**
+ * @author Sebastien LARTIGUE <babsolune@phpboost.com>
+ */
+
 define('PATH_TO_ROOT', '..');
 
 require_once PATH_TO_ROOT . '/kernel/init.php';
 
 $url_controller_mappers = array(
 	//Config
-	new UrlControllerMapper('AdminSmalladsConfigController', '`^/admin(?:/config)?/?$`'),
+	new UrlControllerMapper('AdminSmalladsCategoriesConfigController', '`^/admin/display/?$`'),
+	new UrlControllerMapper('AdminSmalladsItemsConfigController', '`^/admin/items/?$`'),
+	new UrlControllerMapper('AdminSmalladsMiniMenuConfigController', '`^/admin/mini/?$`'),
+	new UrlControllerMapper('AdminSmalladsUsageTermsController', '`^/admin/terms/?$`'),
 
-	new UrlControllerMapper('SmalladsHomeController', '`^/?$`'),
+	//Manage categories
+	new UrlControllerMapper('SmalladsCategoriesManagerController', '`^/categories/?$`'),
+	new UrlControllerMapper('SmalladsCategoriesFormController', '`^/categories/add/?([0-9]+)?/?$`', array('id_parent')),
+	new UrlControllerMapper('SmalladsCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('SmalladsDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
+
+	//Manage items
+	new UrlControllerMapper('SmalladsItemsManagerController', '`^/manage/?$`'),
+	new UrlControllerMapper('SmalladsItemFormController', '`^/add/?([0-9]+)?/?$`', array('id_category')),
+	new UrlControllerMapper('SmalladsItemFormController', '`^(?:/([0-9]+))/edit/?([0-9]+)?/?$`', array('id', 'page')),
+	new UrlControllerMapper('SmalladsDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
+
+	// Usage Terms Conditions
+	new UrlControllerMapper('SmalladsDisplayUsageTermsController', '`^/terms/?$`'),
+
+	//Display items
+	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/member(?:/([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?$`', array('member', 'field', 'sort', 'page')),
+	new UrlControllerMapper('SmalladsDisplayTagController', '`^/tag(?:/([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?$`', array('tag', 'field', 'sort', 'page')),
+	new UrlControllerMapper('SmalladsDisplayPendingItemsController', '`^/pending(?:/([a-z]+))?/?([a-z]+)?/?([0-9]+)?/?$`', array('field', 'sort', 'page')),
+	new UrlControllerMapper('SmalladsDisplayItemController', '`^(?:/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+))/?([0-9]+)?/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title', 'page')),
+
+	//Display home and categories
+	new UrlControllerMapper('SmalladsDisplayCategoryController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?([0-9]+)?/?$`', array('id_category', 'rewrited_name', 'field', 'sort', 'page', 'subcategories_page'))
 );
+
 DispatchManager::dispatch($url_controller_mappers);
+
 ?>

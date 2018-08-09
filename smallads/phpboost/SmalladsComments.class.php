@@ -1,10 +1,10 @@
 <?php
 /*##################################################
- *                      SmalladsNewContent.class.php
+ *                      SmalladsComments.class.php
  *                            -------------------
- *   begin                : January 21, 2018
- *   copyright            : (C) 2018 Arnaud GENET
- *   email                : elenwii@phpboost.com
+ *   begin                : March 15, 2018 
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
@@ -26,9 +26,10 @@
  ###################################################*/
 
 /**
- * @author Arnaud Genet <elenwii@phpboost.com>
+ * @author Sebastien LARTIGUE <babsolune@phpboost.com>
  */
-class SmalladsNewContent extends AbstractNewContentExtensionPoint
+
+class SmalladsComments extends AbstractCommentsExtensionPoint
 {
 	public function __construct()
 	{

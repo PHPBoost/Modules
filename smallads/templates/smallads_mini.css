@@ -1,0 +1,112 @@
+#smallads-flexisel .flexisel-thumbnail {
+    height:185px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.nbs-flexisel-container {
+    position: relative;
+    max-width:100%;
+    padding: 0;
+    overflow: hidden;
+    margin-top: 0.618em;
+}
+
+.nbs-flexisel-ul {
+    position: relative;
+    width: 9999px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+.nbs-flexisel-inner {
+    overflow: hidden;
+    float: left;
+    width: 100%;
+}
+
+.relative-container ul li {
+    float: left;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.nbs-flexisel-item a {
+    display: block;
+}
+
+.nbs-flexisel-item a .smallads-mini-infos {
+    position: absolute;
+    padding: 5px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(255 ,255 ,255 , 0.8);
+}
+
+.nbs-flexisel-item a.new-content .smallads-mini-infos {
+    color: #009900;
+}
+
+.nbs-flexisel-item a.completed-smallad .smallads-mini-infos {
+    color: #CC0000;
+}
+
+#smallads-flexisel .nbs-flexisel-item a.completed-smallad span.completed-item {
+    color: #CC0000;
+    position: absolute;
+    padding: 5px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(255 ,255 ,255 ,.5);
+    z-index: 8;
+}
+
+.nbs-flexisel-item a.completed-smallad span.completed-item span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100;
+    font-size: 2rem;
+}
+
+.smallads-mini-infos h6 p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.nbs-flexisel-item img {
+    cursor: pointer;
+    margin:0;
+}
+
+/*** Navigation ***/
+
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 9;
+    opacity: 1;
+}
+
+.nbs-flexisel-nav-left {
+    left: 5px;
+    background: url(images/button-previous.png) no-repeat;
+}
+
+.nbs-flexisel-nav-right {
+    right: 5px;
+    background: url(images/button-next.png) no-repeat;
+}

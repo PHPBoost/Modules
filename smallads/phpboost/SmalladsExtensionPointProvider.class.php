@@ -1,10 +1,10 @@
 <?php
 /*##################################################
- *                              SmalladsExtensionPointProvider.class.php
+ *                        SmalladsExtensionPointProvider.class.php
  *                            -------------------
- *   begin                : January 29, 2013
- *   copyright            : (C) 2013 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
+ *   begin                : March 15, 2018
+ *   copyright            : (C) 2018 Sebastien LARTIGUE
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
@@ -25,7 +25,9 @@
  *
  ###################################################*/
 
-if (defined('PHPBOOST') !== true) exit;
+/**
+ * @author Sebastien LARTIGUE <babsolune@phpboost.com>
+ */
 
 class SmalladsExtensionPointProvider extends ExtensionPointProvider
 {
@@ -33,27 +35,33 @@ class SmalladsExtensionPointProvider extends ExtensionPointProvider
 	{
 		parent::__construct('smallads');
 	}
-	
+
+	public function comments()
+	{
+		return new CommentsTopics(array(new SmalladsCommentsTopic()));
+	}
+
 	public function css_files()
 	{
 		$module_css_files = new ModuleCssFiles();
 		$module_css_files->adding_running_module_displayed_file('smallads.css');
+		$module_css_files->adding_always_displayed_file('smallads_mini.css');
 		return $module_css_files;
 	}
-	
+
+	public function menus()
+	{
+		return new ModuleMenus(array(new SmalladsLastItemsMiniMenu()));
+	}
+
+	public function feeds()
+	{
+		return new SmalladsFeedProvider();
+	}
+
 	public function home_page()
 	{
 		return new SmalladsHomePageExtensionPoint();
-	}
-	
-	public function menus()
-	{
-		return new ModuleMenus(array(new SmalladsModuleMiniMenu()));
-	}
-	
-	public function newcontent()
-	{
-		return new SmalladsNewContent();
 	}
 
 	public function scheduled_jobs()
@@ -65,12 +73,17 @@ class SmalladsExtensionPointProvider extends ExtensionPointProvider
 	{
 		return new SmalladsSearchable();
 	}
-	
+
+	public function sitemap()
+	{
+		return new SmalladsSitemapExtensionPoint();
+	}
+
 	public function tree_links()
 	{
 		return new SmalladsTreeLinks();
 	}
-	
+
 	public function url_mappings()
 	{
 		return new UrlMappings(array(new DispatcherUrlMapping('/smallads/index.php')));
