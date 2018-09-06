@@ -32,11 +32,13 @@
 class SmalladsDisplayTagController extends ModuleController
 {
 	private $lang;
+	private $county_lang;
 	private $view;
 	private $keyword;
 
 	private $config;
 	private $comments_config;
+	private $content_management_config;
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -52,10 +54,13 @@ class SmalladsDisplayTagController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
+		$this->county_lang = LangLoader::get('counties', 'smallads');
 		$this->view = new FileTemplate('smallads/SmalladsDisplayCategoryController.tpl');
 		$this->view->add_lang($this->lang);
+		$this->view->add_lang($this->county_lang);
 		$this->config = SmalladsConfig::load();
-		$this->comments_config = new SmalladsComments();
+		$this->comments_config = CommentsConfig::load();
+		$this->content_management_config = ContentManagementConfig::load();
 	}
 
 	private function get_keyword()

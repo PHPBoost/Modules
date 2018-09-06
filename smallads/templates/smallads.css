@@ -16,7 +16,12 @@
 .smallads-category-list .field-description {padding: 0 0 0.618em;}
 
 /* --- Mosaic --- */
-.block .thumbnail-item {margin-bottom: 0.618em;}
+.block .thumbnail-item {
+	margin-bottom: 0.618em;
+	max-width: 100%;
+	float: none;
+	padding: 0;
+}
 
 /* --- List --- */
 .block-list {
@@ -30,7 +35,7 @@
 		width: calc(100% / 3);
 		margin: 0.618em 0;
 	}
-	.block-list header,
+	/* .block-list header, */
 	.block-list .content {
 		float: right;
 		width: calc((100% / 3 * 2) - 1.618em)
@@ -343,10 +348,14 @@ a[data-lightbox] {
 
 .jplist-drop-down .jplist-dd-panel::after {
 	content: '\f0d7';
-	font-family: 'fontawesome';
+	font-family: "Font Awesome 5 Free";
 	display: inline-block;
 	position: absolute;
 	right: 10px;
+	font-weight: 900;
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
 }
 
 .jplist-drop-down ul {

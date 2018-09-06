@@ -32,9 +32,12 @@
 class SmalladsDisplayPendingItemsController extends ModuleController
 {
 	private $lang;
+	private $county_lang;
 	private $view;
 	private $form;
 	private $config;
+	private $comments_config;
+	private $content_management_config;
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -47,8 +50,13 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
+		$this->county_lang = LangLoader::get('counties', 'smallads');
 		$this->view = new FileTemplate('smallads/SmalladsDisplayCategoryController.tpl');
 		$this->view->add_lang($this->lang);
+		$this->view->add_lang($this->county_lang);
+		$this->config = SmalladsConfig::load();
+		$this->comments_config = CommentsConfig::load();
+		$this->content_management_config = ContentManagementConfig::load();
 	}
 
 	private function build_sorting_form($field, $mode)
@@ -84,7 +92,6 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 		$now = new Date();
 		$authorized_categories = SmalladsService::get_authorized_categories(Category::ROOT_CATEGORY);
 		$this->config = SmalladsConfig::load();
-		$comments_config = new SmalladsComments();
 
 		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
@@ -143,7 +150,7 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 
 			$this->view->put_all(array(
 				'C_ITEMS_SORT_FILTERS' => $this->config->are_sort_filters_enabled(),
-				'C_COMMENTS_ENABLED'   => $comments_config->are_comments_enabled(),
+				'C_COMMENTS_ENABLED'   => $this->comments_config->are_comments_enabled(),
 				'C_SEVERAL_COLUMNS'    => $columns_number_displayed_per_line > 1,
 				'COLUMNS_NUMBER'       => $columns_number_displayed_per_line
 			));
