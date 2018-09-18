@@ -778,7 +778,9 @@ class SmalladsItemFormController extends ModuleController
 	{
 		$smallad = $this->get_smallad();
 
-		$response = new SiteDisplayResponse($tpl);
+		$location_id = $smallad->get_id() ? 'smallads-edit-'. $smallad->get_id() : '';
+		
+		$response = new SiteDisplayResponse($tpl, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
@@ -802,6 +804,10 @@ class SmalladsItemFormController extends ModuleController
 			$breadcrumb->add($smallad->get_title(), SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $smallad->get_id(), $smallad->get_rewrited_title()));
 
 			$breadcrumb->add($this->lang['smallads.edit'], SmalladsUrlBuilder::edit_item($smallad->get_id()));
+			
+			if (!AppContext::get_session()->location_id_already_exists($location_id))
+				$graphical_environment->set_location_id($location_id);
+			
 			$graphical_environment->set_page_title($this->lang['smallads.edit'], $this->lang['smallads.module.title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.edit']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::edit_item($smallad->get_id()));

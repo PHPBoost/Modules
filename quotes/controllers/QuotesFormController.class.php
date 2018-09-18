@@ -286,7 +286,9 @@ class QuotesFormController extends ModuleController
 	{
 		$quotes = $this->get_quote();
 		
-		$response = new SiteDisplayResponse($tpl);
+		$location_id = $quotes->get_id() ? 'quotes-edit-'. $quotes->get_id() : '';
+		
+		$response = new SiteDisplayResponse($tpl, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
 		
 		$breadcrumb = $graphical_environment->get_breadcrumb();
@@ -301,6 +303,9 @@ class QuotesFormController extends ModuleController
 		}
 		else
 		{
+			if (!AppContext::get_session()->location_id_already_exists($location_id))
+				$graphical_environment->set_location_id($location_id);
+			
 			$graphical_environment->set_page_title($this->lang['quotes.edit'], $this->lang['module_title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['quotes.edit']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::edit($quotes->get_id()));
