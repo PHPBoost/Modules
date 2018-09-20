@@ -200,7 +200,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		if ($menu_id)
  		{
 			$menu = MenuService::load($menu_id);
-			MenuService::disable($menu);
+			MenuService::delete($menu);
 			MenuService::generate_cache();
 		}
 	}
