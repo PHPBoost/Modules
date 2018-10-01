@@ -4,7 +4,7 @@
  *                            -------------------
  *   begin                : January 2, 2016
  *   copyright            : (C) 2016 Sebastien Lartigue
- *   email                : babso@web33.fr
+ *   email                : babsolune@phpboost.fr
  *
  *
  ###################################################
@@ -34,21 +34,7 @@ class HomeLandingSetup extends DefaultModuleSetup
 
 	public function upgrade($installed_version)
 	{
-		$config = HomeLandingConfig::load();
-		$new_carousel = array();
-
-		foreach ($config->get_carousel() as $description => $url)
-		{
-			if (!is_array($url))
-				$new_carousel[] = array('description' => $description, 'url' => $url);
-			else
-				$new_carousel[] = $url;
-		}
-
-		$config->set_carousel($new_carousel);
-		HomeLandingConfig::save();
-
-		return '5.1 alpha 0.0.3';
+		return '5.2';
 	}
 
 	private function delete_configuration()
