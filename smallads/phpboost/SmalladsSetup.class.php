@@ -46,23 +46,30 @@ class SmalladsSetup extends DefaultModuleSetup
 	
 	public static function __static()
 	{
+		$this->querier = PersistenceContext::get_querier();
+		$this->db_utils = PersistenceContext::get_dbms_utils();
 		self::$smallads_table = PREFIX . 'smallads';
 		self::$smallads_cats_table = PREFIX . 'smallads_cats';
 	}
 
 	public function upgrade($installed_version)
 	{
-		$this->querier = PersistenceContext::get_querier();
-		$this->db_utils = PersistenceContext::get_dbms_utils();
 		$this->columns = $this->db_utils->desc_table(PREFIX . 'smallads');
 		$this->disable_mini_menu();
 		$this->delete_fields();
 		$this->change_fields();
 		$this->add_fields();
-		$this->create_smallads_cats_table();
-		$this->insert_smallads_cats_data();
-		$this->delete_files();
 		$this->update_fields();
+		
+		$tables = $this->db_utils->list_tables(true);
+		
+		if (!in_array(PREFIX . 'smallads_cats', $tables))
+		{
+			$this->create_smallads_cats_table();
+			$this->insert_smallads_cats_data();
+		}
+		
+		$this->delete_files();
 		$this->pics_to_upload();
 
 		return '5.2.0';
