@@ -65,7 +65,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		}
 		
 		$this->delete_files();
-		$this->pics_to_upload();
+		self::pics_to_upload();
 
 		return '5.2.0';
 	}
