@@ -59,7 +59,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->insert_smallads_cats_data();
 		$this->delete_files();
 		$this->update_fields();
-		$this->pics_to_upload();
+		self::pics_to_upload();
 
 		return '5.1.2';
 	}
@@ -290,8 +290,8 @@ class SmalladsSetup extends DefaultModuleSetup
 	public static function pics_to_upload()
 	{
 		// Move pics content to upload and delete pics
-		$source = realpath(PATH_TO_ROOT . '/smallads/pics') . '/';
-		$dest = realpath(PATH_TO_ROOT . '/upload/') . '/';
+		$source = PATH_TO_ROOT . '/smallads/pics/';
+		$dest = PATH_TO_ROOT . '/upload/';
 		if (is_dir($source)) {
 			if ($dh = opendir($source)) {
 				while (($file = readdir($dh)) !== false) {
@@ -302,7 +302,9 @@ class SmalladsSetup extends DefaultModuleSetup
 				closedir($dh);
 			}
 		}
-		rmdir($source);
+		$folder = new Folder($source);
+		if ($folder->exists())
+			$folder->delete();
 
 		// update thumbnail_url files to /upload/files
 		$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'thumbnail_url'));
