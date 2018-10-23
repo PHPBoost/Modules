@@ -385,7 +385,7 @@ class SmalladsDisplayItemController extends ModuleController
 		$response = new SiteDisplayResponse($this->tpl);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->smallad->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $category->get_name() . ' - ' : '') . $this->lang['smallads.module.title']);
+		$graphical_environment->set_page_title($this->smallad->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $this->category->get_name() . ' - ' : '') . $this->lang['smallads.module.title']);
 		$graphical_environment->get_seo_meta_data()->set_description($this->smallad->get_description());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_item($this->category->get_id(), $this->category->get_rewrited_name(), $this->smallad->get_id(), $this->smallad->get_rewrited_title()));
 
