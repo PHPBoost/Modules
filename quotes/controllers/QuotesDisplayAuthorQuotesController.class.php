@@ -44,7 +44,7 @@ class QuotesDisplayAuthorQuotesController extends ModuleController
 		
 		$this->build_view($request);
 		
-		return $this->generate_response();
+		return $this->generate_response($request);
 	}
 	
 	private function init()
@@ -133,15 +133,15 @@ class QuotesDisplayAuthorQuotesController extends ModuleController
 		}
 	}
 	
-	private function generate_response()
+	private function generate_response(HTTPRequestCustom $request)
 	{
-		$rewrited_author = AppContext::get_request()->get_getvalue('author', '');
-		$page = AppContext::get_request()->get_getint('page', 1);
+		$rewrited_author = $request->get_getvalue('author', '');
+		$page = $request->get_getint('page', 1);
 		
 		$response = new SiteDisplayResponse($this->tpl);
 		
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['module_title']);
+		$graphical_environment->set_page_title($this->lang['module_title'], $this->cache->get_author($rewrited_author), $page);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_author_quotes($rewrited_author, $page));
 		
 		$breadcrumb = $graphical_environment->get_breadcrumb();

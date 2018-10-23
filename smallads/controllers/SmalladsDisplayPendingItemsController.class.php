@@ -44,7 +44,7 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 		$this->init();
 		$this->check_authorizations();
 		$this->build_view($request);
-		return $this->generate_response();
+		return $this->generate_response($request);
 	}
 
 	private function init()
@@ -87,11 +87,10 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 		$this->form = $form;
 	}
 
-	private function build_view($request)
+	private function build_view(HTTPRequestCustom $request)
 	{
 		$now = new Date();
 		$authorized_categories = SmalladsService::get_authorized_categories(Category::ROOT_CATEGORY);
-		$this->config = SmalladsConfig::load();
 
 		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
@@ -113,7 +112,7 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 			'timestamp_now' => $now->get_timestamp()
 		);
 
-		$page = AppContext::get_request()->get_getint('page', 1);
+		$page = $request->get_getint('page', 1);
 
 		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments
 		FROM '. SmalladsSetup::$smallads_table .' smallads
@@ -173,7 +172,6 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 
 	private function build_sorting_smallad_type()
 	{
-		$this->config = SmalladsConfig::load();
 		$smallad_types = $this->config->get_smallad_types();
 		$type_nbr = count($smallad_types);
 		if ($type_nbr)
@@ -241,18 +239,21 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 		}
 	}
 
-	private function generate_response()
+	private function generate_response(HTTPRequestCustom $request)
 	{
+		$sort_field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
+		$sort_mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
+		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['smallads.pending.items'], $this->lang['smallads.module.title']);
+		$graphical_environment->set_page_title($this->lang['smallads.pending.items'], $this->lang['smallads.module.title'], $page);
 		$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.seo.description.pending']);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_pending_items(AppContext::get_request()->get_getstring('field', 'date'), AppContext::get_request()->get_getstring('sort', 'desc'), AppContext::get_request()->get_getint('page', 1)));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_pending_items($sort_field, $sort_mode, $page)));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
-		$breadcrumb->add($this->lang['smallads.pending.items'], SmalladsUrlBuilder::display_pending_items(AppContext::get_request()->get_getstring('field', 'date'), AppContext::get_request()->get_getstring('sort', 'desc'), AppContext::get_request()->get_getint('page', 1)));
+		$breadcrumb->add($this->lang['smallads.pending.items'], SmalladsUrlBuilder::display_pending_items($sort_field, $sort_mode, $page));
 
 		return $response;
 	}

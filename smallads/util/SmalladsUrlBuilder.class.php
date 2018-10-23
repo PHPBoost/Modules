@@ -140,7 +140,7 @@ class SmalladsUrlBuilder
 	 */
 	public static function print_item($id_smallad, $rewrited_title)
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/print/' . $id_smallad . '-' .$rewrited_title . '/');
+		return DispatchManager::get_url(self::$dispatcher, '/print/' . $id_smallad . '-' . $rewrited_title . '/');
 	}
 
 	/**
@@ -172,10 +172,9 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_item($id_category, $rewrited_name_category, $id_smallad, $rewrited_title, $page = 1)
+	public static function display_item($id_category, $rewrited_name_category, $id_smallad, $rewrited_title)
 	{
-		$page = $page !== 1 ? $page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/' . $id_category . '-' . $rewrited_name_category . '/' . $id_smallad . '-' .$rewrited_title . '/' . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/' . $id_category . '-' . $rewrited_name_category . '/' . $id_smallad . '-' .$rewrited_title . '/');
 	}
 
 	/**

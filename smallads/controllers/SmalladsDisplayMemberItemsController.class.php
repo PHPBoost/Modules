@@ -44,9 +44,9 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 
 		$this->check_authorizations();
 
-		$this->build_view();
+		$this->build_view($request);
 
-		return $this->generate_response();
+		return $this->generate_response($request);
 	}
 
 	private function init()
@@ -61,10 +61,9 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		$this->content_management_config = ContentManagementConfig::load();
 	}
 
-	private function build_view()
+	private function build_view(HTTPRequestCustom $request)
 	{
 		$now = new Date();
-		$request = AppContext::get_request();
 		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
 
@@ -157,7 +156,6 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 
 	private function build_sorting_smallad_type()
 	{
-		$this->config = SmalladsConfig::load();
 		$smallad_types = $this->config->get_smallad_types();
 		$type_nbr = count($smallad_types);
 		if ($type_nbr)
@@ -293,19 +291,22 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		}
 	}
 
-	private function generate_response()
+	private function generate_response(HTTPRequestCustom $request)
 	{
+		$sort_field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
+		$sort_mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
+		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->category->get_id() != Category::ROOT_CATEGORY)
-			$graphical_environment->set_page_title($this->category->get_name(), $this->lang['smallads.module.title']);
+			$graphical_environment->set_page_title($this->category->get_name(), $this->lang['smallads.module.title'], $page);
 		else
-			$graphical_environment->set_page_title($this->lang['smallads.module.title']);
+			$graphical_environment->set_page_title($this->lang['smallads.module.title'], '', $page);
 
 		$graphical_environment->get_seo_meta_data()->set_description($this->category->get_description());
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name(), AppContext::get_request()->get_getstring('field', 'date'), AppContext::get_request()->get_getstring('sort', 'desc'), AppContext::get_request()->get_getint('page', 1)));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name(), $sort_field, $sort_mode, $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
@@ -315,7 +316,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
-				$breadcrumb->add($category->get_name(), SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), AppContext::get_request()->get_getstring('field', 'date'), AppContext::get_request()->get_getstring('sort', 'desc'), AppContext::get_request()->get_getint('page', 1)));
+				$breadcrumb->add($category->get_name(), SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), $sort_field, $sort_mode, $page));
 		}
 
 		return $response;
