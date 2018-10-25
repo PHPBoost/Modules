@@ -113,7 +113,7 @@ class DictionaryHomeController extends ModuleController
 
 			while ($row = $result1->fetch())
 			{ 
-				$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';
+				$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" title="' . $row['images'] . '" />';
 				$name = Texthelper::ucfirst(TextHelper::strtolower(str_replace("'", "", stripslashes($row['word']))));
 				
 				$this->view->assign_block_vars('dictionary', array(

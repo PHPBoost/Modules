@@ -19,7 +19,7 @@
 	# START item #
 		<div class="item-content block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 
-			<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" />
+			<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" title="{item.PSEUDO}" />
 
 			<div class="more">
 				<p>

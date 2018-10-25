@@ -594,6 +594,6 @@ class TeamSpeak3_Viewer_Html implements TeamSpeak3_Viewer_Interface
       $src = $this->flagpath;
     }
 
-    return "<img src='" . $src . $name . "' title='" . $text . "' alt='' align='top' />";
+    return "<img src='" . $src . $name . "' title='" . $text . "' alt='" . $text . "' align='top' />";
   }
 }

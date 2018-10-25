@@ -8,7 +8,7 @@
 					<tbody>
 					# START servers #
 						# IF C_HORIZONTAL ## IF servers.C_NEW_LINE #<tr># ENDIF ## ELSE #<tr># ENDIF #
-							<td># IF servers.C_ICON #<img src="{servers.ICON}" alt="" /># ENDIF #</td>
+							<td># IF servers.C_ICON #<img src="{servers.ICON}" alt="{servers.NAME}" title="{servers.NAME}" /># ENDIF #</td>
 							<td>
 								<span class="text-strong"><a href="{servers.U_DISPLAY_SERVER}">{servers.NAME}</a></span>
 								# IF C_ADDRESS_DISPLAYED #

@@ -1227,12 +1227,14 @@ class HomeLandingHomeController extends ModuleController
 	// 			$date = strtotime($items['date'][$i]);
 	// 			$date_feed = strftime('%d/%m/%Y %Hh%M', $date);
 	// 			$desc = $items['desc'][$i];
+	// 			$cut_desc = strip_tags(trim(substr($desc, 0, $nb_char)));
 	// 			$img_feed = $items['img'][$i];
 	// 			$tpl->assign_block_vars('rssreader',array(
 	// 				'TITLE_FEED' => $items['title'][$i],
 	// 				'LINK_FEED' => $items['link'][$i],
 	// 				'DATE_FEED' => $date_feed,
-	// 				'DESC' => strip_tags(trim(substr($desc, 0, $nb_char))),
+	// 				'DESC' => $cut_desc,
+	// 				'C_READ_MORE' => $cut_desc != $desc,
 	// 				'C_IMG_FEED' => !empty($img_feed),
 	// 				'IMG_FEED' => $img_feed,
 	// 			));

@@ -130,7 +130,7 @@
 			 	# START carousel #
 					<a href="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.U_PICTURE}" title="{carousel.DESCRIPTION}" data-lightbox="formatter" data-rel="lightcase:collection">
 						<figure class="carousel-thumbnail">
-							<img src="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" />
+							<img src="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" title="{carousel.DESCRIPTION}" />
 							<figcaption>{carousel.DESCRIPTION}</figcaption>
 						</figure>
 					</a>
@@ -168,13 +168,13 @@
 					<div class="block suggested-thumbnail">
 						# IF suggested_items.C_COMPLETED #
 							<figure>
-								# IF suggested_items.C_HAS_THUMBNAIL #<img src="# IF suggested_items.C_PTR #{PATH_TO_ROOT}# ENDIF #{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
+								# IF suggested_items.C_HAS_THUMBNAIL #<img src="# IF suggested_items.C_PTR #{PATH_TO_ROOT}# ENDIF #{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" title="{suggested_items.TITLE}" /># ENDIF #
 								<figcaption>{suggested_items.TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
 							</figure>
 						# ELSE #
 							<a href="{suggested_items.U_ITEM}">
 								<figure>
-									# IF suggested_items.C_HAS_THUMBNAIL #<img src="# IF suggested_items.C_PTR #{PATH_TO_ROOT}# ENDIF #{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
+									# IF suggested_items.C_HAS_THUMBNAIL #<img src="# IF suggested_items.C_PTR #{PATH_TO_ROOT}# ENDIF #{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" title="{suggested_items.TITLE}" /># ENDIF #
 									<figcaption>{suggested_items.TITLE}</figcaption>
 								</figure>
 							</a>
@@ -191,7 +191,7 @@
 						# IF C_PREVIOUS_COMPLETED #
 						<span class="navigation-link-previous">
 							<figure class="navigation-link-thumbnail">
-								# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="# IF C_PREVIOUS_PTR #{PATH_TO_ROOT}# ENDIF #{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
+								# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="# IF C_PREVIOUS_PTR #{PATH_TO_ROOT}# ENDIF #{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" title="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
 								<figcaption><i class="fa fa-fw fa-arrow-circle-left"></i> {PREVIOUS_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
 							</figure>
 						</span>
@@ -199,7 +199,7 @@
 							<span class="navigation-link-previous">
 								<a href="{U_PREVIOUS_ITEM}">
 									<figure class="navigation-link-thumbnail">
-										# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="# IF C_PREVIOUS_PTR #{PATH_TO_ROOT}# ENDIF #{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
+										# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="# IF C_PREVIOUS_PTR #{PATH_TO_ROOT}# ENDIF #{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" title="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
 										<figcaption><i class="fa fa-fw fa-arrow-circle-left"></i> {PREVIOUS_ITEM_TITLE}</figcaption>
 									</figure>
 								</a>
@@ -210,7 +210,7 @@
 						# IF C_NEXT_COMPLETED #
 						<span class="navigation-link-next">
 							<figure class="navigation-link-thumbnail">
-								# IF C_NEXT_HAS_THUMBNAIL #<img src="# IF C_NEXT_PTR #{PATH_TO_ROOT}# ENDIF #{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
+								# IF C_NEXT_HAS_THUMBNAIL #<img src="# IF C_NEXT_PTR #{PATH_TO_ROOT}# ENDIF #{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" title="{NEXT_ITEM_TITLE}" /># ENDIF #
 								<figcaption>{NEXT_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item} <i class="fa fa-fw fa-arrow-circle-right"></i></figcaption>
 							</figure>
 						</span>
@@ -218,7 +218,7 @@
 							<span class="navigation-link-next">
 								<a href="{U_NEXT_ITEM}">
 									<figure class="navigation-link-thumbnail">
-										# IF C_NEXT_HAS_THUMBNAIL #<img src="# IF C_NEXT_PTR #{PATH_TO_ROOT}# ENDIF #{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
+										# IF C_NEXT_HAS_THUMBNAIL #<img src="# IF C_NEXT_PTR #{PATH_TO_ROOT}# ENDIF #{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" title="{NEXT_ITEM_TITLE}" /># ENDIF #
 										<figcaption>{NEXT_ITEM_TITLE} <i class="fa fa-fw fa-arrow-circle-right"></i></figcaption>
 									</figure>
 								</a>

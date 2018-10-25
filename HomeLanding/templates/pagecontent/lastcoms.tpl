@@ -13,7 +13,7 @@
 		# ENDIF #
 		# START item #
 			<div class="item-content block">
-				<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" />
+				<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" title="{item.PSEUDO}" />
 				<div class="more">
 					<p>
 						<i class="fa fa-fw fa-user"></i> # IF item.C_AUTHOR_EXIST #

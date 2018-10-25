@@ -70,7 +70,7 @@
 				</div>
 
 				# IF item.C_PICTURE #
-					<a href="{item.U_LINK}" class="item-picture">
+					<a href="{item.U_LINK}" title="{item.NAME}" class="item-picture">
 						<img src="{item.U_PICTURE}" alt="{item.NAME}" />
 					</a>
 				# ENDIF #

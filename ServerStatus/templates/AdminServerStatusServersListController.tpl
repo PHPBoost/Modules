@@ -101,7 +101,7 @@ jQuery(document).ready(function() {
 				<li class="sortable-element" id="list-{servers.ID}" data-id="{servers.ID}">
 					<div class="sortable-selector" title="${LangLoader::get_message('position.move', 'common')}"></div>
 					<div class="sortable-title">
-						<span style="padding:10px;"># IF servers.C_ICON #<img src="{servers.ICON}" alt="" /># ELSE #&nbsp;# ENDIF #</span>
+						<span style="padding:10px;"># IF servers.C_ICON #<img src="{servers.ICON}" alt="{servers.NAME}" title="{servers.NAME}" /># ELSE #&nbsp;# ENDIF #</span>
 						<span class="text-strong">{servers.NAME}</span>
 						<div class="sortable-actions">
 							# IF C_MORE_THAN_ONE_SERVER #

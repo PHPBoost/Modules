@@ -35,7 +35,7 @@
 			</div>
 
 			# IF item.C_HAS_PICTURE #
-				<a href="{item.U_ARTICLE}" class="item-picture"><img src="{item.PICTURE}" alt="{item.TITLE}" itemprop="thumbnailUrl" /></a>
+				<a href="{item.U_ARTICLE}" title="{item.TITLE}" class="item-picture"><img src="{item.PICTURE}" alt="{item.TITLE}" itemprop="thumbnailUrl" /></a>
 			# ENDIF #
 
 			<p class="item-desc">

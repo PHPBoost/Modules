@@ -40,7 +40,7 @@
 			</div>
 
 			# IF item.C_HAS_PICTURE #
-				<a href="{item.U_ARTICLE}" class="item-picture"><img src="{item.PICTURE}" alt="{item.TITLE}" /></a>
+				<a href="{item.U_ARTICLE}" title="{item.TITLE}" class="item-picture"><img src="{item.PICTURE}" alt="{item.TITLE}" /></a>
 			# ENDIF #
 			<p class="item-desc">
 				{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_ARTICLE}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #

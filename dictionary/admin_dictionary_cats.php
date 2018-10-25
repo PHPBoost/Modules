@@ -108,7 +108,7 @@ if (retrieve(GET,'add',false))
 	{
 		$name = "";
 	}
-	$img = $row && !empty($row['images']) ? '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />' : '<i class="fa fa-folder"></i>';
+	$img = $row && !empty($row['images']) ? '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" title="' . $row['images'] . '" />' : '<i class="fa fa-folder"></i>';
 	$Template->assign_block_vars('add',array(
 		'LIST_CAT' => false,
 		'ID_CAT' => $id,
@@ -322,7 +322,7 @@ else
 	
 	while ($row_cat = $result_cat->fetch())
 	{ 
-		$img = empty($row_cat['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row_cat['images'] . '" alt="' . $row_cat['images'] . '" />';
+		$img = empty($row_cat['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row_cat['images'] . '" alt="' . $row_cat['images'] . '" title="' . $row_cat['images'] . '" />';
 		$Template->assign_block_vars('cat', array(
 			'NAME' => TextHelper::strtoupper($row_cat['name']),
 			'IMAGES' => $img,

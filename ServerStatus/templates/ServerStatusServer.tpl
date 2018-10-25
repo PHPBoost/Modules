@@ -1,5 +1,5 @@
 	<tr>
-		<td class="no-separator" style="padding:10px"># IF C_ICON #<img src="{ICON}" alt="" /># ENDIF #</td>
+		<td class="no-separator" style="padding:10px"># IF C_ICON #<img src="{ICON}" alt="{NAME}" title="{NAME}" /># ENDIF #</td>
 		<td id="{ANCHOR}" class="no-separator">
 			<span class="biggest">{NAME}</span>
 			# IF C_ADDRESS_DISPLAYED #

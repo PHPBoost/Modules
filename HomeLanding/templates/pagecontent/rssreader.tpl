@@ -8,7 +8,7 @@
 			</a>
 		</h2>
 	</header>
-	<div class="content"> 
+	<div class="content">
 		<ul>
 		# START rssreader #
 			
@@ -19,14 +19,14 @@
 				</a> - <span class="small">{rssreader.DATE_FEED}</span>
 				<p>
 					# IF rssreader.C_IMG_FEED #
-					<img src="{rssreader_IMG_FEED}" class="left" alt="{rssreader.TITLE_FEED}" />
+					<img src="{rssreader_IMG_FEED}" class="left" alt="{rssreader.TITLE_FEED}" title="{rssreader.TITLE_FEED}" />
 					# ENDIF #
-					{rssreader.DESC} ...
+					{rssreader.DESC}# IF rssreader.C_READ_MORE #...# ENDIF #
 				</p>
-			</li>	
+			</li>
 			
 		# END rssreader #
 		</ul>
-	</div>        
+	</div>
 	<footer></footer>
 </article>

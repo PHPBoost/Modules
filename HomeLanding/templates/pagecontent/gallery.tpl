@@ -13,7 +13,7 @@
 	<div class="elements-container columns-{COL_NBR} no-style">
 	# START item #
 		<div class="item-content block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-			<a href="{item.U_CATEGORY}">
+			<a href="{item.U_CATEGORY}" title="{item.NAME}">
 				<img src="{item.U_IMG}" alt="{item.TITLE}" />
 				<p>{item.TITLE} <br /><i class="fa fa-eye"></i> {item.NB_VIEWS}</p>
 			</a>

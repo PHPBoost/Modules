@@ -11,7 +11,7 @@
 			# IF NOT C_ROOT_CATEGORY #
 				# IF C_DISPLAY_CAT_ICONS #
 					# IF C_CATEGORY_IMAGE #
-						<img class="thumbnail-item" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" />
+						<img class="thumbnail-item" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" title="{CATEGORY_NAME}" />
 					# ENDIF #
 				# ENDIF #
 			# ENDIF #
@@ -265,16 +265,11 @@
 							<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
 
 						</header>
-
-						# IF items.C_HAS_THUMBNAIL #
-							<a href="{items.U_ITEM}" class="thumbnail-item">
-								<img itemprop="thumbnailUrl" src="{items.THUMBNAIL}" alt="{items.TITLE}" />
-							</a>
-						# ELSE #
-							<a href="{items.U_ITEM}" class="thumbnail-item">
-								<img itemprop="thumbnailUrl" src="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" alt="{items.TITLE}" />
-							</a>
-						# ENDIF #
+						
+						<a href="{items.U_ITEM}" title="{items.TITLE} class="thumbnail-item">
+							<img itemprop="thumbnailUrl" src="# IF items.C_HAS_THUMBNAIL #{items.THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #" alt="{items.TITLE}" />
+						</a>
+						
 						<div class="content">
 							<div itemprop="text">{items.DESCRIPTION}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
 						</div>

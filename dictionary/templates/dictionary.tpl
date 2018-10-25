@@ -248,9 +248,9 @@
 				<br>
 				<span style="color:#FFFFFF;"><b>{L_CATEGORY} : </b></span>
 				# START cat #
-					<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" style="text-decoration:none;color:#FFFFFF;">{cat.NAME}&nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png"/> </a></span>
+					<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{cat.ID}" style="text-decoration:none;color:#FFFFFF;">{cat.NAME}&nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png" alt="{cat.ID}" /> </a></span>
 				# END cat #
-				<span id="ALL" style=""><a href="javascript:affCacheCat('ALL');" style="text-decoration:none;color:#FFFFFF;">{L_ALL_CAT} &nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png"/> </a></span>
+				<span id="ALL" style=""><a href="javascript:affCacheCat('ALL');" alt="{L_ALL_CAT}" style="text-decoration:none;color:#FFFFFF;">{L_ALL_CAT} &nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png"/ alt="{L_ALL_CAT}"> </a></span>
 				<select id ="category" name='category' style="width:150px;border:1px #cccccc solid;-moz-border-radius:5px;-khtml-border-radius:12px;-webkit-border-radius:5px;border-radius:5px;">
 					<option value='ALL'>{L_ALL_CAT}
 						# START cat_list #
