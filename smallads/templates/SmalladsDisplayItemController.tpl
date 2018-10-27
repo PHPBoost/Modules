@@ -1,27 +1,25 @@
 <section id="smallads-module">
 	<header>
-		<h1>
-			<a href="{U_SYNDICATION}" title="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-syndication"></i></a>
-			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit smaller"></i></a># ENDIF #
-		</h1>
+		<a href="{U_SYNDICATION}" title="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-syndication"></i></a>
+		{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit smaller"></i></a># ENDIF #
 	</header>
 	# INCLUDE NOT_VISIBLE_MESSAGE #
 	<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
 		<header>
-			<h2>
+			<span class="actions">
+				# IF NOT C_COMPLETED #
+					# IF C_EDIT #
+					<a href="{U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit"></i></a>
+						# ENDIF #
+				# ENDIF #
+				# IF C_DELETE #
+				<a href="{U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-delete"></i></a>
+				# ENDIF #
+			</span>
+			<h1>
 				<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="completed-article">{@smallads.completed.item}</span># ENDIF #</p>
 				{TITLE}
-				<span class="actions">
-					# IF NOT C_COMPLETED #
-						# IF C_EDIT #
-							<a href="{U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit"></i></a>
-						# ENDIF #
-					# ENDIF #
-					# IF C_DELETE #
-						<a href="{U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-delete"></i></a>
-					# ENDIF #
-				</span>
-			</h2>
+			</h1>
 
 			<meta itemprop="url" content="{U_ITEM}">
 			<meta itemprop="description" content="${escape(DESCRIPTION)}">
