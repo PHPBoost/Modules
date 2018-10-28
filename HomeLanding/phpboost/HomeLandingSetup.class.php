@@ -34,7 +34,30 @@ class HomeLandingSetup extends DefaultModuleSetup
 
 	public function upgrade($installed_version)
 	{
-		return '5.2';
+		$config = HomeLandingConfig::load();
+		
+		$modules = $config->get_modules();
+		
+		if (!isset($modules[HomeLandingConfig::MODULE_ONEPAGE_MENU]))
+		{
+			$new_modules_list = array();
+			
+			$module = new HomeLandingModule();
+			$module->set_module_id(self::MODULE_ONEPAGE_MENU);
+			$module->hide();
+
+			$new_modules_list[1] = $module->get_properties();
+			
+			foreach ($modules as $module)
+			{
+				$new_modules_list[] = $module;
+			}
+			
+			HomeLandingModulesList::save($new_modules_list);
+			HomeLandingConfig::save();
+		}
+		
+		return '5.2.0';
 	}
 
 	private function delete_configuration()
