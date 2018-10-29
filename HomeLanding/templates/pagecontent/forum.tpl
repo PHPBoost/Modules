@@ -23,7 +23,7 @@
 			</div>
 
 			<p class="item-desc">
-				{item.CONTENTS} ... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</i></a>
+				{item.CONTENTS} ... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a>
 			</p>
 
 		</div>
