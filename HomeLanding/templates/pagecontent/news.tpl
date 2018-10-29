@@ -47,7 +47,7 @@
 					</a>
 				# ENDIF #
 				<p class="item-desc">
-					<div itemprop="text">{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
+					{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 				</p>
 
 			</div>
