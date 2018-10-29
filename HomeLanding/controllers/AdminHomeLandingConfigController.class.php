@@ -163,7 +163,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$form = new HTMLForm(__CLASS__);
 
 		//Configuration
-		$fieldset_config = new FormFieldsetHTML('configuration', LangLoader::get_message('configuration', 'admin-common'));
+		$fieldset_config = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin-common'));
 		$form->add_fieldset($fieldset_config);
 
 		$fieldset_config->add_field(new FormFieldTextEditor('module_title', $this->lang['admin.module.title'], $this->config->get_module_title(),

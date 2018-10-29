@@ -81,7 +81,7 @@ class QuotesFormController extends ModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 		
-		$fieldset = new FormFieldsetHTML('quotes', $this->lang['module_title']);
+		$fieldset = new FormFieldsetHTMLHeading('quotes', $this->lang['module_title']);
 		$form->add_fieldset($fieldset);
 		
 		if (QuotesService::get_categories_manager()->get_categories_cache()->has_categories())

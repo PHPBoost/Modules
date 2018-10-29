@@ -71,7 +71,7 @@ class AdminLastcomsConfigController extends AdminController
 	{
 		$form = new HTMLForm('lastcoms');
 
-		$fieldset = new FormFieldsetHTML('configuration', LangLoader::get_message('configuration', 'admin'));
+		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin'));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldNumberEditor('lastcoms_number', $this->lang['lastcoms.number'], $this->config->get_lastcoms_number(),

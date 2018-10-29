@@ -77,7 +77,7 @@ class AdminTeamspeakConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 		
-		$fieldset = new FormFieldsetHTML('config', LangLoader::get_message('configuration', 'admin'));
+		$fieldset = new FormFieldsetHTMLHeading('config', LangLoader::get_message('configuration', 'admin'));
 		$form->add_fieldset($fieldset);
 		
 		$fieldset->add_field(new FormFieldTextEditor('ts_ip', $this->lang['ts_ip'], $this->config->get_ip(),

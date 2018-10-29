@@ -78,7 +78,7 @@ class AdminServerStatusServerFormController extends AdminController
 		
 		$form = new HTMLForm(__CLASS__);
 		
-		$fieldset = new FormFieldsetHTML('server', !empty($this->id) ? $this->lang['admin.config.servers.title.edit_server'] : $this->lang['admin.config.servers.title.add_server']);
+		$fieldset = new FormFieldsetHTMLHeading('server', !empty($this->id) ? $this->lang['admin.config.servers.title.edit_server'] : $this->lang['admin.config.servers.title.add_server']);
 		$form->add_fieldset($fieldset);
 		
 		$fieldset->add_field(new FormFieldTextEditor('name', $this->lang['server.name'], $server->get_name(), array(

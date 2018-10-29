@@ -84,7 +84,7 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('config_usage_terms_configuration', $this->lang['config.usage.terms']);
+		$fieldset = new FormFieldsetHTMLHeading('config_usage_terms_configuration', $this->lang['config.usage.terms']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('usage_terms_displayed', $this->lang['config.usage.terms.displayed'], $this->config->are_usage_terms_displayed(),

@@ -81,7 +81,7 @@ class AdminSmalladsMiniMenuConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('mini_configuration', $this->lang['config.mini.title']);
+		$fieldset = new FormFieldsetHTMLHeading('mini_configuration', $this->lang['config.mini.title']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldNumberEditor('mini_menu_items_nb', $this->lang['config.mini.items.nb'], $this->config->get_mini_menu_items_nb(),

@@ -74,7 +74,7 @@ class AdminServerStatusConfigController extends AdminController
 	{
 		$form = new HTMLForm(__CLASS__);
 		
-		$fieldset = new FormFieldsetHTML('configuration', LangLoader::get_message('configuration', 'admin'));
+		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin'));
 		$form->add_fieldset($fieldset);
 		
 		$fieldset->add_field(new FormFieldTextEditor('refresh_delay', $this->lang['admin.config.refresh_delay'], $this->config->get_refresh_delay(), array(

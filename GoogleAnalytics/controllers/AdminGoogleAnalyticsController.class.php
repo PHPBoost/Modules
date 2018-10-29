@@ -70,7 +70,7 @@ class AdminGoogleAnalyticsController extends AdminController
 	{
 		$form = new HTMLForm('GoogleAnalytics');
 
-		$fieldset = new FormFieldsetHTML('configuration', $this->lang['configuration']);
+		$fieldset = new FormFieldsetHTMLHeading('configuration', $this->lang['configuration']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('identifier', $this->lang['identifier'], $this->config->get_identifier(),

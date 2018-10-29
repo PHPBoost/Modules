@@ -81,12 +81,12 @@ class AdminHomeLandingStickyConfigController extends AdminModuleController
 		$form = new HTMLForm(__CLASS__);
 
 		//Sticky
-        $sticky_fieldset = new FormFieldsetHTML('sticky', $this->lang['homelanding.sticky.manage']);
-        $form->add_fieldset($sticky_fieldset);
+		$sticky_fieldset = new FormFieldsetHTMLHeading('sticky', $this->lang['homelanding.sticky.manage']);
+		$form->add_fieldset($sticky_fieldset);
 
-        $sticky_fieldset->add_field(new FormFieldTextEditor('sticky_title', $this->lang['homelanding.sticky.title.label'], $this->config->get_sticky_title()));
+		$sticky_fieldset->add_field(new FormFieldTextEditor('sticky_title', $this->lang['homelanding.sticky.title.label'], $this->config->get_sticky_title()));
 
-        $sticky_fieldset->add_field(new FormFieldRichTextEditor('sticky_text', $this->lang['homelanding.sticky.content.label'], $this->config->get_sticky_text(), array('rows' => 25)));
+		$sticky_fieldset->add_field(new FormFieldRichTextEditor('sticky_text', $this->lang['homelanding.sticky.content.label'], $this->config->get_sticky_text(), array('rows' => 25)));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
