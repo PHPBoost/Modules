@@ -43,7 +43,7 @@ class HomeLandingSetup extends DefaultModuleSetup
 			$new_modules_list = array();
 			
 			$module = new HomeLandingModule();
-			$module->set_module_id(self::MODULE_ONEPAGE_MENU);
+			$module->set_module_id(HomeLandingConfig::MODULE_ONEPAGE_MENU);
 			$module->hide();
 
 			$new_modules_list[1] = $module->get_properties();
