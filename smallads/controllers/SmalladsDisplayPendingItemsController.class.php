@@ -248,7 +248,7 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->lang['smallads.pending.items'], $this->lang['smallads.module.title'], $page);
-		$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.seo.description.pending']);
+		$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.seo.description.pending'], $page);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_pending_items($sort_field, $sort_mode, $page)));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();

@@ -47,5 +47,7 @@ $lang['quotes'] = 'Quotes';
 $lang['quotes.form.contribution.explain'] = 'You are not authorized to create a new quote, however you can contribute by submitting one.';
 
 //SEO
+$lang['quotes.seo.description.root'] = 'All :site\'s quotes.';
 $lang['quotes.seo.description.pending'] = 'All pending quotes.';
+$lang['quotes.seo.description.author'] = 'All :author\'s quotes.';
 ?>

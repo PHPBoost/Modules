@@ -161,6 +161,7 @@ $lang['smallads.pagination'] = 'Page {current} on {pages}';
 $lang['smallads.seo.description.root'] = 'All :site\'s ads.';
 $lang['smallads.seo.description.tag'] = 'All :subject\'s ads.';
 $lang['smallads.seo.description.pending'] = 'All pending ads.';
+$lang['smallads.seo.description.usage.terms'] = ':site\'s smallads usage terms.';
 
 //Messages
 $lang['smallads.message.success.add'] = 'The ad <b>:title</b> has been added';

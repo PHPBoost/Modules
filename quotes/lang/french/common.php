@@ -47,5 +47,7 @@ $lang['quotes'] = 'Citations';
 $lang['quotes.form.contribution.explain'] = 'Vous n\'êtes pas autorisé à ajouter une citation, cependant vous pouvez en proposer une.';
 
 //SEO
+$lang['quotes.seo.description.root'] = 'Toutes les citations du site :site.';
 $lang['quotes.seo.description.pending'] = 'Toutes les citations en attente.';
+$lang['quotes.seo.description.author'] = 'Toutes les citations de :author.';
 ?>

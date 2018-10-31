@@ -161,6 +161,7 @@ $lang['smallads.pagination'] = 'Page {current} sur {pages}';
 $lang['smallads.seo.description.root'] = 'Toutes les annonces du site :site.';
 $lang['smallads.seo.description.tag'] = 'Toutes les annonces sur le sujet :subject.';
 $lang['smallads.seo.description.pending'] = 'Toutes les annonces en attente.';
+$lang['smallads.seo.description.usage.terms'] = 'Conditions générales d\'utilisation des annonces du site :site.';
 
 //Messages
 $lang['smallads.message.success.add'] = 'L\'annonce <b>:title</b> a été ajoutée';

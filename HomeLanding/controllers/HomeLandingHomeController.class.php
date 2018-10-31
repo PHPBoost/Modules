@@ -1249,10 +1249,11 @@ class HomeLandingHomeController extends ModuleController
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->config->get_module_title());
+		$graphical_environment->get_seo_meta_data()->set_description(GeneralConfig::load()->get_site_description());
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(HomeLandingUrlBuilder::home());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->config->get_module_title(), HomeLandingUrlBuilder::home());
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(HomeLandingUrlBuilder::home());
 
 		return $response;
 	}

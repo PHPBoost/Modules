@@ -55,7 +55,7 @@ class SmalladsDisplayUsageTermsController extends ModuleController
 
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->lang['smallads.module.title']);
-		$graphical_environment->get_seo_meta_data()->set_description($this->config->get_usage_terms());
+		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['smallads.seo.description.usage.terms'], array('site' => GeneralConfig::load()->get_site_name())));
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::usage_terms());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
@@ -63,9 +63,9 @@ class SmalladsDisplayUsageTermsController extends ModuleController
 		$breadcrumb->add($this->lang['smallads.usage.terms'], SmalladsUrlBuilder::usage_terms());
 
 		$this->tpl->put_all(array(
-            'USAGE_TERMS_TITLE' => $this->lang['smallads.usage.terms'],
-            'USAGE_TERMS_CONTENT' => FormatingHelper::second_parse($this->config->get_usage_terms())
-        ));
+			'USAGE_TERMS_TITLE' => $this->lang['smallads.usage.terms'],
+			'USAGE_TERMS_CONTENT' => FormatingHelper::second_parse($this->config->get_usage_terms())
+		));
 
 
 		return $response;

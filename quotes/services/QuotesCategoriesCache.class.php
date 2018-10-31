@@ -60,7 +60,10 @@ class QuotesCategoriesCache extends CategoriesCache
 	{
 		$root = new RichRootCategory();
 		$root->set_authorizations(QuotesConfig::load()->get_authorizations());
-		$root->set_description(QuotesConfig::load()->get_root_category_description());
+		$description = QuotesConfig::load()->->get_root_category_description();
+		if (empty($description))
+			$description = StringVars::replace_vars(LangLoader::get_message('quotes.seo.description.root', 'common', 'quotes'), array('site' => GeneralConfig::load()->get_site_name()));
+		$root->set_description($description);
 		return $root;
 	}
 }

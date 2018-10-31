@@ -127,7 +127,7 @@ class QuotesDisplayPendingQuotesController extends ModuleController
 		
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->lang['quotes.pending'], $this->lang['module_title'], $page);
-		$graphical_environment->get_seo_meta_data()->set_description($this->lang['quotes.seo.description.pending']);
+		$graphical_environment->get_seo_meta_data()->set_description($this->lang['quotes.seo.description.pending'], $page);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_pending($page));
 		
 		$breadcrumb = $graphical_environment->get_breadcrumb();

@@ -142,6 +142,7 @@ class QuotesDisplayAuthorQuotesController extends ModuleController
 		
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->lang['module_title'], $this->cache->get_author($rewrited_author), $page);
+		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['quotes.seo.description.author'], array('author' => $this->cache->get_author($rewrited_author))));
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_author_quotes($rewrited_author, $page));
 		
 		$breadcrumb = $graphical_environment->get_breadcrumb();
