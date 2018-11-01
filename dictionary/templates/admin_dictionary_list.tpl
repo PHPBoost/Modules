@@ -32,15 +32,6 @@
 			<th>${LangLoader::get_message('edit', 'common')}</th>
 			<th>${LangLoader::get_message('delete', 'common')}</th>
 		</thead>
-		# IF C_PAGINATION #
-		<tfoot>
-			<tr>
-				<th colspan="7">
-					# INCLUDE PAGINATION #
-				</th>
-			</tr>
-		</tfoot>
-		# ENDIF #
 		<tbody>
 			# START dictionary_list #
 			<tr> 
@@ -67,5 +58,14 @@
 			</tr>
 			# END dictionary_list #
 		</tbody>
+		# IF C_PAGINATION #
+		<tfoot>
+			<tr>
+				<th colspan="7">
+					# INCLUDE PAGINATION #
+				</th>
+			</tr>
+		</tfoot>
+		# ENDIF #
 	</table>
 </div>

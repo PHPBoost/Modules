@@ -177,15 +177,6 @@
 						<th colspan="3">{L_GESTION_CAT}</th>
 					</tr>
 				</thead>
-				# IF C_PAGINATION #
-				<tfoot>
-					<tr>
-						<th colspan="3">
-							# INCLUDE PAGINATION #
-						</th>
-					</tr>
-				</tfoot>
-				# ENDIF #
 				<tbody>
 					<tr>
 						<td style="padding-left: 20px;">
@@ -203,6 +194,15 @@
 						</td>
 					</tr>
 				</tbody>
+					# IF C_PAGINATION #
+				<tfoot>
+					<tr>
+						<th colspan="3">
+							# INCLUDE PAGINATION #
+						</th>
+					</tr>
+				</tfoot>
+				# ENDIF #
 			</table>
 		</form>
 	# ENDIF #
