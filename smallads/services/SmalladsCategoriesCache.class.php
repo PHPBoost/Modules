@@ -61,7 +61,7 @@ class SmalladsCategoriesCache extends CategoriesCache
 	{
 		$root = new RichRootCategory();
 		$root->set_authorizations(SmalladsConfig::load()->get_authorizations());
-		$description = SmalladsConfig::load()->->get_root_category_description();
+		$description = SmalladsConfig::load()->get_root_category_description();
 		if (empty($description))
 			$description = StringVars::replace_vars(LangLoader::get_message('smallads.seo.description.root', 'common', 'smallads'), array('site' => GeneralConfig::load()->get_site_name()));
 		$root->set_description($description);
