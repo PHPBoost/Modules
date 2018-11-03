@@ -424,28 +424,51 @@ class HomeLandingHomeController extends ModuleController
 			$web_cat = '';
 
 		$tpl->put_all(array(
+			// location of the menu in the page
 			'ONEPAGE_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ONEPAGE_MENU),
+
+			// Presence of modules on the page
 			'C_DISPLAYED_EDITO' => $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
 			'C_DISPLAYED_CAROUSEL' => $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
 			'C_DISPLAYED_LASTCOMS' => $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
 			'C_DISPLAYED_ARTICLES' => $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && ArticlesAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_ARTICLES_CAT' => $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && ArticlesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->read(),
-			'ARTICLES_CAT' => $category = $articles_cat,
 			'C_DISPLAYED_CONTACT' => $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_EVENTS' => $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CalendarAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_DOWNLOAD' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && DownloadAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_DOWNLOAD_CAT' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && DownloadAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->read(),
-			'DOWNLOAD_CAT' => $category = $download_cat,
 			'C_DISPLAYED_FORUM' => $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed() && ForumAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_GALLERY' => $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && GalleryAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_GUESTBOOK' => $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed() && GuestbookAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_MEDIA' => $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && MediaAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_NEWS' => $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && NewsAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_NEWS_CAT' => $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && NewsAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category())->read(),
-			'NEWS_CAT' => $category = $news_cat,
 			'C_DISPLAYED_WEB' => $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && WebAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_WEB_CAT' => $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && WebAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read(),
+
+			// Names of categories
+			'ARTICLES_CAT' => $category = $articles_cat,
+			'DOWNLOAD_CAT' => $category = $download_cat,
+			'NEWS_CAT' => $category = $news_cat,
 			'WEB_CAT' => $category = $web_cat,
+
+			// Position of the tabs in the menu
+			'OPM_EDITO_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_EDITO),
+			'OPM_LASTCOMS_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_LASTCOMS),
+			'OPM_ARTICLES_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
+			'OPM_ARTICLES_CAT_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
+			'OPM_CONTACT_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CONTACT),
+			'OPM_EVENTS_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CALENDAR),
+			'OPM_DOWNLOAD_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD),
+			'OPM_DOWNLOAD_CAT_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY),
+			'OPM_FORUM_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_FORUM),
+			'OPM_GALLERY_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_GALLERY),
+			'OPM_GUESTBOOK_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_GUESTBOOK),
+			'OPM_MEDIA_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_MEDIA),
+			'OPM_NEWS_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS),
+			'OPM_NEWS_CAT_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
+			'OPM_WEB_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB),
+			'OPM_WEB_CAT_POS' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB_CATEGORY),
 		));
 
 		$this->view->put('ONEPAGE_MENU', $tpl);

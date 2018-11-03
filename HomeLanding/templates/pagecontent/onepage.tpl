@@ -6,82 +6,82 @@
             </li>
         # ENDIF # -->
         # IF C_DISPLAYED_EDITO #
-            <li>
+            <li style="order: {OPM_EDITO_POS}; -webkit-order: {OPM_EDITO_POS}; -ms-flex-order: {OPM_EDITO_POS}">
                 <a href="#edito" class="cssmenu-title">${Langloader::get_message('onepage.edito', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_LASTCOMS #
-            <li>
+            <li style="order: {OPM_LASTCOMS_POS}; -webkit-order: {OPM_LASTCOMS_POS}; -ms-flex-order: {OPM_LASTCOMS_POS}">
                 <a href="#lastcoms" class="cssmenu-title">${Langloader::get_message('onepage.lastcoms', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_ARTICLES #
-            <li>
+            <li style="order: {OPM_ARTICLES_POS}; -webkit-order: {OPM_ARTICLES_POS}; -ms-flex-order: {OPM_ARTICLES_POS}">
                 <a href="#articles" class="cssmenu-title">${Langloader::get_message('onepage.articles', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_ARTICLES_CAT #
-            <li>
+            <li style="order: {OPM_ARTICLES_CAT_POS}; -webkit-order: {OPM_ARTICLES_CAT_POS}; -ms-flex-order: {OPM_ARTICLES_CAT_POS}">
                 <a href="#articles-cat" class="cssmenu-title">{ARTICLES_CAT}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_CONTACT #
-            <li>
+            <li style="order: {OPM_CONTACT_POS}; -webkit-order: {OPM_CONTACT_POS}; -ms-flex-order: {OPM_CONTACT_POS}">
                 <a href="#contact" class="cssmenu-title">${Langloader::get_message('onepage.contact', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_EVENTS #
-            <li>
+            <li style="order: {OPM_EVENTS_POS}; -webkit-order: {OPM_EVENTS_POS}; -ms-flex-order: {OPM_EVENTS_POS}">
                 <a href="#events" class="cssmenu-title">${Langloader::get_message('onepage.events', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_DOWNLOAD #
-            <li>
+            <li style="order: {OPM_DOWNLOAD_POS}; -webkit-order: {OPM_DOWNLOAD_POS}; -ms-flex-order: {OPM_DOWNLOAD_POS}">
                 <a href="#download" class="cssmenu-title">${Langloader::get_message('onepage.download', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_DOWNLOAD_CAT #
-            <li>
+            <li style="order: {OPM_DOWNLOAD_CAT_POS}; -webkit-order: {OPM_DOWNLOAD_CAT_POS}; -ms-flex-order: {OPM_DOWNLOAD_CAT_POS}">
                 <a href="#download-cat" class="cssmenu-title">{DOWNLOAD_CAT}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_FORUM #
-            <li>
+            <li style="order: {OPM_FORUM_POS}; -webkit-order: {OPM_FORUM_POS}; -ms-flex-order: {OPM_FORUM_POS}">
                 <a href="#forum" class="cssmenu-title">${Langloader::get_message('onepage.forum', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_GALLERY #
-            <li>
+            <li style="order: {OPM_GALLERY_POS}; -webkit-order: {OPM_GALLERY_POS}; -ms-flex-order: {OPM_GALLERY_POS}">
                 <a href="#gallery" class="cssmenu-title">${Langloader::get_message('onepage.gallery', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_GUESTBOOK #
-            <li>
+            <li style="order: {OPM_GUESTBOOK_POS}; -webkit-order: {OPM_GUESTBOOK_POS}; -ms-flex-order: {OPM_GUESTBOOK_POS}">
                 <a href="#guestbook" class="cssmenu-title">${Langloader::get_message('onepage.guestbook', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_MEDIA #
-            <li>
+            <li style="order: {OPM_MEDIA_POS}; -webkit-order: {OPM_MEDIA_POS}; -ms-flex-order: {OPM_MEDIA_POS}">
                 <a href="#media" class="cssmenu-title">${Langloader::get_message('onepage.media', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_NEWS #
-            <li>
+            <li style="order: {OPM_NEWS_POS}; -webkit-order: {OPM_NEWS_POS}; -ms-flex-order: {OPM_NEWS_POS}">
                 <a href="#news" class="cssmenu-title">${Langloader::get_message('onepage.news', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_NEWS_CAT #
-            <li>
+            <li style="order: {OPM_NEWS_CAT_POS}; -webkit-order: {OPM_NEWS_CAT_POS}; -ms-flex-order: {OPM_NEWS_CAT_POS}">
                 <a href="#news-cat" class="cssmenu-title">{NEWS_CAT}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_WEB #
-            <li>
+            <li style="order: {OPM_WEB_POS}; -webkit-order: {OPM_WEB_POS}; -ms-flex-order: {OPM_WEB_POS}">
                 <a href="#web" class="cssmenu-title">${Langloader::get_message('onepage.web', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_WEB_CAT #
-            <li>
+            <li style="order: {OPM_WEB_CAT_POS}; -webkit-order: {OPM_WEB_CAT_POS}; -ms-flex-order: {OPM_WEB_CAT_POS}">
                 <a href="#web-cat" class="cssmenu-title">{WEB_CAT}</a>
             </li>
         # ENDIF #

@@ -47,6 +47,20 @@
     }
 }
 
+/** --- OnePage Menu
+----------------------------------------------------------------------------- */
+#cssmenu-onepage ul {
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+}
+
+#cssmenu-onepage.small-screen ul {
+	flex-direction: column;
+	-ms-flex-direction: column;
+	-webkit-flex-direction: column;
+}
+
 /** --- Edito
 ----------------------------------------------------------------------------- */
 
