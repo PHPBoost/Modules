@@ -116,9 +116,8 @@ class AdminTeamspeakConfigController extends AdminModuleController
 		$auth_settings = new AuthorizationsSettings(array(
 			new ActionAuthorization($this->lang['admin.authorizations.read'], TeamspeakAuthorizationsService::READ_AUTHORIZATIONS),
 		));
-		$auth_setter = new FormFieldAuthorizationsSetter('authorizations', $auth_settings);
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
-		$fieldset_authorizations->add_field($auth_setter);
+		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
 		
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);

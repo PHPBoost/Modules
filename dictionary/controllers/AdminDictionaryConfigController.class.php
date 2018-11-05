@@ -98,9 +98,9 @@ class AdminDictionaryConfigController extends AdminModuleController
 
 		$auth_settings = new AuthorizationsSettings(array(
 			new ActionAuthorization($common_lang['authorizations.read'], DictionaryAuthorizationsService::READ_AUTHORIZATIONS),
-			new ActionAuthorization($common_lang['authorizations.write'], DictionaryAuthorizationsService::WRITE_AUTHORIZATIONS),
-			new ActionAuthorization($common_lang['authorizations.contribution'], DictionaryAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
-			new ActionAuthorization($common_lang['authorizations.moderation'], DictionaryAuthorizationsService::MODERATION_AUTHORIZATIONS)
+			new VisitorDisabledActionAuthorization($common_lang['authorizations.write'], DictionaryAuthorizationsService::WRITE_AUTHORIZATIONS),
+			new VisitorDisabledActionAuthorization($common_lang['authorizations.contribution'], DictionaryAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
+			new MemberDisabledActionAuthorization($common_lang['authorizations.moderation'], DictionaryAuthorizationsService::MODERATION_AUTHORIZATIONS)
 		));
 		$auth_setter = new FormFieldAuthorizationsSetter('authorizations', $auth_settings);
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
