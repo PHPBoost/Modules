@@ -169,7 +169,7 @@ class FormFieldSelectCurrencies extends FormFieldSimpleSelectChoice
 		const TMT = 'm';
 		const TND = 'د.ت';
 		const TOP = 'T$';
-		const TRY = '₤';
+		const TRI = '₤';
 		const TTD = '$';
 		const TWD = 'NT$';
 		const TZS = 'Sh';
@@ -339,7 +339,7 @@ class FormFieldSelectCurrencies extends FormFieldSimpleSelectChoice
 			$options[] = new FormFieldSelectChoiceOption($lang['TMT'], self::TMT);
 			$options[] = new FormFieldSelectChoiceOption($lang['TND'], self::TND);
 			$options[] = new FormFieldSelectChoiceOption($lang['TOP'], self::TOP);
-            $options[] = new FormFieldSelectChoiceOption($lang['TRY'], self::TRY);
+            $options[] = new FormFieldSelectChoiceOption($lang['TRI'], self::TRI);
 			$options[] = new FormFieldSelectChoiceOption($lang['TZS'], self::TZS);
             $options[] = new FormFieldSelectChoiceOption($lang['TTD'], self::TTD);
             $options[] = new FormFieldSelectChoiceOption($lang['TWD'], self::TWD);
