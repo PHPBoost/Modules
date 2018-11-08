@@ -53,6 +53,9 @@
 	display: flex;
 	display: -ms-flexbox;
 	display: -webkit-flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 #cssmenu-onepage.small-screen ul {
