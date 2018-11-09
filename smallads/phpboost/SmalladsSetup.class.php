@@ -300,6 +300,10 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function delete_files()
 	{
+		$file = new File(PATH_TO_ROOT . '/smallads/fields/SmalladsFormFieldSelectSources.class.php');
+		$file->delete();
+		$file = new File(PATH_TO_ROOT . '/smallads/templates/fields/SmalladsFormFieldSelectSources.tpl');
+		$file->delete();
 		$file = new File(PATH_TO_ROOT . '/smallads/controllers/AdminSmalladsConfigController.class.php');
 		$file->delete();
 		$file = new File(PATH_TO_ROOT . '/smallads/controllers/SmalladsHomeController.class.php');

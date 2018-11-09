@@ -292,7 +292,7 @@ class SmalladsItemFormController extends ModuleController
 			array('description' => $this->common_lang['form.keywords.description'])
 		));
 
-		$other_fieldset->add_field(new SmalladsFormFieldSelectSources('sources', $this->common_lang['form.sources'], $this->get_smallad()->get_sources()));
+		$other_fieldset->add_field(new FormFieldSelectSources('sources', $this->common_lang['form.sources'], $this->get_smallad()->get_sources()));
 
 		$other_fieldset->add_field(new SmalladsFormFieldCarousel('carousel', $this->lang['smallads.form.carousel'], $this->get_smallad()->get_carousel()));
 
