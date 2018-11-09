@@ -709,6 +709,7 @@ class SmalladsItemFormController extends ModuleController
 		Feed::clear_cache('smallads');
 		SmalladsCache::invalidate();
 		SmalladsCategoriesCache::invalidate();
+		SmalladsKeywordsCache::invalidate();
 	}
 
 	private function contribution_actions(Smallad $smallad, $id_smallad)

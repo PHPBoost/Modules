@@ -55,6 +55,7 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 				Feed::clear_cache('smallads');
 				SmalladsCache::invalidate();
 				SmalladsCategoriesCache::invalidate();
+				SmalladsKeywordsCache::invalidate();
 
 				$config->set_deferred_operations($deferred_operations);
 				SmalladsConfig::save();
@@ -78,6 +79,7 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 			Feed::clear_cache('smallads');
 			SmalladsCache::invalidate();
 			SmalladsCategoriesCache::invalidate();
+			SmalladsKeywordsCache::invalidate();
 		}
 
 		// Delete item if "ad completed" is checked
@@ -88,6 +90,7 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 		Feed::clear_cache('smallads');
 		SmalladsCache::invalidate();
 		SmalladsCategoriesCache::invalidate();
+		SmalladsKeywordsCache::invalidate();
 
 	}
 }

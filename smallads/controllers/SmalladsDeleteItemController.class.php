@@ -59,6 +59,7 @@ class SmalladsDeleteItemController extends ModuleController
 		Feed::clear_cache('smallads');
 		SmalladsCache::invalidate();
 		SmalladsCategoriesCache::invalidate();
+		SmalladsKeywordsCache::invalidate();
 
 		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), SmalladsUrlBuilder::display_item($smallad->get_category()->get_id(), $smallad->get_category()->get_rewrited_name(), $smallad->get_id(), $smallad->get_rewrited_title())->rel()) ? $request->get_url_referrer() : SmalladsUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('smallads.message.success.delete', 'common', 'smallads'), array('title' => $smallad->get_title())));
 	}

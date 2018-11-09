@@ -109,7 +109,7 @@ class SmalladsService
 	{
 		if (self::$keywords_manager === null)
 		{
-			self::$keywords_manager = new KeywordsManager('smallads');
+			self::$keywords_manager = new KeywordsManager(SmalladsKeywordsCache::load());
 		}
 		return self::$keywords_manager;
 	}
