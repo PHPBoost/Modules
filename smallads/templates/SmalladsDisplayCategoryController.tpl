@@ -1,8 +1,9 @@
 <section id="smallads-module">
 	<header>
+		# IF C_CATEGORY ## IF IS_ADMIN #<span class="actions"><a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a></span># ENDIF ## ENDIF #
 		<h1>
 			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" title="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication"></i></a>
-			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit smaller"></i></a># ENDIF ## ENDIF #
+			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # 
 		</h1>
 	</header>
 
@@ -28,7 +29,7 @@
 					<!-- Categories -->
 					# IF C_CATEGORY #
 						<div class="category-select block">
-							<h6><p>{@smallads.category.select} :</p></h6>
+							<span>{@smallads.category.select} :</span>
 							<div class="category-selected">{CATEGORY_NAME} <i class="fa fa-fw fa-caret-down"></i></div>
 							<nav id="category-nav" class="cssmenu cssmenu-static bg-container">
 								<ul>
@@ -48,7 +49,7 @@
 
 					<!-- Types filter -->
 					<div class="jplist-type-filter block">
-						<h6><p>{@smallads.form.smallads.types} :</p></h6>
+						<span>{@smallads.form.smallads.types} :</span>
 						<div class="type-filter-radio">
 							<div class="selected-label">
 								<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down"></i>
@@ -85,7 +86,7 @@
 
 					<!-- sort dropdown -->
 					<div class="sort-list block">
-						<h6><p>{@smallads.sort.by} :</p></h6>
+						<span>{@smallads.sort.by} :</span>
 						<div
 							class="jplist-drop-down"
 							data-control-type="sort-drop-down"
@@ -206,19 +207,16 @@
 					<article id="smallads-items-{items.ID}" class="list-item smallads-items several-items# IF items.C_COMPLETED# completed-smallad# ENDIF ## IF C_MOSAIC # block# ENDIF ## IF C_LIST # block-list# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 						# IF items.C_COMPLETED # <div class="completed-item"><span>{@smallads.completed.item}</span></div># ENDIF #
 						<header>
-							<h2>
-								<p class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</p>
-								<a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
-								<span class="actions">
-									# IF items.C_EDIT #
-										<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
-									# ENDIF #
-									# IF items.C_DELETE #
-										<a href="{items.U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
-									# ENDIF #
-								</span>
-							</h2>
-
+							<span class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</span>
+							<h2><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>
+							<span class="actions">
+								# IF items.C_EDIT #
+								<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+								# ENDIF #
+								# IF items.C_DELETE #
+								<a href="{items.U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
+								# ENDIF #
+							</span>	
 							<div class="more">
 								# IF items.C_DISPLAYED_AUTHOR #
 									<span class="jp-author">
