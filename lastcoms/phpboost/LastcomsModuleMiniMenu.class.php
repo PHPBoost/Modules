@@ -63,12 +63,10 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 
 		$now = new Date();
 		$lastcoms_config = LastcomsConfig::load();
-		$coms_number = $lastcoms_config->get_lastcoms_number();
 		$coms_char = $lastcoms_config->get_lastcoms_char();
-		$level = array(0 => '', 1 => ' class="modo"', 2 => ' class="admin"');
-
+		
 		$querier = PersistenceContext::get_querier();
-		$results = $querier->select("SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, ct.module_id, ct.is_locked, m.level
+		$results = $querier->select("SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, ct.module_id, ct.is_locked, m.level, m.groups
 			FROM " . DB_TABLE_COMMENTS . " AS c
 			LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " AS ct ON ct.id_topic = c.id_topic
 			LEFT JOIN " . DB_TABLE_MEMBER . " AS m ON c.user_id = m.user_id
@@ -77,34 +75,35 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			ORDER BY c.timestamp DESC
 			LIMIT :lastcoms_number",
 			array(
-				'lastcoms_number' => (int)$coms_number,
+				'lastcoms_number' => (int)$lastcoms_config->get_lastcoms_number(),
 				'forbidden_module' => 'user'
 			)
 		);
-
+		
+		$comments_number = 0;
 		while($row = $results->fetch())
 		{
-			$nb_coms = count($row['id']);
+			$comments_number++;
 			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
 			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
-
-			$tpl->put_all(array(
-				'C_COMS' => $nb_coms > 0
-			));
-
+			$user_group_color = User::get_group_color($row['groups'], $row['level'], true);
+			
 			$tpl->assign_block_vars('coms', array(
-				'LOGIN' => $row['pseudo'],
-				'PROFIL' => $row['user_id'] > 0 ? UserUrlBuilder::profile($row['user_id'])->absolute() : 0,
-				'LEVEL' => (string)($row['level'] > 0 ? ' class="' . UserService::get_level_class($row['level']) . '"' : ''),
+				'C_USER_GROUP_COLOR' => !empty($user_group_color),
+				'C_AUTHOR_EXIST' => $row['user_id'] !== User::VISITOR_LEVEL,
+				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
+				'USER_GROUP_COLOR' => $user_group_color,
+				'PSEUDO' => $row['pseudo'],
 				'ETC' => TextHelper::strlen($contents) > $coms_char ? '...' : '',
 				'COM_CONTENT' => $content_limited,
 				'DATE' => strftime(date("d-m-y / H:i", $row['timestamp'])),
-				'PATH' => PATH_TO_ROOT . $row['path'] . '#com' . $row['id']
+				'PATH' => PATH_TO_ROOT . $row['path'] . '#com' . $row['id'],
+				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel()
 			));
 		}
 
-
 		$tpl->put_all(array(
+			'C_COMS' => $comments_number > 0,
 			'L_LAST_COMS' => $lang['lastcoms.title'],
 		));
 
