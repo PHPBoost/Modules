@@ -86,7 +86,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			$comments_number++;
 			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
 			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
-			$user_group_color = User::get_group_color($row['groups'], $row['level'], true);
+			$user_group_color = User::get_group_color($row['groups'], $row['level']);
 			
 			$tpl->assign_block_vars('coms', array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
