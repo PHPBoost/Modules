@@ -168,6 +168,13 @@ $lang['admin.form.carousel.hover.disabled'] = 'Désactivée';
 $lang['admin.form.carousel.mini'] = 'Affichage des miniatures';
 $lang['admin.form.carousel.mini.dots'] = 'Points';
 $lang['admin.form.carousel.mini.imgs'] = 'Images';
+//Admin - Carousel content
+$lang['admin.form.description'] = 'Description du slide';
+$lang['admin.form.link.url'] = 'Adresse du lien';
+$lang['admin.form.picture.url'] = 'Adresse de l\'image';
+$lang['admin.form.upload'] = 'Ouvrir le gestionnaire de fichiers';
+$lang['admin.form.add'] = 'Ajouter une image';
+$lang['admin.form.del'] = 'Supprimer le slide';
 
 //Admin - One page Menu
 $lang['admin.onepage'] = 'Affichage du menu onepage';

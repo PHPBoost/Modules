@@ -43,7 +43,7 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 		$template = $this->get_template_to_use();
 
 		$tpl = new FileTemplate('HomeLanding/HomeLandingFormFieldSliderConfig.tpl');
-		$tpl->add_lang(LangLoader::get('common'));
+		$tpl->add_lang(LangLoader::get('common', 'HomeLanding'));
 
 		$tpl->put_all(array(
 			'NAME' => $this->get_html_id(),

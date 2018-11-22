@@ -163,28 +163,33 @@
 /* --- Last partners links
 ----------------------------------------------------------------------------- */
 
-#web ul {
+#web ul,
+#web-cat ul {
     display: table;
     margin: auto;
 }
 
-#web li {
+#web li,
+#web-cat li {
     display: inline-block;
     vertical-align: middle;
     margin: 0.309em auto;
 }
 
-#web img {
+#web img,
+#web-cat img {
     width: 100%;
 }
 
 @media (min-width:769px){
-    #web img {
+    #web img,
+    #web-cat img {
         max-width: 150px;
     }
 }
 
-#web .content a {
+#web .content a,
+#web-cat .content a {
     display: block;
 }
 
