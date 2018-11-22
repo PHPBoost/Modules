@@ -1,6 +1,6 @@
 <nav id="admin-quick-menu">
 	<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;" title="{L_DICTIONARY_MANAGEMENT}">
-		<i class="fa fa-bars"></i> {L_DICTIONARY_MANAGEMENT}
+		<i class="fa fa-bars" aria-hidden="true"></i> {L_DICTIONARY_MANAGEMENT}
 	</a>
 	<ul>
 		<li>
@@ -34,11 +34,11 @@
 		</thead>
 		<tbody>
 			# START dictionary_list #
-			<tr> 
-				<td> 
+			<tr>
+				<td>
 					<a href="../dictionary/dictionary.php?l={dictionary_list.NAME}">{dictionary_list.NAME}</a>
 				</td>
-				<td> 
+				<td>
 					<a href="../dictionary/admin_dictionary_cats.php?add=1&id={dictionary_list.IDCAT}">
 						{dictionary_list.IMG} {dictionary_list.CAT}
 					</a>
@@ -49,7 +49,7 @@
 				<td>
 					{dictionary_list.APROBATION}
 				</td>
-				<td> 
+				<td>
 					<a href="../dictionary/dictionary.php?edit={dictionary_list.ID}" title="{L_UPDATE}" class="fa fa-edit"></a>
 				</td>
 				<td>

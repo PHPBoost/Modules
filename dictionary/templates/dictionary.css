@@ -1,4 +1,4 @@
-.dictionary_word { 
+.dictionary_word {
 	clear:both;
 	padding:10px 15px;
 	padding-bottom:10px;
@@ -31,7 +31,12 @@
 }
 
 .dictionary_letter2{
-color:#FFF;
-font-weight:bold;
-font-size:14px;
+	color:#FFF;
+	font-weight:bold;
+	font-size:14px;
+	padding: 0 5px;
+}
+
+.dictionary_letter2 a {
+	border: 1px solid #ffffff;
 }
