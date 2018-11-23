@@ -27,7 +27,7 @@ Servers.prototype = {
 				jQuery("#move-up-" + sequence[i].id).hide();
 			else
 				jQuery("#move-up-" + sequence[i].id).show();
-			
+
 			if (jQuery('#list-' + sequence[i].id).is(':last-child'))
 				jQuery("#move-down-" + sequence[i].id).hide();
 			else
@@ -39,7 +39,7 @@ Servers.prototype = {
 var Server = function(id, servers){
 	this.id = id;
 	this.Servers = servers;
-	
+
 	# IF C_MORE_THAN_ONE_SERVER #
 	this.Servers.change_reposition_pictures();
 	# ENDIF #
@@ -105,12 +105,12 @@ jQuery(document).ready(function() {
 						<span class="text-strong">{servers.NAME}</span>
 						<div class="sortable-actions">
 							# IF C_MORE_THAN_ONE_SERVER #
-							<a href="" title="{@admin.config.servers.move_up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up"></i></a>
-							<a href="" title="{@admin.config.servers.move_down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down"></i></a>
+							<a href="" aria-label="{@admin.config.servers.move_up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up" aria-hidden="true" title="{@admin.config.servers.move_up}"></i></a>
+							<a href="" aria-label="{@admin.config.servers.move_down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down" aria-hidden="true" title="{@admin.config.servers.move_down}"></i></a>
 							# ENDIF #
-							<a href="{servers.U_EDIT}" title="{@admin.config.servers.action.edit_server}"><i class="fa fa-edit"></i></a>
-							<a href="" onclick="return false;" title="{@admin.config.servers.delete_server}" id="delete-{servers.ID}"><i class="fa fa-delete"></i></a>
-							<a href="" onclick="return false;" id="change-display-{servers.ID}"><i # IF servers.C_DISPLAY #class="fa fa-eye" title="{@server.display}"# ELSE #class="fa fa-eye-slash" title="{@server.not_display}"# ENDIF #></i></a>
+							<a href="{servers.U_EDIT}" aria-label="{@admin.config.servers.action.edit_server}"><i class="fa fa-edit" aria-hidden="true" title="{@admin.config.servers.action.edit_server}"></i></a>
+							<a href="" onclick="return false;" aria-label="{@admin.config.servers.delete_server}" id="delete-{servers.ID}"><i class="fa fa-delete" aria-hidden="true" title="{@admin.config.servers.delete_server}"></i></a>
+							<a href="" onclick="return false;" id="change-display-{servers.ID}"# IF servers.C_DISPLAY # aria-label="{@server.display}"# ELSE # aria-label="{@server.not_display}"# ENDIF #><i aria-hidden="true" ></i></a>
 						</div>
 					</div>
 					<div class="spacer"></div>
@@ -118,21 +118,21 @@ jQuery(document).ready(function() {
 					<!--
 					jQuery(document).ready(function() {
 						var server = new Server({servers.ID}, Servers);
-						
+
 						jQuery("#delete-{servers.ID}").on('click',function(){
 							server.delete();
 						});
 						jQuery("#change-display-{servers.ID}").on('click',function(){
 							server.change_display();
 						});
-						
+
 						# IF C_MORE_THAN_ONE_SERVER #
 						jQuery("#move-up-{servers.ID}").on('click',function(){
 							var li = jQuery(this).closest('li');
 							li.insertBefore( li.prev() );
 							Servers.change_reposition_pictures();
 						});
-						
+
 						jQuery("#move-down-{servers.ID}").on('click',function(){
 							var li = jQuery(this).closest('li');
 							li.insertAfter( li.next() );
