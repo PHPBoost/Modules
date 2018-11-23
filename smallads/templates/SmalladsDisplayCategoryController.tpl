@@ -1,9 +1,9 @@
 <section id="smallads-module">
 	<header>
-		# IF C_CATEGORY ## IF IS_ADMIN #<span class="actions"><a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a></span># ENDIF ## ENDIF #
+		# IF C_CATEGORY ## IF IS_ADMIN #<span class="actions"><a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a></span># ENDIF ## ENDIF #
 		<h1>
-			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" title="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication"></i></a>
-			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # 
+			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication" aria-hidden="true" title="${LangLoader::get_message('syndication', 'common')}"></i></a>
+			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF #
 		</h1>
 	</header>
 
@@ -30,7 +30,7 @@
 					# IF C_CATEGORY #
 						<div class="category-select block">
 							<span>{@smallads.category.select} :</span>
-							<div class="category-selected">{CATEGORY_NAME} <i class="fa fa-fw fa-caret-down"></i></div>
+							<div class="category-selected">{CATEGORY_NAME} <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i></div>
 							<nav id="category-nav" class="cssmenu cssmenu-static bg-container">
 								<ul>
 									<li cat_id="0" parent_id="0" c_order="0">
@@ -52,7 +52,7 @@
 						<span>{@smallads.form.smallads.types} :</span>
 						<div class="type-filter-radio">
 							<div class="selected-label">
-								<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down"></i>
+								<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i>
 							</div>
 							<div class="label-list bg-container">
 								<label class="jplist-label" for="default-radio">
@@ -187,11 +187,11 @@
 							<td>
 								# IF NOT items.C_COMPLETED #
 									# IF items.C_EDIT #
-										<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+										<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
 									# ENDIF #
 								# ENDIF #
 									# IF items.C_DELETE #
-										<a href="{items.U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
+										<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
 									# ENDIF #
 							</td>
 						# ENDIF #
@@ -211,12 +211,12 @@
 							<h2><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>
 							<span class="actions">
 								# IF items.C_EDIT #
-								<a href="{items.U_EDIT_ITEM}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+								<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
 								# ENDIF #
 								# IF items.C_DELETE #
-								<a href="{items.U_DELETE_ITEM}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
+								<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
 								# ENDIF #
-							</span>	
+							</span>
 							<div class="more">
 								# IF items.C_DISPLAYED_AUTHOR #
 									<span class="jp-author">
@@ -251,7 +251,7 @@
 										# ENDIF #
 									</span>
 								# ENDIF #
-								# IF C_MEMBER # | <i class="fa fa-fw fa-eye"></i> {items.VIEWS_NUMBER} # ENDIF #
+								# IF C_MEMBER # | <i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER} # ENDIF #
 								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
 								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
 								<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
@@ -263,11 +263,11 @@
 							<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
 
 						</header>
-						
-						<a href="{items.U_ITEM}" title="{items.TITLE} class="thumbnail-item">
+
+						<a href="{items.U_ITEM}" title="{items.TITLE}" class="thumbnail-item">
 							<img itemprop="thumbnailUrl" src="# IF items.C_HAS_THUMBNAIL #{items.THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #" alt="{items.TITLE}" />
 						</a>
-						
+
 						<div class="content">
 							<div itemprop="text">{items.DESCRIPTION}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
 						</div>
@@ -315,7 +315,7 @@
 		</div>
 
 	<div class="spacer"></div>
-	<footer># IF C_USAGE_TERMS # <i class="fa fa-book"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
+	<footer># IF C_USAGE_TERMS # <i class="fa fa-book" aria-hidden="true"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
 </section>
 
 <!-- jpList -->
@@ -374,7 +374,7 @@
 		jQuery('li:not([cat_id=0])').has('ul').addClass('has-sub');
 
 			// change root name
-		jQuery('.category-selected:contains("${LangLoader::get_message('root', 'main')}")').html('{@smallads.category.all} <i class="fa fa-fw fa-caret-down"></i>');
+		jQuery('.category-selected:contains("${LangLoader::get_message('root', 'main')}")').html('{@smallads.category.all} <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i>');
 
 			// toggle sub-menu (close on click outside)
 		jQuery('.category-selected').click(function(e){

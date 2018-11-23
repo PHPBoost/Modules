@@ -186,4 +186,8 @@ $lang['mini.there.is'] = 'There is';
 $lang['mini.there.are'] = 'There are';
 $lang['mini.one.smallad'] = 'ad on the website';
 $lang['mini.several.smallads'] = 'ads on the website';
+
+// Accessibility
+$lang['open.modal'] = 'Opening in a new window';
+$lang['close.modal'] = 'Close window';
 ?>

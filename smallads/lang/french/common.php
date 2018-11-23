@@ -186,4 +186,8 @@ $lang['mini.there.is'] = 'Il y a';
 $lang['mini.there.are'] = 'Il y a';
 $lang['mini.one.smallad'] = 'annonce sur le site';
 $lang['mini.several.smallads'] = 'annonces sur le site';
+
+// Accessibility
+$lang['open.modal'] = 'Ouverture dans une nouvelle fenêtre';
+$lang['close.modal'] = 'Fermeture de la fenêtre';
 ?>
