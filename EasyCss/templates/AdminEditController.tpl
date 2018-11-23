@@ -1,32 +1,32 @@
 		<nav id="admin-quick-menu">
                     <a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;" title="{@module_title}">
-                        <i class="fa fa-bars"></i> {@module_title}
+                        <i class="fa fa-bars" aria-hidden="true"></i> {@module_title}
                     </a>
                     <ul>
                         <li>
                             <a href="${relative_url(EasyCssUrlBuilder::theme_choice())}" class="quick-link">{@theme_choice}</a>
                         </li>
-                    </ul>	
+                    </ul>
 		</nav>
-		
+
                 # INCLUDE MSG #
-                        
+
 		<div id="admin-contents">
                     <fieldset>
                         <legend>{FIELDSET_LEGEND}</legend>
-                        # START errors #  
+                        # START errors #
                         <div class="error">
-                            # INCLUDE errors.SUBTEMPLATE # 
+                            # INCLUDE errors.SUBTEMPLATE #
                         </div>
                         # END #
-                        
+
                         <div class="fieldset-inset">
                             <p class="fieldset-description">{@edit_description}</p>
 
 
                             <form id="AdminEasyCssEditController" method="post" class="fieldset-content">
-                                # START elements #  
-                                    # INCLUDE elements.SUBTEMPLATE # 
+                                # START elements #
+                                    # INCLUDE elements.SUBTEMPLATE #
                                 # END #
 
 
@@ -45,4 +45,3 @@
                         </div>
                     </fieldset>
                 </div>
-                    
