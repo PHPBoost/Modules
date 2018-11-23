@@ -4,6 +4,9 @@
 	</a>
 	<ul>
 		<li>
+			<a href="index.php" class="quick-link">${LangLoader::get_message('home', 'main')}</a>
+		</li>
+		<li>
 			<a href="admin_dictionary_cats.php" class="quick-link">{L_DICTIONARY_CATS}</a>
 		</li>
 		<li>
@@ -50,10 +53,10 @@
 					{dictionary_list.APROBATION}
 				</td>
 				<td>
-					<a href="../dictionary/dictionary.php?edit={dictionary_list.ID}" title="{L_UPDATE}" class="fa fa-edit"></a>
+					<a href="../dictionary/dictionary.php?edit={dictionary_list.ID}" aria-label="{L_UPDATE}"><i class="fa fa-edit" aria-hidden="true" title="{L_UPDATE}"></i></a>
 				</td>
 				<td>
-					<a href="../dictionary/dictionary.php?del={dictionary_list.ID}&token={TOKEN}" title="${LangLoader::get_message('delete', 'common')}" class="fa fa-delete" data-confirmation="delete-element"></a>
+					<a href="../dictionary/dictionary.php?del={dictionary_list.ID}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
 				</td>
 			</tr>
 			# END dictionary_list #

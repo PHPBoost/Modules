@@ -2,18 +2,18 @@
 /*##################################################
  *                              dictionary_french.php
  *                            -------------------
- *   begin                : March  3, 2009 
+ *   begin                : March  3, 2009
  *   copyright            : (C) 2009 Nicolas Maurel
  *   email                :  crunchfamily@free.fr
  *
- *  
+ *
  ###################################################
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -43,7 +43,8 @@ $LANG['require_text_word'] = 'Vous devez remplir le champs mots';
 $LANG['delete_dictionary_conf'] = 'Êtes vous sur de vouloir supprimer cette définition ?';
 $LANG['alert_del'] = 'Êtes-vous sur de vouloir supprimer cette catégorie ?';
 $LANG['gestion_cat'] = 'Gestion des catégories';
-$LANG['all'] = 'TOUS';
+$LANG['all.definitions'] = 'TOUTES';
+$LANG['switch.def'] = 'Cliquez sur le mot pour afficher ou cacher la définition';
 $LANG['all_cat'] = 'TOUTES';
 $LANG['create_dictionary'] = 'Ajout';
 $LANG['dictionary_contents'] = 'Définition';

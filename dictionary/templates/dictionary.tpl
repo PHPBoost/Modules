@@ -2,10 +2,10 @@
 <!--
 	function affCache(id)
 	{
-		if (jQuery('\#' + id).is(':hidden')) {
-			jQuery('\#' + id).show();
+		if (jQuery('#' + id).is(':hidden')) {
+			jQuery('#' + id).show();
 		} else {
-			jQuery('\#' + id).hide();
+			jQuery('#' + id).hide();
 		}
 	}
 
@@ -121,7 +121,7 @@
 		if(j==i)
 			{
 				document.getElementById('category').value="ALL";
-				jQuery('\#category').show();
+				jQuery('#category').show();
 				# START dictionary #
 					jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').show();
 				# END dictionary #
@@ -141,7 +141,7 @@
 			jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').show();
 			document.getElementById("category_list").value=document.getElementById("category_list").value+"-"+{dictionary.CAT};
 		}
-		else if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('\#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
+		else if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
 		{
 			jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').hide();
 			tab_cat_list=document.getElementById("category_list").value.split('-');
@@ -161,7 +161,7 @@
 			document.getElementById("category_list").value=list_cat;
 		}
 		j=j+1;
-		if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('\#ALL').is(':hidden'))
+		if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden'))
 		{
 			i=i+1;
 		}
@@ -191,7 +191,7 @@
 			else if(cat!="ALL")
 			{
 				affCache(document.getElementById('category').value=cat);
-				jQuery('\#ALL').hide();
+				jQuery('#ALL').hide();
 			}
 		# END cat #
 
@@ -234,69 +234,55 @@
 	# INCLUDE MSG #
 
 	# IF NOT C_EDIT #
-		<div style="text-align:center" class="dictionary_letter">
-			<div style="padding-bottom:5px;border-bottom:1px solid #C4CED6;position:relative;z-index:1;">
-				<span class="dictionary_letter2">
-					# START letter #
-						<a class="dictionary_letter2" href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
-					# END letter #
-					<a class="dictionary_letter2" href="javascript:redirection_letter('tous');">{L_ALL}</a>
-				</span>
-				<br />
+		<div class="dictionary-letter-selector center">
+			<div class="dictionary-letter">
+				<a href="javascript:redirection_letter('tous');">{L_ALL_DEFINITIONS}</a>
+				# START letter #
+					<a href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
+				# END letter #
 			</div>
-			<div style="text-align:left;margin-top:-10px;">
-				<br>
-				<span style="color:#FFFFFF;"><b>{L_CATEGORY} : </b></span>
+			<div class="filter-selector">
+				<span><b>{L_CATEGORY} : </b></span>
 				# START cat #
-					<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{cat.ID}" style="text-decoration:none;color:#FFFFFF;">{cat.NAME}&nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png" alt="{cat.ID}" /> </a></span>
+					<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{cat.ID}">{cat.NAME}</a> / </span>
 				# END cat #
-				<span id="ALL" style=""><a href="javascript:affCacheCat('ALL');" alt="{L_ALL_CAT}" style="text-decoration:none;color:#FFFFFF;">{L_ALL_CAT} &nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png"/ alt="{L_ALL_CAT}"> </a></span>
-				<select id ="category" name='category' style="width:150px;border:1px #cccccc solid;-moz-border-radius:5px;-khtml-border-radius:12px;-webkit-border-radius:5px;border-radius:5px;">
-					<option value='ALL'>{L_ALL_CAT}
-						# START cat_list #
+				<span id="ALL"><a href="javascript:affCacheCat('ALL');" alt="{L_ALL_CAT}">{L_ALL_CAT} &nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png"/ alt="{L_ALL_CAT}"> </a></span>
+				<select id ="category" name="category">
+					<option value="ALL">{L_ALL_CAT}
+					# START cat_list #
 						<option value='{cat_list.ID}'>{cat_list.NAME}
-						# END cat_list #
-					</select>
-				<a href="javascript:affCacheCat(' ');" style="text-decoration:none;vertical-align:bottom;color:#FFFFFF;" aria-label="Filter">&nbsp;<i class="fa fa-forward" aria-hidden="true" title="Filter"></i></a>
+					# END cat_list #
+				</select>
+				<a href="javascript:affCacheCat(' ');" aria-label="Filter"><i class="fa fa-forward" aria-hidden="true" title="Filter"></i></a>
 			</div>
 		</div>
-		<br />
 		<noscript>
-		<div style="text-align:center;color:red;"><b>{L_NO_SCRIPT}</b></div>
-		<br>
+			<div class="no-script"><b>{L_NO_SCRIPT}</b></div>
 		</noscript>
 		# START dictionary #
-			<div class="dictionary_word" style="" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
-				<div>
-					<div style="float:left;" >
-					<a href="javascript:affCacheCat('{dictionary.CAT}');"  style="text-decoration:none;">{dictionary.CAT_IMG}</a>&nbsp;&nbsp;<a href="javascript:affCache('{dictionary.ID}');"  style="text-decoration:none;">{dictionary.PROPER_NAME}</a>
-					</div>
-					<div style="float:right">
+			<article class="dictionary-word" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
+				<header>
+					<span class="actions">
 						# IF dictionary.EDIT_CODE #
-							<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" class="fa fa-edit"></a>
+							<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
 						# ENDIF #
 						# IF dictionary.DEL_CODE #
-							<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" class="fa fa-delete" data-confirmation="delete-element"></a>
+							<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
 						# ENDIF #
-					</div>
-					<br />
-				</div>
-				# IF NOT dictionary.C_AFF #
-				<div id="{dictionary.ID}" style="display:none;" class="dictionary_definition">
+					</span>
+					<h6 title="{SWITCH_DEF}">
+						<a href="javascript:affCacheCat('{dictionary.CAT}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
+					</h6>
+				</header>
+				<div id="{dictionary.ID}" style="# IF dictionary.C_AFF #display:block;# ELSE #display:none;# ENDIF #" class="conten dictionary-definition">
 					{dictionary.DESC}
 				</div>
-				# ENDIF #
-				# IF dictionary.C_AFF #
-				<div id="{dictionary.ID}" style="display:block;" class="dictionary_definition">
-					{dictionary.DESC}
-				</div>
-				# ENDIF #
 				<noscript>
-					<div id="{dictionary.ID}"  class="dictionary_definition">
+					<div id="{dictionary.ID}"  class="dictionary-definition">
 						{dictionary.DESC}
 					</div>
 				</noscript>
-			</div>
+			</article>
 		# END dictionary #
 		 <script>
 		<!--
@@ -310,18 +296,17 @@
 		# IF C_ARTICLES_PREVIEW #
 			<span class="text-strong">{L_PREVISUALIATION}</span>
 			<div class="spacer">&nbsp;</div>
-			<div class="dictionary_word">
+			<div class="dictionary-word">
 				<div>
-					<div style="float:left;">
-						<a href="" style="text-decoration:none;"><i class="fa fa-folder" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href="" style="text-decoration:none;">{WORD}</a>
-					</div>
-					<div style="float:right;">
+					<span class="actions">
 						<a href="" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
 						<a href="" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
-					</div>
-					<br />
+					</span>
+					<h6>
+						<a href=""><i class="fa fa-folder" aria-hidden="true"></i></a> <a href="">{WORD}</a>
+					</h6>
 				</div>
-				<div class="dictionary_definition">
+				<div class="dictionary-definition">
 					{CONTENTS_PRW}
 				</div>
 			</div>

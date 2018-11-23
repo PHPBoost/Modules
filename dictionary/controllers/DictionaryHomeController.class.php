@@ -28,41 +28,41 @@
 class DictionaryHomeController extends ModuleController
 {
 	private $view;
-	
+
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->build_view();
-		
+
 		return $this->generate_response();
 	}
-	
+
 	private function build_view()
 	{
 		global $LANG;
-		
+
 		load_module_lang('dictionary'); //Chargement de la langue du module.
-		
+
 		$current_user = AppContext::get_current_user();
 		$config = DictionaryConfig::load();
-		
+
 		if (DictionaryAuthorizationsService::check_authorizations()->read())
 		{
 			$this->view = new FileTemplate('dictionary/dictionary.tpl');
-			
+
 			$letter = retrieve(GET, 'l', 'tous', TSTRING);
-			
+
 			$nbr_words = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE word LIKE '" . $letter . "%'");
-			
+
 			$page = AppContext::get_request()->get_getint('p', 1);
 			$pagination = new ModulePagination($page, $nbr_words, $config->get_items_number_per_page());
 			$pagination->set_url(new Url('/dictionary/dictionary.php?l=' . $letter . '&amp;p=%d'));
-			
+
 			if ($pagination->current_page_is_empty() && $page > 1)
 			{
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
 			}
-			
+
 			$aff = false;
 			$quotes_approved = 1;
 			if ($letter == "tous")
@@ -112,10 +112,10 @@ class DictionaryHomeController extends ModuleController
 			}
 
 			while ($row = $result1->fetch())
-			{ 
+			{
 				$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" title="' . $row['images'] . '" />';
 				$name = Texthelper::ucfirst(TextHelper::strtolower(str_replace("'", "", stripslashes($row['word']))));
-				
+
 				$this->view->assign_block_vars('dictionary', array(
 					'NAME' => $name,
 					'ID' => Url::encode_rewrite($name),
@@ -131,40 +131,40 @@ class DictionaryHomeController extends ModuleController
 				));
 			}
 			$result1->dispose();
-			
+
 			$letters = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-			foreach ($letters as $key => $value) 
+			foreach ($letters as $key => $value)
 			{
 				$this->view->assign_block_vars('letter', array(
 					'LETTER' => TextHelper::strtoupper($value),
 				));
 			}
-			
+
 			$result_cat = PersistenceContext::get_querier()->select("SELECT id, name
 			FROM ".PREFIX."dictionary_cat
 			ORDER BY id");
-			
+
 			while ($row_cat = $result_cat->fetch())
-			{ 
+			{
 				$this->view->assign_block_vars('cat', array(
 					'ID' => $row_cat['id'],
 					'NAME' => TextHelper::strtoupper($row_cat['name']),
 				));
 			}
 			$result_cat->dispose();
-			
+
 			$result_cat = PersistenceContext::get_querier()->select("SELECT id, name
 			FROM ".PREFIX."dictionary_cat
 			ORDER BY id");
 			while ($row_cat = $result_cat->fetch())
-			{ 
+			{
 				$this->view->assign_block_vars('cat_list', array(
 					'ID' => $row_cat['id'],
 					'NAME' => TextHelper::strtoupper($row_cat['name']),
 				));
 			}
 			$result_cat->dispose();
-			
+
 			$this->view->put_all(array(
 				'C_EDIT' => false,
 				'TITLE' => $LANG['dictionary'],
@@ -172,12 +172,13 @@ class DictionaryHomeController extends ModuleController
 				'C_AJOUT' => DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution(),
 				'L_DELETE_DICTIONARY' => $LANG['delete_dictionary'],
 				'L_ADD_DICTIONARY'    => $LANG['create_dictionary'],
-				'L_ALL' => $LANG['all'],
+				'L_ALL_DEFINITIONS' => $LANG['all.definitions'],
 				'L_ALL_CAT' => $LANG['all_cat'],
 				'L_CATEGORY' => $LANG['category'],
 				'L_NB_DEF' => $LANG['nb_def'],
 				'L_DEF_REP' => $LANG['def_set'],
 				'L_CAT_S' => $LANG['cat_s'],
+				'SWITCH_DEF' => $LANG['switch.def'],
 				'REWRITE'=> (int)ServerEnvironmentConfig::load()->is_url_rewriting_enabled(),
 				'C_PAGINATION' => $pagination->has_several_pages(),
 				'PAGINATION' => $pagination->display()
@@ -191,23 +192,23 @@ class DictionaryHomeController extends ModuleController
 			DispatchManager::redirect($error_controller);
 		}
 	}
-	
+
 	private function generate_response()
 	{
 		global $LANG;
 		load_module_lang('dictionary');
-		
+
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($LANG['dictionary']);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(DictionaryUrlBuilder::home());
-		
+
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($LANG['dictionary'], DictionaryUrlBuilder::home());
-		
+
 		return $response;
 	}
-	
+
 	public static function get_view()
 	{
 		$object = new self();

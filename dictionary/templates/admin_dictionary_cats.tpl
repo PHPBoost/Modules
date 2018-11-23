@@ -86,6 +86,9 @@
 	</a>
 	<ul>
 		<li>
+			<a href="index.php" class="quick-link">${LangLoader::get_message('home', 'main')}</a>
+		</li>
+		<li>
 			<a href="admin_dictionary_cats.php" class="quick-link">{L_DICTIONARY_CATS}</a>
 		</li>
 		<li>
@@ -121,7 +124,7 @@
 			<fieldset>
 				<legend>{add.L_IMAGE}</legend>
 				<div class="fieldset-inset">
-					<div class="form-element">
+					<div class="form-element top-field">
 						<label>{add.L_IMAGE_A}</label>
 						<div class="form-field">
 							<label>{add.IMAGES}</label>
@@ -179,15 +182,15 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td style="padding-left: 20px;">
+						<td>
 							# START cat #
-								<div style="margin-bottom:5px;height:20px;">
+								<div class="admin-cat-list">
 									<span class="float-left">
 										{cat.IMAGES}&nbsp;{cat.NAME}
 									</span>
 									<span class="float-right">
-										<a href="admin_dictionary_cats.php?add=1&id={cat.ID_CAT}" class="fa fa-edit"></a>&nbsp;
-										<a href="admin_dictionary_cats.php?del=1&id={cat.ID_CAT}&token={TOKEN}" title="{ALERT_DEL}" class="fa fa-delete" data-confirmation="delete-element"></a>
+										<a href="admin_dictionary_cats.php?add=1&id={cat.ID_CAT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>&nbsp;
+										<a href="admin_dictionary_cats.php?del=1&id={cat.ID_CAT}&token={TOKEN}" aria-label="{ALERT_DEL}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="{ALERT_DEL}"></i></a>
 									</span>
 								</div>
 							# END cat #
@@ -222,9 +225,9 @@
 					<label for="action2"></label>
 				</div>
 				<span class="form-field-radio-span">{L_MOVE} :</span>
-				<select id="categorie_move" name='categorie_move' style="width:150px;">
+				<select id="categorie_move" name="categorie_move">
 					# START cat_list #
-					<option value='{cat_list.ID}'>{cat_list.NAME}
+					<option value="{cat_list.ID}">{cat_list.NAME}
 					# END cat_list #
 				</select>
 			</fieldset>
