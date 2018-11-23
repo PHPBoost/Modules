@@ -123,7 +123,8 @@
 				document.getElementById('category').value="ALL";
 				jQuery('#category').show();
 				# START dictionary #
-					jQuery('#{dictionary.CAT}_cat_{dictionary.ID}').show();
+					id = '{dictionary.CAT}_cat_{dictionary.ID}';
+					jQuery('#' + id).show();
 				# END dictionary #
 				return;
 			}
@@ -136,14 +137,17 @@
 		clearTimeout()
 
 		# START dictionary #
+		cat = '{dictionary.CAT}';
 		if ('{dictionary.CAT}' !='ALL' )
 		{
-			jQuery('#{dictionary.CAT}_cat_{dictionary.ID}').show();
+			id = '{dictionary.CAT}_cat_{dictionary.ID}';
+			jQuery('#' + id).show();
 			document.getElementById("category_list").value=document.getElementById("category_list").value+"-"+{dictionary.CAT};
 		}
-		else if(jQuery('#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
+		else if(jQuery('#' + cat).is(':hidden') && jQuery('#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
 		{
-			jQuery('#{dictionary.CAT}_cat_{dictionary.ID}').hide();
+			id = '{dictionary.CAT}_cat_{dictionary.ID}';
+			jQuery('#' + id).hide();
 			tab_cat_list=document.getElementById("category_list").value.split('-');
 			tab_cat_list=Doublons(tab_cat_list);
 			list_cat="";
@@ -161,7 +165,7 @@
 			document.getElementById("category_list").value=list_cat;
 		}
 		j=j+1;
-		if(jQuery('#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden'))
+		if(jQuery('#' + cat).is(':hidden') && jQuery('#ALL').is(':hidden'))
 		{
 			i=i+1;
 		}
@@ -184,13 +188,12 @@
 
 			if (cat=="ALL" && document.getElementById('ALL').style.display == "none")
 			{
-				affCache(document.getElementById('category').value=cat);
-				if(jQuery('#{cat.ID}').is(':visible'))
-					jQuery('#{cat.ID}').hide();
+				cat_id = '{cat.ID}';
+				if(jQuery('#' + cat_id).is(':visible'))
+					jQuery('#' + cat_id).hide();
 			}
 			else if(cat!="ALL")
 			{
-				affCache(document.getElementById('category').value=cat);
 				jQuery('#ALL').hide();
 			}
 		# END cat #
