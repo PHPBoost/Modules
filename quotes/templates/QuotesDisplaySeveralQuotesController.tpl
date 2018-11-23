@@ -1,7 +1,7 @@
 <section id="module-quotes">
 	<header>
 		<h1>
-			# IF C_PENDING #{@quotes.pending}# ELSE #{@module_title}# ENDIF # # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit smaller"></i></a># ENDIF ## ENDIF ## IF C_AUTHOR_NAME # - {AUTHOR_NAME}# ENDIF #
+			# IF C_PENDING #{@quotes.pending}# ELSE #{@module_title}# ENDIF # # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit smaller" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF ## ENDIF ## IF C_AUTHOR_NAME # - {AUTHOR_NAME}# ENDIF #
 		</h1>
 		# IF C_CATEGORY_DESCRIPTION #
 			<div class="cat-description">
@@ -9,7 +9,7 @@
 			</div>
 		# ENDIF #
 	</header>
-	
+
 	# IF C_SUB_CATEGORIES #
 	<div class="subcat-container">
 		# START sub_categories_list #
@@ -27,7 +27,7 @@
 	</div>
 	# IF C_SUBCATEGORIES_PAGINATION #<span class="center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
 	# ENDIF #
-	
+
 	<div class="content">
 	# IF C_RESULTS #
 		# START quotes #
@@ -37,16 +37,16 @@
 					<h2>
 						<span class="actions">
 							# IF quotes.C_EDIT #
-								<a href="{quotes.U_EDIT}" title="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"></i></a>
+								<a href="{quotes.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
 							# ENDIF #
 							# IF quotes.C_DELETE #
-								<a href="{quotes.U_DELETE}" title="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete"></i></a>
+								<a href="{quotes.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
 							# ENDIF #
 						</span>
 					</h2>
 				</header>
 				# ENDIF #
-				
+
 				<div class="content">
 					<p itemprop="text">{quotes.QUOTE}</p>
 					<div class="spacer"></div>
