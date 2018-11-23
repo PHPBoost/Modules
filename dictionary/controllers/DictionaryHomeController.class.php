@@ -49,7 +49,7 @@ class DictionaryHomeController extends ModuleController
 		{
 			$this->view = new FileTemplate('dictionary/dictionary.tpl');
 
-			$letter = retrieve(GET, 'l', 'tous', TSTRING);
+			$letter = retrieve(GET, 'l', '', TSTRING);
 
 			$nbr_words = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE word LIKE '" . $letter . "%'");
 
@@ -65,7 +65,7 @@ class DictionaryHomeController extends ModuleController
 
 			$aff = false;
 			$quotes_approved = 1;
-			if ($letter == "tous")
+			if (empty($letter))
 			{
 				$result1 = PersistenceContext::get_querier()->select("SELECT l.id, l.description, l.word,l.cat,c.images,l.approved
 				FROM ".PREFIX."dictionary AS l
@@ -79,7 +79,7 @@ class DictionaryHomeController extends ModuleController
 				$nb_word = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE (approved = 1)");
 
 			}
-			elseif ($letter != "tous" && TextHelper::strlen($letter) > 1)
+			elseif (!empty($letter) && TextHelper::strlen($letter) > 1)
 			{
 				$result1 = PersistenceContext::get_querier()->select("SELECT l.id, l.description, l.word,l.cat,c.images
 				FROM ".PREFIX."dictionary AS l

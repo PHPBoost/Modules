@@ -241,14 +241,21 @@
 		document.getElementById("category_list").value=Doublons(tab_cat_list1);
 		str_cat=document.getElementById("category_list").value;
 		letter=letter.toLowerCase();
-
-		if({REWRITE})
+		
+		if (letter == '')
 		{
-			location.href="{PATH_TO_ROOT}/dictionary/dictionary-"+letter+"-"+str_cat.substring(1)+".php";
+			location.href="{PATH_TO_ROOT}/dictionary/dictionary.php";
 		}
 		else
 		{
-			location.href="{PATH_TO_ROOT}/dictionary/dictionary.php?l="+letter+"&cat="+str_cat.substring(1);
+			if({REWRITE})
+			{
+				location.href="{PATH_TO_ROOT}/dictionary/dictionary-"+letter+"-"+str_cat.substring(1)+".php";
+			}
+			else
+			{
+				location.href="{PATH_TO_ROOT}/dictionary/dictionary.php?l="+letter+"&cat="+str_cat.substring(1);
+			}
 		}
 	}
  -->
@@ -264,7 +271,7 @@
 	# IF NOT C_EDIT #
 		<div class="dictionary-letter-selector center">
 			<div class="dictionary-letter">
-				<a href="javascript:redirection_letter('tous');">{L_ALL_DEFINITIONS}</a>
+				<a href="javascript:redirection_letter('');">{L_ALL_DEFINITIONS}</a>
 				# START letter #
 					<a href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
 				# END letter #
