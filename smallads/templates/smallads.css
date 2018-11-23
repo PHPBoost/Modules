@@ -217,6 +217,7 @@ a[data-lightbox] {
 ---------------------------------------------------------------------------- */
 .jplist-panel .block {
 	position: relative;
+	padding: 0 0.309em;
 }
 
 .bg-container {
