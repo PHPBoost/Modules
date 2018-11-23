@@ -194,7 +194,7 @@
 				if(jQuery('#' + cat_id).is(':visible'))
 					jQuery('#' + cat_id).hide();
 			}
-			else if(category!="ALL")
+			else if(category!="ALL" && category!="")
 			{
 				affCache(category);
 				jQuery('#ALL').hide();
@@ -299,7 +299,7 @@
 						# ENDIF #
 					</span>
 					<h6 title="{SWITCH_DEF}">
-						<a href="javascript:affCacheCat('{dictionary.CAT}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
+						<a href="javascript:affCache('{dictionary.ID}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
 					</h6>
 				</header>
 				<div id="{dictionary.ID}" style="# IF dictionary.C_AFF #display:block;# ELSE #display:none;# ENDIF #" class="conten dictionary-definition">
