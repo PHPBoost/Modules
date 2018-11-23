@@ -178,27 +178,52 @@
 	{
 		if(pr5==" ")
 		{
-			var cat = document.getElementById('category').value;
+			var category = document.getElementById('category').value;
 		}
 		else
 		{
-			var cat = pr5;
+			var category = pr5;
 		}
+		
 		# START cat #
 
-			if (cat=="ALL" && document.getElementById('ALL').style.display == "none")
+			if (category=="ALL" && document.getElementById('ALL').style.display == "none")
 			{
+				affCache(category);
 				cat_id = '{cat.ID}';
 				if(jQuery('#' + cat_id).is(':visible'))
 					jQuery('#' + cat_id).hide();
 			}
-			else if(cat!="ALL")
+			else if(category!="ALL")
 			{
+				affCache(category);
 				jQuery('#ALL').hide();
 			}
 		# END cat #
-
-		setTimeout ('AffCachWord();', 400);
+		
+		if (category!="ALL")
+		{
+			jQuery("article").hide();
+			number_cats_displayed=0;
+			# START cat #
+				cat_id = '{cat.ID}';
+				if(jQuery('#' + cat_id).is(':visible')) {
+					jQuery("article[id^=" + cat_id + "]").show();
+					number_cats_displayed++;
+				}
+			# END cat #
+			if(number_cats_displayed==0) {
+				jQuery("article").show();
+				jQuery('#ALL').show();
+			}
+			else
+				jQuery('#ALL').hide();
+		}
+		else
+		{
+			jQuery("article").show();
+			jQuery('#ALL').show();
+		}
 	}
 
 	function AffCacheCatLancement(TabCat)
@@ -249,7 +274,7 @@
 				# START cat #
 					<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{cat.ID}">{cat.NAME}</a> / </span>
 				# END cat #
-				<span id="ALL"><a href="javascript:affCacheCat('ALL');" alt="{L_ALL_CAT}">{L_ALL_CAT} &nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png" alt="{L_ALL_CAT}" /> </a></span>
+				<span id="ALL"><a href="javascript:affCacheCat('ALL');" title="{L_ALL_CAT}">{L_ALL_CAT}</a></span>
 				<select id ="category" name="category">
 					<option value="ALL">{L_ALL_CAT}
 					# START cat_list #
