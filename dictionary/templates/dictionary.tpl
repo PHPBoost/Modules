@@ -123,7 +123,7 @@
 				document.getElementById('category').value="ALL";
 				jQuery('#category').show();
 				# START dictionary #
-					jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').show();
+					jQuery('#{dictionary.CAT}'+'_cat_'+'{dictionary.ID}').show();
 				# END dictionary #
 				return;
 			}
@@ -138,12 +138,12 @@
 		# START dictionary #
 		if ('{dictionary.CAT}' !='ALL' )
 		{
-			jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').show();
+			jQuery('#{dictionary.CAT}'+'_cat_'+'{dictionary.ID}').show();
 			document.getElementById("category_list").value=document.getElementById("category_list").value+"-"+{dictionary.CAT};
 		}
-		else if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
+		else if(jQuery('#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
 		{
-			jQuery('\#{dictionary.CAT}'+'_cat_'+'{dictionary.NAME}').hide();
+			jQuery('#{dictionary.CAT}'+'_cat_'+'{dictionary.ID}').hide();
 			tab_cat_list=document.getElementById("category_list").value.split('-');
 			tab_cat_list=Doublons(tab_cat_list);
 			list_cat="";
@@ -161,7 +161,7 @@
 			document.getElementById("category_list").value=list_cat;
 		}
 		j=j+1;
-		if(jQuery('\#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden'))
+		if(jQuery('#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden'))
 		{
 			i=i+1;
 		}
@@ -185,8 +185,8 @@
 			if (cat=="ALL" && document.getElementById('ALL').style.display == "none")
 			{
 				affCache(document.getElementById('category').value=cat);
-				if(jQuery('\#{cat.ID}').is(':visible'))
-					jQuery('\#{cat.ID}').hide();
+				if(jQuery('#{cat.ID}').is(':visible'))
+					jQuery('#{cat.ID}').hide();
 			}
 			else if(cat!="ALL")
 			{
@@ -246,7 +246,7 @@
 				# START cat #
 					<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{cat.ID}">{cat.NAME}</a> / </span>
 				# END cat #
-				<span id="ALL"><a href="javascript:affCacheCat('ALL');" alt="{L_ALL_CAT}">{L_ALL_CAT} &nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png"/ alt="{L_ALL_CAT}"> </a></span>
+				<span id="ALL"><a href="javascript:affCacheCat('ALL');" alt="{L_ALL_CAT}">{L_ALL_CAT} &nbsp;<img src="{PATH_TO_ROOT}/dictionary/templates/images/plus.png" alt="{L_ALL_CAT}" /> </a></span>
 				<select id ="category" name="category">
 					<option value="ALL">{L_ALL_CAT}
 					# START cat_list #
