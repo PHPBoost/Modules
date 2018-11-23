@@ -29,7 +29,7 @@
 		  if (SRRi == -1) return SRs;
 		  SRRr += SRs.substring(0,SRRi) + SRu;
 		  if ( SRRi + SRt.length < SRs.length)
-		    SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
+			SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
 		  return SRRr;
 	}
 
@@ -69,13 +69,13 @@
 		var q=0;
 		var LnChaine= TabInit.length;
 		 for(x=0;x<LnChaine;x++)
-		    {
-		    for(i=0;i<LnChaine;i++)
-		        {
-		        if(TabInit[x]==  TabInit[i] && x!=i) TabInit[i]='faux';
-		        }
-		    if(TabInit[x]!='faux'){  NvTab[q] = TabInit[x]; q++}
-		    }
+			{
+			for(i=0;i<LnChaine;i++)
+				{
+				if(TabInit[x]==  TabInit[i] && x!=i) TabInit[i]='faux';
+				}
+			if(TabInit[x]!='faux'){  NvTab[q] = TabInit[x]; q++}
+			}
 		return NvTab;
 	}
 
@@ -123,7 +123,7 @@
 				document.getElementById('category').value="ALL";
 				jQuery('#category').show();
 				# START dictionary #
-					jQuery('#{dictionary.CAT}'+'_cat_'+'{dictionary.ID}').show();
+					jQuery('#{dictionary.CAT}_cat_{dictionary.ID}').show();
 				# END dictionary #
 				return;
 			}
@@ -138,12 +138,12 @@
 		# START dictionary #
 		if ('{dictionary.CAT}' !='ALL' )
 		{
-			jQuery('#{dictionary.CAT}'+'_cat_'+'{dictionary.ID}').show();
+			jQuery('#{dictionary.CAT}_cat_{dictionary.ID}').show();
 			document.getElementById("category_list").value=document.getElementById("category_list").value+"-"+{dictionary.CAT};
 		}
 		else if(jQuery('#{dictionary.CAT}').is(':hidden') && jQuery('#ALL').is(':hidden') && '{dictionary.CAT}' != 'ALL')
 		{
-			jQuery('#{dictionary.CAT}'+'_cat_'+'{dictionary.ID}').hide();
+			jQuery('#{dictionary.CAT}_cat_{dictionary.ID}').hide();
 			tab_cat_list=document.getElementById("category_list").value.split('-');
 			tab_cat_list=Doublons(tab_cat_list);
 			list_cat="";
