@@ -32,3 +32,22 @@
 	text-align: center;
 	color: #FF0000;
 }
+
+.cat-selector {
+	padding: 0.309em 0;
+}
+
+.dictionary-selected-cat {
+	border: 1px solid #366493;
+	padding: 0.309em 1.618em 0.309em 0.309em;
+	font-size: 0.809em;
+	position: relative;
+}
+
+.dictionary-selected-cat:after {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0.309em;
+	content:'X'
+}

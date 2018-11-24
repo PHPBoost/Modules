@@ -42,9 +42,9 @@ class AdminDictionaryDisplayResponse extends AdminMenuDisplayResponse
 		$this->set_title($lang['module_title']);
 		
 		$this->add_link($LANG['admin.categories.manage'], new Url('/dictionary/admin_dictionary_cats.php'));
-		$this->add_link($LANG['dictionary_cats_add'], new Url('/dictionary/admin_dictionary_cats.php?add=1'));
+		$this->add_link($LANG['dictionary.cats.add'], new Url('/dictionary/admin_dictionary_cats.php?add=1'));
 		$this->add_link($LANG['admin.words.manage'], new Url('/dictionary/admin_dictionary_list.php'));
-		$this->add_link($LANG['create_dictionary'], new Url('/dictionary/dictionary.php?add=1'));
+		$this->add_link($LANG['create.dictionary'], new Url('/dictionary/dictionary.php?add=1'));
 		$this->add_link(LangLoader::get_message('configuration', 'admin-common'), DictionaryUrlBuilder::configuration());
 		
 		$env = $this->get_graphical_environment();

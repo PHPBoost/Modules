@@ -66,15 +66,15 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 	$counterpart_editor->set_identifier('counterpart');
 
 	$Template->put_all(array(
-		'L_ALERT_TEXT_DESC' => $LANG['require_text_desc'],
-		'L_ALERT_TEXT_MOTS' => $LANG['require_text_word'],
-		'L_DELETE_DICTIONARY' => $LANG['delete_dictionary_conf'],
+		'L_ALERT_TEXT_DESC' => $LANG['require.text.desc'],
+		'L_ALERT_TEXT_MOTS' => $LANG['require.text.word'],
+		'L_DELETE_DICTIONARY' => $LANG['delete.dictionary.conf'],
 		'L_ALL_DEFINITIONS' => $LANG['all.definitions'],
-		'L_ADD_DICTIONARY' => $LANG['create_dictionary'],
-		'L_CONTENTS' => $LANG['dictionary_contents'],
-		'L_WORD' => $LANG['dictionary_word'],
+		'L_ADD_DICTIONARY' => $LANG['create.dictionary'],
+		'L_CONTENTS' => $LANG['dictionary.contents'],
+		'L_WORD' => $LANG['dictionary.word'],
 		'L_SUBMIT' => $LANG['submit'],
-		'L_PREVIS' => $LANG['previs'],
+		'L_PREVIEW' => $LANG['preview'],
 		'L_RESET' => $LANG['reset'],
 		'L_VALIDATION' => $LANG['validation'],
 		'L_CATEGORY' => $LANG['category'],
@@ -87,10 +87,10 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 
 	$Template->put_all(array(
 		'C_CONTRIBUTION' => $c_contrib,
-		'L_CONTRIBUTION' => $LANG['dictionary_contribution_legend'],
-		'L_CONTRIBUTION_NOTICE' => $LANG['dictionary_contribution_notice'],
-		'L_CONTRIBUTION_COUNTERPART' => $LANG['dictionary_contribution_counterpart'],
-		'L_CONTRIBUTION_COUNTERPART_EXPLAIN' => $LANG['dictionary_contribution_counterpart_explain'],
+		'L_CONTRIBUTION' => $LANG['dictionary.contribution.legend'],
+		'L_CONTRIBUTION_NOTICE' => $LANG['dictionary.contribution.notice'],
+		'L_CONTRIBUTION_COUNTERPART' => $LANG['dictionary.contribution.counterpart'],
+		'L_CONTRIBUTION_COUNTERPART_EXPLAIN' => $LANG['dictionary.contribution.counterpart.explain'],
 		'CONTRIBUTION_COUNTERPART_EDITOR' => $counterpart_editor->display(),
 		'REWRITE'=> (int)ServerEnvironmentConfig::load()->is_url_rewriting_enabled(),
 		'C_APPROVED' => TRUE
@@ -112,7 +112,6 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 			'C_ARTICLES_PREVIEW' => true,
 			'WORD' => stripslashes($word),
 			'ID' => $id,
-			'L_PREVISUALIATION' => $LANG['previsualisation'],
 			'CONTENTS_PRW' => FormatingHelper::second_parse(stripslashes(FormatingHelper::strparse($contents,$config->get_forbidden_tags()))),
 			'CONTENTS' => $contents_preview,
 			'NAME_CAT_SELECT'=>$cat_name,
@@ -189,7 +188,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 				$dictionary_contribution = new Contribution();
 				$dictionary_contribution->set_id_in_module($last_msg_id);
 				$dictionary_contribution->set_description(retrieve(POST, 'counterpart', '', TSTRING_PARSE));
-				$dictionary_contribution->set_entitled(sprintf($LANG['dictionary_contribution_entitled'], $last_msg_id));
+				$dictionary_contribution->set_entitled(sprintf($LANG['dictionary.contribution.entitled'], $last_msg_id));
 				$dictionary_contribution->set_fixing_url('/dictionary/dictionary.php?edit=' . $last_msg_id);
 				$dictionary_contribution->set_poster_id($user_id);
 				$dictionary_contribution->set_module('dictionary');

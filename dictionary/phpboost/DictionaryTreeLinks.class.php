@@ -39,19 +39,19 @@ class DictionaryTreeLinks implements ModuleTreeLinksExtensionPoint
 		
 		$manage_categories_link = new AdminModuleLink($LANG['admin.categories.manage'], new Url('/dictionary/admin_dictionary_cats.php'));
 		$manage_categories_link->add_sub_link(new AdminModuleLink($LANG['admin.categories.manage'], new Url('/dictionary/admin_dictionary_cats.php')));
-		$manage_categories_link->add_sub_link(new AdminModuleLink($LANG['dictionary_cats_add'], new Url('/dictionary/admin_dictionary_cats.php?add=1')));
+		$manage_categories_link->add_sub_link(new AdminModuleLink($LANG['dictionary.cats.add'], new Url('/dictionary/admin_dictionary_cats.php?add=1')));
 		$tree->add_link($manage_categories_link);
 		
 		$manage_dictionary_link = new AdminModuleLink($LANG['admin.words.manage'], new Url('/dictionary/admin_dictionary_list.php'));
 		$manage_dictionary_link->add_sub_link(new AdminModuleLink($LANG['admin.words.manage'], new Url('/dictionary/admin_dictionary_list.php')));
-		$manage_dictionary_link->add_sub_link(new AdminModuleLink($LANG['create_dictionary'], new Url('/dictionary/dictionary.php?add=1')));
+		$manage_dictionary_link->add_sub_link(new AdminModuleLink($LANG['create.dictionary'], new Url('/dictionary/dictionary.php?add=1')));
 		$tree->add_link($manage_dictionary_link);
 		
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), DictionaryUrlBuilder::configuration()));
 		
 		if (!AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
 		{
-			$tree->add_link(new ModuleLink($LANG['create_dictionary'], new Url('/dictionary/dictionary.php?add=1'), DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution()));
+			$tree->add_link(new ModuleLink($LANG['create.dictionary'], new Url('/dictionary/dictionary.php?add=1'), DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution()));
 		}
 		
 		return $tree;

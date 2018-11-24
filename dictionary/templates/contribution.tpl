@@ -3,10 +3,7 @@
 		<h1>{L_CONTRIBUTION_CONFIRMATION}</h1>
 	</header>
 	<div class="content">
-		<div class="message-helper success">
-			<i class="fa fa-success" aria-hidden="true"></i>
-			<div class="message-helper-content">{L_CONTRIBUTION_SUCCESS}</div>
-		</div>
+		<div class="message-helper success">{L_CONTRIBUTION_SUCCESS}</div>
 		{L_CONTRIBUTION_CONFIRMATION_EXPLAIN}
 	</div>
 	<footer></footer>

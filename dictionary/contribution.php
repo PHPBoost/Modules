@@ -36,16 +36,16 @@ if (!DictionaryAuthorizationsService::check_authorizations()->contribution())
 }
 
 $Bread_crumb->add("dictionary", url('dictionary.php'));
-$Bread_crumb->add($LANG['contribution_confirmation'], url('contribution.php'));
+$Bread_crumb->add($LANG['contribution.confirmation'], url('contribution.php'));
 
 require_once('../kernel/header.php');
 
 $template = new FileTemplate('dictionary/contribution.tpl');
 
 $template->put_all(array(
-	'L_CONTRIBUTION_CONFIRMATION' => $LANG['contribution_confirmation'],
-	'L_CONTRIBUTION_SUCCESS' => $LANG['contribution_success'],
-	'L_CONTRIBUTION_CONFIRMATION_EXPLAIN' => $LANG['contribution_confirmation_explain']
+	'L_CONTRIBUTION_CONFIRMATION' => $LANG['contribution.confirmation'],
+	'L_CONTRIBUTION_SUCCESS' => $LANG['contribution.success'],
+	'L_CONTRIBUTION_CONFIRMATION_EXPLAIN' => $LANG['contribution.confirmation.explain']
 ));
 
 $template->display();

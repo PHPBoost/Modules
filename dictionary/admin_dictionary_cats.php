@@ -52,14 +52,14 @@ if ($pagination->current_page_is_empty() && $page > 1)
 $Template->put_all(array(
 	'L_SUBMIT' => $LANG['submit'],
 	'L_RESET' => $LANG['reset'],
-	'L_DICTIONARY_MANAGEMENT' => $LANG['dictionary_management'],
-	'L_DICTIONARY_ADD' => $LANG['create_dictionary'],
-	'L_DICTIONARY_CATS' => $LANG['dictionary_cats'],
-	'L_DICTIONARY_CATS_ADD' => $LANG['dictionary_cats_add'],
-	'L_LIST_DEF' => $LANG['list_def'],
-	'ALERT_DEL' => $LANG['alert_del'],
-	'L_GESTION_CAT' => $LANG['gestion_cat'],
-	'L_VAL_INC' => $LANG['value_incorrect'],
+	'L_DICTIONARY_MANAGEMENT' => $LANG['dictionary.management'],
+	'L_DICTIONARY_ADD' => $LANG['create.dictionary'],
+	'L_DICTIONARY_CATS' => $LANG['dictionary.cats'],
+	'L_DICTIONARY_CATS_ADD' => $LANG['dictionary.cats.add'],
+	'L_LIST_DEF' => $LANG['list.def'],
+	'ALERT_DEL' => $LANG['alert.del'],
+	'L_GESTION_CAT' => $LANG['cat.manager'],
+	'L_VAL_INC' => $LANG['invalid.value'],
 	'C_PAGINATION' => $pagination->has_several_pages(),
 	'PAGINATION' => $pagination->display()
 ));
@@ -94,7 +94,7 @@ if (retrieve(GET,'add',false))
 	}
 	elseif (!empty($errstr))
 	{
-		$Template->put('MSG', MessageHelper::display($LANG['error_upload_img'], MessageHelper::NOTICE));
+		$Template->put('MSG', MessageHelper::display($LANG['error.upload.img'], MessageHelper::NOTICE));
 		$name = "";
 		$id = "";
 	}
@@ -114,21 +114,21 @@ if (retrieve(GET,'add',false))
 		'ID_CAT' => $id,
 		'NAME_CAT' => $name,
 		'IMAGES' => $img,
-		'L_NAME_CAT' => $LANG['name_cat'],
+		'L_NAME_CAT' => $LANG['name.cat'],
 		'L_SUBMIT' => $LANG['submit'],
 		'L_RESET' => $LANG['reset'],
 		'L_VALIDATION' => $LANG['validation'],
 		'L_CATEGORY' => $LANG['category'],
-		'L_IMAGE' => $LANG['image'],
-		'L_IMAGE_A' => $LANG['image_a'],
-		'L_IMAGE_UP' => $LANG['image_up'],
-		'L_WEIGHT_MAX' => $LANG['weight_max'],
-		'L_HEIGHT_MAX' => $LANG['height_max'],
-		'L_WIDTH_MAX' => $LANG['width_max'],
-		'L_IMAGE_UP_ONE' => $LANG['image_up_one'],
-		'L_IMAGE_SERV' => $LANG['image_server'],
-		'L_IMAGE_LINK' => $LANG['image_link'],
-		'L_IMAGE_ADR' => $LANG['image_adr'],
+		'L_IMAGE' => $LANG['picture'],
+		'L_IMAGE_A' => $LANG['current.picture'],
+		'L_IMAGE_UP' => $LANG['upload.picture'],
+		'L_WEIGHT_MAX' => $LANG['max.weight'],
+		'L_HEIGHT_MAX' => $LANG['max.height'],
+		'L_WIDTH_MAX' => $LANG['max.width'],
+		'L_IMAGE_UP_ONE' => $LANG['upload.one.picture'],
+		'L_IMAGE_SERV' => $LANG['self.hosted.picture'],
+		'L_IMAGE_LINK' => $LANG['picture.link'],
+		'L_IMAGE_ADR' => $LANG['picture.url'],
 	));
 	
 	$Template->display();
@@ -282,11 +282,11 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 		$Template->put_all(array(
 			'DEL_CAT_NOEMPTY' => true,
 			'ID_DEL' => $id_del,
-			'L_DEL_CAT' => $LANG['del_cat'],
-			'L_DEL_TEXT' => $LANG['del_text'], 
-			'L_DEL_CAT_DEF' => $LANG['del_cat_def'] ,
+			'L_DEL_CAT' => $LANG['del.cat'],
+			'L_DEL_TEXT' => $LANG['del.text'], 
+			'L_DEL_CAT_DEF' => $LANG['del.cat.def'] ,
 			'L_MOVE' => $LANG['move'],
-			'L_WARNING_DEL' => $LANG['warning_del'],
+			'L_WARNING_DEL' => $LANG['warning.del'],
 		));
 		
 		$result = PersistenceContext::get_querier()->select("SELECT id, name

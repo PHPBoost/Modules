@@ -1,5 +1,5 @@
 <script>
-<!--
+	<!--
 	function affCache(id)
 	{
 		if (jQuery('#' + id).is(':hidden')) {
@@ -184,7 +184,7 @@
 		{
 			var category = pr5;
 		}
-		
+
 		# START cat #
 
 			if (category=="ALL" && document.getElementById('ALL').style.display == "none")
@@ -200,7 +200,7 @@
 				jQuery('#ALL').hide();
 			}
 		# END cat #
-		
+
 		if (category!="ALL")
 		{
 			jQuery("article").hide();
@@ -241,7 +241,7 @@
 		document.getElementById("category_list").value=Doublons(tab_cat_list1);
 		str_cat=document.getElementById("category_list").value;
 		letter=letter.toLowerCase();
-		
+
 		if (letter == '')
 		{
 			location.href="{PATH_TO_ROOT}/dictionary/dictionary.php";
@@ -258,7 +258,7 @@
 			}
 		}
 	}
- -->
+ 	-->
 </script>
 
 <section id="module-dictionary">
@@ -278,17 +278,19 @@
 			</div>
 			<div class="filter-selector">
 				<span><b>{L_CATEGORY} : </b></span>
-				# START cat #
-					<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{cat.ID}">{cat.NAME}</a> / </span>
-				# END cat #
-				<span id="ALL"><a href="javascript:affCacheCat('ALL');" title="{L_ALL_CAT}">{L_ALL_CAT}</a></span>
 				<select id ="category" name="category">
 					<option value="ALL">{L_ALL_CAT}
 					# START cat_list #
 						<option value='{cat_list.ID}'>{cat_list.NAME}
 					# END cat_list #
 				</select>
-				<a href="javascript:affCacheCat(' ');" aria-label="Filter"><i class="fa fa-forward" aria-hidden="true" title="Filter"></i></a>
+				<a href="javascript:affCacheCat(' ');" aria-label="{L_CAT_FILTER}"><i class="fa fa-forward" aria-hidden="true" title="{L_CAT_FILTER}"></i></a>
+				<div class="cat-selector">
+					# START cat #
+						<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{L_DEL_CAT_FILTER}" class="dictionary-selected-cat">{cat.NAME}</a></span>
+					# END cat #
+					<span id="ALL"><a href="javascript:affCacheCat('ALL');" title="{L_ALL_CAT}">{L_ALL_CAT}</a></span>
+				</div>
 			</div>
 		</div>
 		<noscript>
@@ -309,7 +311,7 @@
 						<a href="javascript:affCache('{dictionary.ID}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
 					</h6>
 				</header>
-				<div id="{dictionary.ID}" style="# IF dictionary.C_AFF #display:block;# ELSE #display:none;# ENDIF #" class="conten dictionary-definition">
+				<div id="{dictionary.ID}" style="display:none;" class="content dictionary-definition">
 					{dictionary.DESC}
 				</div>
 				<noscript>
@@ -326,10 +328,9 @@
 		-->
 		</script>
 		<input type="hidden" value="" id="category_list"name="category_list" />
-	# ENDIF #
-	# IF C_EDIT #
+	# ELSE #
 		# IF C_ARTICLES_PREVIEW #
-			<span class="text-strong">{L_PREVISUALIATION}</span>
+			<span class="text-strong">{L_PREVISEW}</span>
 			<div class="spacer">&nbsp;</div>
 			<div class="dictionary-word">
 				<div>
@@ -353,17 +354,17 @@
 				<div class="form-element">
 					<label for="word">* {L_WORD}</label>
 					<div class="form-field">
-						<label><input type="text" maxlength="100" id="word" name="word" value="{WORD}" onchange="check_onchange(this);" /></label>
+						<label><input type="text" id="word" name="word" value="{WORD}" onchange="check_onchange(this);" /></label>
 					</div>
 				</div>
 				<div class="form-element">
 					<label for="category">{L_CATEGORY}</label>
 					<div class="form-field">
 						<label>
-							<select id ="category_add" name='category_add' style="width:150px;">
+							<select id ="category_add" name="category_add">
 								<option selected="selected" value="{ID_CAT_SELECT}">{NAME_CAT_SELECT}
 								# START cat_list_add #
-									<option value='{cat_list_add.VALUE}'>{cat_list_add.NAME}
+									<option value="{cat_list_add.VALUE}">{cat_list_add.NAME}
 								# END cat_list_add #
 							</select>
 						</label>
@@ -373,23 +374,20 @@
 					<label for="contents">* {L_CONTENTS}</label>
 					{KERNEL_EDITOR}
 					<div class="form-field-textarea">
-						<textarea type="text" rows="20" cols="50" id="contents" name="contents">{CONTENTS}</textarea>
+						<textarea type="text" rows="15" id="contents" name="contents">{CONTENTS}</textarea>
 					</div>
 				</div>
 			</fieldset>
 			# IF C_CONTRIBUTION #
 			<fieldset>
 				<legend>{L_CONTRIBUTION}</legend>
-				<div class="message-helper notice">
-					<i class="fa fa-notice" aria-hidden="true"></i>
-					<div class="message-helper-content">{L_CONTRIBUTION_NOTICE}</div>
-				</div>
+				<div class="message-helper notice">{L_CONTRIBUTION_NOTICE}</div>
 				<div class="form-element-textarea">
 					<label for="contribution_counterpart">{L_CONTRIBUTION_COUNTERPART}</label>
 					<span class="field-description">{L_CONTRIBUTION_COUNTERPART_EXPLAIN}</span>
 					{CONTRIBUTION_COUNTERPART_EDITOR}
 					<div class="form-field-textarea">
-						<textarea rows="20" cols="40" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
+						<textarea rows="15" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
 					</div>
 				</div>
 			</fieldset>
@@ -398,7 +396,7 @@
 				<legend>{L_VALIDATION}</legend>
 					<input type="hidden" value="{ID}" name="dictionary_id" />
 					<button type="submit" id="valid" name="valid" value="true">{L_SUBMIT}</button>
-					<button type="submit" name="previs" value="true">{L_PREVIS}</button>
+					<button type="submit" name="previs" value="true">{L_PREVIEW}</button>
 					<button type="reset" value="true">{L_RESET}</button>
 					<input type="hidden" name="token" value="{TOKEN}" />
 			</fieldset>

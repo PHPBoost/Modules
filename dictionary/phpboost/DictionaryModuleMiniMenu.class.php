@@ -42,7 +42,7 @@ class DictionaryModuleMiniMenu extends ModuleMiniMenu
 		global $LANG;
 		load_module_lang('dictionary');
 		
-		return $LANG['random_def'];
+		return $LANG['random.def'];
 	}
 	
 	public function is_displayed()
