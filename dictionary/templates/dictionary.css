@@ -18,9 +18,11 @@
 }
 
 .dictionary-letter a {
-	font-weight:bold;
+	font-weight: bold;
 	padding: 0 5px;
 	border: 1px solid #366493;
+	margin: 5px 0;
+	display: inline-block;
 }
 
 .filter-selector {
