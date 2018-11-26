@@ -97,7 +97,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 				'ETC' => TextHelper::strlen($contents) > $coms_char ? '...' : '',
 				'COM_CONTENT' => $content_limited,
 				'DATE' => strftime(date("d-m-y / H:i", $row['timestamp'])),
-				'PATH' => PATH_TO_ROOT . $row['path'] . '#com' . $row['id'],
+				'PATH' => Url::to_rel($row['path'] . '#com' . $row['id']),
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel()
 			));
 		}

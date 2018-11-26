@@ -62,7 +62,7 @@ class DictionaryModuleMiniMenu extends ModuleMiniMenu
 		$tpl->put_all(array(
 			'RANDOM_NAME' => stripslashes($random_def['word']),
 			'RANDOM_DEF' => (TextHelper::strlen($description) > 149) ? TextHelper::substr($description, 0, 150) . "..." : $description,
-			'URL'=> PATH_TO_ROOT . "/dictionary/".url('dictionary.php?l=' . $word . '&amp;cat=' . $random_def['cat'], 'dictionary-' . $word . '-' . $random_def['cat'] . '.php'),
+			'URL'=> Url::to_rel('/dictionary/' . url('dictionary.php?l=' . $word . '&amp;cat=' . $random_def['cat'], 'dictionary-' . $word . '-' . $random_def['cat'] . '.php'))
 		));
 		
 		return $tpl->render();
