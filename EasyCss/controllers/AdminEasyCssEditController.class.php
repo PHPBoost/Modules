@@ -139,6 +139,7 @@ class AdminEasyCssEditController extends ModuleController
     {
         // Templates des attributs
         $forms_tpl = self::$main_block->get_templates();
+        $tpls = [];
         foreach ($forms_tpl as $tpl)
         {
             $tpls[] = array('SUBTEMPLATE' => $tpl);

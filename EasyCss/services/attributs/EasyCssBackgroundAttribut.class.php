@@ -78,7 +78,7 @@ class EasyCssBackgroundAttribut extends EasyCssAbstractAttribut
             {
                 $tpls[] = $value_tpl;
             }
-            if (count($tpl) > 1)
+            if (count($templates) > 1)
                 $tpls[] = new StringTemplate("<br/>");
         }
 
