@@ -33,11 +33,11 @@
 							<div class="category-selected">{CATEGORY_NAME} <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i></div>
 							<nav id="category-nav" class="cssmenu cssmenu-static bg-container">
 								<ul>
-									<li cat_id="0" parent_id="0" c_order="0">
+									<li data-sa-cat-id="0" data-sa-parent-id="0" data-sa-c-order="0">
 										<a class="cssmenu-title" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
 									</li>
 									# START categories #
-										<li cat_id="{categories.ID}" parent_id="{categories.ID_PARENT}" c_order="{categories.SUB_ORDER}">
+										<li data-sa-cat-id="{categories.ID}" data-sa-parent-id="{categories.ID_PARENT}" data-sa-c-order="{categories.SUB_ORDER}">
 											<a class="cssmenu-title" href="{categories.U_CATEGORY}">{categories.NAME}</a>
 										</li>
 									# END categories #
@@ -357,14 +357,14 @@
 			// build order
 		jQuery('#category-nav').append(CreatChild(0)).find('ul:first').remove();
 		function CreatChild(id){
-		    var $li = jQuery('li[parent_id=' + id + ']').sort(function(a, b){
-				return jQuery(a).attr('c_order') - jQuery(b).attr('c_order');
+		    var $li = jQuery('li[data-sa-parent-id=' + id + ']').sort(function(a, b){
+				return jQuery(a).attr('data-sa-c-order') - jQuery(b).attr('data-sa-c-order');
 			});
 		    if($li.length > 0){
 		        for(var i = 0; i < $li.length; i++){
 		            var $this = $li.eq(i);
 					$this[0].remove();
-		            $this.append(CreatChild($this.attr('cat_id')));
+		            $this.append(CreatChild($this.attr('data-sa-cat-id')));
 		        }
 		        return jQuery('<ul>').append($li);
 		    }
