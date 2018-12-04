@@ -328,6 +328,15 @@
 		-->
 		</script>
 		<input type="hidden" value="" id="category_list"name="category_list" />
+		# IF NOT C_RESULTS #
+			<div class="center">
+			# IF C_LETTER #
+				{L_NO_WORD_LETTER}
+			# ELSE #
+				{L_NO_WORD}
+			# ENDIF #
+			</div>
+		# ENDIF #
 	# ELSE #
 		# IF C_ARTICLES_PREVIEW #
 			<span class="text-strong">{L_PREVISEW}</span>

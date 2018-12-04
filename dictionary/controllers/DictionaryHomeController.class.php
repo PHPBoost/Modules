@@ -167,6 +167,8 @@ class DictionaryHomeController extends ModuleController
 
 			$this->view->put_all(array(
 				'C_EDIT' => false,
+				'C_LETTER' => $letter,
+				'C_RESULTS' => $nbr_words,
 				'TITLE' => $LANG['dictionary'],
 				'L_NO_SCRIPT' => $LANG['no.script'],
 				'C_AJOUT' => DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution(),
@@ -181,6 +183,8 @@ class DictionaryHomeController extends ModuleController
 				'L_DEF_REP' => $LANG['def.set'],
 				'L_CAT_S' => $LANG['cat.s'],
 				'SWITCH_DEF' => $LANG['switch.def'],
+				'L_NO_WORD' => $LANG['message.no_word'],
+				'L_NO_WORD_LETTER' => StringVars::replace_vars($LANG['message.empty.result.letter'], array('letter' => TextHelper::strtoupper($letter))),
 				'REWRITE'=> (int)ServerEnvironmentConfig::load()->is_url_rewriting_enabled(),
 				'C_PAGINATION' => $pagination->has_several_pages(),
 				'PAGINATION' => $pagination->display()

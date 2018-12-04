@@ -90,4 +90,6 @@ $LANG['approbation'] = 'Approbation';
 $LANG['yes'] = 'OUI';
 $LANG['no'] = 'NON';
 $LANG['error.upload.img'] = 'Erreur inconnue, vérifiez que vous ayez les droits sur votre répertoire d\'upload (./dictionary/templates/images/)';
+$LANG['message.no_word'] = 'Le dictionnaire ne contient aucune définition pour le moment';
+$LANG['message.empty.result.letter'] = 'Aucun mot de ce dictionnaire ne commence par la lettre :letter';
 ?>

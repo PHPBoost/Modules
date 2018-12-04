@@ -90,4 +90,6 @@ $LANG['approbation'] = 'Approbation';
 $LANG['yes'] = 'YES';
 $LANG['no'] = 'NO';
 $LANG['error.upload.img'] = 'Unknown error, Check if you have authorizations to write into the upload folder. (./dictionary/templates/images/)';
+$LANG['message.no_word'] = 'The dictionary does not contain any definition for the moment';
+$LANG['message.empty.result.letter'] = 'No word in this dictionary begins with the letter :letter';
 ?>
