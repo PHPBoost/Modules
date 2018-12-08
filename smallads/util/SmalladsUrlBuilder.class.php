@@ -114,15 +114,13 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_category($id, $rewrited_name, $sort_field = '', $sort_mode = '', $page = 1, $subcategories_page = 1)
+	public static function display_category($id, $rewrited_name, $page = 1, $subcategories_page = 1)
 	{
 		$config = SmalladsConfig::load();
 		$category = $id > 0 ? $id . '-' . $rewrited_name .'/' : '';
 		$page = $page !== 1 || $subcategories_page !== 1 ? $page . '/': '';
 		$subcategories_page = $subcategories_page !== 1 ? $subcategories_page . '/': '';
-		$sort_field = $sort_field !== $config->get_items_default_sort_field() ? $sort_field . '/' : '';
-		$sort_mode = $sort_mode !== $config->get_items_default_sort_mode() ? $sort_mode . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/' . $category . $sort_field . $sort_mode . $page . $subcategories_page);
+		return DispatchManager::get_url(self::$dispatcher, '/' . $category . $page . $subcategories_page);
 	}
 
     // Items
@@ -188,25 +186,21 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
- 	public static function display_pending_items($sort_field = '', $sort_mode = '', $page = 1)
+ 	public static function display_pending_items($page = 1)
 	{
 		$config = SmalladsConfig::load();
 		$page = $page !== 1 ? $page . '/': '';
-		$sort_field = $sort_field !== $config->get_items_default_sort_field() ? $sort_field . '/' : '';
-		$sort_mode = $sort_mode !== $config->get_items_default_sort_mode() ? $sort_mode . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/pending/' . $sort_field . $sort_mode . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/pending/' . $page);
 	}
 
 	/**
 	 * @return Url
 	 */
-	public static function display_tag($rewrited_name, $sort_field = '', $sort_mode = '', $page = 1)
+	public static function display_tag($rewrited_name, $page = 1)
 	{
 		$config = SmalladsConfig::load();
 		$page = $page !== 1 ? $page . '/' : '';
-		$sort_field = $sort_field !== $config->get_items_default_sort_field() ? $sort_field . '/' : '';
-		$sort_mode = $sort_mode !== $config->get_items_default_sort_mode() ? $sort_mode . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/tag/'. $rewrited_name . '/' . $sort_field . $sort_mode . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/tag/'. $rewrited_name . '/' . $page);
 	}
 
 	/**

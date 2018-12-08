@@ -32,8 +32,6 @@
 class SmalladsConfig extends AbstractConfigData
 {
 	// Categories
-	const ITEMS_DEFAULT_SORT_FIELD = 'items_default_sort_field';
-	const ITEMS_DEFAULT_SORT_MODE = 'items_default_sort_mode';
 	const ENABLED_SORT_FILTERS = 'enabled_sort_filters';
 	const ENABLED_CATS_ICON = 'enabled_cats_icon';
 	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
@@ -76,25 +74,6 @@ class SmalladsConfig extends AbstractConfigData
 	const USAGE_TERMS = 'usage_terms';
 
 	// categories
-	public function get_items_default_sort_field()
-	{
-		return $this->get_property(self::ITEMS_DEFAULT_SORT_FIELD);
-	}
-
-	public function set_items_default_sort_field($value)
-	{
-		$this->set_property(self::ITEMS_DEFAULT_SORT_FIELD, $value);
-	}
-
-	public function get_items_default_sort_mode()
-	{
-		return $this->get_property(self::ITEMS_DEFAULT_SORT_MODE);
-	}
-
-	public function set_items_default_sort_mode($value)
-	{
-		$this->set_property(self::ITEMS_DEFAULT_SORT_MODE, $value);
-	}
 
 	public function enable_sort_filters()
 	{
@@ -477,8 +456,6 @@ class SmalladsConfig extends AbstractConfigData
 		$config_lang = LangLoader::get('install', 'smallads');
 		return array(
 			// Categories
-			self::ITEMS_DEFAULT_SORT_FIELD => Smallad::SORT_DATE,
-			self::ITEMS_DEFAULT_SORT_MODE => Smallad::DESC,
 			self::ENABLED_SORT_FILTERS => true,
 			self::ENABLED_CATS_ICON => false,
 			self::ITEMS_NUMBER_PER_PAGE => 10,

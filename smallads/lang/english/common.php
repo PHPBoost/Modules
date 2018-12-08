@@ -64,7 +64,6 @@ $lang['smallads.contact.phone'] = 'by phone';
 $lang['config.categories.title'] = 'Categories configuration';
 $lang['config.cats.icon.display'] = 'Categories icon display';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
-$lang['config.items.default.sort'] = 'Default items order display';
 $lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'s description';
 $lang['config.display.type'] = 'Display type';
 $lang['config.mosaic.type.display'] = 'Mosaic';

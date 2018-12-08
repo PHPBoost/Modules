@@ -90,18 +90,6 @@ class SmalladsDisplayTagController extends ModuleController
 	{
 		$now = new Date();
 
-		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
-		$field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
-
-		$sort_mode = TextHelper::strtoupper($mode);
-		$sort_mode = (in_array($sort_mode, array(Smallad::ASC, Smallad::DESC)) ? $sort_mode : $this->config->get_items_default_sort_mode());
-
-		if (in_array($field, Smallad::SORT_FIELDS_URL_VALUES))
-			$sort_field = array_search($field, Smallad::SORT_FIELDS_URL_VALUES);
-		else
-			$sort_field = $this->config->get_items_default_sort_field();
-
-
 		$authorized_categories = SmalladsService::get_authorized_categories(Category::ROOT_CATEGORY);
 
 		$condition = 'WHERE relation.id_keyword = :id_keyword
@@ -121,11 +109,10 @@ class SmalladsDisplayTagController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = \'smallads\'
 		' . $condition . '
-		ORDER BY ' .$sort_field . ' ' . $sort_mode . '
+		ORDER BY smallads.creation_date DESC
 		', array_merge($parameters, array(
 		)));
 
-		$this->build_sorting_form($field, TextHelper::strtolower($mode));
 		$this->build_sorting_smallad_type();
 
 		$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
@@ -142,7 +129,6 @@ class SmalladsDisplayTagController extends ModuleController
 			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
 			'C_ITEMS_CAT'            => false,
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
-			'C_ITEMS_SORT_FILTERS'   => $this->config->are_sort_filters_enabled(),
 			'CATEGORY_NAME'          => $this->get_keyword()->get_name(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 			'C_SEVERAL_COLUMNS'      => $columns_number_displayed_per_line > 1,
@@ -224,43 +210,6 @@ class SmalladsDisplayTagController extends ModuleController
 		}
 	}
 
-	private function build_sorting_form($field, $mode)
-	{
-		$common_lang = LangLoader::get('common');
-		$lang = LangLoader::get('common', 'smallads');
-
-		$form = new HTMLForm(__CLASS__, '', false);
-		$form->set_css_class('options');
-
-		$fieldset = new FormFieldsetHorizontal('filters', array('description' => $common_lang['sort_by']));
-		$form->add_fieldset($fieldset);
-
-		$sort_options = array(
-			new FormFieldSelectChoiceOption($common_lang['form.date.creation'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_DATE]),
-			new FormFieldSelectChoiceOption($common_lang['form.title'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_ALPHABETIC]),
-			new FormFieldSelectChoiceOption($lang['smallads.sort.field.views'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_NUMBER_VIEWS]),
-			new FormFieldSelectChoiceOption($common_lang['author'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_AUTHOR])
-
-		);
-
-		if ($this->comments_config->are_comments_enabled())
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'], 'com');
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_fields', '', $field, $sort_options,
-			array('events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name())->rel() .'" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();'))
-		));
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_mode', '', $mode,
-			array(
-				new FormFieldSelectChoiceOption($common_lang['sort.asc'], 'asc'),
-				new FormFieldSelectChoiceOption($common_lang['sort.desc'], 'desc')
-			),
-			array('events' => array('change' => 'document.location = "' . SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name())->rel() . '" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();'))
-		));
-
-		$this->view->put('FORM', $form->display());
-	}
-
 	private function check_authorizations()
 	{
 		if (!(SmalladsAuthorizationsService::check_authorizations()->read()))
@@ -272,19 +221,17 @@ class SmalladsDisplayTagController extends ModuleController
 
 	private function generate_response(HTTPRequestCustom $request)
 	{
-		$sort_field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
-		$sort_mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->get_keyword()->get_name(), $this->lang['smallads.module.title'], $page);
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['smallads.seo.description.tag'], array('subject' => $this->get_keyword()->get_name())), $page);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name(), $sort_field, $sort_mode, $page));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name(), $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
-		$breadcrumb->add($this->get_keyword()->get_name(), SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name(), $sort_field, $sort_mode, $page));
+		$breadcrumb->add($this->get_keyword()->get_name(), SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name(), $page));
 
 		return $response;
 	}

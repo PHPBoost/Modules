@@ -64,7 +64,6 @@ $lang['smallads.contact.phone'] = 'par téléphone';
 $lang['config.categories.title'] = 'Configuration des catégories';
 $lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['config.sort.filter.display'] = 'Afficher les filtres de tri';
-$lang['config.items.default.sort'] = 'Ordre d\'affichage des éléments par défaut';
 $lang['config.characters.number.to.cut'] = 'Nombre de caractères pour couper le condensé de l\'annonce';
 $lang['config.display.type'] = 'Type d\'affichage des annonces';
 $lang['config.mosaic.type.display'] = 'Mosaïque';

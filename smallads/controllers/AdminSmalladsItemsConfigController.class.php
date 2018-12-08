@@ -154,31 +154,6 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		$this->form = $form;
 	}
 
-	private function get_sort_options()
-	{
-		$common_lang = LangLoader::get('common');
-		$lang = LangLoader::get('common', 'smallads');
-
-		$sort_options = array(
-			new FormFieldSelectChoiceOption($common_lang['form.date.creation'] . ' - ' . $common_lang['sort.desc'], Smallad::SORT_DATE . '-' . Smallad::DESC),
-			new FormFieldSelectChoiceOption($common_lang['form.date.creation'] . ' - ' . $common_lang['sort.asc'], Smallad::SORT_DATE . '-' . Smallad::ASC),
-			new FormFieldSelectChoiceOption($common_lang['sort_by.alphabetic'] . ' - ' . $common_lang['sort.desc'], Smallad::SORT_ALPHABETIC . '-' . Smallad::DESC),
-			new FormFieldSelectChoiceOption($common_lang['sort_by.alphabetic'] . ' - ' . $common_lang['sort.asc'], Smallad::SORT_ALPHABETIC . '-' . Smallad::ASC),
-			new FormFieldSelectChoiceOption($lang['smallads.sort.field.views'] . ' - ' . $common_lang['sort.desc'], Smallad::SORT_NUMBER_VIEWS . '-' . Smallad::DESC),
-			new FormFieldSelectChoiceOption($lang['smallads.sort.field.views'] . ' - ' . $common_lang['sort.asc'], Smallad::SORT_NUMBER_VIEWS . '-' . Smallad::ASC),
-			new FormFieldSelectChoiceOption($common_lang['author'] . ' - ' . $common_lang['sort.desc'], Smallad::SORT_AUTHOR . '-' . Smallad::DESC),
-			new FormFieldSelectChoiceOption($common_lang['author'] . ' - ' . $common_lang['sort.asc'], Smallad::SORT_AUTHOR . '-' . Smallad::ASC),
-		);
-
-		if ($this->comments_config->are_comments_enabled('smallads'))
-		{
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'] . ' - ' . $common_lang['sort.asc'], Smallad::SORT_NUMBER_COMMENTS . '-' . Smallad::ASC);
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'] . ' - ' . $common_lang['sort.desc'], Smallad::SORT_NUMBER_COMMENTS . '-' . Smallad::DESC);
-		}
-
-		return $sort_options;
-	}
-
 	private function save()
 	{
 		$this->config->set_currency($this->form->get_value('currency')->get_raw_value());

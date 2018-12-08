@@ -64,29 +64,17 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 	private function build_view(HTTPRequestCustom $request)
 	{
 		$now = new Date();
-		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
-		$field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
-
 		$page = $request->get_getint('page', 1);
 		$member_items = AppContext::get_current_user()->get_id();
 
-		$sort_mode = TextHelper::strtoupper($mode);
-		$sort_mode = (in_array($sort_mode, array(Smallad::ASC, Smallad::DESC)) ? $sort_mode : $this->config->get_items_default_sort_mode());
-
-		$this->build_items_listing_view($now, $field, TextHelper::strtolower($sort_mode), $page, $member_items);
-		$this->build_sorting_form($field, TextHelper::strtolower($sort_mode));
+		$this->build_items_listing_view($now, $page, $member_items);
 		$this->build_sorting_smallad_type();
 	}
 
-	private function build_items_listing_view(Date $now, $field, $sort_mode, $page, $member_items)
+	private function build_items_listing_view(Date $now, $page, $member_items)
 	{
 		if(!empty($member_items))
 		{
-			if (in_array($field, Smallad::SORT_FIELDS_URL_VALUES))
-				$sort_field = array_search($field, Smallad::SORT_FIELDS_URL_VALUES);
-			else
-				$sort_field = $this->config->get_items_default_sort_field();
-
 			$authorized_categories = SmalladsService::get_authorized_categories($this->get_category()->get_id());
 
 			$condition = 'WHERE id_category IN :authorized_categories
@@ -103,7 +91,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
 			LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = \'smallads\'
 			' . $condition . '
-			ORDER BY ' . $sort_field . ' ' . $sort_mode . '
+			ORDER BY smallads.creation_date DESC
 			', array_merge($parameters, array(
 				'user_id' => AppContext::get_current_user()->get_id()
 			)));
@@ -196,41 +184,6 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		}
 	}
 
-	private function build_sorting_form($field, $mode)
-	{
-		$common_lang = LangLoader::get('common');
-		$lang = LangLoader::get('common', 'smallads');
-
-		$form = new HTMLForm(__CLASS__, '', false);
-		$form->set_css_class('options no-style');
-
-		$fieldset = new FormFieldsetHorizontal('filters', array('description' => $common_lang['sort_by']));
-		$form->add_fieldset($fieldset);
-
-		$sort_options = array(
-			new FormFieldSelectChoiceOption($common_lang['form.date.creation'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_DATE]),
-			new FormFieldSelectChoiceOption($common_lang['form.title'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_ALPHABETIC]),
-			new FormFieldSelectChoiceOption($lang['smallads.sort.field.views'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_NUMBER_VIEWS])
-		);
-
-		if ($this->comments_config->are_comments_enabled())
-			$sort_options[] = new FormFieldSelectChoiceOption($common_lang['sort_by.number_comments'], Smallad::SORT_FIELDS_URL_VALUES[Smallad::SORT_NUMBER_COMMENTS]);
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_fields', '', $field, $sort_options,
-			array('events' => array('change' => 'document.location = "'. SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name())->rel() .'" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();'))
-		));
-
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_mode', '', $mode,
-			array(
-				new FormFieldSelectChoiceOption($common_lang['sort.asc'], 'asc'),
-				new FormFieldSelectChoiceOption($common_lang['sort.desc'], 'desc')
-			),
-			array('events' => array('change' => 'document.location = "' . SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name())->rel() . '" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();'))
-		));
-
-		$this->view->put('FORM', $form->display());
-	}
-
 	private function get_category()
 	{
 		if ($this->category === null)
@@ -293,8 +246,6 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 
 	private function generate_response(HTTPRequestCustom $request)
 	{
-		$sort_field = $request->get_getstring('field', Smallad::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
-		$sort_mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
 
@@ -307,8 +258,8 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 
 		$description = $this->lang['smallads.member.items'] . ' - ' . $this->category->get_description() . ($this->category->get_id() != Category::ROOT_CATEGORY ? ' ' . LangLoader::get_message('category', 'categories-common') . ' ' . $this->category->get_name() : '');
 		$graphical_environment->get_seo_meta_data()->set_description($description, $page);
-		
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name(), $sort_field, $sort_mode, $page));
+
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name(), $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
@@ -318,7 +269,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
-				$breadcrumb->add($category->get_name(), SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), $sort_field, $sort_mode, $page));
+				$breadcrumb->add($category->get_name(), SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), $page));
 		}
 
 		return $response;
