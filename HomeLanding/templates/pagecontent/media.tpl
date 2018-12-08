@@ -19,7 +19,7 @@
 					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_swf.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_swf.DATE}
 				</div>
 				<p class="media-content" id="media_swf-{media_swf.ID}">
-					<object type="{media_swf.MIME}" data="{media_swf.URL}">
+					<object type="{media_swf.MIME}" data="{media_swf.URL}" width="{WIDTH}" height="{HEIGHT}">
 						<param name="allowScriptAccess" value="samedomain" />
 						<param name="allowFullScreen" value="true">
 						<param name="play" value="true" />
@@ -90,9 +90,17 @@
 				</div>
 
 				<p class="media-content" id="media_other-{media_other.ID}">
-					<video class="youtube-player" controls="" src="{media_other.URL}">
-						<source src="{media_other.URL}" type="video/mp4"></source>
-					</video>
+					<object type="{media_other.MIME}" data="{media_other.URL}" width="{media_other.WIDTH}" height="{media_other.HEIGHT}">
+						<param name="allowScriptAccess" value="samedomain" />
+						<param name="allowFullScreen" value="true">
+						<param name="play" value="true" />
+						<param name="movie" value="{media_other.URL}" />
+						<param name="menu" value="false" />
+						<param name="quality" value="high" />
+						<param name="scalemode" value="noborder" />
+						<param name="wmode" value="transparent" />
+						<param name="bgcolor" value="#000000" />
+					</object>
 				</p>
 			</div>
 		# END media_other #

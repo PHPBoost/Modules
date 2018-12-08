@@ -376,23 +376,12 @@ class HomeLandingHomeController extends ModuleController
 
 		foreach ($carousel as $id => $options)
 		{
-			if(filter_var($options['picture_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
-				$ptr = false;
-			else
-				$ptr = true;
-
-			if(filter_var($options['link'], FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))
-				$int_link = false;
-			else
-				$int_link = true;
 
 			$tpl->assign_block_vars('carousel', array(
-				'C_PTR' => $ptr,
-				'C_INT_LINK' => $int_link,
 				'DESCRIPTION' => $options['description'],
 				'PICTURE_TITLE' => $options['description'] ? $options['description'] : basename($options['picture_url']),
-				'PICTURE_URL' => $options['picture_url'],
-				'LINK' => $options['link']
+				'PICTURE_URL' => Url::to_rel($options['picture_url']),
+				'LINK' => Url::to_rel($options['link'])
 			));
 		}
 		$this->view->put('CAROUSEL', $tpl);

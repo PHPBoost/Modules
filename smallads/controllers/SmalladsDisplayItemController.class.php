@@ -173,15 +173,10 @@ class SmalladsDisplayItemController extends ModuleController
 		$i = 1;
 		foreach ($carousel as $id => $options)
 		{
-			if(filter_var($options['picture_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
-				$ptr = false;
-			else
-				$ptr = true;
 
 			$this->tpl->assign_block_vars('carousel', array(
-				'C_PTR' => $ptr,
 				'DESCRIPTION' => $options['description'],
-				'U_PICTURE' => $options['picture_url'],
+				'U_PICTURE' => Url::to_rel($options['picture_url']),
 			));
 			$i++;
 		}

@@ -121,7 +121,7 @@
 			 	# START carousel #
 					<a href="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.U_PICTURE}" title="{carousel.DESCRIPTION}" data-lightbox="formatter" data-rel="lightcase:collection">
 						<figure class="carousel-thumbnail">
-							<img src="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" title="{carousel.DESCRIPTION}" />
+							<img src="{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" title="{carousel.DESCRIPTION}" />
 							<figcaption>{carousel.DESCRIPTION}</figcaption>
 						</figure>
 					</a>

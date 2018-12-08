@@ -4,12 +4,12 @@
 			<li class="slide" style="padding-bottom: calc(100% / {NB_DOTS} / 2); background-image: url(# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.PICTURE_URL})" title="{carousel.PICTURE_TITLE}">
 				# IF carousel.DESCRIPTION #
 					<p class="slideCaption">
-						# IF carousel.LINK #<a class="slideLink" href="# IF carousel.C_INT_LINK #{PATH_TO_ROOT}# ENDIF #{carousel.LINK}" # IF NOT carousel.C_INT_LINK #target="_blank" rel="noopener noreferrer"# ENDIF #># ENDIF #
+						# IF carousel.LINK #<a class="slideLink" href="{carousel.LINK}"># ENDIF #
 							{carousel.DESCRIPTION}
 						# IF carousel.LINK #</a># ENDIF #
 					</p>
 				# ENDIF #
-				<img class="slideImage" src="# IF carousel.C_PTR #{PATH_TO_ROOT}# ENDIF #{carousel.PICTURE_URL}" alt="{carousel.PICTURE_TITLE}" title="{carousel.PICTURE_TITLE}" />
+				<img class="slideImage" src="{carousel.PICTURE_URL}" alt="{carousel.PICTURE_TITLE}" title="{carousel.PICTURE_TITLE}" />
 			</li>
 			# END carousel #
 		</ul>
