@@ -224,17 +224,12 @@ class SmalladsDisplayItemController extends ModuleController
 
 		while ($row = $result->fetch())
 		{
-			if(filter_var($row['thumbnail_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
-				$ptr = false;
-			else
-				$ptr = true;
 
 			$this->tpl->assign_block_vars('suggested_items', array(
-				'C_PTR' => $ptr,
 				'C_COMPLETED' => $row['completed'],
 				'C_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				'TITLE' => $row['title'],
-				'THUMBNAIL' => $row['thumbnail_url'],
+				'THUMBNAIL' => Url::to_rel($row['thumbnail_url']),
 				'U_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], SmalladsService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel()
 			));
 		}
@@ -266,18 +261,12 @@ class SmalladsDisplayItemController extends ModuleController
 
 		while ($row = $result->fetch())
 		{
-			if(filter_var($row['thumbnail_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED))
-				$ptr = false;
-			else
-				$ptr = true;
-
 			$this->tpl->put_all(array(
 				'C_'. $row['type'] .'_COMPLETED' => $row['completed'],
 				'C_'. $row['type'] .'_ITEM' => true,
-				'C_' . $row['type'] . '_PTR' => $ptr,
 				'C_' . $row['type'] . '_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				$row['type'] . '_ITEM_TITLE' => $row['title'],
-				$row['type'] . '_THUMBNAIL' => $row['thumbnail_url'],
+				$row['type'] . '_THUMBNAIL' => Url::to_rel($row['thumbnail_url']),
 				'U_'. $row['type'] .'_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], SmalladsService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel(),
 			));
 		}
