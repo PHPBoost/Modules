@@ -125,8 +125,6 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 			}
 		}
 		$result->dispose();
-
-		$this->view->put('FORM', $this->form->display());
 	}
 
 	private function build_sorting_smallad_type()
