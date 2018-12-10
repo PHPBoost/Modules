@@ -56,10 +56,10 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('SmalladsDisplayUsageTermsController', '`^/terms/?$`'),
 
 	//Display items
-	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/member(?:/([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?$`', array('member', 'page')),
-	new UrlControllerMapper('SmalladsDisplayTagController', '`^/tag(?:/([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?$`', array('tag', 'page')),
-	new UrlControllerMapper('SmalladsDisplayPendingItemsController', '`^/pending(?:/([a-z]+))?/?([a-z]+)?/?([0-9]+)?/?$`', array('page')),
-	new UrlControllerMapper('SmalladsDisplayItemController', '`^(?:/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+))/?([0-9]+)?/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title', 'page')),
+	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/member/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('member', 'page')),
+	new UrlControllerMapper('SmalladsDisplayTagController', '`^/tag/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('tag', 'page')),
+	new UrlControllerMapper('SmalladsDisplayPendingItemsController', '`^/pending/([0-9]+)?/?$`', array('page')),
+	new UrlControllerMapper('SmalladsDisplayItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title', 'page')),
 
 	//Display home and categories
 	new UrlControllerMapper('SmalladsDisplayCategoryController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([a-z]+)?/?([a-z]+)?/?([0-9]+)?/?([0-9]+)?/?$`', array('id_category', 'rewrited_name', 'page', 'subcategories_page'))
