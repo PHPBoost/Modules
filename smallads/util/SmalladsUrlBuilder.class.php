@@ -114,13 +114,10 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_category($id, $rewrited_name, $page = 1, $subcategories_page = 1)
+	public static function display_category($id, $rewrited_name)
 	{
-		$config = SmalladsConfig::load();
 		$category = $id > 0 ? $id . '-' . $rewrited_name .'/' : '';
-		$page = $page !== 1 || $subcategories_page !== 1 ? $page . '/': '';
-		$subcategories_page = $subcategories_page !== 1 ? $subcategories_page . '/': '';
-		return DispatchManager::get_url(self::$dispatcher, '/' . $category . $page . $subcategories_page);
+		return DispatchManager::get_url(self::$dispatcher, '/' . $category);
 	}
 
     // Items
@@ -153,10 +150,9 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function edit_item($id, $page = 1)
+	public static function edit_item($id)
 	{
-		$page = $page !== 1 ? $page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/edit/' . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/edit/');
 	}
 
 	/**
@@ -186,21 +182,17 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
- 	public static function display_pending_items($page = 1)
+ 	public static function display_pending_items()
 	{
-		$config = SmalladsConfig::load();
-		$page = $page !== 1 ? $page . '/': '';
-		return DispatchManager::get_url(self::$dispatcher, '/pending/' . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/pending/');
 	}
 
 	/**
 	 * @return Url
 	 */
-	public static function display_tag($rewrited_name, $page = 1)
+	public static function display_tag($rewrited_name)
 	{
-		$config = SmalladsConfig::load();
-		$page = $page !== 1 ? $page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/tag/'. $rewrited_name . '/' . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/tag/'. $rewrited_name);
 	}
 
 	/**
