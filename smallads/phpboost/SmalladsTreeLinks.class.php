@@ -60,7 +60,7 @@ class SmalladsTreeLinks implements ModuleTreeLinksExtensionPoint
 
 		$tree->add_link(new ModuleLink($lang['smallads.pending.items'], SmalladsUrlBuilder::display_pending_items(), SmalladsAuthorizationsService::check_authorizations()->write() || SmalladsAuthorizationsService::check_authorizations()->contribution() || SmalladsAuthorizationsService::check_authorizations()->moderation()));
 
-		$tree->add_link(new ModuleLink($lang['smallads.member.items'], SmalladsUrlBuilder::display_member_items(), SmalladsAuthorizationsService::check_authorizations()->write() || SmalladsAuthorizationsService::check_authorizations()->contribution() || SmalladsAuthorizationsService::check_authorizations()->moderation()));
+		$tree->add_link(new ModuleLink($lang['smallads.member.items'], SmalladsUrlBuilder::display_member_items(AppContext::get_current_user()->get_id()), SmalladsAuthorizationsService::check_authorizations()->write() || SmalladsAuthorizationsService::check_authorizations()->contribution() || SmalladsAuthorizationsService::check_authorizations()->moderation()));
 
 		$tree->add_link(new ModuleLink(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('smallads')->get_configuration()->get_documentation(), SmalladsAuthorizationsService::check_authorizations()->write() || SmalladsAuthorizationsService::check_authorizations()->contribution() || SmalladsAuthorizationsService::check_authorizations()->moderation()));
 
