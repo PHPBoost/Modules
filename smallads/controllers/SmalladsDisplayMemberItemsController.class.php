@@ -245,7 +245,6 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 
 	private function generate_response(HTTPRequestCustom $request)
 	{
-		$member = AppContext::get_current_user()->get_id();
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
@@ -262,7 +261,8 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
-		$breadcrumb->add($this->lang['smallads.member.items'], SmalladsUrlBuilder::display_member_items($member));
+		$breadcrumb->add($this->lang['smallads.member.items'], SmalladsUrlBuilder::display_member_items());
+		$breadcrumb->add(AppContext::get_current_user()->get_display_name());
 
 		$categories = array_reverse(SmalladsService::get_categories_manager()->get_parents($this->category->get_id(), true));
 		foreach ($categories as $id => $category)

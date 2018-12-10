@@ -198,10 +198,9 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_member_items($member_items)
+	public static function display_member_items()
 	{
-		$member_items = AppContext::get_current_user()->get_id();
-		return DispatchManager::get_url(self::$dispatcher, '/member/' . $member_items);
+		return DispatchManager::get_url(self::$dispatcher, '/member/');
 	}
 
 	/**
