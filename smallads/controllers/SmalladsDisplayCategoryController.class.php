@@ -61,9 +61,8 @@ class SmalladsDisplayCategoryController extends ModuleController
 	private function build_view(HTTPRequestCustom $request)
 	{
 		$now = new Date();
-		$page = $request->get_getint('page', 1);
 
-		$this->build_items_listing_view($now, $page);
+		$this->build_items_listing_view($now);
 		$this->build_sorting_smallad_type();
 		$this->build_category_list();
 	}
@@ -93,7 +92,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 		$result_cat->dispose();
 	}
 
-	private function build_items_listing_view(Date $now, $page)
+	private function build_items_listing_view(Date $now)
 	{
 		$authorized_categories = SmalladsService::get_authorized_categories($this->get_category()->get_id());
 
@@ -268,21 +267,20 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 	private function generate_response(HTTPRequestCustom $request)
 	{
-		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->category->get_id() != Category::ROOT_CATEGORY)
-			$graphical_environment->set_page_title($this->category->get_name(), $this->lang['smallads.module.title'], $page);
+			$graphical_environment->set_page_title($this->category->get_name(), $this->lang['smallads.module.title']);
 		else
-			$graphical_environment->set_page_title($this->lang['smallads.module.title'], '', $page);
+			$graphical_environment->set_page_title($this->lang['smallads.module.title'], '');
 
 		$description = $this->category->get_description();
 		if (empty($description))
 			$description = StringVars::replace_vars($this->lang['smallads.seo.description.root'], array('site' => GeneralConfig::load()->get_site_name())) . ($this->category->get_id() != Category::ROOT_CATEGORY ? ' ' . LangLoader::get_message('category', 'categories-common') . ' ' . $this->category->get_name() : '');
-		$graphical_environment->get_seo_meta_data()->set_description($description, $page);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name(), $page));
+		$graphical_environment->get_seo_meta_data()->set_description($description);
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
@@ -291,7 +289,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
-				$breadcrumb->add($category->get_name(), SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), ($category->get_id() == $this->category->get_id() ? $page : 1)));
+				$breadcrumb->add($category->get_name(), SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), $category->get_id()));
 		}
 
 		return $response;

@@ -101,17 +101,15 @@ class SmalladsDisplayTagController extends ModuleController
 			'timestamp_now' => $now->get_timestamp()
 		);
 
-		$page = $request->get_getint('page', 1);
-
 		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments
-		FROM ' . SmalladsSetup::$smallads_table . ' smallads
-		LEFT JOIN ' . DB_TABLE_KEYWORDS_RELATIONS . ' relation ON relation.module_id = \'smallads\' AND relation.id_in_module = smallads.id
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
-		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = \'smallads\'
-		' . $condition . '
-		ORDER BY smallads.creation_date DESC
-		', array_merge($parameters, array(
-		)));
+			FROM ' . SmalladsSetup::$smallads_table . ' smallads
+			LEFT JOIN ' . DB_TABLE_KEYWORDS_RELATIONS . ' relation ON relation.module_id = \'smallads\' AND relation.id_in_module = smallads.id
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
+			LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = \'smallads\'
+			' . $condition . '
+			ORDER BY smallads.creation_date DESC
+			', array_merge($parameters)
+		);
 
 		$this->build_sorting_smallad_type();
 
@@ -221,17 +219,16 @@ class SmalladsDisplayTagController extends ModuleController
 
 	private function generate_response(HTTPRequestCustom $request)
 	{
-		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->get_keyword()->get_name(), $this->lang['smallads.module.title'], $page);
-		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['smallads.seo.description.tag'], array('subject' => $this->get_keyword()->get_name())), $page);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name(), $page));
+		$graphical_environment->set_page_title($this->get_keyword()->get_name(), $this->lang['smallads.module.title']);
+		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['smallads.seo.description.tag'], array('subject' => $this->get_keyword()->get_name())));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
-		$breadcrumb->add($this->get_keyword()->get_name(), SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name(), $page));
+		$breadcrumb->add($this->get_keyword()->get_name(), SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name()));
 
 		return $response;
 	}

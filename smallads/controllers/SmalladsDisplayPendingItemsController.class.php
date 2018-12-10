@@ -73,23 +73,20 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 			'timestamp_now' => $now->get_timestamp()
 		);
 
-		$page = $request->get_getint('page', 1);
-
 		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments
-		FROM '. SmalladsSetup::$smallads_table .' smallads
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = smallads.author_user_id
-		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = "smallads"
-		' . $condition . '
-		ORDER BY smallads.creation_date DESC
-		', array_merge($parameters, array(
-		)));
+			FROM '. SmalladsSetup::$smallads_table .' smallads
+			LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = smallads.author_user_id
+			LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = "smallads"
+			' . $condition . '
+			ORDER BY smallads.creation_date DESC
+			', array_merge($parameters)
+		);
 
 		$nbr_items_pending = $result->get_rows_count();
 
 		$this->build_sorting_smallad_type();
 
 		$this->view->put_all(array(
-
 			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
 			'C_ITEMS'                => $result->get_rows_count() > 0,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
@@ -198,17 +195,16 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 
 	private function generate_response(HTTPRequestCustom $request)
 	{
-		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['smallads.pending.items'], $this->lang['smallads.module.title'], $page);
-		$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.seo.description.pending'], $page);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_pending_items($page));
+		$graphical_environment->set_page_title($this->lang['smallads.pending.items'], $this->lang['smallads.module.title']);
+		$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.seo.description.pending']);
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_pending_items());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
-		$breadcrumb->add($this->lang['smallads.pending.items'], SmalladsUrlBuilder::display_pending_items($page));
+		$breadcrumb->add($this->lang['smallads.pending.items'], SmalladsUrlBuilder::display_pending_items());
 
 		return $response;
 	}

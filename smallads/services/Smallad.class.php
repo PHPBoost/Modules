@@ -182,11 +182,7 @@ class Smallad
 		{
 			return FormatingHelper::second_parse($this->description);
 		}
-		else
-		{
-			$clean_contents = preg_split('`\[page\].+\[/page\](.*)`usU', FormatingHelper::second_parse($this->contents), -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-			return TextHelper::cut_string(@strip_tags($clean_contents[0], '<br><br/>'), (int)SmalladsConfig::load()->get_characters_number_to_cut());
-		}
+		return TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($this->contents), '<br><br/>'), (int)SmalladsConfig::load()->get_characters_number_to_cut());
 	}
 
 	public function set_contents($contents)
@@ -791,7 +787,7 @@ class Smallad
 			'U_AUTHOR_PM'   => UserUrlBuilder  ::personnal_message($this->get_author_user()->get_id())->rel(),
 			'U_CATEGORY'    => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
 			'U_ITEM'        => SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_EDIT_ITEM'   => SmalladsUrlBuilder::edit_item($this->id, AppContext::get_request()->get_getint('page', 1))->rel(),
+			'U_EDIT_ITEM'   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
 			'U_DELETE_ITEM' => SmalladsUrlBuilder::delete_item($this->id)->rel(),
 			'U_SYNDICATION' => SmalladsUrlBuilder::category_syndication($category->get_id())->rel(),
 			'U_PRINT_ITEM'  => SmalladsUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel(),
