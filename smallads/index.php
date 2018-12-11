@@ -56,7 +56,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('SmalladsDisplayUsageTermsController', '`^/terms/?$`'),
 
 	//Display items
-	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/member/?$`', array('member')),
+	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/member/?$`'),
 	new UrlControllerMapper('SmalladsDisplayTagController', '`^/tag/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('tag')),
 	new UrlControllerMapper('SmalladsDisplayPendingItemsController', '`^/pending/([0-9]+)?/?$`'),
 	new UrlControllerMapper('SmalladsDisplayItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title')),
