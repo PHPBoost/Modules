@@ -233,8 +233,7 @@ abstract class AbstractServerStatusServer
 	
 	public function get_medium_icon()
 	{
-		$icon_url = new Url(PATH_TO_ROOT . '/ServerStatus/templates/images/icons/32/' . $this->id . '.png');
-		return $icon_url->rel();
+		return Url::to_rel('/ServerStatus/templates/images/icons/32/' . $this->id . '.png');
 	}
 	
 	public function has_medium_icon()
@@ -245,8 +244,7 @@ abstract class AbstractServerStatusServer
 	
 	public function get_large_icon()
 	{
-		$icon_url = new Url(PATH_TO_ROOT . '/ServerStatus/templates/images/icons/64/' . $this->id . '.png');
-		return $icon_url->rel();
+		return Url::to_rel('/ServerStatus/templates/images/icons/64/' . $this->id . '.png');
 	}
 	
 	public function has_large_icon()
