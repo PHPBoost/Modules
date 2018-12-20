@@ -248,7 +248,7 @@ $lang['admin.rss.site.name'] = 'Nom du site';
 $lang['admin.rss.site.url'] = 'Adresse du site';
 $lang['admin.rss.xml.url'] = 'Adresse du fichier xml';
 $lang['admin.rss.xml.nb'] = 'Nombre de liens';
-$lang['admin.rss.xml.char'] = 'Nombre de caratères par lien';
+$lang['admin.rss.xml.char'] = 'Nombre de caractères par lien';
 
 //Admin - Web
 $lang['admin.web'] = 'Affichage du module Web';

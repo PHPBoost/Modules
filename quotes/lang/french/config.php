@@ -32,7 +32,7 @@
 
 $lang['root_category_description'] = 'Bienvenue dans le module citations !
 <br /><br />
-Quelques citations ont été créees pour vous montrer comment fonctionne ce module. Voici quelques conseils pour bien débuter sur ce module.
+Quelques citations ont été créées pour vous montrer comment fonctionne ce module. Voici quelques conseils pour bien débuter sur ce module.
 <br /><br /> 
 <ul class="formatter-ul">
 	<li class="formatter-li"> Pour configurer ou personnaliser l\'accueil de votre module, rendez vous dans l\'<a href="' . QuotesUrlBuilder::configuration()->rel() . '">administration du module</a></li>

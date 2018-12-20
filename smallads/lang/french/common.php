@@ -96,7 +96,7 @@ $lang['config.related.links.display.desc'] = 'Lien précédent, lien suivant.';
 //Smallads mini Menu configuration
 $lang['config.mini.title'] = 'Configuration du mini menu';
 $lang['config.mini.items.nb'] = 'Nombre d\'annonces à afficher dans le mini menu';
-$lang['config.mini.speed.desc'] = 'en milisecondes.';
+$lang['config.mini.speed.desc'] = 'en millisecondes.';
 $lang['config.mini.animation.speed'] = 'Vitesse de défilement';
 $lang['config.mini.autoplay'] = 'Autoriser le défilement automatique';
 $lang['config.mini.autoplay.speed'] = 'Temps entre chaque défilement';
