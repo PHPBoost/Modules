@@ -29,7 +29,7 @@ $lang = array();
 
 $lang['category.1.name'] = 'Informatique';
 $lang['category.2.name'] = 'Divers';
-$lang['category.3.name'] = 'Programation';
+$lang['category.3.name'] = 'Programmation';
 
 $lang['word.1.name'] = 'Phpboost';
 $lang['word.1.description'] = 'PHPBoost est un CMS (Content Managing System ou système de gestion de contenu) français. Ce logiciel permet à n\'importe qui de créer son site de façon très simple, tout est assisté. Conçu pour satisfaire les débutants, il devrait aussi ravir les utilisateurs expérimentés qui souhaiteraient pousser son fonctionnement ou encore développer leurs propres modules.<br />
@@ -37,7 +37,7 @@ PHPBoost est un logiciel libre distribué sous la licence GPL.';
 $lang['word.2.name'] = 'Php';
 $lang['word.2.description'] = '<strong>PHP</strong> (sigle de PHP: Hypertext Preprocessor), est un langage de scripts libre principalement utilisé pour produire des pages Web dynamiques via un serveur <strong>HTTP</strong>, mais pouvant également fonctionner comme n\'importe quel langage interprété de façon locale, en exécutant les programmes en ligne de commande. <strong>PHP</strong> est un langage impératif disposant depuis la version 5 de fonctionnalités de modèle objet complètes. En raison de la richesse de sa bibliothèque, on désigne parfois<strong> PHP</strong> comme une plate-forme plus qu\'un simple langage.';
 $lang['word.3.name'] = 'Bug';
-$lang['word.3.description'] = 'Un bogue informatique (francisation de l\'anglais bug, « insecte ») ou bug informatique (anglicisme) est une déficience dans un programme informatique l&#8217;empêchant de fonctionner correctement. Sa gravité peut aller de bénigne (défauts d&#8217;affichage mineurs) à majeure (explosion du vol 501 de la fusée Ariane 5). On ne qualifie de bogue qu\'un problème confirmé du logiciel lui-même, l\'anomalie logicielle désignant plus largement toute déficience perçue par un utilisateur.';
+$lang['word.3.description'] = 'Un bogue informatique (francisation de l\'anglais bug, « insecte ») ou bug informatique (anglicisme) est une déficience dans un programme informatique l\'empêchant de fonctionner correctement. Sa gravité peut aller de bénigne (défauts d\'affichage mineurs) à majeure (explosion du vol 501 de la fusée Ariane 5). On ne qualifie de bogue qu\'un problème confirmé du logiciel lui-même, l\'anomalie logicielle désignant plus largement toute déficience perçue par un utilisateur.';
 $lang['word.4.name'] = 'Internet';
 $lang['word.4.description'] = 'Internet est le réseau informatique mondial qui rend accessibles au public des services comme le courrier électronique et le World Wide Web. Ses utilisateurs sont désignés par le néologisme « internaute ». Techniquement, Internet se définit comme le réseau public mondial utilisant le protocole de communication IP (Internet Protocol).';
 $lang['word.5.name'] = 'Http';
