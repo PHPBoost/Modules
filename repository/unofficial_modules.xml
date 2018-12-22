@@ -5,7 +5,7 @@
 	<app id="lastcoms" type="module">
 		<version num="5.1.1" language="french" localized_language="Francais" name="lastcoms" priority="low" security-update="false" pubdate="2018/12/18">
 			<compatibility min="5.1"/>
-			<download url="http://dl.phpboost.com/5.0/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
+			<download url="http://dl.phpboost.com/5.1/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
 			<authors>
 				<author name="liaght" email="liaght@gmail.com"/>
 				<author name="babsolune" email="babsolune@phpboost.com"/>
@@ -19,7 +19,7 @@
 		</version>
 		<version num="5.1.0" language="french" localized_language="Francais" name="lastcoms" priority="low" security-update="false" pubdate="2017/07/03">
 			<compatibility min="5.1"/>
-			<download url="http://dl.phpboost.com/5.0/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
+			<download url="http://dl.phpboost.com/5.1/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
 			<authors>
 				<author name="liaght" email="liaght@gmail.com"/>
 				<author name="babsolune" email="babsolune@phpboost.com"/>
@@ -43,7 +43,7 @@
 		</version>
 		<version num="4.1.0" language="french" localized_language="Francais" name="lastcoms" priority="low" security-update="false" pubdate="2014/07/13">
 			<compatibility min="4.1"/>
-			<download url="http://dl.phpboost.com/4.1/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
+			<download url="#">Module Derniers commentaires</download>
 			<authors>
 				<author name="liaght" email="liaght@gmail.com"/>
 				<author name="babsolune" email="babsolune@phpboost.com"/>
@@ -55,7 +55,7 @@
 		</version>
 		<version num="2.0.0" language="french" localized_language="Francais" name="lastcoms" priority="low" security-update="false" pubdate="2009/06/26">
 			<compatibility min="2.0"/>
-			<download url="http://dl.phpboost.com/4.1/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
+			<download url="#">Module Derniers commentaires</download>
 			<authors>
 				<author name="liaght" email="liaght@gmail.com"/>
 				<author name="babsolune" email="babsolune@phpboost.com"/>
