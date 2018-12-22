@@ -5,8 +5,6 @@
  *   begin                             : July 26, 2009
  *   copyright                         : (C) 2009 ROGUELON Geoffrey
  *   email                             : liaght@gmail.com
- *   Adapted for Phpboost since 4.1 by : babsolune - babsolune@phpboost.com
- *
  *
  ###################################################
  *
@@ -25,6 +23,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  ###################################################*/
+/**
+ * @author 	Geoffrey ROGUELON <liaght@gmail.com>
+ * @author 	Sebastien LARTIGUE <babsolune@phpboost.com>
+ */
 
 class AdminLastcomsConfigController extends AdminController
 {
@@ -38,7 +40,7 @@ class AdminLastcomsConfigController extends AdminController
 	 */
 	private $submit_button;
 	/**
-	 * @var GoogleAnalyticsConfig
+	 * @var LastcomsConfig
 	 */
 	private $config;
 
