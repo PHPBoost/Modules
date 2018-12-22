@@ -5,7 +5,7 @@
 	<app id="lastcoms" type="module">
 		<version num="5.1.1" language="french" localized_language="Francais" name="lastcoms" priority="low" security-update="false" pubdate="2018/12/18">
 			<compatibility min="5.1"/>
-			<download url="http://dl.phpboost.com/5.1/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
+			<download url="http://dl.phpboost.com/5.1/modules/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
 			<authors>
 				<author name="liaght" email="liaght@gmail.com"/>
 				<author name="babsolune" email="babsolune@phpboost.com"/>
@@ -19,7 +19,7 @@
 		</version>
 		<version num="5.1.0" language="french" localized_language="Francais" name="lastcoms" priority="low" security-update="false" pubdate="2017/07/03">
 			<compatibility min="5.1"/>
-			<download url="http://dl.phpboost.com/5.1/modules/unofficial/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
+			<download url="http://dl.phpboost.com/5.1/modules/lastcoms/lastcoms.zip">Module Derniers commentaires</download>
 			<authors>
 				<author name="liaght" email="liaght@gmail.com"/>
 				<author name="babsolune" email="babsolune@phpboost.com"/>
