@@ -35,8 +35,8 @@ $lang['module.config.title'] = 'Configuration des derniers commentaires';
 $lang['admin.authorizations.read']  = 'Autorisation d\'afficher les derniers commentaires';
 
 $lang['lastcoms.number'] = 'Nombre de commentaires';
-$lang['lastcoms.char'] = 'Nombre de charactères';
+$lang['lastcoms.char'] = 'Nombre de caractères';
 $lang['lastcoms.number.explain'] = 'Nombre maximum de commentaires à afficher';
-$lang['lastcoms.char.explain'] = 'Nombre maximum de charatères à afficher par commentaires';
+$lang['lastcoms.char.explain'] = 'Nombre maximum de caratères à afficher par commentaires';
 $lang['lastcoms.no.com'] = 'Il n\'y a acucun commentaire sur le site pour l\'instant';
 ?>
