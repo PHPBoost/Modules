@@ -29,7 +29,7 @@ class HomeCustomSetup extends DefaultModuleSetup
 {
 	public function upgrade($installed_version)
 	{
-		return '5.1.0';
+		return '5.2.0';
 	}
 }
 ?>
