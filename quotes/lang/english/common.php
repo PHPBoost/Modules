@@ -50,4 +50,9 @@ $lang['quotes.form.contribution.explain'] = 'You are not authorized to create a 
 $lang['quotes.seo.description.root'] = 'All :site\'s quotes.';
 $lang['quotes.seo.description.pending'] = 'All pending quotes.';
 $lang['quotes.seo.description.author'] = 'All :author\'s quotes.';
+
+//Messages
+$lang['quotes.message.success.add'] = 'The quote <b>:author</b> has been added';
+$lang['quotes.message.success.edit'] = 'The quote <b>:author</b> has been modified';
+$lang['quotes.message.success.delete'] = 'The quote <b>:author</b> has been deleted';
 ?>

@@ -52,7 +52,7 @@ class QuotesSetup extends DefaultModuleSetup
 		$file = new File(Url::to_rel('/quotes/controllers/AdminQuotesManageController.class.php'));
 		$file->delete();
 		
-		return '5.1.0';
+		return '5.2.0';
 	}
 	
 	public function uninstall()

@@ -64,7 +64,7 @@ class QuotesCache implements CacheData
 		
 		$result = PersistenceContext::get_querier()->select('SELECT author, rewrited_author
 			FROM ' . QuotesSetup::$quotes_table . '
-			GROUP BY rewrited_author'
+			GROUP BY author, rewrited_author'
 		);
 		
 		while ($row = $result->fetch())

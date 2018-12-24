@@ -48,7 +48,7 @@ class QuotesDeleteController extends ModuleController
 		
 		QuotesCache::invalidate();
 		
-		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), array('name' => $this->quote->get_author())));
+		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), array('author' => $this->quote->get_author())));
 	}
 	
 	private function get_quote(HTTPRequestCustom $request)

@@ -50,4 +50,9 @@ $lang['quotes.form.contribution.explain'] = 'Vous n\'êtes pas autorisé à ajou
 $lang['quotes.seo.description.root'] = 'Toutes les citations du site :site.';
 $lang['quotes.seo.description.pending'] = 'Toutes les citations en attente.';
 $lang['quotes.seo.description.author'] = 'Toutes les citations de :author.';
+
+//Messages
+$lang['quotes.message.success.add'] = 'La citation <b>:author</b> a été ajoutée';
+$lang['quotes.message.success.edit'] = 'La citation <b>:author</b> a été modifiée';
+$lang['quotes.message.success.delete'] = 'La citation <b>:author</b> a été supprimée';
 ?>
