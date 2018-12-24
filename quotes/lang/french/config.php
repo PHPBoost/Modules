@@ -39,5 +39,5 @@ Quelques citations ont été créées pour vous montrer comment fonctionne ce mo
 	<li class="formatter-li"> Pour créer des catégories, <a href="' . QuotesUrlBuilder::add_category()->relative() . '">cliquez ici</a> </li>
 	<li class="formatter-li"> Pour créer des citations, <a href="' . QuotesUrlBuilder::add()->relative() . '">cliquez ici</a></li>
 </ul>
-<br />Pour en savoir plus, n\'hésitez pas à consulter la documentation du module sur le site de <a href="http://www.phpboost.com">PHPBoost</a>.';
+<br />Pour en savoir plus, n\'hésitez pas à consulter la documentation du module sur le site de <a href="https://www.phpboost.com">PHPBoost</a>.';
 ?>
