@@ -47,11 +47,11 @@ $lang['default.smallad.contents'] = 'This first ad will give you some simple tip
 	<li class="formatter-li"> To create announces, <a href="' . SmalladsUrlBuilder::add_item()->relative() . '">clic here</a></li>
 </ul>
 <ul class="formatter-ul">
-<li class="formatter-li">To format your articles, you can use bbcode language or the WYSIWYG editor (see this <a href="http://www.phpboost.com/wiki/bbcode">article</a>)<br />
+<li class="formatter-li">To format your articles, you can use bbcode language or the WYSIWYG editor (see this <a href="https://www.phpboost.com/wiki/bbcode">article</a>)<br />
 </li>
 </ul>
 <br /><br />
-For more information, please see the module documentation on the site <a href="http://www.phpboost.com">PHPBoost</a>.<br />
+For more information, please see the module documentation on the site <a href="https://www.phpboost.com">PHPBoost</a>.<br />
 <br />
 <br />
 Good use of this module.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE repository SYSTEM "http://www.phpboost.com/repository/repository.dtd">
+<!DOCTYPE repository SYSTEM "https://www.phpboost.com/repository/repository.dtd">
 <repository>
 	<header/>
 	<app id="lastcoms" type="module">

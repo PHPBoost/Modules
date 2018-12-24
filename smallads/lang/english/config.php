@@ -44,5 +44,5 @@ One category and one announce were created to show you how this module works. He
 <li class="formatter-li"> To create categories, <a href="' . SmalladsUrlBuilder::add_category()->relative() . '">clic here</a></li>
 <li class="formatter-li"> To create announces, <a href="' . SmalladsUrlBuilder::add_item()->relative() . '">clic here</a></li>
 </ul>
-<br />To learn more, please read the documentation for the module at <a href="http://www.phpboost.com">PHPBoost</a> website.';
+<br />To learn more, please read the documentation for the module at <a href="https://www.phpboost.com">PHPBoost</a> website.';
 ?>
