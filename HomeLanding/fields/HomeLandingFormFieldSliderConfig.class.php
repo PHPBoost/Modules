@@ -4,7 +4,7 @@
  *                            -------------------
  *   begin                : April 15, 2016
  *   copyright            : (C) 2016 Sebastien Lartigue
- *   email                : babsolune@phpboost.fr
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
@@ -26,7 +26,7 @@
  ###################################################*/
 
 /**
- * @author Sebastien Lartigue <babsolune@phpboost.fr>
+ * @author Sebastien Lartigue <babsolune@phpboost.com>
  */
 
 class HomeLandingFormFieldSliderConfig extends AbstractFormField

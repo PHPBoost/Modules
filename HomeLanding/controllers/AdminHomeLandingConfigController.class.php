@@ -4,7 +4,7 @@
  *                            -------------------
  *   begin                : January 2, 2016
  *   copyright            : (C) 2016 Sebastien Lartigue
- *   email                : babsolune@phpboost.fr
+ *   email                : babsolune@phpboost.com
  *
  *
  ###################################################
