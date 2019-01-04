@@ -1,60 +1,39 @@
 <?php
-/*##################################################
- *                               QuotesDeleteController.class.php
- *                            -------------------
- *   begin                : February 18, 2016
- *   copyright            : (C) 2016 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
- *
- *
- ###################################################
- *
- * This program is a free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
-
- /**
- * @author Julien BRISWALTER <j1.seth@phpboost.com>
- */
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @since   	PHPBoost 5.0 - 2016 02 18
+ * @contributor mipel <mipel@phpboost.com>
+*/
 
 class QuotesDeleteController extends ModuleController
 {
 	private $quote;
-	
+
 	public function execute(HTTPRequestCustom $request)
 	{
 		AppContext::get_session()->csrf_get_protect();
-		
+
 		$this->get_quote($request);
-		
+
 		$this->check_authorizations();
-		
+
 		QuotesService::delete('WHERE id=:id', array('id' => $this->quote->get_id()));
 		PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'quotes', 'id' => $this->quote->get_id()));
-		
+
 		QuotesCategoriesCache::invalidate();
-		
+
 		QuotesCache::invalidate();
-		
+
 		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), array('author' => $this->quote->get_author())));
 	}
-	
+
 	private function get_quote(HTTPRequestCustom $request)
 	{
 		$id = $request->get_getint('id', 0);
-		
+
 		if (!empty($id))
 		{
 			try {
@@ -65,7 +44,7 @@ class QuotesDeleteController extends ModuleController
 			}
 		}
 	}
-	
+
 	private function check_authorizations()
 	{
 		if (!$this->quote->is_authorized_to_delete())

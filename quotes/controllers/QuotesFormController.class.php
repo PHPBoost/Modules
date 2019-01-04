@@ -1,33 +1,12 @@
 <?php
-/*##################################################
- *                               QuotesFormController.class.php
- *                            -------------------
- *   begin                : February 18, 2016
- *   copyright            : (C) 2016 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
- *
- *
- ###################################################
- *
- * This program is a free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
-
- /**
- * @author Julien BRISWALTER <j1.seth@phpboost.com>
- */
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @since   	PHPBoost 5.0 - 2016 02 18
+ * @contributor mipel <mipel@phpboost.com>
+*/
 
 class QuotesFormController extends ModuleController
 {
@@ -39,51 +18,51 @@ class QuotesFormController extends ModuleController
 	 * @var FormButtonSubmit
 	 */
 	private $submit_button;
-	
+
 	private $lang;
 	private $common_lang;
-	
+
 	private $config;
-	
+
 	private $quote;
 	private $is_new_quote;
-	
+
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->init();
-		
+
 		$this->check_authorizations();
-		
+
 		$this->build_form($request);
-		
+
 		$tpl = new StringTemplate('# INCLUDE FORM #');
 		$tpl->add_lang($this->lang);
-		
+
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
 			$this->redirect();
 		}
-		
+
 		$tpl->put('FORM', $this->form->display());
-		
+
 		return $this->generate_response($tpl);
 	}
-	
+
 	private function init()
 	{
 		$this->config = QuotesConfig::load();
 		$this->lang = LangLoader::get('common', 'quotes');
 		$this->common_lang = LangLoader::get('common');
 	}
-	
+
 	private function build_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
-		
+
 		$fieldset = new FormFieldsetHTMLHeading('quotes', $this->lang['module_title']);
 		$form->add_fieldset($fieldset);
-		
+
 		if (QuotesService::get_categories_manager()->get_categories_cache()->has_categories())
 		{
 			$search_category_children_options = new SearchCategoryChildrensOptions();
@@ -91,26 +70,26 @@ class QuotesFormController extends ModuleController
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
 			$fieldset->add_field(QuotesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_quote()->get_id_category(), $search_category_children_options));
 		}
-		
+
 		$fieldset->add_field(new FormFieldAjaxCompleter('author', $this->common_lang['author'], $this->get_quote()->get_author(),
 			array('required' => true, 'file' => QuotesUrlBuilder::ajax_authors()->rel())
 		));
-		
+
 		$fieldset->add_field(new FormFieldRichTextEditor('quote', $this->lang['quote'], $this->get_quote()->get_quote(), array('required' => true)));
-		
-		
+
+
 		$this->build_approval_field($fieldset);
 		$this->build_contribution_fieldset($form);
-		
+
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
-		
+
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
 		$form->add_button(new FormButtonReset());
-		
+
 		$this->form = $form;
 	}
-	
+
 	private function build_approval_field($fieldset)
 	{
 		if (!$this->is_contributor_member())
@@ -118,7 +97,7 @@ class QuotesFormController extends ModuleController
 			$fieldset->add_field(new FormFieldCheckbox('approved', $this->common_lang['form.approve'], $this->get_quote()->is_approved()));
 		}
 	}
-	
+
 	private function build_contribution_fieldset($form)
 	{
 		if ($this->is_contributor_member())
@@ -126,16 +105,16 @@ class QuotesFormController extends ModuleController
 			$fieldset = new FormFieldsetHTML('contribution', LangLoader::get_message('contribution', 'user-common'));
 			$fieldset->set_description(MessageHelper::display(LangLoader::get_message('contribution.explain', 'user-common') . ' ' . $this->lang['quotes.form.contribution.explain'], MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
-			
+
 			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', LangLoader::get_message('contribution.description', 'user-common'), '', array('description' => LangLoader::get_message('contribution.description.explain', 'user-common'))));
 		}
 	}
-	
+
 	private function is_contributor_member()
 	{
 		return ($this->get_quote()->get_id() === null && !QuotesAuthorizationsService::check_authorizations()->write() && QuotesAuthorizationsService::check_authorizations()->contribution());
 	}
-	
+
 	private function get_quote()
 	{
 		if ($this->quote === null)
@@ -168,11 +147,11 @@ class QuotesFormController extends ModuleController
 		}
 		return $this->quote;
 	}
-	
+
 	private function check_authorizations()
 	{
 		$quotes = $this->get_quote();
-		
+
 		if ($quotes->get_id() === null)
 		{
 			if (!QuotesAuthorizationsService::check_authorizations()->write() && !QuotesAuthorizationsService::check_authorizations()->contribution())
@@ -190,24 +169,24 @@ class QuotesFormController extends ModuleController
 			}
 		}
 	}
-	
+
 	private function save()
 	{
 		$quotes = $this->get_quote();
-		
+
 		$previous_category_id = $quotes->get_id_category();
-		
+
 		if (QuotesService::get_categories_manager()->get_categories_cache()->has_categories())
 			$quotes->set_id_category($this->form->get_value('id_category')->get_raw_value());
-		
+
 		if (!$this->is_contributor_member() && $this->form->get_value('approved'))
 			$quotes->approve();
 		else
 			$quotes->unapprove();
-		
+
 		$quotes->set_author($this->form->get_value('author'));
 		$quotes->set_quote($this->form->get_value('quote'));
-		
+
 		if ($quotes->get_id() === null)
 		{
 			$id = QuotesService::add($quotes);
@@ -217,13 +196,13 @@ class QuotesFormController extends ModuleController
 			$id = $quotes->get_id();
 			QuotesService::update($quotes);
 		}
-		
+
 		$this->contribution_actions($quotes, $id);
-		
+
 		QuotesCache::invalidate();
 		QuotesCategoriesCache::invalidate();
 	}
-	
+
 	private function contribution_actions(Quote $quotes, $id)
 	{
 		if ($this->is_contributor_member())
@@ -250,18 +229,18 @@ class QuotesFormController extends ModuleController
 			{
 				$quotes_contribution = $corresponding_contributions[0];
 				$quotes_contribution->set_status(Event::EVENT_STATUS_PROCESSED);
-				
+
 				ContributionService::save_contribution($quotes_contribution);
 			}
 		}
 		$quotes->set_id($id);
 	}
-	
+
 	private function redirect()
 	{
 		$quotes = $this->get_quote();
 		$category = $quotes->get_category();
-		
+
 		if ($this->is_new_quote && $this->is_contributor_member() && !$quotes->is_approved())
 		{
 			DispatchManager::redirect(new UserContributionSuccessController());
@@ -281,19 +260,19 @@ class QuotesFormController extends ModuleController
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('author' => $quotes->get_author())));
 		}
 	}
-	
+
 	private function generate_response(View $tpl)
 	{
 		$quotes = $this->get_quote();
-		
+
 		$location_id = $quotes->get_id() ? 'quotes-edit-'. $quotes->get_id() : '';
-		
+
 		$response = new SiteDisplayResponse($tpl, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
-		
+
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['module_title'], QuotesUrlBuilder::home());
-		
+
 		if ($quotes->get_id() === null)
 		{
 			$graphical_environment->set_page_title($this->lang['quotes.add'], $this->lang['module_title']);
@@ -305,11 +284,11 @@ class QuotesFormController extends ModuleController
 		{
 			if (!AppContext::get_session()->location_id_already_exists($location_id))
 				$graphical_environment->set_location_id($location_id);
-			
+
 			$graphical_environment->set_page_title($this->lang['quotes.edit'], $this->lang['module_title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['quotes.edit']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::edit($quotes->get_id()));
-			
+
 			$categories = array_reverse(QuotesService::get_categories_manager()->get_parents($quotes->get_id_category(), true));
 			foreach ($categories as $id => $category)
 			{
@@ -319,7 +298,7 @@ class QuotesFormController extends ModuleController
 			$category = $quotes->get_category();
 			$breadcrumb->add($this->lang['quotes.edit'], QuotesUrlBuilder::edit($quotes->get_id()));
 		}
-		
+
 		return $response;
 	}
 }
