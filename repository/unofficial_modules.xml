@@ -3,6 +3,41 @@
 <repository>
 	<header/>
 	<!--  ReidLos  -->
+	<app id="HomeCustom" type="module">
+		<version num="5.1.0" language="french" localized_language="Francais" name="HomeCustom" priority="low" security-update="false" pubdate="2017/07/03">
+			<compatibility min="5.1"/>
+			<download url="https://dl.phpboost.com/5.1/modules/HomeCustom/HomeCustom.zip">Module HomeCustom</download>
+			<authors>
+				<author name="ReidLos" email="kevin.massy@phpboost.com"/>
+			</authors>
+			<description>Version 5.1.0 du module HomeCustom</description>
+			<whatsnew>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
+			</whatsnew>
+		</version>
+		<version num="5.0.0" language="french" localized_language="Francais" name="HomeCustom" priority="low" security-update="false" pubdate="2016/01/09">
+			<compatibility min="5.0"/>
+			<download url="https://dl.phpboost.com/5.0/modules/unofficial/HomeCustom.zip">Module HomeCustom</download>
+			<authors>
+				<author name="ReidLos" email="kevin.massy@phpboost.com"/>
+			</authors>
+			<description>Version 5.0.0 du module HomeCustom</description>
+			<whatsnew>
+				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
+			</whatsnew>
+		</version>
+		<version num="4.1.0" language="french" localized_language="Francais" name="HomeCustom" priority="low" security-update="false" pubdate="2016/01/09">
+			<compatibility min="4.1"/>
+			<download url="https://dl.phpboost.com/4.1/modules/unofficial/HomeCustom.zip">Module HomeCustom</download>
+			<authors>
+				<author name="ReidLos" email="kevin.massy@phpboost.com"/>
+			</authors>
+			<description>Version 4.1.0 du module HomeCustom</description>
+			<whatsnew>
+				<new type="improvement">Première diffusion du module</new>
+			</whatsnew>
+		</version>
+	</app>
 	<app id="GoogleAnalytics" type="module">
 		<version num="5.0.1" language="english" localized_language="English" name="GoogleAnalytics" priority="low" security-update="false" pubdate="2016/04/29">
 			<compatibility min="5.0"/>
