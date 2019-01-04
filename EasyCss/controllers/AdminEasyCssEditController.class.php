@@ -1,36 +1,15 @@
 <?php
-
-/* #################################################
- *                           AdminEasyCssEditController.class.php
- *                            -------------------
- *   begin                : 2016/04/22
- *   copyright            : (C) 2016 PaperToss
- *   email                : t0ssp4p3r@gmail.com
- *
- *
-  ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
-  ################################################### */
-
 /**
  * Cette page permet la modification des fichiers CSS contenus dans le dossier 'theme' des thèmes installés
- *
- * @author PaperToss
- */
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      PaperToss <t0ssp4p3r@gmail.com>
+ * @version   	PHPBoost 5.2 - last update: 2018 11 30
+ * @since   	PHPBoost 5.0 - 2016 04 22
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @contributor Arnaud GENET <elenwii@phpboost.com>
+*/
+
 class AdminEasyCssEditController extends ModuleController
 {
 
@@ -66,7 +45,7 @@ class AdminEasyCssEditController extends ModuleController
 
     /**
      * Exécution de la page
-     * 
+     *
      * @param \HTTPRequestCustom $request
      * @return \AdminDisplayResponse
      */
@@ -104,7 +83,7 @@ class AdminEasyCssEditController extends ModuleController
     }
     /**
      * Récupération du fichier CSS à modifier
-     * 
+     *
      * @param \HTTPRequestCustom $request
      */
     private function get_file(\HTTPRequestCustom $request)
@@ -165,7 +144,7 @@ class AdminEasyCssEditController extends ModuleController
      * Exécution des éléments POST
      * Récupération du champ hidden, remplacement des objets avec les nouvelles valeurs
      * Ecriture du CSS et suppression du cache CSS
-     * 
+     *
      * @param \HTTPRequestCustom $request
      */
     private function post_process(\HTTPRequestCustom $request)
@@ -179,7 +158,7 @@ class AdminEasyCssEditController extends ModuleController
 
     /**
      * Création et retour de la reponse
-     * 
+     *
      * @param View $view
      * @return \AdminDisplayResponse
      */
@@ -213,7 +192,7 @@ class AdminEasyCssEditController extends ModuleController
 
     /**
      * Ajoute un élément au champ hidden
-     * 
+     *
      * @static
      * @param string    ID complet du champ à ajouter
      */
@@ -224,7 +203,7 @@ class AdminEasyCssEditController extends ModuleController
 
     /**
      * Ajoute une erreur de contenu
-     * 
+     *
      * @static
      * @param string    Erreur à afficher
      */
@@ -235,7 +214,7 @@ class AdminEasyCssEditController extends ModuleController
 
     /**
      * Retourne un attribut depuis son ID
-     * 
+     *
      * @static
      * @param string    ID complet de l'élément
      * @return \EasyCssAbstractAttribut

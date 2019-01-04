@@ -1,41 +1,17 @@
 <?php
-
-/* #################################################
- *                           EasyCssRGBElement.class.php
- *                            -------------------
- *   begin                : 2016/05/22
- *   copyright            : (C) 2016 PaperToss
- *   email                : t0ssp4p3r@gmail.com
- *
- *
-  ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
-  ################################################### */
-
 /**
- * Description of EasyCssRGBElement
- *
- * @author PaperToss
- */
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      PaperToss <t0ssp4p3r@gmail.com>
+ * @version   	PHPBoost 5.2 - last update: 2016 06 13
+ * @since   	PHPBoost 5.0 - 2016 05 22
+*/
+
 class EasyCssRGBElement extends EasyCssAbstractElement
 {
-    
+
     use EasyCssColorTrait;
-    
+
     protected $color;
     protected $color_id;
 
@@ -43,7 +19,7 @@ class EasyCssRGBElement extends EasyCssAbstractElement
     {
         parent::__construct($id, $parent_id, $value);
         $this->color_id = $this->parent_id . '/' . $this->id . '_color';
-        
+
         $color = self::get_rgb_value_from_str($value);
 
         $values = explode(',', $color);
@@ -58,7 +34,7 @@ class EasyCssRGBElement extends EasyCssAbstractElement
         {
             $label = AdminEasyCssEditController::get_lang('color_description');
         }
-        
+
         return [$this->color->get_form($label)];
     }
 

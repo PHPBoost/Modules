@@ -1,46 +1,23 @@
 <?php
-
-/* #################################################
- *                           EasyCssTransparencyValue.class.php
- *                            -------------------
- *   begin                : 2016/05/20
- *   copyright            : (C) 2016 PaperToss
- *   email                : t0ssp4p3r@gmail.com
- *
- *
-  ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
-  ################################################### */
-
 /**
- * Description of EasyCssTransparencyValue
- *
- * @author PaperToss
- */
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      PaperToss <t0ssp4p3r@gmail.com>
+ * @version   	PHPBoost 5.2 - last update: 2016 06 16
+ * @since   	PHPBoost 5.0 - 2016 05 19
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+*/
+
 class EasyCssTransparencyValue extends EasyCssAbstractValue
 {
     protected $transparency;
-    
+
     public function __construct($id, $transparency)
     {
         parent::__construct($id);
         $this->set_value($transparency);
     }
-    
+
     public function set_value($transparency)
     {
         $transparency = floatval($transparency);
@@ -53,7 +30,7 @@ class EasyCssTransparencyValue extends EasyCssAbstractValue
         $this->transparency = $transparency;
         return $this->transparency;
     }
-    
+
     public function get_form($label)
     {
         $tpl = new FileTemplate('EasyCss/fields/EasyCssTransparencyField.tpl');
@@ -66,7 +43,7 @@ class EasyCssTransparencyValue extends EasyCssAbstractValue
         ));
         return $tpl;
     }
-    
+
     public function get_transparency()
     {
         return $this->transparency;

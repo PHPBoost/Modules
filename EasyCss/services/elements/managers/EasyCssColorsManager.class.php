@@ -1,40 +1,17 @@
 <?php
-
-/* #################################################
- *                           EasyCssColorsManager.class.php
- *                            -------------------
- *   begin                : 2016/05/23
- *   copyright            : (C) 2016 PaperToss
- *   email                : t0ssp4p3r@gmail.com
- *
- *
-  ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
-  ################################################### */
-
 /**
- * Description of EasyCssColorsManager
- *
- * @author PaperToss
- */
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      PaperToss <t0ssp4p3r@gmail.com>
+ * @version   	PHPBoost 5.2 - last update: 2016 11 14
+ * @since   	PHPBoost 5.0 - 2016 05 03
+ * @contributor mipel <mipel@phpboost.com>
+*/
+
 class EasyCssColorsManager
 {
     use EasyCssColorTrait;
-    
+
     public static $colors_words  = [
         'aliceblue'=>'F0F8FF',
         'antiquewhite'=>'FAEBD7',
@@ -183,11 +160,11 @@ class EasyCssColorsManager
         'whitesmoke'=>'F5F5F5',
         'yellow'=>'FFFF00',
         'yellowgreen'=>'9ACD32'];
-    
+
     protected static $others_values = [
         'transparent', 'inherit', 'initial', 'none'
     ];
-    
+
     public static function create_color($id, $parent_id, $value)
     {
         if (!self::is_color($value))
@@ -214,12 +191,12 @@ class EasyCssColorsManager
         }
         return false;
     }
-    
+
     public static function is_color($value)
     {
         return (self::is_name_color($value) || self::is_rgba_color($value) || self::is_rgb_color($value) || self::is_hex_color($value) || self::is_other_color_value($value));
     }
-    
+
     public static function sanitise($value)
     {
         $val = preg_split('`\((.*)\)`isuU', $value, NULL, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
@@ -234,27 +211,27 @@ class EasyCssColorsManager
         }
         return $strval;
     }
-    
+
     protected static function is_name_color($value)
     {
         return array_key_exists($value, self::$colors_words);
     }
-    
+
     protected static function is_rgba_color($value)
     {
         return preg_match('`\s*rgba\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d?\.?\d{1,}\s*\)`iu', $value);
     }
-    
+
     protected static function is_rgb_color($value)
     {
         return preg_match('`\s*rgb\s*\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)`iu', $value);
     }
-    
+
     protected static function is_hex_color($value)
     {
         return preg_match('`^\s*#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\s*$`iu', $value);
     }
-    
+
     protected static function is_other_color_value($value)
     {
         return in_array($value, self::$others_values);

@@ -1,36 +1,14 @@
 <?php
-
-/* #################################################
- *                           EasyCssColorTrait.class.php
- *                            -------------------
- *   begin                : 2016/00/01
- *   copyright            : (C) 2016 PaperToss
- *   email                : t0ssp4p3r@gmail.com
- *
- *
-  ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
-  ################################################### */
-
 /**
- * Description of EasyCssColorTrait
- *
- * @author PaperToss
- */
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      PaperToss <t0ssp4p3r@gmail.com>
+ * @version   	PHPBoost 5.2 - last update: 2016 11 14
+ * @since   	PHPBoost 5.0 - 2016 04 26
+ * @contributor mipel <mipel@phpboost.com>
+ * @contributor Arnaud GENET <elenwii@phpboost.com>
+*/
+
 trait EasyCssColorTrait
 {
     protected static function rgb_to_hex($n)
@@ -63,21 +41,21 @@ trait EasyCssColorTrait
             $b = hexdec(TextHelper::substr($hex, 4, 2));
         }
         $rgb = array($r, $g, $b);
-        return implode(",", $rgb); 
+        return implode(",", $rgb);
     }
-    
+
     protected static function get_hex_value_from_str($value)
     {
         preg_match('`^\s*#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\s*$`iu', $value, $matches);
         return $matches[1];
     }
-    
+
     protected static function get_rgba_value_from_str($value)
     {
         preg_match('`\s*rgba\s*\((.*)\)\s*`iu', $value, $matches);
         return $matches[1];
     }
-    
+
     protected static function get_rgb_value_from_str($value)
     {
         preg_match('`\s*rgb\s*\((.*)\)\s*`iu', $value, $matches);
