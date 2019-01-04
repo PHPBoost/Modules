@@ -1,29 +1,11 @@
 <?php
-/*##################################################
- *                          ServerStatusModuleMiniMenu.class.php
- *                            -------------------
- *   begin                : August 4, 2013
- *   copyright            : (C) 2013 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
- *
- *
- ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2016 02 11
+ * @since   	PHPBoost 4.0 - 2013 08 04
+*/
 
 class ServerStatusModuleMiniMenu extends ModuleMiniMenu
 {
@@ -31,22 +13,22 @@ class ServerStatusModuleMiniMenu extends ModuleMiniMenu
 	{
 		return self::BLOCK_POSITION__LEFT;
 	}
-	
+
 	public function display($tpl = false)
 	{
 		if (!Url::is_current_url('/ServerStatus/') && ServerStatusAuthorizationsService::check_authorizations()->read())
 		{
 			$lang = LangLoader::get('common', 'ServerStatus');
 			$main_lang = LangLoader::get('main');
-			
+
 			$tpl = new FileTemplate('ServerStatus/ServerStatusModuleMiniMenu.tpl');
 			$tpl->add_lang($lang);
 			MenuService::assign_positions_conditions($tpl, $this->get_block());
-			
+
 			ServerStatusService::check_servers_status();
-			
+
 			$config = ServerStatusConfig::load();
-			
+
 			$i = $number_servers = 0;
 			foreach ($config->get_servers_list() as $id => $server)
 			{
@@ -67,13 +49,13 @@ class ServerStatusModuleMiniMenu extends ModuleMiniMenu
 					$number_servers++;
 				}
 			}
-			
+
 			$tpl->put_all(array(
 				'C_ADDRESS_DISPLAYED' => $config->is_address_displayed(),
 				'C_MORE_THAN_ONE_SERVER' => $number_servers > 1,
 				'C_SERVERS' => $number_servers
 			));
-			
+
 			return $tpl->render();
 		}
 		return '';
