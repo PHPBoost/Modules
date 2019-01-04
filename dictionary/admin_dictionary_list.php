@@ -1,29 +1,14 @@
 <?php
-/*##################################################
- *                              admin_dictionary_list.php
- *                            -------------------
- *   begin                : March  3, 2009 
- *   copyright            : (C) 2009 Nicolas Maurel
- *   email                :  crunchfamily@free.fr
- *
- *  
-###################################################
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-###################################################*/
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2018 12 04
+ * @since   	PHPBoost 2.0 - 2012 11 15
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
+*/
 
 require_once('../admin/admin_begin.php');
 load_module_lang('dictionary'); //Chargement de la langue du module.
@@ -66,9 +51,9 @@ $Template->put_all(array(
 ));
 
 $result = PersistenceContext::get_querier()->select("SELECT l.word ,l.id AS dictionary_id,l.cat,l.approved AS dictionary_approved,l.timestamp,cat.id,cat.name,cat.images
-FROM " . PREFIX . "dictionary AS l 
+FROM " . PREFIX . "dictionary AS l
 LEFT JOIN " . PREFIX . "dictionary_cat cat ON cat.id = l.cat
-ORDER BY timestamp DESC 
+ORDER BY timestamp DESC
 LIMIT :number_items_per_page OFFSET :display_from", array(
 	'number_items_per_page' => $pagination->get_number_items_per_page(),
 	'display_from' => $pagination->get_display_from()
@@ -81,7 +66,7 @@ while ($row = $result->fetch())
 	$title = TextHelper::strlen($title) > 45 ? TextHelper::substr($title, 0, 45) . '...' : $title;
 	$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" title="' . $row['images'] . '" />';
 	$date_created = !empty($row['timestamp']) ? new Date($row['timestamp'], Timezone::SERVER_TIMEZONE) : null;
-	
+
 	$Template->assign_block_vars('dictionary_list', array(
 		'ID' => $row['dictionary_id'],
 		'NAME' => Texthelper::ucfirst(TextHelper::strtolower(stripslashes($title))),
@@ -94,7 +79,7 @@ while ($row = $result->fetch())
 }
 $result->dispose();
 
-$Template->display(); 
+$Template->display();
 
 
 require_once('../admin/admin_footer.php');

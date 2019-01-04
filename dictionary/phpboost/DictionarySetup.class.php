@@ -1,29 +1,12 @@
 <?php
-/*##################################################
- *                              DictionarySetup.class.php
- *                            -------------------
- *   begin                : November 15, 2012
- *   copyright            : (C) 2012 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
- *
- *  
- ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @since   	PHPBoost 3.0 - 2012 11 15
+ * @contributor mipel <mipel@phpboost.com>
+*/
 
 class DictionarySetup extends DefaultModuleSetup
 {
@@ -35,22 +18,22 @@ class DictionarySetup extends DefaultModuleSetup
 		self::$dictionary_table = PREFIX . 'dictionary';
 		self::$dictionary_cat_table = PREFIX . 'dictionary_cat';
 	}
-	
+
 	public function __construct()
 	{
 		$this->querier = PersistenceContext::get_querier();
 	}
-	
+
 	public function install()
 	{
 		$this->drop_tables();
 		$this->create_tables();
 	}
-	
+
 	public function upgrade($installed_version)
 	{
 		$columns = PersistenceContext::get_dbms_utils()->desc_table(PREFIX . 'dictionary');
-		
+
 		if ($columns['word']['key'] == 'word')
 		{
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'dictionary ADD FULLTEXT KEY `title` (`word`)');
@@ -61,7 +44,7 @@ class DictionarySetup extends DefaultModuleSetup
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'dictionary ADD FULLTEXT KEY `contents` (`description`)');
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'dictionary DROP KEY `description`');
 		}
-		
+
 		//Delete old files
 		$file = new File(Url::to_rel('/dictionary/admin_dictionary.php'));
 		$file->delete();
@@ -73,7 +56,7 @@ class DictionarySetup extends DefaultModuleSetup
 		$file->delete();
 		$file = new File(Url::to_rel('/dictionary/templates/dictionary_search_form.tpl'));
 		$file->delete();
-		
+
 		return '5.2.0';
 	}
 
@@ -82,17 +65,17 @@ class DictionarySetup extends DefaultModuleSetup
 		$this->drop_tables();
 		$this->delete_configuration();
 	}
-	
+
 	private function drop_tables()
 	{
 		PersistenceContext::get_dbms_utils()->drop(array(self::$dictionary_table, self::$dictionary_cat_table));
 	}
-	
+
 	private function delete_configuration()
 	{
 		ConfigManager::delete('dictionary');
 	}
-	
+
 	private function create_tables()
 	{
 		$this->create_dictionary_table();
@@ -120,7 +103,7 @@ class DictionarySetup extends DefaultModuleSetup
 		);
 		PersistenceContext::get_dbms_utils()->create_table(self::$dictionary_table, $fields, $options);
 	}
-	
+
 	private function create_dictionary_cat_table()
 	{
 		$fields = array(
@@ -131,7 +114,7 @@ class DictionarySetup extends DefaultModuleSetup
 		$options = array(
 			'primary' => array('id')
 		);
-		
+
 		PersistenceContext::get_dbms_utils()->create_table(self::$dictionary_cat_table, $fields, $options);
 	}
 
@@ -141,7 +124,7 @@ class DictionarySetup extends DefaultModuleSetup
 		$this->insert_dictionary_cat_data();
 		$this->insert_dictionary_data();
 	}
-	
+
 	private function insert_dictionary_cat_data()
 	{
 		$this->querier->insert(self::$dictionary_cat_table, array(
@@ -160,7 +143,7 @@ class DictionarySetup extends DefaultModuleSetup
 			'images' => ''
 		));
 	}
-	
+
 	private function insert_dictionary_data()
 	{
 		$this->querier->insert(self::$dictionary_table, array(
