@@ -26,7 +26,7 @@
 				<new type="improvement">Passage du module en version compatible PHPBoost 5.0</new>
 			</whatsnew>
 		</version>
-		<version num="4.1.0" language="french" localized_language="Francais" name="HomeCustom" priority="low" security-update="false" pubdate="2016/01/09">
+		<version num="4.1.0" language="french" localized_language="Francais" name="HomeCustom" priority="low" security-update="false" pubdate="2014/10/03">
 			<compatibility min="4.1"/>
 			<download url="https://dl.phpboost.com/4.1/modules/unofficial/HomeCustom.zip">Module HomeCustom</download>
 			<authors>

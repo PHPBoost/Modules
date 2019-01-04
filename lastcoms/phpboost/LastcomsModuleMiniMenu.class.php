@@ -1,30 +1,13 @@
 <?php
-/*##################################################
- *                        LastcomsModuleMiniMenu.class.php
- *                            -------------------
- *   begin                             : July 26, 2009
- *   copyright                         : (C) 2009 ROGUELON Geoffrey
- *   email                             : liaght@gmail.com
- *   Adapted for Phpboost since 4.1 by : babsolune - babsolune@phpboost.com
- *
- *
- ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Geoffrey ROGUELON <liaght@gmail.com>
+ * @version   	PHPBoost 5.2 - last update: 2018 11 26
+ * @since   	PHPBoost 3.0 - 2009 07 26
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
+*/
 
 class LastcomsModuleMiniMenu extends ModuleMiniMenu
 {
@@ -64,7 +47,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		$now = new Date();
 		$lastcoms_config = LastcomsConfig::load();
 		$coms_char = $lastcoms_config->get_lastcoms_char();
-		
+
 		$querier = PersistenceContext::get_querier();
 		$results = $querier->select("SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, ct.module_id, ct.is_locked, m.level, m.groups
 			FROM " . DB_TABLE_COMMENTS . " AS c
@@ -79,7 +62,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 				'forbidden_module' => 'user'
 			)
 		);
-		
+
 		$comments_number = 0;
 		while($row = $results->fetch())
 		{
@@ -87,7 +70,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
 			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
 			$user_group_color = User::get_group_color($row['groups'], $row['level']);
-			
+
 			$tpl->assign_block_vars('coms', array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
 				'C_AUTHOR_EXIST' => $row['user_id'] !== User::VISITOR_LEVEL,
