@@ -1,4 +1,3 @@
-
 # IF C_VERTICAL #
 <div class="module-mini-container">
 	<div class="module-mini-top">
