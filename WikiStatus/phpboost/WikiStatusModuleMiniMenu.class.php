@@ -1,33 +1,11 @@
 <?php
-/*##################################################
- *                               WikiStatusModuleMiniMenu.class.php
- *                            -------------------
- *   begin                : January 30, 2017
- *   copyright            : (C) 2016 Julien BRISWALTER
- *   email                : j1.seth@phpboost.com
- *
- *
- ###################################################
- *
- * This program is a free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
-
- /**
- * @author Julien BRISWALTER <j1.seth@phpboost.com>
- */
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2017 04 24
+ * @since   	PHPBoost 5.0 - 2017 01 30
+*/
 
 class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 {
@@ -35,25 +13,25 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 	{
 		return self::BLOCK_POSITION__BOTTOM_CENTRAL;
 	}
-	
+
 	public function get_menu_id()
 	{
 		return 'module-mini-wiki-status';
 	}
-	
+
 	public function get_menu_title()
 	{
 		return LangLoader::get_message('menu_title', 'common', 'WikiStatus');
 	}
-	
+
 	public function get_menu_content()
 	{
 		$tpl = new FileTemplate('WikiStatus/ArticlesWikiStatusUpdated.tpl');
 		$lang = LangLoader::get('common', 'WikiStatus');
-		
+
 		//Assign the lang file to the tpl
 		$tpl->add_lang($lang);
-		
+
 		$status_classes = array(
 			1 => 'success',
 			2 => 'question',
@@ -61,7 +39,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 			4 => 'warning',
 			5 => 'error'
 		);
-		
+
 		//Load module config
 		$querier = PersistenceContext::get_querier();
         $maj_article = 1;
@@ -90,10 +68,10 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 				'AUTHOR_IP' => $row['user_ip'],
 				'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
 				'U_ARTICLE' => $row['activ'] == 1 ? url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']) : url('wiki.php?id_contents=' . $row['id_contents']),
-			)); 
+			));
 			$maj_article++;
 		}
- 
+
         return $tpl->render();
 	}
 }
