@@ -1,34 +1,12 @@
 <?php
-/* ##################################################
- *                             SmalladsSetup.class.php
- *                            -------------------
- *   begin                : March 15, 2018
- *   copyright            : (C) 2018 Sebastien LARTIGUE
- *   email                : babsolune@phpboost.com
- *
- *
-  ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
-  ################################################### */
-
 /**
-* 	@author Sebastien LARTIGUE <babsolune@phpboost.com>
-* 	@author Mipel <mipel@phpboost.com>
-* 	@author Code validation by Julien BRISWALTER <j1.seth@phpboost.com>
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2018 11 09
+ * @since   	PHPBoost 5.1 - 2018 03 15
+ * @contributor mipel <mipel@phpboost.com>
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
 class SmalladsSetup extends DefaultModuleSetup
@@ -40,7 +18,7 @@ class SmalladsSetup extends DefaultModuleSetup
 	 * @var string[string] localized messages
 	 */
 	private $messages;
-	
+
 	public static function __static()
 	{
 		self::$smallads_table = PREFIX . 'smallads';
@@ -55,15 +33,15 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->change_fields();
 		$this->add_fields();
 		$this->update_fields();
-		
+
 		$tables = PersistenceContext::get_dbms_utils()->list_tables(true);
-		
+
 		if (!in_array(self::$smallads_cats_table, $tables))
 		{
 			$this->create_smallads_cats_table();
 			$this->insert_smallads_cats_data();
 		}
-		
+
 		$this->delete_files();
 		self::pics_to_upload();
 
@@ -267,7 +245,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			PersistenceContext::get_dbms_utils()->add_column(PREFIX . 'smallads', 'sources', array('type' => 'text', 'length' => 65000));
 		if (!isset($this->columns['carousel']))
 			PersistenceContext::get_dbms_utils()->add_column(PREFIX . 'smallads', 'carousel', array('type' => 'text', 'length' => 65000));
-		
+
 		$columns = PersistenceContext::get_dbms_utils()->desc_table(PREFIX . 'smallads');
 		if (!isset($columns['title']['key']) || !$columns['title']['key'])
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads ADD FULLTEXT KEY `title` (`title`)');
@@ -290,7 +268,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'date_created' => 'creation_date INT(11) NOT NULL DEFAULT 0',
 			'date_updated' => 'updated_date INT(11) NOT NULL DEFAULT 0'
 		);
-		
+
 		foreach ($rows_change as $old_name => $new_name)
 		{
 			if (isset($this->columns[$old_name]))
