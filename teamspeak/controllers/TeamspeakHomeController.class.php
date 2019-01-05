@@ -1,22 +1,29 @@
 <?php
- 
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2015 04 13
+ * @since   	PHPBoost 4.1 - 2014 09 24
+*/
+
 class TeamspeakHomeController extends ModuleController
 {
 	private $lang;
 	private $tpl;
 	private $config;
-	
+
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->init();
-		
+
 		$this->check_authorizations();
-		
+
 		$this->build_view();
-		
+
 		return $this->generate_response();
 	}
-	
+
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'teamspeak');
@@ -24,7 +31,7 @@ class TeamspeakHomeController extends ModuleController
 		$this->tpl->add_lang($this->lang);
 		$this->config = TeamspeakConfig::load();
 	}
-	
+
 	private function build_view()
 	{
 		$this->tpl->put_all(array(
@@ -32,7 +39,7 @@ class TeamspeakHomeController extends ModuleController
 			'REFRESH_DELAY' => $this->config->get_refresh_delay() * 60000
 		));
 	}
-	
+
 	private function check_authorizations()
 	{
 		if (!TeamspeakAuthorizationsService::check_authorizations()->read())
@@ -40,7 +47,7 @@ class TeamspeakHomeController extends ModuleController
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
 		}
-		
+
 		$ts_ip = $this->config->get_ip();
 		if (empty($ts_ip))
 		{
@@ -55,21 +62,21 @@ class TeamspeakHomeController extends ModuleController
 			}
 		}
 	}
-	
+
 	private function generate_response()
 	{
 		$response = new SiteDisplayResponse($this->tpl);
-		
+
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->lang['ts_title']);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(TeamspeakUrlBuilder::home());
-		
+
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['ts_title'], TeamspeakUrlBuilder::home());
-		
+
 		return $response;
 	}
-	
+
 	public static function get_view()
 	{
 		$object = new self();

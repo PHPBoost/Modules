@@ -1,9 +1,18 @@
 <?php
-/*
- ####################################################
- #		French				    # 
- ####################################################
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2017 12 20
+ * @since   	PHPBoost 4.1 - 2014 09 24
+ * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor mipel <mipel@phpboost.com>
 */
+
+####################################################
+#                     French                       #
+####################################################
+
 $lang['ts_title'] = 'TeamSpeak 3';
 
 $lang['ts_ip'] = 'Adresse IP';
