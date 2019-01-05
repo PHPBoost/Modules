@@ -1,29 +1,13 @@
 <?php
-/*##################################################
- *                          GoogleAnalyticsModuleMiniMenu.class.php
- *                            -------------------
- *   begin                : December 20, 2012
- *   copyright            : (C) 2012 Kévin MASSY
- *   email                : kevin.massy@phpboost.com
- *
- *
- ###################################################
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- *
- ###################################################*/
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Kevin MASSY <reidlos@phpboost.com>
+ * @version   	PHPBoost 5.2 - last update: 2017 04 28
+ * @since   	PHPBoost 3.0 - 2012 12 20
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @contributor Arnaud GENET <elenwii@phpboost.com>
+*/
 
 class GoogleAnalyticsModuleMiniMenu extends ModuleMiniMenu
 {
@@ -38,10 +22,10 @@ class GoogleAnalyticsModuleMiniMenu extends ModuleMiniMenu
 	{
 		$tpl = new FileTemplate('GoogleAnalytics/GoogleAnalyticsModuleMiniMenu.tpl');
 		MenuService::assign_positions_conditions($tpl, $this->get_block());
-		
+
 		$config = GoogleAnalyticsConfig::load();
 		$cookiebar_config = CookieBarConfig::load();
-		
+
 		if (!$config->get_identifier() && AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
 		{
 			$message = StringVars::replace_vars(LangLoader::get_message('identifier_required','common', 'GoogleAnalytics'), array(
@@ -54,7 +38,7 @@ class GoogleAnalyticsModuleMiniMenu extends ModuleMiniMenu
 			'C_DISPLAY' => $config->get_identifier() && $cookiebar_config->is_cookiebar_enabled() && $cookiebar_config->get_cookiebar_tracking_mode() == CookieBarConfig::TRACKING_COOKIE && AppContext::get_request()->get_cookie('pbt-cookiebar-choice', 0) == 1,
 			'IDENTIFIER' => $config->get_identifier()
 		));
-		
+
 		return $tpl->render();
 	}
 }
