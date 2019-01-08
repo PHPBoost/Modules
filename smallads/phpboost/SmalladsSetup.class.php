@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 11 09
+ * @version   	PHPBoost 5.2 - last update: 2019 01 08
  * @since   	PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -322,35 +322,37 @@ class SmalladsSetup extends DefaultModuleSetup
 	{
 		// Move pics content to upload and delete pics
 		$source = PATH_TO_ROOT . '/smallads/pics/';
-		$dest = PATH_TO_ROOT . '/upload/';
-		if (is_dir($source)) {
-			if ($dh = opendir($source)) {
-				while (($file = readdir($dh)) !== false) {
-					if ($file != '.' && $file != '..') {
-						rename($source . $file, $dest . $file);
-					}
-				}
-				closedir($dh);
-			}
-		}
 		$folder = new Folder($source);
 		if ($folder->exists())
+		{
+			$dest = PATH_TO_ROOT . '/upload/';
+			if (is_dir($source)) {
+				if ($dh = opendir($source)) {
+					while (($file = readdir($dh)) !== false) {
+						if ($file != '.' && $file != '..') {
+							rename($source . $file, $dest . $file);
+						}
+					}
+					closedir($dh);
+				}
+			}
 			$folder->delete();
 
-		// update thumbnail_url files to /upload/files
-		$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'thumbnail_url'));
-		while ($row = $result->fetch()) {
-			if ($row['thumbnail_url'] != "") {
-				PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
-					'thumbnail_url' => '/upload/' . $row['thumbnail_url'],
-				), 'WHERE id = :id', array('id' => $row['id']));
-			} else {
-				PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
-					'thumbnail_url' => '/smallads/templates/images/no-thumb.png',
-				), 'WHERE id = :id', array('id' => $row['id']));
+			// update thumbnail_url files to /upload/files
+			$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'thumbnail_url'));
+			while ($row = $result->fetch()) {
+				if ($row['thumbnail_url'] != "") {
+					PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
+						'thumbnail_url' => '/upload/' . $row['thumbnail_url'],
+					), 'WHERE id = :id', array('id' => $row['id']));
+				} else {
+					PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
+						'thumbnail_url' => '/smallads/templates/images/no-thumb.png',
+					), 'WHERE id = :id', array('id' => $row['id']));
+				}
 			}
+			$result->dispose();
 		}
-		$result->dispose();
 	}
 }
 
