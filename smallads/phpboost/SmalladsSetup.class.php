@@ -306,7 +306,7 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function update_fields()
 	{
-		$folder = new Folder(PATH_TO_ROOT . '/smallads/pics/';
+		$folder = new Folder(PATH_TO_ROOT . '/smallads/pics/');
 		if ($folder->exists())
 		{
 			$this->messages = LangLoader::get('install', 'smallads');
