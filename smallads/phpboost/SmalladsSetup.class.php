@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 01 08
+ * @version   	PHPBoost 5.2 - last update: 2019 01 09
  * @since   	PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -306,16 +306,20 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function update_fields()
 	{
-		$this->messages = LangLoader::get('install', 'smallads');
-		$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'title', 'thumbnail_url', 'smallad_type', 'id_category'));
-		while ($row = $result->fetch()) {
-			PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
-				'rewrited_title' => Url::encode_rewrite($row['title']),
-				'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
-				'id_category' => 1,
-			), 'WHERE id = :id', array('id' => $row['id']));
+		$folder = new Folder(PATH_TO_ROOT . '/smallads/pics/';
+		if ($folder->exists())
+		{
+			$this->messages = LangLoader::get('install', 'smallads');
+			$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'title', 'thumbnail_url', 'smallad_type', 'id_category'));
+			while ($row = $result->fetch()) {
+				PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
+					'rewrited_title' => Url::encode_rewrite($row['title']),
+					'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
+					'id_category' => 1,
+				), 'WHERE id = :id', array('id' => $row['id']));
+			}
+			$result->dispose();
 		}
-		$result->dispose();
 	}
 
 	public static function pics_to_upload()
