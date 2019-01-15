@@ -3,12 +3,12 @@
 	<header>
 		<h2>
 			${Langloader::get_message('next.events', 'common', 'HomeLanding')}
-			<span class="actions">
-				<a href="{PATH_TO_ROOT}/calendar" title="${Langloader::get_message('link.to.events', 'common', 'HomeLanding')}">
-					${Langloader::get_message('link.to.events', 'common', 'HomeLanding')}
-				</a>
-			</span>
 		</h2>
+		<span class="actions">
+			<a href="{PATH_TO_ROOT}/calendar" title="${Langloader::get_message('link.to.events', 'common', 'HomeLanding')}">
+				${Langloader::get_message('link.to.events', 'common', 'HomeLanding')}
+			</a>
+		</span>
 	</header>
 	<div class="content">
 		# IF C_NO_EVENT #

@@ -3,12 +3,12 @@
 	<header>
 		<h2>
 			${Langloader::get_message('last.gallery', 'common', 'HomeLanding')}
-			<span class="actions">
-				<a href="{PATH_TO_ROOT}/gallery" title="${Langloader::get_message('link.to.gallery', 'common', 'HomeLanding')}">
-					${Langloader::get_message('link.to.gallery', 'common', 'HomeLanding')}
-				</a>
-			</span>
 		</h2>
+		<span class="actions">
+			<a href="{PATH_TO_ROOT}/gallery" title="${Langloader::get_message('link.to.gallery', 'common', 'HomeLanding')}">
+				${Langloader::get_message('link.to.gallery', 'common', 'HomeLanding')}
+			</a>
+		</span>
 	</header>
 	<div class="elements-container columns-{COL_NBR} no-style">
 	# START item #

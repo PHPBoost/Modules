@@ -3,12 +3,12 @@
 	<header>
 		<h2>
 			${Langloader::get_message('last.media', 'common', 'HomeLanding')}
-			<span class="actions">
-				<a href="{PATH_TO_ROOT}/media" title="${Langloader::get_message('link.to.media', 'common', 'HomeLanding')}">
-					${Langloader::get_message('link.to.media', 'common', 'HomeLanding')}
-				</a>
-			</span>
 		</h2>
+		<span class="actions">
+			<a href="{PATH_TO_ROOT}/media" title="${Langloader::get_message('link.to.media', 'common', 'HomeLanding')}">
+				${Langloader::get_message('link.to.media', 'common', 'HomeLanding')}
+			</a>
+		</span>
 	</header>
 	<div class="content">
 

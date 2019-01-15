@@ -3,12 +3,12 @@
 	<header>
 		<h2>
 			${Langloader::get_message('last.guestbook', 'common', 'HomeLanding')}
-			<span class="actions">
-				<a href="{PATH_TO_ROOT}/guestbook" title="${Langloader::get_message('link.to.guestbook', 'common', 'HomeLanding')}">
-					${Langloader::get_message('link.to.guestbook', 'common', 'HomeLanding')}
-				</a>
-			</span>
 		</h2>
+		<span class="actions">
+			<a href="{PATH_TO_ROOT}/guestbook" title="${Langloader::get_message('link.to.guestbook', 'common', 'HomeLanding')}">
+				${Langloader::get_message('link.to.guestbook', 'common', 'HomeLanding')}
+			</a>
+		</span>
 	</header>
 	<div class="elements-container columns-3 no-style">
 		# IF C_EMPTY_GUESTBOOK #

@@ -3,12 +3,12 @@
 	<header>
 		<h2>
 			${Langloader::get_message('last.forum.messages', 'common', 'HomeLanding')}
-			<span class="actions">
-				<a href="{PATH_TO_ROOT}/forum" title="${Langloader::get_message('link.to.forum', 'common', 'HomeLanding')}">
-					${Langloader::get_message('link.to.forum', 'common', 'HomeLanding')}
-				</a>
-			</span>
 		</h2>
+		<span class="actions">
+			<a href="{PATH_TO_ROOT}/forum" title="${Langloader::get_message('link.to.forum', 'common', 'HomeLanding')}">
+				${Langloader::get_message('link.to.forum', 'common', 'HomeLanding')}
+			</a>
+		</span>
 	</header>
 	<div class="elements-container columns-3 no-style">
 	# START item #
