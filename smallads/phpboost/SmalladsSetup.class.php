@@ -13,18 +13,15 @@ class SmalladsSetup extends DefaultModuleSetup
 {
 	public static $smallads_table;
 	public static $smallads_cats_table;
-
 	/**
 	 * @var string[string] localized messages
 	 */
 	private $messages;
-
 	public static function __static()
 	{
 		self::$smallads_table = PREFIX . 'smallads';
 		self::$smallads_cats_table = PREFIX . 'smallads_cats';
 	}
-
 	public function upgrade($installed_version)
 	{
 		$this->columns = PersistenceContext::get_dbms_utils()->desc_table(self::$smallads_table);
@@ -33,46 +30,37 @@ class SmalladsSetup extends DefaultModuleSetup
 		$this->change_fields();
 		$this->add_fields();
 		$this->update_fields();
-
 		$tables = PersistenceContext::get_dbms_utils()->list_tables(true);
-
 		if (!in_array(self::$smallads_cats_table, $tables))
 		{
 			$this->create_smallads_cats_table();
 			$this->insert_smallads_cats_data();
 		}
-
 		$this->delete_files();
 		self::pics_to_upload();
-
 		return '5.2.0';
 	}
-
 	public function install()
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
-
 	public function uninstall()
 	{
 		$this->drop_tables();
 		ConfigManager::delete('smallads', 'config');
 		SmalladsService::get_keywords_manager()->delete_module_relations();
 	}
-
 	private function drop_tables()
 	{
 		PersistenceContext::get_dbms_utils()->drop(array(self::$smallads_table, self::$smallads_cats_table));
 	}
-
 	private function create_tables()
 	{
 		$this->create_smallads_table();
 		$this->create_smallads_cats_table();
 	}
-
 	private function create_smallads_table()
 	{
 		$fields = array(
@@ -117,19 +105,16 @@ class SmalladsSetup extends DefaultModuleSetup
 		));
 		PersistenceContext::get_dbms_utils()->create_table(self::$smallads_table, $fields, $options);
 	}
-
 	private function create_smallads_cats_table()
 	{
 		RichCategory::create_categories_table(self::$smallads_cats_table);
 	}
-
 	private function insert_data()
 	{
 		$this->messages = LangLoader::get('install', 'smallads');
 		$this->insert_smallads_data();
 		$this->insert_smallads_cats_data();
 	}
-
 	private function insert_smallads_cats_data()
 	{
 		$this->messages = LangLoader::get('install', 'smallads');
@@ -144,7 +129,6 @@ class SmalladsSetup extends DefaultModuleSetup
 			'image' => '/smallads/smallads.png'
 		));
 	}
-
 	private function insert_smallads_data()
 	{
 		PersistenceContext::get_querier()->insert(self::$smallads_table, array(
@@ -173,14 +157,12 @@ class SmalladsSetup extends DefaultModuleSetup
 			'carousel' => TextHelper::serialize(array())
 		));
 	}
-
 	private function disable_mini_menu()
 	{
 		$menu_id = 0;
 		try {
 			$menu_id = PersistenceContext::get_querier()->get_column_value(DB_TABLE_MENUS, 'id', 'WHERE title = "smallads/SmalladsModuleMiniMenu"');
 		} catch (RowNotFoundException $e) {}
-
 		if ($menu_id)
  		{
 			$menu = MenuService::load($menu_id);
@@ -188,7 +170,6 @@ class SmalladsSetup extends DefaultModuleSetup
 			MenuService::generate_cache();
 		}
 	}
-
 	private function delete_fields()
 	{
 		if (isset($this->columns['cat_id']))
@@ -204,7 +185,6 @@ class SmalladsSetup extends DefaultModuleSetup
 		if (isset($this->columns['date_approved']))
 			PersistenceContext::get_dbms_utils()->drop_column(PREFIX . 'smallads', 'date_approved');
 	}
-
 	private function add_fields()
 	{
 		if (!isset($this->columns['id_category']))
@@ -245,7 +225,6 @@ class SmalladsSetup extends DefaultModuleSetup
 			PersistenceContext::get_dbms_utils()->add_column(PREFIX . 'smallads', 'sources', array('type' => 'text', 'length' => 65000));
 		if (!isset($this->columns['carousel']))
 			PersistenceContext::get_dbms_utils()->add_column(PREFIX . 'smallads', 'carousel', array('type' => 'text', 'length' => 65000));
-
 		$columns = PersistenceContext::get_dbms_utils()->desc_table(PREFIX . 'smallads');
 		if (!isset($columns['title']['key']) || !$columns['title']['key'])
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads ADD FULLTEXT KEY `title` (`title`)');
@@ -256,7 +235,6 @@ class SmalladsSetup extends DefaultModuleSetup
 		if (!isset($columns['id_category']['key']) || !$columns['id_category']['key'])
 			PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'smallads ADD FULLTEXT KEY `id_category` (`id_category`)');
 	}
-
 	private function change_fields()
 	{
 		//fields rename
@@ -268,14 +246,12 @@ class SmalladsSetup extends DefaultModuleSetup
 			'date_created' => 'creation_date INT(11) NOT NULL DEFAULT 0',
 			'date_updated' => 'updated_date INT(11) NOT NULL DEFAULT 0'
 		);
-
 		foreach ($rows_change as $old_name => $new_name)
 		{
 			if (isset($this->columns[$old_name]))
 				PersistenceContext::get_querier()->inject('ALTER TABLE ' . PREFIX . 'download CHANGE ' . $old_name . ' ' . $new_name);
 		}
 	}
-
 	private function delete_files()
 	{
 		$file = new File(PATH_TO_ROOT . '/smallads/fields/SmalladsFormFieldSelectSources.class.php');
@@ -303,7 +279,6 @@ class SmalladsSetup extends DefaultModuleSetup
 		$file = new File(PATH_TO_ROOT . '/smallads/smallads_begin.php');
 		$file->delete();
 	}
-
 	private function update_fields()
 	{
 		$folder = new Folder(PATH_TO_ROOT . '/smallads/pics/');
@@ -321,7 +296,6 @@ class SmalladsSetup extends DefaultModuleSetup
 			$result->dispose();
 		}
 	}
-
 	public static function pics_to_upload()
 	{
 		// Move pics content to upload and delete pics
@@ -341,7 +315,6 @@ class SmalladsSetup extends DefaultModuleSetup
 				}
 			}
 			$folder->delete();
-
 			// update thumbnail_url files to /upload/files
 			$result = PersistenceContext::get_querier()->select_rows(PREFIX . 'smallads', array('id', 'thumbnail_url'));
 			while ($row = $result->fetch()) {
