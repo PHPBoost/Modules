@@ -343,26 +343,28 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/carousel.tpl');
 		$carousel = $this->config->get_carousel();
 
-		$tpl->put_all(array(
-			'CAROUSEL_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CAROUSEL),
-			'NB_DOTS' => count($carousel),
-			'CAROUSEL_SPEED' => $this->config->get_carousel_speed(),
-			'CAROUSEL_TIME' => $this->config->get_carousel_time(),
-			'CAROUSEL_NAV' => $this->config->get_carousel_nav(),
-			'CAROUSEL_HOVER' => $this->config->get_carousel_hover(),
-			'CAROUSEL_MINI' => $this->config->get_carousel_mini(),
-		));
-
+		$nb_dots = 0;
 		foreach ($carousel as $id => $options)
 		{
-
-			$tpl->assign_block_vars('carousel', array(
+			$tpl->assign_block_vars('item', array(
 				'DESCRIPTION' => $options['description'],
 				'PICTURE_TITLE' => $options['description'] ? $options['description'] : basename($options['picture_url']),
 				'PICTURE_URL' => Url::to_rel($options['picture_url']),
 				'LINK' => Url::to_rel($options['link'])
 			));
+			$nb_dots++;
 		}
+
+		$tpl->put_all(array(
+			'CAROUSEL_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CAROUSEL),
+			'NB_DOTS' => $nb_dots,
+			'CAROUSEL_SPEED' => $this->config->get_carousel_speed(),
+			'CAROUSEL_TIME' => $this->config->get_carousel_time(),
+			'CAROUSEL_NAV' => $this->config->get_carousel_nav(),
+			'CAROUSEL_HOVER' => $this->config->get_carousel_hover(),
+			'C_CAROUSEL_CROPPED' => $this->config->get_carousel_display(),
+			'CAROUSEL_MINI' => $this->config->get_carousel_mini(),
+		));
 		$this->view->put('CAROUSEL', $tpl);
 	}
 

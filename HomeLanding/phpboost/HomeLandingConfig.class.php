@@ -27,6 +27,9 @@ class HomeLandingConfig extends AbstractConfigData
 	const CAROUSEL_HOVER = 'carousel_hover';
 	const CAROUSEL_TRUE = 'true';
 	const CAROUSEL_FALSE = 'false';
+	const CAROUSEL_DISPLAY = 'carousel_display';
+	const CAROUSEL_D_TRUE = true;
+	const CAROUSEL_D_FALSE = false;
 	const CAROUSEL_MINI = 'carousel_mini';
 	const CAROUSEL_DOT = 'dot';
 	const CAROUSEL_IMG = 'img';
@@ -220,6 +223,16 @@ class HomeLandingConfig extends AbstractConfigData
 	public function set_carousel_hover($hover)
 	{
 		$this->set_property(self::CAROUSEL_HOVER, $hover);
+	}
+
+	public function get_carousel_display()
+	{
+		return $this->get_property(self::CAROUSEL_DISPLAY);
+	}
+
+	public function set_carousel_display($display)
+	{
+		$this->set_property(self::CAROUSEL_DISPLAY, $display);
 	}
 
 	public function get_carousel_mini()
@@ -456,6 +469,7 @@ class HomeLandingConfig extends AbstractConfigData
 			self::CAROUSEL_TIME => 5000,
 			self::CAROUSEL_NAV => 1,
 			self::CAROUSEL_HOVER => 1,
+			self::CAROUSEL_DISPLAY => 1,
 			self::CAROUSEL_MINI => self::CAROUSEL_DOT,
 
 			self::EDITO => LangLoader::get_message('module.edito.description', 'config', 'HomeLanding'),

@@ -22,10 +22,6 @@
     background-size: cover;
 }
 
-#pbt-slider .slide img{
-    display: none;
-}
-
 #pbt-slider .slideLink{
     display: block;
 }
