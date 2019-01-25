@@ -1,7 +1,7 @@
 # IF C_VERTICAL #
-<div class="module-mini-container">
+<div id="module-mini-countdown" class="module-mini-container">
 	<div class="module-mini-top">
-		<h5 class="sub-title">{@title}</h5>
+		<div class="sub-title">{@title}</div>
 	</div>
 	<div class="module-mini-contents">
 		# IF C_DISABLED #
@@ -15,7 +15,7 @@
 </div>
 # ELSE #
 	<div class="horizontal-timer">
-		<h5 class="sub-title">{@title}</h5>
+		<div class="sub-title">{@title}</div>
 		# IF C_DISABLED #
 			{NO_EVENT}
 		# ELSE #

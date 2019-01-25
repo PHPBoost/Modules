@@ -1,6 +1,6 @@
-<div class="module-mini-container"# IF C_HORIZONTAL # style="width:auto;"# ENDIF #>
+<div id="module-mini-serverstatus" class="module-mini-container"# IF C_HORIZONTAL # style="width:auto;"# ENDIF #>
 	<div class="module-mini-top">
-		<h5 class="sub-title">{@module_title}</h5>
+		<div class="sub-title">{@module_title}</div>
 	</div>
 		<div class="module-mini-contents">
 			# IF C_SERVERS #
