@@ -1,14 +1,17 @@
 <section id="module-quotes">
 	<header>
+		<div class="cat-actions">
+			# IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF ## ENDIF #
+		</div>
 		<h1>
-			# IF C_PENDING #{@quotes.pending}# ELSE #{@module_title}# ENDIF # # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit smaller" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF ## ENDIF ## IF C_AUTHOR_NAME # - {AUTHOR_NAME}# ENDIF #
+			# IF C_PENDING #{@quotes.pending}# ELSE #{@module_title}# ENDIF # # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_AUTHOR_NAME # - {AUTHOR_NAME}# ENDIF #
 		</h1>
-		# IF C_CATEGORY_DESCRIPTION #
-			<div class="cat-description">
-				{CATEGORY_DESCRIPTION}
-			</div>
-		# ENDIF #
 	</header>
+	# IF C_CATEGORY_DESCRIPTION #
+		<div class="cat-description">
+			{CATEGORY_DESCRIPTION}
+		</div>
+	# ENDIF #
 
 	# IF C_SUB_CATEGORIES #
 	<div class="subcat-container">
@@ -28,23 +31,23 @@
 	# IF C_SUBCATEGORIES_PAGINATION #<span class="center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
 	# ENDIF #
 
-	<div class="content">
+	<div class="elements-container columns-1">
 	# IF C_RESULTS #
 		# START quotes #
 			<article id="article-quotes-{quotes.ID}" class="block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				# IF quotes.C_MODERATION #
-				<header>
-					<h2>
-						<span class="actions">
-							# IF quotes.C_EDIT #
-								<a href="{quotes.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
-							# ENDIF #
-							# IF quotes.C_DELETE #
-								<a href="{quotes.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
-							# ENDIF #
-						</span>
-					</h2>
-				</header>
+					<header>
+						<h2>
+							<span class="actions">
+								# IF quotes.C_EDIT #
+									<a href="{quotes.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+								# ENDIF #
+								# IF quotes.C_DELETE #
+									<a href="{quotes.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+								# ENDIF #
+							</span>
+						</h2>
+					</header>
 				# ENDIF #
 
 				<div class="content">

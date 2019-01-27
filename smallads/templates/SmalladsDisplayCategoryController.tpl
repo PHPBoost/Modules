@@ -1,8 +1,10 @@
 <section id="smallads-module">
 	<header>
-		# IF C_CATEGORY ## IF IS_ADMIN #<span class="actions"><a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a></span># ENDIF ## ENDIF #
-		<h1>
+		<div class="cat-actions">
 			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication" aria-hidden="true" title="${LangLoader::get_message('syndication', 'common')}"></i></a>
+			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF ## ENDIF #
+		</div>
+		<h1>
 			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF #
 		</h1>
 	</header>
@@ -209,60 +211,59 @@
 						<header>
 							<span class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</span>
 							<h2><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>
-							<span class="actions">
-								# IF items.C_EDIT #
-								<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
-								# ENDIF #
-								# IF items.C_DELETE #
-								<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
-								# ENDIF #
-							</span>
-							<div class="more">
-								# IF items.C_DISPLAYED_AUTHOR #
-									<span class="jp-author">
-										${LangLoader::get_message('by', 'common')}
-										# IF items.C_CUSTOM_AUTHOR_NAME #
-											{items.CUSTOM_AUTHOR_NAME}
-										# ELSE #
-											# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #,
-										# ENDIF #
-									</span>
-								# ENDIF #
-								<span>
-									${LangLoader::get_message('the', 'common')} <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLICATION_START_DATE}# ENDIF #</time>
-								</span>
-								<span>
-									${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
-								</span>
-								# IF C_LOCATION #
-									<span class="jp-location">
-										# IF items.C_GMAP #
-											# IF items.IS_LOCATED #
-												, {@location} : {items.LOCATION}
-											# ENDIF #
-										# ELSE #
-											# IF items.IS_LOCATED #
-												# IF items.C_OTHER_LOCATION #
-													, {@other.country} : {items.OTHER_LOCATION}
-												# ELSE #
-													, {@county} : {items.LOCATION}
-												# ENDIF #
-											# ENDIF #
-										# ENDIF #
-									</span>
-								# ENDIF #
-								# IF C_MEMBER # | <i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER} # ENDIF #
-								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
-								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
-								<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
-							</div>
-
-							<meta itemprop="url" content="{items.U_ITEM}">
-							<meta itemprop="description" content="${escape(items.DESCRIPTION)}"/>
-							<meta itemprop="discussionUrl" content="{items.U_COMMENTS}">
-							<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
-
 						</header>
+						<div class="actions">
+							# IF items.C_EDIT #
+							<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+							# ENDIF #
+							# IF items.C_DELETE #
+							<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+							# ENDIF #
+						</div>
+						<div class="more">
+							# IF items.C_DISPLAYED_AUTHOR #
+								<span class="jp-author">
+									${LangLoader::get_message('by', 'common')}
+									# IF items.C_CUSTOM_AUTHOR_NAME #
+										{items.CUSTOM_AUTHOR_NAME}
+									# ELSE #
+										# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #,
+									# ENDIF #
+								</span>
+							# ENDIF #
+							<span>
+								${LangLoader::get_message('the', 'common')} <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLICATION_START_DATE}# ENDIF #</time>
+							</span>
+							<span>
+								${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+							</span>
+							# IF C_LOCATION #
+								<span class="jp-location">
+									# IF items.C_GMAP #
+										# IF items.IS_LOCATED #
+											, {@location} : {items.LOCATION}
+										# ENDIF #
+									# ELSE #
+										# IF items.IS_LOCATED #
+											# IF items.C_OTHER_LOCATION #
+												, {@other.country} : {items.OTHER_LOCATION}
+											# ELSE #
+												, {@county} : {items.LOCATION}
+											# ENDIF #
+										# ENDIF #
+									# ENDIF #
+								</span>
+							# ENDIF #
+							# IF C_MEMBER # | <i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER} # ENDIF #
+							<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
+							<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
+							<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
+						</div>
+
+						<meta itemprop="url" content="{items.U_ITEM}">
+						<meta itemprop="description" content="${escape(items.DESCRIPTION)}"/>
+						<meta itemprop="discussionUrl" content="{items.U_COMMENTS}">
+						<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
 
 						<a href="{items.U_ITEM}" title="{items.TITLE}" class="thumbnail-item">
 							<img itemprop="thumbnailUrl" src="# IF items.C_HAS_THUMBNAIL #{items.THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #" alt="{items.TITLE}" />
