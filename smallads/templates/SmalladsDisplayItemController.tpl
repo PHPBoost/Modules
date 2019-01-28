@@ -3,7 +3,7 @@
 		<div class="cat-actions">
 			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-syndication" aria-hidden="true" title="${LangLoader::get_message('syndication', 'common')}"></i></a>
 			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
-			# IF IS_ADMIN #<span class="actions"><a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a></span># ENDIF #
+			# IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF #
 			<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="completed-article">{@smallads.completed.item}</span># ENDIF #</p>
 		</div>
 		<h1>{TITLE}</h1>

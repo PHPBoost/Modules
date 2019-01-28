@@ -57,5 +57,5 @@
 
 	# INCLUDE  WEB_CAT #
 
-	<footer></footer>
+	<footer style="order: 9999; -webkit-order: 9999; -ms-flex-order: 9999"></footer>
 </section>

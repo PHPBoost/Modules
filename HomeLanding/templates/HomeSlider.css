@@ -28,8 +28,6 @@
 
 .slideCaption{
     position: absolute;
-    background: rgba(255, 255, 255, .8);
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     padding: 0.618em;
     top: 20%;
     transform: translateY(-50%);
