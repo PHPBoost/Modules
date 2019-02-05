@@ -1,6 +1,6 @@
 # IF C_COMS #
 	# IF C_HORIZONTAL #
-		<div class="block-container">
+		<div id="module-mini-lastcoms" class="block-container# IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
 			<div class="block-content">
 				<div class="sub-title">
 					{@lastcoms.title}

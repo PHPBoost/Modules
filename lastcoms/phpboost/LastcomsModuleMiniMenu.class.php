@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version   	PHPBoost 5.2 - last update: 2018 11 26
+ * @version   	PHPBoost 5.2 - last update: 2019 02 05
  * @since   	PHPBoost 3.0 - 2009 07 26
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -38,11 +38,11 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_content()
 	{
-
 		$lang = LangLoader::get('common', 'lastcoms');
 		$tpl = new FileTemplate('lastcoms/LastcomsModuleMiniMenu.tpl');
 		$tpl->add_lang($lang);
 		MenuService::assign_positions_conditions($tpl, $this->get_block());
+		Menu::assign_common_template_variables($tpl);
 
 		$now = new Date();
 		$lastcoms_config = LastcomsConfig::load();
