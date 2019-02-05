@@ -1,6 +1,6 @@
 # IF C_SMALLADS #
 	# IF C_HORIZONTAL #
-		<div class="block-container">
+		<div id="smallads-mini-module" class="block-container# IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
 			<div class="block-content">
 				<div class="sub-title">
 					<h6>{@mini.last.smallads}</h6>

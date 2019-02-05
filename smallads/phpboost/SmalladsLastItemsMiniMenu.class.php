@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 08 09
+ * @version   	PHPBoost 5.2 - last update: 2019 02 05
  * @since   	PHPBoost 5.1 - 2018 03 15
 */
 
@@ -34,6 +34,7 @@
  		$tpl = new FileTemplate('smallads/SmalladsLastItemsMiniMenu.tpl');
  		$tpl->add_lang(LangLoader::get('common', 'smallads'));
  		MenuService::assign_positions_conditions($tpl, $this->get_block());
+		Menu::assign_common_template_variables($tpl);
         $config = SmalladsConfig::load();
 
  		//Load module caches
