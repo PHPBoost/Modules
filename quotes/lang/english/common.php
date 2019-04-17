@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 04 17
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -26,6 +26,7 @@ $lang['quote'] = 'Quote';
 $lang['quotes'] = 'Quotes';
 
 //contribution
+$lang['quotes.form.contribution.title'] = 'Quote from :name';
 $lang['quotes.form.contribution.explain'] = 'You are not authorized to create a new quote, however you can contribute by submitting one.';
 
 //SEO
