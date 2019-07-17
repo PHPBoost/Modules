@@ -90,27 +90,29 @@
 					<div class="sort-list block">
 						<span>{@smallads.sort.by} :</span>
 						<div
-							class="jplist-drop-down"
-							data-control-type="sort-drop-down"
-							data-control-name="sort"
-							data-control-action="sort">
-							<ul class="bg-container">
-								<li><span data-path=".jp-date" data-order="asc" data-type="number">{@smallads.sort.date} <em class="sort-type">&#8593;</em></span></li>
-								<li><span data-path=".jp-date" data-order="desc" data-type="number" data-default="true">{@smallads.sort.date} <em class="sort-type">&#8595;</em></span></li>
-								<li><span data-path=".jp-title" data-order="asc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8593;</em></span></li>
-								<li><span data-path=".jp-title" data-order="desc" data-type="text">{@smallads.sort.title} <em class="sort-type">&#8595;</em></span></li>
-								<li><span data-path=".jp-price" data-order="asc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8593;</em></span></li>
-								<li><span data-path=".jp-price" data-order="desc" data-type="number">{@smallads.sort.price} <em class="sort-type">&#8595;</em></span></li>
-			   # IF C_LOCATION #<li><span data-path=".jp-location" data-order="asc" data-type="text">{@location} <em class="sort-type">&#8593;</em></span></li>
-					   		 	<li><span data-path=".jp-location" data-order="desc" data-type="text">{@location} <em class="sort-type">&#8595;</em></span></li># ENDIF #
-			# IF NOT C_MEMBER #<li><span data-path=".jp-author" data-order="asc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8593;</em></span></li>
-								<li><span data-path=".jp-author" data-order="desc" data-type="text">{@smallads.sort.author} <em class="sort-type">&#8595;</em></span></li># ENDIF #
-			# IF NOT C_PENDING #<li><span data-path=".jp-comment" data-order="asc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8593;</em></span></li>
-								<li><span data-path=".jp-comment" data-order="desc" data-type="number">{@smallads.sort.coms} <em class="sort-type">&#8595;</em></span></li>
-								<li><span data-path=".jp-view" data-order="asc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8593;</em></span></li>
-								<li><span data-path=".jp-view" data-order="desc" data-type="number">{@smallads.sort.view} <em class="sort-type">&#8595;</em></span></li># ENDIF #
+						    data-jplist-control="dropdown-sort"
+						    class="jplist-drop-down"
+						    data-group="smallads-items"
+						    data-name="sorttitle">
+							<div data-type="panel" class="jplist-dd-panel"></div>
+							<ul data-type="content" class="bg-container">
+								<li data-path=".jp-date" 		data-order="asc" 	data-type="number"> {@smallads.sort.date} <em class="sort-type">&#8593;</em></li>
+								<li data-path=".jp-date" 		data-order="desc" 	data-type="number" data-selected="true"> {@smallads.sort.date} <em class="sort-type">&#8595;</em></li>
+								<li data-path=".jp-title" 		data-order="asc" 	data-type="text"> {@smallads.sort.title} <em class="sort-type">&#8593;</em></li>
+								<li data-path=".jp-title" 		data-order="desc" 	data-type="text"> {@smallads.sort.title} <em class="sort-type">&#8595;</em></li>
+								<li data-path=".jp-price" 		data-order="asc" 	data-type="number"> {@smallads.sort.price} <em class="sort-type">&#8593;</em></li>
+								<li data-path=".jp-price" 		data-order="desc" 	data-type="number"> {@smallads.sort.price} <em class="sort-type">&#8595;</em></li>
+			   # IF C_LOCATION #<li data-path=".jp-location" 	data-order="asc" 	data-type="text"> {@location} <em class="sort-type">&#8593;</em></li>
+					   		 	<li data-path=".jp-location" 	data-order="desc" 	data-type="text"> {@location} <em class="sort-type">&#8595;</em></li># ENDIF #
+			 # IF NOT C_MEMBER #<li data-path=".jp-author" 		data-order="asc" 	data-type="text"> {@smallads.sort.author} <em class="sort-type">&#8593;</em></li>
+								<li data-path=".jp-author" 		data-order="desc" 	data-type="text"> {@smallads.sort.author} <em class="sort-type">&#8595;</em></li># ENDIF #
+			# IF NOT C_PENDING #<li data-path=".jp-comment" 	data-order="asc" 	data-type="number"> {@smallads.sort.coms} <em class="sort-type">&#8593;</em></li>
+								<li data-path=".jp-comment" 	data-order="desc" 	data-type="number"> {@smallads.sort.coms} <em class="sort-type">&#8595;</em></li>
+								<li data-path=".jp-view" 		data-order="asc" 	data-type="number"> {@smallads.sort.view} <em class="sort-type">&#8593;</em></li>
+								<li data-path=".jp-view" 		data-order="desc" 	data-type="number"> {@smallads.sort.view} <em class="sort-type">&#8595;</em></li># ENDIF #
 							</ul>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -125,7 +127,7 @@
 		# ENDIF #
 	# ELSE #
 		# IF C_TABLE #
-			<table class="list" id="table">
+			<table data-jplist-group="item-group" class="list" id="table">
 				<thead>
 					<tr>
 						<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
@@ -204,9 +206,9 @@
 
 		# ELSE #
 
-			<div class="list elements-container# IF C_SEVERAL_COLUMNS # columns-{COLUMNS_NUMBER}# ENDIF #">
+			<div data-jplist-group="smallads-items" class="elements-container# IF C_SEVERAL_COLUMNS # columns-{COLUMNS_NUMBER}# ENDIF #">
 				# START items #
-					<article id="smallads-items-{items.ID}" class="list-item smallads-items several-items# IF items.C_COMPLETED# completed-smallad# ENDIF ## IF C_MOSAIC # block# ENDIF ## IF C_LIST # block-list# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+					<article data-jplist-item id="smallads-items-{items.ID}" class="smallads-items several-items# IF items.C_COMPLETED# completed-smallad# ENDIF ## IF C_MOSAIC # block# ENDIF ## IF C_LIST # block-list# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 						# IF items.C_COMPLETED # <div class="completed-item"><span>{@smallads.completed.item}</span></div># ENDIF #
 						<header>
 							<span class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</span>
@@ -292,50 +294,40 @@
 			</div>
 		# ENDIF #
 	# ENDIF #
-		<div class="jplist-panel">
 
 			<!-- Pagination -->
 			<div class="pagination options no-style">
 				<div
-				   class="jplist-label"
-				   data-type="{@smallads.pagination}"
-				   data-control-type="pagination-info"
-				   data-control-name="paging"
-				   data-control-action="paging">
-				</div>
+				   	class="jplist-pagination"
+				   	data-jplist-control="pagination"
+			        data-group="smallads-items"
+			        data-items-per-page="{ITEMS_PER_PAGE}"
+			        data-current-page="0"
+			        data-name="pagination1"
+				   	data-name="paging"
+				>
+					<button type="button" data-type="first" aria-label="first"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
+				    <button type="button" data-type="prev" aria-label="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
 
-				<div
-				   class="jplist-pagination"
-				   data-control-type="pagination"
-				   data-control-name="paging"
-				   data-control-action="paging"
-				   data-items-per-page="{ITEMS_PER_PAGE}">
+				    <div class="jplist-holder" data-type="pages">
+				        <button type="button" class="submit" data-type="page">{@smallads.active.page}</button>
+				    </div>
+
+				    <button type="button" data-type="next" aria-label="next"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
+				    <button type="button" data-type="last" aria-label="last"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
 				</div>
 			</div>
-			<div class="spacer"></div>
-		</div>
 
 	<div class="spacer"></div>
 	<footer># IF C_USAGE_TERMS # <i class="fa fa-book" aria-hidden="true"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
 </section>
 
-<!-- jpList -->
-<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.core.min.js"></script>
-<!-- Types filters radio -->
-<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.filter-toggle-bundle.min.js"></script>
-<!-- Pagination -->
-<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.pagination-bundle.min.js"></script>
-<!-- Sort order -->
-<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.sort-bundle.min.js"></script>
+<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.js"></script>
 
 <script>
 	jQuery('document').ready(function(){
 		// jpList
-		jQuery('#smallads-module').jplist({
-			itemsBox: '.list',
-			itemPath: '.list-item',
-			panelPath: '.jplist-panel'
-		});
+		jplist.init();
 
 		// Type filters
 			// toggle sub-menu on click (close on click outside)

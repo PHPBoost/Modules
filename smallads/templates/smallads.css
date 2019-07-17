@@ -229,6 +229,7 @@ a[data-lightbox] {
 
 /* --- Pagination --- */
 
+/* old */
 .jplist-panel .pagination {
 	margin-bottom: 20px;
 	min-height: 30px;
@@ -246,6 +247,10 @@ a[data-lightbox] {
 .jplist-current { background-color: rgba(0, 0, 0, 0.2); }
 
 .jplist-pagingmid button:not(:first-child) { margin-left: -3px; }
+/* new */
+.jplist-pagination .jplist-holder {
+	display: inline-block;
+}
 
 /* Category-nav */
 .category-selected {
@@ -372,7 +377,7 @@ a[data-lightbox] {
 	transition: all 0.3s ease;
 }
 
-.jplist-drop-down ul.reveal-ul {
+.jplist-drop-down ul.jplist-dd-opened {
 	opacity: 1;
 	visibility: visible;
 	transition: all 0.3s ease;
