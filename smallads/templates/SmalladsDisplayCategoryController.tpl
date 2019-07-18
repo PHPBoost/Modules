@@ -96,8 +96,8 @@
 						    data-name="sorttitle">
 							<div data-type="panel" class="jplist-dd-panel"></div>
 							<ul data-type="content" class="bg-container">
-								<li data-path=".jp-date" 		data-order="asc" 	data-type="number"> {@smallads.sort.date} <em class="sort-type">&#8593;</em></li>
-								<li data-path=".jp-date" 		data-order="desc" 	data-type="number" data-selected="true"> {@smallads.sort.date} <em class="sort-type">&#8595;</em></li>
+								<li data-path=".jp-date" 		data-order="asc" 	data-type="date"> {@smallads.sort.date} <em class="sort-type">&#8593;</em></li>
+								<li data-path=".jp-date" 		data-order="desc" 	data-type="date" data-selected="true"> {@smallads.sort.date} <em class="sort-type">&#8595;</em></li>
 								<li data-path=".jp-title" 		data-order="asc" 	data-type="text"> {@smallads.sort.title} <em class="sort-type">&#8593;</em></li>
 								<li data-path=".jp-title" 		data-order="desc" 	data-type="text"> {@smallads.sort.title} <em class="sort-type">&#8595;</em></li>
 								<li data-path=".jp-price" 		data-order="asc" 	data-type="number"> {@smallads.sort.price} <em class="sort-type">&#8593;</em></li>
@@ -127,82 +127,84 @@
 		# ENDIF #
 	# ELSE #
 		# IF C_TABLE #
-			<table data-jplist-group="item-group" class="list" id="table">
-				<thead>
-					<tr>
-						<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
-						<th>{@smallads.form.price}</th>
-						<th>{@smallads.ad.type}</th>
-						<th>${LangLoader::get_message('author', 'common')}</th>
-						# IF C_LOCATION #<th>{@location}</th># ENDIF #
-						# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
-						<th>${@smallads.publication.date}</th>
-						# IF C_MODERATION #
-							<th>${LangLoader::get_message('administrator_alerts_action', 'admin')}</th>
-						# ENDIF #
-					</tr>
-				</thead>
-				<tbody>
-					# START items #
-					<tr class="list-item# IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_COMPLETED # completed-smallad# ENDIF #">
-						<td>
-							# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
-								<span class="jp-title" itemprop="name">{items.TITLE}</span>
-							# IF NOT items.C_COMPLETED #</a># ENDIF #
-							<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
-							<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
-							<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
-						</td>
-						<td class="jp-price"># IF items.C_COMPLETED #{@smallads.completed.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
-						<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
-						# IF items.C_DISPLAYED_AUTHOR #
-							<td class="jp-author">
-								# IF items.C_CUSTOM_AUTHOR_NAME #
-									{items.CUSTOM_AUTHOR_NAME}
-								# ELSE #
-									# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
-								# ENDIF #
-							</td>
-						# ENDIF #
-						# IF C_LOCATION #
-							<td class="jp-location">
-								# IF items.IS_LOCATED #
-									# IF items.C_GMAP #
-										{items.LOCATION}
-									# ELSE #
-										# IF items.C_OTHER_LOCATION #
-											{@other.country} : {items.OTHER_LOCATION}
+			<div class="responsive-table large-td">
+				<table id="table">
+					<thead>
+						<tr>
+							<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
+							<th>{@smallads.form.price}</th>
+							<th>{@smallads.ad.type}</th>
+							<th>${LangLoader::get_message('author', 'common')}</th>
+							# IF C_LOCATION #<th>{@location}</th># ENDIF #
+							# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
+							<th>${@smallads.publication.date}</th>
+							# IF C_MODERATION #
+								<th>${LangLoader::get_message('administrator_alerts_action', 'admin')}</th>
+							# ENDIF #
+						</tr>
+					</thead>
+					<tbody data-jplist-group="smallads-items">
+						# START items #
+							<tr data-jplist-item class="# IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_COMPLETED # completed-smallad# ENDIF #">
+								<td>
+									# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
+										<span class="jp-title" itemprop="name">{items.TITLE}</span>
+									# IF NOT items.C_COMPLETED #</a># ENDIF #
+									<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
+									<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
+									<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
+								</td>
+								<td class="jp-price"># IF items.C_COMPLETED #{@smallads.completed.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
+								<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
+								# IF items.C_DISPLAYED_AUTHOR #
+									<td class="jp-author">
+										# IF items.C_CUSTOM_AUTHOR_NAME #
+											{items.CUSTOM_AUTHOR_NAME}
 										# ELSE #
-											{items.LOCATION}
+											# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
 										# ENDIF #
-									# ENDIF #
+									</td>
 								# ENDIF #
-							</td>
-						# ENDIF #
-						# IF C_CATEGORY #
-						<td>
-							<a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
-						</td>
-						# ENDIF #
-						<td>
-							<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time>
-						</td>
-						# IF C_MODERATION #
-							<td>
-								# IF NOT items.C_COMPLETED #
-									# IF items.C_EDIT #
-										<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
-									# ENDIF #
+								# IF C_LOCATION #
+									<td class="jp-location">
+										# IF items.IS_LOCATED #
+											# IF items.C_GMAP #
+												{items.LOCATION}
+											# ELSE #
+												# IF items.C_OTHER_LOCATION #
+													{@other.country} : {items.OTHER_LOCATION}
+												# ELSE #
+													{items.LOCATION}
+												# ENDIF #
+											# ENDIF #
+										# ENDIF #
+									</td>
 								# ENDIF #
-									# IF items.C_DELETE #
-										<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
-									# ENDIF #
-							</td>
-						# ENDIF #
-					</tr>
-					# END items #
-				</tbody>
-			</table>
+								# IF C_CATEGORY #
+								<td>
+									<a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+								</td>
+								# ENDIF #
+								<td>
+									<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time>
+								</td>
+								# IF C_MODERATION #
+									<td>
+										# IF NOT items.C_COMPLETED #
+											# IF items.C_EDIT #
+												<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+											# ENDIF #
+										# ENDIF #
+											# IF items.C_DELETE #
+												<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+											# ENDIF #
+									</td>
+								# ENDIF #
+							</tr>
+						# END items #
+					</tbody>
+				</table>
+			</div>
 
 		# ELSE #
 
@@ -322,7 +324,7 @@
 	<footer># IF C_USAGE_TERMS # <i class="fa fa-book" aria-hidden="true"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
 </section>
 
-<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.js"></script>
+<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.min.js"></script>
 
 <script>
 	jQuery('document').ready(function(){
