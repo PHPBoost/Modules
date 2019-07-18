@@ -1,8 +1,8 @@
 <section id="smallads-module">
 	<header>
 		<div class="cat-actions">
-			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication" aria-hidden="true" title="${LangLoader::get_message('syndication', 'common')}"></i></a>
-			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF ## ENDIF #
+			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
+			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF #
@@ -14,7 +14,7 @@
 			# IF NOT C_ROOT_CATEGORY #
 				# IF C_DISPLAY_CAT_ICONS #
 					# IF C_CATEGORY_IMAGE #
-						<img class="thumbnail-item" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" title="{CATEGORY_NAME}" />
+						<img class="thumbnail-item" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" aria-label="{CATEGORY_NAME}" />
 					# ENDIF #
 				# ENDIF #
 			# ENDIF #
@@ -127,84 +127,82 @@
 		# ENDIF #
 	# ELSE #
 		# IF C_TABLE #
-			<div class="responsive-table large-td">
-				<table id="table">
-					<thead>
-						<tr>
-							<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
-							<th>{@smallads.form.price}</th>
-							<th>{@smallads.ad.type}</th>
-							<th>${LangLoader::get_message('author', 'common')}</th>
-							# IF C_LOCATION #<th>{@location}</th># ENDIF #
-							# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
-							<th>${@smallads.publication.date}</th>
+			<table id="table">
+				<thead>
+					<tr>
+						<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
+						<th>{@smallads.form.price}</th>
+						<th>{@smallads.ad.type}</th>
+						<th>${LangLoader::get_message('author', 'common')}</th>
+						# IF C_LOCATION #<th>{@location}</th># ENDIF #
+						# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
+						<th>${@smallads.publication.date}</th>
+						# IF C_MODERATION #
+							<th>${LangLoader::get_message('administrator_alerts_action', 'admin')}</th>
+						# ENDIF #
+					</tr>
+				</thead>
+				<tbody data-jplist-group="smallads-items">
+					# START items #
+						<tr data-jplist-item class="# IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_COMPLETED # completed-smallad# ENDIF #">
+							<td>
+								# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
+									<span class="jp-title" itemprop="name">{items.TITLE}</span>
+								# IF NOT items.C_COMPLETED #</a># ENDIF #
+								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
+								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
+								<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
+							</td>
+							<td class="jp-price"># IF items.C_COMPLETED #{@smallads.completed.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
+							<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
+							# IF items.C_DISPLAYED_AUTHOR #
+								<td class="jp-author">
+									# IF items.C_CUSTOM_AUTHOR_NAME #
+										{items.CUSTOM_AUTHOR_NAME}
+									# ELSE #
+										# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
+									# ENDIF #
+								</td>
+							# ENDIF #
+							# IF C_LOCATION #
+								<td class="jp-location">
+									# IF items.IS_LOCATED #
+										# IF items.C_GMAP #
+											{items.LOCATION}
+										# ELSE #
+											# IF items.C_OTHER_LOCATION #
+												{@other.country} : {items.OTHER_LOCATION}
+											# ELSE #
+												{items.LOCATION}
+											# ENDIF #
+										# ENDIF #
+									# ENDIF #
+								</td>
+							# ENDIF #
+							# IF C_CATEGORY #
+							<td>
+								<a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+							</td>
+							# ENDIF #
+							<td>
+								<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time>
+							</td>
 							# IF C_MODERATION #
-								<th>${LangLoader::get_message('administrator_alerts_action', 'admin')}</th>
+								<td>
+									# IF NOT items.C_COMPLETED #
+										# IF items.C_EDIT #
+											<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
+										# ENDIF #
+									# ENDIF #
+										# IF items.C_DELETE #
+											<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+										# ENDIF #
+								</td>
 							# ENDIF #
 						</tr>
-					</thead>
-					<tbody data-jplist-group="smallads-items">
-						# START items #
-							<tr data-jplist-item class="# IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_COMPLETED # completed-smallad# ENDIF #">
-								<td>
-									# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
-										<span class="jp-title" itemprop="name">{items.TITLE}</span>
-									# IF NOT items.C_COMPLETED #</a># ENDIF #
-									<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
-									<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
-									<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
-								</td>
-								<td class="jp-price"># IF items.C_COMPLETED #{@smallads.completed.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
-								<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
-								# IF items.C_DISPLAYED_AUTHOR #
-									<td class="jp-author">
-										# IF items.C_CUSTOM_AUTHOR_NAME #
-											{items.CUSTOM_AUTHOR_NAME}
-										# ELSE #
-											# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
-										# ENDIF #
-									</td>
-								# ENDIF #
-								# IF C_LOCATION #
-									<td class="jp-location">
-										# IF items.IS_LOCATED #
-											# IF items.C_GMAP #
-												{items.LOCATION}
-											# ELSE #
-												# IF items.C_OTHER_LOCATION #
-													{@other.country} : {items.OTHER_LOCATION}
-												# ELSE #
-													{items.LOCATION}
-												# ENDIF #
-											# ENDIF #
-										# ENDIF #
-									</td>
-								# ENDIF #
-								# IF C_CATEGORY #
-								<td>
-									<a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
-								</td>
-								# ENDIF #
-								<td>
-									<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time>
-								</td>
-								# IF C_MODERATION #
-									<td>
-										# IF NOT items.C_COMPLETED #
-											# IF items.C_EDIT #
-												<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
-											# ENDIF #
-										# ENDIF #
-											# IF items.C_DELETE #
-												<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
-											# ENDIF #
-									</td>
-								# ENDIF #
-							</tr>
-						# END items #
-					</tbody>
-				</table>
-			</div>
+					# END items #
+				</tbody>
+			</table>
 
 		# ELSE #
 
@@ -218,10 +216,10 @@
 						</header>
 						<div class="actions">
 							# IF items.C_EDIT #
-							<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+							<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
 							# ENDIF #
 							# IF items.C_DELETE #
-							<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+							<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
 							# ENDIF #
 						</div>
 						<div class="more">
@@ -269,7 +267,7 @@
 						<meta itemprop="discussionUrl" content="{items.U_COMMENTS}">
 						<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
 
-						<a href="{items.U_ITEM}" title="{items.TITLE}" class="thumbnail-item">
+						<a href="{items.U_ITEM}" aria-label="{items.TITLE}" class="thumbnail-item">
 							<img itemprop="thumbnailUrl" src="# IF items.C_HAS_THUMBNAIL #{items.THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #" alt="{items.TITLE}" />
 						</a>
 
@@ -308,15 +306,15 @@
 			        data-name="pagination1"
 				   	data-name="paging"
 				>
-					<button type="button" data-type="first" aria-label="first"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
-				    <button type="button" data-type="prev" aria-label="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
+					<button type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
+				    <button type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
 
 				    <div class="jplist-holder" data-type="pages">
 				        <button type="button" class="submit" data-type="page">{@smallads.active.page}</button>
 				    </div>
 
-				    <button type="button" data-type="next" aria-label="next"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
-				    <button type="button" data-type="last" aria-label="last"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
+				    <button type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
+				    <button type="button" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
 				</div>
 			</div>
 
