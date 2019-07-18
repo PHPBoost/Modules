@@ -22,7 +22,7 @@ SmalladsFormFieldCarousel.prototype = {
 			jQuery('<a/> ', {href : '', title : '${LangLoader::get_message('files_management', 'main')}', class : 'fa fa-cloud-upload fa-2x', onclick : "window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_url_" + id + "&parse=true&no_path=true', '', 'height=500,width=780,resizable=yes,scrollbars=yes');return false;"}).appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
-			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldCarousel.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(LangLoader::get_message('delete', 'common'))}}).html('<i class="fa fa-delete" aria-hidden="true" title="' + ${escapejs(LangLoader::get_message('delete', 'common'))} + '"></i>').appendTo('#' + id);
+			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldCarousel.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(LangLoader::get_message('delete', 'common'))}}).html('<i class="fa fa-delete" aria-hidden="true"></i><span class="sr-only">' + ${escapejs(LangLoader::get_message('delete', 'common'))} + '</span>').appendTo('#' + id);
 
 			this.integer++;
 		}
@@ -47,9 +47,9 @@ var SmalladsFormFieldCarousel = new SmalladsFormFieldCarousel();
 	<div id="${escape(ID)}_{fieldelements.ID}">
 		<input type="text" name="field_description_${escape(ID)}_{fieldelements.ID}" id="field_description_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.DESCRIPTION}" placeholder="{@smallads.form.image.description}"/>
 		<input type="text" name="field_picture_url_${escape(ID)}_{fieldelements.ID}" id="field_picture_url_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.PICTURE_URL}" placeholder="{@smallads.form.image.url}" class="slider-url"/>
-		<a title="${LangLoader::get_message('files_management', 'main')}" href="" class="fa fa-cloud-upload fa-2x" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=780,resizable=yes,scrollbars=yes');return false;"></a>
-		<a href="javascript:SmalladsFormFieldCarousel.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+		<a aria-label="${LangLoader::get_message('files_management', 'main')}" href="" class="fa fa-cloud-upload fa-2x" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=780,resizable=yes,scrollbars=yes');return false;"></a>
+		<a href="javascript:SmalladsFormFieldCarousel.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('delete', 'common'))}</span></a>
 	</div>
 # END fieldelements #
 </div>
-<a href="javascript:SmalladsFormFieldCarousel.add_field();" id="add-${escape(ID)}" class="field-source-more-value" aria-label="${LangLoader::get_message('add', 'common')}"><i class="fa fa-plus" aria-hidden="true" title="${LangLoader::get_message('add', 'common')}"></i></a>
+<a href="javascript:SmalladsFormFieldCarousel.add_field();" id="add-${escape(ID)}" class="field-source-more-value" aria-label="${LangLoader::get_message('add', 'common')}"><i class="fa fa-plus" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('add', 'common'))}</span></a>

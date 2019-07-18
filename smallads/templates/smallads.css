@@ -336,7 +336,12 @@ a[data-lightbox] {
 	background-color: #ECECEC;
 }
 
-.jplist-label [type="radio"]{ margin: 0 2px 2px 0; }
+.jplist-label [type="radio"]{
+	position: absolute;
+	width: 100%;
+	opacity: 0;
+	height: 100%;
+}
 
 /* --- Sort field --- */
 .sort-list {

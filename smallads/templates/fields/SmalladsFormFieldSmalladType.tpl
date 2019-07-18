@@ -16,7 +16,7 @@ SmalladsFormFieldSmalladType.prototype = {
 			jQuery('<input/> ', {type : 'text', id : 'field_name_' + id, name : 'field_name_' + id, class : 'field-large', placeholder : "{@smallads.type.placeholder}"}).appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
-			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldSmalladType.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(LangLoader::get_message('delete', 'common'))}}).html('<i class="fa fa-delete" aria-hidden="true" title="' + ${escapejs(LangLoader::get_message('delete', 'common'))} + '"></i>').appendTo('#' + id);
+			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldSmalladType.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(LangLoader::get_message('delete', 'common'))}}).html('<i class="fa fa-delete" aria-hidden="true"></i><span class="sr-only">' + ${escapejs(LangLoader::get_message('delete', 'common'))} + '</span>').appendTo('#' + id);
 
 			this.integer++;
 		}
@@ -40,8 +40,8 @@ var SmalladsFormFieldSmalladType = new SmalladsFormFieldSmalladType();
 # START fieldelements #
 		<div id="${escape(ID)}_{fieldelements.ID}">
 			<input type="text" name="field_name_${escape(ID)}_{fieldelements.ID}" id="field_name_${escape(ID)}_{fieldelements.ID}" class="field-large" value="{fieldelements.NAME}" placeholder="{@smallads.type.placeholder}"/>
-			<a href="javascript:SmalladsFormFieldSmalladType.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+			<a href="javascript:SmalladsFormFieldSmalladType.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('delete', 'common'))}</span></a>
 		</div>
 # END fieldelements #
 </div>
-<a href="javascript:SmalladsFormFieldSmalladType.add_field();" id="add-${escape(ID)}" class="" aria-label="${LangLoader::get_message('add', 'common')}"><i class="fa fa-plus" aria-hidden="true" title="${LangLoader::get_message('add', 'common')}"></i></a>
+<a href="javascript:SmalladsFormFieldSmalladType.add_field();" id="add-${escape(ID)}" class="" aria-label="${LangLoader::get_message('add', 'common')}"><i class="fa fa-plus" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('add', 'common'))}</span></a>

@@ -1,9 +1,9 @@
 <section id="smallads-module">
 	<header>
 		<div class="cat-actions">
-			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-syndication" aria-hidden="true" title="${LangLoader::get_message('syndication', 'common')}"></i></a>
+			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-syndication" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
 			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
-			# IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF #
+			# IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF #
 			<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="completed-article">{@smallads.completed.item}</span># ENDIF #</p>
 		</div>
 		<h1>{TITLE}</h1>
@@ -11,8 +11,8 @@
 	# INCLUDE NOT_VISIBLE_MESSAGE #
 	<div itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
 		<div class="actions">
-			# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a># ENDIF ## ENDIF #
-			# IF C_DELETE #<a href="{U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a># ENDIF #
+			# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
+			# IF C_DELETE #<a href="{U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-delete" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a># ENDIF #
 		</div>
 
 
@@ -26,11 +26,11 @@
 		<div class="content">
 			<div class="options infos thumbnail-item">
 				# IF C_HAS_THUMBNAIL #
-					<a href="{THUMBNAIL}" title="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
+					<a href="{THUMBNAIL}" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
 						<img src="{THUMBNAIL}" alt="{TITLE}" />
 					</a>
 				# ELSE #
-					<a href="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" title="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
+					<a href="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
 						<img src="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" alt="{TITLE}" />
 					</a>
 				# ENDIF #
@@ -55,11 +55,11 @@
 						<div>
 							{@smallads.contact} :
 							# IF C_DISPLAYED_AUTHOR_EMAIL #
-								<a href="#email-modal" class="email-modal-btn" aria-label="{@smallads.contact.email} - {@open.modal}"><i class="fa fa-fw fa-at" aria-hidden="true" title="{@smallads.contact.email}"></i></a>
+								<a href="#email-modal" class="email-modal-btn" aria-label="{@smallads.contact.email} - {@open.modal}"><i class="fa fa-fw fa-at" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.email}</span></a>
 								<div id="email-modal" class="smallad-modal">
 									# IF C_CONTACT_LEVEL #
 										<div class="email-form">
-											<a href="#email-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true" title="{@close.modal}"></i></a>
+											<a href="#email-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true"></i><span class="sr-only">{@close.modal}</span></a>
 											# INCLUDE MSG #
 											# IF NOT C_SMALLAD_EMAIL_SENT #
 												# INCLUDE EMAIL_FORM #
@@ -67,24 +67,24 @@
 										</div>
 									# ELSE #
 										<div class="warning is-not-connected">
-											<a href="#email-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true" title="{@close.modal}"></i></a>
+											<a href="#email-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true"></i><span class="sr-only">{@close.modal}</span></a>
 											{@smallads.email.modal}
 										</div>
 									# ENDIF #
 								</div>
 							# ENDIF #
-							# IF C_DISPLAYED_AUTHOR_PM # | <a href="{U_AUTHOR_PM}" class="smallad-pm" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope-o" aria-hidden="true" title="{@smallads.contact.pm}"></i></a># ENDIF #
+							# IF C_DISPLAYED_AUTHOR_PM # | <a href="{U_AUTHOR_PM}" class="smallad-pm" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope-o" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.pm}</span></a># ENDIF #
 							# IF C_DISPLAYED_AUTHOR_PHONE #
-								 | <a href="#tel-modal" class="tel-modal-btn" aria-label="{@smallads.contact.phone} - {@open.modal}"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone" aria-hidden="true" title="{@smallads.contact.phone}"></i></a>
+								 | <a href="#tel-modal" class="tel-modal-btn" aria-label="{@smallads.contact.phone} - {@open.modal}"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.phone}</span></a>
 								<div id="tel-modal" class="smallad-modal">
 									# IF C_CONTACT_LEVEL #
 										<div class="tel-form is-connected">
-											<a href="#tel-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true" title="{@close.modal}"></i></a>
+											<a href="#tel-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true"></i><span class="sr-only">{@close.modal}</span></a>
 											{AUTHOR_PHONE}
 										</div>
 									# ELSE #
 										<div class="warning is-not-connected">
-											<a href="#tel-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true" title="{@close.modal}"></i></a>
+											<a href="#tel-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-remove" aria-hidden="true"></i><span class="sr-only">{@close.modal}</span></a>
 											{@smallads.tel.modal}
 										</div>
 									# ENDIF #
@@ -96,7 +96,7 @@
 				# ENDIF #
 				# IF C_DISPLAYED_AUTHOR #
 					<hr />
-					<i class="fa fa-fw fa-user" aria-hidden="true" title="${LangLoader::get_message('author', 'common')}"></i>
+					<i class="fa fa-fw fa-user" aria-hidden="true" aria-label="${LangLoader::get_message('author', 'common')}"></i>
 						# IF C_CUSTOM_AUTHOR_NAME #
 							{CUSTOM_AUTHOR_NAME}
 						# ELSE #
@@ -104,15 +104,15 @@
 						# ENDIF #
 				# ENDIF #
 				<hr />
-				<i class="fa fa-fw fa-calendar" aria-hidden="true" title="${LangLoader::get_message('date', 'date-common')}"></i>&nbsp;<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time>
-				<hr /><i class="fa fa-fw fa-eye" aria-hidden="true" title="{VIEWS_NUMBER} {@smallads.sort.field.views}"></i>&nbsp;<span title="{VIEWS_NUMBER} {@smallads.sort.field.views}">{VIEWS_NUMBER}</span>
+				<i class="fa fa-fw fa-calendar" aria-hidden="true" aria-label="${LangLoader::get_message('date', 'date-common')}"></i>&nbsp;<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time>
+				<hr /><i class="fa fa-fw fa-eye" aria-hidden="true" aria-label="{VIEWS_NUMBER} {@smallads.sort.field.views}"></i>&nbsp;<span aria-label="{VIEWS_NUMBER} {@smallads.sort.field.views}">{VIEWS_NUMBER}</span>
 				# IF C_COMMENTS_ENABLED #
 					<hr />
-					<i class="fa fa-fw fa-comment" aria-hidden="true" title="${LangLoader::get_message('comments', 'comments-common')}"></i> <a itemprop="discussionUrl" class="small" href="{U_COMMENTS}">&nbsp;{L_COMMENTS}</a>
+					<i class="fa fa-fw fa-comment" aria-hidden="true" aria-label="${LangLoader::get_message('comments', 'comments-common')}"></i> <a itemprop="discussionUrl" class="small" href="{U_COMMENTS}">&nbsp;{L_COMMENTS}</a>
 				# ENDIF #
 				# IF C_KEYWORDS #
 					<hr />
-					<i title="${LangLoader::get_message('form.keywords', 'common')}" class="fa fa-fw fa-tags" aria-hidden="true"></i>
+					<i class="fa fa-fw fa-tags" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('form.keywords', 'common')}</span>
 					# START keywords #
 						<a itemprop="keywords" href="{keywords.URL}">{keywords.NAME}</a># IF keywords.C_SEPARATOR #, # ENDIF #
 					# END keywords #
@@ -121,9 +121,9 @@
 
 			# IF C_CAROUSEL #
 			 	# START carousel #
-					<a href="{carousel.U_PICTURE}" title="{carousel.DESCRIPTION}" data-lightbox="formatter" data-rel="lightcase:collection">
+					<a href="{carousel.U_PICTURE}" aria-label="{carousel.DESCRIPTION}" data-lightbox="formatter" data-rel="lightcase:collection">
 						<figure class="carousel-thumbnail">
-							<img src="{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" title="{carousel.DESCRIPTION}" />
+							<img src="{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" />
 							<figcaption>{carousel.DESCRIPTION}</figcaption>
 						</figure>
 					</a>
@@ -161,13 +161,13 @@
 					<div class="block suggested-thumbnail">
 						# IF suggested_items.C_COMPLETED #
 							<figure>
-								# IF suggested_items.C_HAS_THUMBNAIL #<img src="{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" title="{suggested_items.TITLE}" /># ENDIF #
+								# IF suggested_items.C_HAS_THUMBNAIL #<img src="{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
 								<figcaption>{suggested_items.TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
 							</figure>
 						# ELSE #
 							<a href="{suggested_items.U_ITEM}">
 								<figure>
-									# IF suggested_items.C_HAS_THUMBNAIL #<img src="{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" title="{suggested_items.TITLE}" /># ENDIF #
+									# IF suggested_items.C_HAS_THUMBNAIL #<img src="{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
 									<figcaption>{suggested_items.TITLE}</figcaption>
 								</figure>
 							</a>
@@ -184,7 +184,7 @@
 						# IF C_PREVIOUS_COMPLETED #
 						<span class="navigation-link-previous">
 							<figure class="navigation-link-thumbnail">
-								# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" title="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
+								# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
 								<figcaption><i class="fa fa-fw fa-arrow-circle-left" aria-hidden="true"></i> {PREVIOUS_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
 							</figure>
 						</span>
@@ -192,7 +192,7 @@
 							<span class="navigation-link-previous">
 								<a href="{U_PREVIOUS_ITEM}">
 									<figure class="navigation-link-thumbnail">
-										# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" title="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
+										# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" aria-label="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
 										<figcaption><i class="fa fa-fw fa-arrow-circle-left" aria-hidden="true"></i> {PREVIOUS_ITEM_TITLE}</figcaption>
 									</figure>
 								</a>
@@ -203,7 +203,7 @@
 						# IF C_NEXT_COMPLETED #
 						<span class="navigation-link-next">
 							<figure class="navigation-link-thumbnail">
-								# IF C_NEXT_HAS_THUMBNAIL #<img src="{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" title="{NEXT_ITEM_TITLE}" /># ENDIF #
+								# IF C_NEXT_HAS_THUMBNAIL #<img src="{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
 								<figcaption>{NEXT_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item} <i class="fa fa-fw fa-arrow-circle-right" aria-hidden="true"></i></figcaption>
 							</figure>
 						</span>
@@ -211,7 +211,7 @@
 							<span class="navigation-link-next">
 								<a href="{U_NEXT_ITEM}">
 									<figure class="navigation-link-thumbnail">
-										# IF C_NEXT_HAS_THUMBNAIL #<img src="{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" title="{NEXT_ITEM_TITLE}" /># ENDIF #
+										# IF C_NEXT_HAS_THUMBNAIL #<img src="{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
 										<figcaption>{NEXT_ITEM_TITLE} <i class="fa fa-fw fa-arrow-circle-right" aria-hidden="true"></i></figcaption>
 									</figure>
 								</a>

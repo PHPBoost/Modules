@@ -59,26 +59,24 @@
 							<div class="label-list bg-container">
 								<label class="jplist-label" for="default-radio">
 									<input
-									   data-control-type="radio-buttons-filters"
-									   data-control-action="filter"
-									   data-control-name="default"
-									   data-path="default"
-									   id="default-radio"
-									   type="radio"
-									   name="jplist"
-									   checked="checked"
+										type="radio"
+										data-jplist-control="radio-buttons-text-filter"
+										data-path="default"
+            							data-group="smallads-items"
+									    name="jplist"
+										checked
 									/>	{@smallads.all.types.filters}
 								</label>
 								# START types #
 									<label class="jplist-label" for="{types.TYPE_NAME_FILTER}">
 										<input
-											data-control-type="radio-buttons-filters"
-											data-control-action="filter"
-											data-control-name="{types.TYPE_NAME_FILTER}"
-											data-path=".{types.TYPE_NAME_FILTER}"
-											id="{types.TYPE_NAME_FILTER}"
 											type="radio"
-											name="jplist"
+											data-jplist-control="radio-buttons-text-filter"
+											data-path=".smallads-type"
+											data-control-name="default"
+	            							data-group="smallads-items"
+										    name="jplist"
+											value="{types.TYPE_NAME}"
 										/>	{types.TYPE_NAME}
 									</label>
 								# END types #
@@ -154,7 +152,7 @@
 								<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 							</td>
 							<td class="jp-price"># IF items.C_COMPLETED #{@smallads.completed.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
-							<td class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</td>
+							<td class="{items.SMALLAD_TYPE_FILTER} smallads-type">{items.SMALLAD_TYPE}</td>
 							# IF items.C_DISPLAYED_AUTHOR #
 								<td class="jp-author">
 									# IF items.C_CUSTOM_AUTHOR_NAME #
@@ -211,7 +209,7 @@
 					<article data-jplist-item id="smallads-items-{items.ID}" class="smallads-items several-items# IF items.C_COMPLETED# completed-smallad# ENDIF ## IF C_MOSAIC # block# ENDIF ## IF C_LIST # block-list# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 						# IF items.C_COMPLETED # <div class="completed-item"><span>{@smallads.completed.item}</span></div># ENDIF #
 						<header>
-							<span class="{items.SMALLAD_TYPE_FILTER}">{items.SMALLAD_TYPE}</span>
+							<span class="{items.SMALLAD_TYPE_FILTER} smallads-type">{items.SMALLAD_TYPE}</span>
 							<h2><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>
 						</header>
 						<div class="actions">

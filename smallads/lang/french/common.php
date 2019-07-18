@@ -134,7 +134,7 @@ $lang['smallads.sort.price'] = 'Prix';
 $lang['smallads.sort.author'] = 'Auteur';
 $lang['smallads.sort.coms'] = 'Commentaires';
 $lang['smallads.sort.view'] = 'Vues';
-$lang['smallads.pagination'] = 'Page {current} sur {pages}';
+$lang['smallads.active.page'] = '{pageNumber}';
 
 //SEO
 $lang['smallads.seo.description.root'] = 'Toutes les annonces du site :site.';
