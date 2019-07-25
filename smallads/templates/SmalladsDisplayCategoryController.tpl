@@ -125,7 +125,7 @@
 		# ENDIF #
 	# ELSE #
 		# IF C_TABLE #
-			<table id="table">
+			<table class="table">
 				<thead>
 					<tr>
 						<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>

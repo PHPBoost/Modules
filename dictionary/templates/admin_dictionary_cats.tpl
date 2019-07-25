@@ -174,7 +174,7 @@
 	# END add #
 	# IF LIST_CAT #
 		<form action="admin_dictionary_cats.php" method="post" class="fieldset-content">
-			<table>
+			<table class="table">
 				<thead>
 					<tr>
 						<th colspan="3">{L_GESTION_CAT}</th>

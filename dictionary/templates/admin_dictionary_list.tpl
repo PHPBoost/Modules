@@ -25,7 +25,7 @@
 </nav>
 
 <div id="admin-contents">
-	<table>
+	<table class="table">
 		<caption>{L_LIST_DEF}</caption>
 		<thead>
 			<th>{L_DICTIONARY_WORD}</th>

@@ -11,7 +11,7 @@
 		</span>
 	</header>
 	# IF C_DISPLAY_TABLE #
-		<table id="table">
+		<table class="table">
 			<thead>
 				<tr>
 					<th>${LangLoader::get_message('form.name', 'common')}</th>

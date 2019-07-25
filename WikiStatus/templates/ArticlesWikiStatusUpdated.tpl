@@ -1,7 +1,7 @@
 <span class="span-mini-wiki-status">
 {@statut_legend}
 </span>
-<table id="table-mini-wiki-status">
+<table id="table-mini-wiki-status" class="table">
 	<thead>
 	<tr>
 		<th style="width: 25%">{@title_date_and_time}</th>
@@ -21,7 +21,3 @@
 		# END articles_wiki_items #
 	</tbody>
 </table>
-
-<script>
-	jQuery('#table-mini-wiki-status').basictable();
-</script>

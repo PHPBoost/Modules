@@ -3,7 +3,7 @@
 		<h1>{@module_title}</h1>
 	</header>
 	<div class="content">
-		<table>
+		<table class="table-no-header">
 			<tbody>
 			# START servers #
 			{servers.VIEW}

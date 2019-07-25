@@ -4,7 +4,7 @@
 	</div>
 		<div class="module-mini-contents">
 			# IF C_SERVERS #
-				<table class="servers-mini">
+				<table class="table-no-header servers-mini">
 					<tbody>
 					# START servers #
 						# IF C_HORIZONTAL ## IF servers.C_NEW_LINE #<tr># ENDIF ## ELSE #<tr># ENDIF #
