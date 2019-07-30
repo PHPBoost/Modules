@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 01 17
+ * @version   	PHPBoost 5.3 - last update: 2019 07 30
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -145,150 +145,170 @@ class AdminHomeLandingConfigController extends AdminModuleController
 	private function build_form()
 	{
 		$form = new HTMLForm(__CLASS__);
+		$form->set_css_class('tab-container fieldset-content');
+
+		//Configuration
+		$fieldset_tab_menu = new TabsMenuFieldset('tab_menu', '');
+		$form->add_fieldset($fieldset_tab_menu);
+
+		$fieldset_tab_menu->add_field(new FormFieldActionLinkList('tab_menu_list',
+			array(
+				new FormFieldActionLinkElement(LangLoader::get_message('configuration', 'admin-common'), '#AdminHomeLandingConfigController_configuration', 'fa-cog'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.carousel', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_carousel', 'fa-image'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.articles', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_articles', '', '../../articles/articles_mini.png', 'articles'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.calendar', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_calendar', '', '../../calendar/calendar_mini.png', 'calendar'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.contact', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_contact', '', '../../contact/contact_mini.png', 'contact'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.download', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_download', '', '../../download/download_mini.png', 'download'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.forum', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_forum', '', '../../forum/forum_mini.png', 'forum'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.gallery', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_gallery', '', '../../gallery/gallery_mini.png', 'gallery'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.guestbook', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_guestbook', '', '../../guestbook/guestbook_mini.png', 'guestbook'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.media', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_media', '', '../../media/media_mini.png', 'media'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.news', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_news', '', '../../news/news_mini.png', 'news'),
+				// new FormFieldActionLinkElement(LangLoader::get_message('onepage.rss', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_rss', 'fa-rss'),
+				new FormFieldActionLinkElement(LangLoader::get_message('onepage.web', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_web', '', '../../web/web_mini.png', 'web'),
+			)
+		));
 
 		//Configuration
 		$fieldset_config = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin-common'));
-		$form->add_fieldset($fieldset_config);
+			$form->add_fieldset($fieldset_config);
 
-		$fieldset_config->add_field(new FormFieldTextEditor('module_title', $this->lang['admin.module.title'], $this->config->get_module_title(),
-			array('description' => $this->lang['admin.module.title.desc'])
-		));
+			$fieldset_config->add_field(new FormFieldTextEditor('module_title', $this->lang['admin.module.title'], $this->config->get_module_title(),
+				array('description' => $this->lang['admin.module.title.desc'])
+			));
 
-		$fieldset_config->add_field(new FormFieldCheckbox('left_columns', $this->lang['admin.menu.left'], $this->config->get_left_columns()
-		));
+			$fieldset_config->add_field(new FormFieldCheckbox('left_columns', $this->lang['admin.menu.left'], $this->config->get_left_columns()
+			));
 
-		$fieldset_config->add_field(new FormFieldCheckbox('right_columns', $this->lang['admin.menu.right'], $this->config->get_right_columns()
-		));
+			$fieldset_config->add_field(new FormFieldCheckbox('right_columns', $this->lang['admin.menu.right'], $this->config->get_right_columns()
+			));
 
-		$fieldset_config->add_field(new FormFieldCheckbox('top_central', $this->lang['admin.menu.top.central'], $this->config->get_top_central()
-		));
+			$fieldset_config->add_field(new FormFieldCheckbox('top_central', $this->lang['admin.menu.top.central'], $this->config->get_top_central()
+			));
 
-		$fieldset_config->add_field(new FormFieldCheckbox('bottom_central', $this->lang['admin.menu.bottom.central'], $this->config->get_bottom_central()
-		));
+			$fieldset_config->add_field(new FormFieldCheckbox('bottom_central', $this->lang['admin.menu.bottom.central'], $this->config->get_bottom_central()
+			));
 
-		$fieldset_config->add_field(new FormFieldCheckbox('top_footer', $this->lang['admin.menu.top.footer'], $this->config->get_top_footer()
-		));
+			$fieldset_config->add_field(new FormFieldCheckbox('top_footer', $this->lang['admin.menu.top.footer'], $this->config->get_top_footer()
+			));
 
-		$fieldset_onepage = new FormFieldsetHTML('admin_onepage', LangLoader::get_message('admin.onepage', 'common', 'HomeLanding'));
-		$form->add_fieldset($fieldset_onepage);
+			$fieldset_config->add_field(new FormFieldSubTitle('admin_onepage', LangLoader::get_message('admin.onepage', 'common', 'HomeLanding'), ''));
 
-		$fieldset_onepage->add_field(new FormFieldCheckbox('onepage_menu', $this->lang['admin.menu.onepage'], $this->config->get_onepage_menu()
-		));
+			$fieldset_config->add_field(new FormFieldCheckbox('onepage_menu', $this->lang['admin.menu.onepage'], $this->config->get_onepage_menu()
+			));
+
+			$fieldset_config->add_field(new FormFieldSubTitle('admin_edito', LangLoader::get_message('admin.edito', 'common', 'HomeLanding'), ''));
+
+			$fieldset_config->add_field(new FormFieldCheckbox('edito_enabled', $this->lang['admin.edito.enabled'], $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
+				array('events' => array('click' => '
+				if (HTMLForms.getField("edito_enabled").getValue()) {
+					HTMLForms.getField("edito").enable();
+				} else {
+					HTMLForms.getField("edito").disable();
+				}'))
+			));
+
+			$fieldset_config->add_field(new FormFieldRichTextEditor('edito', $this->lang['admin.edito.content'], $this->config->get_edito(),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed())
+			));
+
+			$fieldset_config->add_field(new FormFieldSubTitle('admin_lastcoms', LangLoader::get_message('admin.lastcoms', 'common', 'HomeLanding'), ''));
+
+			$fieldset_config->add_field(new FormFieldCheckbox('lastcoms_enabled', $this->lang['admin.lastcoms.enabled'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
+				array('events' => array('click' => '
+				if (HTMLForms.getField("lastcoms_enabled").getValue()) {
+					HTMLForms.getField("lastcoms_limit").enable();
+					HTMLForms.getField("lastcoms_char").enable();
+				} else {
+					HTMLForms.getField("lastcoms_limit").disable();
+					HTMLForms.getField("lastcoms_char").disable();
+				}'))
+			));
+
+			$fieldset_config->add_field(new FormFieldNumberEditor('lastcoms_limit', $this->lang['admin.lastcoms.limit'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed(),
+				array('min' => 1, 'max' => 100, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_config->add_field(new FormFieldNumberEditor('lastcoms_char', $this->lang['admin.char'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_characters_number_displayed(),
+				array('min' => 1, 'max' => 512, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
+				array(new FormFieldConstraintIntegerRange(1, 512))
+			));
 
 		$fieldset_carousel = new FormFieldsetHTML('admin_carousel', LangLoader::get_message('admin.carousel', 'common', 'HomeLanding'));
-		$form->add_fieldset($fieldset_carousel);
+			$form->add_fieldset($fieldset_carousel);
 
-		$fieldset_carousel->add_field(new FormFieldCheckbox('carousel_enabled', $this->lang['admin.carousel.enabled'], $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
-			array('class'=> 'top-field', 'events' => array('click' => '
-			if (HTMLForms.getField("carousel_enabled").getValue()) {
-				HTMLForms.getField("carousel").enable();
-				HTMLForms.getField("carousel_speed").enable();
-				HTMLForms.getField("carousel_time").enable();
-				HTMLForms.getField("carousel_nav").enable();
-				HTMLForms.getField("carousel_hover").enable();
-				HTMLForms.getField("carousel_display").enable();
-				HTMLForms.getField("carousel_mini").enable();
-			} else {
-				HTMLForms.getField("carousel").disable();
-				HTMLForms.getField("carousel_speed").disable();
-				HTMLForms.getField("carousel_time").disable();
-				HTMLForms.getField("carousel_nav").disable();
-				HTMLForms.getField("carousel_hover").disable();
-				HTMLForms.getField("carousel_display").disable();
-				HTMLForms.getField("carousel_mini").disable();
-			}'))
-		));
+			$fieldset_carousel->add_field(new FormFieldCheckbox('carousel_enabled', $this->lang['admin.carousel.enabled'], $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
+				array('class'=> 'top-field', 'events' => array('click' => '
+				if (HTMLForms.getField("carousel_enabled").getValue()) {
+					HTMLForms.getField("carousel").enable();
+					HTMLForms.getField("carousel_speed").enable();
+					HTMLForms.getField("carousel_time").enable();
+					HTMLForms.getField("carousel_nav").enable();
+					HTMLForms.getField("carousel_hover").enable();
+					HTMLForms.getField("carousel_display").enable();
+					HTMLForms.getField("carousel_mini").enable();
+				} else {
+					HTMLForms.getField("carousel").disable();
+					HTMLForms.getField("carousel_speed").disable();
+					HTMLForms.getField("carousel_time").disable();
+					HTMLForms.getField("carousel_nav").disable();
+					HTMLForms.getField("carousel_hover").disable();
+					HTMLForms.getField("carousel_display").disable();
+					HTMLForms.getField("carousel_mini").disable();
+				}'))
+			));
 
-		$fieldset_carousel->add_field(new FormFieldNumberEditor('carousel_speed', $this->lang['admin.form.carousel.speed'], $this->config->get_carousel_speed(),
-			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-		));
+			$fieldset_carousel->add_field(new FormFieldNumberEditor('carousel_speed', $this->lang['admin.form.carousel.speed'], $this->config->get_carousel_speed(),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+			));
 
-		$fieldset_carousel->add_field(new FormFieldNumberEditor('carousel_time', $this->lang['admin.form.carousel.time'], $this->config->get_carousel_time(),
-			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-		));
+			$fieldset_carousel->add_field(new FormFieldNumberEditor('carousel_time', $this->lang['admin.form.carousel.time'], $this->config->get_carousel_time(),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+			));
 
-		$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_nav', $this->lang['admin.form.carousel.nav'], $this->config->get_carousel_nav(),
-			array(
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.nav.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.nav.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
-			),
-			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-		));
+			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_nav', $this->lang['admin.form.carousel.nav'], $this->config->get_carousel_nav(),
+				array(
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.nav.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.nav.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
+				),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+			));
 
-		$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_hover', $this->lang['admin.form.carousel.hover'], $this->config->get_carousel_hover(),
-			array(
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.hover.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.hover.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
-			),
-			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-		));
+			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_hover', $this->lang['admin.form.carousel.hover'], $this->config->get_carousel_hover(),
+				array(
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.hover.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.hover.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
+				),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+			));
 
-		$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_display', $this->lang['admin.form.carousel.display'], $this->config->get_carousel_display(),
-			array(
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.display.cropped'], HomeLandingConfig::CAROUSEL_D_TRUE),
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.display.full'], HomeLandingConfig::CAROUSEL_D_FALSE)
-			),
-			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-			// ,
-			// array('events' => array('blur' => '
-			// if (HTMLForms.getField("carousel_display").getValue() = '.HomeLandingConfig::CAROUSEL_CROPPED.') {
-			// 	'.array('description' => $this->lang['admin.form.carousel.display.cropped.desc']).'
-			// } else {
-			// 	'.array('description' => $this->lang['admin.form.carousel.display.full.desc']).'
-			// }'))
-		));
+			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_display', $this->lang['admin.form.carousel.display'], $this->config->get_carousel_display(),
+				array(
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.display.cropped'], HomeLandingConfig::CAROUSEL_D_TRUE),
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.display.full'], HomeLandingConfig::CAROUSEL_D_FALSE)
+				),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+				// ,
+				// array('events' => array('blur' => '
+				// if (HTMLForms.getField("carousel_display").getValue() = '.HomeLandingConfig::CAROUSEL_CROPPED.') {
+				// 	'.array('description' => $this->lang['admin.form.carousel.display.cropped.desc']).'
+				// } else {
+				// 	'.array('description' => $this->lang['admin.form.carousel.display.full.desc']).'
+				// }'))
+			));
 
-		$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_mini', $this->lang['admin.form.carousel.mini'], $this->config->get_carousel_mini(),
-			array(
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.mini.dots'], HomeLandingConfig::CAROUSEL_DOT),
-				new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.mini.imgs'], HomeLandingConfig::CAROUSEL_IMG)
-			),
-			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-		));
+			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_mini', $this->lang['admin.form.carousel.mini'], $this->config->get_carousel_mini(),
+				array(
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.mini.dots'], HomeLandingConfig::CAROUSEL_DOT),
+					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.mini.imgs'], HomeLandingConfig::CAROUSEL_IMG)
+				),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+			));
 
-		$fieldset_carousel->add_field(new HomeLandingFormFieldSliderConfig('carousel', $this->lang['admin.form.carousel'], $this->config->get_carousel(),
-			array('class' => 'full-field', 'hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-		));
-
-		$fieldset_edito = new FormFieldsetHTML('admin_edito', LangLoader::get_message('admin.edito', 'common', 'HomeLanding'));
-		$form->add_fieldset($fieldset_edito);
-
-		$fieldset_edito->add_field(new FormFieldCheckbox('edito_enabled', $this->lang['admin.edito.enabled'], $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
-			array('events' => array('click' => '
-			if (HTMLForms.getField("edito_enabled").getValue()) {
-				HTMLForms.getField("edito").enable();
-			} else {
-				HTMLForms.getField("edito").disable();
-			}'))
-		));
-
-		$fieldset_edito->add_field(new FormFieldRichTextEditor('edito', $this->lang['admin.edito.content'], $this->config->get_edito(),
-			array('hidden' => !$this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed())
-		));
-
-		$fieldset_lastcoms = new FormFieldsetHTML('admin_lastcoms', LangLoader::get_message('admin.lastcoms', 'common', 'HomeLanding'));
-		$form->add_fieldset($fieldset_lastcoms);
-
-		$fieldset_lastcoms->add_field(new FormFieldCheckbox('lastcoms_enabled', $this->lang['admin.lastcoms.enabled'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
-			array('events' => array('click' => '
-			if (HTMLForms.getField("lastcoms_enabled").getValue()) {
-				HTMLForms.getField("lastcoms_limit").enable();
-				HTMLForms.getField("lastcoms_char").enable();
-			} else {
-				HTMLForms.getField("lastcoms_limit").disable();
-				HTMLForms.getField("lastcoms_char").disable();
-			}'))
-		));
-
-		$fieldset_lastcoms->add_field(new FormFieldNumberEditor('lastcoms_limit', $this->lang['admin.lastcoms.limit'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed(),
-			array('min' => 1, 'max' => 100, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
-			array(new FormFieldConstraintIntegerRange(1, 100))
-		));
-
-		$fieldset_lastcoms->add_field(new FormFieldNumberEditor('lastcoms_char', $this->lang['admin.char'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_characters_number_displayed(),
-			array('min' => 1, 'max' => 512, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed()),
-			array(new FormFieldConstraintIntegerRange(1, 512))
-		));
+			$fieldset_carousel->add_field(new HomeLandingFormFieldSliderConfig('carousel', $this->lang['admin.form.carousel'], $this->config->get_carousel(),
+				array('class' => 'full-field', 'hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+			));
 
 		//Articles
 		if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))
@@ -309,6 +329,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array('min' => 1, 'max' => 100, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed()),
 				array(new FormFieldConstraintIntegerRange(1, 100))
 			));
+
+			$fieldset_articles->add_field(new FormFieldFree('articles_separator', '', ''));
 
 			$fieldset_articles->add_field(new FormFieldCheckbox('articles_cat_enabled', $this->lang['admin.articles.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed(),
 				array('events' => array('click' => '
@@ -401,6 +423,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array('min' => 1, 'max' => 100, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed()),
 				array(new FormFieldConstraintIntegerRange(1, 100))
 			));
+
+			$fieldset_download->add_field(new FormFieldFree('download_separator', '', ''));
 
 			$fieldset_download->add_field(new FormFieldCheckbox('download_cat_enabled', $this->lang['admin.download.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed(),
 				array('events' => array('click' => '
@@ -554,6 +578,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array(new FormFieldConstraintIntegerRange(1, 100))
 			));
 
+			$fieldset_news->add_field(new FormFieldFree('news_separator', '', ''));
+
 			$fieldset_news->add_field(new FormFieldCheckbox('news_cat_enabled', $this->lang['admin.news.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed(),
 				array('events' => array('click' => '
 				if (HTMLForms.getField("news_cat_enabled").getValue()) {
@@ -651,6 +677,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array('min' => 1, 'max' => 100, 'hidden' => !$this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed()),
 				array(new FormFieldConstraintIntegerRange(1, 100))
 			));
+
+			$fieldset_web->add_field(new FormFieldFree('web_separator', '', ''));
 
 			$fieldset_web->add_field(new FormFieldCheckbox('web_cat_enabled', $this->lang['admin.web.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed(),
 				array('description' => $this->lang['admin.web.enabled.desc'], 'events' => array('click' => '

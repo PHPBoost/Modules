@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 01 17
+ * @version   	PHPBoost 5.2 - last update: 2019 07 30
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -45,13 +45,14 @@ $lang['onepage.carousel'] = 'Carrousel';
 $lang['onepage.lastcoms'] = 'Commentaires';
 $lang['onepage.articles'] = 'Articles';
 $lang['onepage.contact'] = 'Contact';
-$lang['onepage.events'] = 'Événements';
+$lang['onepage.calendar'] = 'Calendrier';
 $lang['onepage.download'] = 'Téléchargements';
 $lang['onepage.forum'] = 'Forum';
 $lang['onepage.gallery'] = 'Galerie';
 $lang['onepage.guestbook'] = 'Livre d\'or';
 $lang['onepage.media'] = 'Multimédia';
 $lang['onepage.news'] = 'News';
+$lang['onepage.rss'] = 'Rss';
 $lang['onepage.web'] = 'Liens web';
 
 //Last Comments

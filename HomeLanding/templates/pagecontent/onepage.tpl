@@ -32,7 +32,7 @@
         # ENDIF #
         # IF C_DISPLAYED_EVENTS #
             <li style="order: {OPM_EVENTS_POS}; -webkit-order: {OPM_EVENTS_POS}; -ms-flex-order: {OPM_EVENTS_POS}">
-                <a href="#events" class="cssmenu-title">${Langloader::get_message('onepage.events', 'common', 'HomeLanding')}</a>
+                <a href="#events" class="cssmenu-title">${Langloader::get_message('onepage.calendar', 'common', 'HomeLanding')}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_DOWNLOAD #
