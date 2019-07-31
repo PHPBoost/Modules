@@ -148,7 +148,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$form->set_css_class('tab-container fieldset-content');
 
 		//Configuration
-		$fieldset_tab_menu = new TabsMenuFieldset('tab_menu', '');
+		$fieldset_tab_menu = new FormFieldMenuFieldset('tab_menu', '');
 		$form->add_fieldset($fieldset_tab_menu);
 
 		$fieldset_tab_menu->add_field(new FormFieldActionLinkList('tab_menu_list',
