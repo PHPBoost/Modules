@@ -56,9 +56,9 @@ HomeLandingModule.prototype = {
 			success: function(returnData){
 				if (returnData.id > 0) {
 					if (returnData.display) {
-						jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye" title="{@field.display}"></i>');
+						jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye" aria-label="{@field.display}" aria-hidden="true"></i>');
 					} else {
-						jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye-slash" title="{@field.not_display}"></i>');
+						jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye-slash" aria-label="{@field.not_display}" aria-hidden="true"></i>');
 					}
 				}
 			}
@@ -82,17 +82,17 @@ jQuery(document).ready(function() {
 		<ul id="modules_list" class="sortable-block">
 			# START modules_list #
 				<li class="sortable-element" id="list-{modules_list.ID}" data-id="{modules_list.ID}">
-					<div class="sortable-selector" title="${LangLoader::get_message('position.move', 'common')}"></div>
+					<div class="sortable-selector" aria-label="${LangLoader::get_message('position.move', 'common')}"></div>
 					<div class="sortable-title">
 						{modules_list.NAME}
 					</div>
 					<div class="sortable-actions">
 						# IF C_MORE_THAN_ONE_MODULE #
-						<a href="" id="move-up-{modules_list.ID}" onclick="return false;" aria-label="${LangLoader::get_message('position.move_up', 'common')}"><i class="fa fa-arrow-up" aria-hidden="true" title="${LangLoader::get_message('position.move_up', 'common')}"></i></a>
-						<a href="" id="move-down-{modules_list.ID}" onclick="return false;" aria-label="${LangLoader::get_message('position.move_down', 'common')}"><i class="fa fa-arrow-down" aria-hidden="true" title="${LangLoader::get_message('position.move_down', 'common')}"></i></a>
+						<a href="" id="move-up-{modules_list.ID}" onclick="return false;" aria-label="${LangLoader::get_message('position.move_up', 'common')}"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+						<a href="" id="move-down-{modules_list.ID}" onclick="return false;" aria-label="${LangLoader::get_message('position.move_down', 'common')}"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
 						# ENDIF #
-						<a href="{modules_list.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
-						<a href="" onclick="return false;" id="change-display-{modules_list.ID}" aria-label="# IF modules_list.C_DISPLAY #{@field.display}# ELSE #{@field.not_display}# ENDIF #"><i aria-hidden="true" # IF modules_list.C_DISPLAY #class="fa fa-eye" title="{@field.display}"# ELSE #class="fa fa-eye-slash" title="{@field.not_display}"# ENDIF #></i></a>
+						<a href="{modules_list.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+						<a href="" onclick="return false;" id="change-display-{modules_list.ID}" aria-label="# IF modules_list.C_DISPLAY #{@field.display}# ELSE #{@field.not_display}# ENDIF #"><i aria-hidden="true" class="# IF modules_list.C_DISPLAY #fa fa-eye# ELSE #fa fa-eye-slash# ENDIF #"></i></a>
 					</div>
 					<div class="spacer"></div>
 					<script>

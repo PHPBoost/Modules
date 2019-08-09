@@ -8,7 +8,7 @@
 					<tbody>
 					# START servers #
 						# IF C_HORIZONTAL ## IF servers.C_NEW_LINE #<tr># ENDIF ## ELSE #<tr># ENDIF #
-							<td># IF servers.C_ICON #<img src="{servers.ICON}" alt="{servers.NAME}" title="{servers.NAME}" /># ENDIF #</td>
+							<td># IF servers.C_ICON #<img src="{servers.ICON}" alt="{servers.NAME}" /># ENDIF #</td>
 							<td>
 								<span class="text-strong"><a href="{servers.U_DISPLAY_SERVER}">{servers.NAME}</a></span>
 								# IF C_ADDRESS_DISPLAYED #
@@ -17,7 +17,7 @@
 								# ENDIF #
 							</td>
 							<td class="status-picture">
-								# IF servers.C_ONLINE #<img src="{PATH_TO_ROOT}/ServerStatus/templates/images/online.png" alt="{@server.online}" title="{@server.online}" /># ELSE #<img src="{PATH_TO_ROOT}/ServerStatus/templates/images/offline.png" alt="{@server.offline}" title="{@server.offline}" /># ENDIF #
+								# IF servers.C_ONLINE #<img src="{PATH_TO_ROOT}/ServerStatus/templates/images/online.png" alt="{@server.online}" /># ELSE #<img src="{PATH_TO_ROOT}/ServerStatus/templates/images/offline.png" alt="{@server.offline}" /># ENDIF #
 							</td>
 						# IF C_HORIZONTAL ## IF servers.C_END_LINE #</tr># ENDIF ## ELSE #</tr># ENDIF #
 					# END servers #

@@ -5,7 +5,7 @@
 			${Langloader::get_message('last.news', 'common', 'HomeLanding')}
 		</h2>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/news" title="${Langloader::get_message('link.to.news', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/news">
 				${Langloader::get_message('link.to.news', 'common', 'HomeLanding')}
 			</a>
 		</span>
@@ -23,10 +23,10 @@
 				</h3>
 				<span class="actions">
 					# IF item.C_EDIT #
-						<a href="{item.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+						<a href="{item.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 					# ENDIF #
 					# IF item.C_DELETE #
-						<a href="{item.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+						<a href="{item.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i></a>
 					# ENDIF #
 				</span>
 
@@ -41,7 +41,7 @@
 				</div>
 
 				# IF item.C_PICTURE #
-					<a href="{item.U_LINK}" title="{item.NAME}" class="item-picture">
+					<a href="{item.U_LINK}" class="item-picture">
 						<img src="{item.U_PICTURE}" alt="{item.NAME}" />
 					</a>
 				# ENDIF #

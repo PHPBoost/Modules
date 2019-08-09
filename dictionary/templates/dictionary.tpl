@@ -284,30 +284,31 @@
 							<option value='{cat_list.ID}'>{cat_list.NAME}
 						# END cat_list #
 					</select>
-					<a href="javascript:affCacheCat(' ');" aria-label="{L_CAT_FILTER}"><i class="fa fa-forward" aria-hidden="true" title="{L_CAT_FILTER}"></i></a>
+					<a href="javascript:affCacheCat(' ');" aria-label="{L_CAT_FILTER}"><i class="fa fa-forward" aria-hidden="true"></i></a>
 					<div class="cat-selector">
 						# START cat #
-							<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" title="{L_DEL_CAT_FILTER}" class="dictionary-selected-cat">{cat.NAME}</a></span>
+							<span id="{cat.ID}" style="display:none;"><a href="javascript:affCacheCat('{cat.ID}');" class="dictionary-selected-cat">{cat.NAME}</a></span>
 						# END cat #
-						<span id="ALL"><a href="javascript:affCacheCat('ALL');" title="{L_ALL_CAT}">{L_ALL_CAT}</a></span>
+						<span id="ALL"><a href="javascript:affCacheCat('ALL');">{L_ALL_CAT}</a></span>
 					</div>
 				</div>
 			</div>
 			<noscript>
 				<div class="no-script"><b>{L_NO_SCRIPT}</b></div>
 			</noscript>
+			<p class="center small">{SWITCH_DEF}</p>
 			# START dictionary #
 				<article class="dictionary-word" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
 					<header>
 						<span class="actions">
 							# IF dictionary.EDIT_CODE #
-								<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+								<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 							# ENDIF #
 							# IF dictionary.DEL_CODE #
-								<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+								<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true"></i></a>
 							# ENDIF #
 						</span>
-						<h6 title="{SWITCH_DEF}">
+						<h6>
 							<a href="javascript:affCache('{dictionary.ID}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
 						</h6>
 					</header>
@@ -344,8 +345,8 @@
 				<div class="dictionary-word">
 					<div>
 						<span class="actions">
-							<a href="" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
-							<a href="" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+							<a href="" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+							<a href="" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i></a>
 						</span>
 						<h6>
 							<a href=""><i class="fa fa-folder" aria-hidden="true"></i></a> <a href="">{WORD}</a>

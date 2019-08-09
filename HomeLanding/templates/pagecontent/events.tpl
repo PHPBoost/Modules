@@ -5,7 +5,7 @@
 			${Langloader::get_message('next.events', 'common', 'HomeLanding')}
 		</h2>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/calendar" title="${Langloader::get_message('link.to.events', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/calendar">
 				${Langloader::get_message('link.to.events', 'common', 'HomeLanding')}
 			</a>
 		</span>
@@ -19,14 +19,14 @@
 	# START item #
 		<div class="item-content">
 			<h3>
-				<a href="{item.U_LINK}" title="{item.TITLE}">{item.TITLE}</a>
+				<a href="{item.U_LINK}">{item.TITLE}</a>
 			</h3>
 
 			<div class="more">
 				${LangLoader::get_message('event.date', 'common', 'HomeLanding')} <time datetime="{item.START_DATE}" itemprop="datePublished">{item.START_DATE}</time>
 			</div>
 			# IF item.C_HAS_PICTURE #
-				<a href="{item.U_LINK}" title="{item.NAME}" class="item-picture">
+				<a href="{item.U_LINK}" class="item-picture">
 					<img itemprop="thumbnailUrl" src="{item.PICTURE}" alt="{item.TITLE}" />
 				</a>
 			# ENDIF #

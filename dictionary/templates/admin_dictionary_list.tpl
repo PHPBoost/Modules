@@ -1,5 +1,5 @@
 <nav id="admin-quick-menu">
-	<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;" title="{L_DICTIONARY_MANAGEMENT}">
+	<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
 		<i class="fa fa-bars" aria-hidden="true"></i> {L_DICTIONARY_MANAGEMENT}
 	</a>
 	<ul>
@@ -53,10 +53,10 @@
 					{dictionary_list.APROBATION}
 				</td>
 				<td>
-					<a href="../dictionary/dictionary.php?edit={dictionary_list.ID}" aria-label="{L_UPDATE}"><i class="fa fa-edit" aria-hidden="true" title="{L_UPDATE}"></i></a>
+					<a href="../dictionary/dictionary.php?edit={dictionary_list.ID}" aria-label="{L_UPDATE}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 				</td>
 				<td>
-					<a href="../dictionary/dictionary.php?del={dictionary_list.ID}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+					<a href="../dictionary/dictionary.php?del={dictionary_list.ID}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-delete" aria-hidden="true"></i></a>
 				</td>
 			</tr>
 			# END dictionary_list #

@@ -5,7 +5,7 @@
 			${Langloader::get_message('last.articles.cat', 'common', 'HomeLanding')} {CATEGORY_NAME}
 		</h2>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/articles" title="${Langloader::get_message('link.to.articles', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/articles">
 				${Langloader::get_message('link.to.articles', 'common', 'HomeLanding')}
 			</a>
 		</span>
@@ -28,10 +28,10 @@
 			</h3>
 			<span class="actions">
 				# IF item.C_EDIT #
-					<a href="{item.U_EDIT_ARTICLE}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>
+					<a href="{item.U_EDIT_ARTICLE}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 				# ENDIF #
 				# IF item.C_DELETE #
-					<a href="{item.U_DELETE_ARTICLE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="${LangLoader::get_message('delete', 'common')}"></i></a>
+					<a href="{item.U_DELETE_ARTICLE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i></a>
 				# ENDIF #
 			</span>
 
@@ -43,7 +43,7 @@
 			</div>
 
 			# IF item.C_HAS_PICTURE #
-				<a href="{item.U_ARTICLE}" title="{item.TITLE}" class="item-picture"><img src="{item.PICTURE}" alt="{item.TITLE}" itemprop="thumbnailUrl" /></a>
+				<a href="{item.U_ARTICLE}" class="item-picture"><img src="{item.PICTURE}" alt="{item.TITLE}" itemprop="thumbnailUrl" /></a>
 			# ENDIF #
 
 			<p class="item-desc">

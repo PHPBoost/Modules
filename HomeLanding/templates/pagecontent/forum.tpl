@@ -5,7 +5,7 @@
 			${Langloader::get_message('last.forum.messages', 'common', 'HomeLanding')}
 		</h2>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/forum" title="${Langloader::get_message('link.to.forum', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/forum">
 				${Langloader::get_message('link.to.forum', 'common', 'HomeLanding')}
 			</a>
 		</span>
@@ -14,7 +14,7 @@
 	# START item #
 		<div class="item-content block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 
-			<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" title="{item.PSEUDO}" />
+			<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" />
 
 			<div class="more">
 				<p><i class="fa fa-fw fa-user"></i> {item.PSEUDO}</p>

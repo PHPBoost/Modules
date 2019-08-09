@@ -5,7 +5,7 @@
 			${Langloader::get_message('last.guestbook', 'common', 'HomeLanding')}
 		</h2>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/guestbook" title="${Langloader::get_message('link.to.guestbook', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/guestbook">
 				${Langloader::get_message('link.to.guestbook', 'common', 'HomeLanding')}
 			</a>
 		</span>
@@ -19,7 +19,7 @@
 	# START item #
 		<div class="item-content block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 
-			<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" title="{item.PSEUDO}" />
+			<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" />
 
 			<div class="more">
 				<p>

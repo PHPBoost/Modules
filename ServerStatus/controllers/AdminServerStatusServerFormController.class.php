@@ -103,7 +103,7 @@ class AdminServerStatusServerFormController extends AdminController
 			array('events' => array('change' => $types_properties['events']))
 		));
 
-		$fieldset->add_field(new FormFieldFree('preview_icon', $this->lang['server.icon'], '<img id="preview_icon" ' . ($server->has_medium_icon() ? 'src="' . $server->get_medium_icon() . '"' : 'style="display:none"') . ' alt="' . $this->lang['server.icon'] . '" title="' . $this->lang['server.icon'] . '" /><span id="preview_icon_none" ' . ($server->has_medium_icon() ? 'style="display:none"' : '') . '>' . $this->lang['server.icon.none_e'] . '</span>'));
+		$fieldset->add_field(new FormFieldFree('preview_icon', $this->lang['server.icon'], '<img id="preview_icon" ' . ($server->has_medium_icon() ? 'src="' . $server->get_medium_icon() . '"' : 'style="display:none"') . ' alt="' . $this->lang['server.icon'] . '" /><span id="preview_icon_none" ' . ($server->has_medium_icon() ? 'style="display:none"' : '') . '>' . $this->lang['server.icon.none_e'] . '</span>'));
 
 		$fieldset->add_field(new FormFieldTextEditor('port', $this->lang['server.port'], $server->get_port(), array(
 			'class' => 'text', 'maxlength' => 5, 'size' => 5, 'description' => $this->lang['server.port.explain'], 'required' => true),

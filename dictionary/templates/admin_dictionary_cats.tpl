@@ -81,7 +81,7 @@
 </script>
 
 <nav id="admin-quick-menu">
-	<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;" title="{L_DICTIONARY_MANAGEMENT}">
+	<a href="" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
 		<i class="fa fa-bars" aria-hidden="true"></i> {L_DICTIONARY_MANAGEMENT}
 	</a>
 	<ul>
@@ -189,8 +189,8 @@
 										{cat.IMAGES}&nbsp;{cat.NAME}
 									</span>
 									<span class="float-right">
-										<a href="admin_dictionary_cats.php?add=1&id={cat.ID_CAT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true" title="${LangLoader::get_message('edit', 'common')}"></i></a>&nbsp;
-										<a href="admin_dictionary_cats.php?del=1&id={cat.ID_CAT}&token={TOKEN}" aria-label="{ALERT_DEL}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true" title="{ALERT_DEL}"></i></a>
+										<a href="admin_dictionary_cats.php?add=1&id={cat.ID_CAT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;
+										<a href="admin_dictionary_cats.php?del=1&id={cat.ID_CAT}&token={TOKEN}" aria-label="{ALERT_DEL}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i></a>
 									</span>
 								</div>
 							# END cat #

@@ -5,7 +5,7 @@
 			${Langloader::get_message('last.gallery', 'common', 'HomeLanding')}
 		</h2>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/gallery" title="${Langloader::get_message('link.to.gallery', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/gallery">
 				${Langloader::get_message('link.to.gallery', 'common', 'HomeLanding')}
 			</a>
 		</span>
@@ -13,7 +13,7 @@
 	<div class="elements-container columns-{COL_NBR} no-style">
 	# START item #
 		<div class="item-content block" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-			<a href="{item.U_CATEGORY}" title="{item.NAME}">
+			<a href="{item.U_CATEGORY}">
 				<img src="{item.U_IMG}" alt="{item.TITLE}" />
 				<p>{item.TITLE} <br /><i class="fa fa-eye"></i> {item.NB_VIEWS}</p>
 			</a>

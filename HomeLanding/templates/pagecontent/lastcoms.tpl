@@ -13,7 +13,7 @@
 		# ENDIF #
 		# START item #
 			<div class="item-content block">
-				<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" title="{item.PSEUDO}" />
+				<img class="avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" />
 				<div class="more">
 					<p>
 						<i class="fa fa-fw fa-user"></i> # IF item.C_AUTHOR_EXIST #
@@ -26,7 +26,7 @@
 					<p><i class="fa fa-fw fa-cube"></i> <a href="{item.ARTICLE}">{item.MODULE_NAME}</a></p>
 				</div>
 				<p class="item-desc">
-					<a href="{item.U_LINK}" aria-label="${LangLoader::get_message('read-more', 'common')}"><i class="fa fa-hand-o-right" aria-hidden="true" title="${LangLoader::get_message('read-more', 'common')}"></i> </a>{item.CONTENTS}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+					<a href="{item.U_LINK}" aria-label="${LangLoader::get_message('read-more', 'common')}"><i class="fa fa-hand-o-right" aria-hidden="true"></i> </a>{item.CONTENTS}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 				</p>
 			</div>
 		# END item #

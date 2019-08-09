@@ -2,7 +2,7 @@
 <article id="contact" style="order: {CONTACT_POSITION}; -webkit-order: {CONTACT_POSITION}; -ms-flex-order: {CONTACT_POSITION}">
 	<header>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/contact" title="${Langloader::get_message('link.to.contact', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/contact">
 				${Langloader::get_message('link.to.contact', 'common', 'HomeLanding')}
 			</a>
 		</span>
@@ -16,7 +16,7 @@
 			# ENDIF #
 		# ENDIF #
 		# IF C_MAIL_SENT #
-			<a href="{PATH_TO_ROOT}/contact" title="${Langloader::get_message('send.another.email', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/contact">
 				${Langloader::get_message('send.another.email', 'common', 'HomeLanding')}
 			</a>
 		# ELSE #

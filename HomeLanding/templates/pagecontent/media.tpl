@@ -5,7 +5,7 @@
 			${Langloader::get_message('last.media', 'common', 'HomeLanding')}
 		</h2>
 		<span class="actions">
-			<a href="{PATH_TO_ROOT}/media" title="${Langloader::get_message('link.to.media', 'common', 'HomeLanding')}">
+			<a href="{PATH_TO_ROOT}/media">
 				${Langloader::get_message('link.to.media', 'common', 'HomeLanding')}
 			</a>
 		</span>

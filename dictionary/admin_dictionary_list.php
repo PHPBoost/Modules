@@ -64,7 +64,7 @@ while ($row = $result->fetch())
 	//On reccourci le lien si il est trop long pour éviter de déformer l'administration.s
 	$title = $row['word'];
 	$title = TextHelper::strlen($title) > 45 ? TextHelper::substr($title, 0, 45) . '...' : $title;
-	$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" title="' . $row['images'] . '" />';
+	$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';
 	$date_created = !empty($row['timestamp']) ? new Date($row['timestamp'], Timezone::SERVER_TIMEZONE) : null;
 
 	$Template->assign_block_vars('dictionary_list', array(
