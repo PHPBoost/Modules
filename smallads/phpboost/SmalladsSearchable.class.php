@@ -8,7 +8,7 @@
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class SmalladsSearchable extends AbstractSearchableExtensionPoint
+class SmalladsSearchable extends DefaultSearchable
 {
 	public function __construct()
 	{
@@ -28,8 +28,8 @@ class SmalladsSearchable extends AbstractSearchableExtensionPoint
 		$this->field_approbation_type = 'published';
 		
 		$this->has_validation_period = true;
-		$this->field_validation_start_date = 'publishing_start_date';
-		$this->field_validation_end_date = 'publishing_end_date';
+		$this->field_validation_start_date = 'publication_start_date';
+		$this->field_validation_end_date = 'publication_end_date';
 	}
 }
 ?>
