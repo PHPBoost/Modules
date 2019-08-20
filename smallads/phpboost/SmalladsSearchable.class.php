@@ -23,7 +23,7 @@ class SmalladsSearchable extends AbstractSearchableExtensionPoint
 		$this->use_keywords = true;
 		
 		$this->has_short_contents = true;
-		$this->field_short_contents = 'description';
+		$this->field_short_contents = 'smallads_table_name.description';
 		
 		$this->field_approbation_type = 'published';
 		
