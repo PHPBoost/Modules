@@ -65,8 +65,8 @@ class SmalladsItemsManagerController extends ModuleController
 			$category = $smallad->get_category();
 			$user = $smallad->get_author_user();
 
-			$edit_link = new LinkHTMLElement(SmalladsUrlBuilder::edit_item($smallad->get_id()), '', array('title' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
-			$delete_link = new LinkHTMLElement(SmalladsUrlBuilder::delete_item($smallad->get_id()), '', array('title' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), 'fa fa-delete');
+			$edit_link = new LinkHTMLElement(SmalladsUrlBuilder::edit_item($smallad->get_id()), '', array('aria-label' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
+			$delete_link = new LinkHTMLElement(SmalladsUrlBuilder::delete_item($smallad->get_id()), '', array('aria-label' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), 'fa fa-delete');
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();

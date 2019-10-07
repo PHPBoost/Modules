@@ -87,8 +87,6 @@ class Smallad
 	const NOTDISPLAYED_AUTHOR_PHONE = 0;
 	const DISPLAYED_AUTHOR_PHONE = 1;
 
-	const DEFAULT_PICTURE = '/smallads/templates/images/default.png';
-
 	public function set_id($id)
 	{
 		$this->id = $id;
@@ -635,7 +633,7 @@ class Smallad
 		$this->creation_date = new Date();
 		$this->sources = array();
 		$this->carousel = array();
-		$this->thumbnail_url = new Url(self::DEFAULT_PICTURE);
+		$this->picture_url = new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/item_default.png');
 		$this->views_number = 0;
 		$this->price = 0;
 		$this->max_weeks = $max_weeks_config_number;
