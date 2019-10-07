@@ -633,7 +633,7 @@ class Smallad
 		$this->creation_date = new Date();
 		$this->sources = array();
 		$this->carousel = array();
-		$this->picture_url = new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/item_default.png');
+		$this->thumbnail_url = new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/item_default.png');
 		$this->views_number = 0;
 		$this->price = 0;
 		$this->max_weeks = $max_weeks_config_number;
