@@ -1,2 +1,7 @@
-/* Votre Code HTML */
-<div class="center">Votre Page d'accueil Vierge</div>
+<section id="module-homecustom">
+    <header>
+        <h1>{@homecustom.module.title}</h1>
+    </header>
+    <article class="center">{@homecustom.documentation} : <a href="https://www.phpboost.com/wiki/homecustom-personnalisez-votre-accueil"><i class="fa fa-globe"></i> Wiki</a></article>
+    <footer></footer>
+</section>
