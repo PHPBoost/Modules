@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 10 29
+ * @version   	PHPBoost 5.2 - last update: 2019 10 09
  * @since   	PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -42,7 +42,7 @@ class AdminBirthdayConfigController extends AdminController
 
 		if (!empty($user_born_field) && !$user_born_field['display'])
 		{
-			$tpl->put('USER_BORN_DISABLED_MSG', MessageHelper::display($this->lang['user_born_field_disabled'], MessageHelper::WARNING));
+			$tpl->put('USER_BORN_DISABLED_MSG', MessageHelper::display($this->lang['birthday.user.born.field.disabled'], MessageHelper::WARNING));
 		}
 
 		$tpl->put('FORM', $this->form->display());
@@ -60,16 +60,16 @@ class AdminBirthdayConfigController extends AdminController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin'));
+		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin') . ': ' . $this->lang['birthday.module.title']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldCheckbox('members_age_displayed', $this->lang['admin.config.members_age_displayed'], $this->config->is_members_age_displayed(),
-			array('class' => 'third-field')
+		$fieldset->add_field(new FormFieldCheckbox('members_age_displayed', $this->lang['birthday.members.age.displayed'], $this->config->is_members_age_displayed(),
+			array('class' => 'third-field top-field')
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('pm_for_members_birthday_enabled', $this->lang['admin.config.send_pm_for_members_birthday'], $this->config->is_pm_for_members_birthday_enabled(),
+		$fieldset->add_field(new FormFieldCheckbox('pm_for_members_birthday_enabled', $this->lang['birthday.send.pm.for.members.birthday'], $this->config->is_pm_for_members_birthday_enabled(),
 			array(
-				'class' => 'third-field',
+				'class' => 'third-field top-field',
 				'events' => array('click' => '
 					if (HTMLForms.getField("pm_for_members_birthday_enabled").getValue()) {
 						HTMLForms.getField("pm_for_members_birthday_title").enable();
@@ -82,19 +82,19 @@ class AdminBirthdayConfigController extends AdminController
 			)
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('pm_for_members_birthday_title', $this->lang['admin.config.pm_for_members_birthday_title'], $this->config->get_pm_for_members_birthday_title(),
-			array('class' => 'third-field', 'size' => 40, 'description' => $this->lang['admin.config.pm_for_members_birthday_title.explain'], 'hidden' => !$this->config->is_pm_for_members_birthday_enabled())
+		$fieldset->add_field(new FormFieldTextEditor('pm_for_members_birthday_title', $this->lang['birthday.pm.for.members.birthday.title'], $this->config->get_pm_for_members_birthday_title(),
+			array('class' => 'third-field', 'size' => 40, 'description' => $this->lang['birthday.pm.for.members.birthday.title.explain'], 'hidden' => !$this->config->is_pm_for_members_birthday_enabled())
 		));
 
-		$fieldset->add_field(new FormFieldShortMultiLineTextEditor('pm_for_members_birthday_content', $this->lang['admin.config.pm_for_members_birthday_content'], $this->config->get_pm_for_members_birthday_content(),
-			array('class' => 'full-field', 'description' => $this->lang['admin.config.pm_for_members_birthday_content.explain'], 'hidden' => !$this->config->is_pm_for_members_birthday_enabled())
+		$fieldset->add_field(new FormFieldShortMultiLineTextEditor('pm_for_members_birthday_content', $this->lang['birthday.pm.for.members.birthday.content'], $this->config->get_pm_for_members_birthday_content(),
+			array('class' => 'half-field', 'description' => $this->lang['birthday.pm.for.members.birthday.content.explain'], 'hidden' => !$this->config->is_pm_for_members_birthday_enabled())
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['admin.authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', LangLoader::get_message('authorizations', 'common'));
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($this->lang['admin.authorizations.read'], BirthdayAuthorizationsService::READ_AUTHORIZATIONS),
+			new ActionAuthorization(LangLoader::get_message('authorizations.menu', 'common'), BirthdayAuthorizationsService::READ_AUTHORIZATIONS),
 		));
 
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());

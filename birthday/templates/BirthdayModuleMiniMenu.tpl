@@ -1,7 +1,7 @@
 # IF C_BIRTHDAY #
 <div class="module-mini-container"# IF C_HORIZONTAL # style="width:auto;"# ENDIF #>
 	<div class="module-mini-top">
-		<h5 class="sub-title">{@happy_birthday}</h5>
+		<div class="sub-title">{@birthday.happy.birthday}</div>
 	</div>
 	<div class="module-mini-contents">
 		<div class="spacer">&nbsp;</div>

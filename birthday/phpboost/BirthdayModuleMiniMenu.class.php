@@ -52,7 +52,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 		}
 		else if (AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
 		{
-			return MessageHelper::display(LangLoader::get_message('user_born_field_disabled', 'common', 'birthday'), MessageHelper::WARNING)->render();
+			return MessageHelper::display(LangLoader::get_message('birthday.user.born.field.disabled', 'common', 'birthday'), MessageHelper::WARNING)->render();
 		}
 		return '';
 	}

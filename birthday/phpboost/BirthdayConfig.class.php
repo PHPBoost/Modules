@@ -91,8 +91,8 @@ class BirthdayConfig extends AbstractConfigData
 		return array(
 			self::MEMBERS_AGE_DISPLAYED => true,
 			self::PM_FOR_MEMBERS_BIRTHDAY_ENABLED => false,
-			self::PM_FOR_MEMBERS_BIRTHDAY_TITLE => LangLoader::get_message('birthday.config.pm_for_members_birthday.default_title', 'config', 'birthday'),
-			self::PM_FOR_MEMBERS_BIRTHDAY_CONTENT => LangLoader::get_message('birthday.config.pm_for_members_birthday.default_content', 'config', 'birthday'),
+			self::PM_FOR_MEMBERS_BIRTHDAY_TITLE => LangLoader::get_message('birthday.config.pm.for.members.birthday.default.title', 'config', 'birthday'),
+			self::PM_FOR_MEMBERS_BIRTHDAY_CONTENT => LangLoader::get_message('birthday.config.pm.for.members.birthday.default.content', 'config', 'birthday'),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 1, 'r1' => 1)
 		);
 	}

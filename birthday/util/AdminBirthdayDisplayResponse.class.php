@@ -15,7 +15,7 @@ class AdminBirthdayDisplayResponse extends AdminMenuDisplayResponse
 
 		$lang = LangLoader::get('common', 'birthday');
 		$picture = '/birthday/birthday.png';
-		$this->set_title($lang['module_title']);
+		$this->set_title($lang['birthday.module.title']);
 		$this->add_link(LangLoader::get_message('configuration', 'admin'), BirthdayUrlBuilder::configuration(), $picture);
 
 		$env = $this->get_graphical_environment();
