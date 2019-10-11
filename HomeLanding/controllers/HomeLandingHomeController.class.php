@@ -903,7 +903,10 @@ class HomeLandingHomeController extends ModuleController
 		$authorized_categories = GalleryService::get_authorized_categories(Category::ROOT_CATEGORY);
 		$gallery_config = GalleryConfig::load();
 
-		$result = $this->querier->select("SELECT g.id, g.idcat, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob, m.display_name, m.groups, m.level, notes.average_notes, notes.number_notes, note.note
+		$result = $this->querier->select("SELECT
+			g.id, g.idcat, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob,
+			m.display_name, m.groups, m.level,
+			notes.average_notes, notes.number_notes, note.note
 		FROM " . GallerySetup::$gallery_table . " g
 		LEFT JOIN " . PREFIX . "gallery_cats cat ON cat.id = g.idcat
 		LEFT JOIN " . DB_TABLE_MEMBER . " m ON m.user_id = g.user_id
@@ -1244,6 +1247,8 @@ class HomeLandingHomeController extends ModuleController
 		$graphical_environment->set_page_title($this->config->get_module_title());
 		$graphical_environment->get_seo_meta_data()->set_description(GeneralConfig::load()->get_site_description());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(HomeLandingUrlBuilder::home());
+
+		$graphical_environment->get_seo_meta_data()->set_picture_url(PATH_TO_ROOT.'/templates/' . AppContext::get_current_user()->get_theme() . '/theme/images/logo.png');
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->config->get_module_title(), HomeLandingUrlBuilder::home());
