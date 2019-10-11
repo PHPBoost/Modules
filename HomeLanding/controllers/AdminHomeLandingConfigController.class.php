@@ -145,32 +145,32 @@ class AdminHomeLandingConfigController extends AdminModuleController
 	private function build_form()
 	{
 		$form = new HTMLForm(__CLASS__);
-		$form->set_css_class('tab-container fieldset-content');
+		$form->set_css_class('tabs-container fieldset-content');
 
 		//Configuration
-		$fieldset_tab_menu = new FormFieldMenuFieldset('tab_menu', '');
-		$form->add_fieldset($fieldset_tab_menu);
+		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
+		$form->add_fieldset($fieldset_tabs_menu);
 
-		$fieldset_tab_menu->add_field(new FormFieldActionLinkList('tab_menu_list',
+		$fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',
 			array(
-				new FormFieldActionLinkElement(LangLoader::get_message('configuration', 'admin-common'), '#AdminHomeLandingConfigController_configuration', 'fa-cog'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.carousel', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_carousel', 'fa-image'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.articles', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_articles', '', '../../articles/articles_mini.png', 'articles'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.calendar', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_calendar', '', '../../calendar/calendar_mini.png', 'calendar'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.contact', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_contact', '', '../../contact/contact_mini.png', 'contact'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.download', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_download', '', '../../download/download_mini.png', 'download'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.forum', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_forum', '', '../../forum/forum_mini.png', 'forum'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.gallery', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_gallery', '', '../../gallery/gallery_mini.png', 'gallery'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.guestbook', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_guestbook', '', '../../guestbook/guestbook_mini.png', 'guestbook'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.media', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_media', '', '../../media/media_mini.png', 'media'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.news', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_news', '', '../../news/news_mini.png', 'news'),
-				// new FormFieldActionLinkElement(LangLoader::get_message('onepage.rss', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_rss', 'fa-rss'),
-				new FormFieldActionLinkElement(LangLoader::get_message('onepage.web', 'common', 'HomeLanding'), '#AdminHomeLandingConfigController_admin_web', '', '../../web/web_mini.png', 'web'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('configuration', 'admin-common'), 'AdminHomeLandingConfigController_configuration', 'fa-cog'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.carousel', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_carousel', 'fa-image'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.articles', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_articles', '', '../../articles/articles_mini.png', 'articles'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.calendar', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_calendar', '', '../../calendar/calendar_mini.png', 'calendar'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.contact', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_contact', '', '../../contact/contact_mini.png', 'contact'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.download', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_download', '', '../../download/download_mini.png', 'download'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.forum', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_forum', '', '../../forum/forum_mini.png', 'forum'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.gallery', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_gallery', '', '../../gallery/gallery_mini.png', 'gallery'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.guestbook', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_guestbook', '', '../../guestbook/guestbook_mini.png', 'guestbook'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.media', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_media', '', '../../media/media_mini.png', 'media'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.news', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_news', '', '../../news/news_mini.png', 'news'),
+				// new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.rss', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_rss', 'fa-rss'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.web', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_web', '', '../../web/web_mini.png', 'web'),
 			)
 		));
 
 		//Configuration
-		$fieldset_config = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin-common'));
+		$fieldset_config = new FormFieldsetMultitabsHTML('configuration', LangLoader::get_message('configuration', 'admin-common'), array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_config);
 
 			$fieldset_config->add_field(new FormFieldTextEditor('module_title', $this->lang['admin.module.title'], $this->config->get_module_title(),
@@ -235,7 +235,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array(new FormFieldConstraintIntegerRange(1, 512))
 			));
 
-		$fieldset_carousel = new FormFieldsetHTML('admin_carousel', LangLoader::get_message('admin.carousel', 'common', 'HomeLanding'));
+		$fieldset_carousel = new FormFieldsetMultitabsHTML('admin_carousel', LangLoader::get_message('admin.carousel', 'common', 'HomeLanding'), array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_carousel);
 
 			$fieldset_carousel->add_field(new FormFieldCheckbox('carousel_enabled', $this->lang['admin.carousel.enabled'], $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
@@ -313,7 +313,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Articles
 		if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))
 		{
-			$fieldset_articles = new FormFieldsetHTML('admin_articles', $this->lang['admin.articles']);
+			$fieldset_articles = new FormFieldsetMultitabsHTML('admin_articles', $this->lang['admin.articles'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_articles);
 
 			$fieldset_articles->add_field(new FormFieldCheckbox('articles_enabled', $this->lang['admin.articles.enabled'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed(),
@@ -369,7 +369,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Calendar
 		if (ModulesManager::is_module_installed('calendar') & ModulesManager::is_module_activated('calendar'))
 		{
-			$fieldset_calendar = new FormFieldsetHTML('admin_calendar', $this->lang['admin.calendar']);
+			$fieldset_calendar = new FormFieldsetMultitabsHTML('admin_calendar', $this->lang['admin.calendar'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_calendar);
 
 			$fieldset_calendar->add_field(new FormFieldCheckbox('calendar_enabled', $this->lang['admin.calendar.enabled'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed(),
@@ -397,7 +397,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Contact
 		if (ModulesManager::is_module_installed('contact') & ModulesManager::is_module_activated('contact'))
 		{
-			$fieldset_contact = new FormFieldsetHTML('admin_contact', $this->lang['admin.contact']);
+			$fieldset_contact = new FormFieldsetMultitabsHTML('admin_contact', $this->lang['admin.contact'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_contact);
 
 			$fieldset_contact->add_field(new FormFieldCheckbox('contact_enabled', $this->lang['admin.contact.enabled'], $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed()
@@ -407,7 +407,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Download
 		if (ModulesManager::is_module_installed('download') & ModulesManager::is_module_activated('download'))
 		{
-			$fieldset_download = new FormFieldsetHTML('admin_download', $this->lang['admin.download']);
+			$fieldset_download = new FormFieldsetMultitabsHTML('admin_download', $this->lang['admin.download'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_download);
 
 			$fieldset_download->add_field(new FormFieldCheckbox('download_enabled', $this->lang['admin.download.enabled'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed(),
@@ -463,7 +463,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Forum
 		if (ModulesManager::is_module_installed('forum') & ModulesManager::is_module_activated('forum'))
 		{
-			$fieldset_forum = new FormFieldsetHTML('admin_forum', $this->lang['admin.forum']);
+			$fieldset_forum = new FormFieldsetMultitabsHTML('admin_forum', $this->lang['admin.forum'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_forum);
 
 			$fieldset_forum->add_field(new FormFieldCheckbox('forum_enabled', $this->lang['admin.forum.enabled'], $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed(),
@@ -491,7 +491,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Gallery
 		if (ModulesManager::is_module_installed('gallery') & ModulesManager::is_module_activated('gallery'))
 		{
-			$fieldset_gallery = new FormFieldsetHTML('admin_gallery', $this->lang['admin.gallery']);
+			$fieldset_gallery = new FormFieldsetMultitabsHTML('admin_gallery', $this->lang['admin.gallery'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_gallery);
 
 			$fieldset_gallery->add_field(new FormFieldCheckbox('gallery_enabled', $this->lang['admin.gallery.enabled'], $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed(),
@@ -512,7 +512,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Guestbook
 		if (ModulesManager::is_module_installed('guestbook') & ModulesManager::is_module_activated('guestbook'))
 		{
-			$fieldset_guestbook = new FormFieldsetHTML('admin_guestbook', $this->lang['admin.guestbook']);
+			$fieldset_guestbook = new FormFieldsetMultitabsHTML('admin_guestbook', $this->lang['admin.guestbook'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_guestbook);
 
 			$fieldset_guestbook->add_field(new FormFieldCheckbox('guestbook_enabled', $this->lang['admin.guestbook.enabled'], $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed(),
@@ -540,7 +540,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//Media
 		if (ModulesManager::is_module_installed('media') & ModulesManager::is_module_activated('media'))
 		{
-			$fieldset_media = new FormFieldsetHTML('admin_media', $this->lang['admin.media']);
+			$fieldset_media = new FormFieldsetMultitabsHTML('admin_media', $this->lang['admin.media'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_media);
 
 			$fieldset_media->add_field(new FormFieldCheckbox('media_enabled', $this->lang['admin.media.enabled'], $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed(),
@@ -561,7 +561,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		//News
 		if (ModulesManager::is_module_installed('news') & ModulesManager::is_module_activated('news'))
 		{
-			$fieldset_news = new FormFieldsetHTML('admin_news',  $this->lang['admin.news']);
+			$fieldset_news = new FormFieldsetMultitabsHTML('admin_news',  $this->lang['admin.news'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_news);
 
 			$fieldset_news->add_field(new FormFieldCheckbox('news_enabled', $this->lang['admin.news.enabled'], $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed(),
@@ -615,7 +615,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		//External Rss
-		// $fieldset_rss = new FormFieldsetHTML('admin_rss',  $this->lang['admin.rss']);
+		// $fieldset_rss = new FormFieldsetMultitabsHTML('admin_rss',  $this->lang['admin.rss'], array('css_class' => 'tabs tabs-animation'));
 		// $form->add_fieldset($fieldset_rss);
 		//
 		// $fieldset_rss->add_field(new FormFieldCheckbox('rss_enabled', $this->lang['admin.rss.enabled'], $this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed(),
@@ -657,11 +657,10 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		// 	array(new FormFieldConstraintIntegerRange(0, 512))
 		// ));
 
-
 		//Web
 		if (ModulesManager::is_module_installed('web') & ModulesManager::is_module_activated('web'))
 		{
-			$fieldset_web = new FormFieldsetHTML('admin_web',  $this->lang['admin.web']);
+			$fieldset_web = new FormFieldsetMultitabsHTML('admin_web',  $this->lang['admin.web'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_web);
 
 			$fieldset_web->add_field(new FormFieldCheckbox('web_enabled', $this->lang['admin.web.enabled'], $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed(),
