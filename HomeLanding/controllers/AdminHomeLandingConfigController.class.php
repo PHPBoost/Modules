@@ -170,7 +170,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		));
 
 		//Configuration
-		$fieldset_config = new FormFieldsetMultitabsHTML('configuration', LangLoader::get_message('configuration', 'admin-common'), array('css_class' => 'tabs tabs-animation'));
+		$fieldset_config = new FormFieldsetMultitabsHTML('configuration', LangLoader::get_message('configuration', 'admin-common'), array('css_class' => 'tabs tabs-animation first-tab'));
 			$form->add_fieldset($fieldset_config);
 
 			$fieldset_config->add_field(new FormFieldTextEditor('module_title', $this->lang['admin.module.title'], $this->config->get_module_title(),
