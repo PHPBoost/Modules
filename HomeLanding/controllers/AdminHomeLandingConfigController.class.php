@@ -155,17 +155,17 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			array(
 				new FormFieldMultitabsLinkElement(LangLoader::get_message('configuration', 'admin-common'), 'AdminHomeLandingConfigController_configuration', 'fa-cog'),
 				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.carousel', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_carousel', 'fa-image'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.articles', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_articles', '', '../../articles/articles_mini.png', 'articles'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.calendar', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_calendar', '', '../../calendar/calendar_mini.png', 'calendar'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.contact', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_contact', '', '../../contact/contact_mini.png', 'contact'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.download', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_download', '', '../../download/download_mini.png', 'download'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.forum', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_forum', '', '../../forum/forum_mini.png', 'forum'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.gallery', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_gallery', '', '../../gallery/gallery_mini.png', 'gallery'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.guestbook', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_guestbook', '', '../../guestbook/guestbook_mini.png', 'guestbook'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.media', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_media', '', '../../media/media_mini.png', 'media'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.news', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_news', '', '../../news/news_mini.png', 'news'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.articles', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_articles', '', PATH_TO_ROOT . '/articles/articles_mini.png', 'articles'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.calendar', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_calendar', '', PATH_TO_ROOT . '/calendar/calendar_mini.png', 'calendar'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.contact', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_contact', '', PATH_TO_ROOT . '/contact/contact_mini.png', 'contact'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.download', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_download', '', PATH_TO_ROOT . '/download/download_mini.png', 'download'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.forum', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_forum', '', PATH_TO_ROOT . '/forum/forum_mini.png', 'forum'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.gallery', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_gallery', '', PATH_TO_ROOT . '/gallery/gallery_mini.png', 'gallery'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.guestbook', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_guestbook', '', PATH_TO_ROOT . '/guestbook/guestbook_mini.png', 'guestbook'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.media', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_media', '', PATH_TO_ROOT . '/media/media_mini.png', 'media'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.news', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_news', '', PATH_TO_ROOT . '/news/news_mini.png', 'news'),
 				// new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.rss', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_rss', 'fa-rss'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.web', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_web', '', '../../web/web_mini.png', 'web'),
+				new FormFieldMultitabsLinkElement(LangLoader::get_message('onepage.web', 'common', 'HomeLanding'), 'AdminHomeLandingConfigController_admin_web', '', PATH_TO_ROOT . '/web/web_mini.png', 'web'),
 			)
 		));
 
