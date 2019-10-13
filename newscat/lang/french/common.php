@@ -1,0 +1,21 @@
+<?php
+/**
+ * @copyright 	&copy; 2005-2019 PHPBoost
+ * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @version   	PHPBoost 5.3 - last update: 2019 10 13
+ * @since   	PHPBoost 5.2 - 2018 11 27
+*/
+
+####################################################
+#                    French                        #
+####################################################
+
+$lang['newscat.module.title'] = 'Actualités - Catégories';
+$lang['newscat.not.installed'] = 'Le module news n\'est pas installé ou activé';
+$lang['newscat.no.news.cat'] = 'Aucune catégorie n\'est déclarée dans le module news';
+
+// Configuration
+$lang['newscat.only.news.module'] = 'Limiter l\'affichage au module news';
+$lang['config.module.name'] = 'Titre du module';
+?>
