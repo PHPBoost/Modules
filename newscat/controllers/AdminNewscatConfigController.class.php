@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.3 - last update: 2019 10 13
+ * @version   	PHPBoost 5.3 - last update: 2019 10 17
  * @since   	PHPBoost 5.2 - 2018 11 27
 */
 
@@ -46,7 +46,7 @@ class AdminNewscatConfigController extends AdminModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'newscat');
-		$this->$admin_common_lang = LangLoader::get('admin-common');
+		$this->admin_common_lang = LangLoader::get('admin-common');
 		$this->config = NewscatConfig::load();
 	}
 
@@ -54,7 +54,7 @@ class AdminNewscatConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('config', $this->$admin_common_lang['configuration'] . ': ' . $this->lang['newscat.module.title']);
+		$fieldset = new FormFieldsetHTML('config', $this->admin_common_lang['configuration'] . ': ' . $this->lang['newscat.module.title']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('only_news_module', $this->lang['newscat.only.news.module'], $this->config->get_only_news_module()));
@@ -78,11 +78,11 @@ class AdminNewscatConfigController extends AdminModuleController
 
 	private function build_response(View $tpl)
 	{
-		$title = LangLoader::get_message('configuration', 'admin');
+		$title = LangLoader::get_message('configuration', 'admin') . ' - ' . $this->lang['newscat.module.title'];
 
 		$response = new AdminMenuDisplayResponse($tpl);
 		$response->set_title($title);
-		$response->add_link($this->lang['newscat.config.title'], NewscatUrlBuilder::configuration());
+		$response->add_link(LangLoader::get_message('configuration', 'admin'), NewscatUrlBuilder::configuration());
 		$env = $response->get_graphical_environment();
 		$env->set_page_title($title);
 
