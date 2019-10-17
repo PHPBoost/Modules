@@ -33,7 +33,7 @@ class ServerStatusAjaxDeleteServerController extends AbstractController
 				$config->set_servers_list($new_servers_list);
 
 				ServerStatusConfig::save();
-				$code = $position;
+				$code = $id;
 			}
 		}
 
