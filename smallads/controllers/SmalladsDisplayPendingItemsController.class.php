@@ -74,8 +74,10 @@ class SmalladsDisplayPendingItemsController extends ModuleController
 			'C_LIST'                 => $this->config->get_display_type() == SmalladsConfig::LIST_DISPLAY,
 			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
 			'C_NO_ITEM_AVAILABLE'    => $nbr_items_pending == 0,
-			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
+			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
 			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
+			
+			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 			'U_USAGE_TERMS' 		 => SmalladsUrlBuilder::usage_terms()->rel()
 		));
 

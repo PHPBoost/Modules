@@ -266,7 +266,7 @@
 						<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
 
 						<a href="{items.U_ITEM}" aria-label="{items.TITLE}" class="thumbnail-item">
-							<img itemprop="thumbnailUrl" src="# IF items.C_HAS_THUMBNAIL #{items.THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #" alt="{items.TITLE}" />
+							<img itemprop="thumbnailUrl" src="# IF items.C_HAS_THUMBNAIL #{items.U_THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #" alt="{items.TITLE}" />
 						</a>
 
 						<div class="content">
@@ -294,27 +294,29 @@
 	# ENDIF #
 
 			<!-- Pagination -->
-			<div class="pagination options no-style">
-				<div
-				   	class="jplist-pagination"
-				   	data-jplist-control="pagination"
-			        data-group="smallads-items"
-			        data-items-per-page="{ITEMS_PER_PAGE}"
-			        data-current-page="0"
-			        data-name="pagination1"
-				   	data-name="paging"
-				>
-					<button type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
-				    <button type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
+			# IF C_PAGINATION #
+				<div class="pagination options no-style">
+					<div
+					   	class="jplist-pagination"
+					   	data-jplist-control="pagination"
+				        data-group="smallads-items"
+				        data-items-per-page="{ITEMS_PER_PAGE}"
+				        data-current-page="0"
+				        data-name="pagination1"
+					   	data-name="paging"
+					>
+						<button type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
+					    <button type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
 
-				    <div class="jplist-holder" data-type="pages">
-				        <button type="button" class="submit" data-type="page">{@smallads.active.page}</button>
-				    </div>
+					    <div class="jplist-holder" data-type="pages">
+					        <button type="button" class="submit" data-type="page">{@smallads.active.page}</button>
+					    </div>
 
-				    <button type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
-				    <button type="button" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
+					    <button type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
+					    <button type="button" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
+					</div>
 				</div>
-			</div>
+			# ENDIF #
 
 	<div class="spacer"></div>
 	<footer># IF C_USAGE_TERMS # <i class="fa fa-book" aria-hidden="true"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>

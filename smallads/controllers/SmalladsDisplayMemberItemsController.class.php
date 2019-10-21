@@ -95,6 +95,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 				'C_ONE_ITEM_AVAILABLE'   => $result->get_rows_count() == 1,
 				'C_TWO_ITEMS_AVAILABLE'  => $result->get_rows_count() == 2,
 				'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
+				'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
 				'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 				'ID_CATEGORY'            => $this->get_category()->get_id(),
 				'U_USAGE_TERMS' 		 => SmalladsUrlBuilder::usage_terms()->rel()

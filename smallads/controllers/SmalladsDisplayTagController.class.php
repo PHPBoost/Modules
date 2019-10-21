@@ -106,6 +106,8 @@ class SmalladsDisplayTagController extends ModuleController
 			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
 			'C_ITEMS_CAT'            => false,
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
+			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
+			
 			'CATEGORY_NAME'          => $this->get_keyword()->get_name(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 			'C_SEVERAL_COLUMNS'      => $columns_number_displayed_per_line > 1,

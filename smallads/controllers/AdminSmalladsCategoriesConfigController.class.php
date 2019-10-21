@@ -63,16 +63,22 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTMLHeading('smallads_configuration', $this->lang['config.categories.title']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldCheckbox('display_sort_filters', $this->lang['config.sort.filter.display'], $this->config->are_sort_filters_enabled()));
+		$fieldset->add_field(new FormFieldCheckbox('display_sort_filters', $this->lang['config.sort.filter.display'], $this->config->are_sort_filters_enabled(),
+			array('class'=> 'custom-checkbox')
+		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_icon_cats', $this->lang['config.cats.icon.display'], $this->config->are_cat_icons_enabled()));
+		$fieldset->add_field(new FormFieldCheckbox('display_icon_cats', $this->lang['config.cats.icon.display'], $this->config->are_cat_icons_enabled(),
+			array('class'=> 'custom-checkbox')
+		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->admin_common_lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
 			array('min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_descriptions_to_guests', $this->lang['config.display.descriptions.to.guests'], $this->config->are_descriptions_displayed_to_guests()));
+		$fieldset->add_field(new FormFieldCheckbox('display_descriptions_to_guests', $this->lang['config.display.descriptions.to.guests'], $this->config->are_descriptions_displayed_to_guests(),
+			array('class'=> 'custom-checkbox')
+		));
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->lang['config.display.type'], $this->config->get_display_type(),
 			array(

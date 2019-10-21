@@ -74,24 +74,29 @@ class AdminSmalladsMiniMenuConfigController extends AdminModuleController
 
 		$fieldset->add_field(new FormFieldFree('1_separator', '', ''));
 
-		$fieldset->add_field(new FormFieldCheckbox('mini_menu_autoplay', $this->lang['config.mini.autoplay'], $this->config->is_slideshow_autoplayed(), array(
-			'events' => array('click' => '
-				if (HTMLForms.getField("mini_menu_autoplay").getValue()) {
-					HTMLForms.getField("mini_menu_autoplay_speed").enable();
-					HTMLForms.getField("mini_menu_autoplay_hover").enable();
-				} else {
-					HTMLForms.getField("mini_menu_autoplay_speed").disable();
-					HTMLForms.getField("mini_menu_autoplay_hover").disable();
-				}'
+		$fieldset->add_field(new FormFieldCheckbox('mini_menu_autoplay', $this->lang['config.mini.autoplay'], $this->config->is_slideshow_autoplayed(),
+			array(
+				'class' => 'custom-checkbox',
+				'events' => array('click' => '
+					if (HTMLForms.getField("mini_menu_autoplay").getValue()) {
+						HTMLForms.getField("mini_menu_autoplay_speed").enable();
+						HTMLForms.getField("mini_menu_autoplay_hover").enable();
+					} else {
+						HTMLForms.getField("mini_menu_autoplay_speed").disable();
+						HTMLForms.getField("mini_menu_autoplay_hover").disable();
+					}'
+				)
 			)
-		)));
+		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('mini_menu_autoplay_speed', $this->lang['config.mini.autoplay.speed'], $this->config->get_mini_menu_autoplay_speed(),
 			array('description' => $this->lang['config.mini.speed.desc'], 'hidden' => !$this->config->is_slideshow_autoplayed())
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('mini_menu_autoplay_hover', $this->lang['config.mini.autoplay.hover'], $this->config->is_slideshow_hover_enabled(),
-			array('hidden' => !$this->config->is_slideshow_autoplayed())
+			array(
+				'class' => 'custom-checkbox',
+				'hidden' => !$this->config->is_slideshow_autoplayed())
 		));
 
 		$this->submit_button = new FormButtonDefaultSubmit();

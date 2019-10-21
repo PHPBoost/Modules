@@ -706,7 +706,7 @@ class Smallad
 			Date::get_array_tpl_vars($this->publication_start_date, 'publication_start_date'),
 			Date::get_array_tpl_vars($this->publication_end_date, 'publication_end_date'),
 			array(
-			//Conditions
+			// Conditions
 			'C_EDIT'                           => $this->is_authorized_to_edit(),
 			'C_DELETE'                         => $this->is_authorized_to_delete(),
 			'C_PRICE'                  		   => $this->get_price() != 0,
@@ -736,7 +736,7 @@ class Smallad
 			'C_OTHER_LOCATION'				   => $this->get_location() === 'other',
 			'C_GMAP'					   	   => $this->config->is_googlemaps_available(),
 
-			//Smallads
+			// Smallads
 			'ID'                 	=> $this->get_id(),
 			'TITLE'              	=> $this->get_title(),
 			'STATUS'             	=> $this->get_status(),
@@ -755,13 +755,12 @@ class Smallad
 			'SMALLAD_TYPE'   		=> str_replace('-',' ', $this->get_smallad_type()),
 			'SMALLAD_TYPE_FILTER'   => Url::encode_rewrite(TextHelper::strtolower($this->get_smallad_type())),
 			'BRAND'          	 	=> $this->get_brand(),
-			'THUMBNAIL'          	=> $this->get_thumbnail()->rel(),
 			'USER_LEVEL_CLASS'   	=> UserService::get_level_class($user->get_level()),
 			'USER_GROUP_COLOR'   	=> $user_group_color,
 			'LOCATION'				=> $location,
 			'OTHER_LOCATION'		=> $this->get_other_location(),
 
-			//Category
+			// Category
 			'C_ROOT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY,
 			'ID_CATEGORY'          => $category->get_id(),
 			'CATEGORY_NAME'        => $category->get_name(),
@@ -769,12 +768,13 @@ class Smallad
 			'CATEGORY_IMAGE'       => $category->get_image()->rel(),
 			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : SmalladsUrlBuilder::edit_category($category->get_id())->rel(),
 
-			//Links
+			// Links
 			'U_COMMENTS'    => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_AUTHOR'      => UserUrlBuilder  ::profile($this->get_author_user()->get_id())->rel(),
-			'U_AUTHOR_PM'   => UserUrlBuilder  ::personnal_message($this->get_author_user()->get_id())->rel(),
+			'U_AUTHOR'      => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+			'U_AUTHOR_PM'   => UserUrlBuilder::personnal_message($this->get_author_user()->get_id())->rel(),
 			'U_CATEGORY'    => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
 			'U_ITEM'        => SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
+			'U_THUMBNAIL' 	=> $this->get_thumbnail()->rel(),
 			'U_EDIT_ITEM'   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
 			'U_DELETE_ITEM' => SmalladsUrlBuilder::delete_item($this->id)->rel(),
 			'U_SYNDICATION' => SmalladsUrlBuilder::category_syndication($category->get_id())->rel(),

@@ -4,6 +4,15 @@
 
 #smallads-module .formatter-content {display: table;}
 
+button:not([data-selected]) {
+	opacity: 0.5;
+}
+
+button:not([data-selected]):hover {
+	opacity: 1;
+	transition: 0.3s;
+}
+
 /* --- categories
 -------------------------------------- */
 .smallads-category-list,

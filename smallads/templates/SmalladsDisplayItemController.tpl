@@ -20,14 +20,14 @@
 		<meta itemprop="description" content="${escape(DESCRIPTION)}">
 		<meta itemprop="datePublished" content="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #">
 		<meta itemprop="discussionUrl" content="{U_COMMENTS}">
-		# IF C_HAS_THUMBNAIL #<meta itemprop="thumbnailUrl" content="{THUMBNAIL}"># ENDIF #
+		# IF C_HAS_THUMBNAIL #<meta itemprop="thumbnailUrl" content="{U_THUMBNAIL}"># ENDIF #
 		<meta itemprop="interactionCount" content="{COMMENTS_NUMBER} UserComments">
 
 		<div class="content">
 			<div class="options infos thumbnail-item">
 				# IF C_HAS_THUMBNAIL #
-					<a href="{THUMBNAIL}" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
-						<img src="{THUMBNAIL}" alt="{TITLE}" />
+					<a href="{U_THUMBNAIL}" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">
+						<img src="{U_THUMBNAIL}" alt="{TITLE}" />
 					</a>
 				# ELSE #
 					<a href="{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection">

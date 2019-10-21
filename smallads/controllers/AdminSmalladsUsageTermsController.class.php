@@ -67,14 +67,17 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('usage_terms_displayed', $this->lang['config.usage.terms.displayed'], $this->config->are_usage_terms_displayed(),
-			array('events' => array('click' => '
-				if (HTMLForms.getField("usage_terms_displayed").getValue()) {
-					HTMLForms.getField("usage_terms").enable();
-				} else {
-					HTMLForms.getField("usage_terms").disable();
-				}'
+			array(
+				'class' => 'custom-checkbox',
+				'events' => array('click' => '
+					if (HTMLForms.getField("usage_terms_displayed").getValue()) {
+						HTMLForms.getField("usage_terms").enable();
+					} else {
+						HTMLForms.getField("usage_terms").disable();
+					}'
+				)
 			)
-		)));
+		));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('usage_terms', $this->lang['config.usage.terms.desc'], $this->config->get_usage_terms(),
 			array('rows' => 25, 'hidden' => !$this->config->are_usage_terms_displayed())
