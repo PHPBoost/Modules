@@ -126,7 +126,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'rewrited_name' => Url::encode_rewrite($this->messages['default.category.name']),
 			'name' => $this->messages['default.category.name'],
 			'description' => $this->messages['default.category.description'],
-			'image' => '/smallads/smallads.png'
+			'image' => '/templates/default/images/default_category_thumbnail.png'
 		));
 	}
 	private function insert_smallads_data()
@@ -134,7 +134,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$smallads_table, array(
 			'id' => 1,
 			'id_category' => 1,
-			'thumbnail_url' => '/smallads/templates/images/default.png',
+			'thumbnail_url' => '/templates/default/images/default_item_thumbnail.png',
 			'title' => $this->messages['default.smallad.title'],
 			'rewrited_title' => Url::encode_rewrite($this->messages['default.smallad.title']),
 			'description' => $this->messages['default.smallad.description'],

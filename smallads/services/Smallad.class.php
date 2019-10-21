@@ -218,7 +218,19 @@ class Smallad
 
 	public function get_thumbnail()
 	{
+		if (!$this->thumbnail_url instanceof Url)
+			return $this->get_default_thumbnail();
+
 		return $this->thumbnail_url;
+	}
+
+	public function get_default_thumbnail()
+	{
+		$file = new File(PATH_TO_ROOT . '/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png');
+		if ($file->exists())
+			return new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png');
+		else
+			return new Url('/templates/default/images/default_item_thumbnail.png');
 	}
 
 	public function has_thumbnail()
@@ -633,7 +645,7 @@ class Smallad
 		$this->creation_date = new Date();
 		$this->sources = array();
 		$this->carousel = array();
-		$this->thumbnail_url = new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/item_default.png');
+		$this->thumbnail_url = self::get_default_thumbnail();
 		$this->views_number = 0;
 		$this->price = 0;
 		$this->max_weeks = $max_weeks_config_number;
