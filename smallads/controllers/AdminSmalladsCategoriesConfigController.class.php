@@ -105,8 +105,8 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('displayed_cols_number_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_displayed_cols_number_per_line(),
-			array('min' => 1, 'max' => 6, 'hidden' => $this->config->get_display_type() !== SmalladsConfig::MOSAIC_DISPLAY),
-			array(new FormFieldConstraintIntegerRange(1, 6))
+			array('min' => 1, 'max' => 4, 'hidden' => $this->config->get_display_type() !== SmalladsConfig::MOSAIC_DISPLAY),
+			array(new FormFieldConstraintIntegerRange(1, 4))
 		));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->admin_common_lang['config.root_category_description'], $this->config->get_root_category_description(),
