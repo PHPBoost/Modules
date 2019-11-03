@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.3 - last update: 2019 07 30
+ * @version   	PHPBoost 5.3 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -347,7 +347,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				}'))
 			));
 
-			$fieldset_articles->add_field(ArticlesService::get_categories_manager()->get_select_categories_form_field('articles_cat', $this->lang['admin.cat'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+			$fieldset_articles->add_field(CategoriesService::get_categories_manager('articles')->get_select_categories_form_field('articles_cat', $this->lang['admin.cat'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
 				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
 			));
 

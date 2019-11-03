@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 01 17
+ * @version   	PHPBoost 5.2 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -126,7 +126,7 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/articles-cat.tpl');
 		$articles_config = ArticlesConfig::load();
 
-		$categories_id = $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed() ? ArticlesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category()) : array($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
+		$categories_id = $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), $articles_config->are_descriptions_displayed_to_guests(), 'articles') : array($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
 
 		$result = $this->querier->select('SELECT articles.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
 		FROM ' . ArticlesSetup::$articles_table . ' articles
@@ -143,7 +143,7 @@ class HomeLandingHomeController extends ModuleController
 			'articles_cat_limit' => $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_elements_number_displayed()
 		));
 
-		$category = ArticlesService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
+		$category = CategoriesService::get_categories_manager('articles')->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
 		$tpl->put_all(array(
 			'ARTICLES_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
@@ -374,7 +374,7 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/onepage.tpl');
 
 		if($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
-			$articles_cat = ArticlesService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->get_name();
+			$articles_cat = CategoriesService::get_categories_manager('articles')->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->get_name();
 		else
 			$articles_cat = '';
 
@@ -512,8 +512,8 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/articles.tpl');
-		$authorized_categories = ArticlesService::get_authorized_categories(Category::ROOT_CATEGORY);
 		$articles_config = ArticlesConfig::load();
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $articles_config->are_descriptions_displayed_to_guests(), 'articles');
 
 		$result = $this->querier->select('SELECT articles.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'articles articles
