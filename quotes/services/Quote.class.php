@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -41,7 +41,7 @@ class Quote
 
 	public function get_category()
 	{
-		return QuotesService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+		return CategoriesService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
 	}
 
 	public function get_creation_date()
@@ -111,17 +111,17 @@ class Quote
 
 	public function is_authorized_to_add()
 	{
-		return QuotesAuthorizationsService::check_authorizations($this->id_category)->write() || QuotesAuthorizationsService::check_authorizations($this->id_category)->contribution();
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution();
 	}
 
 	public function is_authorized_to_edit()
 	{
-		return QuotesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((QuotesAuthorizationsService::check_authorizations($this->id_category)->write() || (QuotesAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_approved())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_approved())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
 	public function is_authorized_to_delete()
 	{
-		return QuotesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((QuotesAuthorizationsService::check_authorizations($this->id_category)->write() || (QuotesAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_approved())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_approved())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
 	public function get_properties()
@@ -165,7 +165,7 @@ class Quote
 		$this->id_category = $id_category;
 		$this->author_user = AppContext::get_current_user();
 		$this->creation_date = new Date();
-		if (QuotesAuthorizationsService::check_authorizations()->write())
+		if (CategoriesAuthorizationsService::check_authorizations()->write())
 			$this->approve();
 		else
 			$this->unapprove();
@@ -180,7 +180,7 @@ class Quote
 
 		return array(
 			'C_APPROVED' => $this->is_approved(),
-			'C_MODERATION' => QuotesAuthorizationsService::check_authorizations($this->id_category)->moderation(),
+			'C_MODERATION' => CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation(),
 			'C_EDIT' => $this->is_authorized_to_edit(),
 			'C_DELETE' => $this->is_authorized_to_delete(),
 			'C_USER_GROUP_COLOR' => !empty($user_group_color),
@@ -207,7 +207,7 @@ class Quote
 			'CATEGORY_DESCRIPTION' => $category->get_description(),
 			'CATEGORY_IMAGE' => $category->get_image()->rel(),
 			'U_CATEGORY' => QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-			'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : QuotesUrlBuilder::edit_category($category->get_id())->rel(),
+			'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($category->get_id())->rel(),
 
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
 			'U_AUTHOR_LINK' => QuotesUrlBuilder::display_author_quotes($this->rewrited_author)->rel(),

@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -43,7 +43,7 @@ class QuotesDisplayCategoryController extends ModuleController
 		$subcategories_page = $request->get_getint('subcategories_page', 1);
 
 		//Children categories
-		$subcategories = QuotesService::get_categories_manager()->get_categories_cache()->get_children($this->get_category()->get_id(), QuotesService::get_authorized_categories($this->get_category()->get_id()));
+		$subcategories = CategoriesService::get_categories_manager()->get_categories_cache()->get_children($this->get_category()->get_id(), CategoriesService::get_authorized_categories($this->get_category()->get_id()));
 		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_number_per_page(), $page, $subcategories_page);
 
 		$nbr_cat_displayed = 0;
@@ -108,7 +108,7 @@ class QuotesDisplayCategoryController extends ModuleController
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
 			'CATEGORY_IMAGE' => $this->get_category()->get_image()->rel(),
 			'CATEGORY_DESCRIPTION' => $category_description,
-			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : QuotesUrlBuilder::edit_category($this->get_category()->get_id())->rel()
+			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($this->get_category()->get_id())->rel()
 		));
 
 		while ($row = $result->fetch())
@@ -133,7 +133,7 @@ class QuotesDisplayCategoryController extends ModuleController
 		{
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
-			$categories = QuotesService::get_categories_manager()->get_children($category->get_id(), $search_category_children_options);
+			$categories = CategoriesService::get_categories_manager()->get_children($category->get_id(), $search_category_children_options);
 			$authorized_categories = array_keys($categories);
 		}
 		return $authorized_categories;
@@ -177,7 +177,7 @@ class QuotesDisplayCategoryController extends ModuleController
 			if (!empty($id))
 			{
 				try {
-					$this->category = QuotesService::get_categories_manager()->get_categories_cache()->get_category($id);
+					$this->category = CategoriesService::get_categories_manager()->get_categories_cache()->get_category($id);
 				} catch (CategoryNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
    					DispatchManager::redirect($error_controller);
@@ -185,7 +185,7 @@ class QuotesDisplayCategoryController extends ModuleController
 			}
 			else
 			{
-				$this->category = QuotesService::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
+				$this->category = CategoriesService::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
 			}
 		}
 		return $this->category;
@@ -193,7 +193,7 @@ class QuotesDisplayCategoryController extends ModuleController
 
 	private function check_authorizations()
 	{
-		if (!QuotesAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
+		if (!CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
@@ -221,7 +221,7 @@ class QuotesDisplayCategoryController extends ModuleController
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['module_title'], QuotesUrlBuilder::home());
 
-		$categories = array_reverse(QuotesService::get_categories_manager()->get_parents($this->get_category()->get_id(), true));
+		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->get_category()->get_id(), true));
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)

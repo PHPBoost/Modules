@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -82,7 +82,7 @@ class QuotesDisplayAuthorQuotesController extends ModuleController
 	{
 		$search_category_children_options = new SearchCategoryChildrensOptions();
 		$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
-		$categories = QuotesService::get_categories_manager()->get_children(Category::ROOT_CATEGORY, $search_category_children_options);
+		$categories = CategoriesService::get_categories_manager()->get_children(Category::ROOT_CATEGORY, $search_category_children_options);
 
 		return array_keys($categories);
 	}
@@ -105,7 +105,7 @@ class QuotesDisplayAuthorQuotesController extends ModuleController
 
 	private function check_authorizations()
 	{
-		if (!QuotesAuthorizationsService::check_authorizations()->read())
+		if (!CategoriesAuthorizationsService::check_authorizations()->read())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);

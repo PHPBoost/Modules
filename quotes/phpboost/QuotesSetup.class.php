@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -24,14 +24,6 @@ class QuotesSetup extends DefaultModuleSetup
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
-	}
-
-	public function upgrade($installed_version)
-	{
-		$file = new File(Url::to_rel('/quotes/controllers/AdminQuotesManageController.class.php'));
-		$file->delete();
-
-		return '5.2.0';
 	}
 
 	public function uninstall()

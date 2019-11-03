@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 04 17
+ * @version   	PHPBoost 5.2 - last update: 2019 04 19
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -63,12 +63,12 @@ class QuotesFormController extends ModuleController
 		$fieldset = new FormFieldsetHTMLHeading('quotes', $this->lang['module_title']);
 		$form->add_fieldset($fieldset);
 
-		if (QuotesService::get_categories_manager()->get_categories_cache()->has_categories())
+		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 		{
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(QuotesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_quote()->get_id_category(), $search_category_children_options));
+			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_quote()->get_id_category(), $search_category_children_options));
 		}
 
 		$fieldset->add_field(new FormFieldAjaxCompleter('author', $this->common_lang['author'], $this->get_quote()->get_author(),
@@ -100,7 +100,7 @@ class QuotesFormController extends ModuleController
 
 	private function build_contribution_fieldset($form)
 	{
-		if ($this->is_contributor_member())
+		if ($this->get_quote()->get_id() === null && $this->is_contributor_member())
 		{
 			$fieldset = new FormFieldsetHTML('contribution', LangLoader::get_message('contribution', 'user-common'));
 			$fieldset->set_description(MessageHelper::display(LangLoader::get_message('contribution.explain', 'user-common') . ' ' . $this->lang['quotes.form.contribution.explain'], MessageHelper::WARNING)->render());
@@ -112,7 +112,7 @@ class QuotesFormController extends ModuleController
 
 	private function is_contributor_member()
 	{
-		return ($this->get_quote()->get_id() === null && !QuotesAuthorizationsService::check_authorizations()->write() && QuotesAuthorizationsService::check_authorizations()->contribution());
+		return (!CategoriesAuthorizationsService::check_authorizations()->write() && CategoriesAuthorizationsService::check_authorizations()->contribution());
 	}
 
 	private function get_quote()
@@ -150,11 +150,11 @@ class QuotesFormController extends ModuleController
 
 	private function check_authorizations()
 	{
-		$quotes = $this->get_quote();
+		$quote = $this->get_quote();
 
-		if ($quotes->get_id() === null)
+		if ($quote->get_id() === null)
 		{
-			if (!QuotesAuthorizationsService::check_authorizations()->write() && !QuotesAuthorizationsService::check_authorizations()->contribution())
+			if (!CategoriesAuthorizationsService::check_authorizations()->write() && !CategoriesAuthorizationsService::check_authorizations()->contribution())
 			{
 				$error_controller = PHPBoostErrors::user_not_authorized();
 				DispatchManager::redirect($error_controller);
@@ -162,7 +162,7 @@ class QuotesFormController extends ModuleController
 		}
 		else
 		{
-			if (!(QuotesAuthorizationsService::check_authorizations($quotes->get_id_category())->moderation() || ((QuotesAuthorizationsService::check_authorizations($quotes->get_id_category())->write() || QuotesAuthorizationsService::check_authorizations($quotes->get_id_category())->contribution()) && $quotes->get_author_user()->get_id() == AppContext::get_current_user()->get_id())))
+			if (!(CategoriesAuthorizationsService::check_authorizations($quote->get_id_category())->moderation() || ((CategoriesAuthorizationsService::check_authorizations($quote->get_id_category())->write() || CategoriesAuthorizationsService::check_authorizations($quote->get_id_category())->contribution()) && $quote->get_author_user()->get_id() == AppContext::get_current_user()->get_id())))
 			{
 				$error_controller = PHPBoostErrors::user_not_authorized();
 				DispatchManager::redirect($error_controller);
@@ -172,51 +172,51 @@ class QuotesFormController extends ModuleController
 
 	private function save()
 	{
-		$quotes = $this->get_quote();
+		$quote = $this->get_quote();
 
-		$previous_category_id = $quotes->get_id_category();
+		$previous_category_id = $quote->get_id_category();
 
-		if (QuotesService::get_categories_manager()->get_categories_cache()->has_categories())
-			$quotes->set_id_category($this->form->get_value('id_category')->get_raw_value());
+		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
+			$quote->set_id_category($this->form->get_value('id_category')->get_raw_value());
 
 		if (!$this->is_contributor_member() && $this->form->get_value('approved'))
-			$quotes->approve();
+			$quote->approve();
 		else
-			$quotes->unapprove();
+			$quote->unapprove();
 
-		$quotes->set_author($this->form->get_value('author'));
-		$quotes->set_quote($this->form->get_value('quote'));
+		$quote->set_author($this->form->get_value('author'));
+		$quote->set_quote($this->form->get_value('quote'));
 
-		if ($quotes->get_id() === null)
+		if ($quote->get_id() === null)
 		{
-			$id = QuotesService::add($quotes);
+			$id = QuotesService::add($quote);
 		}
 		else
 		{
-			$id = $quotes->get_id();
-			QuotesService::update($quotes);
+			$id = $quote->get_id();
+			QuotesService::update($quote);
 		}
 
-		$this->contribution_actions($quotes, $id);
+		$this->contribution_actions($quote, $id);
 
 		QuotesCache::invalidate();
 		QuotesCategoriesCache::invalidate();
 	}
 
-	private function contribution_actions(Quote $quotes, $id)
+	private function contribution_actions(Quote $quote, $id)
 	{
-		if ($this->is_contributor_member())
+		if ($this->is_contributor_member() && $quote->get_id() === null)
 		{
 			$contribution = new Contribution();
 			$contribution->set_id_in_module($id);
-			$contribution->set_description(stripslashes($quotes->get_quote()));
-			$contribution->set_entitled(StringVars::replace_vars($this->lang['quotes.form.contribution.title'], array('name' => $quotes->get_author())));
+			$contribution->set_description(stripslashes($quote->get_quote()));
+			$contribution->set_entitled(StringVars::replace_vars($this->lang['quotes.form.contribution.title'], array('name' => $quote->get_author())));
 			$contribution->set_fixing_url(QuotesUrlBuilder::edit($id)->relative());
 			$contribution->set_poster_id(AppContext::get_current_user()->get_id());
 			$contribution->set_module('quotes');
 			$contribution->set_auth(
 				Authorizations::capture_and_shift_bit_auth(
-					QuotesService::get_categories_manager()->get_heritated_authorizations($quotes->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
+					CategoriesService::get_categories_manager()->get_heritated_authorizations($quote->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
 					Category::MODERATION_AUTHORIZATIONS, Contribution::CONTRIBUTION_AUTH_BIT
 				)
 			);
@@ -225,47 +225,47 @@ class QuotesFormController extends ModuleController
 		else
 		{
 			$corresponding_contributions = ContributionService::find_by_criteria('quotes', $id);
-			if (count($corresponding_contributions) > 0)
+			if (!$this->is_contributor_member() && count($corresponding_contributions) > 0)
 			{
-				$quotes_contribution = $corresponding_contributions[0];
-				$quotes_contribution->set_status(Event::EVENT_STATUS_PROCESSED);
+				$quote_contribution = $corresponding_contributions[0];
+				$quote_contribution->set_status(Event::EVENT_STATUS_PROCESSED);
 
-				ContributionService::save_contribution($quotes_contribution);
+				ContributionService::save_contribution($quote_contribution);
 			}
 		}
-		$quotes->set_id($id);
+		$quote->set_id($id);
 	}
 
 	private function redirect()
 	{
-		$quotes = $this->get_quote();
-		$category = $quotes->get_category();
+		$quote = $this->get_quote();
+		$category = $quote->get_category();
 
-		if ($this->is_new_quote && $this->is_contributor_member() && !$quotes->is_approved())
+		if ($this->is_new_quote && $this->is_contributor_member() && !$quote->is_approved())
 		{
 			DispatchManager::redirect(new UserContributionSuccessController());
 		}
-		elseif ($quotes->is_approved())
+		elseif ($quote->is_approved())
 		{
 			if ($this->is_new_quote)
-				AppContext::get_response()->redirect(QuotesUrlBuilder::home(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('author' => $quotes->get_author())));
+				AppContext::get_response()->redirect(QuotesUrlBuilder::home(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('author' => $quote->get_author())));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::home()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('author' => $quotes->get_author())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::home()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('author' => $quote->get_author())));
 		}
 		else
 		{
 			if ($this->is_new_quote)
-				AppContext::get_response()->redirect(QuotesUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('author' => $quotes->get_author())));
+				AppContext::get_response()->redirect(QuotesUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('author' => $quote->get_author())));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('author' => $quotes->get_author())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('author' => $quote->get_author())));
 		}
 	}
 
 	private function generate_response(View $tpl)
 	{
-		$quotes = $this->get_quote();
+		$quote = $this->get_quote();
 
-		$location_id = $quotes->get_id() ? 'quotes-edit-'. $quotes->get_id() : '';
+		$location_id = $quote->get_id() ? 'quotes-edit-'. $quote->get_id() : '';
 
 		$response = new SiteDisplayResponse($tpl, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
@@ -273,12 +273,12 @@ class QuotesFormController extends ModuleController
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['module_title'], QuotesUrlBuilder::home());
 
-		if ($quotes->get_id() === null)
+		if ($quote->get_id() === null)
 		{
 			$graphical_environment->set_page_title($this->lang['quotes.add'], $this->lang['module_title']);
-			$breadcrumb->add($this->lang['quotes.add'], QuotesUrlBuilder::add($quotes->get_id_category()));
+			$breadcrumb->add($this->lang['quotes.add'], QuotesUrlBuilder::add($quote->get_id_category()));
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['quotes.add']);
-			$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::add($quotes->get_id_category()));
+			$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::add($quote->get_id_category()));
 		}
 		else
 		{
@@ -287,16 +287,16 @@ class QuotesFormController extends ModuleController
 
 			$graphical_environment->set_page_title($this->lang['quotes.edit'], $this->lang['module_title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['quotes.edit']);
-			$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::edit($quotes->get_id()));
+			$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::edit($quote->get_id()));
 
-			$categories = array_reverse(QuotesService::get_categories_manager()->get_parents($quotes->get_id_category(), true));
+			$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($quote->get_id_category(), true));
 			foreach ($categories as $id => $category)
 			{
 				if ($category->get_id() != Category::ROOT_CATEGORY)
 					$breadcrumb->add($category->get_name(), QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
 			}
-			$category = $quotes->get_category();
-			$breadcrumb->add($this->lang['quotes.edit'], QuotesUrlBuilder::edit($quotes->get_id()));
+			$category = $quote->get_category();
+			$breadcrumb->add($this->lang['quotes.edit'], QuotesUrlBuilder::edit($quote->get_id()));
 		}
 
 		return $response;

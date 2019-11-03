@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -27,7 +27,7 @@ class QuotesModuleMiniMenu extends ModuleMiniMenu
 
 	public function is_displayed()
 	{
-		return !Url::is_current_url('/quotes/') && QuotesAuthorizationsService::check_authorizations()->read();
+		return !Url::is_current_url('/quotes/') && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, 'quotes')->read();
 	}
 
 	public function get_menu_content()
@@ -42,7 +42,7 @@ class QuotesModuleMiniMenu extends ModuleMiniMenu
 		$quotes_cache = QuotesCache::load();
 
 		//Get authorized categories for the current user
-		$authorized_categories = QuotesService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, 'quotes');
 
 		$categories = array_intersect($quotes_cache->get_categories(), $authorized_categories);
 

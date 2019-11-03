@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 11 03
  * @since   	PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -17,10 +17,10 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('AdminQuotesConfigController', '`^/admin(?:/config)?/?$`'),
 
 	//Categories
-	new UrlControllerMapper('QuotesCategoriesManageController', '`^/categories/?$`'),
-	new UrlControllerMapper('QuotesCategoriesFormController', '`^/categories/add/?([0-9]+)?/?$`', array('id_parent')),
-	new UrlControllerMapper('QuotesCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', array('id')),
-	new UrlControllerMapper('QuotesDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
+	new UrlControllerMapper('DefaultCategoriesManageController', '`^/categories/?$`'),
+	new UrlControllerMapper('DefaultCategoriesFormController', '`^/categories/add/?([0-9]+)?/?$`', array('id_parent')),
+	new UrlControllerMapper('DefaultCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('DefaultDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
 
 	//Management
 	new UrlControllerMapper('QuotesManageController', '`^/manage/?$`'),
