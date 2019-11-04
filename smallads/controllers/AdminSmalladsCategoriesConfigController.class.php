@@ -161,7 +161,6 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
-        $this->config->set_default_contents($this->form->get_value('default_contents'));
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 
 		SmalladsConfig::save();

@@ -203,6 +203,8 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			$this->config->display_location();
 		else
 			$this->config->hide_location();
+		        
+		$this->config->set_default_contents($this->form->get_value('default_contents'));
 
 		SmalladsConfig::save();
 		SmalladsService::get_categories_manager()->regenerate_cache();
