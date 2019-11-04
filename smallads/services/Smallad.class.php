@@ -3,8 +3,10 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 10
+ * @version   	PHPBoost 5.2 - last update: 2019 11 04
  * @since   	PHPBoost 5.1 - 2018 03 15
+ * @contributor Mipel <mipel@phpboost.com>
+
 */
 
 class Smallad
@@ -636,6 +638,7 @@ class Smallad
 			$max_weeks_config_number = null;
 
 		$this->id_category = $id_category;
+        $this->contents = SmalladsConfig::load()->get_default_contents();
 		$this->completed = self::NOTCOMPLETED;
 		$this->displayed_author_name = self::DISPLAYED_AUTHOR_NAME;
 		$this->author_user = AppContext::get_current_user();

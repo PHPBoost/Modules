@@ -3,9 +3,10 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 08
+ * @version   	PHPBoost 5.2 - last update: 2019 11 04
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @contributor Mipel <mipel@phpboost.com>
 */
 
 class AdminSmalladsCategoriesConfigController extends AdminModuleController
@@ -112,6 +113,10 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->admin_common_lang['config.root_category_description'], $this->config->get_root_category_description(),
 			array('rows' => 8, 'cols' => 47)
 		));
+        
+        $fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['smallads.default.contents'], $this->config->get_default_contents(),
+			array('rows' => 8, 'cols' => 47)
+		));
 
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations', LangLoader::get_message('authorizations', 'common'),
 			array('description' => $this->admin_common_lang['config.authorizations.explain'])
@@ -160,6 +165,7 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
+        $this->config->set_default_contents($this->form->get_value('default_contents'));
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 
 		SmalladsConfig::save();

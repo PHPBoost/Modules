@@ -3,9 +3,10 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 10
+ * @version   	PHPBoost 5.2 - last update: 2019 11 04
  * @since   	PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @contributor Mipel <mipel@phpboost.com>
 */
 
 #####################################################
@@ -49,6 +50,7 @@ $lang['config.mosaic.type.display'] = 'Mosaic';
 $lang['config.list.type.display'] = 'List';
 $lang['config.table.type.display'] = 'Table';
 $lang['config.display.descriptions.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
+$lang['smallads.default.contents'] = 'Smallads default content';
 
 //Smallads items configuration
 $lang['config.items.title'] = 'Ads configuration';

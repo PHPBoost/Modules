@@ -3,9 +3,9 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 20
+ * @version   	PHPBoost 5.2 - last update: 2019 11 04
  * @since   	PHPBoost 5.0 - 2016 02 02
- * @contributor mipel <mipel@phpboost.com>
+ * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
@@ -50,6 +50,7 @@ $lang['config.mosaic.type.display'] = 'Mosaïque';
 $lang['config.list.type.display'] = 'Liste';
 $lang['config.table.type.display'] = 'Tableau';
 $lang['config.display.descriptions.to.guests'] = 'Afficher le condensé des annonces aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
+$lang['smallads.default.contents'] = 'Contenu par défaut d\'une petite annonce';
 
 //Smallads items configuration
 $lang['config.items.title'] = 'Configuration des annonces';
