@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.3 - last update: 2019 10 13
+ * @version   	PHPBoost 5.3 - last update: 2019 11 04
  * @since   	PHPBoost 5.2 - 2018 11 27
 */
 
@@ -27,7 +27,7 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 	public function is_displayed()
 	{
 		if(NewscatConfig::load()->get_only_news_module())
-			return Url::is_current_url('/news/') && NewsAuthorizationsService::check_authorizations()->read();
+			return Url::is_current_url('/news/') && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, 'news')->read();
 		else
 			return true;
 	}
@@ -43,7 +43,7 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 
 			if(ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news')) {
 				$now = new Date();
-				$authorized_categories = NewsService::get_authorized_categories(Category::ROOT_CATEGORY);
+				$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, NewsConfig::load()->are_descriptions_displayed_to_guests(), 'news');
 
 				$result_cat = PersistenceContext::get_querier()->select('SELECT news_cat.*
 				FROM '. NewsSetup::$news_cats_table .' news_cat

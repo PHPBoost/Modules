@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 11 03
+ * @version   	PHPBoost 5.2 - last update: 2019 11 04
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -72,10 +72,10 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed())
 			$this->build_lastcoms_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && ArticlesAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_ARTICLES)->read())
 			$this->build_articles_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && ArticlesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->read())
+		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_ARTICLES)->read())
 			$this->build_articles_cat_view();
 
 		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read())
@@ -102,10 +102,10 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && MediaAuthorizationsService::check_authorizations()->read())
 			$this->build_media_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && NewsAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read())
 			$this->build_news_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && NewsAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category())->read())
+		if ($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_NEWS)->read())
 			$this->build_news_cat_view();
 
 		// if ($this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
@@ -126,7 +126,7 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/articles-cat.tpl');
 		$articles_config = ArticlesConfig::load();
 
-		$categories_id = $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), $articles_config->are_descriptions_displayed_to_guests(), 'articles') : array($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
+		$categories_id = $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), $articles_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_ARTICLES) : array($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
 
 		$result = $this->querier->select('SELECT articles.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
 		FROM ' . ArticlesSetup::$articles_table . ' articles
@@ -143,7 +143,7 @@ class HomeLandingHomeController extends ModuleController
 			'articles_cat_limit' => $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_elements_number_displayed()
 		));
 
-		$category = CategoriesService::get_categories_manager('articles')->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
+		$category = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_ARTICLES)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category());
 		$tpl->put_all(array(
 			'ARTICLES_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
@@ -239,7 +239,7 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/news-cat.tpl');
 		$news_config = NewsConfig::load();
 
-		$categories_id = $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_subcategories_content_displayed() ? NewsService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category()) : array($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
+		$categories_id = $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), $news_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS) : array($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
 
 		$result = $this->querier->select('SELECT news.*, member.*
 		FROM ' . NewsSetup::$news_table . ' news
@@ -252,7 +252,7 @@ class HomeLandingHomeController extends ModuleController
 			'news_cat_limit' => $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_elements_number_displayed()
 		));
 
-		$category = NewsService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
+		$category = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_NEWS)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
 		$tpl->put_all(array(
 			'NEWS_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
@@ -374,7 +374,7 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/onepage.tpl');
 
 		if($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
-			$articles_cat = CategoriesService::get_categories_manager('articles')->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->get_name();
+			$articles_cat = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_ARTICLES)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->get_name();
 		else
 			$articles_cat = '';
 
@@ -384,7 +384,7 @@ class HomeLandingHomeController extends ModuleController
 			$download_cat = '';
 
 		if($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed())
-			$news_cat = NewsService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category())->get_name();
+			$news_cat = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_NEWS)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category())->get_name();
 		else
 			$news_cat = '';
 
@@ -401,8 +401,8 @@ class HomeLandingHomeController extends ModuleController
 			'C_DISPLAYED_EDITO' => $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
 			'C_DISPLAYED_CAROUSEL' => $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
 			'C_DISPLAYED_LASTCOMS' => $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
-			'C_DISPLAYED_ARTICLES' => $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && ArticlesAuthorizationsService::check_authorizations()->read(),
-			'C_DISPLAYED_ARTICLES_CAT' => $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && ArticlesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category())->read(),
+			'C_DISPLAYED_ARTICLES' => $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_ARTICLES)->read(),
+			'C_DISPLAYED_ARTICLES_CAT' => $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_ARTICLES)->read(),
 			'C_DISPLAYED_CONTACT' => $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_EVENTS' => $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CalendarAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_DOWNLOAD' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && DownloadAuthorizationsService::check_authorizations()->read(),
@@ -411,8 +411,8 @@ class HomeLandingHomeController extends ModuleController
 			'C_DISPLAYED_GALLERY' => $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && GalleryAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_GUESTBOOK' => $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed() && GuestbookAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_MEDIA' => $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && MediaAuthorizationsService::check_authorizations()->read(),
-			'C_DISPLAYED_NEWS' => $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && NewsAuthorizationsService::check_authorizations()->read(),
-			'C_DISPLAYED_NEWS_CAT' => $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && NewsAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category())->read(),
+			'C_DISPLAYED_NEWS' => $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read(),
+			'C_DISPLAYED_NEWS_CAT' => $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_NEWS)->read(),
 			'C_DISPLAYED_WEB' => $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && WebAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_WEB_CAT' => $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && WebAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read(),
 
@@ -513,7 +513,7 @@ class HomeLandingHomeController extends ModuleController
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/articles.tpl');
 		$articles_config = ArticlesConfig::load();
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $articles_config->are_descriptions_displayed_to_guests(), 'articles');
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $articles_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_ARTICLES);
 
 		$result = $this->querier->select('SELECT articles.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'articles articles
@@ -1105,8 +1105,8 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/news.tpl');
-		$authorized_categories = NewsService::get_authorized_categories(Category::ROOT_CATEGORY);
 		$news_config = NewsConfig::load();
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $news_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS);
 
 		$result = $this->querier->select('SELECT news.*, member.*, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'news news
