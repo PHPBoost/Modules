@@ -2,10 +2,11 @@
 /**
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
- * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @author        Sebastien LARTIGUE <babsolune@phpboost.com>
  * @version   	PHPBoost 5.2 - last update: 2018 12 08
- * @since   	PHPBoost 5.1 - 2018 03 15
- * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @since   	PHPBoost 5.1 - 2019 11 04
+ * @contributor  Julien BRISWALTER <j1.seth@phpboost.com>
+ * @contributor  Mipel <mipel@phpboost.com>
 */
 
 class AdminSmalladsItemsConfigController extends AdminModuleController
@@ -141,6 +142,10 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		$fieldset->add_field(new FormFieldFree('2_separator', '', ''));
 
 		$fieldset->add_field(new SmalladsFormFieldSmalladType('smallad_type', $this->lang['smallads.type.add'], $this->config->get_smallad_types()));
+            
+            $fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['smallads.default.contents'], $this->config->get_default_contents(),
+			array('rows' => 8, 'cols' => 47)
+		));
 
 		// $fieldset->add_field(new SmalladsFormFieldBrand('smallad_brand', $this->lang['smallads.brand.add'], $this->config->get_brands()));
 
