@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 11 18
+ * @version   	PHPBoost 5.2 - last update: 2019 11 07
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -13,6 +13,11 @@ class SmalladsCategoriesCache extends CategoriesCache
 	public function get_table_name()
 	{
 		return SmalladsSetup::$smallads_cats_table;
+	}
+
+	public function get_table_name_containing_items()
+	{
+		return SmalladsSetup::$smallads_table;
 	}
 
 	public function get_category_class()
