@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 11 04
+ * @version   	PHPBoost 5.2 - last update: 2019 11 11
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -182,7 +182,7 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/download-cat.tpl');
 		$download_config = DownloadConfig::load();
 
-		$categories_id = $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed() ? DownloadService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category()) : array($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category());
+		$categories_id = $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), $download_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_DOWNLOAD) : array($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category());
 
 		$result = $this->querier->select('SELECT download.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
 		FROM ' . DownloadSetup::$download_table . ' download
@@ -199,7 +199,7 @@ class HomeLandingHomeController extends ModuleController
 			'download_cat_limit' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_elements_number_displayed()
 		));
 
-		$category = DownloadService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category());
+		$category = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_DOWNLOAD)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category());
 		$tpl->put_all(array(
 			'DOWNLOAD_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
@@ -289,8 +289,9 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/web-cat.tpl');
+		$web_config = WebConfig::load();
 
-		$categories_id = $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_subcategories_content_displayed() ? WebService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category()) : array($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category());
+		$categories_id = $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category(), $web_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_WEB) : array($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category());
 
 		$result = $this->querier->select('SELECT web.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
 		FROM '. WebSetup::$web_table .' web
@@ -307,7 +308,7 @@ class HomeLandingHomeController extends ModuleController
 			'web_cat_limit' => $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_elements_number_displayed()
 		));
 
-		$category = WebService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category());
+		$category = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_WEB)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category());
 		$tpl->put_all(array(
 			'WEB_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
@@ -379,7 +380,7 @@ class HomeLandingHomeController extends ModuleController
 			$articles_cat = '';
 
 		if($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
-			$download_cat = DownloadService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->get_name();
+			$download_cat = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_DOWNLOAD)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->get_name();
 		else
 			$download_cat = '';
 
@@ -389,7 +390,7 @@ class HomeLandingHomeController extends ModuleController
 			$news_cat = '';
 
 		if($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed())
-			$web_cat = WebService::get_categories_manager()->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->get_name();
+			$web_cat = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_WEB)->get_categories_cache()->get_category($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->get_name();
 		else
 			$web_cat = '';
 
@@ -558,7 +559,7 @@ class HomeLandingHomeController extends ModuleController
 		$today->set_minutes(0);
 		$today->set_seconds(0);
 		$tpl = new FileTemplate('HomeLanding/pagecontent/events.tpl');
-		$authorized_categories = CalendarService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_CALENDAR);
 
 		$result = $this->querier->select('SELECT *
 		FROM '. PREFIX . 'calendar_events event
@@ -809,8 +810,8 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/download.tpl');
-		$authorized_categories = DownloadService::get_authorized_categories(Category::ROOT_CATEGORY);
 		$download_config = DownloadConfig::load();
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $download_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_DOWNLOAD);
 
 		$result = $this->querier->select('SELECT download.*, member.*, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'download download
@@ -850,7 +851,7 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/forum.tpl');
 		$user_accounts_config = UserAccountsConfig::load();
-		$authorized_categories = ForumService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_FORUM, 'idcat');
 
 		$result = $this->querier->select('SELECT t.id, t.idcat, t.title, member.display_name AS last_login, t.last_timestamp, t.last_user_id, t.last_msg_id, t.display_msg, t.nbr_msg AS t_nbr_msg, msg.id mid, msg.contents, t.user_id as glogin, ext_field.user_avatar
 		FROM ' . PREFIX . 'forum_topics t
@@ -900,7 +901,7 @@ class HomeLandingHomeController extends ModuleController
 	private function build_gallery_view()
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/gallery.tpl');
-		$authorized_categories = GalleryService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_GALLERY, 'idcat');
 		$gallery_config = GalleryConfig::load();
 
 		$result = $this->querier->select("SELECT
@@ -985,7 +986,7 @@ class HomeLandingHomeController extends ModuleController
 	private function build_media_view()
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/media.tpl');
-		$authorized_categories = MediaService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_MEDIA, 'idcat');
 
 		$result = $this->querier->select('SELECT media.*, mb.display_name, mb.groups, mb.level, notes.average_notes, notes.number_notes, note.note
 		FROM ' . PREFIX . 'media AS media
@@ -1144,7 +1145,8 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/web.tpl');
-		$authorized_categories = WebService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$web_config = WebConfig::load();
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $web_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_WEB);
 
 		$result = $this->querier->select('SELECT web.*, member.*, cat.rewrited_name AS rewrited_name_cat, notes.average_notes, notes.number_notes, note.note
 		FROM ' . PREFIX . 'web web

@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.3 - last update: 2019 11 04
+ * @version   	PHPBoost 5.3 - last update: 2019 11 11
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -441,7 +441,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				}'))
 			));
 
-			$fieldset_download->add_field(DownloadService::get_categories_manager()->get_select_categories_form_field('download_cat', $this->lang['admin.cat'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+			$fieldset_download->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_DOWNLOAD)->get_select_categories_form_field('download_cat', $this->lang['admin.cat'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
 				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
 			));
 
@@ -694,7 +694,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				}'))
 			));
 
-			$fieldset_web->add_field(WebService::get_categories_manager()->get_select_categories_form_field('web_cat', $this->lang['admin.cat'], $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+			$fieldset_web->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_WEB)->get_select_categories_form_field('web_cat', $this->lang['admin.cat'], $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
 				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed())
 			));
 
