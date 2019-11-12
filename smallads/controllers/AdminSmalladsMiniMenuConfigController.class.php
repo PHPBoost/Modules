@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 10 29
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -127,9 +127,8 @@ class AdminSmalladsMiniMenuConfigController extends AdminModuleController
 			$this->config->stop_mini_menu_autoplay_hover();
 		}
 
-
 		SmalladsConfig::save();
-		SmalladsService::get_categories_manager()->regenerate_cache();
+		CategoriesService::get_categories_manager()->regenerate_cache();
 		SmalladsCache::invalidate();
 	}
 }

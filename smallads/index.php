@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 02 12
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 4.0 - 2013 01 30
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -20,10 +20,10 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('AdminSmalladsUsageTermsController', '`^/admin/terms/?$`'),
 
 	//Manage categories
-	new UrlControllerMapper('SmalladsCategoriesManagerController', '`^/categories/?$`'),
-	new UrlControllerMapper('SmalladsCategoriesFormController', '`^/categories/add/?([0-9]+)?/?$`', array('id_parent')),
-	new UrlControllerMapper('SmalladsCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', array('id')),
-	new UrlControllerMapper('SmalladsDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
+	new UrlControllerMapper('DefaultCategoriesManageController', '`^/categories/?$`'),
+	new UrlControllerMapper('DefaultRichCategoriesFormController', '`^/categories/add/?([0-9]+)?/?$`', array('id_parent')),
+	new UrlControllerMapper('DefaultRichCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('DefaultDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
 
 	//Manage items
 	new UrlControllerMapper('SmalladsItemsManagerController', '`^/manage/?$`'),

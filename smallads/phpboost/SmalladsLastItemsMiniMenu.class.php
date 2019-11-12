@@ -3,8 +3,9 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 02 05
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
  class SmalladsLastItemsMiniMenu extends ModuleMiniMenu
@@ -26,7 +27,7 @@
 
  	public function is_displayed()
  	{
- 		return SmalladsAuthorizationsService::check_authorizations()->read();
+ 		return CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, 'smallads')->read();
  	}
 
  	public function get_menu_content()
@@ -39,7 +40,7 @@
 
  		//Load module caches
  		$smallads_cache = SmalladsCache::load();
- 		$categories_cache = SmalladsService::get_categories_manager()->get_categories_cache();
+ 		$categories_cache = CategoriesService::get_categories_manager('smallads')->get_categories_cache();
 
  		$smallad = $smallads_cache->get_smallad();
         $smallad_nb = SmalladsService::count('WHERE published != 0');

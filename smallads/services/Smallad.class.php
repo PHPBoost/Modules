@@ -3,9 +3,10 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 11 04
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 
 */
 
@@ -111,7 +112,7 @@ class Smallad
 
 	public function get_category()
 	{
-		return SmalladsService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+		return CategoriesService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
 	}
 
 	public function set_title($title)
@@ -424,7 +425,7 @@ class Smallad
 	public function is_published()
 	{
 		$now = new Date();
-		return SmalladsAuthorizationsService::check_authorizations($this->id_category)->read() && ($this->get_publication_state() == self::PUBLISHED_NOW || ($this->get_publication_state() == self::PUBLICATION_DATE && $this->get_publication_start_date()->is_anterior_to($now) && ($this->enabled_end_date ? $this->get_publication_end_date()->is_posterior_to($now) : true)));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->read() && ($this->get_publication_state() == self::PUBLISHED_NOW || ($this->get_publication_state() == self::PUBLICATION_DATE && $this->get_publication_start_date()->is_anterior_to($now) && ($this->enabled_end_date ? $this->get_publication_end_date()->is_posterior_to($now) : true)));
 	}
 
 	public function get_status()
@@ -534,17 +535,17 @@ class Smallad
 
 	public function is_authorized_to_add()
 	{
-		return SmalladsAuthorizationsService::check_authorizations($this->id_category)->write() || SmalladsAuthorizationsService::check_authorizations($this->id_category)->contribution();
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution();
 	}
 
 	public function is_authorized_to_edit()
 	{
-		return SmalladsAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->write() || (SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL))));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->write() || (CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL))));
 	}
 
 	public function is_authorized_to_delete()
 	{
-		return SmalladsAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->write() || (SmalladsAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && !$this->is_published())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->write() || (CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && !$this->is_published())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
 	public function get_properties()
@@ -769,7 +770,7 @@ class Smallad
 			'CATEGORY_NAME'        => $category->get_name(),
 			'CATEGORY_DESCRIPTION' => $category->get_description(),
 			'CATEGORY_IMAGE'       => $category->get_image()->rel(),
-			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : SmalladsUrlBuilder::edit_category($category->get_id())->rel(),
+			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit_category($category->get_id())->rel(),
 
 			// Links
 			'U_COMMENTS'    => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
@@ -780,7 +781,7 @@ class Smallad
 			'U_THUMBNAIL' 	=> $this->get_thumbnail()->rel(),
 			'U_EDIT_ITEM'   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
 			'U_DELETE_ITEM' => SmalladsUrlBuilder::delete_item($this->id)->rel(),
-			'U_SYNDICATION' => SmalladsUrlBuilder::category_syndication($category->get_id())->rel(),
+			'U_SYNDICATION' => SyndicationUrlBuilder::rss('smallads', $category->get_id())->rel(),
 			'U_PRINT_ITEM'  => SmalladsUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel(),
 			'U_USAGE_TERMS' => SmalladsUrlBuilder::usage_terms()->rel()
 			)

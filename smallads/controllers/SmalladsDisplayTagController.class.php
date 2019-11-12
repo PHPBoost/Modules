@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 10
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -69,7 +69,7 @@ class SmalladsDisplayTagController extends ModuleController
 	{
 		$now = new Date();
 
-		$authorized_categories = SmalladsService::get_authorized_categories(Category::ROOT_CATEGORY);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->are_descriptions_displayed_to_guests());
 
 		$condition = 'WHERE relation.id_keyword = :id_keyword
 		AND id_category IN :authorized_categories
@@ -191,7 +191,7 @@ class SmalladsDisplayTagController extends ModuleController
 
 	private function check_authorizations()
 	{
-		if (!(SmalladsAuthorizationsService::check_authorizations()->read()))
+		if (!(CategoriesAuthorizationsService::check_authorizations()->read()))
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);

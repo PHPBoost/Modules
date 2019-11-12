@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 24
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -23,7 +23,7 @@ $lang['default.smallad.contents'] = 'Cette première annonce va vous donner quel
 	<li class="formatter-li"> Pour configurer ou personnaliser votre module, rendez-vous dans la <a href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">configuration des catégories</a></li>
 	<li class="formatter-li"> Pour configurer ou personnaliser les annonces et filtres d\'affichage, rendez-vous dans la <a href="' . SmalladsUrlBuilder::items_configuration()->relative() . '">configuration des annonces</a></li>
 	<li class="formatter-li"> Pour configurer ou personnaliser les conditions générales d\'utilisation, rendez-vous dans la <a href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">configuration des CGU</a></li>
-	<li class="formatter-li"> Pour créer des catégories, <a href="' . SmalladsUrlBuilder::add_category()->relative() . '">cliquez ici</a> </li>
+	<li class="formatter-li"> Pour créer des catégories, <a href="' . CategoriesUrlBuilder::add_category('smallads')->relative() . '">cliquez ici</a> </li>
 	<li class="formatter-li"> Pour ajouter des annonces, <a href="' . SmalladsUrlBuilder::add_item()->relative() . '">cliquez ici</a></li>
 </ul>
 <ul class="formatter-ul">

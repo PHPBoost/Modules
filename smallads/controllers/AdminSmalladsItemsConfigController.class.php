@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author        Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 08
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2019 11 04
  * @contributor  Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor  Mipel <mipel@phpboost.com>
@@ -203,11 +203,11 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			$this->config->display_location();
 		else
 			$this->config->hide_location();
-		        
+		
 		$this->config->set_default_contents($this->form->get_value('default_contents'));
 
 		SmalladsConfig::save();
-		SmalladsService::get_categories_manager()->regenerate_cache();
+		CategoriesService::get_categories_manager()->regenerate_cache();
 	}
 }
 ?>

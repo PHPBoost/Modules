@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 10
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -53,7 +53,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 	{
 		if(!empty($member_items))
 		{
-			$authorized_categories = SmalladsService::get_authorized_categories($this->get_category()->get_id());
+			$authorized_categories = CategoriesService::get_authorized_categories($this->get_category()->get_id(), $this->config->are_descriptions_displayed_to_guests());
 
 			$condition = 'WHERE id_category IN :authorized_categories
 			AND smallads.author_user_id = :mbr_id
@@ -90,7 +90,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 				'C_DISPLAY_CAT_ICONS'    => $this->config->are_cat_icons_enabled(),
 				'C_NO_ITEM_AVAILABLE'    => $result->get_rows_count() == 0,
 				'C_SEVERAL_COLUMNS'      => $columns_number_displayed_per_line > 1,
-				'C_MODERATION'           => SmalladsAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
+				'C_MODERATION'           => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 				'COLUMNS_NUMBER'         => $columns_number_displayed_per_line,
 				'C_ONE_ITEM_AVAILABLE'   => $result->get_rows_count() == 1,
 				'C_TWO_ITEMS_AVAILABLE'  => $result->get_rows_count() == 2,
@@ -171,7 +171,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 			if (!empty($id))
 			{
 				try {
-					$this->category = SmalladsService::get_categories_manager()->get_categories_cache()->get_category($id);
+					$this->category = CategoriesService::get_categories_manager()->get_categories_cache()->get_category($id);
 				} catch (CategoryNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
@@ -179,7 +179,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 			}
 			else
 			{
-				$this->category = SmalladsService::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
+				$this->category = CategoriesService::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
 			}
 		}
 		return $this->category;
@@ -207,7 +207,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 	{
 		if (AppContext::get_current_user()->is_guest())
 		{
-			if (($this->config->are_descriptions_displayed_to_guests() && !Authorizations::check_auth(RANK_TYPE, User::MEMBER_LEVEL, $this->get_category()->get_authorizations(), Category::READ_AUTHORIZATIONS)) || (!$this->config->are_descriptions_displayed_to_guests() && !SmalladsAuthorizationsService::check_authorizations($this->get_category()->get_id())->read()))
+			if (($this->config->are_descriptions_displayed_to_guests() && !Authorizations::check_auth(RANK_TYPE, User::MEMBER_LEVEL, $this->get_category()->get_authorizations(), Category::READ_AUTHORIZATIONS)) || (!$this->config->are_descriptions_displayed_to_guests() && !CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->read()))
 			{
 				$error_controller = PHPBoostErrors::user_not_authorized();
 				DispatchManager::redirect($error_controller);
@@ -215,7 +215,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		}
 		else
 		{
-			if (!SmalladsAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
+			if (!CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
 			{
 				$error_controller = PHPBoostErrors::user_not_authorized();
 				DispatchManager::redirect($error_controller);
@@ -244,7 +244,7 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		$breadcrumb->add($this->lang['smallads.member.items'], SmalladsUrlBuilder::display_member_items());
 		$breadcrumb->add(AppContext::get_current_user()->get_display_name());
 
-		$categories = array_reverse(SmalladsService::get_categories_manager()->get_parents($this->category->get_id(), true));
+		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->category->get_id(), true));
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)

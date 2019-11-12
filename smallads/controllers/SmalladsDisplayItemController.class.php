@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 08
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -209,7 +209,7 @@ class SmalladsDisplayItemController extends ModuleController
 				'C_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				'TITLE' => $row['title'],
 				'THUMBNAIL' => Url::to_rel($row['thumbnail_url']),
-				'U_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], SmalladsService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel()
+				'U_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel()
 			));
 		}
 		$result->dispose();
@@ -246,7 +246,7 @@ class SmalladsDisplayItemController extends ModuleController
 				'C_' . $row['type'] . '_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				$row['type'] . '_ITEM_TITLE' => $row['title'],
 				$row['type'] . '_THUMBNAIL' => Url::to_rel($row['thumbnail_url']),
-				'U_'. $row['type'] .'_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], SmalladsService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel(),
+				'U_'. $row['type'] .'_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel(),
 			));
 		}
 		$result->dispose();
@@ -311,12 +311,12 @@ class SmalladsDisplayItemController extends ModuleController
 		$smallad = $this->get_smallad();
 
 		$current_user = AppContext::get_current_user();
-		$not_authorized = !SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->moderation() && !SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->write() && (!SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->contribution() || $smallad->get_author_user()->get_id() != $current_user->get_id());
+		$not_authorized = !CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->moderation() && !CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->write() && (!CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->contribution() || $smallad->get_author_user()->get_id() != $current_user->get_id());
 
 		switch ($smallad->get_publication_state())
 		{
 			case Smallad::PUBLISHED_NOW:
-				if (!SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->read())
+				if (!CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->read())
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
 		   			DispatchManager::redirect($error_controller);
@@ -355,7 +355,7 @@ class SmalladsDisplayItemController extends ModuleController
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
 
-		$categories = array_reverse(SmalladsService::get_categories_manager()->get_parents($this->smallad->get_id_category(), true));
+		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->smallad->get_id_category(), true));
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)

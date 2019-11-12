@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 10
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -45,49 +45,6 @@ class SmalladsUrlBuilder
 	public static function usage_terms_configuration()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/terms/');
-	}
-
-    // Categories
-
-	/**
-	 * @return Url
-	 */
-	public static function manage_categories()
-	{
-		return DispatchManager::get_url(self::$dispatcher, '/categories/');
-	}
-
-	/**
-	 * @return Url
-	 */
-	public static function category_syndication($id)
-	{
-		return SyndicationUrlBuilder::rss('smallads', $id);
-	}
-
-	/**
-	 * @return Url
-	 */
-	public static function add_category($id_parent = null)
-	{
-		$id_parent = !empty($id_parent) ? $id_parent . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/categories/add/' . $id_parent);
-	}
-
-	/**
-	 * @return Url
-	 */
-	public static function edit_category($id)
-	{
-		return DispatchManager::get_url(self::$dispatcher, '/categories/'. $id .'/edit/');
-	}
-
-	/**
-	 * @return Url
-	 */
-	public static function delete_category($id)
-	{
-		return DispatchManager::get_url(self::$dispatcher, '/categories/'. $id .'/delete/');
 	}
 
 	/**

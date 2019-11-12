@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 10
+ * @version   	PHPBoost 5.2 - last update: 2019 11 12
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -69,7 +69,7 @@ class SmalladsItemFormController extends ModuleController
 			array('required' => true)
 		));
 
-		if (SmalladsAuthorizationsService::check_authorizations($this->get_smallad()->get_id_category())->moderation())
+		if (CategoriesAuthorizationsService::check_authorizations($this->get_smallad()->get_id_category())->moderation())
 		{
 			$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_title', $this->common_lang['form.rewrited_name.personalize'], $this->get_smallad()->rewrited_title_is_personalized(),
 				array('events' => array('click' =>'
@@ -92,12 +92,12 @@ class SmalladsItemFormController extends ModuleController
 			array('required' => true)
 		));
 
-		if (SmalladsService::get_categories_manager()->get_categories_cache()->has_categories())
+		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 		{
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(SmalladsService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['smallads.category'], $this->get_smallad()->get_id_category(), $search_category_children_options,
+			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['smallads.category'], $this->get_smallad()->get_id_category(), $search_category_children_options,
 				array('description' => $this->lang['smallads.select.category'])
 			));
 		}
@@ -286,7 +286,7 @@ class SmalladsItemFormController extends ModuleController
 			)));
 		}
 
-		if (SmalladsAuthorizationsService::check_authorizations($this->get_smallad()->get_id_category())->moderation())
+		if (CategoriesAuthorizationsService::check_authorizations($this->get_smallad()->get_id_category())->moderation())
 		{
 			$publication_fieldset = new FormFieldsetHTML('publication', $this->common_lang['form.approbation']);
 			$form->add_fieldset($publication_fieldset);
@@ -414,7 +414,7 @@ class SmalladsItemFormController extends ModuleController
 
 	private function is_contributor_member()
 	{
-		return (!SmalladsAuthorizationsService::check_authorizations()->write() && SmalladsAuthorizationsService::check_authorizations()->contribution());
+		return (!CategoriesAuthorizationsService::check_authorizations()->write() && CategoriesAuthorizationsService::check_authorizations()->contribution());
 	}
 
 	private function get_smallad()
@@ -530,7 +530,7 @@ class SmalladsItemFormController extends ModuleController
 
 		$smallad->set_title($this->form->get_value('title'));
 
-		if (SmalladsService::get_categories_manager()->get_categories_cache()->has_categories())
+		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 			$smallad->set_id_category($this->form->get_value('id_category')->get_raw_value());
 
 		$smallad->set_description(($this->form->get_value('enable_description') ? $this->form->get_value('description') : ''));
@@ -594,7 +594,7 @@ class SmalladsItemFormController extends ModuleController
 		if($this->get_smallad()->get_id() !== null)
 			$smallad->set_completed($this->form->get_value('completed'));
 
-		if (!SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->moderation())
+		if (!CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->moderation())
 		{
 			if ($smallad->get_id() === null)
 				$smallad->set_creation_date(new Date());
@@ -602,7 +602,7 @@ class SmalladsItemFormController extends ModuleController
 			$smallad->set_rewrited_title(Url::encode_rewrite($smallad->get_title()));
 			$smallad->clean_publication_start_and_end_date();
 
-			if (SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->contribution() && !SmalladsAuthorizationsService::check_authorizations($smallad->get_id_category())->write())
+			if (CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->contribution() && !CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->write())
 				$smallad->set_publication_state(Smallad::NOT_PUBLISHED);
 		}
 		else
@@ -708,7 +708,7 @@ class SmalladsItemFormController extends ModuleController
 			$contribution->set_module('smallads');
 			$contribution->set_auth(
 				Authorizations::capture_and_shift_bit_auth(
-					SmalladsService::get_categories_manager()->get_heritated_authorizations($smallad->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
+					CategoriesService::get_categories_manager()->get_heritated_authorizations($smallad->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
 					Category::MODERATION_AUTHORIZATIONS, Contribution::CONTRIBUTION_AUTH_BIT
 				)
 			);
@@ -775,7 +775,7 @@ class SmalladsItemFormController extends ModuleController
 		}
 		else
 		{
-			$categories = array_reverse(SmalladsService::get_categories_manager()->get_parents($smallad->get_id_category(), true));
+			$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($smallad->get_id_category(), true));
 			foreach ($categories as $id => $category)
 			{
 				if ($category->get_id() != Category::ROOT_CATEGORY)
