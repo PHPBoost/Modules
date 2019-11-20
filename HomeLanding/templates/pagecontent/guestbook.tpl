@@ -1,5 +1,5 @@
 
-<article id="guestbook" style="order: {GUESTBOOK_POSITION}; -webkit-order: {GUESTBOOK_POSITION}; -ms-flex-order: {GUESTBOOK_POSITION}">
+<article id="guestbook" style="order: {GUESTBOOK_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.guestbook', 'common', 'HomeLanding')}
@@ -29,8 +29,8 @@
 					{item.PSEUDO}
 					# ENDIF #
 				</p>
-				<p><i class="fa fa-fw fa-clock-o"></i> {item.DATE}</p>
-				<p><i class="fa fa-hand-o-right"></i> <a href="{item.U_ANCHOR}">${Langloader::get_message('guestbook.user.message', 'common', 'HomeLanding')}</a></p>
+				<p><i class="fa fa-fw fa-clock"></i> {item.DATE}</p>
+				<p><i class="fa fa-hand-point-right"></i> <a href="{item.U_ANCHOR}">${Langloader::get_message('guestbook.user.message', 'common', 'HomeLanding')}</a></p>
 			</div>
 
 			<p class="item-desc">

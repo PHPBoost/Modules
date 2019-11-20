@@ -1,5 +1,5 @@
 
-<article id="web-cat" style="order: {WEB_CAT_POSITION}; -webkit-order: {WEB_CAT_POSITION}; -ms-flex-order: {WEB_CAT_POSITION}">
+<article id="web-cat" style="order: {WEB_CAT_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.web.cat', 'common', 'HomeLanding')} {CATEGORY_NAME}

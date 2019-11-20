@@ -1,5 +1,5 @@
 
-<article id="news-cat" style="order: {NEWS_CAT_POSITION}; -webkit-order: {NEWS_CAT_POSITION}; -ms-flex-order: {NEWS_CAT_POSITION}">
+<article id="news-cat" style="order: {NEWS_CAT_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.news.cat', 'common', 'HomeLanding')} {CATEGORY_NAME}
@@ -39,7 +39,7 @@
 				# IF item.C_AUTHOR_DISPLAYED #
 				<i class="fa fa-user"></i> # IF item.C_AUTHOR_EXIST #<a itemprop="author" class="{item.USER_LEVEL_CLASS}" href="{item.U_AUTHOR_PROFILE}"# IF item.C_USER_GROUP_COLOR # style="{item.USER_GROUP_COLOR}"# ENDIF #>{item.PSEUDO}</a># ELSE #{item.PSEUDO}# ENDIF # -
 				# ENDIF #
-				<i class="fa fa-clock-o"></i> <time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE_DAY}/{item.DATE_MONTH}/{item.DATE_YEAR}</time>
+				<i class="fa fa-clock"></i> <time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE_DAY}/{item.DATE_MONTH}/{item.DATE_YEAR}</time>
 				# IF item.C_NB_VIEW_ENABLED #- <span aria-label="{item.NUMBER_VIEW} ${LangLoader::get_message('news.view', 'common', 'news')}"><i class="fa fa-eye" aria-hidden="true"></i> {item.NUMBER_VIEW}</span># ENDIF #
 			</div>
 

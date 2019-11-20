@@ -1,5 +1,5 @@
 
-<article id="forum" style="order: {FORUM_POSITION}; -webkit-order: {FORUM_POSITION}; -ms-flex-order: {FORUM_POSITION}">
+<article id="forum" style="order: {FORUM_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.forum.messages', 'common', 'HomeLanding')}
@@ -18,8 +18,8 @@
 
 			<div class="more">
 				<p><i class="fa fa-fw fa-user"></i> {item.PSEUDO}</p>
-				<p><i class="fa fa-fw fa-clock-o"></i> {item.DATE}</p>
-				<p><i class="fa fa-fw fa-file-o"></i>  <span class="color-topic"><a href="{item.U_MESSAGE}">{item.MESSAGE}</a></span></p>
+				<p><i class="fa fa-fw fa-clock"></i> {item.DATE}</p>
+				<p><i class="fa fa-fw fa-file"></i>  <span class="color-topic"><a href="{item.U_MESSAGE}">{item.MESSAGE}</a></span></p>
 			</div>
 
 			<p class="item-desc">

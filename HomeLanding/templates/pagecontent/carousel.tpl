@@ -1,5 +1,5 @@
 
-<div id="pbt-slider" style="order: {CAROUSEL_POSITION}; -webkit-order: {CAROUSEL_POSITION}; -ms-flex-order: {CAROUSEL_POSITION}">
+<div id="pbt-slider" style="order: {CAROUSEL_POSITION};">
 	<ul class="slides">
 		# START item #
 		<li class="slide"# IF C_CAROUSEL_CROPPED # style="padding-bottom: calc(100% / {NB_DOTS} / 2); background-image: url({item.PICTURE_URL})"# ENDIF #>

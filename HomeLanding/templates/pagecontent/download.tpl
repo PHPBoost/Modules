@@ -1,5 +1,5 @@
 
-<article id="download" style="order: {DOWNLOAD_POSITION}; -webkit-order: {DOWNLOAD_POSITION}; -ms-flex-order: {DOWNLOAD_POSITION}">
+<article id="download" style="order: {DOWNLOAD_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.download', 'common', 'HomeLanding')}
@@ -15,7 +15,7 @@
 			<thead>
 				<tr>
 					<th>${LangLoader::get_message('form.name', 'common')}</th>
-					<th class="col-small"><i class="fa fa-fw fa-clock-o"></i></th>
+					<th class="col-small"><i class="fa fa-fw fa-clock"></i></th>
 					<th class="col-small"><i class="fa fa-fw fa-eye"></i></th>
 					<th class="col-small"><i class="fa fa-fw fa-download"></i></th>
 				</tr>

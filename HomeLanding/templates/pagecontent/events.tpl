@@ -1,5 +1,5 @@
 
-<article id="events" style="order: {CALENDAR_POSITION}; -webkit-order: {CALENDAR_POSITION}; -ms-flex-order: {CALENDAR_POSITION}">
+<article id="events" style="order: {CALENDAR_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('next.events', 'common', 'HomeLanding')}

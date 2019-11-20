@@ -1,5 +1,5 @@
 
-<article id="news" style="order: {NEWS_POSITION}; -webkit-order: {NEWS_POSITION}; -ms-flex-order: {NEWS_POSITION}">
+<article id="news" style="order: {NEWS_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.news', 'common', 'HomeLanding')}

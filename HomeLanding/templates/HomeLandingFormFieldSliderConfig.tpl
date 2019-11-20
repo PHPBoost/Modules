@@ -22,7 +22,7 @@ HomeLandingFormFieldSliderConfig.prototype = {
 			jQuery('<input/> ', {type : 'text', id : 'field_picture_url_' + id, name : 'field_picture_url_' + id, class : 'slider-url', placeholder : ${escapejs(@admin.form.picture.url)}}).appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
-			jQuery('<a/> ', {href : '', 'aria-label' : ${escapejs(@admin.form.upload)}, onclick : "window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_" + id + "&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;"}).html('<i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i>').appendTo('#' + id);
+			jQuery('<a/> ', {href : '', 'aria-label' : ${escapejs(@admin.form.upload)}, onclick : "window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_" + id + "&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;"}).html('<i class="fa fa-cloud-upload-alt fa-2x" aria-hidden="true"></i>').appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
 			jQuery('<a/> ', {href : 'javascript:HomeLandingFormFieldSliderConfig.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(@admin.form.del)}}).html('<i class="fa fa-delete" aria-hidden="true"></i>').appendTo('#' + id);
@@ -53,7 +53,7 @@ var HomeLandingFormFieldSliderConfig = new HomeLandingFormFieldSliderConfig();
 		<textarea name="field_description_${escape(ID)}_{fieldelements.ID}" id="field_description_${escape(ID)}_{fieldelements.ID}" class="slider-description" placeholder="{@admin.form.description}">{fieldelements.DESCRIPTION}</textarea>
 		<input type="text" name="field_link_${escape(ID)}_{fieldelements.ID}" id="field_link_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.LINK}" placeholder="{@admin.form.link.url}" class="slider-url"/>
 		<input type="text" name="field_picture_url_${escape(ID)}_{fieldelements.ID}" id="field_picture_url_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.PICTURE_URL}" placeholder="{@admin.form.picture.url}" class="slider-url"/>
-		<a aria-label="{@admin.form.upload}" href="" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;" aria-label="{@admin.form.upload}"><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></a>
+		<a aria-label="{@admin.form.upload}" href="" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;" aria-label="{@admin.form.upload}"><i class="fa fa-cloud-upload-alt fa-2x" aria-hidden="true"></i></a>
 		<a href="javascript:HomeLandingFormFieldSliderConfig.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@admin.form.del}"><i class="fa fa-delete" aria-hidden="true"></i></a>
 		<div class="spacer"></div>
 	</div>

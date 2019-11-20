@@ -1,5 +1,5 @@
 <section id="module-homelanding">
-	<header style="order: 1; -webkit-order: 1; -ms-flex-order: 1">
+	<header style="order: 1;">
 		<h1>{MODULE_TITLE}</h1>
 	</header>
 
@@ -8,7 +8,7 @@
 	# INCLUDE CAROUSEL #
 
 	# IF C_EDITO_ENABLED #
-		<div id="edito" class="content" style="order: {EDITO_POSITION}; -webkit-order: {EDITO_POSITION}; -ms-flex-order: {EDITO_POSITION}">
+		<div id="edito" class="content" style="order: {EDITO_POSITION};">
 			{EDITO}
 			<div class="spacer"></div>
 		</div>
@@ -57,5 +57,5 @@
 
 	# INCLUDE  WEB_CAT #
 
-	<footer style="order: 9999; -webkit-order: 9999; -ms-flex-order: 9999"></footer>
+	<footer style="order: 9999;"></footer>
 </section>

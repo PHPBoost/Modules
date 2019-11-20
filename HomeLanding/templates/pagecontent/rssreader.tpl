@@ -1,5 +1,5 @@
 
-<article id="rssreader" style="order: {RSS_POSITION}; -webkit-order: {RSS_POSITION}; -ms-flex-order: {RSS_POSITION}">
+<article id="rssreader" style="order: {RSS_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('link.to.rss.site', 'common', 'HomeLanding')}
@@ -14,7 +14,7 @@
 
 			<li>
 				<a href="{rssreader.LINK_FEED}" target="_blank">
-					<i class="fa fa-hand-o-right"></i>
+					<i class="fa fa-hand-point-right"></i>
 						{rssreader.TITLE_FEED}
 				</a> - <span class="small">{rssreader.DATE_FEED}</span>
 				<p>

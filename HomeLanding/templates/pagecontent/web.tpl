@@ -1,5 +1,5 @@
 
-<article id="web" style="order: {WEB_POSITION}; -webkit-order: {WEB_POSITION}; -ms-flex-order: {WEB_POSITION}">
+<article id="web" style="order: {WEB_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.web', 'common', 'HomeLanding')}

@@ -1,5 +1,5 @@
 
-<article id="download-cat" style="order: {DOWNLOAD_CAT_POSITION}; -webkit-order: {DOWNLOAD_CAT_POSITION}; -ms-flex-order: {DOWNLOAD_CAT_POSITION}">
+<article id="download-cat" style="order: {DOWNLOAD_CAT_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.download.cat', 'common', 'HomeLanding')} {CATEGORY_NAME}
@@ -15,7 +15,7 @@
 			<thead>
 				<tr>
 					<th>${LangLoader::get_message('form.name', 'common')}</th>
-					<th class="col-small"><i class="fa fa-fw fa-clock-o"></i></th>
+					<th class="col-small"><i class="fa fa-fw fa-clock"></i></th>
 					<th class="col-small"><i class="fa fa-fw fa-eye"></i></th>
 					<th class="col-small"><i class="fa fa-fw fa-download"></i></th>
 				</tr>
@@ -67,7 +67,7 @@
 
 				<div class="more">
 					<i class="fa fa-user"></i> # IF item.C_AUTHOR_EXIST #<a itemprop="author" rel="author" class="{item.USER_LEVEL_CLASS}" href="{item.U_AUTHOR_PROFILE}"# IF item.C_USER_GROUP_COLOR # style="{item.USER_GROUP_COLOR}"# ENDIF #>{item.PSEUDO}</a># ELSE #{item.PSEUDO}# ENDIF # -
-					<i class="fa fa-clock-o"></i> {item.DATE} - <i class="fa fa-download"></i> {item.NUMBER_DOWNLOADS}
+					<i class="fa fa-clock"></i> {item.DATE} - <i class="fa fa-download"></i> {item.NUMBER_DOWNLOADS}
 				</div>
 
 				# IF item.C_PICTURE #

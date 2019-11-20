@@ -1,5 +1,5 @@
 
-<article id="lastcoms" style="order: {LASTCOMS_POSITION}; -webkit-order: {LASTCOMS_POSITION}; -ms-flex-order: {LASTCOMS_POSITION}">
+<article id="lastcoms" style="order: {LASTCOMS_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.comments', 'common', 'HomeLanding')}
@@ -22,11 +22,11 @@
 							{item.PSEUDO}
 						# ENDIF #
 					</p>
-					<p><i class="fa fa-fw fa-clock-o"></i> {item.DATE}</p>
+					<p><i class="fa fa-fw fa-clock"></i> {item.DATE}</p>
 					<p><i class="fa fa-fw fa-cube"></i> <a href="{item.ARTICLE}">{item.MODULE_NAME}</a></p>
 				</div>
 				<p class="item-desc">
-					<a href="{item.U_LINK}" aria-label="${LangLoader::get_message('read-more', 'common')}"><i class="fa fa-hand-o-right" aria-hidden="true"></i> </a>{item.CONTENTS}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+					<a href="{item.U_LINK}" aria-label="${LangLoader::get_message('read-more', 'common')}"><i class="fa fa-hand-point-right" aria-hidden="true"></i> </a>{item.CONTENTS}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 				</p>
 			</div>
 		# END item #

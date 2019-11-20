@@ -1,5 +1,5 @@
 
-<article id="gallery" style="order: {GALLERY_POSITION}; -webkit-order: {GALLERY_POSITION}; -ms-flex-order: {GALLERY_POSITION}">
+<article id="gallery" style="order: {GALLERY_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.gallery', 'common', 'HomeLanding')}

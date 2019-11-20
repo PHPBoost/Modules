@@ -1,5 +1,5 @@
 
-<article id="contact" style="order: {CONTACT_POSITION}; -webkit-order: {CONTACT_POSITION}; -ms-flex-order: {CONTACT_POSITION}">
+<article id="contact" style="order: {CONTACT_POSITION};">
 	<header>
 		<span class="actions">
 			<a href="{PATH_TO_ROOT}/contact">

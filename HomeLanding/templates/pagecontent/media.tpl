@@ -1,5 +1,5 @@
 
-<article id="media" style="order: {MEDIA_POSITION}; -webkit-order: {MEDIA_POSITION}; -ms-flex-order: {MEDIA_POSITION}">
+<article id="media" style="order: {MEDIA_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('last.media', 'common', 'HomeLanding')}
