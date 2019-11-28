@@ -745,7 +745,7 @@ class Smallad
 			'TITLE'              	=> $this->get_title(),
 			'STATUS'             	=> $this->get_status(),
 			'L_COMMENTS'         	=> CommentsService::get_number_and_lang_comments('smallads', $this->get_id()),
-			'COMMENTS_NUMBER'    	=> CommentsService::get_number_comments('smallads', $this->get_id()),
+			'COMMENTS_NUMBER'    	=> CommentsService::get_comments_number('smallads', $this->get_id()),
 			'VIEWS_NUMBER'       	=> $this->get_views_number(),
 			'C_AUTHOR_EXIST'     	=> $user->get_id() !== User::VISITOR_LEVEL,
 			'AUTHOR_EMAIL'       	=> $user->get_email(),

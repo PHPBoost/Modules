@@ -1,7 +1,7 @@
 <section id="smallads-module">
 	<header>
 		<div class="cat-actions">
-			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-syndication" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
+			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-rss" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
 			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
@@ -14,7 +14,7 @@
 			# IF NOT C_ROOT_CATEGORY #
 				# IF C_DISPLAY_CAT_ICONS #
 					# IF C_CATEGORY_IMAGE #
-						<img class="thumbnail-item" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" aria-label="{CATEGORY_NAME}" />
+						<img class="item-thumbnail" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" aria-label="{CATEGORY_NAME}" />
 					# ENDIF #
 				# ENDIF #
 			# ENDIF #
@@ -193,7 +193,7 @@
 										# ENDIF #
 									# ENDIF #
 										# IF items.C_DELETE #
-											<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+											<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
 										# ENDIF #
 								</td>
 							# ENDIF #
@@ -217,7 +217,7 @@
 							<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
 							# ENDIF #
 							# IF items.C_DELETE #
-							<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-delete" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+							<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
 							# ENDIF #
 						</div>
 						<div class="more">
@@ -265,7 +265,7 @@
 						<meta itemprop="discussionUrl" content="{items.U_COMMENTS}">
 						<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
 
-						<a href="{items.U_ITEM}" aria-label="{items.TITLE}" class="thumbnail-item">
+						<a href="{items.U_ITEM}" aria-label="{items.TITLE}" class="item-thumbnail">
 							<img itemprop="thumbnailUrl" src="# IF items.C_HAS_THUMBNAIL #{items.U_THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #" alt="{items.TITLE}" />
 						</a>
 
