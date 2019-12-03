@@ -45,10 +45,6 @@ $lang['config.categories.title'] = 'Categories configuration';
 $lang['config.cats.icon.display'] = 'Categories icon display';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
 $lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'s description';
-$lang['config.display.type'] = 'Display type';
-$lang['config.mosaic.type.display'] = 'Mosaic';
-$lang['config.list.type.display'] = 'List';
-$lang['config.table.type.display'] = 'Table';
 $lang['config.display.descriptions.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
 $lang['smallads.default.contents'] = 'Smallads default content';
 

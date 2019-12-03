@@ -110,9 +110,9 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'CATEGORY_IMAGE'         => $category_image,
 
 			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
-			'C_MOSAIC'               => $this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY,
-			'C_LIST'                 => $this->config->get_display_type() == SmalladsConfig::LIST_DISPLAY,
-			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
+			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
+			'C_DISPLAY_LIST_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_LIST_VIEW,
+			'C_DISPLAY_TABLE_VIEW'   => $this->config->get_display_type() == SmalladsConfig::DISPLAY_TABLE_VIEW,
 			'C_LOCATION'			 => $this->config->is_location_displayed(),
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
 			'C_DISPLAY_CAT_ICONS'    => $this->config->are_cat_icons_enabled(),

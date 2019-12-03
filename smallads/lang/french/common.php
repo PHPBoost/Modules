@@ -45,10 +45,6 @@ $lang['config.categories.title'] = 'Configuration des catégories';
 $lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['config.sort.filter.display'] = 'Afficher les filtres de tri';
 $lang['config.characters.number.to.cut'] = 'Nombre de caractères pour couper le condensé de l\'annonce';
-$lang['config.display.type'] = 'Type d\'affichage des annonces';
-$lang['config.mosaic.type.display'] = 'Mosaïque';
-$lang['config.list.type.display'] = 'Liste';
-$lang['config.table.type.display'] = 'Tableau';
 $lang['config.display.descriptions.to.guests'] = 'Afficher le condensé des annonces aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
 $lang['smallads.default.contents'] = 'Contenu par défaut d\'une petite annonce';
 

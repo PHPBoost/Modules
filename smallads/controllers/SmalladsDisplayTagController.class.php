@@ -95,19 +95,18 @@ class SmalladsDisplayTagController extends ModuleController
 		$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
 
 		$this->view->put_all(array(
-
 			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
 			'C_ITEMS'                => $result->get_rows_count() > 0,
 			'C_TAG'					 => true,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
 			'C_NO_ITEM_AVAILABLE'    => $result->get_rows_count() == 0,
-			'C_MOSAIC'               => $this->config->get_display_type() == SmalladsConfig::MOSAIC_DISPLAY,
-			'C_LIST'                 => $this->config->get_display_type() == SmalladsConfig::LIST_DISPLAY,
-			'C_TABLE'                => $this->config->get_display_type() == SmalladsConfig::TABLE_DISPLAY,
+			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
+			'C_DISPLAY_LIST_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_LIST_VIEW,
+			'C_DISPLAY_TABLE_VIEW'   => $this->config->get_display_type() == SmalladsConfig::DISPLAY_TABLE_VIEW,
 			'C_ITEMS_CAT'            => false,
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
 			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
-			
+
 			'CATEGORY_NAME'          => $this->get_keyword()->get_name(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
 			'C_SEVERAL_COLUMNS'      => $columns_number_displayed_per_line > 1,

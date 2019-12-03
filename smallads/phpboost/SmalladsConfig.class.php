@@ -17,9 +17,9 @@ class SmalladsConfig extends AbstractConfigData
 	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
 	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
 	const DISPLAY_TYPE = 'display_type';
-	const MOSAIC_DISPLAY = 'mosaic';
-	const LIST_DISPLAY = 'list';
-	const TABLE_DISPLAY = 'table';
+	const DISPLAY_GRID_VIEW = 'grid';
+	const DISPLAY_LIST_VIEW = 'list';
+	const DISPLAY_TABLE_VIEW = 'table';
 	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
 	const DISPLAYED_COLS_NUMBER_PER_LINE = 'displayed_cols_number_per_line';
 	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'descriptions_displayed_to_guests';
@@ -178,12 +178,12 @@ class SmalladsConfig extends AbstractConfigData
 	{
 		$this->set_property(self::SMALLAD_TYPES, $smallad_types);
 	}
-    
+
     public function get_default_contents()
 	{
 		return $this->get_property(self::DEFAULT_CONTENTS);
 	}
-    
+
 	public function set_default_contents($value)
 	{
 		$this->set_property(self::DEFAULT_CONTENTS, $value);
@@ -449,7 +449,7 @@ class SmalladsConfig extends AbstractConfigData
 			self::ENABLED_SORT_FILTERS => true,
 			self::ENABLED_CATS_ICON => false,
 			self::ITEMS_NUMBER_PER_PAGE => 10,
-			self::DISPLAY_TYPE => self::MOSAIC_DISPLAY,
+			self::DISPLAY_TYPE => self::DISPLAY_GRID_VIEW,
 			self::CHARACTERS_NUMBER_TO_CUT => 128,
 			self::DISPLAYED_COLS_NUMBER_PER_LINE => 2,
 			self::DESCRIPTIONS_DISPLAYED_TO_GUESTS => false,
