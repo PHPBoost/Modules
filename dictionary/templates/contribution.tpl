@@ -4,9 +4,9 @@
 	</header>
 	<article>
 		<div class="content">
-			<div class="message-helper success">{L_CONTRIBUTION_SUCCESS}</div>
+			<div class="message-helper bgc success">{L_CONTRIBUTION_SUCCESS}</div>
 			{L_CONTRIBUTION_CONFIRMATION_EXPLAIN}
 		</div>
-	</article>	
+	</article>
 	<footer></footer>
 </section>
