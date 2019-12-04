@@ -1,96 +1,94 @@
 <script>
-<!--
-var Servers = function(id){
-	this.id = id;
-};
+	var Servers = function(id){
+		this.id = id;
+	};
 
-Servers.prototype = {
-	init_sortable : function() {
-		jQuery("ul#servers_list").sortable({
-			handle: '.sortable-selector',
-			placeholder: '<div class="dropzone">' + ${escapejs(LangLoader::get_message('position.drop_here', 'common'))} + '</div>'
-		});
-	},
-	serialize_sortable : function() {
-		jQuery('#tree').val(JSON.stringify(this.get_sortable_sequence()));
-	},
-	get_sortable_sequence : function() {
-		var sequence = jQuery("ul#servers_list").sortable("serialize").get();
-		return sequence[0];
-	},
-	change_reposition_pictures : function() {
-		sequence = this.get_sortable_sequence();
-		var length = sequence.length;
-		for(var i = 0; i < length; i++)
-		{
-			if (jQuery('#list-' + sequence[i].id).is(':first-child'))
-				jQuery("#move-up-" + sequence[i].id).hide();
-			else
-				jQuery("#move-up-" + sequence[i].id).show();
+	Servers.prototype = {
+		init_sortable : function() {
+			jQuery("ul#servers_list").sortable({
+				handle: '.sortable-selector',
+				placeholder: '<div class="dropzone">' + ${escapejs(LangLoader::get_message('position.drop_here', 'common'))} + '</div>'
+			});
+		},
+		serialize_sortable : function() {
+			jQuery('#tree').val(JSON.stringify(this.get_sortable_sequence()));
+		},
+		get_sortable_sequence : function() {
+			var sequence = jQuery("ul#servers_list").sortable("serialize").get();
+			return sequence[0];
+		},
+		change_reposition_pictures : function() {
+			sequence = this.get_sortable_sequence();
+			var length = sequence.length;
+			for(var i = 0; i < length; i++)
+			{
+				if (jQuery('#list-' + sequence[i].id).is(':first-child'))
+					jQuery("#move-up-" + sequence[i].id).hide();
+				else
+					jQuery("#move-up-" + sequence[i].id).show();
 
-			if (jQuery('#list-' + sequence[i].id).is(':last-child'))
-				jQuery("#move-down-" + sequence[i].id).hide();
-			else
-				jQuery("#move-down-" + sequence[i].id).show();
+				if (jQuery('#list-' + sequence[i].id).is(':last-child'))
+					jQuery("#move-down-" + sequence[i].id).hide();
+				else
+					jQuery("#move-down-" + sequence[i].id).show();
+			}
 		}
-	}
-};
+	};
 
-var Server = function(id, servers){
-	this.id = id;
-	this.Servers = servers;
+	var Server = function(id, servers){
+		this.id = id;
+		this.Servers = servers;
 
-	# IF C_MORE_THAN_ONE_SERVER #
-	this.Servers.change_reposition_pictures();
-	# ENDIF #
-};
+		# IF C_MORE_THAN_ONE_SERVER #
+		this.Servers.change_reposition_pictures();
+		# ENDIF #
+	};
 
-Server.prototype = {
-	delete : function() {
-		if (confirm(${escapejs(LangLoader::get_message('confirm.delete', 'status-messages-common'))}))
-		{
+	Server.prototype = {
+		delete : function() {
+			if (confirm(${escapejs(LangLoader::get_message('confirm.delete', 'status-messages-common'))}))
+			{
+				jQuery.ajax({
+					url: '${relative_url(ServerStatusUrlBuilder::delete_server())}',
+					type: "post",
+					dataType: "json",
+					data: {'id' : this.id, 'token' : '{TOKEN}'},
+					success: function(returnData){
+						if (returnData.code > 0) {
+							jQuery("#list-" + returnData.code).remove();
+							Servers.init_sortable();
+						}
+					}
+				});
+			}
+		},
+		change_display : function() {
+			jQuery("#change-display-" + this.id).html('<i class="fa fa-spin fa-spinner"></i>');
 			jQuery.ajax({
-				url: '${relative_url(ServerStatusUrlBuilder::delete_server())}',
+				url: '${relative_url(ServerStatusUrlBuilder::change_display())}',
 				type: "post",
 				dataType: "json",
 				data: {'id' : this.id, 'token' : '{TOKEN}'},
 				success: function(returnData){
-					if (returnData.code > 0) {
-						jQuery("#list-" + returnData.code).remove();
-						Servers.init_sortable();
+					if (returnData.id > 0) {
+						if (returnData.display) {
+							jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye"></i>');
+						} else {
+							jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye-slash"></i>');
+						}
 					}
 				}
 			});
 		}
-	},
-	change_display : function() {
-		jQuery("#change-display-" + this.id).html('<i class="fa fa-spin fa-spinner"></i>');
-		jQuery.ajax({
-			url: '${relative_url(ServerStatusUrlBuilder::change_display())}',
-			type: "post",
-			dataType: "json",
-			data: {'id' : this.id, 'token' : '{TOKEN}'},
-			success: function(returnData){
-				if (returnData.id > 0) {
-					if (returnData.display) {
-						jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye"></i>');
-					} else {
-						jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye-slash"></i>');
-					}
-				}
-			}
-		});
-	}
-};
+	};
 
-var Servers = new Servers('servers_list');
-jQuery(document).ready(function() {
-	Servers.init_sortable();
-	jQuery('li.sortable-element').on('mouseout',function(){
-		Servers.change_reposition_pictures();
+	var Servers = new Servers('servers_list');
+	jQuery(document).ready(function() {
+		Servers.init_sortable();
+		jQuery('li.sortable-element').on('mouseout',function(){
+			Servers.change_reposition_pictures();
+		});
 	});
-});
--->
 </script>
 # INCLUDE MSG #
 <form action="{REWRITED_SCRIPT}" method="post" onsubmit="Servers.serialize_sortable();">
@@ -106,8 +104,8 @@ jQuery(document).ready(function() {
 					</div>
 					<div class="sortable-actions">
 						# IF C_MORE_THAN_ONE_SERVER #
-						<a href="" aria-label="{@admin.config.servers.move_up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-						<a href="" aria-label="{@admin.config.servers.move_down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+							<a href="" aria-label="{@admin.config.servers.move_up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+							<a href="" aria-label="{@admin.config.servers.move_down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
 						# ENDIF #
 						<a href="{servers.U_EDIT}" aria-label="{@admin.config.servers.action.edit_server}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 						<a href="" onclick="return false;" aria-label="{@admin.config.servers.delete_server}" id="delete-{servers.ID}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
@@ -152,8 +150,8 @@ jQuery(document).ready(function() {
 	<fieldset class="fieldset-submit">
 		<input type="hidden" name="token" value="{TOKEN}">
 		# IF C_MORE_THAN_ONE_SERVER #
-		<button type="submit" name="submit" value="true">{@admin.config.servers.update_fields_position}</button>
-		<input type="hidden" name="tree" id="tree" value="">
+			<button type="submit" name="submit" value="true">{@admin.config.servers.update_fields_position}</button>
+			<input type="hidden" name="tree" id="tree" value="">
 		# ENDIF #
 		# IF C_SERVERS #<button type="submit" name="regenerate_status" value="true">{@admin.config.servers.status_refresh}</button># ENDIF #
 	</fieldset>

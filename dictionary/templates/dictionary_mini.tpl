@@ -1,2 +1,6 @@
-<p class="center">{RANDOM_NAME}</p>
-<a href="{URL}" class="small">{RANDOM_DEF}</a>
+<div class="cell-body">
+    <div class="cell-content center text-strong"><a href="{URL}">{RANDOM_NAME}</a></div>
+    <div class="cell-content">
+        {RANDOM_DEF} <a href="{URL}">${LangLoader::get_message('read-more', 'common')}</a>
+    </div>
+</div>

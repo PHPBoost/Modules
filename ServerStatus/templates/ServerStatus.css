@@ -1,7 +1,4 @@
-table.servers-mini tbody tr td {
-	background-color: #FFFFFF;
-	border: none;
-}
-
-.status-picture { width: 15%; }
-.very-small { font-size: 9px; }
+/*
+* Copy this file in your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/

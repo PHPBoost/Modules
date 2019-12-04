@@ -1,17 +1,20 @@
-	<tr>
-		<td class="no-separator" style="padding:10px"># IF C_ICON #<img src="{ICON}" alt="{NAME}" /># ENDIF #</td>
-		<td id="{ANCHOR}" class="no-separator">
-			<span class="biggest">{NAME}</span>
-			# IF C_ADDRESS_DISPLAYED #
-			<br />
+<li class="li-stretch">
+	# IF C_ICON #<img src="{ICON}" alt="{NAME}" /># ELSE #<span></span># ENDIF #
+	<div id="{ANCHOR}">
+		<h2 class="biggest">{NAME}</h2>
+		# IF C_ADDRESS_DISPLAYED #
 			<span class="smaller">{ADDRESS}:{PORT}</span>
-			# ENDIF #
-			# IF C_DESCRIPTION #
-			<div class="spacer">&nbsp;</div>
-			{DESCRIPTION}
-			# ENDIF #
-		</td>
-		<td class="no-separator">
-			# IF C_ONLINE #<img src="{PATH_TO_ROOT}/ServerStatus/templates/images/online.png" alt="{@server.online}" /># ELSE #<img src="{PATH_TO_ROOT}/ServerStatus/templates/images/offline.png" alt="{@server.offline}" /># ENDIF #
-		</td>
-	</tr>
+		# ENDIF #
+	</div>
+	# IF C_ONLINE #
+		<span aria-label="{@server.online}"></span><i class="fa fa-signal fa-2x success" aria-hidden></i>
+	# ELSE #
+		<span aria-label="{@server.offline}"></span><i class="fa fa-signal fa-2x error" aria-hidden></i>
+	# ENDIF #
+</li>
+# IF C_DESCRIPTION #
+	<li>
+		{DESCRIPTION}
+	</li>
+# ENDIF #
+<hr />

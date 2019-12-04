@@ -1,23 +1,4 @@
-#smallads-module hr {
-	margin: 10px 0;
-}
-
 #smallads-module .formatter-content {display: table;}
-
-/* --- categories
--------------------------------------- */
-.smallads-category-list,
-.smallads-category-list .field-description {
-    text-align: right;
-	z-index: 5;
-}
-
-.smallads-category-list label,
-.smallads-category-list .field-description {padding: 0 0 0.618em;}
-/* --- Table --- */
-.smallads-title {
-	width: 250px;
-}
 
 /* --- Sold item --- */
 .completed-smallad {
@@ -43,32 +24,34 @@
 	font-size: 2.618em;
 }
 
-/* --- thumbnails --- */
-.carousel-thumbnail,
-.navigation-link-thumbnail { max-width: 150px;}
-
-.carousel-thumbnail {
-	display: inline-block;
-	margin-bottom: 0.618em;
-}
-
-.carousel-thumbnail figcaption { text-align: center;}
-
+/* --- Price --- */
 .smallad-price {
 	text-align: right;
 	font-size: 2.618em;
 }
 
+/* --- Categories ----------------------------------------------------------- */
+.smallads-category-list,
+.smallads-category-list .field-description {
+    text-align: right;
+	z-index: 5;
+}
 
-/* --- Sort/filter Options
----------------------------------------------------------------------------- */
+.smallads-category-list label,
+.smallads-category-list .field-description {padding: 0 0 0.618em;}
+
+/* --- Table view ----------------------------------------------------------- */
+
+.smallads-title {
+	width: 250px;
+}
+
+/* --- Sort/filter Options - jpList ----------------------------------------- */
 .jplist-panel .cell {
 	position: relative;
 }
 
 /* --- Pagination --- */
-
-/* old */
 .jplist-panel .pagination {
 	margin-bottom: 20px;
 	min-height: 30px;
@@ -86,12 +69,12 @@
 .jplist-current { background-color: rgba(0, 0, 0, 0.2); }
 
 .jplist-pagingmid button:not(:first-child) { margin-left: -3px; }
-/* new */
+
 .jplist-pagination .jplist-holder {
 	display: inline-block;
 }
 
-/* Category-nav */
+/* --- Category-nav --- */
 .category-selected {
 	cursor: pointer;
 	font-size: 1.4rem;

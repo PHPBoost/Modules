@@ -2,15 +2,22 @@
 	<header>
 		<h1>{@module_title}</h1>
 	</header>
-	<div class="content">
-		<table class="table-no-header">
-			<tbody>
-			# START servers #
-			{servers.VIEW}
-			# END servers #
-			</tbody>
-		</table>
-		<div class="center"# IF C_SERVERS # style="display:none;"# ENDIF #>{@admin.config.servers.no_server}</div>
+	<div class="cell-row">
+		<div class="cell">
+			# IF C_SERVERS #
+				<div class="cell-list">
+					<ul>
+						# START servers #
+							{servers.VIEW}
+						# END servers #
+					</ul>
+				</div>
+			# ELSE #
+				<div class="cell-body">
+					<div class="cell-content center">{@admin.config.servers.no_server}</div>
+				</div>
+			# ENDIF #
+		</div>
 	</div>
 	<footer></footer>
 </section>
