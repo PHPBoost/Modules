@@ -11,12 +11,12 @@ SmalladsFormFieldSmalladType.prototype = {
 		if (this.integer <= this.max_input) {
 			var id = this.id_input + '_' + this.integer;
 
-			jQuery('<div/>', {'id' : id}).appendTo('#input_fields_' + this.id_input);
+			jQuery('<div/>', {'id' : id, class : 'grouped-inputs'}).appendTo('#input_fields_' + this.id_input);
 
-			jQuery('<input/> ', {type : 'text', id : 'field_name_' + id, name : 'field_name_' + id, class : 'field-large', placeholder : "{@smallads.type.placeholder}"}).appendTo('#' + id);
+			jQuery('<input/> ', {type : 'text', id : 'field_name_' + id, name : 'field_name_' + id, class : 'grouped-element', placeholder : "{@smallads.type.placeholder}"}).appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
-			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldSmalladType.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(LangLoader::get_message('delete', 'common'))}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">' + ${escapejs(LangLoader::get_message('delete', 'common'))} + '</span>').appendTo('#' + id);
+			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldSmalladType.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(LangLoader::get_message('delete', 'common'))}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">' + ${escapejs(LangLoader::get_message('delete', 'common'))} + '</span>').appendTo('#' + id);
 
 			this.integer++;
 		}
@@ -38,9 +38,9 @@ var SmalladsFormFieldSmalladType = new SmalladsFormFieldSmalladType();
 
 <div id="input_fields_${escape(ID)}">
 # START fieldelements #
-		<div id="${escape(ID)}_{fieldelements.ID}">
-			<input type="text" name="field_name_${escape(ID)}_{fieldelements.ID}" id="field_name_${escape(ID)}_{fieldelements.ID}" class="field-large" value="{fieldelements.NAME}" placeholder="{@smallads.type.placeholder}"/>
-			<a href="javascript:SmalladsFormFieldSmalladType.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('delete', 'common'))}</span></a>
+		<div id="${escape(ID)}_{fieldelements.ID}" class="grouped-inputs">
+			<input type="text" name="field_name_${escape(ID)}_{fieldelements.ID}" id="field_name_${escape(ID)}_{fieldelements.ID}" class="grouped-element" value="{fieldelements.NAME}" placeholder="{@smallads.type.placeholder}"/>
+			<a href="javascript:SmalladsFormFieldSmalladType.delete_field({fieldelements.ID});" data-confirmation="delete-element" class="grouped-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('delete', 'common'))}</span></a>
 		</div>
 # END fieldelements #
 </div>

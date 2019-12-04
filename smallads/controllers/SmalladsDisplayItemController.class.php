@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 11 12
+ * @version   	PHPBoost 5.3 - last update: 2019 12 04
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -183,9 +183,9 @@ class SmalladsDisplayItemController extends ModuleController
 	{
 		$now = new Date();
 
-		$result = PersistenceContext::get_querier()->select('
-		SELECT id, title, id_category, rewrited_title, thumbnail_url, completed,
-		(2 * FT_SEARCH_RELEVANCE(title, :search_content) + FT_SEARCH_RELEVANCE(contents, :search_content) / 3) AS relevance
+		$result = PersistenceContext::get_querier()->select('SELECT
+			id, title, id_category, rewrited_title, thumbnail_url, completed,
+			(2 * FT_SEARCH_RELEVANCE(title, :search_content) + FT_SEARCH_RELEVANCE(contents, :search_content) / 3) AS relevance
 		FROM ' . SmalladsSetup::$smallads_table . '
 		WHERE (FT_SEARCH(title, :search_content) OR FT_SEARCH(contents, :search_content)) AND id <> :excluded_id
 		AND (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0)))
@@ -193,22 +193,18 @@ class SmalladsDisplayItemController extends ModuleController
 			'excluded_id' => $smallad->get_id(),
 			'search_content' => $smallad->get_title() .','. $smallad->get_contents(),
 			'timestamp_now' => $now->get_timestamp(),
-			'limit_nb' => (int) SmalladsConfig::load()->get_suggested_items_nb()
+			'limit_nb' => (int)SmalladsConfig::load()->get_suggested_items_nb()
 		));
 
-		$this->tpl->put_all(array(
-			'C_SUGGESTED_ITEMS' => $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_items_suggestions(),
-			'SUGGESTED_COLUMNS' => SmalladsConfig::load()->get_displayed_cols_number_per_line()
-		));
+		$this->tpl->put_all(array('C_SUGGESTED_ITEMS', $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_items_suggestions()));
 
 		while ($row = $result->fetch())
 		{
-
 			$this->tpl->assign_block_vars('suggested_items', array(
 				'C_COMPLETED' => $row['completed'],
 				'C_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				'TITLE' => $row['title'],
-				'THUMBNAIL' => Url::to_rel($row['thumbnail_url']),
+				'U_THUMBNAIL' => !empty($row['thumbnail_url']) ? Url::to_rel($row['thumbnail_url']) : $this->smallad->get_default_thumbnail()->rel(),
 				'U_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel()
 			));
 		}
@@ -235,7 +231,7 @@ class SmalladsDisplayItemController extends ModuleController
 		));
 
 		$this->tpl->put_all(array(
-			'C_NAVIGATION_LINKS' => $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_navigation_links(),
+			'C_RELATED_LINKS' => $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_navigation_links(),
 		));
 
 		while ($row = $result->fetch())
@@ -244,8 +240,8 @@ class SmalladsDisplayItemController extends ModuleController
 				'C_'. $row['type'] .'_COMPLETED' => $row['completed'],
 				'C_'. $row['type'] .'_ITEM' => true,
 				'C_' . $row['type'] . '_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
-				$row['type'] . '_ITEM_TITLE' => $row['title'],
-				$row['type'] . '_THUMBNAIL' => Url::to_rel($row['thumbnail_url']),
+				$row['type'] . '_ITEM' => $row['title'],
+				'U_'. $row['type'] . '_THUMBNAIL' => !empty($row['thumbnail_url']) ? Url::to_rel($row['thumbnail_url']) : $this->smallad->get_default_thumbnail()->rel(),
 				'U_'. $row['type'] .'_ITEM' => SmalladsUrlBuilder::display_item($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel(),
 			));
 		}

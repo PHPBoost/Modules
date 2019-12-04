@@ -4,15 +4,18 @@
 			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-rss" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
 			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
 			# IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF #
-			<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="completed-article">{@smallads.completed.item}</span># ENDIF #</p>
+			<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="pinned bgc error">{@smallads.completed.item}</span># ENDIF #</p>
 		</div>
 		<h1>{TITLE}</h1>
-		</header>
+	</header>
 	# INCLUDE NOT_VISIBLE_MESSAGE #
 	<div itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
-		<div class="actions">
-			# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
-			# IF C_DELETE #<a href="{U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a># ENDIF #
+		<div class="item-infos">
+			<div></div>
+			<div class="actions">
+				# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
+				# IF C_DELETE #<a href="{U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a># ENDIF #
+			</div>
 		</div>
 
 		<div class="content">
@@ -28,6 +31,12 @@
 					# ENDIF #
 					<div class="cell-list">
 						<ul>
+							# IF C_PRICE #
+								<li>
+									<span></span>
+									<div class="smallad-price">{PRICE} {CURRENCY}</div>
+								</li>
+							# ENDIF #
 							# IF C_LOCATION #
 								<li>
 									# IF C_GMAP #
@@ -142,103 +151,73 @@
 					</a>
 			 	# END carousel #
 			# ENDIF #
-			# IF C_PRICE #<div class="smallad-price">{PRICE} {CURRENCY}</div># ENDIF #
-			<div itemprop="text">{CONTENTS}</div>
+
+			<div# IF C_COMPLETED # class="error"# ENDIF # itemprop="text">
+				# IF C_COMPLETED #<p class="pinned bgc error larger">{@smallads.completed.item}</p># ENDIF #
+				{CONTENTS}
+			</div>
 
 
 			<div class="spacer"></div>
 		</div>
-		<aside>
-			# IF C_SOURCES #
-				<hr />
-				<div id="smallads-sources-container">
-					<span>${LangLoader::get_message('form.sources', 'common')}</span> :
-					# START sources #
-					<a itemprop="isBasedOnUrl" href="{sources.URL}" class="small">{sources.NAME}</a># IF sources.C_SEPARATOR #, # ENDIF #
-					# END sources #
-				</div>
-			# ENDIF #
+		# IF C_SOURCES #
+			<aside class="sources-container">
+				<span class="text-strong"><i class="fa fa-map-signs" aria-hidden="true"></i> ${LangLoader::get_message('form.sources', 'common')}</span> :
+				# START sources #
+					<span class="pinned question">
+						<a href="{sources.URL}" itemprop="isBasedOnUrl" rel="nofollow">{sources.NAME}</a>
+					</span># IF sources.C_SEPARATOR ## ENDIF #
+				# END sources #
+			</aside>
+		# ENDIF #
+		# IF C_UPDATED_DATE #
+			<aside>
+				<i>${LangLoader::get_message('form.date.update', 'common')} : <time datetime="{UPDATED_DATE_ISO8601}" itemprop="datePublished">{UPDATED_DATE_FULL}</time></i>
+			</aside>
+		# ENDIF #
 
-			# IF C_UPDATED_DATE #
-				<hr />
-				<div>
-					<i>${LangLoader::get_message('form.date.update', 'common')} : <time datetime="{UPDATED_DATE_ISO8601}" itemprop="datePublished">{UPDATED_DATE_FULL}</time></i>
-				</div>
-			# ENDIF #
-
-			# IF C_SUGGESTED_ITEMS #
-				<hr />
-				<h6><i class="fa fa-fw fa-lightbulb" aria-hidden="true"></i> ${LangLoader::get_message('suggestions', 'common')} :</h6>
-				<div class="elements-container columns-{SUGGESTED_COLUMNS} no-style">
+		# IF C_SUGGESTED_ITEMS #
+			<aside class="suggested-links">
+				<span><i class="fa fa-fw fa-lightbulb" aria-hidden="true"></i> ${LangLoader::get_message('suggestions', 'common')} :</span>
+				<ul>
 					# START suggested_items #
-					<div class="block suggested-thumbnail">
-						# IF suggested_items.C_COMPLETED #
-							<figure>
-								# IF suggested_items.C_HAS_THUMBNAIL #<img src="{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
-								<figcaption>{suggested_items.TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
-							</figure>
-						# ELSE #
-							<a href="{suggested_items.U_ITEM}">
-								<figure>
-									# IF suggested_items.C_HAS_THUMBNAIL #<img src="{suggested_items.THUMBNAIL}" alt="{suggested_items.TITLE}" /># ENDIF #
-									<figcaption>{suggested_items.TITLE}</figcaption>
-								</figure>
+						<li>
+							<a href="{suggested_items.U_ITEM}# IF suggested_items.C_COMPLETED # error# ENDIF #" class="suggested-item">
+								<img src="{suggested_items.U_THUMBNAIL}" alt="{suggested_items.TITLE}" /> {suggested_items.TITLE}
 							</a>
-						# ENDIF #
-					</div>
+						</li>
 					# END suggested_items #
-				</div>
-			# ENDIF #
+				</ul>
+			</aside>
+		# ENDIF #
 
-			# IF C_NAVIGATION_LINKS #
-				<hr />
-				<div class="navigation-link">
+		# IF C_RELATED_LINKS #
+			<aside>
+				<div class="related-links">
 					# IF C_PREVIOUS_ITEM #
-						# IF C_PREVIOUS_COMPLETED #
-						<span class="navigation-link-previous">
-							<figure class="navigation-link-thumbnail">
-								# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
-								<figcaption><i class="fa fa-fw fa-arrow-circle-left" aria-hidden="true"></i> {PREVIOUS_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item}</figcaption>
-							</figure>
-						</span>
-						# ELSE #
-							<span class="navigation-link-previous">
-								<a href="{U_PREVIOUS_ITEM}">
-									<figure class="navigation-link-thumbnail">
-										# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="{PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM_TITLE}" aria-label="{PREVIOUS_ITEM_TITLE}" /># ENDIF #
-										<figcaption><i class="fa fa-fw fa-arrow-circle-left" aria-hidden="true"></i> {PREVIOUS_ITEM_TITLE}</figcaption>
-									</figure>
-								</a>
-							</span>
-						# ENDIF #
+						<a class="related-item previous-item# IF C_PREVIOUS_COMPLETED # error# ENDIF #" href="{U_PREVIOUS_ITEM}">
+							<i class="fa fa-chevron-left"></i>
+							<img src="{U_PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM}">
+							{PREVIOUS_ITEM}
+						</a>
 					# ENDIF #
 					# IF C_NEXT_ITEM #
-						# IF C_NEXT_COMPLETED #
-						<span class="navigation-link-next">
-							<figure class="navigation-link-thumbnail">
-								# IF C_NEXT_HAS_THUMBNAIL #<img src="{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
-								<figcaption>{NEXT_ITEM_TITLE} - <span class="completed-article">{@smallads.completed.item} <i class="fa fa-fw fa-arrow-circle-right" aria-hidden="true"></i></figcaption>
-							</figure>
-						</span>
-						# ELSE #
-							<span class="navigation-link-next">
-								<a href="{U_NEXT_ITEM}">
-									<figure class="navigation-link-thumbnail">
-										# IF C_NEXT_HAS_THUMBNAIL #<img src="{NEXT_THUMBNAIL}" alt="{NEXT_ITEM_TITLE}" /># ENDIF #
-										<figcaption>{NEXT_ITEM_TITLE} <i class="fa fa-fw fa-arrow-circle-right" aria-hidden="true"></i></figcaption>
-									</figure>
-								</a>
-							</span>
-						# ENDIF #
+						<a class="related-item next-item# IF C_NEXT_COMPLETED # error# ENDIF #" href="{U_NEXT_ITEM}">
+							{NEXT_ITEM}
+							<img src="{U_NEXT_THUMBNAIL}" alt="{NEXT_ITEM}">
+							<i class="fa fa-chevron-right"></i>
+						</a>
 					# ENDIF #
-					<div class="spacer"></div>
 				</div>
-			# ENDIF #
-			<div class="spacer"></div>
-			${ContentSharingActionsMenuService::display()}
+			</aside>
+		# ENDIF #
 
+		<aside>
+			${ContentSharingActionsMenuService::display()}
+		</aside>
+
+		<aside>
 			# IF C_COMMENTS_ENABLED #
-				<hr />
 				# INCLUDE COMMENTS #
 			# ENDIF #
 		</aside>
@@ -248,8 +227,10 @@
 		<meta itemprop="url" content="{U_ITEM}">
 		<meta itemprop="description" content="${escape(DESCRIPTION)}">
 		<meta itemprop="datePublished" content="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #">
-		<meta itemprop="discussionUrl" content="{U_COMMENTS}">
 		# IF C_HAS_THUMBNAIL #<meta itemprop="thumbnailUrl" content="{U_THUMBNAIL}"># ENDIF #
-		<meta itemprop="interactionCount" content="{COMMENTS_NUMBER} UserComments">
+		# IF C_COMMENTS_ENABLED #
+			<meta itemprop="discussionUrl" content="{U_COMMENTS}">
+			<meta itemprop="interactionCount" content="{COMMENTS_NUMBER} UserComments">
+		# ENDIF #
 	</footer>
 </section>
