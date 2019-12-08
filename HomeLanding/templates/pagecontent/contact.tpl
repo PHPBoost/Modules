@@ -1,7 +1,7 @@
 
 <article id="contact" style="order: {CONTACT_POSITION};">
 	<header>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/contact">
 				${Langloader::get_message('link.to.contact', 'common', 'HomeLanding')}
 			</a>

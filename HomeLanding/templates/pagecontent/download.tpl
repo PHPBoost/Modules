@@ -4,7 +4,7 @@
 		<h2>
 			${Langloader::get_message('last.download', 'common', 'HomeLanding')}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/download">
 				${Langloader::get_message('link.to.download', 'common', 'HomeLanding')}
 			</a>
@@ -40,18 +40,18 @@
 			</tbody>
 		</table>
 	# ELSE #
-		# IF C_DISPLAY_BLOCK #
+		# IF C_DISPLAY_GRID_VIEW #
 			<div class="elements-container columns-{COL_NBR}">
 		# ELSE #
 			<div class="content">
 		# ENDIF #
 		# START item #
-			<div class="item-content# IF C_DISPLAY_BLOCK # block# ENDIF #">
+			<div class="item-content# IF C_DISPLAY_GRID_VIEW # block# ENDIF #">
 
 				<h3>
 					<a href="{item.U_LINK}">{item.NAME}</a>
 				</h3>
-				<span class="actions">
+				<span class="controls">
 					# IF item.C_EDIT #
 						<a href="{item.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit"aria-hidden="true"></i></a>
 					# ENDIF #

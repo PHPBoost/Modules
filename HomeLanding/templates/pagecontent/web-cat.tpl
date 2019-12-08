@@ -4,7 +4,7 @@
 		<h2>
 			${Langloader::get_message('last.web.cat', 'common', 'HomeLanding')} {CATEGORY_NAME}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/web">
 				${Langloader::get_message('link.to.web', 'common', 'HomeLanding')}
 			</a>
@@ -12,7 +12,7 @@
 	</header>
 	<div class="content">
 		# IF C_NO_WEB_ITEM #
-		<div class="center">
+		<div class="align-center">
 			${LangLoader::get_message('no.web.item', 'common', 'HomeLanding')}
 		</div>
 		# ENDIF #

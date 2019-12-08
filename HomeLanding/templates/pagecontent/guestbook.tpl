@@ -4,7 +4,7 @@
 		<h2>
 			${Langloader::get_message('last.guestbook', 'common', 'HomeLanding')}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/guestbook">
 				${Langloader::get_message('link.to.guestbook', 'common', 'HomeLanding')}
 			</a>
@@ -12,7 +12,7 @@
 	</header>
 	<div class="elements-container columns-3 no-style">
 		# IF C_EMPTY_GUESTBOOK #
-		<div class="center">
+		<div class="align-center">
 			${LangLoader::get_message('empty.guestbook', 'common', 'HomeLanding')}
 		</div>
 		# ENDIF #

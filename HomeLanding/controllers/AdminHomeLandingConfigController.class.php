@@ -177,35 +177,45 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array('description' => $this->lang['admin.module.title.desc'])
 			));
 
-			$fieldset_config->add_field(new FormFieldCheckbox('left_columns', $this->lang['admin.menu.left'], $this->config->get_left_columns()
+			$fieldset_config->add_field(new FormFieldCheckbox('left_columns', $this->lang['admin.menu.left'], $this->config->get_left_columns(),
+				array('class' => 'custom-checkbox')
 			));
 
-			$fieldset_config->add_field(new FormFieldCheckbox('right_columns', $this->lang['admin.menu.right'], $this->config->get_right_columns()
+			$fieldset_config->add_field(new FormFieldCheckbox('right_columns', $this->lang['admin.menu.right'], $this->config->get_right_columns(),
+				array('class' => 'custom-checkbox')
 			));
 
-			$fieldset_config->add_field(new FormFieldCheckbox('top_central', $this->lang['admin.menu.top.central'], $this->config->get_top_central()
+			$fieldset_config->add_field(new FormFieldCheckbox('top_central', $this->lang['admin.menu.top.central'], $this->config->get_top_central(),
+				array('class' => 'custom-checkbox')
 			));
 
-			$fieldset_config->add_field(new FormFieldCheckbox('bottom_central', $this->lang['admin.menu.bottom.central'], $this->config->get_bottom_central()
+			$fieldset_config->add_field(new FormFieldCheckbox('bottom_central', $this->lang['admin.menu.bottom.central'], $this->config->get_bottom_central(),
+				array('class' => 'custom-checkbox')
 			));
 
-			$fieldset_config->add_field(new FormFieldCheckbox('top_footer', $this->lang['admin.menu.top.footer'], $this->config->get_top_footer()
+			$fieldset_config->add_field(new FormFieldCheckbox('top_footer', $this->lang['admin.menu.top.footer'], $this->config->get_top_footer(),
+				array('class' => 'custom-checkbox')
 			));
 
 			$fieldset_config->add_field(new FormFieldSubTitle('admin_onepage', LangLoader::get_message('admin.onepage', 'common', 'HomeLanding'), ''));
 
-			$fieldset_config->add_field(new FormFieldCheckbox('onepage_menu', $this->lang['admin.menu.onepage'], $this->config->get_onepage_menu()
+			$fieldset_config->add_field(new FormFieldCheckbox('onepage_menu', $this->lang['admin.menu.onepage'], $this->config->get_onepage_menu(),
+				array('class' => 'custom-checkbox')
 			));
 
 			$fieldset_config->add_field(new FormFieldSubTitle('admin_edito', LangLoader::get_message('admin.edito', 'common', 'HomeLanding'), ''));
 
 			$fieldset_config->add_field(new FormFieldCheckbox('edito_enabled', $this->lang['admin.edito.enabled'], $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
-				array('events' => array('click' => '
-				if (HTMLForms.getField("edito_enabled").getValue()) {
-					HTMLForms.getField("edito").enable();
-				} else {
-					HTMLForms.getField("edito").disable();
-				}'))
+				array(
+					'class' => 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("edito_enabled").getValue()) {
+							HTMLForms.getField("edito").enable();
+						} else {
+							HTMLForms.getField("edito").disable();
+						}'
+					)
+				)
 			));
 
 			$fieldset_config->add_field(new FormFieldRichTextEditor('edito', $this->lang['admin.edito.content'], $this->config->get_edito(),
@@ -215,14 +225,18 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$fieldset_config->add_field(new FormFieldSubTitle('admin_lastcoms', LangLoader::get_message('admin.lastcoms', 'common', 'HomeLanding'), ''));
 
 			$fieldset_config->add_field(new FormFieldCheckbox('lastcoms_enabled', $this->lang['admin.lastcoms.enabled'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed(),
-				array('events' => array('click' => '
-				if (HTMLForms.getField("lastcoms_enabled").getValue()) {
-					HTMLForms.getField("lastcoms_limit").enable();
-					HTMLForms.getField("lastcoms_char").enable();
-				} else {
-					HTMLForms.getField("lastcoms_limit").disable();
-					HTMLForms.getField("lastcoms_char").disable();
-				}'))
+				array(
+					'class' => 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("lastcoms_enabled").getValue()) {
+							HTMLForms.getField("lastcoms_limit").enable();
+							HTMLForms.getField("lastcoms_char").enable();
+						} else {
+							HTMLForms.getField("lastcoms_limit").disable();
+							HTMLForms.getField("lastcoms_char").disable();
+						}'
+					)
+				)
 			));
 
 			$fieldset_config->add_field(new FormFieldNumberEditor('lastcoms_limit', $this->lang['admin.lastcoms.limit'], $this->modules[HomeLandingConfig::MODULE_LASTCOMS]->get_elements_number_displayed(),
@@ -239,24 +253,28 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_carousel);
 
 			$fieldset_carousel->add_field(new FormFieldCheckbox('carousel_enabled', $this->lang['admin.carousel.enabled'], $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
-				array('class'=> 'top-field', 'events' => array('click' => '
-				if (HTMLForms.getField("carousel_enabled").getValue()) {
-					HTMLForms.getField("carousel").enable();
-					HTMLForms.getField("carousel_speed").enable();
-					HTMLForms.getField("carousel_time").enable();
-					HTMLForms.getField("carousel_nav").enable();
-					HTMLForms.getField("carousel_hover").enable();
-					HTMLForms.getField("carousel_display").enable();
-					HTMLForms.getField("carousel_mini").enable();
-				} else {
-					HTMLForms.getField("carousel").disable();
-					HTMLForms.getField("carousel_speed").disable();
-					HTMLForms.getField("carousel_time").disable();
-					HTMLForms.getField("carousel_nav").disable();
-					HTMLForms.getField("carousel_hover").disable();
-					HTMLForms.getField("carousel_display").disable();
-					HTMLForms.getField("carousel_mini").disable();
-				}'))
+				array(
+					'class'=> 'top-field custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("carousel_enabled").getValue()) {
+							HTMLForms.getField("carousel").enable();
+							HTMLForms.getField("carousel_speed").enable();
+							HTMLForms.getField("carousel_time").enable();
+							HTMLForms.getField("carousel_nav").enable();
+							HTMLForms.getField("carousel_hover").enable();
+							HTMLForms.getField("carousel_display").enable();
+							HTMLForms.getField("carousel_mini").enable();
+						} else {
+							HTMLForms.getField("carousel").disable();
+							HTMLForms.getField("carousel_speed").disable();
+							HTMLForms.getField("carousel_time").disable();
+							HTMLForms.getField("carousel_nav").disable();
+							HTMLForms.getField("carousel_hover").disable();
+							HTMLForms.getField("carousel_display").disable();
+							HTMLForms.getField("carousel_mini").disable();
+						}'
+					)
+				)
 			));
 
 			$fieldset_carousel->add_field(new FormFieldNumberEditor('carousel_speed', $this->lang['admin.form.carousel.speed'], $this->config->get_carousel_speed(),
@@ -317,7 +335,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_articles);
 
 			$fieldset_articles->add_field(new FormFieldCheckbox('articles_enabled', $this->lang['admin.articles.enabled'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("articles_enabled").getValue()) {
 					HTMLForms.getField("articles_limit").enable();
 				} else {
@@ -333,7 +353,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$fieldset_articles->add_field(new FormFieldFree('articles_separator', '', ''));
 
 			$fieldset_articles->add_field(new FormFieldCheckbox('articles_cat_enabled', $this->lang['admin.articles.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("articles_cat_enabled").getValue()) {
 					HTMLForms.getField("articles_cat").enable();
 					HTMLForms.getField("articles_subcategories_content_displayed").enable();
@@ -352,7 +374,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 
 			$fieldset_articles->add_field(new FormFieldCheckbox('articles_subcategories_content_displayed', $this->lang['admin.subcategories_content_displayed'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
+				array(
+					'class'=> 'custom-checkbox',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
 			));
 
 			$fieldset_articles->add_field(new FormFieldNumberEditor('articles_cat_limit', $this->lang['admin.articles.cat.limit'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_elements_number_displayed(),
@@ -373,7 +397,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_calendar);
 
 			$fieldset_calendar->add_field(new FormFieldCheckbox('calendar_enabled', $this->lang['admin.calendar.enabled'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed(),
-				array('description' => $this->lang['admin.calendar.enabled.desc'],'events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'description' => $this->lang['admin.calendar.enabled.desc'],'events' => array('click' => '
 				if (HTMLForms.getField("calendar_enabled").getValue()) {
 					HTMLForms.getField("calendar_limit").enable();
 					HTMLForms.getField("calendar_char").enable();
@@ -400,7 +426,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$fieldset_contact = new FormFieldsetMultitabsHTML('admin_contact', $this->lang['admin.contact'], array('css_class' => 'tabs tabs-animation'));
 			$form->add_fieldset($fieldset_contact);
 
-			$fieldset_contact->add_field(new FormFieldCheckbox('contact_enabled', $this->lang['admin.contact.enabled'], $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed()
+			$fieldset_contact->add_field(new FormFieldCheckbox('contact_enabled', $this->lang['admin.contact.enabled'], $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed(),
+				array('class'=> 'custom-checkbox')
 			));
 		}
 
@@ -411,7 +438,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_download);
 
 			$fieldset_download->add_field(new FormFieldCheckbox('download_enabled', $this->lang['admin.download.enabled'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("download_enabled").getValue()) {
 					HTMLForms.getField("download_limit").enable();
 				} else {
@@ -427,7 +456,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$fieldset_download->add_field(new FormFieldFree('download_separator', '', ''));
 
 			$fieldset_download->add_field(new FormFieldCheckbox('download_cat_enabled', $this->lang['admin.download.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("download_cat_enabled").getValue()) {
 					HTMLForms.getField("download_cat").enable();
 					HTMLForms.getField("download_subcategories_content_displayed").enable();
@@ -446,7 +477,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 
 			$fieldset_download->add_field(new FormFieldCheckbox('download_subcategories_content_displayed', $this->lang['admin.subcategories_content_displayed'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
+				array(
+					'class'=> 'custom-checkbox',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
 			));
 
 			$fieldset_download->add_field(new FormFieldNumberEditor('download_cat_limit', $this->lang['admin.download.cat.limit'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_elements_number_displayed(),
@@ -467,7 +500,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_forum);
 
 			$fieldset_forum->add_field(new FormFieldCheckbox('forum_enabled', $this->lang['admin.forum.enabled'], $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("forum_enabled").getValue()) {
 					HTMLForms.getField("forum_limit").enable();
 					HTMLForms.getField("forum_char").enable();
@@ -495,7 +530,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_gallery);
 
 			$fieldset_gallery->add_field(new FormFieldCheckbox('gallery_enabled', $this->lang['admin.gallery.enabled'], $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("gallery_enabled").getValue()) {
 					HTMLForms.getField("gallery_limit").enable();
 				} else {
@@ -516,7 +553,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_guestbook);
 
 			$fieldset_guestbook->add_field(new FormFieldCheckbox('guestbook_enabled', $this->lang['admin.guestbook.enabled'], $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("guestbook_enabled").getValue()) {
 					HTMLForms.getField("guestbook_limit").enable();
 					HTMLForms.getField("guestbook_char").enable();
@@ -544,7 +583,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_media);
 
 			$fieldset_media->add_field(new FormFieldCheckbox('media_enabled', $this->lang['admin.media.enabled'], $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("media_enabled").getValue()) {
 					HTMLForms.getField("media_limit").enable();
 				} else {
@@ -565,7 +606,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_news);
 
 			$fieldset_news->add_field(new FormFieldCheckbox('news_enabled', $this->lang['admin.news.enabled'], $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("news_enabled").getValue()) {
 					HTMLForms.getField("news_limit").enable();
 				} else {
@@ -581,7 +624,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$fieldset_news->add_field(new FormFieldFree('news_separator', '', ''));
 
 			$fieldset_news->add_field(new FormFieldCheckbox('news_cat_enabled', $this->lang['admin.news.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed(),
-				array('events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
 				if (HTMLForms.getField("news_cat_enabled").getValue()) {
 					HTMLForms.getField("news_cat").enable();
 					HTMLForms.getField("news_subcategories_content_displayed").enable();
@@ -600,7 +645,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 
 			$fieldset_news->add_field(new FormFieldCheckbox('news_subcategories_content_displayed', $this->lang['admin.subcategories_content_displayed'], $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_subcategories_content_displayed(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed())
+				array(
+					'class'=> 'custom-checkbox',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed())
 			));
 
 			$fieldset_news->add_field(new FormFieldNumberEditor('news_cat_limit', $this->lang['admin.news.cat.limit'], $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_elements_number_displayed(),
@@ -619,7 +666,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		// $form->add_fieldset($fieldset_rss);
 		//
 		// $fieldset_rss->add_field(new FormFieldCheckbox('rss_enabled', $this->lang['admin.rss.enabled'], $this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed(),
-		// 	array('events' => array('click' => '
+		// 	array(
+			// 'class'=> 'custom-checkbox',
+			// 'events' => array('click' => '
 		// 	if (HTMLForms.getField("rss_enabled").getValue()) {
 		// 		HTMLForms.getField("rss_site_name").enable();
 		// 		HTMLForms.getField("rss_site_url").enable();
@@ -664,7 +713,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$form->add_fieldset($fieldset_web);
 
 			$fieldset_web->add_field(new FormFieldCheckbox('web_enabled', $this->lang['admin.web.enabled'], $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed(),
-				array('description' => $this->lang['admin.web.enabled.desc'], 'events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'description' => $this->lang['admin.web.enabled.desc'], 'events' => array('click' => '
 				if (HTMLForms.getField("web_enabled").getValue()) {
 					HTMLForms.getField("web_limit").enable();
 				} else {
@@ -680,7 +731,10 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$fieldset_web->add_field(new FormFieldFree('web_separator', '', ''));
 
 			$fieldset_web->add_field(new FormFieldCheckbox('web_cat_enabled', $this->lang['admin.web.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed(),
-				array('description' => $this->lang['admin.web.enabled.desc'], 'events' => array('click' => '
+				array(
+					'class'=> 'custom-checkbox',
+					'description' => $this->lang['admin.web.enabled.desc'],
+					'events' => array('click' => '
 				if (HTMLForms.getField("web_cat_enabled").getValue()) {
 					HTMLForms.getField("web_cat").enable();
 					HTMLForms.getField("web_subcategories_content_displayed").enable();
@@ -699,7 +753,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 
 			$fieldset_web->add_field(new FormFieldCheckbox('web_subcategories_content_displayed', $this->lang['admin.subcategories_content_displayed'], $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_subcategories_content_displayed(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed())
+				array(
+					'class'=> 'custom-checkbox',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed())
 			));
 
 			$fieldset_web->add_field(new FormFieldNumberEditor('web_cat_limit', $this->lang['admin.web.cat.limit'], $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_elements_number_displayed(),

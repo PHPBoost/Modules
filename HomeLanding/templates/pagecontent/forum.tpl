@@ -4,7 +4,7 @@
 		<h2>
 			${Langloader::get_message('last.forum.messages', 'common', 'HomeLanding')}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/forum">
 				${Langloader::get_message('link.to.forum', 'common', 'HomeLanding')}
 			</a>

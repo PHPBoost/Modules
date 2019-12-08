@@ -4,7 +4,7 @@
 		<h2>
 			${Langloader::get_message('next.events', 'common', 'HomeLanding')}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/calendar">
 				${Langloader::get_message('link.to.events', 'common', 'HomeLanding')}
 			</a>
@@ -12,7 +12,7 @@
 	</header>
 	<div class="content">
 		# IF C_NO_EVENT #
-		<div class="center">
+		<div class="align-center">
 			${LangLoader::get_message('no.events', 'common', 'HomeLanding')}
 		</div>
 		# ENDIF #

@@ -4,7 +4,7 @@
 		<h2>
 			${Langloader::get_message('last.web', 'common', 'HomeLanding')}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/web">
 				${Langloader::get_message('link.to.web', 'common', 'HomeLanding')}
 			</a>

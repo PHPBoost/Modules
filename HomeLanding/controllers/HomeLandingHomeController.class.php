@@ -81,25 +81,25 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read())
 			$this->build_contact_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CalendarAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
 			$this->build_events_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && DownloadAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
 			$this->build_download_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && DownloadAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->read())
+		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->read())
 			$this->build_download_cat_view();
 
 		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed() && ForumAuthorizationsService::check_authorizations()->read())
 			$this->build_forum_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && GalleryAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
 			$this->build_gallery_view();
 
 		if ($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed() && GuestbookAuthorizationsService::check_authorizations()->read())
 			$this->build_guestbook_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && MediaAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
 			$this->build_media_view();
 
 		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read())
@@ -111,10 +111,10 @@ class HomeLandingHomeController extends ModuleController
 		// if ($this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
 		// 	$this->build_external_rss_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && WebAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
 			$this->build_web_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && WebAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read())
+		if ($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read())
 			$this->build_web_cat_view();
 	}
 
@@ -148,7 +148,7 @@ class HomeLandingHomeController extends ModuleController
 			'ARTICLES_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
 			'C_NO_ARTICLES_ITEM' => $result->get_rows_count() == 0,
-			'C_DISPLAY_BLOCK' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_MOSAIC,
+			'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_GRID_VIEW,
 			'COL_NBR' => $articles_config->get_number_cols_display_per_line()
 		));
 
@@ -204,7 +204,7 @@ class HomeLandingHomeController extends ModuleController
 			'DOWNLOAD_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
 			'C_NO_DOWNLOAD_ITEM' => $result->get_rows_count() == 0,
-			'C_DISPLAY_BLOCK' => $download_config->is_category_displayed_summary(),
+			'C_DISPLAY_GRID_VIEW' => $download_config->is_category_displayed_summary(),
 			'C_DISPLAY_TABLE' => $download_config->is_category_displayed_table(),
 			'COL_NBR' => $download_config->get_columns_number_per_line()
 		));
@@ -257,7 +257,7 @@ class HomeLandingHomeController extends ModuleController
 			'NEWS_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
 			'C_NO_NEWS_ITEM' => $result->get_rows_count() == 0,
-			'C_DISPLAY_BLOCK' => $news_config->get_display_type() == NewsConfig::DISPLAY_BLOCK,
+			'C_DISPLAY_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::DISPLAY_GRID_VIEW,
 			'COL_NBR' => $news_config->get_number_columns_display_news()
 		));
 
@@ -405,17 +405,17 @@ class HomeLandingHomeController extends ModuleController
 			'C_DISPLAYED_ARTICLES' => $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_ARTICLES)->read(),
 			'C_DISPLAYED_ARTICLES_CAT' => $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_ARTICLES)->read(),
 			'C_DISPLAYED_CONTACT' => $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read(),
-			'C_DISPLAYED_EVENTS' => $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CalendarAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_EVENTS' => $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_DOWNLOAD' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && DownloadAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_DOWNLOAD_CAT' => $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && DownloadAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->read(),
 			'C_DISPLAYED_FORUM' => $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed() && ForumAuthorizationsService::check_authorizations()->read(),
-			'C_DISPLAYED_GALLERY' => $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && GalleryAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_GALLERY' => $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_GUESTBOOK' => $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed() && GuestbookAuthorizationsService::check_authorizations()->read(),
-			'C_DISPLAYED_MEDIA' => $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && MediaAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_MEDIA' => $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read(),
 			'C_DISPLAYED_NEWS' => $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read(),
 			'C_DISPLAYED_NEWS_CAT' => $this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_NEWS)->read(),
-			'C_DISPLAYED_WEB' => $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && WebAuthorizationsService::check_authorizations()->read(),
-			'C_DISPLAYED_WEB_CAT' => $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && WebAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read(),
+			'C_DISPLAYED_WEB' => $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read(),
+			'C_DISPLAYED_WEB_CAT' => $this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read(),
 
 			// Names of categories
 			'ARTICLES_CAT' => $category = $articles_cat,
@@ -542,7 +542,7 @@ class HomeLandingHomeController extends ModuleController
 				'DATE_DAY' => strftime('%d', $article->get_date_created()->get_timestamp()),
 				'DATE_MONTH_A' => strftime('%b', $article->get_date_created()->get_timestamp()),
 				'ARTICLES_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
-				'C_DISPLAY_BLOCK' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_MOSAIC,
+				'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_GRID_VIEW,
 				'COL_NBR' => $articles_config->get_number_cols_display_per_line()
 			));
 		}
@@ -835,7 +835,7 @@ class HomeLandingHomeController extends ModuleController
 
 			$tpl->put_all(array(
 				'DOWNLOAD_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD),
-				'C_DISPLAY_BLOCK' => $download_config->is_category_displayed_summary(),
+				'C_DISPLAY_GRID_VIEW' => $download_config->is_category_displayed_summary(),
 				'C_DISPLAY_TABLE' => $download_config->is_category_displayed_table(),
 				'COL_NBR' => $download_config->get_columns_number_per_line()
 			));
@@ -1129,7 +1129,7 @@ class HomeLandingHomeController extends ModuleController
 
 			$tpl->put_all(array(
 				'NEWS_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS),
-				'C_DISPLAY_BLOCK' => $news_config->get_display_type() == NewsConfig::DISPLAY_BLOCK,
+				'C_DISPLAY_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::DISPLAY_GRID_VIEW,
 				'COL_NBR' => $news_config->get_number_columns_display_news()
 			));
 

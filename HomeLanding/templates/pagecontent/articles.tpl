@@ -4,24 +4,24 @@
 		<h2>
 			${Langloader::get_message('last.articles', 'common', 'HomeLanding')}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/articles">
 				${Langloader::get_message('link.to.articles', 'common', 'HomeLanding')}
 			</a>
 		</span>
 	</header>
-	# IF C_DISPLAY_BLOCK #
+	# IF C_DISPLAY_GRID_VIEW #
 		<div class="elements-container columns-{COL_NBR}">
 	# ELSE #
 		<div class="content">
 	# ENDIF #
 	# START item #
-		<div class="item-content# IF C_DISPLAY_BLOCK # block# ENDIF #">
+		<div class="item-content# IF C_DISPLAY_GRID_VIEW # block# ENDIF #">
 
 			<h3>
 				<a href="{item.U_ARTICLE}">{item.TITLE}</a>
 			</h3>
-			<span class="actions">
+			<span class="controls">
 				# IF item.C_EDIT #
 					<a href="{item.U_EDIT_ARTICLE}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 				# ENDIF #

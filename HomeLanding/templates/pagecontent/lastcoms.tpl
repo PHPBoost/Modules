@@ -7,7 +7,7 @@
 	</header>
 	<div class="elements-container columns-3 no-style">
 		# IF C_NO_COMMENT #
-		<div class="center">
+		<div class="align-center">
 			${LangLoader::get_message('no.comment', 'common', 'HomeLanding')}
 		</div>
 		# ENDIF #

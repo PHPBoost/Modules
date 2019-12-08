@@ -4,7 +4,7 @@
 		<h2>
 			${Langloader::get_message('last.gallery', 'common', 'HomeLanding')}
 		</h2>
-		<span class="actions">
+		<span class="controls">
 			<a href="{PATH_TO_ROOT}/gallery">
 				${Langloader::get_message('link.to.gallery', 'common', 'HomeLanding')}
 			</a>

@@ -19,7 +19,7 @@
 				</a> - <span class="small">{rssreader.DATE_FEED}</span>
 				<p>
 					# IF rssreader.C_IMG_FEED #
-						<img src="{rssreader_IMG_FEED}" class="left" alt="{rssreader.TITLE_FEED}" />
+						<img src="{rssreader_IMG_FEED}" class="align-left" alt="{rssreader.TITLE_FEED}" />
 					# ENDIF #
 					{rssreader.DESC}# IF rssreader.C_READ_MORE #...# ENDIF #
 				</p>
