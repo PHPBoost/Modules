@@ -17,7 +17,7 @@ class AdminCountdownDisplayResponse extends AdminMenuDisplayResponse
 		$this->set_title($lang['title']);
 		$img = 'countdown.png';
 
-		$this->add_link(LangLoader::get_message('configuration', 'admin'), CountdownUrlBuilder::config(), $img);
+		$this->add_link(LangLoader::get_message('configuration', 'admin'), CountdownUrlBuilder::configuration(), $img);
 
 		$env = $this->get_graphical_environment();
 		$env->set_page_title($title_page);

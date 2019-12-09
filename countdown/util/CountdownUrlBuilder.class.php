@@ -11,7 +11,7 @@ class CountdownUrlBuilder
 {
 	private static $dispatcher = '/countdown';
 
-	public static function config()
+	public static function configuration()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/config/');
 	}
