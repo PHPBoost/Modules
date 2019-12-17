@@ -143,16 +143,16 @@
 				</li>
 			# END servers #
 		</ul>
-		<div id="no-server" class="center"# IF C_SERVERS # style="display:none;"# ENDIF #>
+		<div id="no-server" class="align-center"# IF C_SERVERS # style="display:none;"# ENDIF #>
 			<div class="notice message-helper-small">{@admin.config.servers.no_server}</div>
 		</div>
 	</fieldset>
 	<fieldset class="fieldset-submit">
 		<input type="hidden" name="token" value="{TOKEN}">
 		# IF C_MORE_THAN_ONE_SERVER #
-			<button type="submit" name="submit" value="true">{@admin.config.servers.update_fields_position}</button>
+			<button type="submit" class="button submit" name="submit" value="true">{@admin.config.servers.update_fields_position}</button>
 			<input type="hidden" name="tree" id="tree" value="">
 		# ENDIF #
-		# IF C_SERVERS #<button type="submit" name="regenerate_status" value="true">{@admin.config.servers.status_refresh}</button># ENDIF #
+		# IF C_SERVERS #<button type="submit" class="button submit" name="regenerate_status" value="true">{@admin.config.servers.status_refresh}</button># ENDIF #
 	</fieldset>
 </form>

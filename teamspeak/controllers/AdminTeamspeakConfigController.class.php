@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright 	&copy; 2005-2019 PHPBoost
- * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @copyright   &copy; 2005-2020 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 11 05
- * @since   	PHPBoost 4.1 - 2014 09 24
+ * @version     PHPBoost 5.3 - last update: 2018 11 05
+ * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor mipel <mipel@phpboost.com>
 */
 
@@ -87,7 +87,9 @@ class AdminTeamspeakConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(0, 60))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('clients_number_displayed', $this->lang['admin.clients_number_displayed'], $this->config->is_clients_number_displayed()));
+		$fieldset->add_field(new FormFieldCheckbox('clients_number_displayed', $this->lang['admin.clients_number_displayed'], $this->config->is_clients_number_displayed(),
+			array('class' => 'custom-checkbox')
+		));
 
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', LangLoader::get_message('authorizations', 'common'));
 		$form->add_fieldset($fieldset_authorizations);

@@ -1,7 +1,7 @@
 <section id="smallads-module">
 	<header>
-		<div class="cat-actions">
-			<a class="syndication" href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-rss" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
+		<div class="align-right">
+			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-rss warning" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
 			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
@@ -129,7 +129,7 @@
 
 	# IF C_NO_ITEM_AVAILABLE #
 		# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-			<div class="center">
+			<div class="align-center">
 				${LangLoader::get_message('no_item_now', 'common')}
 			</div>
 		# ENDIF #
@@ -264,7 +264,7 @@
 								<span class="jp-date hidden">{items.DATE_TIMESTAMP}</span>
 							</div>
 
-							<div class="actions">
+							<div class="controls">
 
 								# IF items.C_EDIT #
 								<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
@@ -279,7 +279,7 @@
 						</a>
 						<div class="cell-body">
 							# IF items.C_HAS_THUMBNAIL #
-								<div class="cell-thumbnail">
+								<div class="cell-thumbnail cell-landscape">
 									<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="thumbnailUrl" />
 									<a href="{items.U_ITEM}" class="cell-thumbnail-caption">${LangLoader::get_message('read-more', 'common')}</a>
 								</div>
@@ -329,7 +329,7 @@
 					    <button type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
 
 					    <div class="jplist-holder" data-type="pages">
-					        <button type="button" class="submit" data-type="page">{@smallads.active.page}</button>
+					        <button type="button" class="button submit" data-type="page">{@smallads.active.page}</button>
 					    </div>
 
 					    <button type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>

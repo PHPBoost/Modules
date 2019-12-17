@@ -14,7 +14,7 @@
 				</div>
 			# ELSE #
 				<div class="cell-body">
-					<div class="cell-content center">{@admin.config.servers.no_server}</div>
+					<div class="cell-content align-center">{@admin.config.servers.no_server}</div>
 				</div>
 			# ENDIF #
 		</div>

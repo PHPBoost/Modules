@@ -4,7 +4,7 @@
 		# START item #
 		<li class="slide"# IF C_CAROUSEL_CROPPED # style="padding-bottom: calc(100% / {NB_DOTS} / 2); background-image: url({item.PICTURE_URL})"# ENDIF #>
 			# IF item.DESCRIPTION #
-				<p class="slideCaption bkgd-main">
+				<p class="slideCaption bgc-main">
 					# IF item.LINK #<a class="slideLink" href="{item.LINK}"># ENDIF #
 						{item.DESCRIPTION}
 					# IF item.LINK #</a># ENDIF #

@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright 	&copy; 2005-2019 PHPBoost
- * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @copyright   &copy; 2005-2020 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 10 29
- * @since   	PHPBoost 4.0 - 2013 08 04
+ * @version     PHPBoost 5.3 - last update: 2018 10 29
+ * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor mipel <mipel@phpboost.com>
 */
 
@@ -110,7 +110,9 @@ class AdminServerStatusServerFormController extends AdminController
 			array(new FormFieldConstraintIntegerRange(1, 65535))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display', $this->lang['server.display'], $server->is_displayed()));
+		$fieldset->add_field(new FormFieldCheckbox('display', $this->lang['server.display'], $server->is_displayed(),
+			array('class' => 'custom-checkbox')
+		));
 
 		$auth_settings = new AuthorizationsSettings(array(
 			new ActionAuthorization($this->lang['admin.authorizations.display_server'], AbstractServerStatusServer::DISPLAY_SERVER_AUTHORIZATIONS),

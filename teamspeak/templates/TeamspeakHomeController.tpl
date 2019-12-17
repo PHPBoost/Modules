@@ -27,7 +27,7 @@
 	<div class="content">
 		<div id="ts3"></div>
 		<div class="spacer">&nbsp;</div>
-		<div class="center">
+		<div class="align-center">
 			<i class="fa fa-spinner fa-spin fa-2x" id="ts3_refresh_picture"></i>
 		</div>
 	</div>

@@ -4,13 +4,13 @@
  * It requires PHP >= 5.1.2 with cURL or HTTP/HTTPS stream wrappers enabled.
  *
  * Openid - version 1.3.1
- * @copyright 	&copy; 2005-2019 PHPBoost - Mewp
+ * @copyright   &copy; 2005-2020 PHPBoost - Mewp
  * @license     http://opensource.org/licenses/mit-license.php  MIT License
  * @author      Mewp <mewp151 at gmail dot com>
  * @link        https://code.google.com/p/lightopenid/          Project URL
  * @link        https://github.com/iignatov/LightOpenID         GitHub Repo
- * @version   	PHPBoost 5.2 - last update: 2018 05 20
- * @since   	PHPBoost 5.1 - 2018 04 22
+ * @version     PHPBoost 5.3 - last update: 2018 05 20
+ * @since       PHPBoost 5.1 - 2018 04 22
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 

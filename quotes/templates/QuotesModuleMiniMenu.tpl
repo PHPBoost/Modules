@@ -6,9 +6,9 @@
                 <div class="formatter-content">{QUOTE}</div>
             </blockquote>
         # ELSE #
-            <p class="center">${LangLoader::get_message('no_item_now', 'common')}</p>
+            <p class="align-center">${LangLoader::get_message('no_item_now', 'common')}</p>
         # ENDIF #
-        <p class="center"><a class="button small" href="{U_MODULE_HOME_PAGE}">{@module_title}</a></p>
+        <p class="align-center"><a class="button small" href="{U_MODULE_HOME_PAGE}">{@module_title}</a></p>
 
     </div>
 </div>

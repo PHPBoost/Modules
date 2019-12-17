@@ -1,10 +1,10 @@
 /**
- * @copyright 	&copy; 2005-2019 PHPBoost
- * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @copyright   &copy; 2005-2020 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @link        http://hilios.github.io/jQuery.countdown/
  * @author      Edson Hilios <>
- * @version   	PHPBoost 5.2 - last update: 2016 11 11
- * @since   	PHPBoost 4.1 - 2014 12 12
+ * @version     PHPBoost 5.3 - last update: 2016 11 11
+ * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 

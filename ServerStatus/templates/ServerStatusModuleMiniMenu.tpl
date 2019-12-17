@@ -14,9 +14,9 @@
 								# IF C_ADDRESS_DISPLAYED #<br /><span class="smaller">{servers.ADDRESS}:{servers.PORT}</span># ENDIF #
 							</span>
 							# IF servers.C_ONLINE #
-								<span aria-label="{@server.online}"></span><i class="fa fa-signal success" aria-hidden></i>
+								<span aria-label="{@server.online}"><i class="fa fa-signal success" aria-hidden></i></span>
 							# ELSE #
-								<span aria-label="{@server.offline}"></span><i class="fa fa-signal error" aria-hidden></i>
+								<span aria-label="{@server.offline}"><i class="fa fa-signal error" aria-hidden></i></span>
 							# ENDIF #
 						</li>
 					# END servers #
@@ -24,7 +24,7 @@
 			</div>
 		# ELSE #
 			<div class="cell-body">
-				<div class="cell-content center">{@admin.config.servers.no_server}</div>
+				<div class="cell-content align-center">{@admin.config.servers.no_server}</div>
 			</div>
 		# ENDIF #
 	</div>

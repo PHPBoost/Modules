@@ -1,11 +1,11 @@
 <?php
 /**
  * Bloc principal (CSS complet), qui contient tous les autres blocs
- * @copyright 	&copy; 2005-2019 PHPBoost
- * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @copyright   &copy; 2005-2020 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @version   	PHPBoost 5.2 - last update: 2016 10 24
- * @since   	PHPBoost 5.0 - 2016 05 03
+ * @version     PHPBoost 5.3 - last update: 2016 10 24
+ * @since       PHPBoost 5.0 - 2016 05 03
  * @contributor Arnaud GENET <elenwii@phpboost.com>
 */
 

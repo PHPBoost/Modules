@@ -1,6 +1,6 @@
 <section id="module-quotes">
 	<header>
-		<div class="cat-actions">
+		<div class="align-right">
 			# IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
@@ -28,7 +28,7 @@
 		# END sub_categories_list #
 		<div class="spacer"></div>
 	</div>
-	# IF C_SUBCATEGORIES_PAGINATION #<span class="center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
+	# IF C_SUBCATEGORIES_PAGINATION #<span class="align-center"># INCLUDE SUBCATEGORIES_PAGINATION #</span># ENDIF #
 	# ENDIF #
 
 	<div class="elements-container columns-1">
@@ -38,7 +38,7 @@
 				# IF quotes.C_MODERATION #
 					<header>
 						<h2>
-							<span class="actions">
+							<span class="controls">
 								# IF quotes.C_EDIT #
 									<a href="{quotes.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 								# ENDIF #
@@ -53,14 +53,14 @@
 				<div class="content">
 					<p itemprop="text">{quotes.QUOTE}</p>
 					<div class="spacer"></div>
-					<div class="left text-strong"><a href="{quotes.U_AUTHOR_LINK}" class="small">{quotes.AUTHOR}</a></div>
+					<div class="align-left text-strong"><a href="{quotes.U_AUTHOR_LINK}" class="small">{quotes.AUTHOR}</a></div>
 				</div>
 				<footer></footer>
 			</article>
 		# END quotes #
 	# ELSE #
 		# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-		<div class="center">
+		<div class="align-center">
 			${LangLoader::get_message('no_item_now', 'common')}
 		</div>
 		# ENDIF #

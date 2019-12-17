@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright 	&copy; 2005-2019 PHPBoost
- * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @copyright   &copy; 2005-2020 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.3 - last update: 2019 10 17
- * @since   	PHPBoost 5.2 - 2018 11 27
+ * @version     PHPBoost 5.3 - last update: 2019 10 17
+ * @since       PHPBoost 5.2 - 2018 11 27
 */
 
 class AdminNewscatConfigController extends AdminModuleController
@@ -57,7 +57,9 @@ class AdminNewscatConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('config', $this->admin_common_lang['configuration'] . ': ' . $this->lang['newscat.module.title']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldCheckbox('only_news_module', $this->lang['newscat.only.news.module'], $this->config->get_only_news_module()));
+		$fieldset->add_field(new FormFieldCheckbox('only_news_module', $this->lang['newscat.only.news.module'], $this->config->get_only_news_module(),
+			array('class' => 'custom-checkbox')
+		));
 
 		$fieldset->add_field(new FormFieldTextEditor('module_name', $this->lang['config.module.name'], $this->config->get_module_name()));
 

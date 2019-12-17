@@ -39,14 +39,14 @@
 					</script>
 					<script>jQuery("#newscat-list").menumaker({ title: "{MODULE_TITLE}", format: "multitoggle", breakpoint: 768}); </script>
 				# ELSE #
-					<div class="cell-content center">
+					<div class="cell-content align-center">
 						{@newscat.no.news.cat}
 					</div>
 				# ENDIF #
 			</div>
 		# ELSE #
 			<div class="cell-body">
-				<div class="cell-content center">{@newscat.not.installed}</div>
+				<div class="cell-content align-center">{@newscat.not.installed}</div>
 			</div>
 		# ENDIF #
 	</div>

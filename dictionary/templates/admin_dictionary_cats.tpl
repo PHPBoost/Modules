@@ -165,8 +165,8 @@
 			</fieldset>
 			<fieldset class="fieldset-submit">
 				<legend>{add.L_VALIDATION}</legend>
-				<button class="submit" type="submit" name="valid" value="true">{add.L_SUBMIT}</button>
-				<button type="reset" value="true">{add.L_RESET}</button>
+				<button class="button submit" type="submit" name="valid" value="true">{add.L_SUBMIT}</button>
+				<button type="reset" class="button reset" value="true">{add.L_RESET}</button>
 				<input type="hidden" value="{add.ID_CAT}" name="id_cat" />
 				<input type="hidden" name="token" value="{TOKEN}" />
 			</fieldset>
@@ -233,7 +233,7 @@
 			</fieldset>
 			<fieldset class="fieldset-submit">
 				<legend>${LangLoader::get_message('delete', 'common')}</legend>
-				<button type="submit" name="submit" value="true">${LangLoader::get_message('delete', 'common')}</button>
+				<button class="button submit" type="submit" name="submit" value="true">${LangLoader::get_message('delete', 'common')}</button>
 				<input name="id_del_a" value="{ID_DEL}" type="hidden">
 				<input name="cat_to_del" value="1" type="hidden">
 				<input type="hidden" name="token" value="{TOKEN}" />

@@ -34,8 +34,8 @@
                                 <input id="AdminEasyCssEditController_token" name="token" value="{TOKEN}" type="hidden">
                                 <fieldset id="AdminEasyCssEditController_fbuttons" class="fieldset-submit">
                                     <div class="fieldset-inset">
-                                        <button type="submit" name="AdminEasyCssEditController_submit" class="submit" onclick="" value="true">Envoyer</button>
-                                        <button type="reset" value="true">Défaut</button>
+                                        <button type="submit" class="button submit" name="AdminEasyCssEditController_submit" onclick="" value="true">Envoyer</button>
+                                        <button type="reset" class="button reset" value="true">Défaut</button>
                                     </div>
                                 </fieldset>
                             </form>

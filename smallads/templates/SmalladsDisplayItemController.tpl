@@ -1,7 +1,7 @@
 <section id="smallads-module">
 	<header>
-		<div class="cat-actions">
-			<a class="syndication" href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-rss" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
+		<div class="align-right">
+			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-rss warning" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
 			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
 			# IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF #
 			<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="pinned bgc error">{@smallads.completed.item}</span># ENDIF #</p>
@@ -10,9 +10,9 @@
 	</header>
 	# INCLUDE NOT_VISIBLE_MESSAGE #
 	<div itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
-		<div class="item-infos">
+		<div class="flex-between">
 			<div></div>
-			<div class="actions">
+			<div class="controls">
 				# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
 				# IF C_DELETE #<a href="{U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a># ENDIF #
 			</div>
@@ -23,7 +23,7 @@
 				<div class="cell">
 					# IF C_HAS_THUMBNAIL #
 						<div class="cell-body">
-							<div class="cell-thumbnail">
+							<div class="cell-thumbnail cell-landscape">
 								<img src="{U_THUMBNAIL}" alt="{TITLE}" />
 								<a class="cell-thumbnail-caption" href="{U_THUMBNAIL}" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection"><i class="fa fa-eye"></i></a>
 							</div>
@@ -90,7 +90,7 @@
 													<div class="close-modal" aria-label="{@close.modal}"></div>
 													<div class="content-panel cell">
 														<div class="cell-body">
-															<div class="cell-content center">
+															<div class="cell-content align-center">
 																# IF C_CONTACT_LEVEL #
 																	<div class="tel-form is-connected">
 																		{AUTHOR_PHONE}

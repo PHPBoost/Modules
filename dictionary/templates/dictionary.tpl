@@ -269,7 +269,7 @@
 		# INCLUDE MSG #
 
 		# IF NOT C_EDIT #
-			<div class="dictionary-letter-selector center">
+			<div class="dictionary-letter-selector align-center">
 				<div class="dictionary-letter">
 					<a href="javascript:redirection_letter('');">{L_ALL_DEFINITIONS}</a>
 					# START letter #
@@ -296,11 +296,11 @@
 			<noscript>
 				<div class="no-script"><b>{L_NO_SCRIPT}</b></div>
 			</noscript>
-			<p class="center small">{SWITCH_DEF}</p>
+			<p class="align-center small">{SWITCH_DEF}</p>
 			# START dictionary #
 				<article class="dictionary-word" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
 					<header>
-						<span class="actions">
+						<span class="controls">
 							# IF dictionary.EDIT_CODE #
 								<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 							# ENDIF #
@@ -330,7 +330,7 @@
 			</script>
 			<input type="hidden" value="" id="category_list"name="category_list" />
 			# IF NOT C_RESULTS #
-				<div class="center">
+				<div class="align-center">
 				# IF C_LETTER #
 					{L_NO_WORD_LETTER}
 				# ELSE #
@@ -344,7 +344,7 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="dictionary-word">
 					<div>
-						<span class="actions">
+						<span class="controls">
 							<a href="" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 							<a href="" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 						</span>
@@ -405,14 +405,14 @@
 				<fieldset class="fieldset-submit">
 					<legend>{L_VALIDATION}</legend>
 						<input type="hidden" value="{ID}" name="dictionary_id" />
-						<button type="submit" id="valid" name="valid" value="true">{L_SUBMIT}</button>
-						<button type="submit" name="previs" value="true">{L_PREVIEW}</button>
-						<button type="reset" value="true">{L_RESET}</button>
+						<button type="submit" class="button submit" id="valid" name="valid" value="true">{L_SUBMIT}</button>
+						<button type="button" class="button small" name="previs" value="true">{L_PREVIEW}</button>
+						<button type="reset" class="button reset" value="true">{L_RESET}</button>
 						<input type="hidden" name="token" value="{TOKEN}" />
 				</fieldset>
 			</form>
 		# ENDIF #
 	</div>
 
-	<footer># IF C_PAGINATION #<div class="center"># INCLUDE PAGINATION #</div># ENDIF #</footer>
+	<footer># IF C_PAGINATION #<div class="align-center"># INCLUDE PAGINATION #</div># ENDIF #</footer>
 </section>
