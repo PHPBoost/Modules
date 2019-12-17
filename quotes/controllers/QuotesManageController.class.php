@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 03
+ * @version     PHPBoost 5.3 - last update: 2019 12 17
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -12,6 +12,9 @@ class QuotesManageController extends AdminModuleController
 {
 	private $lang;
 	private $view;
+	
+	private $elements_number = 0;
+	private $ids = array();
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -20,6 +23,8 @@ class QuotesManageController extends AdminModuleController
 		$this->init();
 
 		$current_page = $this->build_table();
+
+		$this->execute_multiple_delete_if_needed($request);
 
 		return $this->generate_response($current_page);
 	}
@@ -73,6 +78,27 @@ class QuotesManageController extends AdminModuleController
 		$this->view->put('table', $table->display());
 
 		return $table->get_page_number();
+	}
+
+	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
+	{
+		if ($request->get_string('delete-selected-elements', false))
+		{
+			for ($i = 1 ; $i <= $this->elements_number ; $i++)
+			{
+				if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on')
+				{
+					if (isset($this->ids[$i]))
+					{
+						QuotesService::delete($this->ids[$i]);
+					}
+				}
+			}
+
+			QuotesService::clear_cache();
+			
+			AppContext::get_response()->redirect(QuotesUrlBuilder::manage(), LangLoader::get_message('process.success', 'status-messages-common'));
+		}
 	}
 
 	private function check_authorizations()

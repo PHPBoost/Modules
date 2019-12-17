@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 24
+ * @version     PHPBoost 5.3 - last update: 2019 12 17
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -20,12 +20,9 @@ class QuotesDeleteController extends ModuleController
 
 		$this->check_authorizations();
 
-		QuotesService::delete('WHERE id=:id', array('id' => $this->quote->get_id()));
-		PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'quotes', 'id' => $this->quote->get_id()));
+		QuotesService::delete($this->quote->get_id());
 
-		QuotesCategoriesCache::invalidate();
-
-		QuotesCache::invalidate();
+		QuotesService::clear_cache();
 
 		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), array('author' => $this->quote->get_author())));
 	}

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 03
+ * @version     PHPBoost 5.3 - last update: 2019 12 17
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -51,9 +51,17 @@ class QuotesService
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition
 	 */
-	public static function delete($condition, array $parameters)
+	public static function delete(int $id)
 	{
-		self::$db_querier->delete(QuotesSetup::$quotes_table, $condition, $parameters);
+		if (AppContext::get_current_user()->is_readonly())
+		{
+			$controller = PHPBoostErrors::user_in_read_only();
+			DispatchManager::redirect($controller);
+		}
+		
+		self::$db_querier->delete(QuotesSetup::$quotes_table, 'WHERE id=:id', array('id' => $id));
+
+		self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'quotes', 'id' => $id));
 	}
 
 	 /**
@@ -71,6 +79,15 @@ class QuotesService
 		$quote = new Quote();
 		$quote->set_properties($row);
 		return $quote;
+	}
+
+	 /**
+	 * @desc Clears all module elements in cache.
+	 */
+	public static function clear_cache()
+	{
+		QuotesCache::invalidate();
+		QuotesCategoriesCache::invalidate();
 	}
 }
 ?>

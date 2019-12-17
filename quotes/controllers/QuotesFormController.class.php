@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 04 19
+ * @version     PHPBoost 5.3 - last update: 2019 12 17
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -199,8 +199,7 @@ class QuotesFormController extends ModuleController
 
 		$this->contribution_actions($quote, $id);
 
-		QuotesCache::invalidate();
-		QuotesCategoriesCache::invalidate();
+		QuotesService::clear_cache();
 	}
 
 	private function contribution_actions(Quote $quote, $id)
