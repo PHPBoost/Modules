@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 12
+ * @version     PHPBoost 5.3 - last update: 2019 12 18
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -685,10 +685,7 @@ class SmalladsItemFormController extends ModuleController
 
 		SmalladsService::get_keywords_manager()->put_relations($id_smallad, $this->form->get_value('keywords'));
 
-		Feed::clear_cache('smallads');
-		SmalladsCache::invalidate();
-		SmalladsCategoriesCache::invalidate();
-		SmalladsKeywordsCache::invalidate();
+		SmalladsService::clear_cache();
 	}
 
 	private function contribution_actions(Smallad $smallad, $id_smallad)

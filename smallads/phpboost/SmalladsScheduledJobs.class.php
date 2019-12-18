@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 11 09
+ * @version     PHPBoost 5.3 - last update: 2019 12 18
  * @since       PHPBoost 4.0 - 2013 02 11
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -31,10 +31,7 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 
 			if ($is_modified)
 			{
-				Feed::clear_cache('smallads');
-				SmalladsCache::invalidate();
-				SmalladsCategoriesCache::invalidate();
-				SmalladsKeywordsCache::invalidate();
+				SmalladsService::clear_cache();
 
 				$config->set_deferred_operations($deferred_operations);
 				SmalladsConfig::save();
@@ -54,11 +51,6 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 		{
 			PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
 				'WHERE (published = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(creation_date)) > (7 * max_weeks))');
-
-			Feed::clear_cache('smallads');
-			SmalladsCache::invalidate();
-			SmalladsCategoriesCache::invalidate();
-			SmalladsKeywordsCache::invalidate();
 		}
 
 		// Delete item if "ad completed" is checked
@@ -66,11 +58,7 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 			'WHERE (published = 1) AND (completed = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(updated_date)) > :delay)', array('delay' => (int)$config->get_display_delay_before_delete())
 		);
 
-		Feed::clear_cache('smallads');
-		SmalladsCache::invalidate();
-		SmalladsCategoriesCache::invalidate();
-		SmalladsKeywordsCache::invalidate();
-
+		SmalladsService::clear_cache();
 	}
 }
 ?>

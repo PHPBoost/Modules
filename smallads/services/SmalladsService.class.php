@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 12
+ * @version     PHPBoost 5.3 - last update: 2019 12 18
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -38,9 +38,21 @@ class SmalladsService
 		self::$db_querier->update(SmalladsSetup::$smallads_table, $smallad->get_properties(), 'WHERE id=:id', array('id', $smallad->get_id()));
 	}
 
-	public static function delete($condition, array $parameters)
+	public static function delete(int $id)
 	{
-		self::$db_querier->delete(SmalladsSetup::$smallads_table, $condition, $parameters);
+		if (AppContext::get_current_user()->is_readonly())
+		{
+			$controller = PHPBoostErrors::user_in_read_only();
+			DispatchManager::redirect($controller);
+		}
+		
+		self::$db_querier->delete(SmalladsSetup::$smallads_table, 'WHERE id=:id', array('id' => $id));
+		
+		self::get_keywords_manager()->delete_relations($id);
+
+		self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'smallads', 'id' => $id));
+
+		CommentsService::delete_comments_topic_module('smallads', $id);
 	}
 
 	public static function get_smallad($condition, array $parameters)
@@ -53,6 +65,14 @@ class SmalladsService
 		$smallad = new Smallad();
 		$smallad->set_properties($row);
 		return $smallad;
+	}
+
+	public static function clear_cache()
+	{
+		Feed::clear_cache('smallads');
+		SmalladsCache::invalidate();
+		SmalladsCategoriesCache::invalidate();
+		SmalladsKeywordsCache::invalidate();
 	}
 
 	public static function update_views_number(Smallad $smallad)
