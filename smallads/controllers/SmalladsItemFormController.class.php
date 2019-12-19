@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 18
+ * @version     PHPBoost 5.3 - last update: 2019 12 19
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -267,7 +267,7 @@ class SmalladsItemFormController extends ModuleController
 			'hidden' => !$this->get_smallad()->is_displayed_author_name() ||  !$this->get_smallad()->is_enabled_author_name_customization(),
 		)));
 
-		$other_fieldset->add_field(SmalladsService::get_keywords_manager()->get_form_field($this->get_smallad()->get_id(), 'keywords', $this->common_lang['form.keywords'],
+		$other_fieldset->add_field(KeywordsService::get_keywords_manager()->get_form_field($this->get_smallad()->get_id(), 'keywords', $this->common_lang['form.keywords'],
 			array('description' => $this->common_lang['form.keywords.description'])
 		));
 
@@ -683,7 +683,7 @@ class SmalladsItemFormController extends ModuleController
 
 		$this->contribution_actions($smallad, $id_smallad);
 
-		SmalladsService::get_keywords_manager()->put_relations($id_smallad, $this->form->get_value('keywords'));
+		KeywordsService::get_keywords_manager()->put_relations($id_smallad, $this->form->get_value('keywords'));
 
 		SmalladsService::clear_cache();
 	}
