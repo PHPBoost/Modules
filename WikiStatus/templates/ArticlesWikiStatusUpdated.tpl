@@ -1,27 +1,27 @@
-<div class="cell-body">
-	<div class="cell-content more">
-		{@statut_legend}
-	</div>
-</div>
 <div class="cell-table">
 	<table id="table-mini-wiki-status" class="table">
 		<thead>
 			<tr>
-				<th style="width: 25%">{@title_date_and_time}</th>
-				<th>Article</th>
-				<th>Statut</th>
-				<th style="width: 15%">{@title_author}</th>
+				<th><span aria-label="{@header.date}"><i class="far fa-fw fa-calendar"></i></span></th>
+				<th><span aria-label="{@header.item}"><i class="far fa-fw fa-file-alt"></i></span></th>
+				<th><span aria-label="{@header.status}"><i class="fa fa-fw fa-tasks"></i></span></th>
+				<th><span aria-label="{@header.author}"><i class="fa fa-fw fa-user"></i></span></th>
 			</tr>
 		</thead>
-		<tbody>
-			# START articles_wiki_items #
+		<tfoot>
 			<tr>
-				<td style="height: 75px">{articles_wiki_items.DATE}</td>
-				<td><a href="/wiki/{articles_wiki_items.U_ARTICLE}">{articles_wiki_items.TITLE}</a></td>
-				<td><span class="{articles_wiki_items.STATUS_CLASS}">{articles_wiki_items.STATUS}</span></td>
-				<td># IF articles_wiki_items.C_AUTHOR_EXIST #<a href="{articles_wiki_items.U_AUTHOR_PROFILE}" class="{articles_wiki_items.USER_LEVEL_CLASS}" # IF articles_wiki_items.C_USER_GROUP_COLOR # style="color:{articles_wiki_items.USER_GROUP_COLOR}"# ENDIF #>{articles_wiki_items.PSEUDO}</a># ELSE #{articles_wiki_items.AUTHOR_IP}# ENDIF #</td>
+				<td colspan="4" class="more">{@wiki.status.explain}</td>
 			</tr>
-			# END articles_wiki_items #
+		</tfoot>
+		<tbody>
+			# START wiki_items #
+				<tr>
+					<td>{wiki_items.DATE}</td>
+					<td><a href="{PATH_TO_ROOT}/wiki/{wiki_items.U_ITEM}">{wiki_items.TITLE}</a></td>
+					<td><span class="pinned {wiki_items.STATUS_CLASS}">{wiki_items.STATUS}</span></td>
+					<td># IF wiki_items.C_AUTHOR_EXIST #<a href="{wiki_items.U_AUTHOR_PROFILE}" class="{wiki_items.USER_LEVEL_CLASS}" # IF wiki_items.C_USER_GROUP_COLOR # style="color:{wiki_items.USER_GROUP_COLOR}"# ENDIF #>{wiki_items.PSEUDO}</a># ELSE #{wiki_items.AUTHOR_IP}# ENDIF #</td>
+				</tr>
+			# END wiki_items #
 		</tbody>
 	</table>
 </div>

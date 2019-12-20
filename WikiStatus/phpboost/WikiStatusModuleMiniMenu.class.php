@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2017 04 24
+ * @version     PHPBoost 5.3 - last update: 2019 12 20
  * @since       PHPBoost 5.0 - 2017 01 30
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class WikiStatusModuleMiniMenu extends ModuleMiniMenu
@@ -21,15 +22,13 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_title()
 	{
-		return LangLoader::get_message('menu_title', 'common', 'WikiStatus');
+		return LangLoader::get_message('wiki.status.module.title', 'common', 'WikiStatus');
 	}
 
 	public function get_menu_content()
 	{
 		$tpl = new FileTemplate('WikiStatus/ArticlesWikiStatusUpdated.tpl');
 		$lang = LangLoader::get('common', 'WikiStatus');
-
-		//Assign the lang file to the tpl
 		$tpl->add_lang($lang);
 
 		$status_classes = array(
@@ -55,10 +54,10 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 		while($row = $results->fetch())
 		{
 			$user_group_color = User::get_group_color($row['groups'], $row['level']);
-			$tpl->assign_block_vars('articles_wiki_items', array(
+			$tpl->assign_block_vars('wiki_items', array(
 				'TITLE' => stripslashes($row['title']),
 				'STATUS_CLASS' => in_array($row['defined_status'], array_keys($status_classes)) ? $status_classes[$row['defined_status']] : '',
-				'STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['status_' . $row['defined_status']] ? $lang['status_' . $row['defined_status']] : ''),
+				'STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['status.' . $row['defined_status']] ? $lang['status.' . $row['defined_status']] : ''),
 				'C_AUTHOR_EXIST' => !empty($row['display_name']),
 				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
@@ -67,7 +66,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel(),
 				'AUTHOR_IP' => $row['user_ip'],
 				'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
-				'U_ARTICLE' => $row['activ'] == 1 ? url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']) : url('wiki.php?id_contents=' . $row['id_contents']),
+				'U_ITEM' => $row['activ'] == 1 ? url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']) : url('wiki.php?id_contents=' . $row['id_contents']),
 			));
 			$maj_article++;
 		}
