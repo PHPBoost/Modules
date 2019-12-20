@@ -65,8 +65,8 @@ class QuotesManageController extends AdminModuleController
 			$this->elements_number++;
 			$this->ids[$this->elements_number] = $quote->get_id();
 
-			$edit_link = new LinkHTMLElement(QuotesUrlBuilder::edit($quote->get_id()), '<i class="far fa-fw fa-edit"></i>', array('title' => LangLoader::get_message('edit', 'common')), '');
-			$delete_link = new LinkHTMLElement(QuotesUrlBuilder::delete($quote->get_id()), '<i class="far fa-fw fa-trash-alt"></i>', array('title' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), '');
+			$edit_link = new EditLinkHTMLElement(QuotesUrlBuilder::edit($quote->get_id()));
+			$delete_link = new DeleteLinkHTMLElement(QuotesUrlBuilder::delete($quote->get_id()));
 
 			$results[] = new HTMLTableRow(array(
 				new HTMLTableRowCell($quote->get_quote(), 'left'),
