@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 18
+ * @version     PHPBoost 5.3 - last update: 2019 12 20
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -12,7 +12,7 @@ class SmalladsItemsManagerController extends ModuleController
 {
 	private $lang;
 	private $view;
-	
+
 	private $elements_number = 0;
 	private $ids = array();
 
@@ -73,8 +73,8 @@ class SmalladsItemsManagerController extends ModuleController
 			$this->elements_number++;
 			$this->ids[$this->elements_number] = $smallad->get_id();
 
-			$edit_link = new LinkHTMLElement(SmalladsUrlBuilder::edit_item($smallad->get_id()), '', array('aria-label' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
-			$delete_link = new LinkHTMLElement(SmalladsUrlBuilder::delete_item($smallad->get_id()), '', array('aria-label' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), 'fa fa-trash-alt');
+			$edit_link = new LinkHTMLElement(SmalladsUrlBuilder::edit_item($smallad->get_id()), '<i class="far fa-fw fa-edit"></i>', array('aria-label' => LangLoader::get_message('edit', 'common')), '');
+			$delete_link = new LinkHTMLElement(SmalladsUrlBuilder::delete_item($smallad->get_id()), '<i class="far fa-fw fa-trash-alt"></i>', array('aria-label' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), '');
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
@@ -99,10 +99,7 @@ class SmalladsItemsManagerController extends ModuleController
 
 			$start_and_end_dates = new SpanHTMLElement($dates, array(), 'smaller');
 
-			if($smallad->is_completed())
-				$completed = LangLoader::get_message('smallads.completed.item', 'common', 'smallads');
-			else
-				$completed = '';
+			$completed = $smallad->is_completed() ? LangLoader::get_message('smallads.completed.item', 'common', 'smallads') : '';
 
 			$row = array(
 				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $smallad->get_id(), $smallad->get_rewrited_title()), $smallad->get_title()), 'left'),
@@ -142,7 +139,7 @@ class SmalladsItemsManagerController extends ModuleController
 			}
 
 			SmalladsService::clear_cache();
-			
+
 			AppContext::get_response()->redirect(SmalladsUrlBuilder::manage_items(), LangLoader::get_message('process.success', 'status-messages-common'));
 		}
 	}

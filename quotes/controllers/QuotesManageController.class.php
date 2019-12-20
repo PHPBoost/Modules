@@ -3,16 +3,17 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 17
+ * @version     PHPBoost 5.3 - last update: 2019 12 20
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesManageController extends AdminModuleController
 {
 	private $lang;
 	private $view;
-	
+
 	private $elements_number = 0;
 	private $ids = array();
 
@@ -64,8 +65,8 @@ class QuotesManageController extends AdminModuleController
 			$this->elements_number++;
 			$this->ids[$this->elements_number] = $quote->get_id();
 
-			$edit_link = new LinkHTMLElement(QuotesUrlBuilder::edit($quote->get_id()), '', array('title' => LangLoader::get_message('edit', 'common')), 'fa fa-edit');
-			$delete_link = new LinkHTMLElement(QuotesUrlBuilder::delete($quote->get_id()), '', array('title' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), 'fa fa-trash-alt');
+			$edit_link = new LinkHTMLElement(QuotesUrlBuilder::edit($quote->get_id()), '<i class="far fa-fw fa-edit"></i>', array('title' => LangLoader::get_message('edit', 'common')), '');
+			$delete_link = new LinkHTMLElement(QuotesUrlBuilder::delete($quote->get_id()), '<i class="far fa-fw fa-trash-alt"></i>', array('title' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), '');
 
 			$results[] = new HTMLTableRow(array(
 				new HTMLTableRowCell($quote->get_quote(), 'left'),
@@ -99,7 +100,7 @@ class QuotesManageController extends AdminModuleController
 			}
 
 			QuotesService::clear_cache();
-			
+
 			AppContext::get_response()->redirect(QuotesUrlBuilder::manage(), LangLoader::get_message('process.success', 'status-messages-common'));
 		}
 	}
