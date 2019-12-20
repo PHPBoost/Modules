@@ -149,7 +149,7 @@ class HomeLandingHomeController extends ModuleController
 			'CATEGORY_NAME' => $category->get_name(),
 			'C_NO_ARTICLES_ITEM' => $result->get_rows_count() == 0,
 			'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_GRID_VIEW,
-			'COL_NBR' => $articles_config->get_number_cols_display_per_line()
+			'COL_NBR' => $articles_config->get_categories_number_per_row()
 		));
 
 		while ($row = $result->fetch())
@@ -543,7 +543,7 @@ class HomeLandingHomeController extends ModuleController
 				'DATE_MONTH_A' => strftime('%b', $article->get_date_created()->get_timestamp()),
 				'ARTICLES_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
 				'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_GRID_VIEW,
-				'COL_NBR' => $articles_config->get_number_cols_display_per_line()
+				'ITEMS_PER_ROW' => $articles_config->get_items_number_per_row(),
 			));
 		}
 		$result->dispose();

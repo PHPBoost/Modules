@@ -11,7 +11,7 @@
 		</span>
 	</header>
 	# IF C_DISPLAY_GRID_VIEW #
-		<div class="elements-container columns-{COL_NBR}">
+		<div class="elements-container columns-{ITEMS_PER_ROW}">
 	# ELSE #
 		<div class="content">
 	# ENDIF #
