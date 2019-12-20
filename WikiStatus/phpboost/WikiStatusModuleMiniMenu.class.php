@@ -39,6 +39,9 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 			5 => 'error'
 		);
 
+		$position = $this->get_block() == Menu::BLOCK_POSITION__LEFT || $this->get_block() == Menu::BLOCK_POSITION__RIGHT;
+		$tpl->put('C_HORIZONTAL', !$position);
+
 		//Load module config
 		$querier = PersistenceContext::get_querier();
         $maj_article = 1;
@@ -66,6 +69,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel(),
 				'AUTHOR_IP' => $row['user_ip'],
 				'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+				'SHORT_DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 				'U_ITEM' => $row['activ'] == 1 ? url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']) : url('wiki.php?id_contents=' . $row['id_contents']),
 			));
 			$maj_article++;
