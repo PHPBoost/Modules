@@ -2,11 +2,11 @@
 	<table id="table-mini-wiki-status" class="table">
 		<thead>
 			<tr>
-				<th><span aria-label="{@header.date}"><i class="far fa-fw fa-calendar"></i></span></th>
-				<th><span aria-label="{@header.item}"><i class="far fa-fw fa-file-alt"></i></span></th>
+				<th><span aria-label="{@header.date}"><i class="far fa-fw fa-calendar" aria-hidden></i></span><span class="hidden-large-screens">{@header.date}</span></th>
+				<th><span aria-label="{@header.item}"><i class="far fa-fw fa-file-alt" aria-hidden></i></span><span class="hidden-large-screens">{@header.item}</span></th>
 				# IF C_HORIZONTAL #
-					<th><span aria-label="{@header.status}"><i class="fa fa-fw fa-tasks"></i></span></th>
-					<th><span aria-label="{@header.author}"><i class="fa fa-fw fa-user"></i></span></th>
+					<th><span aria-label="{@header.status}"><i class="fa fa-fw fa-tasks" aria-hidden></i></span><span class="hidden-large-screens">{@header.status}</span></th>
+					<th><span aria-label="{@header.author}"><i class="fa fa-fw fa-user" aria-hidden></i></span><span class="hidden-large-screens">{@header.author}</span></th>
 				# ENDIF #
 			</tr>
 		</thead>
