@@ -73,8 +73,8 @@ class SmalladsItemsManagerController extends ModuleController
 			$this->elements_number++;
 			$this->ids[$this->elements_number] = $smallad->get_id();
 
-			$edit_link = new LinkHTMLElement(SmalladsUrlBuilder::edit_item($smallad->get_id()), '<i class="far fa-fw fa-edit"></i>', array('aria-label' => LangLoader::get_message('edit', 'common')), '');
-			$delete_link = new LinkHTMLElement(SmalladsUrlBuilder::delete_item($smallad->get_id()), '<i class="far fa-fw fa-trash-alt"></i>', array('aria-label' => LangLoader::get_message('delete', 'common'), 'data-confirmation' => 'delete-element'), '');
+			$edit_link = new EditLinkHTMLElement(SmalladsUrlBuilder::edit_item($smallad->get_id()));
+			$delete_link = new DeleteLinkHTMLElement(SmalladsUrlBuilder::delete_item($smallad->get_id()));
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
