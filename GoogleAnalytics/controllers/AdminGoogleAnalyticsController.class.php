@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 10 29
+ * @version     PHPBoost 5.3 - last update: 2019 12 27
  * @since       PHPBoost 3.0 - 2012 12 20
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -42,7 +42,7 @@ class AdminGoogleAnalyticsController extends AdminController
 
 		$tpl->put('FORM', $this->form->display());
 
-		return new AdminGoogleAnalyticsDisplayResponse($tpl, $this->lang['configuration']);
+		return new DefaultAdminDisplayResponse($tpl);
 	}
 
 	private function init()
@@ -55,7 +55,7 @@ class AdminGoogleAnalyticsController extends AdminController
 	{
 		$form = new HTMLForm('GoogleAnalytics');
 
-		$fieldset = new FormFieldsetHTMLHeading('configuration', $this->lang['configuration']);
+		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => $this->get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('identifier', $this->lang['identifier'], $this->config->get_identifier(),
