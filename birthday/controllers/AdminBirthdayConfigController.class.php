@@ -8,7 +8,7 @@
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class AdminBirthdayConfigController extends AdminController
+class AdminBirthdayConfigController extends AdminModuleController
 {
 	private $lang;
 	/**

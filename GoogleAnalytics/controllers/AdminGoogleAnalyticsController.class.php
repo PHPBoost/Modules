@@ -10,7 +10,7 @@
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class AdminGoogleAnalyticsController extends AdminController
+class AdminGoogleAnalyticsController extends AdminModuleController
 {
 	private $lang;
 	/**
