@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 10 09
+ * @version     PHPBoost 5.3 - last update: 2019 12 27
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -47,7 +47,7 @@ class AdminBirthdayConfigController extends AdminController
 
 		$tpl->put('FORM', $this->form->display());
 
-		return new AdminBirthdayDisplayResponse($tpl, LangLoader::get_message('configuration', 'admin'));
+		return new DefaultAdminDisplayResponse($tpl);
 	}
 
 	private function init()
@@ -60,7 +60,7 @@ class AdminBirthdayConfigController extends AdminController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin') . ': ' . $this->lang['birthday.module.title']);
+		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => $this->get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('members_age_displayed', $this->lang['birthday.members.age.displayed'], $this->config->is_members_age_displayed(),
