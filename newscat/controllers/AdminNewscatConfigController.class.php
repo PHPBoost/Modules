@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 10 17
+ * @version     PHPBoost 5.3 - last update: 2019 12 27
  * @since       PHPBoost 5.2 - 2018 11 27
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
 class AdminNewscatConfigController extends AdminModuleController
@@ -40,7 +41,7 @@ class AdminNewscatConfigController extends AdminModuleController
 
 		$tpl->put('FORM', $this->form->display());
 
-		return $this->build_response($tpl);
+		return new DefaultAdminDisplayResponse($tpl);
 	}
 
 	private function init()
@@ -54,7 +55,7 @@ class AdminNewscatConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('config', $this->admin_common_lang['configuration'] . ': ' . $this->lang['newscat.module.title']);
+		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => $this->get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('only_news_module', $this->lang['newscat.only.news.module'], $this->config->get_only_news_module(),
@@ -76,19 +77,6 @@ class AdminNewscatConfigController extends AdminModuleController
 		$this->config->set_module_name($this->form->get_value('module_name'));
 
 		NewscatConfig::save();
-	}
-
-	private function build_response(View $tpl)
-	{
-		$title = LangLoader::get_message('configuration', 'admin') . ' - ' . $this->lang['newscat.module.title'];
-
-		$response = new AdminMenuDisplayResponse($tpl);
-		$response->set_title($title);
-		$response->add_link(LangLoader::get_message('configuration', 'admin'), NewscatUrlBuilder::configuration());
-		$env = $response->get_graphical_environment();
-		$env->set_page_title($title);
-
-		return $response;
 	}
 }
 ?>
