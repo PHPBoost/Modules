@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2015 04 13
+ * @version     PHPBoost 5.3 - last update: 2019 12 27
  * @since       PHPBoost 4.1 - 2014 09 24
+ * @contributor xela <xela@phpboost.com>
 */
 
 class TeamspeakExtensionPointProvider extends ExtensionPointProvider
@@ -23,7 +24,7 @@ class TeamspeakExtensionPointProvider extends ExtensionPointProvider
 
 	public function home_page()
 	{
-		return new TeamspeakHomePageExtensionPoint();
+		return new DefaultHomePageDisplay($this->get_id(), TeamspeakHomeController::get_view());
 	}
 
 	public function menus()

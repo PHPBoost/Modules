@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2016 02 17
+ * @version     PHPBoost 5.3 - last update: 2019 12 27
  * @since       PHPBoost 3.0 - 2012 11 15
+ * @contributor xela <xela@phpboost.com>
 */
 
 class DictionaryExtensionPointProvider extends ExtensionPointProvider
@@ -26,7 +27,7 @@ class DictionaryExtensionPointProvider extends ExtensionPointProvider
 
 	public function home_page()
 	{
-		return new DictionaryHomePageExtensionPoint();
+		return new DefaultHomePageDisplay($this->get_id(), DictionaryHomeController::get_view());
 	}
 
 	public function menus()

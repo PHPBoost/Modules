@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 19
+ * @version     PHPBoost 5.3 - last update: 2019 12 27
  * @since       PHPBoost 5.1 - 2018 09 20
+ * @contributor xela <xela@phpboost.com>
 */
 
 class SmalladsModuleUpdateVersion extends ModuleUpdateVersion
@@ -23,6 +24,7 @@ class SmalladsModuleUpdateVersion extends ModuleUpdateVersion
 			'/phpboost/SmalladsComments.class.php',
 			'/phpboost/SmalladsModuleMiniMenu.class.php',
 			'/phpboost/SmalladsSitemapExtensionPoint.class.php',
+			'/phpboost/SmalladsHomePageExtensionPoint.class.php'
 			'/services/SmalladsAuthorizationsService.class.php',
 			'/services/SmalladsKeywordsCache.class.php',
 			'/templates/smallads.tpl',
