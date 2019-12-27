@@ -4,7 +4,7 @@
 				<h6 class="cell-name">{@title}</h6>
 				# IF IS_ADMIN #
 					<span class="controls">
-						<a href="${relative_url(CountdownUrlBuilder::configuration())}" aria-label="${LangLoader::get_message('configuration', 'admin')}">
+						<a href="${relative_url(ModulesUrlBuilder::configuration('countdown'))}" aria-label="${LangLoader::get_message('configuration', 'admin')}">
 							<i class="fa fa-cog"></i>
 						</a>
 					</span>
