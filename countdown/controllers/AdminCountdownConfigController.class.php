@@ -3,12 +3,12 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 08
+ * @version     PHPBoost 5.3 - last update: 2019 12 28
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class AdminCountdownConfigController extends AdminController
+class AdminCountdownConfigController extends AdminModuleController
 {
 	private $lang;
 	/**
@@ -43,7 +43,7 @@ class AdminCountdownConfigController extends AdminController
 
 		$tpl->put('FORM', $this->form->display());
 
-		return new AdminCountdownDisplayResponse($tpl, $this->lang['module_config_title']);
+		return new DefaultAdminDisplayResponse($tpl);
 	}
 
 	private function init()
@@ -56,7 +56,7 @@ class AdminCountdownConfigController extends AdminController
 	{
 		$form = new HTMLForm('countdown');
 
-		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin'));
+		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => $this->get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldDateTime('event_date', $this->lang['config.event.date'], $this->config->get_event_date(),
