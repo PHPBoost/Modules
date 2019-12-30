@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 19
+ * @version     PHPBoost 5.3 - last update: 2019 12 30
  * @since       PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -117,7 +117,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'rewrited_name' => Url::encode_rewrite($this->messages['default.category.name']),
 			'name' => $this->messages['default.category.name'],
 			'description' => $this->messages['default.category.description'],
-			'image' => '/templates/default/images/default_category_thumbnail.png'
+			'thumbnail' => '/templates/default/images/default_category_thumbnail.png'
 		));
 	}
 	

@@ -13,8 +13,8 @@
 		<div class="cat-description">
 			# IF NOT C_ROOT_CATEGORY #
 				# IF C_DISPLAY_CAT_ICONS #
-					# IF C_CATEGORY_IMAGE #
-						<img class="item-thumbnail" itemprop="thumbnailUrl" src="{CATEGORY_IMAGE}" alt="{CATEGORY_NAME}" aria-label="{CATEGORY_NAME}" />
+					# IF C_CATEGORY_THUMBNAIL #
+						<img class="item-thumbnail" itemprop="thumbnailUrl" src="{CATEGORY_THUMBNAIL}" alt="{CATEGORY_NAME}" aria-label="{CATEGORY_NAME}" />
 					# ENDIF #
 				# ENDIF #
 			# ENDIF #

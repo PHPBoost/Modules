@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 12
+ * @version     PHPBoost 5.3 - last update: 2019 12 30
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -95,7 +95,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 		$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
-		$category_image = $this->get_category()->get_image()->rel();
+		$category_thumbnail = $this->get_category()->get_thumbnail()->rel();
 
 		$this->view->put_all(array(
 			'C_ITEMS'                => $result->get_rows_count() > 0,
@@ -103,11 +103,11 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 			'C_CATEGORY'             => true, // CategoriesService::get_categories_manager()->get_categories_cache()->has_categories()
 			'C_ROOT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
-			'C_CATEGORY_IMAGE'       => !empty($category_image),
+			'C_CATEGORY_THUMBNAIL'   => !empty($category_thumbnail),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
 			'CATEGORY_NAME'          => $this->get_category()->get_name(),
 			'CATEGORY_DESCRIPTION'   => $category_description,
-			'CATEGORY_IMAGE'         => $category_image,
+			'CATEGORY_THUMBNAIL'     => $category_thumbnail,
 
 			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
 			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
