@@ -60,7 +60,7 @@ class QuotesDisplayCategoryController extends ModuleController
 					'C_MORE_THAN_ONE_ELEMENT' => $category->get_elements_number() > 1,
 					'CATEGORY_ID' => $category->get_id(),
 					'CATEGORY_NAME' => $category->get_name(),
-					'CATEGORY_THUMBNAIL' => $category_thumbnail,
+					'U_CATEGORY_THUMBNAIL' => $category_thumbnail,
 					'ELEMENTS_NUMBER' => $category->get_elements_number(),
 					'U_CATEGORY' => QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
 				));
@@ -106,7 +106,7 @@ class QuotesDisplayCategoryController extends ModuleController
 			'CATS_COLUMNS_WIDTH' => $cats_columns_width,
 			'ID_CAT' => $this->get_category()->get_id(),
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
-			'CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
+			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
 			'CATEGORY_DESCRIPTION' => $category_description,
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($this->get_category()->get_id())->rel()
 		));

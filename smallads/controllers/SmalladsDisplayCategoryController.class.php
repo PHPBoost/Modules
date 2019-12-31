@@ -107,7 +107,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
 			'CATEGORY_NAME'          => $this->get_category()->get_name(),
 			'CATEGORY_DESCRIPTION'   => $category_description,
-			'CATEGORY_THUMBNAIL'     => $category_thumbnail,
+			'U_CATEGORY_THUMBNAIL'   => $category_thumbnail,
 
 			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
 			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
