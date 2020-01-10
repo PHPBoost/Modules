@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 24
+ * @version     PHPBoost 5.3 - last update: 2020 01 10
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -75,7 +75,7 @@ class QuotesConfig extends AbstractConfigData
 			self::ITEMS_NUMBER_PER_PAGE => 15,
 			self::CATEGORIES_NUMBER_PER_PAGE => 10,
 			self::COLUMNS_NUMBER_PER_LINE => 3,
-			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'quotes'),
+			self::ROOT_CATEGORY_DESCRIPTION => CategoriesService::get_default_root_category_description('quotes', 0, 5),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)
 		);
 	}
