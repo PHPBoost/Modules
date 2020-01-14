@@ -103,7 +103,7 @@ class QuotesDisplayCategoryController extends ModuleController
 			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
 			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
 			'PAGINATION' => $pagination->display(),
-			'CATS_COLUMNS_WIDTH' => $cats_columns_width,
+			'CATEGORIES_PER_ROW' => $this->config->get_columns_number_per_line(),
 			'ID_CAT' => $this->get_category()->get_id(),
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
 			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
