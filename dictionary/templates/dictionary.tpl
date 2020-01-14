@@ -1,5 +1,4 @@
 <script>
-	<!--
 	function affCache(id)
 	{
 		if (jQuery('#' + id).is(':hidden')) {
@@ -258,7 +257,6 @@
 			}
 		}
 	}
- 	-->
 </script>
 
 <section id="module-dictionary">
@@ -300,42 +298,52 @@
 			# START dictionary #
 				<article class="dictionary-word" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
 					<header>
-						<span class="controls">
-							# IF dictionary.EDIT_CODE #
-								<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-							# ENDIF #
-							# IF dictionary.DEL_CODE #
-								<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
-							# ENDIF #
-						</span>
-						<h6>
+						<h2>
 							<a href="javascript:affCache('{dictionary.ID}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
-						</h6>
+						</h2>
 					</header>
 					<div id="{dictionary.ID}" style="display:none;" class="content dictionary-definition">
+						# IF dictionary.C_CONTROLS #
+							<div class="align-right controls">
+								# IF dictionary.EDIT_CODE #
+									<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
+								# ENDIF #
+								# IF dictionary.DEL_CODE #
+									<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+								# ENDIF #
+							</div>
+						# ENDIF #
 						{dictionary.DESC}
 					</div>
 					<noscript>
 						<div id="{dictionary.ID}"  class="dictionary-definition">
+							# IF dictionary.C_CONTROLS #
+								<div class="align-right controls">
+									# IF dictionary.EDIT_CODE #
+										<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
+									# ENDIF #
+									# IF dictionary.DEL_CODE #
+										<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+									# ENDIF #
+								</div>
+							# ENDIF #
 							{dictionary.DESC}
 						</div>
 					</noscript>
 				</article>
 			# END dictionary #
 		 	<script>
-				<!--
-					cat=getParam('cat');
-					AffCacheCatLancement(cat);
-				-->
+				cat=getParam('cat');
+				AffCacheCatLancement(cat);
 			</script>
 			<input type="hidden" value="" id="category_list"name="category_list" />
 			# IF NOT C_RESULTS #
 				<div class="align-center">
-				# IF C_LETTER #
-					{L_NO_WORD_LETTER}
-				# ELSE #
-					{L_NO_WORD}
-				# ENDIF #
+					# IF C_LETTER #
+						{L_NO_WORD_LETTER}
+					# ELSE #
+						{L_NO_WORD}
+					# ENDIF #
 				</div>
 			# ENDIF #
 		# ELSE #
@@ -344,12 +352,12 @@
 				<div class="spacer">&nbsp;</div>
 				<div class="dictionary-word">
 					<div>
-						<span class="controls">
-							<a href="" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-							<a href="" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+						<span class="align-right controls">
+							<a href="" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
+							<a href="" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
 						</span>
 						<h6>
-							<a href=""><i class="fa fa-folder" aria-hidden="true"></i></a> <a href="">{WORD}</a>
+							<a href=""><i class="fa fa-folder" aria-hidden></i></a> <a href="">{WORD}</a>
 						</h6>
 					</div>
 					<div class="dictionary-definition">
