@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 01 10
+ * @version     PHPBoost 5.3 - last update: 2020 01 15
  * @since       PHPBoost 5.3 - 2019 11 03
  * @contributor xela <xela@phpboost.com>
 */
@@ -19,8 +19,9 @@ class QuotesModuleUpdateVersion extends ModuleUpdateVersion
 			'/controllers/AdminQuotesManageController.class.php',
 			'/lang/english/config.php',
 			'/lang/french/config.php',
-			'/phpboost/QuotesSitemapExtensionPoint.class.php',
 			'/phpboost/QuotesHomePageExtensionPoint.class.php',
+			'/phpboost/QuotesSitemapExtensionPoint.class.php',
+			'/phpboost/QuotesTreeLinks.class.php',
 			'/services/QuotesAuthorizationsService.class.php',
 			'/util/AdminQuotesDisplayResponse.class.php'
 		);
