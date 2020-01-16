@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 20
+ * @version     PHPBoost 5.3 - last update: 2020 01 16
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -182,7 +182,7 @@ class HomeLandingHomeController extends ModuleController
 		$tpl = new FileTemplate('HomeLanding/pagecontent/download-cat.tpl');
 		$download_config = DownloadConfig::load();
 
-		$categories_id = $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), $download_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_DOWNLOAD) : array($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category());
+		$categories_id = $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), $download_config->is_summary_displayed_to_guests(), HomeLandingConfig::MODULE_DOWNLOAD) : array($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category());
 
 		$result = $this->querier->select('SELECT download.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
 		FROM ' . DownloadSetup::$download_table . ' download
@@ -204,9 +204,9 @@ class HomeLandingHomeController extends ModuleController
 			'DOWNLOAD_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
 			'C_NO_DOWNLOAD_ITEM' => $result->get_rows_count() == 0,
-			'C_DISPLAY_GRID_VIEW' => $download_config->is_category_displayed_summary(),
-			'C_DISPLAY_TABLE' => $download_config->is_category_displayed_table(),
-			'COL_NBR' => $download_config->get_columns_number_per_line()
+			'C_DISPLAY_GRID_VIEW' => $download_config->get_display_type() == DownloadConfig::GRID_VIEW,
+			'C_DISPLAY_TABLE' => $download_config->get_display_type() == DownloadConfig::TABLE_VIEW,
+			'COL_NBR' => $download_config->get_items_per_row()
 		));
 
 		while ($row = $result->fetch())
@@ -215,14 +215,14 @@ class HomeLandingHomeController extends ModuleController
 			$file->set_properties($row);
 
 			$contents = @strip_tags(FormatingHelper::second_parse($file->get_contents()));
-			$short_contents = @strip_tags(FormatingHelper::second_parse($file->get_short_contents()));
+			$short_contents = @strip_tags(FormatingHelper::second_parse($file->get_summary()));
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_characters_number_displayed();
 			$description = trim(TextHelper::substr($short_contents, 0, $nb_char));
 			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
 			$tpl->assign_block_vars('item', array_merge($file->get_array_tpl_vars(), array(
-				'C_DESCRIPTION' => $file->get_short_contents(),
-				'C_READ_MORE' => $file->get_short_contents() ? ($description != $short_contents) : ($cut_contents != $contents),
+				'C_DESCRIPTION' => $file->get_summary(),
+				'C_READ_MORE' => $file->get_summary() ? ($description != $short_contents) : ($cut_contents != $contents),
 				'DATE' => $file->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
 				'DESCRIPTION' => $description,
 				'CONTENTS' => $cut_contents
@@ -811,7 +811,7 @@ class HomeLandingHomeController extends ModuleController
 		$now = new Date();
 		$tpl = new FileTemplate('HomeLanding/pagecontent/download.tpl');
 		$download_config = DownloadConfig::load();
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $download_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_DOWNLOAD);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $download_config->is_summary_displayed_to_guests(), HomeLandingConfig::MODULE_DOWNLOAD);
 
 		$result = $this->querier->select('SELECT download.*, member.*, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'download download
@@ -835,9 +835,9 @@ class HomeLandingHomeController extends ModuleController
 
 			$tpl->put_all(array(
 				'DOWNLOAD_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD),
-				'C_DISPLAY_GRID_VIEW' => $download_config->is_category_displayed_summary(),
-				'C_DISPLAY_TABLE' => $download_config->is_category_displayed_table(),
-				'COL_NBR' => $download_config->get_columns_number_per_line()
+				'C_DISPLAY_GRID_VIEW' => $download_config->get_display_type() == DownloadConfig::GRID_VIEW,
+				'C_DISPLAY_TABLE' => $download_config->get_display_type() == DownloadConfig::TABLE_VIEW,
+				'COL_NBR' => $download_config->get_items_per_row()
 			));
 			$tpl->assign_block_vars('item', $download->get_array_tpl_vars());
 		}
@@ -851,15 +851,15 @@ class HomeLandingHomeController extends ModuleController
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/forum.tpl');
 		$user_accounts_config = UserAccountsConfig::load();
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_FORUM, 'idcat');
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_FORUM, 'id_category');
 
-		$result = $this->querier->select('SELECT t.id, t.idcat, t.title, member.display_name AS last_login, t.last_timestamp, t.last_user_id, t.last_msg_id, t.display_msg, t.nbr_msg AS t_nbr_msg, msg.id mid, msg.contents, t.user_id as glogin, ext_field.user_avatar
+		$result = $this->querier->select('SELECT t.id, t.id_category, t.title, member.display_name AS last_login, t.last_timestamp, t.last_user_id, t.last_msg_id, t.display_msg, t.nbr_msg AS t_nbr_msg, msg.id mid, msg.contents, t.user_id as glogin, ext_field.user_avatar
 		FROM ' . PREFIX . 'forum_topics t
-		LEFT JOIN ' . PREFIX . 'forum_cats cat ON cat.id = t.idcat
+		LEFT JOIN ' . PREFIX . 'forum_cats cat ON cat.id = t.id_category
 		LEFT JOIN ' . PREFIX . 'forum_msg msg ON msg.id = t.last_msg_id
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = t.last_user_id
 		LEFT JOIN ' . DB_TABLE_MEMBER_EXTENDED_FIELDS . ' ext_field ON ext_field.user_id = member.user_id
-		WHERE t.display_msg = 0 AND idcat IN :authorized_categories
+		WHERE t.display_msg = 0 AND id_category IN :authorized_categories
 		ORDER BY t.last_timestamp DESC
 		LIMIT :forum_limit', array(
 			'authorized_categories' => $authorized_categories,
@@ -901,20 +901,20 @@ class HomeLandingHomeController extends ModuleController
 	private function build_gallery_view()
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/gallery.tpl');
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_GALLERY, 'idcat');
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_GALLERY, 'id_category');
 		$gallery_config = GalleryConfig::load();
 
 		$result = $this->querier->select("SELECT
-			g.id, g.idcat, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob,
+			g.id, g.id_category, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob,
 			m.display_name, m.groups, m.level,
 			notes.average_notes, notes.number_notes, note.note
 		FROM " . GallerySetup::$gallery_table . " g
-		LEFT JOIN " . PREFIX . "gallery_cats cat ON cat.id = g.idcat
+		LEFT JOIN " . PREFIX . "gallery_cats cat ON cat.id = g.id_category
 		LEFT JOIN " . DB_TABLE_MEMBER . " m ON m.user_id = g.user_id
 		LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " com ON com.id_in_module = g.id AND com.module_id = 'gallery'
 		LEFT JOIN " . DB_TABLE_AVERAGE_NOTES . " notes ON notes.id_in_module = g.id AND notes.module_name = 'gallery'
 		LEFT JOIN " . DB_TABLE_NOTE . " note ON note.id_in_module = g.id AND note.module_name = 'gallery' AND note.user_id = :user_id
-		WHERE idcat IN :authorized_categories
+		WHERE id_category IN :authorized_categories
 		ORDER BY g.timestamp DESC
 		LIMIT :gallery_limit", array(
 			'authorized_categories' => $authorized_categories,
@@ -933,7 +933,7 @@ class HomeLandingHomeController extends ModuleController
 				'U_IMG' => PATH_TO_ROOT . '/gallery/pics/' . $row['path'],
 				'TITLE' => $row['name'],
 				'NB_VIEWS' => $row['views'],
-				'U_CATEGORY' => PATH_TO_ROOT . '/gallery/gallery' . url('.php?cat=' . $row['idcat'], '-' . $row['idcat'] . '.php')
+				'U_CATEGORY' => PATH_TO_ROOT . '/gallery/gallery' . url('.php?cat=' . $row['id_category'], '-' . $row['id_category'] . '.php')
 			));
 		}
 		$result->dispose();
@@ -986,15 +986,15 @@ class HomeLandingHomeController extends ModuleController
 	private function build_media_view()
 	{
 		$tpl = new FileTemplate('HomeLanding/pagecontent/media.tpl');
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_MEDIA, 'idcat');
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, HomeLandingConfig::MODULE_MEDIA, 'id_category');
 
 		$result = $this->querier->select('SELECT media.*, mb.display_name, mb.groups, mb.level, notes.average_notes, notes.number_notes, note.note
 		FROM ' . PREFIX . 'media AS media
-		LEFT JOIN ' . PREFIX . 'media_cats cat ON cat.id = media.idcat
+		LEFT JOIN ' . PREFIX . 'media_cats cat ON cat.id = media.id_category
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' AS mb ON media.iduser = mb.user_id
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = media.id AND notes.module_name = \'media\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = media.id AND note.module_name = \'media\' AND note.user_id = :user_id
-		WHERE idcat IN :authorized_categories
+		WHERE id_category IN :authorized_categories
 		ORDER BY media.timestamp DESC
 		LIMIT :media_limit', array(
 			'authorized_categories' => $authorized_categories,
@@ -1018,7 +1018,7 @@ class HomeLandingHomeController extends ModuleController
 					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'URL_EMBED' => str_replace("v", "embed", $row['url']),
 					'MIME' => $row['mime_type']
@@ -1034,7 +1034,7 @@ class HomeLandingHomeController extends ModuleController
 					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
@@ -1052,7 +1052,7 @@ class HomeLandingHomeController extends ModuleController
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
@@ -1070,7 +1070,7 @@ class HomeLandingHomeController extends ModuleController
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
@@ -1088,7 +1088,7 @@ class HomeLandingHomeController extends ModuleController
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
