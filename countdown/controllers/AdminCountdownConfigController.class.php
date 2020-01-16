@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 28
+ * @version     PHPBoost 5.3 - last update: 2020 01 16
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -56,7 +56,7 @@ class AdminCountdownConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm('countdown');
 
-		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => $this->get_module()->get_configuration()->get_name())));
+		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldDateTime('event_date', $this->lang['config.event.date'], $this->config->get_event_date(),
