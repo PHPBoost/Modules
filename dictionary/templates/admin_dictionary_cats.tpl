@@ -166,7 +166,7 @@
 			<fieldset class="fieldset-submit">
 				<legend>{add.L_VALIDATION}</legend>
 				<button class="button submit" type="submit" name="valid" value="true">{add.L_SUBMIT}</button>
-				<button type="reset" class="button reset" value="true">{add.L_RESET}</button>
+				<button class="button reset-button" type="reset" value="true">{add.L_RESET}</button>
 				<input type="hidden" value="{add.ID_CAT}" name="id_cat" />
 				<input type="hidden" name="token" value="{TOKEN}" />
 			</fieldset>

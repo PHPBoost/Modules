@@ -413,9 +413,9 @@
 				<fieldset class="fieldset-submit">
 					<legend>{L_VALIDATION}</legend>
 						<input type="hidden" value="{ID}" name="dictionary_id" />
-						<button type="submit" class="button submit" id="valid" name="valid" value="true">{L_SUBMIT}</button>
-						<button type="button" class="button small" name="previs" value="true">{L_PREVIEW}</button>
-						<button type="reset" class="button reset" value="true">{L_RESET}</button>
+						<button class="button submit" type="submit" id="valid" name="valid" value="true">{L_SUBMIT}</button>
+						<button class="button preview-button" type="button" name="previs" value="true">{L_PREVIEW}</button>
+						<button class="button reset-button" type="reset" value="true">{L_RESET}</button>
 						<input type="hidden" name="token" value="{TOKEN}" />
 				</fieldset>
 			</form>
