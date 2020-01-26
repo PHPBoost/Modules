@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 12
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -87,26 +87,35 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.list'], SmalladsConfig::DISPLAY_LIST_VIEW),
 				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.table'], SmalladsConfig::DISPLAY_TABLE_VIEW)
 			),
-			array('events' => array('change' => '
-				if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::DISPLAY_GRID_VIEW . '\') {
-					HTMLForms.getField("characters_number_to_cut").enable();
-					HTMLForms.getField("displayed_cols_number_per_line").enable();
-				} else if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::DISPLAY_LIST_VIEW . '\') {
-					HTMLForms.getField("characters_number_to_cut").enable();
-					HTMLForms.getField("displayed_cols_number_per_line").disable();
-				} else {
-					HTMLForms.getField("characters_number_to_cut").disable();
-					HTMLForms.getField("displayed_cols_number_per_line").disable();
-				}'))
+			array(
+				'events' => array('change' => '
+					if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::DISPLAY_GRID_VIEW . '\') {
+						HTMLForms.getField("characters_number_to_cut").enable();
+						HTMLForms.getField("displayed_cols_number_per_line").enable();
+					} else if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::DISPLAY_LIST_VIEW . '\') {
+						HTMLForms.getField("characters_number_to_cut").enable();
+						HTMLForms.getField("displayed_cols_number_per_line").disable();
+					} else {
+						HTMLForms.getField("characters_number_to_cut").disable();
+						HTMLForms.getField("displayed_cols_number_per_line").disable();
+					}'
+				)
+			)
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('characters_number_to_cut', $this->lang['config.characters.number.to.cut'], $this->config->get_characters_number_to_cut(),
-			array('min' => 20, 'max' => 1000, 'hidden' => $this->config->get_display_type() === SmalladsConfig::DISPLAY_TABLE_VIEW),
+			array(
+				'min' => 20, 'max' => 1000,
+				'hidden' => $this->config->get_display_type() === SmalladsConfig::DISPLAY_TABLE_VIEW
+			),
 			array(new FormFieldConstraintIntegerRange(20, 1000))
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('displayed_cols_number_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_displayed_cols_number_per_line(),
-			array('min' => 1, 'max' => 4, 'hidden' => $this->config->get_display_type() !== SmalladsConfig::DISPLAY_GRID_VIEW),
+			array(
+				'min' => 1, 'max' => 4,
+				'hidden' => $this->config->get_display_type() !== SmalladsConfig::DISPLAY_GRID_VIEW
+			),
 			array(new FormFieldConstraintIntegerRange(1, 4))
 		));
 

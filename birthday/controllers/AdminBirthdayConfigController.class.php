@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 01 16
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -83,11 +83,19 @@ class AdminBirthdayConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('pm_for_members_birthday_title', $this->lang['birthday.pm.for.members.birthday.title'], $this->config->get_pm_for_members_birthday_title(),
-			array('class' => 'third-field', 'size' => 40, 'description' => $this->lang['birthday.pm.for.members.birthday.title.explain'], 'hidden' => !$this->config->is_pm_for_members_birthday_enabled())
+			array(
+				'class' => 'third-field', 'size' => 40,
+				'description' => $this->lang['birthday.pm.for.members.birthday.title.explain'],
+				'hidden' => !$this->config->is_pm_for_members_birthday_enabled()
+			)
 		));
 
 		$fieldset->add_field(new FormFieldShortMultiLineTextEditor('pm_for_members_birthday_content', $this->lang['birthday.pm.for.members.birthday.content'], $this->config->get_pm_for_members_birthday_content(),
-			array('class' => 'half-field', 'description' => $this->lang['birthday.pm.for.members.birthday.content.explain'], 'hidden' => !$this->config->is_pm_for_members_birthday_enabled())
+			array(
+				'class' => 'half-field',
+				'description' => $this->lang['birthday.pm.for.members.birthday.content.explain'],
+				'hidden' => !$this->config->is_pm_for_members_birthday_enabled()
+			)
 		));
 
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations', LangLoader::get_message('authorizations', 'common'));

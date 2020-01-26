@@ -135,7 +135,7 @@ class HomeLandingHomeController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = articles.id AND notes.module_name = \'articles\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = articles.id AND note.module_name = \'articles\' AND note.user_id = :user_id
 		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0))) AND id_category IN :categories_id
-		ORDER BY articles.date_created DESC
+		ORDER BY articles.creation_date DESC
 		LIMIT :articles_cat_limit', array(
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'timestamp_now' => $now->get_timestamp(),
@@ -148,7 +148,7 @@ class HomeLandingHomeController extends ModuleController
 			'ARTICLES_CAT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
 			'CATEGORY_NAME' => $category->get_name(),
 			'C_NO_ARTICLES_ITEM' => $result->get_rows_count() == 0,
-			'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_GRID_VIEW,
+			'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::GRID_VIEW,
 			'COL_NBR' => $articles_config->get_categories_number_per_row()
 		));
 
@@ -166,7 +166,7 @@ class HomeLandingHomeController extends ModuleController
 			$tpl->assign_block_vars('item', array_merge($article->get_array_tpl_vars(), array(
 				'C_DESCRIPTION' => $article->get_description(),
 				'C_READ_MORE' => $article->get_description() ? ($description != $short_contents) : ($cut_contents != $contents),
-				'DATE' => $article->get_date_created()->format(Date::FORMAT_DAY_MONTH_YEAR),
+				'DATE' => $article->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
 				'DESCRIPTION' => $description,
 				'CONTENTS' => $cut_contents
 			)));
@@ -524,7 +524,7 @@ class HomeLandingHomeController extends ModuleController
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = articles.id AND notes.module_name = \'articles\'
 		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = articles.id AND note.module_name = \'articles\' AND note.user_id = :user_id
 		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0))) AND id_category IN :authorized_categories
-		ORDER BY articles.date_created DESC
+		ORDER BY articles.creation_date DESC
 		LIMIT :articles_limit', array(
 			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
@@ -539,10 +539,10 @@ class HomeLandingHomeController extends ModuleController
 
 			$tpl->assign_block_vars('item', $article->get_array_tpl_vars());
 			$tpl->put_all(array(
-				'DATE_DAY' => strftime('%d', $article->get_date_created()->get_timestamp()),
-				'DATE_MONTH_A' => strftime('%b', $article->get_date_created()->get_timestamp()),
+				'DATE_DAY' => strftime('%d', $article->get_creation_date()->get_timestamp()),
+				'DATE_MONTH_A' => strftime('%b', $article->get_creation_date()->get_timestamp()),
 				'ARTICLES_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
-				'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_GRID_VIEW,
+				'C_DISPLAY_GRID_VIEW' => $articles_config->get_display_type() == ArticlesConfig::GRID_VIEW,
 				'ITEMS_PER_ROW' => $articles_config->get_items_number_per_row(),
 			));
 		}

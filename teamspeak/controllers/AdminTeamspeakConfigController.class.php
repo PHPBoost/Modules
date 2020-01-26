@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 01 16
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminTeamspeakConfigController extends AdminModuleController
@@ -60,30 +61,48 @@ class AdminTeamspeakConfigController extends AdminModuleController
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('ts_ip', $this->lang['ts_ip'], $this->config->get_ip(),
-			array('maxlength' => 255, 'description' => $this->lang['ts_ip_explain'], 'required' => true),
+			array(
+				'maxlength' => 255, 'required' => true,
+				'description' => $this->lang['ts_ip_explain']
+			),
 			array(new FormFieldConstraintRegex('`^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(([0-9A-Fa-f]{1,4}:){0,5}:((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(::([0-9A-Fa-f]{1,4}:){0,5}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$`iu'))
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('ts_voice', $this->lang['ts_voice'], $this->config->get_voice(),
-			array('maxlength' => 5, 'size' => 5, 'description' => $this->lang['ts_voice_explain'], 'required' => true),
+			array(
+				'maxlength' => 5, 'size' => 5, 'required' => true,
+				'description' => $this->lang['ts_voice_explain']
+			),
 			array(new FormFieldConstraintIntegerRange(1, 65535))
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('ts_query', $this->lang['ts_query'], $this->config->get_query(),
-			array('maxlength' => 5, 'size' => 5, 'description' => $this->lang['ts_query_explain'], 'required' => true),
+			array(
+				'maxlength' => 5, 'size' => 5, 'required' => true,
+				'description' => $this->lang['ts_query_explain']
+			),
 			array(new FormFieldConstraintIntegerRange(1, 65535))
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('ts_user', $this->lang['ts_user'], $this->config->get_user(),
-			array('description' => $this->lang['ts_user_explain'], 'required' => true)
+			array(
+				'required' => true,
+				'description' => $this->lang['ts_user_explain']
+			)
 		));
 
 		$fieldset->add_field($password = new FormFieldPasswordEditor('ts_pass', $this->lang['ts_pass'], $this->config->get_pass(),
-			array('description' => $this->lang['ts_pass_explain'], 'required' => true)
+			array(
+				'required' => true,
+				'description' => $this->lang['ts_pass_explain']
+			)
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('ts_refresh_delay', $this->lang['ts_refresh_delay'], $this->config->get_refresh_delay(),
-			array('maxlength' => 2, 'size' => 2, 'description' => $this->lang['ts_refresh_delay_explain'], 'required' => true),
+			array(
+				'maxlength' => 2, 'size' => 2, 'required' => true,
+				'description' => $this->lang['ts_refresh_delay_explain']
+			),
 			array(new FormFieldConstraintIntegerRange(0, 60))
 		));
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 12
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -90,7 +90,10 @@ class AdminSmalladsMiniMenuConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('mini_menu_autoplay_speed', $this->lang['config.mini.autoplay.speed'], $this->config->get_mini_menu_autoplay_speed(),
-			array('description' => $this->lang['config.mini.speed.desc'], 'hidden' => !$this->config->is_slideshow_autoplayed())
+			array(
+				'description' => $this->lang['config.mini.speed.desc'],
+				'hidden' => !$this->config->is_slideshow_autoplayed()
+			)
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('mini_menu_autoplay_hover', $this->lang['config.mini.autoplay.hover'], $this->config->is_slideshow_hover_enabled(),

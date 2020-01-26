@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 10 29
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminServerStatusConfigController extends AdminController
@@ -60,17 +61,26 @@ class AdminServerStatusConfigController extends AdminController
 		$fieldset = new FormFieldsetHTMLHeading('configuration', LangLoader::get_message('configuration', 'admin'));
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('refresh_delay', $this->lang['admin.config.refresh_delay'], $this->config->get_refresh_delay(), array(
-			'maxlength' => 4, 'size' => 4, 'description' => $this->lang['admin.config.refresh_delay.explain'], 'required' => true),
+		$fieldset->add_field(new FormFieldTextEditor('refresh_delay', $this->lang['admin.config.refresh_delay'], $this->config->get_refresh_delay(),
+			array(
+				'maxlength' => 4, 'size' => 4, 'required' => true,
+				'description' => $this->lang['admin.config.refresh_delay.explain']
+			),
 			array(new FormFieldConstraintRegex('`^[0-9]+$`iu'))
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('timeout', $this->lang['admin.config.timeout'], $this->config->get_timeout(),
-			array('maxlength' => 5, 'size' => 5, 'description' => $this->lang['admin.config.timeout.explain'], 'required' => true)
+			array(
+				'maxlength' => 5, 'size' => 5, 'required' => true,
+				'description' => $this->lang['admin.config.timeout.explain']
+			)
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('address_displayed', $this->lang['admin.config.address_displayed'], $this->config->is_address_displayed(),
-			array('class' => 'custom-checkbox', 'description' => $this->lang['admin.config.address_displayed.explain'])
+			array(
+				'class' => 'custom-checkbox',
+				'description' => $this->lang['admin.config.address_displayed.explain']
+			)
 		));
 
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['admin.authorizations']);

@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 12 17
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesFormController extends ModuleController
@@ -72,10 +73,15 @@ class QuotesFormController extends ModuleController
 		}
 
 		$fieldset->add_field(new FormFieldAjaxCompleter('author', $this->common_lang['author'], $this->get_quote()->get_author(),
-			array('required' => true, 'file' => QuotesUrlBuilder::ajax_authors()->rel())
+			array(
+				'required' => true,
+				'file' => QuotesUrlBuilder::ajax_authors()->rel()
+			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('quote', $this->lang['quote'], $this->get_quote()->get_quote(), array('required' => true)));
+		$fieldset->add_field(new FormFieldRichTextEditor('quote', $this->lang['quote'], $this->get_quote()->get_quote(),
+			array('required' => true)
+		));
 
 
 		$this->build_approval_field($fieldset);
@@ -106,7 +112,9 @@ class QuotesFormController extends ModuleController
 			$fieldset->set_description(MessageHelper::display(LangLoader::get_message('contribution.explain', 'user-common') . ' ' . $this->lang['quotes.form.contribution.explain'], MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
 
-			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', LangLoader::get_message('contribution.description', 'user-common'), '', array('description' => LangLoader::get_message('contribution.description.explain', 'user-common'))));
+			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', LangLoader::get_message('contribution.description', 'user-common'), '',
+				array('description' => LangLoader::get_message('contribution.description.explain', 'user-common'))
+			));
 		}
 	}
 

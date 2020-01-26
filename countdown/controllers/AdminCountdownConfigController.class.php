@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 01 16
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -64,13 +64,25 @@ class AdminCountdownConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('no_javas', $this->lang['config.no.script'], $this->config->get_no_javas(),
-			array('class' => 'half-field', 'description' => $this->lang['config.no.script.desc'])));
+			array(
+				'class' => 'half-field',
+				'description' => $this->lang['config.no.script.desc']
+			)
+		));
 
 		$fieldset->add_field(new FormFieldTextEditor('next_event', $this->lang['config.next.event'], $this->config->get_next_event(),
-			array('class' => 'half-field', 'description' => $this->lang['config.next.event.desc'])));
+			array(
+				'class' => 'half-field',
+				'description' => $this->lang['config.next.event.desc']
+			)
+		));
 
 		$fieldset->add_field(new FormFieldTextEditor('last_event', $this->lang['config.last.event'], $this->config->get_last_event(),
-			array('class' => 'half-field', 'description' => $this->lang['config.last.event.desc'])));
+			array(
+				'class' => 'half-field',
+				'description' => $this->lang['config.last.event.desc']
+			)
+		));
 
 		$fieldset->add_field(new FormFieldCheckbox('stop_counter', $this->lang['config.stop.counter'], $this->config->get_stop_counter(),
 			array(
@@ -88,14 +100,21 @@ class AdminCountdownConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('hidden_counter', $this->lang['config.hidden.counter'], $this->config->get_hidden_counter(),
-			array('class' => 'custom-checkbox', 'hidden' => !$this->config->get_stop_counter())
+			array(
+				'class' => 'custom-checkbox',
+				'hidden' => !$this->config->get_stop_counter()
+			)
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('stopped_event', $this->lang['config.stopped.event'], $this->config->get_stopped_event(),
-			array('class' => 'half-field', 'hidden' => !$this->config->get_stop_counter(), 'description' => $this->lang['config.stopped.event.desc'])
+			array(
+				'class' => 'half-field',
+				'hidden' => !$this->config->get_stop_counter(),
+				'description' => $this->lang['config.stopped.event.desc']
+			)
 		));
 
-		$fieldset->add_field(new FormFieldFree('1_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('1_separator', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('timer_disabled', $this->lang['config.timer.disabled'], $this->config->get_timer_disabled(),
 			array(
@@ -111,7 +130,11 @@ class AdminCountdownConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('no_event', $this->lang['config.no.event'], $this->config->get_no_event(),
-			array('class' => 'half-field', 'hidden' => !$this->config->get_timer_disabled(), 'description' => $this->lang['config.no.event.desc'])
+			array(
+				'class' => 'half-field',
+				'hidden' => !$this->config->get_timer_disabled(),
+				'description' => $this->lang['config.no.event.desc']
+			)
 		));
 
 		$common_lang = LangLoader::get('common');

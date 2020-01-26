@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 12
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -80,7 +80,10 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('usage_terms', $this->lang['config.usage.terms.desc'], $this->config->get_usage_terms(),
-			array('rows' => 25, 'hidden' => !$this->config->are_usage_terms_displayed())
+			array(
+				'rows' => 25,
+				'hidden' => !$this->config->are_usage_terms_displayed()
+			)
 		));
 
 		$this->submit_button = new FormButtonDefaultSubmit();

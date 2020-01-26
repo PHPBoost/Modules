@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author        Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 12
+ * @version     PHPBoost 5.3 - last update: 2020 01 26
  * @since       PHPBoost 5.1 - 2019 11 04
  * @contributor  Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor  Mipel <mipel@phpboost.com>
@@ -69,7 +69,10 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		$fieldset->add_field(new FormFieldSelectCurrencies('currency', $this->lang['config.currency'], $this->config->get_currency()));
 
 		$fieldset->add_field(new FormFieldNumberEditor('display_delay_before_delete', $this->lang['config.display.delay.before.delete'], $this->config->get_display_delay_before_delete(),
-			array('min' => 1, 'max' => 7, 'required' => true, 'description' => $this->lang['config.display.delay.before.delete.desc']),
+			array(
+				'min' => 1, 'max' => 7, 'required' => true,
+				'description' => $this->lang['config.display.delay.before.delete.desc']
+			),
 			array(new FormFieldConstraintIntegerRange(1, 7))
 		));
 
@@ -87,7 +90,10 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('max_weeks_number', $this->lang['config.max.weeks.number'], $this->config->get_max_weeks_number(),
-			array('min' => 1, 'max' => 52, 'required' => true, 'hidden' => !$this->config->is_max_weeks_number_displayed()),
+			array(
+				'min' => 1, 'max' => 52, 'required' => true,
+				'hidden' => !$this->config->is_max_weeks_number_displayed()
+			),
 			array(new FormFieldConstraintIntegerRange(1, 52))
 		));
 
@@ -115,7 +121,8 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		$fieldset->add_field(new FormFieldCheckbox('enabled_navigation_links', $this->lang['config.related.links.display'], $this->config->get_enabled_navigation_links(),
 			array(
 				'class' => 'custom-checkbox',
-				'description' => $this->lang['config.related.links.display.desc'])
+				'description' => $this->lang['config.related.links.display.desc']
+			)
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('display_location_enabled', $this->lang['config.location'], $this->config->is_location_displayed(),
@@ -136,7 +143,10 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('suggested_items_nb', $this->lang['config.suggestions.nb'], $this->config->get_suggested_items_nb(),
-			array('min' => 1, 'max' => 10, 'hidden' => !$this->config->get_enabled_items_suggestions()),
+			array(
+				'min' => 1, 'max' => 10,
+				'hidden' => !$this->config->get_enabled_items_suggestions()
+			),
 			array(new FormFieldConstraintIntegerRange(1, 10))
 		));
 
@@ -144,7 +154,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 
 		$fieldset->add_field(new SmalladsFormFieldSmalladType('smallad_type', $this->lang['smallads.type.add'], $this->config->get_smallad_types()));
 
-            $fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['smallads.default.contents'], $this->config->get_default_contents(),
+        $fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['smallads.default.contents'], $this->config->get_default_contents(),
 			array('rows' => 8, 'cols' => 47)
 		));
 
