@@ -91,7 +91,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(1, 52))
 		));
 
-		$fieldset->add_field(new FormFieldFree('1_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('1_separator', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('contact_level', $this->lang['config.display.contact.to.visitors'], $this->config->is_user_allowed(),
 			array(
@@ -126,12 +126,13 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			array(
 				'class' => 'custom-checkbox',
 				'events' => array('click' => '
-				if (HTMLForms.getField("enabled_items_suggestions").getValue()) {
-					HTMLForms.getField("suggested_items_nb").enable();
-				} else {
-					HTMLForms.getField("suggested_items_nb").disable();
-				}
-			'))
+					if (HTMLForms.getField("enabled_items_suggestions").getValue()) {
+						HTMLForms.getField("suggested_items_nb").enable();
+					} else {
+						HTMLForms.getField("suggested_items_nb").disable();
+					}'
+				)
+			)
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('suggested_items_nb', $this->lang['config.suggestions.nb'], $this->config->get_suggested_items_nb(),
@@ -139,10 +140,10 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(1, 10))
 		));
 
-		$fieldset->add_field(new FormFieldFree('2_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('2_separator', ''));
 
 		$fieldset->add_field(new SmalladsFormFieldSmalladType('smallad_type', $this->lang['smallads.type.add'], $this->config->get_smallad_types()));
-            
+
             $fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['smallads.default.contents'], $this->config->get_default_contents(),
 			array('rows' => 8, 'cols' => 47)
 		));
@@ -203,7 +204,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			$this->config->display_location();
 		else
 			$this->config->hide_location();
-		
+
 		$this->config->set_default_contents($this->form->get_value('default_contents'));
 
 		SmalladsConfig::save();

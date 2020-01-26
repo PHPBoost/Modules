@@ -72,7 +72,7 @@ class AdminSmalladsMiniMenuConfigController extends AdminModuleController
 			array('description' => $this->lang['config.mini.speed.desc'])
 		));
 
-		$fieldset->add_field(new FormFieldFree('1_separator', '', ''));
+		$fieldset->add_field(new FormFieldSpacer('1_separator', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('mini_menu_autoplay', $this->lang['config.mini.autoplay'], $this->config->is_slideshow_autoplayed(),
 			array(
