@@ -12,23 +12,24 @@
 #                       English                    #
 ####################################################
 
-$lang['quotes.1.quote'] = 'Rien de sert de courir, il faut partir à point.
-Le lièvre et la tortue en sont un témoignage.
-Gageons dit celle-ci que vous n\'atteindrez pas sitôt que moi ce but.';
+$lang['quotes.1.quote'] = '
+    To run is nothing; we must timely start. <br />
+    The hare and tortoise here shall teach the art. <br />
+    " Let\'s bet," the tortoise said, "my clever spark, <br />
+    Which, you or I, the first shall gain that mark." <br />
+    "The first ? what, are you mad ?"';
 $lang['quotes.1.author'] = 'Jean de la Fontaine';
 
-$lang['quotes.2.quote'] = 'La cigale ayant chanté tout l\'été
-se trouva fort dépourvue
-quand la bise fut venue.';
+$lang['quotes.2.quote'] = '
+    The gay cicada, full of song <br />
+    All the sunny season long, <br />
+    Was unprovided and brought low, <br />
+    When the north wind began to blow ;';
 $lang['quotes.2.author'] = 'Jean de la Fontaine';
 
-$lang['quotes.3.quote'] = 'Un agneau se désaltérait dans le courant d\'une onde pure,
-un loup survint à jeun qui cherchait aventure.';
-$lang['quotes.3.author'] = 'Jean de la Fontaine';
+$lang['quotes.4.quote'] = 'I have come, I have seen and I have conquered';
+$lang['quotes.4.author'] = 'Julius Caesar';
 
-$lang['quotes.4.quote'] = 'Je suis venu, j\'ai vu et j\'ai vaincu';
-$lang['quotes.4.author'] = 'Jules César';
-
-$lang['quotes.5.quote'] = 'Je vous promets du sang et des larmes';
+$lang['quotes.5.quote'] = 'I have nothing more to offer than blood, pain, tears and sweat.';
 $lang['quotes.5.author'] = 'Winston Churchill';
 ?>
