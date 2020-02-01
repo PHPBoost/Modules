@@ -16,7 +16,8 @@
 			<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<h3><a href="{media_swf.U_MEDIA_LINK}">{media_swf.TITLE}</a></h3>
 				<div class="more">
-					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_swf.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_swf.DATE}
+					<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_swf.PSEUDO}
+					<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_swf.DATE}</span>
 				</div>
 				<p class="media-content" id="media_swf-{media_swf.ID}">
 					<object type="{media_swf.MIME}" data="{media_swf.URL}" width="{WIDTH}" height="{HEIGHT}">
@@ -38,16 +39,15 @@
 			<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<h3><a href="{media_flv.U_MEDIA_LINK}">{media_flv.TITLE}</a></h3>
 				<div class="more">
-					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_flv.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_flv.DATE}
+					<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_flv.PSEUDO}</span>
+					<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_flv.DATE}</span>
 				</div>
 				<p class="media-content media-flv">
 					<a href="{media_flv.URL}" id="media_flv-{media_flv.ID}" class="media-flv" style="width:{media_flv.WIDTH}px;height:{media_flv.HEIGHT}px;"></a>
 					<script>
-					<!--
-					jQuery(document).ready(function() {
-						insertMoviePlayer('media_flv-{media_flv.ID}');
-					});
-					-->
+						jQuery(document).ready(function() {
+							insertMoviePlayer('media_flv-{media_flv.ID}');
+						});
 					</script>
 				</p>
 			</div>
@@ -57,7 +57,8 @@
 			<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<h3><a href="{media_mp4.U_MEDIA_LINK}">{media_mp4.TITLE}</a></h3>
 				<div class="more">
-					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_mp4.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_mp4.DATE}
+					<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
+					<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
 				</div>
 				<p class="media-content media-mp4">
 					<video class="video-player" width="{media_mp4.WIDTH}" height="{media_mp4.HEIGHT}"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
@@ -71,7 +72,8 @@
 			<div class="item-content-audio" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<h3><a href="{media_mp3.U_MEDIA_LINK}">{media_mp3.TITLE}</a></h3>
 				<div class="more">
-					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_mp3.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_mp3.DATE}
+					<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
+					<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
 				</div>
 
 				<p class="media-content-audio" id="media_mp3-{media_mp3.ID}">
@@ -86,7 +88,8 @@
 			<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<h3><a href="{media_other.U_MEDIA_LINK}">{media_other.TITLE}</a></h3>
 				<div class="more">
-					${LangLoader::get_message('by', 'common')} <span class="color-topic">{media_other.PSEUDO}</span> ${Langloader::get_message('the', 'common')} {media_other.DATE}
+					<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
+					<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
 				</div>
 
 				<p class="media-content" id="media_other-{media_other.ID}">

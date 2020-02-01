@@ -18,8 +18,8 @@
 
 			<div class="more">
 				<p><i class="fa fa-fw fa-user"></i> {item.PSEUDO}</p>
-				<p><i class="fa fa-fw fa-clock"></i> {item.DATE}</p>
-				<p><i class="fa fa-fw fa-file"></i>  <span class="color-topic"><a href="{item.U_MESSAGE}">{item.MESSAGE}</a></span></p>
+				<p><i class="far fa-fw fa-clock"></i> {item.DATE}</p>
+				<p><i class="fa fa-fw fa-file"></i>  <a href="{item.U_MESSAGE}">{item.MESSAGE}</a></p>
 			</div>
 
 			<p class="item-desc">
