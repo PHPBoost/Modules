@@ -1,6 +1,6 @@
 <section id="smallads-module">
 	<header>
-		<div class="align-right">
+		<div class="align-right controls">
 			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-rss warning" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
 			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
