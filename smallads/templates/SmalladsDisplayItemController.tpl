@@ -81,7 +81,7 @@
 												</div>
 											# ENDIF #
 											# IF C_DISPLAYED_AUTHOR_PM #
-												 | <a href="{U_AUTHOR_PM}" class="smallad-pm" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.pm}</span></a>
+												 | <a href="{U_AUTHOR_PM}" class="smallad-pm"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.pm}</span></a>
 											 # ENDIF #
 
 											# IF C_DISPLAYED_AUTHOR_PHONE #
@@ -118,11 +118,11 @@
 											# ENDIF #
 									</li>
 								# ENDIF #
-								<li class="li-stretch"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true" aria-label="${LangLoader::get_message('date', 'date-common')}"></i> <time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time></li>
-								<li class="li-stretch"><i class="fa fa-fw fa-eye" aria-hidden="true" aria-label="{VIEWS_NUMBER} {@smallads.sort.field.views}"></i> <span aria-label="{VIEWS_NUMBER} {@smallads.sort.field.views}">{VIEWS_NUMBER}</span></li>
+								<li class="li-stretch"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time></li>
+								<li class="li-stretch"><span role="contentinfo" aria-label="{VIEWS_NUMBER} {@smallads.sort.field.views}"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {VIEWS_NUMBER}</span></li>
 								# IF C_COMMENTS_ENABLED #
 									<li class="li-stretch">
-										<i class="fa fa-fw fa-comment" aria-hidden="true" aria-label="${LangLoader::get_message('comments', 'comments-common')}"></i> <a itemprop="discussionUrl" class="small" href="{U_COMMENTS}"> {L_COMMENTS}</a>
+										<i class="fa fa-fw fa-comment" aria-hidden="true"></i> <a itemprop="discussionUrl" class="small" href="{U_COMMENTS}"> {L_COMMENTS}</a>
 									</li>
 								# ENDIF #
 								# IF C_KEYWORDS #

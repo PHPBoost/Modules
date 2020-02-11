@@ -234,14 +234,14 @@
 										# ENDIF #
 									</span>
 								# ENDIF #
-								<span class="pinned notice">
+								<span class="pinned">
 									<i class="far fa-calendar"></i> <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLICATION_START_DATE}# ENDIF #</time>
 								</span>
-								<span class="pinned question">
+								<span class="pinned">
 									<i class="far fa-folder"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
 								</span>
 								# IF C_LOCATION #
-									<span class="jp-location pinned notice">
+									<span class="jp-location pinned">
 										# IF items.C_GMAP #
 											# IF items.IS_LOCATED #
 												<i class="fa fa-map-marker-alt"></i> {items.LOCATION}
@@ -267,10 +267,10 @@
 							<div class="controls">
 
 								# IF items.C_EDIT #
-								<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
+									<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
 								# ENDIF #
 								# IF items.C_DELETE #
-								<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+									<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
 								# ENDIF #
 							</div>
 
