@@ -357,7 +357,7 @@
 							<a href="" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
 						</span>
 						<h6>
-							<a href=""><i class="fa fa-folder" aria-hidden></i></a> <a href="">{WORD}</a>
+							<a href=""><i class="fa fa-folder" aria-hidden="true"></i></a> <a href="">{WORD}</a>
 						</h6>
 					</div>
 					<div class="dictionary-definition">

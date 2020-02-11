@@ -7,9 +7,9 @@
 		# ENDIF #
 	</div>
 	# IF C_ONLINE #
-		<span aria-label="{@server.online}"></span><i class="fa fa-signal fa-2x success" aria-hidden></i>
+		<span aria-label="{@server.online}"></span><i class="fa fa-signal fa-2x success" aria-hidden="true"></i>
 	# ELSE #
-		<span aria-label="{@server.offline}"></span><i class="fa fa-signal fa-2x error" aria-hidden></i>
+		<span aria-label="{@server.offline}"></span><i class="fa fa-signal fa-2x error" aria-hidden="true"></i>
 	# ENDIF #
 </li>
 # IF C_DESCRIPTION #
