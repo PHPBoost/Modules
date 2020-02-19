@@ -62,7 +62,7 @@
 											# IF C_DISPLAYED_AUTHOR_EMAIL #
 												<a href="#email-modal" data-modal data-target="email-modal" class="email-modal-btn" aria-label="{@smallads.contact.email} - {@open.modal}"><i class="fa fa-fw fa-at" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.email}</span></a>
 												<div id="email-modal" class="modal modal-animation">
-													<div class="close-modal" aria-label="{@close.modal}"></div>
+													<div class="close-modal" role="button" aria-label="{@close.modal}"></div>
 													<div class="content-panel cell">
 														<div class="cell-body">
 															# IF C_CONTACT_LEVEL #
@@ -81,13 +81,13 @@
 												</div>
 											# ENDIF #
 											# IF C_DISPLAYED_AUTHOR_PM #
-												 | <a href="{U_AUTHOR_PM}" class="smallad-pm"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.pm}</span></a>
+												 | <a href="{U_AUTHOR_PM}" class="smallad-pm" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i></a>
 											 # ENDIF #
 
 											# IF C_DISPLAYED_AUTHOR_PHONE #
 												 | <a href="#" data-modal data-target="tel-modal" aria-label="{@smallads.contact.phone} - {@open.modal}"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.phone}</span></a>
 												<div id="tel-modal" class="modal modal-animation">
-													<div class="close-modal" aria-label="{@close.modal}"></div>
+													<div class="close-modal" role="button" aria-label="{@close.modal}"></div>
 													<div class="content-panel cell">
 														<div class="cell-body">
 															<div class="cell-content align-center">

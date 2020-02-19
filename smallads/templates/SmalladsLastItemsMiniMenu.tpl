@@ -23,7 +23,7 @@
 					# IF items.C_COMPLETED #<span class="completed-item"><span>{@smallads.completed.item}</span></span># ENDIF #
 					<div class="smallads-mini-infos">
 						# IF items.C_PRICE #{items.PRICE} {CURRENCY}# ENDIF #
-						<h6><p>{items.TITLE}</p></h6>
+						<h6>{items.TITLE}</h6>
 						<span class="more">{items.SMALLAD_TYPE} - <i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time></span>
 					</div>
 				</a>

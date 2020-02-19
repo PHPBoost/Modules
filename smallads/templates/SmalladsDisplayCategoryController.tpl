@@ -2,7 +2,7 @@
 	<header>
 		<div class="align-right controls">
 			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-rss warning" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
-			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
+			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF #
@@ -64,6 +64,7 @@
 									<div class="label-list dropdown-container">
 										<label class="jplist-label" for="default-radio">
 											<input
+												id="default-radio"
 												type="radio"
 												data-jplist-control="radio-buttons-text-filter"
 												data-path="default"
@@ -75,6 +76,7 @@
 										# START types #
 											<label class="jplist-label" for="{types.TYPE_NAME_FILTER}">
 												<input
+													id="{types.TYPE_NAME_FILTER}"
 													type="radio"
 													data-jplist-control="radio-buttons-text-filter"
 													data-path=".smallads-type"
