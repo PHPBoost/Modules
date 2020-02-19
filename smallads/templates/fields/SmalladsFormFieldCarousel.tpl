@@ -47,7 +47,7 @@ var SmalladsFormFieldCarousel = new SmalladsFormFieldCarousel();
 	<div id="${escape(ID)}_{fieldelements.ID}" class="grouped-inputs">
 		<input id="field_description_${escape(ID)}_{fieldelements.ID}" class="grouped-element" type="text" name="field_description_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.DESCRIPTION}" placeholder="{@smallads.form.image.description}"/>
 		<input id="field_picture_url_${escape(ID)}_{fieldelements.ID}" class="grouped-element" type="text" name="field_picture_url_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.PICTURE_URL}" placeholder="{@smallads.form.image.url}" class="slider-url"/>
-		<a class="grouped-element" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=780,resizable=yes,scrollbars=yes');return false;" aria-label="${LangLoader::get_message('files_management', 'main')}" href=""><i class="fa fa-cloud-upload-alt" aria-hidden="true"></i></a>
+		<a class="grouped-element" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=780,resizable=yes,scrollbars=yes');return false;" aria-label="${LangLoader::get_message('files_management', 'main')}" href="#"><i class="fa fa-cloud-upload-alt" aria-hidden="true"></i></a>
 		<a class="grouped-element" href="javascript:SmalladsFormFieldCarousel.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 	</div>
 # END fieldelements #

@@ -66,9 +66,9 @@ class HomeLandingConfig extends AbstractConfigData
 	const STICKY_TEXT = 'sticky_text';
 	const STICKY_TITLE = 'sticky_title';
 
-	//Config
+	// Configuration
 
-	//Module Title
+	// Module Title
 	public function get_module_title()
 	{
 		return $this->get_property(self::MODULE_TITLE);
@@ -79,7 +79,7 @@ class HomeLandingConfig extends AbstractConfigData
 		$this->set_property(self::MODULE_TITLE, $module_title);
 	}
 
-	//Menus Management
+	// Menus Management
 	public function get_left_columns()
 	{
 		return $this->get_property(self::LEFT_COLUMNS);

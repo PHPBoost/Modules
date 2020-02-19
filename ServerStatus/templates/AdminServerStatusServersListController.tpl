@@ -104,12 +104,12 @@
 					</div>
 					<div class="sortable-actions">
 						# IF C_MORE_THAN_ONE_SERVER #
-							<a href="" aria-label="{@admin.config.servers.move_up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-							<a href="" aria-label="{@admin.config.servers.move_down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+							<a href="#" aria-label="{@admin.config.servers.move_up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+							<a href="#" aria-label="{@admin.config.servers.move_down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
 						# ENDIF #
 						<a href="{servers.U_EDIT}" aria-label="{@admin.config.servers.action.edit_server}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-						<a href="" onclick="return false;" aria-label="{@admin.config.servers.delete_server}" id="delete-{servers.ID}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
-						<a href="" onclick="return false;" id="change-display-{servers.ID}"# IF servers.C_DISPLAY # aria-label="{@server.display}"# ELSE # aria-label="{@server.not_display}"# ENDIF #><i aria-hidden="true"></i></a>
+						<a href="#" onclick="return false;" aria-label="{@admin.config.servers.delete_server}" id="delete-{servers.ID}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+						<a href="#" onclick="return false;" id="change-display-{servers.ID}"# IF servers.C_DISPLAY # aria-label="{@server.display}"# ELSE # aria-label="{@server.not_display}"# ENDIF #><i aria-hidden="true"></i></a>
 					</div>
 					<div class="spacer"></div>
 					<script>

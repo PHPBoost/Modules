@@ -277,7 +277,7 @@
 							</div>
 
 						</div>
-						<a href="" aria-label="{items.TITLE}" class="item-thumbnail">
+						<a href="#" aria-label="{items.TITLE}" class="item-thumbnail">
 						</a>
 						<div class="cell-body">
 							# IF items.C_HAS_THUMBNAIL #
