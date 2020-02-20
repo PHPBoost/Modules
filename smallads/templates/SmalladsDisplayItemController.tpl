@@ -1,4 +1,4 @@
-<section id="smallads-module">
+<section id="smallads-module" class="category-{ID_CATEGORY}">
 	<header>
 		<div class="align-right controls">
 			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-rss warning" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>

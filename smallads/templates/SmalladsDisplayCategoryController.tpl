@@ -154,7 +154,7 @@
 				</thead>
 				<tbody data-jplist-group="smallads-items">
 					# START items #
-						<tr data-jplist-item class="# IF items.C_COMPLETED # completed-smallad bgc error# ENDIF #">
+						<tr data-jplist-item class="# IF items.C_COMPLETED # completed-smallad bgc error# ENDIF # category-{items.ID_CATEGORY}">
 							<td>
 								# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
 									<span class="jp-title" itemprop="name">{items.TITLE}</span>
@@ -218,7 +218,7 @@
 
 			<div data-jplist-group="smallads-items" class="# IF C_DISPLAY_GRID_VIEW #cell-flex cell-columns-{COLUMNS_NUMBER}# ENDIF ## IF C_DISPLAY_LIST_VIEW # cell-row# ENDIF #">
 				# START items #
-					<article data-jplist-item id="smallads-items-{items.ID}" class="smallads-items several-items cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+					<article data-jplist-item id="smallads-items-{items.ID}" class="smallads-items several-items category-{items.ID_CATEGORY} cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 						# IF items.C_COMPLETED # <div class="completed-item bgc error"><span>{@smallads.completed.item}</span></div># ENDIF #
 						<header class="cell-header">
 							<h2 class="cell-name"><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>

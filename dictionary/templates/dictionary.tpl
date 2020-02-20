@@ -296,7 +296,7 @@
 			</noscript>
 			<p class="align-center small">{SWITCH_DEF}</p>
 			# START dictionary #
-				<article class="dictionary-word" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
+				<article class="dictionary-word category-{dictionary.CAT}" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
 					<header>
 						<h2>
 							<a href="javascript:affCache('{dictionary.ID}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>

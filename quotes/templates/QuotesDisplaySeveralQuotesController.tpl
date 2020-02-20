@@ -16,7 +16,7 @@
 	# IF C_SUB_CATEGORIES #
 		<div class="cell-flex cell-tile cell-columns-{CATEGORIES_PER_ROW}">
 			# START sub_categories_list #
-				<div class="cell">
+				<div class="cell category-{sub_categories_list.CATEGORY_ID}">
 					<div class="cell-header">
 						<div class="cell-name" itemprop="about">
 							<a href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a>
@@ -42,7 +42,7 @@
 
 	# IF C_RESULTS #
 		# START quotes #
-			<article id="quotes-item-{quotes.ID}" class="quotes-item several-items" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+			<article id="quotes-item-{quotes.ID}" class="quotes-item several-items category-{quotes.CATEGORY_ID}" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<blockquote class="formatter-container formatter-blockquote">
 					<h2 class="title-perso">
 						# IF C_AUTHOR_NAME #

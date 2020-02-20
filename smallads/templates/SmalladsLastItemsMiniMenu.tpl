@@ -14,7 +14,7 @@
 	<div class="relative-container cell-body">
 		<ul id="smallads-flexisel">
             # START items #
-			<li>
+			<li class="category-{items.ID_CATEGORY}">
         		<a
 					itemprop="url"
 					href="# IF items.C_COMPLETED ### ELSE #{items.U_ITEM}# ENDIF #"
