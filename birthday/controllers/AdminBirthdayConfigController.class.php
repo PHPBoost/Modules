@@ -64,12 +64,12 @@ class AdminBirthdayConfigController extends AdminModuleController
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('members_age_displayed', $this->lang['birthday.members.age.displayed'], $this->config->is_members_age_displayed(),
-			array('class' => 'third-field top-field')
+			array('class' => 'third-field top-field custom-checkbox')
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('pm_for_members_birthday_enabled', $this->lang['birthday.send.pm.for.members.birthday'], $this->config->is_pm_for_members_birthday_enabled(),
 			array(
-				'class' => 'third-field top-field',
+				'class' => 'third-field top-field custom-checkbox',
 				'events' => array('click' => '
 					if (HTMLForms.getField("pm_for_members_birthday_enabled").getValue()) {
 						HTMLForms.getField("pm_for_members_birthday_title").enable();
@@ -92,7 +92,6 @@ class AdminBirthdayConfigController extends AdminModuleController
 
 		$fieldset->add_field(new FormFieldShortMultiLineTextEditor('pm_for_members_birthday_content', $this->lang['birthday.pm.for.members.birthday.content'], $this->config->get_pm_for_members_birthday_content(),
 			array(
-				'class' => 'half-field',
 				'description' => $this->lang['birthday.pm.for.members.birthday.content.explain'],
 				'hidden' => !$this->config->is_pm_for_members_birthday_enabled()
 			)
