@@ -7,7 +7,7 @@
  * @since       PHPBoost 5.0 - 2016 01 02
 */
 
-class HomeLandingStickyController  extends ModuleController
+class HomeLandingStickyController extends ModuleController
 {
     private $lang;
     private $template;

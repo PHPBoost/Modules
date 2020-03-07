@@ -24,16 +24,16 @@
 				# START item #
 					<tr>
 						<td>
-							<a href="{item.U_LINK}" itemprop="name">{item.NAME}</a>
+							<a href="{item.U_ITEM}" itemprop="name">{item.TITLE}</a>
 						</td>
 						<td>
 							<time datetime="# IF NOT item.C_DIFFERED #{item.DATE_ISO8601}# ELSE #{item.DIFFERED_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT item.C_DIFFERED #{item.DATE}# ELSE #{item.DIFFERED_START_DATE}# ENDIF #</time>
 						</td>
 						<td>
-							{item.NUMBER_VIEW}
+							{item.VIEWS_NUMBER}
 						</td>
 						<td>
-							{item.NUMBER_DOWNLOADS}
+							{item.DOWNLOADS_NUMBER}
 						</td>
 					</tr>
 				# END item #
@@ -49,7 +49,7 @@
 			<div class="item-content# IF C_DISPLAY_GRID_VIEW # block# ENDIF #">
 
 				<h3>
-					<a href="{item.U_LINK}">{item.NAME}</a>
+					<a href="{item.U_ITEM}">{item.TITLE}</a>
 				</h3>
 				<span class="controls">
 					# IF item.C_EDIT #
@@ -70,12 +70,12 @@
 				</div>
 
 				# IF item.C_PICTURE #
-					<a href="{item.U_LINK}" class="item-picture">
-						<img src="{item.U_PICTURE}" alt="{item.NAME}" />
+					<a href="{item.U_ITEM}" class="item-picture">
+						<img src="{item.U_THUMBNAIL}" alt="{item.TITLE}" />
 					</a>
 				# ENDIF #
 				<p class="item-desc">
-					{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+					{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_ITEM}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 				</p>
 
 			</div>

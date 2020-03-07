@@ -57,7 +57,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->form->get_field_by_id('lastcoms_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
 			$this->form->get_field_by_id('lastcoms_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
 
-			if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))
+			if (ModulesManager::is_module_installed('articles') && ModulesManager::is_module_activated('articles'))
 			{
 				$this->form->get_field_by_id('articles_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed());
 				$this->form->get_field_by_id('articles_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed());
@@ -66,13 +66,13 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('articles_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('calendar') & ModulesManager::is_module_activated('calendar'))
+			if (ModulesManager::is_module_installed('calendar') && ModulesManager::is_module_activated('calendar'))
 			{
 				$this->form->get_field_by_id('calendar_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed());
 				$this->form->get_field_by_id('calendar_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('download') & ModulesManager::is_module_activated('download'))
+			if (ModulesManager::is_module_installed('download') && ModulesManager::is_module_activated('download'))
 			{
 				$this->form->get_field_by_id('download_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed());
 				$this->form->get_field_by_id('download_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed());
@@ -81,29 +81,29 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('download_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('forum') & ModulesManager::is_module_activated('forum'))
+			if (ModulesManager::is_module_installed('forum') && ModulesManager::is_module_activated('forum'))
 			{
 				$this->form->get_field_by_id('forum_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed());
 				$this->form->get_field_by_id('forum_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('gallery') & ModulesManager::is_module_activated('gallery'))
+			if (ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery'))
 			{
 				$this->form->get_field_by_id('gallery_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('guestbook') & ModulesManager::is_module_activated('guestbook'))
+			if (ModulesManager::is_module_installed('guestbook') && ModulesManager::is_module_activated('guestbook'))
 			{
 				$this->form->get_field_by_id('guestbook_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed());
 				$this->form->get_field_by_id('guestbook_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('media') & ModulesManager::is_module_activated('media'))
+			if (ModulesManager::is_module_installed('media') && ModulesManager::is_module_activated('media'))
 			{
 				$this->form->get_field_by_id('media_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('news') & ModulesManager::is_module_activated('news'))
+			if (ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news'))
 			{
 				$this->form->get_field_by_id('news_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed());
 				$this->form->get_field_by_id('news_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed());
@@ -118,7 +118,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			// $this->form->get_field_by_id('rss_xml_nb')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
 			// $this->form->get_field_by_id('rss_xml_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
 
-			if (ModulesManager::is_module_installed('web') & ModulesManager::is_module_activated('web'))
+			if (ModulesManager::is_module_installed('web') && ModulesManager::is_module_activated('web'))
 			{
 				$this->form->get_field_by_id('web_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed());
 				$this->form->get_field_by_id('web_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed());
@@ -257,6 +257,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array(new FormFieldConstraintIntegerRange(1, 512))
 			));
 
+		//  Carousel
 		$fieldset_carousel = new FormFieldsetMultitabsHTML('admin_carousel', LangLoader::get_message('admin.carousel', 'common', 'HomeLanding'),
 				array('css_class' => 'tabs tabs-animation')
 			);
@@ -342,7 +343,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 
 		// Articles
-		if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))
+		if (ModulesManager::is_module_installed('articles') && ModulesManager::is_module_activated('articles'))
 		{
 			$fieldset_articles = new FormFieldsetMultitabsHTML('admin_articles', $this->lang['admin.articles'],
 				array('css_class' => 'tabs tabs-animation')
@@ -419,7 +420,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Calendar
-		if (ModulesManager::is_module_installed('calendar') & ModulesManager::is_module_activated('calendar'))
+		if (ModulesManager::is_module_installed('calendar') && ModulesManager::is_module_activated('calendar'))
 		{
 			$fieldset_calendar = new FormFieldsetMultitabsHTML('admin_calendar', $this->lang['admin.calendar'],
 				array('css_class' => 'tabs tabs-animation')
@@ -460,7 +461,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Contact
-		if (ModulesManager::is_module_installed('contact') & ModulesManager::is_module_activated('contact'))
+		if (ModulesManager::is_module_installed('contact') && ModulesManager::is_module_activated('contact'))
 		{
 			$fieldset_contact = new FormFieldsetMultitabsHTML('admin_contact', $this->lang['admin.contact'],
 				array('css_class' => 'tabs tabs-animation')
@@ -473,7 +474,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Download
-		if (ModulesManager::is_module_installed('download') & ModulesManager::is_module_activated('download'))
+		if (ModulesManager::is_module_installed('download') && ModulesManager::is_module_activated('download'))
 		{
 			$fieldset_download = new FormFieldsetMultitabsHTML('admin_download', $this->lang['admin.download'],
 				array('css_class' => 'tabs tabs-animation')
@@ -550,7 +551,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Forum
-		if (ModulesManager::is_module_installed('forum') & ModulesManager::is_module_activated('forum'))
+		if (ModulesManager::is_module_installed('forum') && ModulesManager::is_module_activated('forum'))
 		{
 			$fieldset_forum = new FormFieldsetMultitabsHTML('admin_forum', $this->lang['admin.forum'],
 				array('css_class' => 'tabs tabs-animation')
@@ -590,7 +591,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Gallery
-		if (ModulesManager::is_module_installed('gallery') & ModulesManager::is_module_activated('gallery'))
+		if (ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery'))
 		{
 			$fieldset_gallery = new FormFieldsetMultitabsHTML('admin_gallery', $this->lang['admin.gallery'],
 				array('css_class' => 'tabs tabs-animation')
@@ -620,7 +621,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Guestbook
-		if (ModulesManager::is_module_installed('guestbook') & ModulesManager::is_module_activated('guestbook'))
+		if (ModulesManager::is_module_installed('guestbook') && ModulesManager::is_module_activated('guestbook'))
 		{
 			$fieldset_guestbook = new FormFieldsetMultitabsHTML('admin_guestbook', $this->lang['admin.guestbook'],
 				array('css_class' => 'tabs tabs-animation')
@@ -660,7 +661,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Media
-		if (ModulesManager::is_module_installed('media') & ModulesManager::is_module_activated('media'))
+		if (ModulesManager::is_module_installed('media') && ModulesManager::is_module_activated('media'))
 		{
 			$fieldset_media = new FormFieldsetMultitabsHTML('admin_media', $this->lang['admin.media'],
 				array('css_class' => 'tabs tabs-animation')
@@ -690,7 +691,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// News
-		if (ModulesManager::is_module_installed('news') & ModulesManager::is_module_activated('news'))
+		if (ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news'))
 		{
 			$fieldset_news = new FormFieldsetMultitabsHTML('admin_news',  $this->lang['admin.news'],
 				array('css_class' => 'tabs tabs-animation')
@@ -823,7 +824,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		// 	));
 
 		// Web
-		if (ModulesManager::is_module_installed('web') & ModulesManager::is_module_activated('web'))
+		if (ModulesManager::is_module_installed('web') && ModulesManager::is_module_activated('web'))
 		{
 			$fieldset_web = new FormFieldsetMultitabsHTML('admin_web',  $this->lang['admin.web'],
 				array('css_class' => 'tabs tabs-animation')

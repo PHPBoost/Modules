@@ -15,7 +15,7 @@
 	# ELSE #
 		<div class="content">
 	# ENDIF #
-	# START item #
+		# START item #
 			<div class="item-content# IF C_DISPLAY_GRID_VIEW # block# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 
 				<h3 class="item-title">
@@ -46,11 +46,15 @@
 					</a>
 				# ENDIF #
 				<p class="item-desc">
-					{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+					# IF C_DISPLAY_CONDENSED_ENABLED #
+						{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+					# ELSE #
+						{item.CONTENTS}
+					# ENDIF #
 				</p>
 
 			</div>
-	# END item #
+		# END item #
 	</div>
 	<footer></footer>
 </article>

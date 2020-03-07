@@ -85,6 +85,11 @@
                 <a href="#web-cat" class="cssmenu-title">{WEB_CAT}</a>
             </li>
         # ENDIF #
+        # IF C_DISPLAYED_RSS #
+            <li style="order: {OPM_RSS_POS};">
+                <a href="#rss" class="cssmenu-title">{RSS}</a>
+            </li>
+        # ENDIF #
     </ul>
 </nav>
 <script>

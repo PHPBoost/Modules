@@ -12,26 +12,26 @@
 	</header>
 	<div class="content">
 		# IF C_NO_WEB_ITEM #
-		<div class="align-center">
-			${LangLoader::get_message('no.web.item', 'common', 'HomeLanding')}
-		</div>
+			<div class="align-center">
+				${LangLoader::get_message('no.web.item', 'common', 'HomeLanding')}
+			</div>
 		# ENDIF #
 		<ul>
-		# START item #
-			<li>
-				<a href="{item.U_LINK}">
-					# IF item.C_HAS_PARTNER_PICTURE #
-						<img class="item-picture" src="{item.U_PARTNER_PICTURE}" alt="{item.NAME}" />
-					# ELSE #
-						# IF item.C_PICTURE #
-							<img class="item-picture" src="{item.U_PICTURE}" alt="{item.NAME}" />
+			# START item #
+				<li>
+					<a href="{item.U_ITEM}">
+						# IF item.C_HAS_PARTNER_THUMBNAIL #
+							<img class="item-picture" src="{item.U_PARTNER_THUMBNAIL}" alt="{item.TITLE}" />
 						# ELSE #
-							{item.NAME}
+							# IF item.C_HAS_THUMBNAIL #
+								<img class="item-picture" src="{item.U_THUMBNAIL}" alt="{item.TITLE}" />
+							# ELSE #
+								{item.TITLE}
+							# ENDIF #
 						# ENDIF #
-					# ENDIF #
-				</a>
-			</li>
-		# END item #
+					</a>
+				</li>
+			# END item #
 		</ul>
 	</div>
 	<footer></footer>
