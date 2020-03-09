@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 01 16
+ * @version     PHPBoost 5.3 - last update: 2020 03 09
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -63,8 +63,8 @@ class HomeLandingHomeController extends ModuleController
 			'EDITO_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_EDITO),
 		));
 
-		if ($this->modules[HomeLandingConfig::MODULE_ONEPAGE_MENU]->is_displayed())
-			$this->view->put('ONEPAGE_MENU', AdvancedHomeLandingOnepage::get_onepage_view());
+		if ($this->modules[HomeLandingConfig::MODULE_ANCHORS_MENU]->is_displayed())
+			$this->view->put('ANCHORS_MENU', HomeLandingAnchorsMenu::get_anchors_menu_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
 			$this->view->put('CAROUSEL', HomeLandingCarousel::get_carousel_view());

@@ -54,12 +54,12 @@
 }
 
 /* --- OnePage Menu --------------------------------------------------------- */
-#cssmenu-onepage ul {
+#cssmenu-anchors ul {
 	display: flex;
     flex-wrap: wrap;
 }
 
-#cssmenu-onepage.small-screen ul {
+#cssmenu-anchors.small-screen ul {
 	flex-direction: column;
 }
 

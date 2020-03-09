@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 07 30
+ * @version     PHPBoost 5.3 - last update: 2020 03 09
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -14,10 +14,11 @@
 ####################################################
 
 $lang['module_title'] = 'Home Page';
+$lang['module.views'] = 'view(s)';
 
 //Modules position
 $lang['module.carousel'] = 'Slider';
-$lang['module.onepage_menu'] = 'Onepage Menu';
+$lang['module.anchors_menu'] = 'Homepage Menu';
 $lang['module.edito'] = 'Edito';
 $lang['module.lastcoms'] = 'Last comments';
 $lang['module.articles'] = 'Last articles';
@@ -37,20 +38,21 @@ $lang['module.web'] = 'Partners websites list';
 $lang['module.web_category'] = 'Partners websites list of a category';
 
 // One page menu
-$lang['onepage.edito'] = 'Edito';
-$lang['onepage.carousel'] = 'Slideshow';
-$lang['onepage.lastcoms'] = 'Comments';
-$lang['onepage.articles'] = 'Articles';
-$lang['onepage.contact'] = 'Contact';
-$lang['onepage.calendar'] = 'Calendar';
-$lang['onepage.download'] = 'Downloads';
-$lang['onepage.forum'] = 'Forum';
-$lang['onepage.gallery'] = 'Gallery';
-$lang['onepage.guestbook'] = 'Guestbook';
-$lang['onepage.media'] = 'Media';
-$lang['onepage.news'] = 'News';
-$lang['onepage.rss'] = 'Rss';
-$lang['onepage.web'] = 'Weblinks';
+$lang['anchors.title'] = 'Homepage menu';
+$lang['anchors.edito'] = 'Edito';
+$lang['anchors.carousel'] = 'Slideshow';
+$lang['anchors.lastcoms'] = 'Comments';
+$lang['anchors.articles'] = 'Articles';
+$lang['anchors.contact'] = 'Contact';
+$lang['anchors.calendar'] = 'Calendar';
+$lang['anchors.download'] = 'Downloads';
+$lang['anchors.forum'] = 'Forum';
+$lang['anchors.gallery'] = 'Gallery';
+$lang['anchors.guestbook'] = 'Guestbook';
+$lang['anchors.media'] = 'Media';
+$lang['anchors.news'] = 'News';
+$lang['anchors.rss'] = 'Rss';
+$lang['anchors.web'] = 'Weblinks';
 
 //Last Comments
 $lang['last.comments'] = 'Last comments';
@@ -163,8 +165,9 @@ $lang['admin.form.add'] = 'Add a picture';
 $lang['admin.form.del'] = 'Delete the slide';
 
 //Admin - One page Menu
-$lang['admin.onepage'] = 'Onepage menu display';
-$lang['admin.menu.onepage'] = 'Display the onepage menu';
+$lang['admin.anchors'] = 'Onepage menu display';
+$lang['admin.menu.anchors'] = 'Display the anchors menu';
+$lang['admin.menu.anchors.explain'] = 'Menu for fast navigation inside the homepage';
 
 //Admin - Edito
 $lang['admin.edito'] = 'Edito display';

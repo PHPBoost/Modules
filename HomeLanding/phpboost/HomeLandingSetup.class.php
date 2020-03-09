@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2018 12 29
+ * @version     PHPBoost 5.3 - last update: 2020 03 09
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -21,12 +21,12 @@ class HomeLandingSetup extends DefaultModuleSetup
 
 		$modules = $config->get_modules();
 
-		if (!isset($modules[HomeLandingConfig::MODULE_ONEPAGE_MENU]))
+		if (!isset($modules[HomeLandingConfig::MODULE_ANCHORS_MENU]))
 		{
 			$new_modules_list = array();
 
 			$module = new HomeLandingModule();
-			$module->set_module_id(HomeLandingConfig::MODULE_ONEPAGE_MENU);
+			$module->set_module_id(HomeLandingConfig::MODULE_ANCHORS_MENU);
 			$module->hide();
 
 			$new_modules_list[1] = $module->get_properties();
@@ -40,7 +40,7 @@ class HomeLandingSetup extends DefaultModuleSetup
 			HomeLandingConfig::save();
 		}
 
-		return '5.2.0';
+		return '5.3.0';
 	}
 
 	private function delete_configuration()

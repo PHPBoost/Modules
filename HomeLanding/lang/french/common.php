@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 07 30
+ * @version     PHPBoost 5.3 - last update: 2020 03 09
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -16,10 +16,9 @@
 $lang['module_title'] = 'Page d\'accueil';
 $lang['module.views'] = 'vue(s)';
 
-
 //Modules position
 $lang['module.carousel'] = 'Carousel';
-$lang['module.onepage_menu'] = 'Menu Onepage';
+$lang['module.anchors_menu'] = 'Menu d\'accueil';
 $lang['module.edito'] = 'Edito';
 $lang['module.lastcoms'] = 'Derniers commentaires';
 $lang['module.articles'] = 'Derniers articles';
@@ -39,21 +38,21 @@ $lang['module.web'] = 'Liste des sites partenaires';
 $lang['module.web_category'] = 'Liste des sites partenaires d\'une catégorie';
 
 // One page menu
-$lang['onepage.title'] = 'Menu Onepage';
-$lang['onepage.edito'] = 'Édito';
-$lang['onepage.carousel'] = 'Carrousel';
-$lang['onepage.lastcoms'] = 'Commentaires';
-$lang['onepage.articles'] = 'Articles';
-$lang['onepage.contact'] = 'Contact';
-$lang['onepage.calendar'] = 'Calendrier';
-$lang['onepage.download'] = 'Téléchargements';
-$lang['onepage.forum'] = 'Forum';
-$lang['onepage.gallery'] = 'Galerie';
-$lang['onepage.guestbook'] = 'Livre d\'or';
-$lang['onepage.media'] = 'Multimédia';
-$lang['onepage.news'] = 'News';
-$lang['onepage.rss'] = 'Rss';
-$lang['onepage.web'] = 'Liens web';
+$lang['anchors.title'] = 'Menu d\'accueil';
+$lang['anchors.edito'] = 'Édito';
+$lang['anchors.carousel'] = 'Carrousel';
+$lang['anchors.lastcoms'] = 'Commentaires';
+$lang['anchors.articles'] = 'Articles';
+$lang['anchors.contact'] = 'Contact';
+$lang['anchors.calendar'] = 'Calendrier';
+$lang['anchors.download'] = 'Téléchargements';
+$lang['anchors.forum'] = 'Forum';
+$lang['anchors.gallery'] = 'Galerie';
+$lang['anchors.guestbook'] = 'Livre d\'or';
+$lang['anchors.media'] = 'Multimédia';
+$lang['anchors.news'] = 'News';
+$lang['anchors.rss'] = 'Rss';
+$lang['anchors.web'] = 'Liens web';
 
 //Last Comments
 $lang['last.comments'] = 'Derniers commentaires';
@@ -166,8 +165,9 @@ $lang['admin.form.add'] = 'Ajouter une image';
 $lang['admin.form.del'] = 'Supprimer le slide';
 
 //Admin - One page Menu
-$lang['admin.onepage'] = 'Affichage du menu onepage';
-$lang['admin.menu.onepage'] = 'Afficher le menu onepage';
+$lang['admin.anchors'] = 'Affichage du menu d\'accueil';
+$lang['admin.menu.anchors'] = 'Afficher le menu d\'accueil';
+$lang['admin.menu.anchors.explain'] = 'Ce menu permet de naviguer rapidement au sein de la page d\'accueil';
 
 //Admin - Edito
 $lang['admin.edito'] = 'Affichage de l\'édito';
@@ -246,5 +246,4 @@ $lang['admin.web.limit'] = 'Nombre de liens à afficher';
 $lang['admin.web.enabled.desc'] = 'Affiche seulement les liens partenaires';
 $lang['admin.web.cat.enabled'] = 'Afficher une catégorie du module Web';
 $lang['admin.web.cat.limit'] = 'Nombre de liens de la catégorie à afficher';
-
 ?>

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 06
+ * @version     PHPBoost 5.3 - last update: 2020 03 09
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -54,7 +54,7 @@ class HomeLandingArticles
 			$description = trim(TextHelper::substr($short_contents, 0, $nb_char));
 			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
-			$tpl->assign_block_vars('item', array_merge($article->get_array_tpl_vars(), array(
+			$tpl->assign_block_vars('item', array_merge($article->get_template_vars(), array(
 				'C_DESCRIPTION' => $article->get_description(),
 				'C_READ_MORE' => $article->get_description() ? ($description != $short_contents) : ($cut_contents != $contents),
 				'DATE' => $article->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
@@ -98,7 +98,7 @@ class HomeLandingArticles
 			$article = new Article();
 			$article->set_properties($row);
 
-			$tpl->assign_block_vars('item', $article->get_array_tpl_vars());
+			$tpl->assign_block_vars('item', $article->get_template_vars());
 			$tpl->put_all(array(
 				'DATE_DAY' => strftime('%d', $article->get_creation_date()->get_timestamp()),
 				'DATE_MONTH_A' => strftime('%b', $article->get_creation_date()->get_timestamp()),

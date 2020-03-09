@@ -3,15 +3,15 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 06
+ * @version     PHPBoost 5.3 - last update: 2020 03 09
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
-class AdvancedHomeLandingOnepage
+class HomeLandingAnchorsMenu
 {
-    public static function get_onepage_view()
+    public static function get_anchors_menu_view()
 	{
-        $tpl = new FileTemplate('HomeLanding/pagecontent/onepage.tpl');
+        $tpl = new FileTemplate('HomeLanding/pagecontent/anchors-menu.tpl');
 		$config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
 
@@ -37,7 +37,7 @@ class AdvancedHomeLandingOnepage
 
         $tpl->put_all(array(
             // location of the menu in the page
-            'ONEPAGE_POSITION' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_ONEPAGE_MENU),
+            'ANCHORS_POSITION' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_ANCHORS_MENU),
 
             // Presence of modules on the page
             'C_DISPLAYED_EDITO' => $modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
@@ -66,23 +66,23 @@ class AdvancedHomeLandingOnepage
             'WEB_CAT' => $category = $web_cat,
 
             // Position of the tabs in the menu
-            'OPM_EDITO_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_EDITO),
-            'OPM_LASTCOMS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_LASTCOMS),
-            'OPM_ARTICLES_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
-            'OPM_ARTICLES_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
-            'OPM_CONTACT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_CONTACT),
-            'OPM_EVENTS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_CALENDAR),
-            'OPM_DOWNLOAD_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD),
-            'OPM_DOWNLOAD_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY),
-            'OPM_FORUM_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_FORUM),
-            'OPM_GALLERY_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_GALLERY),
-            'OPM_GUESTBOOK_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_GUESTBOOK),
-            'OPM_MEDIA_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_MEDIA),
-            'OPM_NEWS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS),
-            'OPM_NEWS_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
-            'OPM_WEB_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB),
-            'OPM_WEB_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB_CATEGORY),
-            'OPM_RSS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_RSS),
+            'AM_EDITO_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_EDITO),
+            'AM_LASTCOMS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_LASTCOMS),
+            'AM_ARTICLES_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
+            'AM_ARTICLES_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES_CATEGORY),
+            'AM_CONTACT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_CONTACT),
+            'AM_EVENTS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_CALENDAR),
+            'AM_DOWNLOAD_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD),
+            'AM_DOWNLOAD_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY),
+            'AM_FORUM_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_FORUM),
+            'AM_GALLERY_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_GALLERY),
+            'AM_GUESTBOOK_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_GUESTBOOK),
+            'AM_MEDIA_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_MEDIA),
+            'AM_NEWS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS),
+            'AM_NEWS_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
+            'AM_WEB_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB),
+            'AM_WEB_CAT_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_WEB_CATEGORY),
+            'AM_RSS_POS' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_RSS),
         ));
 
         return $tpl;
