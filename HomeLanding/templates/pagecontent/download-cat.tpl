@@ -70,7 +70,7 @@
 					<i class="fa fa-clock"></i> {item.DATE} - <i class="fa fa-download"></i> {item.NUMBER_DOWNLOADS}
 				</div>
 
-				# IF item.C_PICTURE #
+				# IF item.C_HAS_THUMBNAIL #
 					<a href="{item.U_ITEM}" class="item-picture">
 						<img src="{item.U_THUMBNAIL}" alt="{item.TITLE}" itemprop="image" />
 					</a>

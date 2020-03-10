@@ -69,7 +69,7 @@
 					${TextHelper::lcfirst(LangLoader::get_message('in', 'common'))} <a itemprop="about" href="{item.U_CATEGORY}">{item.CATEGORY_NAME}</a>
 				</div>
 
-				# IF item.C_PICTURE #
+				# IF item.C_HAS_THUMBNAIL #
 					<a href="{item.U_ITEM}" class="item-picture">
 						<img src="{item.U_THUMBNAIL}" alt="{item.TITLE}" />
 					</a>
