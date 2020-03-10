@@ -71,6 +71,7 @@ class HomeLandingRss
                     'IMG_FEED' => $img_feed,
                 ));
             }
+        }
         return $tpl;
 	}
 }
