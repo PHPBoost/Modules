@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2019 11 04
+ * @version     PHPBoost 5.3 - last update: 2020 03 10
  * @since       PHPBoost 5.2 - 2018 11 27
 */
 
@@ -43,7 +43,7 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 
 			if(ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news')) {
 				$now = new Date();
-				$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, NewsConfig::load()->are_descriptions_displayed_to_guests(), 'news');
+				$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, NewsConfig::load()->is_summary_displayed_to_guests(), 'news');
 
 				$result_cat = PersistenceContext::get_querier()->select('SELECT news_cat.*
 				FROM '. NewsSetup::$news_cats_table .' news_cat
