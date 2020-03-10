@@ -17,7 +17,7 @@ class HomeLandingNews
 		$config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
 
-        $categories_id = $modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), $news_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS) : array($modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
+        $categories_id = $modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), $news_config->is_summary_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS) : array($modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
 
         $result = PersistenceContext::get_querier()->select('SELECT news.*, member.*
         FROM ' . NewsSetup::$news_table . ' news
@@ -34,9 +34,9 @@ class HomeLandingNews
         $tpl->put_all(array(
             'NEWS_CAT_POSITION' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
             'CATEGORY_NAME' => $category->get_name(),
-            'C_NO_NEWS_ITEM' => $result->get_rows_count() == 0,
-            'C_DISPLAY_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::DISPLAY_GRID_VIEW,
-            'COL_NBR' => $news_config->get_number_columns_display_news()
+            'C_NO_ITEM' => $result->get_rows_count() == 0,
+            'C_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::GRID_VIEW,
+            'ITEMS_PER_ROW' => $news_config->get_items_per_row()
         ));
 
         while ($row = $result->fetch())
@@ -45,14 +45,14 @@ class HomeLandingNews
             $news->set_properties($row);
 
             $contents = @strip_tags(FormatingHelper::second_parse($news->get_contents()));
-            $short_contents = @strip_tags(FormatingHelper::second_parse($news->get_short_contents()));
+            $summary = @strip_tags(FormatingHelper::second_parse($news->get_summary()));
             $nb_char = $modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_characters_number_displayed();
-            $description = trim(TextHelper::substr($short_contents, 0, $nb_char));
+            $description = trim(TextHelper::substr($summary, 0, $nb_char));
             $cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
             $tpl->assign_block_vars('item', array_merge($news->get_array_tpl_vars(), array(
-                'C_DESCRIPTION' => $news->get_short_contents(),
-                'C_READ_MORE' => $news->get_short_contents() ? ($description != $short_contents) : ($cut_contents != $contents),
+                'C_DESCRIPTION' => $news->get_summary(),
+                'C_READ_MORE' => $news->get_summary() ? ($description != $summary) : ($cut_contents != $contents),
                 'DATE' => $news->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
                 'DESCRIPTION' => $description,
                 'CONTENTS' => $cut_contents
@@ -71,7 +71,7 @@ class HomeLandingNews
 		$config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
 
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $news_config->are_descriptions_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS);
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $news_config->is_summary_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS);
 
 		$result = PersistenceContext::get_querier()->select('SELECT news.*, member.*, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'news news
@@ -93,9 +93,9 @@ class HomeLandingNews
 
 			$tpl->put_all(array(
 				'NEWS_POSITION' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS),
-				'C_DISPLAY_CONDENSED_ENABLED' => $news_config->get_display_condensed_enabled() && $news_config->get_display_type() == NewsConfig::DISPLAY_LIST_VIEW,
-				'C_DISPLAY_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::DISPLAY_GRID_VIEW,
-				'COL_NBR' => $news_config->get_number_columns_display_news()
+				'C_FULL_ITEM_DISPLAY' => $news_config->get_full_item_display() && $news_config->get_display_type() == NewsConfig::LIST_VIEW,
+				'C_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::GRID_VIEW,
+				'ITEMS_PER_ROW' => $news_config->get_items_per_row()
 			));
 
 			$tpl->assign_block_vars('item', $news->get_array_tpl_vars());

@@ -10,16 +10,16 @@
 			</a>
 		</span>
 	</header>
-	# IF C_DISPLAY_GRID_VIEW #
-		<div class="elements-container columns-{COL_NBR}">
+	# IF C_GRID_VIEW #
+		<div class="elements-container columns-{ITEM_PER_ROW}">
 	# ELSE #
 		<div class="content">
 	# ENDIF #
 		# START item #
-			<div class="item-content# IF C_DISPLAY_GRID_VIEW # block# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+			<div class="item-content# IF C_GRID_VIEW # block# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 
 				<h3 class="item-title">
-					<a href="{item.U_LINK}">{item.NAME}</a>
+					<a href="{item.U_ITEM}">{item.TITLE}</a>
 				</h3>
 				<span class="controls">
 					# IF item.C_EDIT #
@@ -40,14 +40,14 @@
 					# IF item.C_NB_VIEW_ENABLED #- <span>{item.NUMBER_VIEW} ${LangLoader::get_message('module.views', 'common', 'HomeLanding')}</span># ENDIF #
 				</div>
 
-				# IF item.C_PICTURE #
-					<a href="{item.U_LINK}" class="item-picture">
-						<img src="{item.U_PICTURE}" alt="{item.NAME}" />
+				# IF item.C_HAS_THUMBNAIL #
+					<a href="{item.U_ITEM}" class="item-picture">
+						<img src="{item.U_THUMBNAIL}" alt="{item.TITLE}" />
 					</a>
 				# ENDIF #
 				<p class="item-desc">
-					# IF C_DISPLAY_CONDENSED_ENABLED #
-						{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_LINK}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+					# IF C_FULL_ITEM_DISPLAY #
+						{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_ITEM}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 					# ELSE #
 						{item.CONTENTS}
 					# ENDIF #
