@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 09
+ * @version     PHPBoost 5.3 - last update: 2020 03 10
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -142,6 +142,25 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$this->modules = HomeLandingModulesList::load();
 	}
 
+	private function tabs_menu_list()
+	{
+		$modules = array('configuration', 'carousel', 'articles', 'calendar', 'contact', 'download', 'forum', 'gallery', 'guestbook', 'media', 'news', 'web');
+        $tabs_li = array();
+
+        foreach($modules as $module)
+        {
+			if($module == 'configuration')
+            	$tabs_li[] = new FormFieldMultitabsLinkElement(LangLoader::get_message('configuration', 'admin-common'), 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cog');
+			elseif($module == 'carousel')
+            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['anchors.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-cog');
+			// elseif($module == 'rss')
+            // 	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['anchors.rss'], 'tabs', 'AdminHomeLandingConfigController_admin_rss', 'fa-rss');
+			else
+            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['anchors.'.$module.''], 'tabs', 'AdminHomeLandingConfigController_admin_'.$module, '', PATH_TO_ROOT.'/'.$module.'/'.$module.'_mini.png', $module);
+        }
+		return $tabs_li;
+	}
+
 	private function build_form()
 	{
 		$form = new HTMLForm(__CLASS__);
@@ -151,23 +170,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
 		$form->add_fieldset($fieldset_tabs_menu);
 
-		$fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',
-			array(
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('configuration', 'admin-common'), 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cog'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.carousel', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-image'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.articles', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_articles', '', PATH_TO_ROOT . '/articles/articles_mini.png', 'articles'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.calendar', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_calendar', '', PATH_TO_ROOT . '/calendar/calendar_mini.png', 'calendar'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.contact', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_contact', '', PATH_TO_ROOT . '/contact/contact_mini.png', 'contact'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.download', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_download', '', PATH_TO_ROOT . '/download/download_mini.png', 'download'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.forum', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_forum', '', PATH_TO_ROOT . '/forum/forum_mini.png', 'forum'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.gallery', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_gallery', '', PATH_TO_ROOT . '/gallery/gallery_mini.png', 'gallery'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.guestbook', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_guestbook', '', PATH_TO_ROOT . '/guestbook/guestbook_mini.png', 'guestbook'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.media', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_media', '', PATH_TO_ROOT . '/media/media_mini.png', 'media'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.news', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_news', '', PATH_TO_ROOT . '/news/news_mini.png', 'news'),
-				// new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.rss', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_rss', 'fa-rss'),
-				new FormFieldMultitabsLinkElement(LangLoader::get_message('anchors.web', 'common', 'HomeLanding'), 'tabs', 'AdminHomeLandingConfigController_admin_web', '', PATH_TO_ROOT . '/web/web_mini.png', 'web'),
-			)
-		));
+        $fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',$this->tabs_menu_list()));
 
 		// Configuration
 		$fieldset_config = new FormFieldsetMultitabsHTML('configuration', LangLoader::get_message('configuration', 'admin-common'),
