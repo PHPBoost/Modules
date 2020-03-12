@@ -169,6 +169,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		// Tabs menu
 		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
 		$form->add_fieldset($fieldset_tabs_menu);
+		$fieldset_tabs_menu->set_css_class('tabs-nav');
 
         $fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',$this->tabs_menu_list()));
 
