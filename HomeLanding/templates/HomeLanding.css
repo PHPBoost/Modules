@@ -20,39 +20,6 @@
     margin: 0 0 1em;
 }
 
-#module-homelanding h2 {
-    overflow: hidden;
-    font-size: 1.228em;
-}
-
-#module-homelanding h3 .actions a {
-    font-size: 0.618em;
-}
-
-#module-homelanding .more {
-    margin-bottom: 0.309em;
-}
-
-#module-homelanding h3 {
-    padding-bottom: 0.309em;
-}
-
-.item-content {
-    overflow: hidden;
-    padding: 0.618em;
-}
-
-.content .item-picture {
-    padding: 0 0.618em 0.309em;
-}
-
-@media (min-width:769px){
-    .content .item-picture {
-        max-width: 200px;
-        float: left;
-    }
-}
-
 /* --- OnePage Menu --------------------------------------------------------- */
 #cssmenu-anchors ul {
 	display: flex;

@@ -72,7 +72,7 @@
         # ENDIF #
         # IF C_DISPLAYED_NEWS_CAT #
             <li style="order: {AM_NEWS_CAT_POS};">
-                <a href="#news-cat" class="cssmenu-title">{NEWS_CAT}</a>
+                <a href="#news-category" class="cssmenu-title">{NEWS_CAT}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_WEB #

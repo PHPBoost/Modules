@@ -12,12 +12,19 @@ class HomeLandingNews
     public static function get_news_cat_view()
 	{
         $now = new Date();
-        $tpl = new FileTemplate('HomeLanding/pagecontent/news-cat.tpl');
-        $news_config = NewsConfig::load();
-		$config = HomeLandingConfig::load();
+        $module_config = NewsConfig::load();
+		$home_config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
+        $module_name = HomeLandingConfig::MODULE_NEWS;
+        $module_cat = HomeLandingConfig::MODULE_NEWS_CATEGORY;
 
-        $categories_id = $modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), $news_config->is_summary_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS) : array($modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
+        $theme_id = AppContext::get_current_user()->get_theme();
+        if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_cat . '.tpl'))
+			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_cat . '.tpl');
+		else
+            $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
+
+        $categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->is_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
         $result = PersistenceContext::get_querier()->select('SELECT news.*, member.*
         FROM ' . NewsSetup::$news_table . ' news
@@ -27,16 +34,19 @@ class HomeLandingNews
         LIMIT :news_cat_limit', array(
             'timestamp_now' => $now->get_timestamp(),
             'categories_id' => $categories_id,
-            'news_cat_limit' => $modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_elements_number_displayed()
+            'news_cat_limit' => $modules[$module_cat]->get_elements_number_displayed()
         ));
 
-        $category = CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_NEWS)->get_categories_cache()->get_category($modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category());
-        $tpl->put_all(array(
-            'NEWS_CAT_POSITION' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS_CATEGORY),
-            'CATEGORY_NAME' => $category->get_name(),
+        $category = CategoriesService::get_categories_manager($module_name)->get_categories_cache()->get_category($modules[$module_cat]->get_id_category());
+        $view->put_all(array(
+            'C_CATEGORY' => true,
+            'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
+            'C_GRID_VIEW' => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
+            'MODULE_NAME' => $module_name,
+            'L_MODULE_TITLE' => LangLoader::get_message('last.'.$module_name.'.cat', 'common', 'HomeLanding') . ': ' . $category->get_name(),
+            'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
+            'ITEMS_PER_ROW' => $module_config->get_items_per_row(),
             'C_NO_ITEM' => $result->get_rows_count() == 0,
-            'C_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::GRID_VIEW,
-            'ITEMS_PER_ROW' => $news_config->get_items_per_row()
         ));
 
         while ($row = $result->fetch())
@@ -45,33 +55,38 @@ class HomeLandingNews
             $news->set_properties($row);
 
             $contents = @strip_tags(FormatingHelper::second_parse($news->get_contents()));
-            $summary = @strip_tags(FormatingHelper::second_parse($news->get_summary()));
-            $nb_char = $modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_characters_number_displayed();
-            $description = trim(TextHelper::substr($summary, 0, $nb_char));
-            $cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
+            $summary = @strip_tags(FormatingHelper::second_parse($news->get_real_summary()));
+            $characters_number_to_cut = $modules[$module_cat]->get_characters_number_displayed();
+            $description = trim(TextHelper::substr($summary, 0, $characters_number_to_cut));
+            $cut_contents = trim(TextHelper::substr($contents, 0, $characters_number_to_cut));
 
-            $tpl->assign_block_vars('item', array_merge($news->get_array_tpl_vars(), array(
-                'C_DESCRIPTION' => $news->get_summary(),
-                'C_READ_MORE' => $news->get_summary() ? ($description != $summary) : ($cut_contents != $contents),
-                'DATE' => $news->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR),
+            $view->assign_block_vars('item', array_merge($news->get_array_tpl_vars(), array(
+                'C_DESCRIPTION' => $news->get_real_summary(),
+                'C_READ_MORE' => $news->get_real_summary() ? ($description != $summary) : ($cut_contents != $contents),
                 'DESCRIPTION' => $description,
                 'CONTENTS' => $cut_contents
             )));
         }
         $result->dispose();
 
-        return $tpl;
+        return $view;
 	}
 
     public static function get_news_view()
 	{
         $now = new Date();
-		$tpl = new FileTemplate('HomeLanding/pagecontent/news.tpl');
-		$news_config = NewsConfig::load();
-		$config = HomeLandingConfig::load();
+		$module_config = NewsConfig::load();
+		$home_config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
+        $module_name = HomeLandingConfig::MODULE_NEWS;
 
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $news_config->is_summary_displayed_to_guests(), HomeLandingConfig::MODULE_NEWS);
+        $theme_id = AppContext::get_current_user()->get_theme();
+        if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl'))
+			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl');
+		else
+            $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
+
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module_config->is_summary_displayed_to_guests(), $module_name);
 
 		$result = PersistenceContext::get_querier()->select('SELECT news.*, member.*, cat.rewrited_name AS rewrited_name_cat
 		FROM ' . PREFIX . 'news news
@@ -83,7 +98,17 @@ class HomeLandingNews
 			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'timestamp_now' => $now->get_timestamp(),
-			'news_limit' => $modules[HomeLandingConfig::MODULE_NEWS]->get_elements_number_displayed()
+			'news_limit' => $modules[$module_name]->get_elements_number_displayed()
+		));
+
+		$view->put_all(array(
+			'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
+			'C_GRID_VIEW' => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
+            'MODULE_NAME' => $module_name,
+            'L_MODULE_TITLE' => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
+            'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
+			'ITEMS_PER_ROW' => $module_config->get_items_per_row(),
+            'C_NO_ITEM' => $result->get_rows_count() == 0,
 		));
 
 		while ($row = $result->fetch())
@@ -91,18 +116,11 @@ class HomeLandingNews
 			$news = new News();
 			$news->set_properties($row);
 
-			$tpl->put_all(array(
-				'NEWS_POSITION' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_NEWS),
-				'C_FULL_ITEM_DISPLAY' => $news_config->get_full_item_display() && $news_config->get_display_type() == NewsConfig::LIST_VIEW,
-				'C_GRID_VIEW' => $news_config->get_display_type() == NewsConfig::GRID_VIEW,
-				'ITEMS_PER_ROW' => $news_config->get_items_per_row()
-			));
-
-			$tpl->assign_block_vars('item', $news->get_array_tpl_vars());
+			$view->assign_block_vars('item', $news->get_array_tpl_vars());
 		}
 		$result->dispose();
 
-		return $tpl;
+		return $view;
 	}
 }
 ?>
