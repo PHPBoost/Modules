@@ -1,5 +1,5 @@
-<div class="sticky-menu">
-    <nav id="cssmenu-anchors" class="cssmenu cssmenu-horizontal" style="order: {ANCHORS_POSITION};">
+<div class="sticky-menu" style="order: {ANCHORS_POSITION};">
+    <nav id="cssmenu-anchors" class="cssmenu cssmenu-horizontal">
         <ul>
             <!-- # IF C_DISPLAYED_CAROUSEL #
                 <li>
@@ -100,5 +100,5 @@
         title: "${Langloader::get_message('anchors.title', 'common', 'HomeLanding')}",
         format: "multitoggle",
         breakpoint: 768
-    });    
+    });
 </script>
