@@ -13,6 +13,28 @@
 	# IF C_NO_ITEM #
 	# ELSE #
 		# IF C_TABLE_VIEW #
+			<table class="table">
+				<thead>
+					<tr>
+						<th>${LangLoader::get_message('form.name', 'common')}</th>
+						<th class="col-small"><i class="fa fa-fw fa-clock" aria-hidden="true"></i></th>
+						# IF C_VIEWS_NUMBER #<th class="col-small"><i class="fa fa-fw fa-eye" aria-hidden="true"></i></th># ENDIF #
+						# IF C_DL_NUMBER #<th class="col-small"><i class="fa fa-fw fa-download" aria-hidden="true"></i></th># ENDIF #
+						# IF C_VISIT #<th class="col-small"><i class="fa fa-fw fa-share" aria-hidden="true"></i></th># ENDIF #
+					</tr>
+				</thead>
+				<tbody>
+					# START item #
+						<tr>
+							<td><a href="{item.U_ITEM}">{item.TITLE}</a></td>
+							<td><time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE}</time></td>
+							# IF C_VIEWS_NUMBER #<td>{item.VIEWS_NUMBER}</td># ENDIF #
+							# IF C_DL_NUMBER #<td>{item.DOWNLOADS_NUMBER}</td># ENDIF #
+							# IF C_VISIT #<td>{item.DOWNLOADS_NUMBER}</td># ENDIF #
+						</tr>
+					# END item #
+				</tbody>
+			</table>
 		# ELSE #
 			<div class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #">
 
@@ -27,15 +49,15 @@
 						<div class="cell-body">
 							<div class="cell-infos">
 								<div class="more">
-									<span class="pinned">
-										# IF item.C_AUTHOR_DISPLAYED #
+									# IF item.C_AUTHOR_DISPLAYED #
+										<span class="pinned">
 											<i class="fa fa-fw fa-user" aria-hidden="true"></i>
 											# IF item.C_AUTHOR_EXIST #<a itemprop="author" class="{item.USER_LEVEL_CLASS}" href="{item.U_AUTHOR_PROFILE}"# IF item.C_USER_GROUP_COLOR # style="{item.USER_GROUP_COLOR}"# ENDIF #>{item.PSEUDO}</a># ELSE #{item.PSEUDO}# ENDIF #
-										# ENDIF #
-									</span>
-									<span class="pinned"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE_DAY}/{item.DATE_MONTH}/{item.DATE_YEAR}</time></span>
+										</span>
+									# ENDIF #
+									# IF NOT C_DATE #<span class="pinned"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE}</time></span># ENDIF #
 									<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a itemprop="about" href="{item.U_CATEGORY}">{item.CATEGORY_NAME}</a></span>
-									# IF item.C_VIEWS_NUMBER #<span class="pinned" aria-label="{item.VIEWS_NUMBER} ${LangLoader::get_message('module.views', 'common', 'HomeLanding')}"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {item.VIEWS_NUMBER}</span># ENDIF #
+									# IF item.C_VIEWS_NUMBER #<span class="pinned" aria-label="{item.VIEWS_NUMBER} # IF item.C_SEVERAL_VIEWS #${LangLoader::get_message('module.views', 'common', 'HomeLanding')}# ELSE #${LangLoader::get_message('module.view', 'common', 'HomeLanding')}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {item.VIEWS_NUMBER}</span># ENDIF #
 								</div>
 								# IF item.C_CONTROLS #
 									<span class="controls">
@@ -60,13 +82,16 @@
 								# ENDIF #
 							# ENDIF #
 							<div class="cell-content">
-								# IF C_FULL_ITEM_DISPLAY #
+								# IF C_DATE #
+									<div class="align-right controls"><i class="fa fa-fw fa-calendar-alt"></i><span>{item.START_DATE}</span> - <span>{item.END_DATE}</span></div>
+								# ENDIF #
+								# IF item.C_FULL_ITEM_DISPLAY #
 									# IF item.C_HAS_THUMBNAIL #
 										<img class="item-thumbnail" itemprop="thumbnailUrl" src="{item.U_THUMBNAIL}" alt="{item.TITLE}" />
 									# ENDIF #
 									{item.CONTENTS}
 								# ELSE #
-									{item.DESCRIPTION}# IF item.C_READ_MORE #... <a href="{item.U_ITEM}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+									{item.SUMMARY}# IF item.C_READ_MORE #... <a href="{item.U_ITEM}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 								# ENDIF #
 							</div>
 						</div>

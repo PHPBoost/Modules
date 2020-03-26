@@ -14,7 +14,8 @@
 ####################################################
 
 $lang['module_title'] = 'Page d\'accueil';
-$lang['module.views'] = 'vue(s)';
+$lang['module.views'] = 'vues';
+$lang['module.view'] = 'vue';
 
 //Modules position
 $lang['module.carousel'] = 'Carousel';
@@ -82,10 +83,10 @@ $lang['link.to.download'] = 'Voir tous les téléchargements';
 $lang['no.download.item'] = 'Il n\'y a pas de fichier dans cette catégorie';
 
 // events
-$lang['next.events'] = 'Les événements à venir';
-$lang['link.to.events'] = 'Voir le calendrier';
+$lang['last.calendar'] = 'Les événements à venir';
+$lang['link.to.calendar'] = 'Voir le calendrier';
 $lang['event.date'] = 'Événement prévu le';
-$lang['no.events'] = 'Aucun événement à venir';
+$lang['no.event'] = 'Aucun événement à venir';
 
 // Forum
 $lang['last.forum.messages'] = 'Derniers messages du forum';

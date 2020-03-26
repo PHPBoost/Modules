@@ -22,7 +22,7 @@
         # ENDIF #
         # IF C_DISPLAYED_ARTICLES_CAT #
             <li style="order: {AM_ARTICLES_CAT_POS};">
-                <a href="#articles-cat" class="cssmenu-title">{ARTICLES_CAT}</a>
+                <a href="#articles-category" class="cssmenu-title">{ARTICLES_CAT}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_CONTACT #
@@ -42,7 +42,7 @@
         # ENDIF #
         # IF C_DISPLAYED_DOWNLOAD_CAT #
             <li style="order: {AM_DOWNLOAD_CAT_POS};">
-                <a href="#download-cat" class="cssmenu-title">{DOWNLOAD_CAT}</a>
+                <a href="#download-category" class="cssmenu-title">{DOWNLOAD_CAT}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_FORUM #
@@ -82,7 +82,7 @@
         # ENDIF #
         # IF C_DISPLAYED_WEB_CAT #
             <li style="order: {AM_WEB_CAT_POS};">
-                <a href="#web-cat" class="cssmenu-title">{WEB_CAT}</a>
+                <a href="#web-category" class="cssmenu-title">{WEB_CAT}</a>
             </li>
         # ENDIF #
         # IF C_DISPLAYED_RSS #
