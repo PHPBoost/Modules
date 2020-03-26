@@ -25,6 +25,11 @@ class HomeLandingNews
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
+        $home_lang = LangLoader::get('common', 'HomeLanding');
+        $module_lang = LangLoader::get('common', $module_name);
+        $view->add_lang($home_lang);
+        $view->add_lang($module_lang);
+
         $categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->is_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
         $result = PersistenceContext::get_querier()->select('SELECT news.*, member.*
@@ -42,7 +47,6 @@ class HomeLandingNews
         $view->put_all(array(
             'C_CATEGORY'      => true,
             'C_NO_ITEM'       => $result->get_rows_count() == 0,
-            'C_SEVERAL_ITEMS' => $result->get_rows_count() > 1,
             'C_GRID_VIEW'     => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'MODULE_NAME'     => $module_name,
@@ -67,7 +71,7 @@ class HomeLandingNews
                 'C_READ_MORE' => $news->get_real_summary() ? ($description != $summary) : ($cut_contents != $contents),
                 'DESCRIPTION' => $description,
                 'CONTENTS' => $cut_contents,
-                'C_SEVERAL_VIEWS' => $news->get_views_number() >= 2,
+                'C_SEVERAL_VIEWS' => $news->get_views_number() > 1,
             )));
         }
         $result->dispose();
@@ -90,6 +94,11 @@ class HomeLandingNews
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
+        $home_lang = LangLoader::get('common', 'HomeLanding');
+        $module_lang = LangLoader::get('common', $module_name);
+        $view->add_lang($home_lang);
+        $view->add_lang($module_lang);
+
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module_config->is_summary_displayed_to_guests(), $module_name);
 
 		$result = PersistenceContext::get_querier()->select('SELECT news.*, member.*, cat.rewrited_name AS rewrited_name_cat
@@ -107,7 +116,6 @@ class HomeLandingNews
 
 		$view->put_all(array(
 			'C_NO_ITEM'       => $result->get_rows_count() == 0,
-            'C_SEVERAL_ITEMS' => $result->get_rows_count() > 1,
             'C_GRID_VIEW'     => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
 			'MODULE_NAME'     => $module_name,
@@ -122,7 +130,7 @@ class HomeLandingNews
 			$news->set_properties($row);
 
 			$view->assign_block_vars('item', array_merge($news->get_array_tpl_vars(), array(
-                'C_SEVERAL_VIEWS' => $news->get_views_number() >= 2,
+                'C_SEVERAL_VIEWS' => $news->get_views_number() > 1,
             )));
 		}
 		$result->dispose();

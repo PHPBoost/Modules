@@ -1,26 +1,25 @@
 
 <article id="{MODULE_NAME}# IF C_CATEGORY #-category# ENDIF #" style="order: {MODULE_POSITION};">
 	<header>
-		<h2>
-			{L_MODULE_TITLE}
-		</h2>
+		<h2>{L_MODULE_TITLE}</h2>
 		<div class="controls align-right">
-			<a href="{PATH_TO_ROOT}/{MODULE_NAME}">
-				{L_SEE_ALL_ITEMS}
-			</a>
+			<a href="{PATH_TO_ROOT}/{MODULE_NAME}">{L_SEE_ALL_ITEMS}</a>
 		</div>
 	</header>
 	# IF C_NO_ITEM #
+		<div class="message-helper bgc notice">
+			no item
+		</div>
 	# ELSE #
 		# IF C_TABLE_VIEW #
 			<table class="table">
 				<thead>
 					<tr>
 						<th>${LangLoader::get_message('form.name', 'common')}</th>
-						<th class="col-small"><i class="fa fa-fw fa-clock" aria-hidden="true"></i></th>
-						# IF C_VIEWS_NUMBER #<th class="col-small"><i class="fa fa-fw fa-eye" aria-hidden="true"></i></th># ENDIF #
-						# IF C_DL_NUMBER #<th class="col-small"><i class="fa fa-fw fa-download" aria-hidden="true"></i></th># ENDIF #
-						# IF C_VISIT #<th class="col-small"><i class="fa fa-fw fa-share" aria-hidden="true"></i></th># ENDIF #
+						<th class="col-small" aria-label="{@creation.date}"><i class="fa fa-fw fa-clock" aria-hidden="true"></i></th>
+						# IF C_VIEWS_NUMBER #<th class="col-small" aria-label="# IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i></th># ENDIF #
+						# IF C_DL_NUMBER #<th class="col-small" aria-label="{@downloads.number}"><i class="fa fa-fw fa-download" aria-hidden="true"></i></th># ENDIF #
+						# IF C_VISIT #<th aria-label="{@website.link}"><i class="fa fa-fw fa-share" aria-hidden="true"></i></th># ENDIF #
 					</tr>
 				</thead>
 				<tbody>
@@ -30,7 +29,7 @@
 							<td><time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE}</time></td>
 							# IF C_VIEWS_NUMBER #<td>{item.VIEWS_NUMBER}</td># ENDIF #
 							# IF C_DL_NUMBER #<td>{item.DOWNLOADS_NUMBER}</td># ENDIF #
-							# IF C_VISIT #<td>{item.DOWNLOADS_NUMBER}</td># ENDIF #
+							# IF C_VISIT #<td><a href="{item.U_VISIT}">{@visit}</a></td># ENDIF #
 						</tr>
 					# END item #
 				</tbody>
@@ -79,6 +78,15 @@
 											# IF item.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
 										</a>
 									</div>
+								# ELSE #
+									# IF item.C_HAS_PARTNER_THUMBNAIL #
+										<div class="cell-thumbnail cell-landscape cell-center">
+											<img src="{item.U_PARTNER_THUMBNAIL}" alt="{item.TITLE}" />
+											<a href="{item.U_ITEM}" class="cell-thumbnail-caption">
+												# IF item.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
+											</a>
+										</div>
+									# ENDIF #
 								# ENDIF #
 							# ENDIF #
 							<div class="cell-content">

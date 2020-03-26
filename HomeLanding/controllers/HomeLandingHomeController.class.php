@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 09
+ * @version     PHPBoost 5.3 - last update: 2020 03 26
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -121,9 +121,9 @@ class HomeLandingHomeController extends ModuleController
 	//Contact
 	private function build_contact_view()
 	{
-		$tpl = new FileTemplate('HomeLanding/pagecontent/contact.tpl');
+		$view = new FileTemplate('HomeLanding/pagecontent/contact.tpl');
 		$contact_config = ContactConfig::load();
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'CONTACT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CONTACT),
 			'C_MAP_ENABLED' => $contact_config->is_map_enabled(),
 			'C_MAP_TOP' => $contact_config->is_map_enabled() && $contact_config->is_map_top(),
@@ -136,11 +136,11 @@ class HomeLandingHomeController extends ModuleController
 		{
 			if ($this->send_contact_mail())
 			{
-				$tpl->put('MSG', MessageHelper::display($this->lang['send.email.success'] . (ContactConfig::load()->is_sender_acknowledgment_enabled() ? ' ' . $this->lang['send.email.acknowledgment'] : ''), MessageHelper::SUCCESS));
-				$tpl->put('C_MAIL_SENT', true);
+				$view->put('MSG', MessageHelper::display($this->lang['send.email.success'] . (ContactConfig::load()->is_sender_acknowledgment_enabled() ? ' ' . $this->lang['send.email.acknowledgment'] : ''), MessageHelper::SUCCESS));
+				$view->put('C_MAIL_SENT', true);
 			}
 			else
-				$tpl->put('MSG', MessageHelper::display($this->lang['send.email.error'], MessageHelper::ERROR, 5));
+				$view->put('MSG', MessageHelper::display($this->lang['send.email.error'], MessageHelper::ERROR, 5));
 		}
 
 		if ($contact_config->is_map_enabled()) {
@@ -150,12 +150,12 @@ class HomeLandingHomeController extends ModuleController
 			$displayed_map = '';
 		}
 
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'CONTACT_FORM' => $this->form->display(),
 			'MAP' => $displayed_map
 		));
 
-		$this->view->put('CONTACT', $tpl);
+		$this->view->put('CONTACT', $view);
 	}
 
 	public function build_map_view()
@@ -259,7 +259,7 @@ class HomeLandingHomeController extends ModuleController
 		$message .= $this->form->get_value('f_message');
 
 		$mail = new Mail();
-		$mail->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['module_title']);
+		$mail->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['module.title']);
 		$mail->set_reply_to($this->form->get_value('f_sender_mail'), $current_user->get_display_name());
 		$mail->set_subject($subject);
 		$mail->set_content(TextHelper::html_entity_decode($message));

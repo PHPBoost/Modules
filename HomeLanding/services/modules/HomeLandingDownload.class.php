@@ -25,6 +25,11 @@ class HomeLandingDownload
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
+        $home_lang = LangLoader::get('common', 'HomeLanding');
+        $module_lang = LangLoader::get('common', $module_name);
+        $view->add_lang($home_lang);
+        $view->add_lang($module_lang);
+
 		$categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->is_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
 		$result = PersistenceContext::get_querier()->select('SELECT download.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
@@ -64,7 +69,7 @@ class HomeLandingDownload
 
 			$view->assign_block_vars('item', array_merge($file->get_array_tpl_vars(), array(
 				'C_VIEWS_NUMBER'  => true,
-                'C_SEVERAL_VIEWS' => $file->get_views_number() >= 2,
+                'C_SEVERAL_VIEWS' => $file->get_views_number() > 1,
 			)));
 		}
 		$result->dispose();
@@ -87,6 +92,11 @@ class HomeLandingDownload
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
+        $home_lang = LangLoader::get('common', 'HomeLanding');
+        $module_lang = LangLoader::get('common', $module_name);
+        $view->add_lang($home_lang);
+        $view->add_lang($module_lang);
+
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module_config->is_summary_displayed_to_guests(), $module_name);
 
 		$result = PersistenceContext::get_querier()->select('SELECT download.*, member.*, notes.average_notes, notes.number_notes, note.note, cat.rewrited_name AS rewrited_name_cat
@@ -106,7 +116,6 @@ class HomeLandingDownload
 
 		$view->put_all(array(
 			'C_NO_ITEM'       => $result->get_rows_count() == 0,
-            'C_SEVERAL_ITEMS' => $result->get_rows_count() >= 2,
             'C_VIEWS_NUMBER'  => true,
             'C_DL_NUMBER'     => true,
             'C_GRID_VIEW'     => $module_config->get_display_type() == DownloadConfig::GRID_VIEW,

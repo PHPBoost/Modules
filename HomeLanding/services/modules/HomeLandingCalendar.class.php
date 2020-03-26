@@ -27,6 +27,11 @@ class HomeLandingCalendar
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
+        $home_lang = LangLoader::get('common', 'HomeLanding');
+        $module_lang = LangLoader::get('common', $module_name);
+        $view->add_lang($home_lang);
+        $view->add_lang($module_lang);
+
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_name);
 
         $result = PersistenceContext::get_querier()->select('SELECT *
