@@ -8,7 +8,7 @@
 	</header>
 	# IF C_NO_ITEM #
 		<div class="message-helper bgc notice">
-			no item
+			${LangLoader::get_message('no_item_now', 'common')}
 		</div>
 	# ELSE #
 		# IF C_TABLE_VIEW #

@@ -12,6 +12,7 @@ class HomeLandingForum
     public static function get_forum_view()
 	{
         $user_accounts_config = UserAccountsConfig::load();
+
         $module_config = ForumConfig::load();
 		$home_config   = HomeLandingConfig::load();
         $modules       = HomeLandingModulesList::load();
