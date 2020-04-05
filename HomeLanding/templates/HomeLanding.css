@@ -16,7 +16,8 @@
     display: block;
 }
 
-#module-homelanding h1{
+#module-homelanding h1,
+#module-homelanding .item-content{
     margin: 0 0 1em;
 }
 

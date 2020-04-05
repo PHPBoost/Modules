@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 02
+ * @version     PHPBoost 5.3 - last update: 2020 04 05
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -62,6 +62,43 @@ class HomeLandingMedia
                     'URL' => $row['url'],
                     'URL_EMBED' => str_replace("v", "embed", $row['url']),
                     'MIME' => $row['mime_type']
+                ));
+            }
+            elseif ($mime_type_tpl == 'video/host')
+            {
+                $poster = new Url($row['poster']);
+                $pathinfo = pathinfo($row['url']);
+            	$video_id = $pathinfo['basename'];
+
+            	if(strpos($pathinfo['dirname'], 'youtu') !== false)
+            	{
+            		$watch = 'watch?v=';
+            	    if(strpos($video_id, $watch) !== false)
+            	        $video_id = substr_replace($video_id, '', 0, 8);
+
+            			$player = 'https://www.youtube.com/embed/';
+            	}
+            	elseif(strpos($pathinfo['dirname'], 'vimeo') !== false)
+            	{
+            			$player = 'https://player.vimeo.com/video/';
+            	}
+            	elseif(strpos($pathinfo['dirname'], 'dailymotion') !== false)
+            	{
+            			$player = 'https://www.dailymotion.com/embed/video/';
+            	}
+
+                $view->assign_block_vars('media_host', array(
+                    'PSEUDO' => $row['display_name'],
+                    'TITLE' => $row['name'],
+                    'ID' => $row['id'],
+                    'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+                    'POSTER' => $poster->rel(),
+
+                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
+                    'MEDIA_ID' => $video_id,
+                    'PLAYER' => $player,
+                    'WIDTH' => $row['width'],
+                    'HEIGHT' => $row['height']
                 ));
             }
             elseif ($mime_type_tpl == 'video/x-flv')

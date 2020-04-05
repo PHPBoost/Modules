@@ -23,7 +23,7 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_swf.PSEUDO}
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_swf.DATE}</span>
 					</div>
-					<p class="media-content" id="media_swf-{media_swf.ID}">
+					<div class="media-content" id="media_swf-{media_swf.ID}">
 						<object type="{media_swf.MIME}" data="{media_swf.URL}" width="{WIDTH}" height="{HEIGHT}">
 							<param name="allowScriptAccess" value="samedomain" />
 							<param name="allowFullScreen" value="true">
@@ -35,9 +35,22 @@
 							<param name="wmode" value="transparent" />
 							<param name="bgcolor" value="#000000" />
 						</object>
-					</p>
+					</div>
 				</div>
 			# END media_swf #
+
+			# START media_host #
+				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+					<h3><a href="{media_host.U_MEDIA_LINK}">{media_host.TITLE}</a></h3>
+					<div class="more">
+						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}
+						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
+					</div>
+					<div class="media-content" style="width: {media_host.WIDTH}px; height: {media_host.HEIGHT}px">
+						<iframe class="youtube-player" type="text/html" src="{media_host.PLAYER}{media_host.MEDIA_ID}" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
+			# END media_host #
 
 			# START media_flv #
 				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
@@ -46,14 +59,14 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_flv.PSEUDO}</span>
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_flv.DATE}</span>
 					</div>
-					<p class="media-content media-flv">
+					<div class="media-content media-flv">
 						<a href="{media_flv.URL}" id="media_flv-{media_flv.ID}" class="media-flv" style="width:{media_flv.WIDTH}px;height:{media_flv.HEIGHT}px;"></a>
 						<script>
 							jQuery(document).ready(function() {
 								insertMoviePlayer('media_flv-{media_flv.ID}');
 							});
 						</script>
-					</p>
+					</div>
 				</div>
 			# END media_flv #
 
@@ -64,11 +77,11 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
 					</div>
-					<p class="media-content media-mp4">
+					<div class="media-content media-mp4">
 						<video class="video-player" width="{media_mp4.WIDTH}" height="{media_mp4.HEIGHT}"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
 							<source src="{media_mp4.URL}" type="{media_mp4.MIME}" />
 						</video>
-					</p>
+					</div>
 				</div>
 			# END media_mp4 #
 
@@ -80,11 +93,11 @@
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
 					</div>
 
-					<p class="media-content-audio" id="media_mp3-{media_mp3.ID}">
+					<div class="media-content-audio" id="media_mp3-{media_mp3.ID}">
 						<audio controls>
 							<source src="{media_mp3.URL}" type="{media_mp3.MIME}"></source>
 						</audio>
-					</p>
+					</div>
 				</div>
 			# END media_mp3 #
 
@@ -96,7 +109,7 @@
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
 					</div>
 
-					<p class="media-content" id="media_other-{media_other.ID}">
+					<div class="media-content" id="media_other-{media_other.ID}">
 						<object type="{media_other.MIME}" data="{media_other.URL}" width="{media_other.WIDTH}" height="{media_other.HEIGHT}">
 							<param name="allowScriptAccess" value="samedomain" />
 							<param name="allowFullScreen" value="true">
@@ -108,7 +121,7 @@
 							<param name="wmode" value="transparent" />
 							<param name="bgcolor" value="#000000" />
 						</object>
-					</p>
+					</div>
 				</div>
 			# END media_other #
 

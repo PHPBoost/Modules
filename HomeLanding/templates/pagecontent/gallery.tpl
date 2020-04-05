@@ -19,7 +19,7 @@
 					<div class="cell-body">
 						<div class="cell-thumbnail cell-landscape cell-center">
 							<img src="{item.U_PICTURE}" alt="{item.TITLE}" />
-							<a href="{item.U_CATEGORY}"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+							<a class="cell-thumbnail-caption" href="{item.U_CATEGORY}"><i class="fa fa-eye" aria-hidden="true"></i> </a>
 						</div>
 					</div>
 					<div class="cell-list">
