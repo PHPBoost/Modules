@@ -1,5 +1,5 @@
 
-<article id="{MODULE_NAME}# IF C_CATEGORY #-category# ENDIF #" style="order: {MODULE_POSITION};">
+<article id="{MODULE_NAME}# IF C_CATEGORY #_category# ENDIF #" style="order: {MODULE_POSITION};">
 	<header>
 		<h2>{L_MODULE_TITLE}</h2>
 		<div class="controls align-right">

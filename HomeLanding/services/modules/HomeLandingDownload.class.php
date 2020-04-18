@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 26
+ * @version     PHPBoost 5.3 - last update: 2020 04 18
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -33,7 +33,7 @@ class HomeLandingDownload
 		$categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->is_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
 		$result = PersistenceContext::get_querier()->select('SELECT download.*, member.*, com.number_comments, notes.average_notes, notes.number_notes, note.note
-		FROM ' . DownloadSetup::$download_table . ' download
+		FROM ' . PREFIX . 'download  download
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = download.author_user_id
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
 		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
@@ -120,6 +120,7 @@ class HomeLandingDownload
             'C_DL_NUMBER'     => true,
             'C_GRID_VIEW'     => $module_config->get_display_type() == DownloadConfig::GRID_VIEW,
 			'C_TABLE_VIEW'    => $module_config->get_display_type() == DownloadConfig::TABLE_VIEW,
+            'MODULE_NAME'     => $module_name,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
             'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),

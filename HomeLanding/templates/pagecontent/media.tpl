@@ -15,7 +15,6 @@
 		</div>
 	# ELSE #
 		<div class="content">
-
 			# START media_swf #
 				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 					<h3><a href="{media_swf.U_MEDIA_LINK}">{media_swf.TITLE}</a></h3>
@@ -23,8 +22,8 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_swf.PSEUDO}
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_swf.DATE}</span>
 					</div>
-					<div class="media-content" id="media_swf-{media_swf.ID}">
-						<object type="{media_swf.MIME}" data="{media_swf.URL}" width="{WIDTH}" height="{HEIGHT}">
+					<div class="media-content" id="media_swf-{media_swf.ID}" style="width:{media_swf.WIDTH}px;height:{media_swf.HEIGHT}px;">
+						<object type="{media_swf.MIME}" data="{media_swf.URL}">
 							<param name="allowScriptAccess" value="samedomain" />
 							<param name="allowFullScreen" value="true">
 							<param name="play" value="true" />
@@ -59,8 +58,8 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_flv.PSEUDO}</span>
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_flv.DATE}</span>
 					</div>
-					<div class="media-content media-flv">
-						<a href="{media_flv.URL}" id="media_flv-{media_flv.ID}" class="media-flv" style="width:{media_flv.WIDTH}px;height:{media_flv.HEIGHT}px;"></a>
+					<div class="media-content media-flv" style="width:{media_flv.WIDTH}px;height:{media_flv.HEIGHT}px;">
+						<a href="{media_flv.URL}" id="media_flv-{media_flv.ID}" class="media-flv"></a>
 						<script>
 							jQuery(document).ready(function() {
 								insertMoviePlayer('media_flv-{media_flv.ID}');
@@ -77,8 +76,8 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
 					</div>
-					<div class="media-content media-mp4">
-						<video class="video-player" width="{media_mp4.WIDTH}" height="{media_mp4.HEIGHT}"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
+					<div class="media-content media-mp4" style="width:{media_mp4.WIDTH}px;height:{media_mp4.HEIGHT}px;">
+						<video class="video-player"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
 							<source src="{media_mp4.URL}" type="{media_mp4.MIME}" />
 						</video>
 					</div>
@@ -110,7 +109,7 @@
 					</div>
 
 					<div class="media-content" id="media_other-{media_other.ID}">
-						<object type="{media_other.MIME}" data="{media_other.URL}" width="{media_other.WIDTH}" height="{media_other.HEIGHT}">
+						<object type="{media_other.MIME}" data="{media_other.URL}" style="width:{media_other.WIDTH}px;height:{media_other.HEIGHT}px;">
 							<param name="allowScriptAccess" value="samedomain" />
 							<param name="allowFullScreen" value="true">
 							<param name="play" value="true" />
@@ -129,3 +128,14 @@
 	# ENDIF #
 	<footer></footer>
 </article>
+<script>
+	// for several mp4 players only - pause running video when start another
+	document.addEventListener('play', function(e){
+		var videos = document.getElementsByTagName('video');
+		for(var i = 0, len = videos.length; i < len;i++){
+			if(videos[i] != e.target){
+				videos[i].pause();
+			}
+		}
+	}, true);
+</script>

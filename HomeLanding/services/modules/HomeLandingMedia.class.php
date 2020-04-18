@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 05
+ * @version     PHPBoost 5.3 - last update: 2020 04 18
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -39,6 +39,7 @@ class HomeLandingMedia
 
         $view->put_all(array(
 			'C_NO_ITEM'       => $result->get_rows_count() == 0,
+            'MODULE_NAME'     => $module_name,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
             'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),

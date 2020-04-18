@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 09
+ * @version     PHPBoost 5.3 - last update: 2020 04 18
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -67,6 +67,9 @@ class HomeLandingConfig extends AbstractConfigData
 	const STICKY_TITLE = 'sticky_title';
 
 	// Configuration
+	// Articles errors - waiting for a real dev
+	public function get_authorizations() { }
+	public function get_auto_cut_characters_number() { }
 
 	// Module Title
 	public function get_module_title()
