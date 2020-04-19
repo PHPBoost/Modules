@@ -81,11 +81,11 @@
 												</div>
 											# ENDIF #
 											# IF C_DISPLAYED_AUTHOR_PM #
-												 | <a href="{U_AUTHOR_PM}" class="smallad-pm" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i></a>
+												<a href="{U_AUTHOR_PM}" class="smallad-pm" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i></a>
 											 # ENDIF #
 
 											# IF C_DISPLAYED_AUTHOR_PHONE #
-												 | <a href="#" data-modal data-target="tel-modal" aria-label="{@smallads.contact.phone} - {@open.modal}"><i class="fa fa-fw fa-mobile"></i><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.phone}</span></a>
+												<a href="#" data-modal data-target="tel-modal" aria-label="{@smallads.contact.phone} - {@open.modal}"><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.phone}</span></a>
 												<div id="tel-modal" class="modal modal-animation">
 													<div class="close-modal" role="button" aria-label="{@close.modal}"></div>
 													<div class="content-panel cell">
@@ -110,19 +110,28 @@
 								# ENDIF #
 								# IF C_DISPLAYED_AUTHOR #
 									<li class="li-stretch">
-										<i class="fa fa-fw fa-user" aria-hidden="true"></i>
+										<span aria-label="${LangLoader::get_message('author', 'common')}"><i class="fa fa-fw fa-user" aria-hidden="true"></i></span>
+										<span>
 											# IF C_CUSTOM_AUTHOR_NAME #
 												{CUSTOM_AUTHOR_NAME}
 											# ELSE #
 												# IF C_AUTHOR_EXIST #<a itemprop="author" href="{U_AUTHOR}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>{PSEUDO}</a># ELSE #{PSEUDO}# ENDIF #
 											# ENDIF #
+										</span>
 									</li>
 								# ENDIF #
-								<li class="li-stretch"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time></li>
-								<li class="li-stretch"><span role="contentinfo" aria-label="{VIEWS_NUMBER} {@smallads.sort.field.views}"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {VIEWS_NUMBER}</span></li>
+								<li class="li-stretch">
+									<span aria-label="${LangLoader::get_message('form.approbation', 'common')}"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> </span>
+									<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time>
+								</li>
+								<li class="li-stretch">
+									<span role="contentinfo" aria-label="${LangLoader::get_message('sort_by.views.number', 'common')}"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> </span>
+									{VIEWS_NUMBER}
+								</li>
 								# IF C_COMMENTS_ENABLED #
 									<li class="li-stretch">
-										<i class="fa fa-fw fa-comment" aria-hidden="true"></i> <a itemprop="discussionUrl" class="small" href="{U_COMMENTS}"> {L_COMMENTS}</a>
+										<span aria-label="${LangLoader::get_message('sort_by.comments.number', 'common')}"><i class="fa fa-fw fa-comment" aria-hidden="true"></i></span>
+										<a itemprop="discussionUrl" class="small" href="{U_COMMENTS}"> {L_COMMENTS}</a>
 									</li>
 								# ENDIF #
 								# IF C_KEYWORDS #
