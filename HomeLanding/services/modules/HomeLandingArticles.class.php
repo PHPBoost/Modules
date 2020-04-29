@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 18
+ * @version     PHPBoost 5.3 - last update: 2020 04 29
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -76,6 +76,7 @@ class HomeLandingArticles
                 'USER_GROUP_COLOR'   => User::get_group_color($article->get_author_user()->get_groups(), $article->get_author_user()->get_level(), true),
                 'U_AUTHOR_PROFILE'   => UserUrlBuilder::profile($article->get_author_user()->get_id())->rel(),
                 'PSEUDO'             => $article->get_author_user()->get_display_name(),
+                'CATEGORY_ID'        => $category_datas->get_id(),
                 'CATEGORY_NAME'      => $category_datas->get_name(),
                 'U_CATEGORY'         => Url::to_rel($module_name . '/' . $category_datas->get_id() . '-' . $category_datas->get_rewrited_name()),
                 'U_ITEM'             => Url::to_rel($module_name . '/' . $category_datas->get_id() . '-' . $category_datas->get_rewrited_name() .'/' . $article->get_id() . '-' . $article->get_rewrited_title())
@@ -151,6 +152,7 @@ class HomeLandingArticles
                 'USER_GROUP_COLOR'   => User::get_group_color($article->get_author_user()->get_groups(), $article->get_author_user()->get_level(), true),
                 'U_AUTHOR_PROFILE'   => UserUrlBuilder::profile($article->get_author_user()->get_id())->rel(),
                 'PSEUDO'             => $article->get_author_user()->get_display_name(),
+                'CATEGORY_ID'        => $category_datas->get_id(),
                 'CATEGORY_NAME'      => $category_datas->get_name(),
                 'U_CATEGORY'         => Url::to_rel($module_name . '/' . $category_datas->get_id() . '-' . $category_datas->get_rewrited_name()),
                 'U_ITEM'             => Url::to_rel($module_name . '/' . $category_datas->get_id() . '-' . $category_datas->get_rewrited_name() .'/' . $article->get_id() . '-' . $article->get_rewrited_title())

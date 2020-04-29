@@ -1,5 +1,5 @@
 <section id="module-homelanding">
-	<header style="order: 1;">
+	<header style="order: 0;">
 		<h1>{MODULE_TITLE}</h1>
 	</header>
 
@@ -22,7 +22,7 @@
 	# INCLUDE ARTICLES_CAT #
 
 
-	# INCLUDE EVENTS #
+	# INCLUDE CALENDAR #
 
 
 	# INCLUDE CONTACT #
