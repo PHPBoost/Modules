@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 26
+ * @version     PHPBoost 5.3 - last update: 2020 04 29
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -61,7 +61,7 @@ class HomeLandingForum
         while ($row = $result->fetch())
         {
             $contents = FormatingHelper::second_parse($row['contents']);
-            $user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : ($user_accounts_config->is_default_avatar_enabled() ? Url::to_rel('/templates/' . AppContext::get_current_user()->get_theme() . '/images/' .  $user_accounts_config->get_default_avatar_name()) : '');
+            $user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
 
             $last_page = ceil($row['t_nbr_msg'] / $module_config->get_number_messages_per_page());
             $last_page_rewrite = ($last_page > 1) ? '-' . $last_page : '';

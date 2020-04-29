@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 26
+ * @version     PHPBoost 5.3 - last update: 2020 04 29
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -54,7 +54,7 @@ class HomeLandingGuestbook
 
             $contents = @strip_tags(FormatingHelper::second_parse($message->get_contents()));
             $nb_char = $modules[$module_name]->get_characters_number_displayed();
-            $user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : ($user_accounts_config->is_default_avatar_enabled() ? Url::to_rel('/templates/' . AppContext::get_current_user()->get_theme() . '/images/' .  $user_accounts_config->get_default_avatar_name()) : '');
+            $user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
             $cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
             $view->assign_block_vars('item', array_merge($message->get_array_tpl_vars(), array(
