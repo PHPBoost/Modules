@@ -8,7 +8,7 @@
 	# INCLUDE CAROUSEL #
 
 	# IF C_EDITO_ENABLED #
-		<div id="edito" class="content" style="order: {EDITO_POSITION};">
+		<div id="edito-panel" class="content" style="order: {EDITO_POSITION};">
 			{EDITO}
 			<div class="spacer"></div>
 		</div>

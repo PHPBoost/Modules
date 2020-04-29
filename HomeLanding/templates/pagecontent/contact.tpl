@@ -1,5 +1,5 @@
 
-<article id="contact" style="order: {CONTACT_POSITION};">
+<article id="contact-panel" style="order: {CONTACT_POSITION};">
 	<header>
 		<span class="controls">
 			<a href="{PATH_TO_ROOT}/contact">
