@@ -44,6 +44,7 @@ class HomeLandingLastcoms
         $view->put_all(array(
             'C_NO_ITEM' => $result->get_rows_count() == 0,
             'C_PARENT' => true,
+            'C_AVATAR_IMG' => $user_accounts_config->default_avatar_enabled(),
             'MODULE_NAME' => $module_name,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
@@ -57,7 +58,7 @@ class HomeLandingLastcoms
             $date = new Date($row['timestamp'], Timezone::SERVER_TIMEZONE);
 
             $user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
-
+            
             $author = new User();
             if (!empty($row['user_id']))
                 $author->set_properties($row);
@@ -77,7 +78,7 @@ class HomeLandingLastcoms
                 'TOPIC' => $modules_config->get_module($row['module_id']) ? $modules_config->get_module($row['module_id'])->get_configuration()->get_name() : '',
                 'CONTENTS' => $cut_contents,
 
-                'U_AVATAR' => $user_avatar,
+                'U_AVATAR_IMG' => $user_avatar,
                 'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($author->get_id())->rel(),
                 'U_TOPIC' => Url::to_rel($row['path']),
                 'U_ITEM' => Url::to_rel($row['path'] . '#com' . $row['id'])

@@ -45,6 +45,7 @@ class HomeLandingGuestbook
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
             'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
+            'C_AVATAR_IMG' => $user_accounts_config->default_avatar_enabled(),
         ));
 
         while ($row = $result->fetch())
@@ -59,7 +60,7 @@ class HomeLandingGuestbook
 
             $view->assign_block_vars('item', array_merge($message->get_array_tpl_vars(), array(
                 'C_READ_MORE' => $cut_contents != $contents,
-                'U_AVATAR' => $user_avatar,
+                'U_AVATAR_IMG' => $user_avatar,
                 'CONTENTS' => $cut_contents,
             )));
         }

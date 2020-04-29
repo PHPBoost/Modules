@@ -15,7 +15,7 @@
 		# START item #
 			<div class="message-container message-small" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 				<header class="message-header-container">
-					<img class="message-user-avatar" src="{item.U_AVATAR}" alt="{item.PSEUDO}" />
+					# IF C_AVATAR_IMG #<img class="message-user-avatar" src="{item.U_AVATAR_IMG}" alt="{item.PSEUDO}" /># ENDIF #
 
 					<div class="message-header-infos">
 						<div class="message-user">

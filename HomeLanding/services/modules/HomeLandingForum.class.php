@@ -51,6 +51,7 @@ class HomeLandingForum
             'C_NO_ITEM' => $result->get_rows_count() == 0,
             'C_PARENT' => true,
             'C_TOPIC' => true,
+            'C_AVATAR_IMG' => $user_accounts_config->default_avatar_enabled(),
             'C_MODULE_LINK' => true,
             'MODULE_NAME' => $module_name,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
@@ -84,7 +85,7 @@ class HomeLandingForum
                 'CONTENTS' => TextHelper::cut_string(@strip_tags(stripslashes($contents), 0), (int)$characters_number_to_cut),
 
                 'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['last_user_id'])->rel(),
-                'U_AVATAR' => $user_avatar,
+                'U_AVATAR_IMG' => $user_avatar,
                 'U_TOPIC' => $link_message->rel(),
                 'U_ITEM' => $link->rel(),
             ));
