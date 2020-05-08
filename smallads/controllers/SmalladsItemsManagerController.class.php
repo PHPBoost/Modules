@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 30
+ * @version     PHPBoost 5.3 - last update: 2020 05 08
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -103,7 +103,7 @@ class SmalladsItemsManagerController extends ModuleController
 
 			$row = array(
 				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $smallad->get_id(), $smallad->get_rewrited_title()), $smallad->get_title()), 'left'),
-				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), $category->get_name())),
+				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? LangLoader::get_message('none_e', 'common') : $category->get_name()))),
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($smallad->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
 				new HTMLTableRowCell($smallad->get_status() . $br->display() . ($dates ? $start_and_end_dates->display() : '')),

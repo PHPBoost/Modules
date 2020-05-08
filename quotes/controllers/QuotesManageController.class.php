@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 30
+ * @version     PHPBoost 5.3 - last update: 2020 05 08
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -70,7 +70,7 @@ class QuotesManageController extends AdminModuleController
 
 			$results[] = new HTMLTableRow(array(
 				new HTMLTableRowCell($quote->get_quote(), 'left'),
-				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), $category->get_name())),
+				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? LangLoader::get_message('none_e', 'common') : $category->get_name()))),
 				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_author_quotes($quote->get_rewrited_author()), $quote->get_author())),
 				new HTMLTableRowCell($quote->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
 				new HTMLTableRowCell($quote->is_approved() ? LangLoader::get_message('yes', 'common') : LangLoader::get_message('no', 'common')),
