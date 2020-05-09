@@ -12,9 +12,9 @@
 				<ul class="lastcoms# IF C_HORIZONTAL # lastcoms-horizontal# ENDIF #">
 					# START coms #
 					<li>
-						<span class="pinned notice small">{coms.DATE}</span>
+						<span class="pinned notice small">{coms.DATE_DIFF_NOW}</span>
 						# IF coms.C_AUTHOR_EXIST #<a class="{coms.USER_LEVEL_CLASS}" href="{coms.U_AUTHOR_PROFILE}"# IF coms.C_USER_GROUP_COLOR # style="color:{coms.USER_GROUP_COLOR}"# ENDIF #>{coms.PSEUDO}</a># ELSE #{coms.PSEUDO}# ENDIF #
-						<p><a href="{coms.PATH}"><i class="far fa-comment"></i> {coms.COM_CONTENT}{coms.ETC}</a></p>
+						<p><a href="{coms.PATH}"><i class="far fa-comment"></i> {coms.CONTENT}</a></p>
 					</li>
 					# END coms #
 				</ul>

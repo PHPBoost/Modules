@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 5.3 - last update: 2019 02 05
+ * @version     PHPBoost 5.3 - last update: 2020 05 09
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -44,12 +44,10 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		MenuService::assign_positions_conditions($tpl, $this->get_block());
 		Menu::assign_common_template_variables($tpl);
 
-		$now = new Date();
 		$lastcoms_config = LastcomsConfig::load();
 		$coms_char = $lastcoms_config->get_lastcoms_char();
 
-		$querier = PersistenceContext::get_querier();
-		$results = $querier->select("SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, ct.module_id, ct.is_locked, m.level, m.groups
+		$results = PersistenceContext::get_querier()->select("SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, ct.module_id, ct.is_locked, m.level, m.groups
 			FROM " . DB_TABLE_COMMENTS . " AS c
 			LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " AS ct ON ct.id_topic = c.id_topic
 			LEFT JOIN " . DB_TABLE_MEMBER . " AS m ON c.user_id = m.user_id
@@ -71,17 +69,18 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
 			$user_group_color = User::get_group_color($row['groups'], $row['level']);
 
-			$tpl->assign_block_vars('coms', array(
+			$tpl->assign_block_vars('coms', array_merge(
+				Date::get_array_tpl_vars(new Date($row['timestamp'], Timezone::SERVER_TIMEZONE), 'date'),
+				array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
 				'C_AUTHOR_EXIST' => $row['user_id'] !== User::VISITOR_LEVEL,
 				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
 				'USER_GROUP_COLOR' => $user_group_color,
 				'PSEUDO' => $row['pseudo'],
-				'ETC' => TextHelper::strlen($contents) > $coms_char ? '...' : '',
-				'COM_CONTENT' => $content_limited,
-				'DATE' => strftime(date("d-m-y / H:i", $row['timestamp'])),
+				'CONTENT' => $content_limited . (TextHelper::strlen($contents) > $coms_char ? '...' : ''),
 				'PATH' => Url::to_rel($row['path'] . '#com' . $row['id']),
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel()
+				)
 			));
 		}
 
