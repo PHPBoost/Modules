@@ -331,6 +331,12 @@
 						</div>
 					</noscript>
 				</article>
+				<script>
+				jQuery(document).ready(function() {
+					if ({dictionary.C_AFF} && '{dictionary.ID}' == '{C_LETTER}')
+						affCache('{dictionary.ID}');
+				});
+				</script>
 			# END dictionary #
 		 	<script>
 				cat=getParam('cat');

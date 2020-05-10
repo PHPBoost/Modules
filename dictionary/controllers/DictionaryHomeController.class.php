@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 01 14
+ * @version     PHPBoost 5.3 - last update: 2020 05 10
  * @since       PHPBoost 4.1 - 2016 02 15
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -68,7 +68,7 @@ class DictionaryHomeController extends ModuleController
 				$result1 = PersistenceContext::get_querier()->select("SELECT l.id, l.description, l.word,l.cat,c.images
 				FROM ".PREFIX."dictionary AS l
 				LEFT JOIN ".PREFIX."dictionary_cat AS c ON l.cat = c.id
-				WHERE l.word LIKE '%" .$letter. "%' AND `approved`  = '" . $quotes_approved . "'
+				WHERE l.word LIKE '" .$letter[0]. "%' AND `approved`  = '" . $quotes_approved . "'
 				ORDER BY l.word
 				LIMIT :number_items_per_page OFFSET :display_from", array(
 					'number_items_per_page' => $pagination->get_number_items_per_page(),
@@ -112,7 +112,7 @@ class DictionaryHomeController extends ModuleController
 					'ID_EDIT' => $row['id'],
 					'ID_DEL' => $row['id'],
 					'DEL_CODE' => $del,
-					'C_AFF' => $aff
+					'C_AFF' => (int)$aff
 				));
 			}
 			$result1->dispose();
