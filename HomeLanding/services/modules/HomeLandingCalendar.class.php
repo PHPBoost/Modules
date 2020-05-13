@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 29
+ * @version     PHPBoost 5.3 - last update: 2020 05 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -22,7 +22,9 @@ class HomeLandingCalendar
         $module_name   = HomeLandingConfig::MODULE_CALENDAR;
 
         $theme_id = AppContext::get_current_user()->get_theme();
-        if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl'))
+        if (file_exists(PATH_TO_ROOT . '/HomeLanding/templates/pagecontent/' . $module_name . '.tpl'))
+			$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $module_name . '.tpl');
+        elseif (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl'))
 			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl');
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 02
+ * @version     PHPBoost 5.3 - last update: 2020 05 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -16,7 +16,13 @@ class HomeLandingGallery
         $modules = HomeLandingModulesList::load();
         $module_name   = HomeLandingConfig::MODULE_GALLERY;
 
-		$view = new FileTemplate('HomeLanding/pagecontent/gallery.tpl');
+        $theme_id = AppContext::get_current_user()->get_theme();
+        if (file_exists(PATH_TO_ROOT . '/HomeLanding/templates/pagecontent/' . $module_name . '.tpl'))
+			$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $module_name . '.tpl');
+        elseif (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl'))
+			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl');
+		else
+            $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
@@ -29,7 +35,7 @@ class HomeLandingGallery
 			g.id, g.id_category, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob,
 			m.display_name, m.groups, m.level,
 			notes.average_notes, notes.number_notes, note.note
-		FROM " . GallerySetup::$gallery_table . " g
+		FROM " . PREFIX . "gallery g
 		LEFT JOIN " . PREFIX . "gallery_cats cat ON cat.id = g.id_category
 		LEFT JOIN " . DB_TABLE_MEMBER . " m ON m.user_id = g.user_id
 		LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " com ON com.id_in_module = g.id AND com.module_id = 'gallery'

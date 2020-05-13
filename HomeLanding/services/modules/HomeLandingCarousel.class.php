@@ -11,7 +11,7 @@ class HomeLandingCarousel
 {
     public static function get_carousel_view()
 	{
-        $tpl = new FileTemplate('HomeLanding/pagecontent/carousel.tpl');
+        $view = new FileTemplate('HomeLanding/pagecontent/carousel.tpl');
 		$config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
         $carousel = $config->get_carousel();
@@ -19,7 +19,7 @@ class HomeLandingCarousel
         $nb_dots = 0;
         foreach ($carousel as $id => $options)
         {
-            $tpl->assign_block_vars('item', array(
+            $view->assign_block_vars('item', array(
                 'DESCRIPTION' => $options['description'],
                 'PICTURE_TITLE' => $options['description'] ? $options['description'] : basename($options['picture_url']),
                 'PICTURE_URL' => Url::to_rel($options['picture_url']),
@@ -28,7 +28,7 @@ class HomeLandingCarousel
             $nb_dots++;
         }
 
-        $tpl->put_all(array(
+        $view->put_all(array(
             'CAROUSEL_POSITION' => $config->get_module_position_by_id(HomeLandingConfig::MODULE_CAROUSEL),
             'NB_DOTS' => $nb_dots,
             'CAROUSEL_SPEED' => $config->get_carousel_speed(),
@@ -39,7 +39,7 @@ class HomeLandingCarousel
             'CAROUSEL_MINI' => $config->get_carousel_mini(),
         ));
 
-        return $tpl;
+        return $view;
 	}
 }
 ?>
