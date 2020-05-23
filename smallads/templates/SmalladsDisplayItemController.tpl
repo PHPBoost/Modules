@@ -60,7 +60,7 @@
 										<span>{@smallads.contact} :</span>
 										<div class="modal-container cell-modal cell-tile">
 											# IF C_DISPLAYED_AUTHOR_EMAIL #
-												<a href="#email-modal" data-modal data-target="email-modal" class="email-modal-btn" aria-label="{@smallads.contact.email} - {@open.modal}"><i class="fa fa-fw fa-at" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.email}</span></a>
+												<a href="#email-modal" data-modal data-target="email-modal" class="email-modal-btn" aria-label="{@smallads.contact.email} - {@open.modal}"><i class="fa fa-fw fa-mail-bulk" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.email}</span></a>
 												<div id="email-modal" class="modal modal-animation">
 													<div class="close-modal" role="button" aria-label="{@close.modal}"></div>
 													<div class="content-panel cell">
