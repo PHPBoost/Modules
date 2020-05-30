@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 09
+ * @version     PHPBoost 5.3 - last update: 2020 05 30
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -13,11 +13,17 @@
 #                      English                     #
 ####################################################
 
-$lang['module_title'] = 'Home Page';
-$lang['module.views'] = 'view(s)';
+$lang['module.title'] = 'Home Page';
+$lang['creation.date'] = 'Creation date';
+$lang['module.views.number'] = 'Views number';
+$lang['module.views'] = 'views';
+$lang['module.view'] = 'view';
+$lang['module.post.date'] = 'Post date';
+$lang['module.posted.in.topic'] = 'Posted in topic:';
+$lang['module.posted.in.module'] = 'Posted in module:';
 
 //Modules position
-$lang['module.carousel'] = 'Slider';
+$lang['module.carousel'] = 'Carousel';
 $lang['module.anchors_menu'] = 'Homepage Menu';
 $lang['module.edito'] = 'Edito';
 $lang['module.lastcoms'] = 'Last comments';
@@ -54,18 +60,18 @@ $lang['anchors.news'] = 'News';
 $lang['anchors.rss'] = 'Rss';
 $lang['anchors.web'] = 'Weblinks';
 
-//Last Comments
-$lang['last.comments'] = 'Last comments';
+// Last Comments
+$lang['last.lastcoms'] = 'Last comments';
 $lang['in.modules'] = 'in module :';
 $lang['no.comment'] = 'No comments';
 
-// articles
+// Articles
 $lang['last.articles'] = 'Last articles';
 $lang['last.articles.cat'] = 'Last articles of category ';
 $lang['link.to.articles'] = 'View all articles';
 $lang['no.articles.item'] = 'There is no article in this category';
 
-// contact
+// Contact
 $lang['link.to.contact'] = 'See contact page';
 $lang['send.email.success'] = 'Your email has been sent. ';
 $lang['send.email.error'] = 'Your email could not be sent. ';
@@ -75,20 +81,20 @@ $lang['send.email.acknowledgment.title'] = 'Confirmation';
 $lang['send.email.acknowledgment.correct'] = 'Your email has been correctly sent. ';
 $lang['send.another.email'] = 'Send another message. ';
 
-// download
+// Download
 $lang['last.download'] = 'Last downloads';
 $lang['last.download.cat'] = 'Last downloads of category ';
 $lang['link.to.download'] = 'View all downloads';
 $lang['no.download.item'] = 'There is no file in this category';
 
-// events
-$lang['next.events'] = 'Upcoming events';
-$lang['link.to.events'] = 'See schedule';
+// Calendar
+$lang['last.calendar'] = 'Upcoming events';
+$lang['link.to.calendar'] = 'See schedule';
 $lang['event.date'] = 'Event planned on';
-$lang['no.events'] = 'No upcoming event';
+$lang['no.event'] = 'No upcoming event';
 
 // Forum
-$lang['last.forum.messages'] = 'Last messages';
+$lang['last.forum'] = 'Last messages';
 $lang['link.to.forum'] = 'View forum';
 
 // Gallery
@@ -118,7 +124,8 @@ $lang['link.to.rss.site'] = 'Rss timeline of the website : ';
 $lang['last.web'] = 'Partners websites list';
 $lang['last.web.cat'] = 'Latest partners websites of category ';
 $lang['link.to.web'] = 'See all weblinks';
-$lang['no.web.item'] = 'There is no link in this category';
+$lang['website.link'] = 'Direct Link to website';
+$lang['no.web.item'] = 'There\'s no link in this category';
 
 // Admin
 $lang['admin.char'] = 'Limit the number of characters';
