@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 05 13
+ * @version     PHPBoost 5.3 - last update: 2020 06 02
  * @since       PHPBoost 5.2 - 2020 03 06
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
 class HomeLandingWeb
@@ -76,7 +77,6 @@ class HomeLandingWeb
             $cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
 
             $view->assign_block_vars('item', array_merge($link->get_array_tpl_vars(), array(
-                'C_VIEWS_NUMBER'  => true,
                 'C_SEVERAL_VIEWS' => $link->get_views_number() > 1,
             )));
         }
@@ -142,9 +142,8 @@ class HomeLandingWeb
             $link->set_properties($row);
 
             $view->assign_block_vars('item', array_merge($link->get_array_tpl_vars(), array(
-                'C_VIEWS_NUMBER'  => true,
                 'C_VISIT'  => true,
-                'C_SEVERAL_VIEWS' => $link->get_views_number() >= 2,
+                'C_SEVERAL_VIEWS' => $link->get_views_number() > 1,
             )));
         }
         $result->dispose();
