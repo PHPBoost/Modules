@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 04 29
+ * @version     PHPBoost 5.3 - last update: 2020 06 03
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -73,10 +73,10 @@ class HomeLandingHomeController extends ModuleController
 			$this->view->put('LASTCOMS', HomeLandingLastcoms::get_lastcoms_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_ARTICLES)->read())
-			$this->view->put('ARTICLES', HomeLandingArticles::get_articles_view());
+			$this->view->put('ARTICLES', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_ARTICLES));
 
 		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_ARTICLES)->read())
-			$this->view->put('ARTICLES_CAT', HomeLandingArticles::get_articles_cat_view());
+			$this->view->put('ARTICLES_CAT', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_ARTICLES, HomeLandingConfig::MODULE_ARTICLES_CATEGORY));
 
 		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read())
 			$this->build_contact_view();

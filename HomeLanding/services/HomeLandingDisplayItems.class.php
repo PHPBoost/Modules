@@ -8,18 +8,8 @@
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class HomeLandingArticles
+class HomeLandingDisplayItems
 {
-	public static function get_articles_cat_view()
-	{
-		return self::build_view(HomeLandingConfig::MODULE_ARTICLES, HomeLandingConfig::MODULE_ARTICLES_CATEGORY);
-	}
-
-	public static function get_articles_view()
-	{
-		return self::build_view(HomeLandingConfig::MODULE_ARTICLES);
-	}
-
 	public static function build_view($module_name, $module_cat = false)
 	{
 		$module        = ModulesManager::get_module($module_name);
