@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 06 03
+ * @version     PHPBoost 5.3 - last update: 2020 06 04
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -14,7 +14,6 @@ class HomeLandingDisplayItems
 	{
 		$module        = ModulesManager::get_module($module_name);
 		$module_config = $module->get_configuration()->get_configuration_parameters();
-		$home_config   = HomeLandingConfig::load();
 		$home_modules  = HomeLandingModulesList::load();
 		$page_type     = $module_cat ? $module_cat : $module_name;
 
@@ -35,20 +34,26 @@ class HomeLandingDisplayItems
 		if ($module_cat)
 			$sql_parameters['categories'] = $home_modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($home_modules[$module_cat]->get_id_category(), $module_config->get_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 		else
-			$sql_parameters['categories'] = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module_config->get_summary_displayed_to_guests(), $module_name);
+			$sql_parameters['categories'] = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module->get_configuration()->has_rich_config_parameters() ? $module_config->get_summary_displayed_to_guests() : true, $module_name);
 		
 		$items = ItemsService::get_items_manager($module_name)->get_items($sql_condition, $sql_parameters, $home_modules[$page_type]->get_elements_number_displayed(), 0, 'creation_date', Item::DESC);
 		
 		$view->put_all(array(
 			'C_NO_ITEM'          => count($items) == 0,
 			'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
-			'C_GRID_VIEW'        => $module_config->get_display_type() == DefaultRichModuleConfig::GRID_VIEW,
-			'C_AUTHOR_DISPLAYED' => $module_config->get_author_displayed(),
-			'ITEMS_PER_ROW'      => $module_config->get_items_per_row(),
 			'MODULE_NAME'        => $module_name,
-			'MODULE_POSITION'    => $home_config->get_module_position_by_id($page_type),
+			'MODULE_POSITION'    => HomeLandingConfig::load()->get_module_position_by_id($page_type),
 			'L_SEE_ALL_ITEMS'    => LangLoader::get_message('link.to.' . $module_name, 'common', 'HomeLanding')
 		));
+		
+		if ($module->get_configuration()->has_rich_config_parameters())
+		{
+			$view->put_all(array(
+				'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
+				'C_GRID_VIEW'        => $module_config->get_display_type() == DefaultRichModuleConfig::GRID_VIEW,
+				'C_AUTHOR_DISPLAYED' => $module_config->get_author_displayed()
+			));
+		}
 		
 		if ($module_cat)
 		{
