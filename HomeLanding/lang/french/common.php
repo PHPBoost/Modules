@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 26
+ * @version     PHPBoost 5.3 - last update: 2020 06 04
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -149,20 +149,13 @@ $lang['admin.carousel.enabled'] = 'Afficher le carrousel';
 $lang['admin.form.carousel'] = 'Contenu du carousel';
 $lang['admin.form.carousel.speed'] = 'Vitesse de changement d\'image (ms)';
 $lang['admin.form.carousel.time'] = 'Durée d\'affichage d\'une image (ms)';
-$lang['admin.form.carousel.nav'] = 'Affichage de la navigation';
-$lang['admin.form.carousel.nav.enabled'] = 'Navigation affichée au survol';
-$lang['admin.form.carousel.nav.disabled'] = 'Pas de navigation';
+$lang['admin.form.carousel.number'] = 'Nombre d\'images affichées';
+$lang['admin.form.carousel.number.explain'] = '0px < 1 image < 768px < 2 images < 1024px < choix';
+$lang['admin.form.carousel.auto'] = 'Défilement automatique';
 $lang['admin.form.carousel.hover'] = 'Pause au survol';
-$lang['admin.form.carousel.hover.enabled'] = 'Activée';
-$lang['admin.form.carousel.hover.disabled'] = 'Désactivée';
-$lang['admin.form.carousel.display'] = 'Type d\'affichage des images';
-$lang['admin.form.carousel.display.cropped'] = 'Affichage des images rognées';
-$lang['admin.form.carousel.display.cropped.desc'] = 'Quelles que soient les dimensions de vos images, elles seront toutes affichées avec le même ratio';
-$lang['admin.form.carousel.display.full'] = 'Affichage des images entières';
-$lang['admin.form.carousel.display.full.desc'] = 'Vos images s\'afficheront aux dimensions de chacune';
-$lang['admin.form.carousel.mini'] = 'Affichage des miniatures';
-$lang['admin.form.carousel.mini.dots'] = 'Points';
-$lang['admin.form.carousel.mini.imgs'] = 'Images';
+$lang['admin.form.carousel.enabled'] = 'Activé';
+$lang['admin.form.carousel.disabled'] = 'Désactivé';
+
 //Admin - Carousel content
 $lang['admin.form.description'] = 'Description du slide';
 $lang['admin.form.link.url'] = 'Adresse du lien';

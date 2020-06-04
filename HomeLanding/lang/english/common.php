@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 05 30
+ * @version     PHPBoost 5.3 - last update: 2020 06 04
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -149,20 +149,13 @@ $lang['admin.carousel.enabled'] = 'Display the slideshow';
 $lang['admin.form.carousel'] = 'Content of the slideshow';
 $lang['admin.form.carousel.speed'] = 'Speed of picture switching (ms)';
 $lang['admin.form.carousel.time'] = 'Display duration of an image (ms)';
-$lang['admin.form.carousel.nav'] = 'Navigation display';
-$lang['admin.form.carousel.nav.enabled'] = 'Navigation displayed on hover';
-$lang['admin.form.carousel.nav.disabled'] = 'No navigation';
+$lang['admin.form.carousel.number'] = 'Displayed Pictures Number';
+$lang['admin.form.carousel.number.explain'] = '0px < 1 image < 768px < 2 images < 1024px < choice';
+$lang['admin.form.carousel.auto'] = 'Autoplay';
 $lang['admin.form.carousel.hover'] = 'Pause on hover';
-$lang['admin.form.carousel.hover.enabled'] = 'Enabled';
-$lang['admin.form.carousel.hover.disabled'] = 'Disabled';
-$lang['admin.form.carousel.display'] = 'Display type of pictures';
-$lang['admin.form.carousel.display.cropped'] = 'Displaying cropped pictures';
-$lang['admin.form.carousel.display.cropped.desc'] = 'Whatever the pictures dimensions, it will all be displayed with the same ratio';
-$lang['admin.form.carousel.display.full'] = 'Displaying full pictures';
-$lang['admin.form.carousel.display.full.desc'] = 'All pictures will be displayed in their own ratio';
-$lang['admin.form.carousel.mini'] = 'Thumbnail display';
-$lang['admin.form.carousel.mini.dots'] = 'Dots';
-$lang['admin.form.carousel.mini.imgs'] = 'Thumbnails';
+$lang['admin.form.carousel.enabled'] = 'Enabled';
+$lang['admin.form.carousel.disabled'] = 'Disabled';
+
 //Admin - Carousel content
 $lang['admin.form.description'] = 'Description of the slide';
 $lang['admin.form.link.url'] = 'Address of the link';

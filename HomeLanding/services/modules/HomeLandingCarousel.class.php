@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 06
+ * @version     PHPBoost 5.3 - last update: 2020 06 04
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -33,10 +33,9 @@ class HomeLandingCarousel
             'NB_DOTS' => $nb_dots,
             'CAROUSEL_SPEED' => $config->get_carousel_speed(),
             'CAROUSEL_TIME' => $config->get_carousel_time(),
-            'CAROUSEL_NAV' => $config->get_carousel_nav(),
+            'CAROUSEL_NUMBER' => $config->get_carousel_number(),
+            'CAROUSEL_AUTO' => $config->get_carousel_auto(),
             'CAROUSEL_HOVER' => $config->get_carousel_hover(),
-            'C_CAROUSEL_CROPPED' => $config->get_carousel_display(),
-            'CAROUSEL_MINI' => $config->get_carousel_mini(),
         ));
 
         return $view;

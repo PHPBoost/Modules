@@ -29,15 +29,15 @@ class HomeLandingDisplayItems
 
 		$sql_condition = 'WHERE id_category IN :categories
 			AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
-		
+
 		$sql_parameters = array();
 		if ($module_cat)
 			$sql_parameters['categories'] = $home_modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($home_modules[$module_cat]->get_id_category(), $module_config->get_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 		else
 			$sql_parameters['categories'] = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module->get_configuration()->has_rich_config_parameters() ? $module_config->get_summary_displayed_to_guests() : true, $module_name);
-		
+
 		$items = ItemsService::get_items_manager($module_name)->get_items($sql_condition, $sql_parameters, $home_modules[$page_type]->get_elements_number_displayed(), 0, 'creation_date', Item::DESC);
-		
+
 		$view->put_all(array(
 			'C_NO_ITEM'          => count($items) == 0,
 			'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
@@ -45,16 +45,17 @@ class HomeLandingDisplayItems
 			'MODULE_POSITION'    => HomeLandingConfig::load()->get_module_position_by_id($page_type),
 			'L_SEE_ALL_ITEMS'    => LangLoader::get_message('link.to.' . $module_name, 'common', 'HomeLanding')
 		));
-		
+
 		if ($module->get_configuration()->has_rich_config_parameters())
 		{
 			$view->put_all(array(
 				'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
 				'C_GRID_VIEW'        => $module_config->get_display_type() == DefaultRichModuleConfig::GRID_VIEW,
+				'ITEMS_PER_ROW'      => $module_config->get_items_per_row(),
 				'C_AUTHOR_DISPLAYED' => $module_config->get_author_displayed()
 			));
 		}
-		
+
 		if ($module_cat)
 		{
 			$category = CategoriesService::get_categories_manager($module_name)->get_categories_cache()->get_category($home_modules[$module_cat]->get_id_category());
@@ -74,7 +75,7 @@ class HomeLandingDisplayItems
 		{
 			$view->assign_block_vars('item', $item->get_template_vars());
 		}
-		
+
 		return $view;
 	}
 }

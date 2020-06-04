@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 10
+ * @version     PHPBoost 5.3 - last update: 2020 06 04
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -47,10 +47,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->form->get_field_by_id('carousel')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
 			$this->form->get_field_by_id('carousel_speed')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
 			$this->form->get_field_by_id('carousel_time')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
-			$this->form->get_field_by_id('carousel_nav')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
+			$this->form->get_field_by_id('carousel_number')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
+			$this->form->get_field_by_id('carousel_auto')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
 			$this->form->get_field_by_id('carousel_hover')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
-			$this->form->get_field_by_id('carousel_display')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
-			$this->form->get_field_by_id('carousel_mini')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed());
 
 			$this->form->get_field_by_id('edito')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed());
 
@@ -278,18 +277,16 @@ class AdminHomeLandingConfigController extends AdminModuleController
 							HTMLForms.getField("carousel").enable();
 							HTMLForms.getField("carousel_speed").enable();
 							HTMLForms.getField("carousel_time").enable();
-							HTMLForms.getField("carousel_nav").enable();
+							HTMLForms.getField("carousel_number").enable();
+							HTMLForms.getField("carousel_auto").enable();
 							HTMLForms.getField("carousel_hover").enable();
-							HTMLForms.getField("carousel_display").enable();
-							HTMLForms.getField("carousel_mini").enable();
 						} else {
 							HTMLForms.getField("carousel").disable();
 							HTMLForms.getField("carousel_speed").disable();
 							HTMLForms.getField("carousel_time").disable();
-							HTMLForms.getField("carousel_nav").disable();
+							HTMLForms.getField("carousel_number").disable();
+							HTMLForms.getField("carousel_auto").disable();
 							HTMLForms.getField("carousel_hover").disable();
-							HTMLForms.getField("carousel_display").disable();
-							HTMLForms.getField("carousel_mini").disable();
 						}'
 					)
 				)
@@ -303,43 +300,33 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
 			));
 
-			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_nav', $this->lang['admin.form.carousel.nav'], $this->config->get_carousel_nav(),
+			$fieldset_carousel->add_field(new FormFieldNumberEditor('carousel_number', $this->lang['admin.form.carousel.number'], $this->config->get_carousel_number(),
 				array(
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.nav.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.nav.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
-				),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
+					'description' => $this->lang['admin.form.carousel.number.explain']
+				)
 			));
 
-			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_hover', $this->lang['admin.form.carousel.hover'], $this->config->get_carousel_hover(),
+			$fieldset_carousel->add_field(new FormFieldRadioChoice('carousel_auto', $this->lang['admin.form.carousel.auto'], $this->config->get_carousel_auto(),
 				array(
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.hover.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.hover.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
+					new FormFieldRadioChoiceOption($this->lang['admin.form.carousel.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
+					new FormFieldRadioChoiceOption($this->lang['admin.form.carousel.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
 				),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+				array(
+					'class' => 'inline-radio',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed()
+				)
 			));
 
-			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_display', $this->lang['admin.form.carousel.display'], $this->config->get_carousel_display(),
+			$fieldset_carousel->add_field(new FormFieldRadioChoice('carousel_hover', $this->lang['admin.form.carousel.hover'], $this->config->get_carousel_hover(),
 				array(
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.display.cropped'], HomeLandingConfig::CAROUSEL_D_TRUE),
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.display.full'], HomeLandingConfig::CAROUSEL_D_FALSE)
+					new FormFieldRadioChoiceOption($this->lang['admin.form.carousel.enabled'], HomeLandingConfig::CAROUSEL_TRUE),
+					new FormFieldRadioChoiceOption($this->lang['admin.form.carousel.disabled'], HomeLandingConfig::CAROUSEL_FALSE)
 				),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
-				// ,
-				// array('events' => array('blur' => '
-				// if (HTMLForms.getField("carousel_display").getValue() = '.HomeLandingConfig::CAROUSEL_CROPPED.') {
-				// 	'.array('description' => $this->lang['admin.form.carousel.display.cropped.desc']).'
-				// } else {
-				// 	'.array('description' => $this->lang['admin.form.carousel.display.full.desc']).'
-				// }'))
-			));
-
-			$fieldset_carousel->add_field(new FormFieldSimpleSelectChoice('carousel_mini', $this->lang['admin.form.carousel.mini'], $this->config->get_carousel_mini(),
 				array(
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.mini.dots'], HomeLandingConfig::CAROUSEL_DOT),
-					new FormFieldSelectChoiceOption($this->lang['admin.form.carousel.mini.imgs'], HomeLandingConfig::CAROUSEL_IMG)
-				),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed())
+					'class' => 'inline-radio',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed()
+				)
 			));
 
 			$fieldset_carousel->add_field(new HomeLandingFormFieldSliderConfig('carousel', $this->lang['admin.form.carousel'], $this->config->get_carousel(),
@@ -935,10 +922,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->config->set_carousel($this->form->get_value('carousel'));
 			$this->config->set_carousel_speed($this->form->get_value('carousel_speed'));
 			$this->config->set_carousel_time($this->form->get_value('carousel_time'));
-			$this->config->set_carousel_nav($this->form->get_value('carousel_nav')->get_raw_value());
+			$this->config->set_carousel_number($this->form->get_value('carousel_number'));
+			$this->config->set_carousel_auto($this->form->get_value('carousel_auto')->get_raw_value());
 			$this->config->set_carousel_hover($this->form->get_value('carousel_hover')->get_raw_value());
-			$this->config->set_carousel_display($this->form->get_value('carousel_display')->get_raw_value());
-			$this->config->set_carousel_mini($this->form->get_value('carousel_mini')->get_raw_value());
 		}
 		else
 			$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->hide();

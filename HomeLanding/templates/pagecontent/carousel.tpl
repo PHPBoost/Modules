@@ -1,238 +1,33 @@
 
-<div id="pbt-slider" style="order: {CAROUSEL_POSITION};">
-	<ul class="slides">
-		# START item #
-		<li class="slide"# IF C_CAROUSEL_CROPPED # style="padding-bottom: calc(100% / {NB_DOTS} / 2); background-image: url({item.PICTURE_URL})"# ENDIF #>
+
+<div id="home-slideboost" style="order: {CAROUSEL_POSITION};">
+	# START item #
+		<figure>
 			# IF item.DESCRIPTION #
-				<p class="slideCaption bgc-main">
-					# IF item.LINK #<a class="slideLink" href="{item.LINK}"># ENDIF #
-						{item.DESCRIPTION}
-					# IF item.LINK #</a># ENDIF #
-				</p>
+			<figcaption>
+				# IF item.LINK #<a href="{item.LINK}"># ENDIF #
+					{item.DESCRIPTION}
+				# IF item.LINK #</a># ENDIF #
+			</figcaption>
 			# ENDIF #
-			# IF NOT C_CAROUSEL_CROPPED #<img class="slideImage" src="{item.PICTURE_URL}" alt="{item.PICTURE_URL}" /># ENDIF #
-		</li>
-		# END item #
-	</ul>
+			<img class="slideImage" src="{item.PICTURE_URL}" alt="{item.PICTURE_URL}" />
+		</figure>
+	# END item #
 </div>
 
 <script>
-	<!--
-	(function ($){
-		$.fn.simpleSlider = function(options){
-			'use strict';
-			//Options du carrousel
-			var settings = $.extend({
-
-				animationSpeed: ${escape(CAROUSEL_SPEED)}, //Vitesse d'animation
-				animationPause: ${escape(CAROUSEL_TIME)}, //Temps d'affichage des images
-				arrowNav: ${escape(CAROUSEL_NAV)}, //Navigation suivant/précédent
-				hoverHandler: ${escape(CAROUSEL_HOVER)}, //Met le défilement en pause au survol des images
-				nav: ${escapejs(CAROUSEL_MINI)} //Options de navigations, 'dot' (affiche des points), 'img' (affiche les images en miniature) ou null (aucun)
-				// pour supprimmer la navigation par miniature remplacer ${escapejs(CAROUSEL_MINI)} par null
-			}, options);
-
-			//Classes et id des conteneurs
-			var $slider = $('#pbt-slider'),
-				$slideContainer = $slider.find('.slides'),
-				$slide = $slideContainer.find('.slide');
-
-			//Variables générales
-			var currentSlide = 0,
-				interval,
-				resizeId,
-				slideLength = $slide.length,
-				containerWidth = $slider.width(),
-				sliderLengthWithAppend = slideLength + 1,
-				movementLeft;
-
-			//-------------------------------//
-			//     Options  de navigation    //
-			//-------------------------------//
-
-			//Navigation par points
-			if (settings.nav === 'dot') {
-
-				$slider.append('<ul id="dotsNavigation"></ul>');
-
-				$slide.each(function(index) {
-				  $('#dotsNavigation').append('<li class="dotNavigation" id="' + index + '" data-id="' + index + '"></li>');
-				});
-			}
-
-			//Navigation par miniatures
-			if (settings.nav === 'img') {
-
-				$slider.append('<ul id="imagesNavigation"></ul>');
-
-				$slide.each(function(index) {
-				  $('#imagesNavigation').append('<li id="nav' + index + '" class="imageNavigation" data-id="' + index + '"></li>');
-				});
-
-				$slide.each(function(i) {
-				  var image = $(this).children('.slideImage').attr('src');
-				  $('#nav' + i).css('background-image', 'url(' + image + ')');
-				});
-			}
-
-			//Flèches de navigation
-			if (settings.arrowNav === true) {
-				$slider.append('<div class="previous hideArrow"><p>&#x27E8;</p></div>');
-				$slider.append('<div class="next hideArrow"><p>&#x27E9;</p></div>');
-
-				$('.previous').on('click', function() {
-
-					if (currentSlide === 0) {
-						$slideContainer.css('margin-left', -(slideLength - 1) * containerWidth);
-						currentSlide = slideLength - 1;
-					} else {
-						currentSlide = currentSlide - 1;
-						$slideContainer.css('margin-left', -containerWidth * currentSlide);
-					}
-
-					$('.dotNavigation').removeClass('slide-active');
-					$('#' + currentSlide).addClass('slide-active');
-				});
-
-				$('.next').on('click', function() {
-
-					var nextSlide = (currentSlide * containerWidth) + containerWidth;
-					currentSlide++;
-
-					if (currentSlide === slideLength) {
-					  currentSlide = 0;
-					  $slideContainer.css('margin-left', 0);
-					}
-
-					$('.dotNavigation').removeClass('slide-active');
-					$('#' + currentSlide).addClass('slide-active');
-					$slideContainer.css('margin-left', -nextSlide);
-				});
-
-				$slider.on('mouseenter', function() {
-					$('.previous').removeClass('hideArrow');
-					$('.next').removeClass('hideArrow');
-				 });
-
-				 $slider.on('mouseleave', function() {
-					$('.previous').addClass('hideArrow');
-					$('.next').addClass('hideArrow');
-				 });
-			}
-
-		 //-------------------------------//
-		 //     Action de navigation      //
-		 //-------------------------------//
-
-		 $('.dotNavigation').on('click', function() {
-		   menuHandler($(this));
-		   $('.dotNavigation').removeClass('slide-active');
-		   $(this).addClass('slide-active');
-		 });
-
-		 $('.imageNavigation').on('click', function() {
-		   menuHandler($(this));
-		 });
-
-
-		 //-------------------------------//
-		 //        Pause au survol        //
-		 //-------------------------------//
-
-		 if (settings.hoverHandler === true) {
-			$slider.on('mouseenter', function() {
-				pauseSlider();
-			 });
-
-			 $slider.on('mouseleave', function() {
-				slider();
-			 });
-		 }
-
-		 //------------------------------//
-		 //       Redimensionnement      //
-		 //------------------------------//
-
-		 $(window).resize(function() {
-			clearTimeout(resizeId);
-			resizeId = setTimeout(slider, 1);
-		 });
-
-		 document.addEventListener("visibilitychange", function() {
-		   if (document.visibilityState === 'hidden') {
-
-			 pauseSlider();
-		   } else if (document.visibilityState === 'visible') {
-			 slider();
-		   }
-		 });
-
-		 //Défilement
-
-		 function slider() {
-		   pauseSlider();
-
-		   containerWidth = $slider.width();
-		   $slideContainer.css('width', containerWidth * (slideLength + 1));
-		   $slide.css('width', containerWidth);
-
-		   movementLeft = sliderLengthWithAppend - (containerWidth * currentSlide + sliderLengthWithAppend);
-
-		   $slideContainer.css('margin-left', movementLeft);
-		   $('.clonedAppend').remove();
-		   $slideContainer.append($slide.first().clone().addClass('clonedAppend'));
-		   $('#' + currentSlide).addClass('slide-active');
-
-		   startSlider($slideContainer, containerWidth);
-		 }
-
-		 function menuHandler(_this) {
-		   pauseSlider();
-
-		   var handler = $(_this).attr('data-id'),
-			 handlerMovement = handler * containerWidth;
-
-		   $slideContainer.css('margin-left', -handlerMovement);
-
-		   currentSlide = handler;
-		   startSlider($slideContainer, containerWidth);
-		 }
-
-		 function startSlider(sContainer, cWidth) {
-		   interval = setInterval(function() {
-			 sContainer.animate({
-			   'margin-left': '-=' + cWidth
-			 }, settings.animationSpeed, function() {
-			   currentSlide++;
-
-			   movementLeft = sliderLengthWithAppend - (containerWidth * currentSlide + sliderLengthWithAppend);
-			   $slideContainer.css('margin-left', movementLeft);
-
-			   if (currentSlide === slideLength) {
-				 currentSlide = 0;
-				 sContainer.css('margin-left', 0);
-			   }
-
-			   $('.dotNavigation').removeClass('slide-active');
-			   $('#' + currentSlide).addClass('slide-active');
-			 });
-		   }, settings.animationPause);
-		 }
-
-		 //Initialisation du carrousel
-
-		 function pauseSlider() {
-		   clearInterval(interval);
-		 }
-
-		 //Démarrage du carrousel
-		 slider();
-	   };
-	}(jQuery));
-	 -->
-</script>
-<script>
-	<!---
-	$( "#pbt-slider" ).simpleSlider();
-	-->
+	$('#home-slideboost').addClass('owl-carousel').owlCarousel({
+		autoplay: true,
+		autoplayTimeout: ${escapejs(CAROUSEL_TIME)},
+		smartSpeed: ${escapejs(CAROUSEL_SPEED)},
+		loop: ${escapejs(CAROUSEL_AUTO)},
+		margin: 15,
+		autoplayHoverPause: ${escapejs(CAROUSEL_HOVER)},
+		responsive: {
+			0: { items: 1},
+			768: { items: 2},
+			1024: { items: ${escapejs(CAROUSEL_NUMBER)}}
+		}
+	})
+	;
 </script>
