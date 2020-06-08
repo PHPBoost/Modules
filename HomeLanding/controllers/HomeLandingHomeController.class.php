@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 06 03
+ * @version     PHPBoost 5.3 - last update: 2020 06 08
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -13,7 +13,6 @@ class HomeLandingHomeController extends ModuleController
 {
 	private $view;
 	private $lang;
-	private $querier;
 	private $form;
 	private $submit_button;
 
@@ -43,7 +42,6 @@ class HomeLandingHomeController extends ModuleController
 		$this->view->add_lang($this->lang);
 		$this->config = HomeLandingConfig::load();
 		$this->modules = HomeLandingModulesList::load();
-		$this->querier = PersistenceContext::get_querier();
 
 		$columns_disabled = ThemesManager::get_theme(AppContext::get_current_user()->get_theme())->get_columns_disabled();
 		$columns_disabled->set_disable_left_columns($this->config->get_left_columns());
@@ -81,25 +79,25 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read())
 			$this->build_contact_view();
 
-		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_CALENDAR)->read())
 			$this->view->put('CALENDAR', HomeLandingCalendar::get_calendar_view());
 
-		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_DOWNLOAD)->read())
 			$this->view->put('DOWNLOAD', HomeLandingDownload::get_download_view());
 
-		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category())->read())
+		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_DOWNLOAD)->read())
 			$this->view->put('DOWNLOAD_CAT', HomeLandingDownload::get_download_cat_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed() && ForumAuthorizationsService::check_authorizations()->read())
 			$this->view->put('FORUM', HomeLandingForum::get_forum_view());
 
-		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_GALLERY)->read())
 			$this->view->put('GALLERY', HomeLandingGallery::get_gallery_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed() && GuestbookAuthorizationsService::check_authorizations()->read())
 			$this->view->put('GUESTBOOK', HomeLandingGuestbook::get_guestbook_view());
 
-		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_MEDIA)->read())
 			$this->view->put('MEDIA', HomeLandingMedia::get_media_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read())
@@ -111,10 +109,10 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
 		 	$this->view->put('RSS', HomeLandingRss::get_rss_view());
 
-		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && CategoriesAuthorizationsService::check_authorizations()->read())
+		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_WEB)->read())
 			$this->view->put('WEB', HomeLandingWeb::get_web_view());
 
-		if ($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category())->read())
+		if ($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_WEB)->read())
 			$this->view->put('WEB_CAT', HomeLandingWeb::get_web_cat_view());
 	}
 
