@@ -11,22 +11,23 @@ class HomeLandingTreeLinks implements ModuleTreeLinksExtensionPoint
 {
 	public function get_actions_tree_links()
 	{
+		$module_id = 'HomeLanding';
 		$tree = new ModuleTreeLinks();
 		$config = HomeLandingConfig::load();
 		$sticky_title = $config->get_sticky_title();
 
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), HomeLandingUrlBuilder::configuration()));
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding'), HomeLandingUrlBuilder::positions()));
+		$tree->add_link(new AdminModuleLink(LangLoader::get_message('admin.elements_position', 'common', $module_id), HomeLandingUrlBuilder::positions()));
 
 		if(AppContext::get_current_user()->check_level(User::MODERATOR_LEVEL)){
 			$sticky_link = new ModuleLink($sticky_title, HomeLandingUrlBuilder::sticky());
-			$sticky_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('homelanding.sticky.manage', 'sticky', 'HomeLanding').': '.$sticky_title, HomeLandingUrlBuilder::sticky_manage()));
+			$sticky_link->add_sub_link(new AdminModuleLink(LangLoader::get_message('homelanding.sticky.manage', 'sticky', $module_id).': '.$sticky_title, HomeLandingUrlBuilder::sticky_manage()));
 			$sticky_link->add_sub_link(new ModuleLink($sticky_title, HomeLandingUrlBuilder::sticky()));
 			$tree->add_link($sticky_link);
 		}
 
-		if(AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module('HomeLanding')->get_configuration()->get_documentation()));
+		if (ModulesManager::get_module($module_id)->get_configuration()->get_documentation())
+			$tree->add_link(new AdminModuleLink(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module($module_id)->get_configuration()->get_documentation()));
 
 		return $tree;
 	}
