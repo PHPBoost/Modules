@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 5.3 - last update: 2020 03 09
+ * @version     PHPBoost 6.0 - last update: 2020 03 09
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -40,7 +40,7 @@ class HomeLandingSetup extends DefaultModuleSetup
 			HomeLandingConfig::save();
 		}
 
-		return '5.3.0';
+		return '6.0.0';
 	}
 
 	private function delete_configuration()

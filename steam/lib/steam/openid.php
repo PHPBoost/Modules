@@ -9,7 +9,7 @@
  * @author      Mewp <mewp151 at gmail dot com>
  * @link        https://code.google.com/p/lightopenid/          Project URL
  * @link        https://github.com/iignatov/LightOpenID         GitHub Repo
- * @version     PHPBoost 5.3 - last update: 2018 05 20
+ * @version     PHPBoost 6.0 - last update: 2018 05 20
  * @since       PHPBoost 5.1 - 2018 04 22
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
