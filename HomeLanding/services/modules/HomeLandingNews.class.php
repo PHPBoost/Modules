@@ -37,7 +37,8 @@ class HomeLandingNews
         $result = PersistenceContext::get_querier()->select('SELECT news.*, member.*
         FROM ' . NewsSetup::$news_table . ' news
         LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = news.author_user_id
-        WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0))) AND id_category IN :categories_id
+        WHERE (publication = 1 OR (publication = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))
+        AND id_category IN :categories_id
         ORDER BY news.creation_date DESC
         LIMIT :news_cat_limit', array(
             'timestamp_now' => $now->get_timestamp(),
@@ -109,7 +110,8 @@ class HomeLandingNews
 		FROM ' . PREFIX . 'news news
 		LEFT JOIN ' . PREFIX . 'news_cats cat ON cat.id = news.id_category
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = news.author_user_id
-		WHERE (approbation_type = 1 OR (approbation_type = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0))) AND id_category IN :authorized_categories
+		WHERE (publication = 1 OR (publication = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))
+        AND id_category IN :authorized_categories
 		ORDER BY news.creation_date DESC
 		LIMIT :news_limit', array(
 			'authorized_categories' => $authorized_categories,
