@@ -48,14 +48,16 @@ class HomeLandingNews
 
         $category = CategoriesService::get_categories_manager($module_name)->get_categories_cache()->get_category($modules[$module_cat]->get_id_category());
         $view->put_all(array(
-            'C_CATEGORY'      => true,
-            'C_NO_ITEM'       => $result->get_rows_count() == 0,
-            'C_GRID_VIEW'     => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
-            'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
-            'MODULE_NAME'     => $module_name,
-            'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name.'.cat', 'common', 'HomeLanding') . ': ' . $category->get_name(),
-            'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
-            'ITEMS_PER_ROW'   => $module_config->get_items_per_row(),
+            'C_CATEGORY'         => true,
+            'C_NO_ITEM'          => $result->get_rows_count() == 0,
+            'C_GRID_VIEW'        => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
+			'C_VIEWS_NUMBER'     => $module_config->get_views_number(),
+			'C_AUTHOR_DISPLAYED' => $module_config->get_author_displayed(),
+            'MODULE_POSITION'    => $home_config->get_module_position_by_id($module_name),
+            'MODULE_NAME'        => $module_name,
+            'L_MODULE_TITLE'     => LangLoader::get_message('last.'.$module_name.'.cat', 'common', 'HomeLanding') . ': ' . $category->get_name(),
+            'L_SEE_ALL_ITEMS'    => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
+            'ITEMS_PER_ROW'      => $module_config->get_items_per_row(),
         ));
 
         while ($row = $result->fetch())
@@ -121,13 +123,15 @@ class HomeLandingNews
 		));
 
 		$view->put_all(array(
-			'C_NO_ITEM'       => $result->get_rows_count() == 0,
-            'C_GRID_VIEW'     => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
-            'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
-			'MODULE_NAME'     => $module_name,
-            'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
-            'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
-			'ITEMS_PER_ROW'   => $module_config->get_items_per_row(),
+			'C_NO_ITEM'          => $result->get_rows_count() == 0,
+            'C_GRID_VIEW'        => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
+			'C_VIEWS_NUMBER'     => $module_config->get_views_number(),
+			'C_AUTHOR_DISPLAYED' => $module_config->get_author_displayed(),
+            'MODULE_POSITION'    => $home_config->get_module_position_by_id($module_name),
+			'MODULE_NAME'        => $module_name,
+            'L_MODULE_TITLE'     => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
+            'L_SEE_ALL_ITEMS'    => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
+			'ITEMS_PER_ROW'      => $module_config->get_items_per_row(),
 		));
 
 		while ($row = $result->fetch())

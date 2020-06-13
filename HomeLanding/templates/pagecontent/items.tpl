@@ -48,7 +48,7 @@
 						<div class="cell-body">
 							<div class="cell-infos">
 								<div class="more">
-									# IF item.C_AUTHOR_DISPLAYED #
+									# IF C_AUTHOR_DISPLAYED #
 										<span class="pinned">
 											<i class="fa fa-fw fa-user" aria-hidden="true"></i>
 											# IF item.C_AUTHOR_EXIST #<a itemprop="author" class="{item.AUTHOR_LEVEL_CLASS}" href="{item.U_AUTHOR}"# IF item.C_AUTHOR_GROUP_COLOR # style="{item.AUTHOR_GROUP_COLOR}"# ENDIF #>{item.AUTHOR_DISPLAY_NAME}</a># ELSE #{item.AUTHOR_DISPLAY_NAME}# ENDIF #
@@ -56,7 +56,7 @@
 									# ENDIF #
 									# IF NOT C_DATE #<span class="pinned"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE}</time></span># ENDIF #
 									<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a itemprop="about" href="{item.U_CATEGORY}">{item.CATEGORY_NAME}</a></span>
-									# IF item.C_VIEWS_NUMBER #<span class="pinned" aria-label="{item.VIEWS_NUMBER} # IF item.C_SEVERAL_VIEWS #${LangLoader::get_message('module.views', 'common', 'HomeLanding')}# ELSE #${LangLoader::get_message('module.view', 'common', 'HomeLanding')}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {item.VIEWS_NUMBER}</span># ENDIF #
+									# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{item.VIEWS_NUMBER} # IF item.C_SEVERAL_VIEWS #${LangLoader::get_message('module.views', 'common', 'HomeLanding')}# ELSE #${LangLoader::get_message('module.view', 'common', 'HomeLanding')}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {item.VIEWS_NUMBER}</span># ENDIF #
 								</div>
 								# IF item.C_CONTROLS #
 									<span class="controls">
