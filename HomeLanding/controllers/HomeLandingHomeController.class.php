@@ -328,7 +328,7 @@ class HomeLandingHomeController extends ModuleController
 		$graphical_environment->get_seo_meta_data()->set_description(GeneralConfig::load()->get_site_description());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(HomeLandingUrlBuilder::home());
 
-		$graphical_environment->get_seo_meta_data()->set_picture_url(new Url(PATH_TO_ROOT.'/templates/' . AppContext::get_current_user()->get_theme() . '/theme/images/logo.png'));
+		$graphical_environment->get_seo_meta_data()->set_picture_url(new Url(PATH_TO_ROOT.'/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png'));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->config->get_module_title(), HomeLandingUrlBuilder::home());
