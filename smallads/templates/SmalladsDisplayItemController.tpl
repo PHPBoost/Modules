@@ -4,8 +4,8 @@
 			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-rss warning" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
 			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
 			# IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF #
-			<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="pinned bgc error">{@smallads.completed.item}</span># ENDIF #</p>
 		</div>
+		<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="pinned bgc error">{@smallads.completed.item}</span># ENDIF #</p>
 		<h1>{TITLE}</h1>
 	</header>
 	# INCLUDE NOT_VISIBLE_MESSAGE #
@@ -136,7 +136,7 @@
 								# ENDIF #
 								# IF C_KEYWORDS #
 									<li class="li-stretch">
-										<i class="fa fa-fw fa-tags" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('form.keywords', 'common')}</span>
+										 <span aria-label="${LangLoader::get_message('form.keywords', 'common')}"><i class="fa fa-fw fa-tags" aria-hidden="true"></i></span>
 										<span>
 											# START keywords #
 												<a itemprop="keywords" href="{keywords.URL}">{keywords.NAME}</a># IF keywords.C_SEPARATOR #, # ENDIF #
