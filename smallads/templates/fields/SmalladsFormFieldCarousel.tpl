@@ -19,7 +19,7 @@ SmalladsFormFieldCarousel.prototype = {
 			jQuery('<input/> ', {type : 'text', id : 'field_picture_url_' + id, class : 'grouped-element', name : 'field_picture_url_' + id, placeholder : '{@smallads.form.image.url}'}).appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
-			jQuery('<a/> ', {href : '', class : 'grouped-element', 'aria-label' : '${LangLoader::get_message('files_management', 'main')}', onclick : "window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_url_" + id + "&parse=true&no_path=true', '', 'height=500,width=780,resizable=yes,scrollbars=yes');return false;"}).html('<i class="fa fa-cloud-upload-alt" aria-hidden="true"></i>').appendTo('#' + id);
+			jQuery('<a/> ', {href : '', class : 'grouped-element', 'aria-label' : '${LangLoader::get_message('files_management', 'main')}', onclick : "window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_" + id + "&parse=true&no_path=true', '', 'height=500,width=780,resizable=yes,scrollbars=yes');return false;"}).html('<i class="fa fa-cloud-upload-alt" aria-hidden="true"></i>').appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
 			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldCarousel.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(LangLoader::get_message('delete', 'common'))}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i>').appendTo('#' + id);
