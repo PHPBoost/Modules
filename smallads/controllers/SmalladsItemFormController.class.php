@@ -389,7 +389,7 @@ class SmalladsItemFormController extends ModuleController
 		$i = 1;
 		foreach($smallad_types as $name)
 		{
-			$options[] = new FormFieldSelectChoiceOption($name, str_replace(' ', '-', $name));
+			$options[] = new FormFieldSelectChoiceOption($name, TextHelper::htmlspecialchars(Url::encode_rewrite($name)));
 			$i++;
 		}
 

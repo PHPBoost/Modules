@@ -17,38 +17,38 @@ class SmalladsSetup extends DefaultModuleSetup
 	 * @var string[string] localized messages
 	 */
 	private $messages;
-	
+
 	public static function __static()
 	{
 		self::$smallads_table = PREFIX . 'smallads';
 		self::$smallads_cats_table = PREFIX . 'smallads_cats';
 	}
-	
+
 	public function install()
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
-	
+
 	public function uninstall()
 	{
 		$this->drop_tables();
 		ConfigManager::delete('smallads', 'config');
 		KeywordsService::get_keywords_manager()->delete_module_relations();
 	}
-	
+
 	private function drop_tables()
 	{
 		PersistenceContext::get_dbms_utils()->drop(array(self::$smallads_table, self::$smallads_cats_table));
 	}
-	
+
 	private function create_tables()
 	{
 		$this->create_smallads_table();
 		$this->create_smallads_cats_table();
 	}
-	
+
 	private function create_smallads_table()
 	{
 		$fields = array(
@@ -93,19 +93,19 @@ class SmalladsSetup extends DefaultModuleSetup
 		));
 		PersistenceContext::get_dbms_utils()->create_table(self::$smallads_table, $fields, $options);
 	}
-	
+
 	private function create_smallads_cats_table()
 	{
 		RichCategory::create_categories_table(self::$smallads_cats_table);
 	}
-	
+
 	private function insert_data()
 	{
 		$this->messages = LangLoader::get('install', 'smallads');
 		$this->insert_smallads_data();
 		$this->insert_smallads_cats_data();
 	}
-	
+
 	private function insert_smallads_cats_data()
 	{
 		$this->messages = LangLoader::get('install', 'smallads');
@@ -120,7 +120,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'thumbnail' => '/templates/default/images/default_category_thumbnail.png'
 		));
 	}
-	
+
 	private function insert_smallads_data()
 	{
 		PersistenceContext::get_querier()->insert(self::$smallads_table, array(
@@ -133,6 +133,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'contents' => $this->messages['default.smallad.contents'],
 			'views_number' => 0,
 			'max_weeks' => 1,
+			'smallad_type' => TextHelper::htmlspecialchars(Url::encode_rewrite($this->messages['default.smallad.type'])),
 			'author_user_id' => 1,
 			'custom_author_name' => '',
 			'displayed_author_name' => Smallad::DISPLAYED_AUTHOR_NAME,
