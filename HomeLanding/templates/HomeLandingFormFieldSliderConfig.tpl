@@ -58,4 +58,4 @@
 	</div>
 # END fieldelements #
 </div>
-<a href="javascript:HomeLandingFormFieldSliderConfig.add_field();" id="add-${escape(ID)}" aria-label="{@admin.form.add}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+<a href="javascript:HomeLandingFormFieldSliderConfig.add_field();" id="add-${escape(ID)}" class="add-more-values" aria-label="{@admin.form.add}"><i class="far fa-lg fa-plus-square" aria-hidden="true"></i></a>

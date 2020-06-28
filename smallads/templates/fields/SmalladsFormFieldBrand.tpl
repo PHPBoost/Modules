@@ -44,4 +44,4 @@ var SmalladsFormFieldBrand = new SmalladsFormFieldBrand();
 		</div>
 # END fieldelements #
 </div>
-<a href="javascript:SmalladsFormFieldBrand.add_field();" id="add-${escape(ID)}" class="" aria-label="${LangLoader::get_message('add', 'common')}"><i class="fa fa-plus" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('add', 'common'))}</span></a>
+<a href="javascript:SmalladsFormFieldBrand.add_field();" id="add-${escape(ID)}" class="add-more-values" aria-label="${LangLoader::get_message('add', 'common')}"><i class="far fa-lg fa-plus-square" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('add', 'common'))}</span></a>

@@ -52,4 +52,4 @@ var SmalladsFormFieldCarousel = new SmalladsFormFieldCarousel();
 	</div>
 # END fieldelements #
 </div>
-<a href="javascript:SmalladsFormFieldCarousel.add_field();" id="add-${escape(ID)}" class="field-source-more-value" aria-label="${LangLoader::get_message('add', 'common')}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+<a href="javascript:SmalladsFormFieldCarousel.add_field();" id="add-${escape(ID)}" class="add-more-values" aria-label="${LangLoader::get_message('add', 'common')}"><i class="far fa-lg fa-plus-square" aria-hidden="true"></i></a>
