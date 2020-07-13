@@ -11,28 +11,28 @@
 	<div class="content">
 		# IF C_RSS_FILE #
 			<ul>
-			# START item #
+				# START item #
 
-				<li>
-					<span class="flex-between">
-						<a class="big" href="{item.LINK_FEED}" target="_blank" rel="noopener noreferrer">
-							{item.TITLE_FEED}
-						</a>
-						<span class="small">{item.DATE_FEED}</span>
-					</span>
-					<p>
-						# IF item.C_IMG_FEED #
-							<img src="{item.IMG_FEED}" class="align-left" alt="{item.TITLE_FEED}" />
-						# ENDIF #
-						{item.DESC}# IF item.C_READ_MORE #...# ENDIF #
-					</p>
-				</li>
+					<li>
+						<span class="flex-between">
+							<a class="big" href="{item.LINK_FEED}" target="_blank" rel="noopener noreferrer">
+								{item.TITLE_FEED}
+							</a>
+							<span class="small">{item.DATE_FEED}</span>
+						</span>
+						<p>
+							# IF item.C_IMG_FEED #
+								<img src="{item.IMG_FEED}" class="align-left" alt="{item.TITLE_FEED}" />
+							# ENDIF #
+							{item.DESC}# IF item.C_READ_MORE #...# ENDIF #
+						</p>
+					</li>
 
-			# END item #
+				# END item #
+			</ul>
 		# ELSE #
 			{NO_RSS_FILE}
 		# ENDIF #
-		</ul>
 	</div>
 	<footer></footer>
 </article>
