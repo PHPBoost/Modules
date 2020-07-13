@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 06 04
+ * @version     PHPBoost 6.0 - last update: 2020 07 13
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -119,6 +119,8 @@ $lang['no.news.item'] = 'There is no article in this category';
 
 //Rss
 $lang['link.to.rss.site'] = 'Rss timeline of the website : ';
+$lang['link.no.xml.file'] = 'No xml file defined';
+$lang['link.not.xml.file'] = 'The url is not a xml file';
 
 // Web
 $lang['last.web'] = 'Partners websites list';

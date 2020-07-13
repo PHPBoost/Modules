@@ -1,5 +1,5 @@
 
-<article id="rssreader-panel" style="order: {RSS_POSITION};">
+<article id="rssreader-panel" style="order: {MODULE_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('link.to.rss.site', 'common', 'HomeLanding')}
@@ -9,23 +9,29 @@
 		</h2>
 	</header>
 	<div class="content">
-		<ul>
-		# START rssreader #
+		# IF C_RSS_FILE #
+			<ul>
+			# START item #
 
-			<li>
-				<a href="{rssreader.LINK_FEED}" target="_blank">
-					<i class="fa fa-hand-point-right"></i>
-						{rssreader.TITLE_FEED}
-				</a> - <span class="small">{rssreader.DATE_FEED}</span>
-				<p>
-					# IF rssreader.C_IMG_FEED #
-						<img src="{rssreader_IMG_FEED}" class="align-left" alt="{rssreader.TITLE_FEED}" />
-					# ENDIF #
-					{rssreader.DESC}# IF rssreader.C_READ_MORE #...# ENDIF #
-				</p>
-			</li>
+				<li>
+					<span class="flex-between">
+						<a class="big" href="{item.LINK_FEED}" target="_blank" rel="noopener noreferrer">
+							{item.TITLE_FEED}
+						</a>
+						<span class="small">{item.DATE_FEED}</span>
+					</span>
+					<p>
+						# IF item.C_IMG_FEED #
+							<img src="{item.IMG_FEED}" class="align-left" alt="{item.TITLE_FEED}" />
+						# ENDIF #
+						{item.DESC}# IF item.C_READ_MORE #...# ENDIF #
+					</p>
+				</li>
 
-		# END rssreader #
+			# END item #
+		# ELSE #
+			{NO_RSS_FILE}
+		# ENDIF #
 		</ul>
 	</div>
 	<footer></footer>

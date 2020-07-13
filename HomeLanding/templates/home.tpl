@@ -50,7 +50,7 @@
 	# INCLUDE NEWS_CAT #
 
 
-	<!-- # INCLUDE RSS # -->
+	# INCLUDE RSS_READER #
 
 
 	# INCLUDE  WEB #

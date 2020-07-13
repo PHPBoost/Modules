@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 06 08
+ * @version     PHPBoost 6.0 - last update: 2020 07 13
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -106,14 +106,14 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_NEWS)->read())
 			$this->view->put('NEWS_CAT', HomeLandingNews::get_news_cat_view());
 
-		if ($this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
-		 	$this->view->put('RSS', HomeLandingRss::get_rss_view());
-
 		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_WEB)->read())
 			$this->view->put('WEB', HomeLandingWeb::get_web_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_WEB)->read())
 			$this->view->put('WEB_CAT', HomeLandingWeb::get_web_cat_view());
+
+		if ($this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
+		 	$this->view->put('RSS_READER', HomeLandingRss::get_rss_view());
 	}
 
 	//Contact

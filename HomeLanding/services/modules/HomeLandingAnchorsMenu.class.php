@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 04 18
+ * @version     PHPBoost 6.0 - last update: 2020 07 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -28,7 +28,7 @@ class HomeLandingAnchorsMenu
                     'C_DISPLAYED_TAB' => $module['displayed'],
                     'TAB_POSITION'    => $config->get_module_position_by_id($module['module_id']),
                     'U_TAB'           => '#' . $module['module_id'],
-                    'TAB_TITLE'           => $module_title
+                    'TAB_TITLE'       => $module_title
                 ));
 
             }

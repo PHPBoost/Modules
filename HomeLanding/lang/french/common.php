@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 06 04
+ * @version     PHPBoost 6.0 - last update: 2020 07 13
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -119,6 +119,8 @@ $lang['no.news.item'] = 'Il n\'y a pas d\'article dans cette catégorie';
 
 //Rss
 $lang['link.to.rss.site'] = 'Fil rss du site : ';
+$lang['link.no.xml.file'] = 'Il n\'y a pas de fichier rss déclaré';
+$lang['link.not.xml.file'] = 'L\'adresse déclarée n\'est pas un fichier rss';
 
 // Web
 $lang['last.web'] = 'Liste des sites partenaires';
