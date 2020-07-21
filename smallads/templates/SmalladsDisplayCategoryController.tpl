@@ -106,37 +106,37 @@
 									<div data-type="panel" class="jplist-dd-panel"></div>
 									<ul data-type="content" class="dropdown-container">
 										<li> {@smallads.sort.date}
-											<em class="sort-type" data-path=".jp-date" data-order="asc" data-type="date"><span class="sr-only">{@smallads.sort.date}</span> &#8593;</em>
-											<em class="sort-type" data-path=".jp-date" data-order="desc" data-type="date" data-selected="true"><span class="sr-only">{@smallads.sort.date}</span> &#8595;</em>
+											<em class="sort-type" data-path=".jp-date" data-order="asc" data-type="date"><span class="sr-only">{@smallads.sort.date} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
+											<em class="sort-type" data-path=".jp-date" data-order="desc" data-type="date" data-selected="true"><span class="sr-only">{@smallads.sort.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 										</li>
 										<li> {@smallads.sort.title}
-											<em class="sort-type" data-path=".jp-title" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.title}</span> &#8593;</em>
-											<em class="sort-type" data-path=".jp-title" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.title}</span> &#8595;</em>
+											<em class="sort-type" data-path=".jp-title" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8593;</span> <i class="fa fa-sort-alpha-down"></i></em>
+											<em class="sort-type" data-path=".jp-title" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 										</li>
 										<li> {@smallads.sort.price}
-											<em class="sort-type" data-path=".jp-price" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.price}</span> &#8593;</em>
-											<em class="sort-type" data-path=".jp-price" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.price}</span> &#8595;</em>
+											<em class="sort-type" data-path=".jp-price" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
+											<em class="sort-type" data-path=".jp-price" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 										</li>
 										# IF C_LOCATION #
 										  	<li> {@location}
-											    <em class="sort-type" data-path=".jp-location" data-order="asc" data-type="text"><span class="sr-only">{@location}</span> &#8593;</em>
-											   	<em class="sort-type" data-path=".jp-location" data-order="desc" data-type="text"><span class="sr-only">{@location}</span> &#8595;</em>
+											    <em class="sort-type" data-path=".jp-location" data-order="asc" data-type="text"><span class="sr-only">{@location} &#8593;</span> <i class="fa fa-sort-alpha-down"></i></em>
+											   	<em class="sort-type" data-path=".jp-location" data-order="desc" data-type="text"><span class="sr-only">{@location} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 									   		</li>
 										# ENDIF #
 					 					# IF NOT C_MEMBER #
 											<li> {@smallads.sort.author}
-												<em class="sort-type" data-path=".jp-author" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.author}</span> &#8593;</em>
-												<em class="sort-type" data-path=".jp-author" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.author}</span> &#8595;</em>
+												<em class="sort-type" data-path=".jp-author" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8593;</span> <i class="fa fa-sort-alpha-down"></i></em>
+												<em class="sort-type" data-path=".jp-author" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 											</li>
 										# ENDIF #
 										# IF NOT C_PENDING #
 											<li> {@smallads.sort.coms}
-												<em class="sort-type" data-path=".jp-comment" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.coms}</span> &#8593;</em>
-												<em class="sort-type" data-path=".jp-comment" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.coms}</span> &#8595;</em>
+												<em class="sort-type" data-path=".jp-comment" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
+												<em class="sort-type" data-path=".jp-comment" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 											</li>
 											<li> {@smallads.sort.view}
-												<em class="sort-type" data-path=".jp-view" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.view} </span> &#8593;</em>
-												<em class="sort-type" data-path=".jp-view" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.view} </span> &#8595;</em>
+												<em class="sort-type" data-path=".jp-view" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
+												<em class="sort-type" data-path=".jp-view" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 											</li>
 										# ENDIF #
 									</ul>
@@ -349,15 +349,15 @@
 				        data-name="pagination1"
 					   	data-name="paging"
 					>
-						<button type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
-					    <button type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
+						<button class="button" type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
+					    <button class="button" type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
 
 					    <div class="jplist-holder" data-type="pages">
 					        <button type="button" class="button submit" data-type="page">{@smallads.active.page}</button>
 					    </div>
 
-					    <button type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
-					    <button type="button" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
+					    <button class="button" type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
+					    <button class="button" type="button" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
 					</div>
 				</div>
 			# ENDIF #
