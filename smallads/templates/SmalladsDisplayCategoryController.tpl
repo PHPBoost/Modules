@@ -105,20 +105,41 @@
 								    data-name="sorttitle">
 									<div data-type="panel" class="jplist-dd-panel"></div>
 									<ul data-type="content" class="dropdown-container">
-										<li data-path=".jp-date" 		data-order="asc" 	data-type="date"> {@smallads.sort.date} <em class="sort-type">&#8593;</em></li>
-										<li data-path=".jp-date" 		data-order="desc" 	data-type="date" data-selected="true"> {@smallads.sort.date} <em class="sort-type">&#8595;</em></li>
-										<li data-path=".jp-title" 		data-order="asc" 	data-type="text"> {@smallads.sort.title} <em class="sort-type">&#8593;</em></li>
-										<li data-path=".jp-title" 		data-order="desc" 	data-type="text"> {@smallads.sort.title} <em class="sort-type">&#8595;</em></li>
-										<li data-path=".jp-price" 		data-order="asc" 	data-type="number"> {@smallads.sort.price} <em class="sort-type">&#8593;</em></li>
-										<li data-path=".jp-price" 		data-order="desc" 	data-type="number"> {@smallads.sort.price} <em class="sort-type">&#8595;</em></li>
-					   # IF C_LOCATION #<li data-path=".jp-location" 	data-order="asc" 	data-type="text"> {@location} <em class="sort-type">&#8593;</em></li>
-							   		 	<li data-path=".jp-location" 	data-order="desc" 	data-type="text"> {@location} <em class="sort-type">&#8595;</em></li># ENDIF #
-					 # IF NOT C_MEMBER #<li data-path=".jp-author" 		data-order="asc" 	data-type="text"> {@smallads.sort.author} <em class="sort-type">&#8593;</em></li>
-										<li data-path=".jp-author" 		data-order="desc" 	data-type="text"> {@smallads.sort.author} <em class="sort-type">&#8595;</em></li># ENDIF #
-					# IF NOT C_PENDING #<li data-path=".jp-comment" 	data-order="asc" 	data-type="number"> {@smallads.sort.coms} <em class="sort-type">&#8593;</em></li>
-										<li data-path=".jp-comment" 	data-order="desc" 	data-type="number"> {@smallads.sort.coms} <em class="sort-type">&#8595;</em></li>
-										<li data-path=".jp-view" 		data-order="asc" 	data-type="number"> {@smallads.sort.view} <em class="sort-type">&#8593;</em></li>
-										<li data-path=".jp-view" 		data-order="desc" 	data-type="number"> {@smallads.sort.view} <em class="sort-type">&#8595;</em></li># ENDIF #
+										<li> {@smallads.sort.date}
+											<em class="sort-type" data-path=".jp-date" data-order="asc" data-type="date"><span class="sr-only">{@smallads.sort.date}</span> &#8593;</em>
+											<em class="sort-type" data-path=".jp-date" data-order="desc" data-type="date" data-selected="true"><span class="sr-only">{@smallads.sort.date}</span> &#8595;</em>
+										</li>
+										<li> {@smallads.sort.title}
+											<em class="sort-type" data-path=".jp-title" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.title}</span> &#8593;</em>
+											<em class="sort-type" data-path=".jp-title" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.title}</span> &#8595;</em>
+										</li>
+										<li> {@smallads.sort.price}
+											<em class="sort-type" data-path=".jp-price" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.price}</span> &#8593;</em>
+											<em class="sort-type" data-path=".jp-price" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.price}</span> &#8595;</em>
+										</li>
+										# IF C_LOCATION #
+										  	<li> {@location}
+											    <em class="sort-type" data-path=".jp-location" data-order="asc" data-type="text"><span class="sr-only">{@location}</span> &#8593;</em>
+											   	<em class="sort-type" data-path=".jp-location" data-order="desc" data-type="text"><span class="sr-only">{@location}</span> &#8595;</em>
+									   		</li>
+										# ENDIF #
+					 					# IF NOT C_MEMBER #
+											<li> {@smallads.sort.author}
+												<em class="sort-type" data-path=".jp-author" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.author}</span> &#8593;</em>
+												<em class="sort-type" data-path=".jp-author" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.author}</span> &#8595;</em>
+											</li>
+										# ENDIF #
+										# IF NOT C_PENDING #
+											<li> {@smallads.sort.coms}
+												<em class="sort-type" data-path=".jp-comment" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.coms}</span> &#8593;</em>
+												<em class="sort-type" data-path=".jp-comment" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.coms}</span> &#8595;</em>
+											</li>
+											<li> {@smallads.sort.view}
+												<em class="sort-type" data-path=".jp-view" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.view} </span> &#8593;</em>
+												<em class="sort-type" data-path=".jp-view" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.view} </span> &#8595;</em>
+											</li>
+											<li> {@smallads.sort.view} </li>
+										# ENDIF #
 									</ul>
 								</div>
 							</div>
@@ -355,7 +376,7 @@
 
 		// Type filters
 			// toggle sub-menu on click (close on click outside)
-		jQuery('.selected-label').click(function(e){
+		jQuery('.selected-label').on('click', function(e){
 			jQuery('.label-list').toggleClass('reveal-list');
     		e.stopPropagation();
 		});
@@ -365,9 +386,9 @@
 		    }
 		});
 			// send label text of selected input to title on click
-		$('.label-list input').click(function(e) {
+		jQuery('.label-list input').on('click', function(e) {
 		    var radioText = e.currentTarget.nextSibling.data;
-		    $('.selected-label span').html(radioText);
+		    jQuery('.selected-label span').html(radioText);
 		});
 
 		// Categories
@@ -394,11 +415,11 @@
 		jQuery('.category-selected:contains("${LangLoader::get_message('root', 'main')}")').html('{@smallads.category.all} <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i>');
 
 			// toggle sub-menu (close on click outside)
-		jQuery('.category-selected').click(function(e){
+		jQuery('.category-selected').on('click', function(e){
 			jQuery('.category-select').toggleClass('reveal-subcat');
     		e.stopPropagation();
 		});
-		jQuery(document).click(function(e) {
+		jQuery(document).on('click', function(e) {
 		    if (jQuery(e.target).is('.category-selected') === false) {
 		      jQuery('.category-select').removeClass('reveal-subcat');
 		    }
