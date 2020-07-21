@@ -138,7 +138,6 @@
 												<em class="sort-type" data-path=".jp-view" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.view} </span> &#8593;</em>
 												<em class="sort-type" data-path=".jp-view" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.view} </span> &#8595;</em>
 											</li>
-											<li> {@smallads.sort.view} </li>
 										# ENDIF #
 									</ul>
 								</div>
