@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 04
+ * @version     PHPBoost 6.0 - last update: 2020 07 21
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -17,6 +17,10 @@
 $lang['smallads.module.title'] = 'Smallads';
 $lang['smallads.item'] = 'Ad';
 $lang['smallads.items'] = 'Ads';
+$lang['item'] = 'Ad';
+$lang['an.item'] = 'An ad';
+$lang['the.item'] = 'The ad';
+$lang['items'] = 'Ads';
 $lang['smallads.management'] = 'Smallads management';
 $lang['smallads.add'] = 'Add an ad';
 $lang['smallads.edit'] = 'Item edition';

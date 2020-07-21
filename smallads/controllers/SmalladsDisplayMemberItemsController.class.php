@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 12
+ * @version     PHPBoost 6.0 - last update: 2020 07 21
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -242,7 +242,6 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
 		$breadcrumb->add($this->lang['smallads.member.items'], SmalladsUrlBuilder::display_member_items());
-		$breadcrumb->add(AppContext::get_current_user()->get_display_name());
 
 		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->category->get_id(), true));
 		foreach ($categories as $id => $category)

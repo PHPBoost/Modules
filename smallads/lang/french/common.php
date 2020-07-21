@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 04
+ * @version     PHPBoost 6.0 - last update: 2020 07 21
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -17,6 +17,10 @@
 $lang['smallads.module.title'] = 'Petites Annonces';
 $lang['smallads.item'] = 'Annonce';
 $lang['smallads.items'] = 'Annonces';
+$lang['item'] = 'Annonce';
+$lang['an.item'] = 'Une annonce';
+$lang['the.item'] = 'L\'annonce';
+$lang['items'] = 'Annonces';
 $lang['smallads.management'] = 'Gestion des annonces';
 $lang['smallads.add'] = 'Ajouter une annonce';
 $lang['smallads.edit'] = 'Modification d\'une annonce';
