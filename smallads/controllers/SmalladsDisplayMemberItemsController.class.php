@@ -79,6 +79,8 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 			$this->view->put_all(array(
 				'C_ITEMS'                => $result->get_rows_count() > 0,
 				'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
+				'C_ROOT_CATEGORY'		 => false,
+				'C_MEMBER_ITEMS'   		 => true,
 
 				'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
 				'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,

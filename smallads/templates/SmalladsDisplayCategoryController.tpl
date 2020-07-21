@@ -5,7 +5,13 @@
 			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
-			# IF C_PENDING #{@smallads.pending.items}# ELSE #{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF #
+			# IF C_PENDING #
+				{@smallads.pending.items}
+			# ELSE #
+				{@smallads.module.title}
+				# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
+				# IF C_MEMBER_ITEMS # ${LangLoader::get_message('my.items', 'user-common')}# ENDIF #
+			# ENDIF #
 		</h1>
 	</header>
 
@@ -64,27 +70,25 @@
 									<div class="label-list dropdown-container">
 										<label class="jplist-label" for="default-radio">
 											<input
-												id="default-radio"
-												type="radio"
-												data-jplist-control="radio-buttons-text-filter"
-												data-path="default"
-		            							data-group="smallads-items"
-											    name="jplist"
-												checked
-											/>	{@smallads.all.types.filters}
+											id="default-radio"
+											type="radio"
+											data-jplist-control="radio-buttons-text-filter"
+											data-path="default"
+	            							data-group="smallads-items"
+										    name="jplist"
+											checked />	{@smallads.all.types.filters}
 										</label>
 										# START types #
 											<label class="jplist-label" for="{types.TYPE_NAME_FILTER}">
 												<input
-													id="{types.TYPE_NAME_FILTER}"
-													type="radio"
-													data-jplist-control="radio-buttons-text-filter"
-													data-path=".smallads-type"
-													data-control-name="default"
-			            							data-group="smallads-items"
-												    name="jplist"
-													value="{types.TYPE_NAME}"
-												/>	{types.TYPE_NAME}
+												id="{types.TYPE_NAME_FILTER}"
+												type="radio"
+												data-jplist-control="radio-buttons-text-filter"
+												data-path=".smallads-type"
+												data-control-name="default"
+		            							data-group="smallads-items"
+											    name="jplist"
+												value="{types.TYPE_NAME}"/>	{types.TYPE_NAME}
 											</label>
 										# END types #
 									</div>
@@ -99,10 +103,10 @@
 							<div class="cell-content">
 								<span>{@smallads.sort.by} :</span>
 								<div
-								    data-jplist-control="dropdown-sort"
-								    class="jplist-drop-down"
-								    data-group="smallads-items"
-								    data-name="sorttitle">
+							    data-jplist-control="dropdown-sort"
+							    class="jplist-drop-down"
+							    data-group="smallads-items"
+							    data-name="sorttitle">
 									<div data-type="panel" class="jplist-dd-panel"></div>
 									<ul data-type="content" class="dropdown-container">
 										<li> {@smallads.sort.date}
@@ -341,14 +345,13 @@
 			# IF C_PAGINATION #
 				<div class="pagination options no-style">
 					<div
-					   	class="jplist-pagination"
-					   	data-jplist-control="pagination"
-				        data-group="smallads-items"
-				        data-items-per-page="{ITEMS_PER_PAGE}"
-				        data-current-page="0"
-				        data-name="pagination1"
-					   	data-name="paging"
-					>
+				   	class="jplist-pagination"
+				   	data-jplist-control="pagination"
+			        data-group="smallads-items"
+			        data-items-per-page="{ITEMS_PER_PAGE}"
+			        data-current-page="0"
+			        data-name="pagination1"
+				   	data-name="paging">
 						<button class="button" type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
 					    <button class="button" type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
 
