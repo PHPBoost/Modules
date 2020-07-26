@@ -296,6 +296,7 @@
 			</noscript>
 			<p class="align-center small">{SWITCH_DEF}</p>
 			# START dictionary #
+				<div id="{dictionary.ID}-definition"></div>
 				<article class="dictionary-word category-{dictionary.CAT}" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
 					<header>
 						<h2>
