@@ -307,7 +307,7 @@
 						</a>
 						<div class="cell-body">
 							# IF items.C_HAS_THUMBNAIL #
-								<div class="cell-thumbnail cell-landscape">
+								<div class="cell-thumbnail cell-landscape cell-center">
 									<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="thumbnailUrl" />
 									<a href="{items.U_ITEM}" class="cell-thumbnail-caption">${LangLoader::get_message('read-more', 'common')}</a>
 								</div>
