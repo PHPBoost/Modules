@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 13
+ * @version     PHPBoost 6.0 - last update: 2020 09 02
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -35,7 +35,7 @@ class HomeLandingForum
 
 		$result = PersistenceContext::get_querier()->select('SELECT
 			t.id, t.id_category, t.title, t.last_timestamp, t.last_user_id, t.last_msg_id, t.display_msg, t.nbr_msg AS t_nbr_msg, t.user_id AS glogin,
-			member.display_name AS last_login, member.groups, member.level,
+			member.display_name AS last_login, member.user_groups, member.level,
 			msg.id mid, msg.contents, ext_field.user_avatar
 		FROM ' . PREFIX . 'forum_topics t
 		LEFT JOIN ' . PREFIX . 'forum_cats cat ON cat.id = t.id_category
@@ -71,7 +71,7 @@ class HomeLandingForum
 			$last_page = ($last_page > 1) ? 'pt=' . $last_page . '&amp;' : '';
 			$link = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '+' . Url::encode_rewrite($row['title'])  . '.php') . '#m' .  $row['last_msg_id']);
 			$link_message = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '+' . Url::encode_rewrite($row['title'])  . '.php'));
-			$user_group_color = User::get_group_color($row['groups'], $row['level']);
+			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
 
 			$characters_number_to_cut = $modules[$module_name]->get_characters_number_displayed();
 

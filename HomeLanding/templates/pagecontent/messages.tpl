@@ -13,7 +13,7 @@
 		</div>
 	# ELSE #
 		# START item #
-			<div class="message-container message-small" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+			<div class="message-container message-small" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 				<header class="message-header-container">
 					# IF C_AVATAR_IMG #<img class="message-user-avatar" src="{item.U_AVATAR_IMG}" alt="{item.PSEUDO}" /># ENDIF #
 

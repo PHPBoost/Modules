@@ -15,7 +15,7 @@
 	# ELSE #
 		<div class="cell-flex cell-columns-{ITEMS_PER_ROW} cell-tile">
 			# START item #
-				<div class="cell" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<div class="cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<div class="cell-body">
 						<div class="cell-thumbnail cell-landscape cell-center">
 							<img src="{item.U_PICTURE}" alt="{item.TITLE}" />

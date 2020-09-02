@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2016 08 04
+ * @version     PHPBoost 6.0 - last update: 2020 09 01
  * @since       PHPBoost 4.0 - 2013 08 27
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BirthdayModuleMiniMenu extends ModuleMiniMenu
@@ -31,7 +32,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 
 			foreach ($users_birthday as $user)
 			{
-				$user_group_color = User::get_group_color($user['groups'], $user['level'], false);
+				$user_group_color = User::get_group_color($user['user_groups'], $user['level'], false);
 
 				$tpl->assign_block_vars('birthday', array(
 					'C_USER_GROUP_COLOR' => !empty($user_group_color),

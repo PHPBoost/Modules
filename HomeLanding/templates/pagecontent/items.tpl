@@ -38,7 +38,7 @@
 			<div class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #">
 
 				# START item #
-					<div class="{MODULE_NAME}-items several-items category-{item.CATEGORY_ID} cell" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+					<div class="{MODULE_NAME}-items several-items category-{item.CATEGORY_ID} cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 						<div class="cell-header">
 							<h3 class="cell-name">
 								<a href="{item.U_ITEM}">{item.TITLE}</a>

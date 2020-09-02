@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 09
+ * @version     PHPBoost 6.0 - last update: 2020 09 02
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -47,7 +47,10 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		$lastcoms_config = LastcomsConfig::load();
 		$coms_char = $lastcoms_config->get_lastcoms_char();
 
-		$results = PersistenceContext::get_querier()->select("SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.path, ct.module_id, ct.is_locked, m.level, m.groups
+		$results = PersistenceContext::get_querier()->select("SELECT
+			c.id, c.user_id, c.pseudo, c.message, c.timestamp,
+			ct.path, ct.module_id, ct.is_locked,
+			m.level, m.user_groups
 			FROM " . DB_TABLE_COMMENTS . " AS c
 			LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " AS ct ON ct.id_topic = c.id_topic
 			LEFT JOIN " . DB_TABLE_MEMBER . " AS m ON c.user_id = m.user_id
@@ -67,7 +70,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			$comments_number++;
 			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
 			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
-			$user_group_color = User::get_group_color($row['groups'], $row['level']);
+			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
 
 			$tpl->assign_block_vars('coms', array_merge(
 				Date::get_array_tpl_vars(new Date($row['timestamp'], Timezone::SERVER_TIMEZONE), 'date'),

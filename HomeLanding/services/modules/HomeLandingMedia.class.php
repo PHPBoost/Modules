@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 04 18
+ * @version     PHPBoost 6.0 - last update: 2020 09 02
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -23,7 +23,7 @@ class HomeLandingMedia
 
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_name, 'id_category');
 
-        $result = PersistenceContext::get_querier()->select('SELECT media.*, mb.display_name, mb.groups, mb.level, notes.average_notes, notes.number_notes, note.note
+        $result = PersistenceContext::get_querier()->select('SELECT media.*, mb.display_name, mb.user_groups, mb.level, notes.average_notes, notes.number_notes, note.note
         FROM ' . PREFIX . 'media AS media
         LEFT JOIN ' . PREFIX . 'media_cats cat ON cat.id = media.id_category
         LEFT JOIN ' . DB_TABLE_MEMBER . ' AS mb ON media.iduser = mb.user_id

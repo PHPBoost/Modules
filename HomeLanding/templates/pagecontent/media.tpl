@@ -16,7 +16,7 @@
 	# ELSE #
 		<div class="content">
 			# START media_swf #
-				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<h3><a href="{media_swf.U_MEDIA_LINK}">{media_swf.TITLE}</a></h3>
 					<div class="more">
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_swf.PSEUDO}
@@ -39,7 +39,7 @@
 			# END media_swf #
 
 			# START media_host #
-				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<h3><a href="{media_host.U_MEDIA_LINK}">{media_host.TITLE}</a></h3>
 					<div class="more">
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}
@@ -52,7 +52,7 @@
 			# END media_host #
 
 			# START media_flv #
-				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<h3><a href="{media_flv.U_MEDIA_LINK}">{media_flv.TITLE}</a></h3>
 					<div class="more">
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_flv.PSEUDO}</span>
@@ -70,7 +70,7 @@
 			# END media_flv #
 
 			# START media_mp4 #
-				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<h3><a href="{media_mp4.U_MEDIA_LINK}">{media_mp4.TITLE}</a></h3>
 					<div class="more">
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
@@ -85,7 +85,7 @@
 			# END media_mp4 #
 
 			# START media_mp3 #
-				<div class="item-content-audio" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<div class="item-content-audio" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<h3><a href="{media_mp3.U_MEDIA_LINK}">{media_mp3.TITLE}</a></h3>
 					<div class="more">
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
@@ -101,7 +101,7 @@
 			# END media_mp3 #
 
 			# START media_other #
-				<div class="item-content" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<h3><a href="{media_other.U_MEDIA_LINK}">{media_other.TITLE}</a></h3>
 					<div class="more">
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
