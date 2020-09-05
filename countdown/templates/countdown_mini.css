@@ -33,7 +33,7 @@
     vertical-align: middle;
 }
 
-input.input-hours,
-input.input-minutes {
+#module-mini-countdown input.input-hours,
+#module-mini-countdown input.input-minutes {
     width: 80px;
 }
