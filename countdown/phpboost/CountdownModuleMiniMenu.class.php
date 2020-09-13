@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 12 08
+ * @version     PHPBoost 6.0 - last update: 2020 09 13
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -26,7 +26,7 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_title()
 	{
-		return LangLoader::get_message('title', 'common', 'countdown');
+		return LangLoader::get_message('module.title', 'common', 'countdown');
 	}
 
 	public function is_displayed()
@@ -37,15 +37,15 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 	public function get_menu_content()
 	{
 		$lang = LangLoader::get('common', 'countdown');
-		$tpl = new FileTemplate('countdown/CountdownModuleMiniMenu.tpl');
-		$tpl->add_lang($lang);
-		MenuService::assign_positions_conditions($tpl, $this->get_block());
-		Menu::assign_common_template_variables($tpl);
+		$view = new FileTemplate('countdown/CountdownModuleMiniMenu.tpl');
+		$view->add_lang($lang);
+		MenuService::assign_positions_conditions($view, $this->get_block());
+		Menu::assign_common_template_variables($view);
 
 		$countdown_config = CountdownConfig::load();
 		$event_date = $countdown_config->get_event_date();
 
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'C_DISABLED'        => $countdown_config->get_timer_disabled(),
 			'C_STOP_COUNTER'    => $countdown_config->get_stop_counter(),
 			'C_RELEASE_COUNTER' => !$countdown_config->get_hidden_counter(),
@@ -71,7 +71,7 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 			'L_MINI_SECOND'     => $lang['mini.seconde'],
 		));
 
-		return $tpl->render();
+		return $view->render();
 	}
 
 	public function display()

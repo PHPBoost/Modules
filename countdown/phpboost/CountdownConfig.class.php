@@ -157,7 +157,7 @@ class CountdownConfig extends AbstractConfigData
 	}
 
 	/**
-	 * Saves the configuration in the database. Has it become persistent.
+	 * Saving the configuration in database.
 	 */
 	public static function save()
 	{

@@ -11,8 +11,8 @@
 class LastcomsConfig extends AbstractConfigData
 {
 	const LASTCOMS_NUMBER = 'lastcoms_number';
-	const LASTCOMS_CHAR = 'lastcoms_char';
-	const AUTHORIZATIONS = 'authorizations';
+	const LASTCOMS_CHAR   = 'lastcoms_char';
+	const AUTHORIZATIONS  = 'authorizations';
 
 	public function get_lastcoms_number()
 	{
@@ -34,7 +34,7 @@ class LastcomsConfig extends AbstractConfigData
 		$this->set_property(self::LASTCOMS_CHAR, $lastcoms_char);
 	}
 
-	 /**
+	/**
 	 * @method Get authorizations
 	 */
 	public function get_authorizations()
@@ -42,7 +42,7 @@ class LastcomsConfig extends AbstractConfigData
 		return $this->get_property(self::AUTHORIZATIONS);
 	}
 
-	 /**
+	/**
 	 * @method Set authorizations
 	 * @params string[] $array Array of authorizations
 	 */
@@ -73,7 +73,7 @@ class LastcomsConfig extends AbstractConfigData
 	}
 
 	/**
-	 * Saves the configuration in the database. Has it become persistent.
+	 * Saving the configuration in database.
 	 */
 	public static function save()
 	{

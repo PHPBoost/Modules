@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2017 06 16
+ * @version     PHPBoost 6.0 - last update: 2020 09 13
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -11,10 +11,9 @@
 #                     English                       #
 #####################################################
 
-$lang['title'] = 'Countdown';
-$lang['module_config_title'] = 'Countdown configuration';
+$lang['module.title'] = 'Countdown';
 
-// Config
+// Configuration
 $lang['config.event.date'] = 'Event date';
 $lang['config.no.script'] = 'No-script';
 $lang['config.no.script.desc'] = 'Message to display if javascript is disabled';
@@ -32,7 +31,7 @@ $lang['config.hidden.counter'] = 'Hide the counter at the end of the countdown';
 $lang['config.stopped.event'] = 'The event is ended';
 $lang['config.stopped.event.desc'] = 'Message to display when the counter stops';
 
-// Screendisplay
+// Management of display
 $lang['day'] = 'Day';
 $lang['hour'] = 'Hour';
 $lang['mini.hour'] = 'Hr';

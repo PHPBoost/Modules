@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 01 26
+ * @version     PHPBoost 6.0 - last update: 2020 09 13
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -29,8 +29,8 @@ class AdminCountdownConfigController extends AdminModuleController
 		$this->init();
 		$this->build_form();
 
-		$tpl = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
-		$tpl->add_lang($this->lang);
+		$view = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
+		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -38,12 +38,12 @@ class AdminCountdownConfigController extends AdminModuleController
 			$this->form->get_field_by_id('no_event')->set_hidden(!$this->config->get_timer_disabled());
 			$this->form->get_field_by_id('stopped_event')->set_hidden(!$this->config->get_stop_counter());
 			$this->form->get_field_by_id('hidden_counter')->set_hidden(!$this->config->get_stop_counter());
-			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
+			$view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$view->put('FORM', $this->form->display());
 
-		return new DefaultAdminDisplayResponse($tpl);
+		return new DefaultAdminDisplayResponse($view);
 	}
 
 	private function init()
@@ -54,6 +54,7 @@ class AdminCountdownConfigController extends AdminModuleController
 
 	private function build_form()
 	{
+		$common_lang = LangLoader::get('common');
 		$form = new HTMLForm('countdown');
 
 		$fieldset = new FormFieldsetHTMLHeading('configuration', StringVars::replace_vars(LangLoader::get_message('configuration.module.title', 'admin-common'), array('module_name' => self::get_module()->get_configuration()->get_name())));
@@ -137,14 +138,10 @@ class AdminCountdownConfigController extends AdminModuleController
 			)
 		));
 
-		$common_lang = LangLoader::get('common');
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $common_lang['authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
-
-		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($this->lang['config.authorizations.read'], CountdownAuthorizationsService::READ_AUTHORIZATIONS)
-		));
-
+		
+		$auth_settings = new AuthorizationsSettings(array(new ActionAuthorization($this->lang['config.authorizations.read'], CountdownAuthorizationsService::READ_AUTHORIZATIONS)));
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
 
@@ -173,7 +170,6 @@ class AdminCountdownConfigController extends AdminModuleController
 			$this->config->set_hidden_counter($this->form->get_value('hidden_counter'));
 			$this->config->set_stopped_event($this->form->get_value('stopped_event'));
 		}
-
 
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 		CountdownConfig::save();

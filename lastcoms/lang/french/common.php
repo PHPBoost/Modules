@@ -11,6 +11,7 @@
 ####################################################
 #                     French                       #
 ####################################################
+
 $lang['lastcoms.title'] = 'Derniers commentaires';
 $lang['module.config.title'] = 'Configuration des derniers commentaires';
 $lang['admin.authorizations.read']  = 'Autorisation d\'afficher les derniers commentaires';

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 03 27
+ * @version     PHPBoost 6.0 - last update: 2020 09 13
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -11,10 +11,9 @@
 #                     French                        #
 #####################################################
 
-$lang['title'] = 'Compte à rebours';
-$lang['module_config_title'] = 'Configuration du compte à rebours';
+$lang['module.title'] = 'Compte à rebours';
 
-// Config
+// Configuration
 $lang['config.event.date'] = 'Date de l\'événement';
 $lang['config.no.script'] = 'No-script';
 $lang['config.no.script.desc'] = 'Message à afficher si le javascript est désactivé';
@@ -32,7 +31,7 @@ $lang['config.hidden.counter'] = 'Cacher le compteur à la fin du décompte';
 $lang['config.stopped.event'] = 'Événement terminé';
 $lang['config.stopped.event.desc'] = 'Message à afficher quand le décompte s\'arrête';
 
-// Gestion de l'affichage
+// Management of display
 $lang['day'] = 'Jour';
 $lang['hour'] = 'Heure';
 $lang['mini.hour'] = 'Hr';

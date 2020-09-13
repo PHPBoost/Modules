@@ -39,10 +39,10 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 	public function get_menu_content()
 	{
 		$lang = LangLoader::get('common', 'lastcoms');
-		$tpl = new FileTemplate('lastcoms/LastcomsModuleMiniMenu.tpl');
-		$tpl->add_lang($lang);
-		MenuService::assign_positions_conditions($tpl, $this->get_block());
-		Menu::assign_common_template_variables($tpl);
+		$view = new FileTemplate('lastcoms/LastcomsModuleMiniMenu.tpl');
+		$view->add_lang($lang);
+		MenuService::assign_positions_conditions($view, $this->get_block());
+		Menu::assign_common_template_variables($view);
 
 		$lastcoms_config = LastcomsConfig::load();
 		$coms_char = $lastcoms_config->get_lastcoms_char();
@@ -72,7 +72,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
 			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
 
-			$tpl->assign_block_vars('coms', array_merge(
+			$view->assign_block_vars('coms', array_merge(
 				Date::get_array_tpl_vars(new Date($row['timestamp'], Timezone::SERVER_TIMEZONE), 'date'),
 				array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
@@ -87,12 +87,12 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			));
 		}
 
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'C_COMS' => $comments_number > 0,
 			'L_LAST_COMS' => $lang['lastcoms.title'],
 		));
 
-		return $tpl->render();
+		return $view->render();
 	}
 
 	public function display()
