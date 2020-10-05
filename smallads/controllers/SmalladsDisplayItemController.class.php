@@ -154,7 +154,7 @@ class SmalladsDisplayItemController extends ModuleController
 		{
 
 			$this->tpl->assign_block_vars('carousel', array(
-				'C_DESCRITPION' => !empty($options['description']),
+				'C_DESCRIPTION' => !empty($options['description']),
 				'DESCRIPTION' => $options['description'],
 				'U_PICTURE' => Url::to_rel($options['picture_url']),
 			));
