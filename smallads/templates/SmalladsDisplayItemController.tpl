@@ -150,25 +150,26 @@
 				</div>
 			</div>
 
-			# IF C_CAROUSEL #
-			 	# START carousel #
-					<a href="{carousel.U_PICTURE}" aria-label="{carousel.DESCRIPTION}" data-lightbox="formatter" data-rel="lightcase:collection">
-						<figure class="carousel-thumbnail">
-							<img src="{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" />
-							<figcaption>{carousel.DESCRIPTION}</figcaption>
-						</figure>
-					</a>
-			 	# END carousel #
-			# ENDIF #
-
 			<div# IF C_COMPLETED # class="error"# ENDIF # itemprop="text">
 				# IF C_COMPLETED #<p class="pinned bgc error larger">{@smallads.completed.item}</p># ENDIF #
 				{CONTENTS}
 			</div>
 
-
 			<div class="spacer"></div>
 		</div>
+
+		# IF C_CAROUSEL #
+			<aside class="carousel-container">
+			 	# START carousel #
+					<a href="{carousel.U_PICTURE}" # IF carousel.C_DESCRIPTION #aria-label="{carousel.DESCRIPTION}"# ENDIF # data-lightbox="formatter" data-rel="lightcase:collection">
+						<figure class="carousel-thumbnail">
+							<img src="{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" />
+							# IF carousel.C_DESCRIPTION #<figcaption>{carousel.DESCRIPTION}</figcaption># ENDIF #
+						</figure>
+					</a>
+			 	# END carousel #
+			</aside>
+		# ENDIF #
 		# IF C_SOURCES #
 			<aside class="sources-container">
 				<span class="text-strong"><i class="fa fa-map-signs" aria-hidden="true"></i> ${LangLoader::get_message('form.sources', 'common')}</span> :

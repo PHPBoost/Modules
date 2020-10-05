@@ -5,6 +5,8 @@
 
 #smallads-module .formatter-content {display: table;}
 
+#smallads-module .carousel-thumbnail { max-width: 10em; }
+
 /* --- Sold item --- */
 .completed-smallad {
 	position: relative;

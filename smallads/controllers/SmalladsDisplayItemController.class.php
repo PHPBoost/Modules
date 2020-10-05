@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 12 04
+ * @version     PHPBoost 6.0 - last update: 2020 10 05
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -154,6 +154,7 @@ class SmalladsDisplayItemController extends ModuleController
 		{
 
 			$this->tpl->assign_block_vars('carousel', array(
+				'C_DESCRITPION' => !empty($options['description']),
 				'DESCRIPTION' => $options['description'],
 				'U_PICTURE' => Url::to_rel($options['picture_url']),
 			));
