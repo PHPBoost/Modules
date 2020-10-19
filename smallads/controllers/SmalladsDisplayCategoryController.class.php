@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 12 30
+ * @version     PHPBoost 6.0 - last update: 2020 20 19
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -48,7 +48,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 	private function build_category_list()
 	{
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->are_descriptions_displayed_to_guests());
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->are_descriptions_displayed_to_guests(), 'smallads');
 
 		$result_cat = PersistenceContext::get_querier()->select('SELECT smallads_cat.*
 		FROM '. SmalladsSetup::$smallads_cats_table .' smallads_cat
@@ -73,7 +73,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 
 	private function build_items_listing_view(Date $now)
 	{
-		$authorized_categories = CategoriesService::get_authorized_categories($this->get_category()->get_id(), $this->config->are_descriptions_displayed_to_guests());
+		$authorized_categories = CategoriesService::get_authorized_categories($this->get_category()->get_id(), $this->config->are_descriptions_displayed_to_guests(), 'smallads');
 
 		$condition = 'WHERE id_category IN :authorized_categories
 		AND (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0)))';
@@ -101,7 +101,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			'C_ITEMS'                => $result->get_rows_count() > 0,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
 
-			'C_CATEGORY'             => true, // CategoriesService::get_categories_manager()->get_categories_cache()->has_categories()
+			'C_CATEGORY'             => true, // CategoriesService::get_categories_manager('smallads')->get_categories_cache()->has_categories()
 			'C_ROOT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
 			'C_CATEGORY_THUMBNAIL'   => !empty($category_thumbnail),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
@@ -193,7 +193,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			if (!empty($id))
 			{
 				try {
-					$this->category = CategoriesService::get_categories_manager()->get_categories_cache()->get_category($id);
+					$this->category = CategoriesService::get_categories_manager('smallads')->get_categories_cache()->get_category($id);
 				} catch (CategoryNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
@@ -201,7 +201,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 			}
 			else
 			{
-				$this->category = CategoriesService::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
+				$this->category = CategoriesService::get_categories_manager('smallads')->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
 			}
 		}
 		return $this->category;
@@ -265,7 +265,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
 
-		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->category->get_id(), true));
+		$categories = array_reverse(CategoriesService::get_categories_manager('smallads')->get_parents($this->category->get_id(), true));
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
