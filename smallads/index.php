@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 02 05
+ * @version     PHPBoost 6.0 - last update: 2020 10 23
  * @since       PHPBoost 4.0 - 2013 01 30
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -35,7 +35,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('SmalladsDisplayUsageTermsController', '`^/terms/?$`'),
 
 	//Display items
-	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/member/?$`'),
+	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/my_items/?$`'),
 	new UrlControllerMapper('SmalladsDisplayTagController', '`^/tag/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('tag')),
 	new UrlControllerMapper('SmalladsDisplayPendingItemsController', '`^/pending/([0-9]+)?/?$`'),
 	new UrlControllerMapper('SmalladsDisplayItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title')),

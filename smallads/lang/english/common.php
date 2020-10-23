@@ -14,19 +14,20 @@
 #####################################################
 
 // Titles
-$lang['smallads.module.title'] = 'Smallads';
-$lang['smallads.item'] = 'Ad';
-$lang['smallads.items'] = 'Ads';
+$lang['module.title'] = 'Smallads';
+
 $lang['item'] = 'Ad';
+$lang['items'] = 'Ads';
+
 $lang['an.item'] = 'An ad';
 $lang['the.item'] = 'The ad';
-$lang['items'] = 'Ads';
+$lang['items.mine'] = 'My ads';
+
 $lang['smallads.management'] = 'Smallads management';
 $lang['smallads.add'] = 'Add an ad';
 $lang['smallads.edit'] = 'Item edition';
 $lang['smallads.feed.name'] = 'Last ads';
 $lang['smallads.pending.items'] = 'Pending ads';
-$lang['smallads.member.items'] = 'My ads';
 $lang['smallads.published.items'] = 'Published ads';
 
 $lang['smallads.category.list'] = 'Categories';

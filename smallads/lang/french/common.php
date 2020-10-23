@@ -14,19 +14,20 @@
 #####################################################
 
 // Titles
-$lang['smallads.module.title'] = 'Petites Annonces';
-$lang['smallads.item'] = 'Annonce';
-$lang['smallads.items'] = 'Annonces';
+$lang['module.title'] = 'Petites Annonces';
+
 $lang['item'] = 'Annonce';
+$lang['items'] = 'Annonces';
+
 $lang['an.item'] = 'Une annonce';
 $lang['the.item'] = 'L\'annonce';
-$lang['items'] = 'Annonces';
+$lang['items.mine'] = 'Mes annonces';
+
 $lang['smallads.management'] = 'Gestion des annonces';
 $lang['smallads.add'] = 'Ajouter une annonce';
 $lang['smallads.edit'] = 'Modification d\'une annonce';
 $lang['smallads.feed.name'] = 'Dernières annonces';
 $lang['smallads.pending.items'] = 'Annonces en attente';
-$lang['smallads.member.items'] = 'Mes annonces';
 $lang['smallads.published.items'] = 'Annonces publiées';
 
 $lang['smallads.category.list'] = 'Catégories';
