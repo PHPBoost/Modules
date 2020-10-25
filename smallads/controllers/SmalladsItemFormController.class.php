@@ -788,12 +788,12 @@ class SmalladsItemFormController extends ModuleController
 		$graphical_environment = $response->get_graphical_environment();
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
+		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
 
 		if ($smallad->get_id() === null)
 		{
 			$breadcrumb->add($this->lang['smallads.add'], SmalladsUrlBuilder::add_item($smallad->get_id_category()));
-			$graphical_environment->set_page_title($this->lang['smallads.add'], $this->lang['smallads.module.title']);
+			$graphical_environment->set_page_title($this->lang['smallads.add'], $this->lang['module.title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.add']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::add_item($smallad->get_id_category()));
 		}
@@ -812,7 +812,7 @@ class SmalladsItemFormController extends ModuleController
 			if (!AppContext::get_session()->location_id_already_exists($location_id))
 				$graphical_environment->set_location_id($location_id);
 
-			$graphical_environment->set_page_title($this->lang['smallads.edit'], $this->lang['smallads.module.title']);
+			$graphical_environment->set_page_title($this->lang['smallads.edit'], $this->lang['module.title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.edit']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::edit_item($smallad->get_id()));
 		}

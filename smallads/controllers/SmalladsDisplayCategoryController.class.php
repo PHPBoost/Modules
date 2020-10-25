@@ -252,9 +252,9 @@ class SmalladsDisplayCategoryController extends ModuleController
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->category->get_id() != Category::ROOT_CATEGORY)
-			$graphical_environment->set_page_title($this->category->get_name(), $this->lang['smallads.module.title']);
+			$graphical_environment->set_page_title($this->category->get_name(), $this->lang['module.title']);
 		else
-			$graphical_environment->set_page_title($this->lang['smallads.module.title'], '');
+			$graphical_environment->set_page_title($this->lang['module.title'], '');
 
 		$description = $this->category->get_description();
 		if (empty($description))
@@ -263,7 +263,7 @@ class SmalladsDisplayCategoryController extends ModuleController
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
+		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
 
 		$categories = array_reverse(CategoriesService::get_categories_manager('smallads')->get_parents($this->category->get_id(), true));
 		foreach ($categories as $id => $category)

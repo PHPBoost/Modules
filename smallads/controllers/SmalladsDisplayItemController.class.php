@@ -292,7 +292,7 @@ class SmalladsDisplayItemController extends ModuleController
 		$smallad_recipient_email = $this->smallad->get_custom_author_email();
 
 		$smallad_email = new Mail();
-		$smallad_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['smallads.module.title']);
+		$smallad_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['module.title']);
 		$smallad_email->set_reply_to($smallad_sender_email, $smallad_sender_name);
 		$smallad_email->set_subject($smallad_subject);
 		$smallad_email->set_content(TextHelper::html_entity_decode($smallad_message));
@@ -345,12 +345,12 @@ class SmalladsDisplayItemController extends ModuleController
 		$response = new SiteDisplayResponse($this->tpl);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->smallad->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $this->category->get_name() . ' - ' : '') . $this->lang['smallads.module.title']);
+		$graphical_environment->set_page_title($this->smallad->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $this->category->get_name() . ' - ' : '') . $this->lang['module.title']);
 		$graphical_environment->get_seo_meta_data()->set_description($this->smallad->get_real_description());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_item($this->category->get_id(), $this->category->get_rewrited_name(), $this->smallad->get_id(), $this->smallad->get_rewrited_title()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
+		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
 
 		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->smallad->get_id_category(), true));
 		foreach ($categories as $id => $category)
