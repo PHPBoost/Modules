@@ -19,6 +19,8 @@ class SmalladsTreeLinks extends DefaultTreeLinks
 	{
 		$lang = LangLoader::get('common', $this->get_module_id());
 
+		$tree->add_link(new ModuleLink($lang['items.mine'], SmalladsUrlBuilder::display_member_items(), $this->check_write_authorization() || $this->get_authorizations()->moderation()));
+
 		$config_link = new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), SmalladsUrlBuilder::categories_configuration());
 		$config_link->add_sub_link(new AdminModuleLink($lang['config.categories.title'], SmalladsUrlBuilder::categories_configuration()));
 		$config_link->add_sub_link(new AdminModuleLink($lang['config.items.title'], SmalladsUrlBuilder::items_configuration()));
