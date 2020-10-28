@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 01 26
+ * @version     PHPBoost 6.0 - last update: 2020 10 28
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -83,11 +83,12 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->admin_common_lang['config.display.type'], $this->config->get_display_type(),
 			array(
-				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.grid'], SmalladsConfig::DISPLAY_GRID_VIEW),
-				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.list'], SmalladsConfig::DISPLAY_LIST_VIEW),
-				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.table'], SmalladsConfig::DISPLAY_TABLE_VIEW)
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.grid'], SmalladsConfig::DISPLAY_GRID_VIEW, array('data_option_icon' => 'fa fa-th-large')),
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.list'], SmalladsConfig::DISPLAY_LIST_VIEW, array('data_option_icon' => 'fa fa-list')),
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.table'], SmalladsConfig::DISPLAY_TABLE_VIEW, array('data_option_icon' => 'fa fa-table'))
 			),
 			array(
+				'select_to_list' => true,
 				'events' => array('change' => '
 					if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::DISPLAY_GRID_VIEW . '\') {
 						HTMLForms.getField("characters_number_to_cut").enable();
