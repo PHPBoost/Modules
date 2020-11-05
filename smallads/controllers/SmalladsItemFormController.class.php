@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 01 26
+ * @version     PHPBoost 6.0 - last update: 2020 11 05
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -336,9 +336,13 @@ class SmalladsItemFormController extends ModuleController
 						if (HTMLForms.getField("publication_state").getValue() == 2) {
 							jQuery("#' . __CLASS__ . '_publication_start_date_field").show();
 							HTMLForms.getField("end_date_enable").enable();
+							if (HTMLForms.getField("end_date_enable").getValue()) {
+								HTMLForms.getField("publication_end_date").enable();
+							}
 						} else {
 							jQuery("#' . __CLASS__ . '_publication_start_date_field").hide();
 							HTMLForms.getField("end_date_enable").disable();
+							HTMLForms.getField("publication_end_date").disable();
 						}'
 					)
 				)
