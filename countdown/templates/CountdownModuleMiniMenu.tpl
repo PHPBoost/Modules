@@ -1,7 +1,7 @@
 	<div id="module-mini-countdown" class="cell-tile cell-mini# IF C_VERTICAL # cell-mini-vertical# ENDIF ## IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
 		<div class="cell">
 			<div class="cell-header">
-				<h6 class="cell-name">{@title}</h6>
+				<h6 class="cell-name">{@module.title}</h6>
 				# IF IS_ADMIN #
 					<span class="controls">
 						<a href="${relative_url(ModulesUrlBuilder::configuration('countdown'))}" aria-label="${LangLoader::get_message('configuration', 'admin')}">
