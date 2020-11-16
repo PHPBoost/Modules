@@ -21,7 +21,7 @@
     margin: 0 0 1em;
 }
 
-/* --- OnePage Menu --------------------------------------------------------- */
+/* --- Anchors Menu --------------------------------------------------------- */
 #cssmenu-anchors ul {
 	display: flex;
     flex-wrap: wrap;
@@ -38,11 +38,6 @@
 }
 
 /* --- last comments -------------------------------------------------------- */
-#lastcoms .avatar {
-    float: left;
-    max-width: 60px;
-    margin: 0 0.618em 0 0;
-}
 
 /* --- Last articles -------------------------------------------------------- */
 
@@ -57,31 +52,10 @@
 /* --- Last downloads from categories --------------------------------------- */
 
 /* --- Last forum topics ---------------------------------------------------- */
-#forum .avatar {
-    float: left;
-    max-width: 60px;
-    margin: 0 0.618em 0 0;
-}
 
 /* --- Last pictures from Gallery ------------------------------------------- */
 
-#gallery .item-content {
-    display: inline-block;
-    text-align: center;
-}
-
-#gallery .item-content img {
-    max-height: 150px;
-    max-width: 300px;
-}
-
 /* --- Last messages from Guestbook ----------------------------------------- */
-
-#guestbook .avatar {
-    float: left;
-    max-width: 60px;
-    margin: 0 0.618em 0.618em 0;
-}
 
 /* --- Last media ----------------------------------------------------------- */
 
@@ -91,59 +65,8 @@
 
 /* --- External Rss --------------------------------------------------------- */
 
-#rssreader ul {
-    margin: 0;
-    list-style-type: none;
-}
-
 /* --- Last partners links -------------------------------------------------- */
-
-#web ul,
-#web-cat ul {
-    display: table;
-    margin: auto;
-}
-
-#web li,
-#web-cat li {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0.309em auto;
-}
-
-#web img,
-#web-cat img {
-    width: 100%;
-}
-
-@media (min-width:769px){
-    #web img,
-    #web-cat img {
-        max-width: 150px;
-    }
-}
-
-#web .content a,
-#web-cat .content a {
-    display: block;
-}
 
 /* --- Last partners links from categories ---------------------------------- */
 
 /* --- Configuration -------------------------------------------------------- */
-@media (min-width: 769px){
-    textarea.slider-description {
-        float: left;
-        height: 70px;
-        width: 45%;
-    }
-
-    input.slider-url {
-        margin: 0.309em;
-        width: 40%;
-    }
-}
-
-#module-homelanding h2.formatter-title {
-    font-size: 2rem;
-}
