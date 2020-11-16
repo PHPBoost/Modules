@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 11 05
+ * @version     PHPBoost 6.0 - last update: 2020 11 16
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -84,7 +84,7 @@ class SmalladsItemFormController extends ModuleController
 			$fieldset->add_field(new FormFieldTextEditor('rewrited_title', $this->common_lang['form.rewrited_name'], $this->get_smallad()->get_rewrited_title(),
 				array(
 					'description' => $this->common_lang['form.rewrited_name.description'],
-			      	'hidden' => !$this->get_smallad()->rewrited_title_is_personalized()
+			      	'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_personalize_rewrited_title', false) : !$this->get_smallad()->rewrited_title_is_personalized())
 			  	),
 				array(new FormFieldConstraintRegex('`^[a-z0-9\-]+$`iu'))
 			));
@@ -124,7 +124,7 @@ class SmalladsItemFormController extends ModuleController
 		$fieldset->add_field(new FormFieldRichTextEditor('description', StringVars::replace_vars($this->lang['smallads.form.description'], array('number' =>SmalladsConfig::load()->get_characters_number_to_cut())), $this->get_smallad()->get_description(),
 			array(
 				'rows' => 3,
-				'hidden' => !$this->get_smallad()->get_description_enabled()
+				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enable_description', false) : !$this->get_smallad()->get_description_enabled())
 			)
 		));
 
@@ -173,7 +173,7 @@ class SmalladsItemFormController extends ModuleController
 				$fieldset->add_field(new FormFieldTextEditor('other_location', $this->county_lang['other.country'], $this->get_smallad()->get_other_location(),
 					array(
 						'description' => $this->county_lang['other.country.explain'],
-						'hidden' => $this->get_smallad()->get_location() != 'other'
+						'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_location', false) : $this->get_smallad()->get_location() != 'other')
 					)
 				));
 			}
@@ -210,7 +210,7 @@ class SmalladsItemFormController extends ModuleController
 				$contact_fieldset->add_field(new FormFieldCheckbox('enabled_author_email_customization', $this->lang['smallads.form.enabled.author.email.customisation'], $this->get_smallad()->is_enabled_author_email_customization(),
 					array(
 						'description' => $this->lang['smallads.form.enabled.author.email.customisation.desc'],
-						'hidden' => !$this->get_smallad()->is_displayed_author_email(),
+						'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_email', false) : !$this->get_smallad()->is_displayed_author_email()),
 						'events' => array('click' => '
 							if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
 								HTMLForms.getField("custom_author_email").enable();
@@ -222,7 +222,7 @@ class SmalladsItemFormController extends ModuleController
 				));
 
 				$contact_fieldset->add_field(new FormFieldMailEditor('custom_author_email', $this->lang['smallads.form.custom.author.email'], $this->get_smallad()->get_custom_author_email(),
-					array( 'hidden' => !$this->get_smallad()->is_displayed_author_email() || !$this->get_smallad()->is_enabled_author_email_customization())
+					array( 'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enabled_author_email_customization', false) : !$this->get_smallad()->is_displayed_author_email() || !$this->get_smallad()->is_enabled_author_email_customization()))
 				));
 			}
 
@@ -241,7 +241,7 @@ class SmalladsItemFormController extends ModuleController
 				));
 
 				$contact_fieldset->add_field(new FormFieldTelEditor('author_phone', $this->lang['smallads.form.author.phone'], $this->get_smallad()->get_author_phone(),
-					array('hidden' => !$this->get_smallad()->get_displayed_author_phone())
+					array('hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_phone', false) : !$this->get_smallad()->get_displayed_author_phone()))
 				));
 			}
 		}
@@ -276,7 +276,7 @@ class SmalladsItemFormController extends ModuleController
 
 		$other_fieldset->add_field(new FormFieldCheckbox('enabled_author_name_customization', $this->lang['smallads.form.enabled.author.name.customisation'], $this->get_smallad()->is_enabled_author_name_customization(),
 			array(
-				'hidden' => !$this->get_smallad()->is_displayed_author_name(),
+				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_name', false) : !$this->get_smallad()->is_displayed_author_name()),
 				'events' => array('click' => '
 					if (HTMLForms.getField("enabled_author_name_customization").getValue()) {
 						HTMLForms.getField("custom_author_name").enable();
@@ -288,7 +288,7 @@ class SmalladsItemFormController extends ModuleController
 		));
 
 		$other_fieldset->add_field(new FormFieldTextEditor('custom_author_name', $this->lang['smallads.form.custom.author.name'], $this->get_smallad()->get_custom_author_name(), array(
-			'hidden' => !$this->get_smallad()->is_displayed_author_name() || !$this->get_smallad()->is_enabled_author_name_customization(),
+			'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enabled_author_name_customization', false) : !$this->get_smallad()->is_displayed_author_name() || !$this->get_smallad()->is_enabled_author_name_customization())
 		)));
 
 		$other_fieldset->add_field(KeywordsService::get_keywords_manager()->get_form_field($this->get_smallad()->get_id(), 'keywords', $this->common_lang['form.keywords'],
@@ -348,7 +348,7 @@ class SmalladsItemFormController extends ModuleController
 				)
 			));
 
-			$publication_fieldset->add_field(new FormFieldDateTime('publication_start_date', $this->common_lang['form.date.start'], ($this->get_smallad()->get_publication_start_date() === null ? new Date() : $this->get_smallad()->get_publication_start_date()),
+			$publication_fieldset->add_field($publication_start_date = new FormFieldDateTime('publication_start_date', $this->common_lang['form.date.start'], ($this->get_smallad()->get_publication_start_date() === null ? new Date() : $this->get_smallad()->get_publication_start_date()),
 				array('hidden' => ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE))
 			));
 
@@ -365,9 +365,11 @@ class SmalladsItemFormController extends ModuleController
 				)
 			));
 
-			$publication_fieldset->add_field(new FormFieldDateTime('publication_end_date', $this->common_lang['form.date.end'], ($this->get_smallad()->get_publication_end_date() === null ? new date() : $this->get_smallad()->get_publication_end_date()),
+			$publication_fieldset->add_field($publication_end_date = new FormFieldDateTime('publication_end_date', $this->common_lang['form.date.end'], ($this->get_smallad()->get_publication_end_date() === null ? new date() : $this->get_smallad()->get_publication_end_date()),
 				array('hidden' => !$this->get_smallad()->enabled_end_date())
 			));
+
+			$publication_end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($publication_start_date, $publication_end_date));
 		}
 
 		$this->build_contribution_fieldset($form);
