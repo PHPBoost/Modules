@@ -1,5 +1,5 @@
 
-<article id="rssreader-panel" style="order: {MODULE_POSITION};">
+<article id="rss-panel" style="order: {MODULE_POSITION};">
 	<header>
 		<h2>
 			${Langloader::get_message('link.to.rss.site', 'common', 'HomeLanding')}
