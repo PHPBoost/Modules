@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 11 16
+ * @version     PHPBoost 6.0 - last update: 2020 11 17
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -349,12 +349,12 @@ class SmalladsItemFormController extends ModuleController
 			));
 
 			$publication_fieldset->add_field($publication_start_date = new FormFieldDateTime('publication_start_date', $this->common_lang['form.date.start'], ($this->get_smallad()->get_publication_start_date() === null ? new Date() : $this->get_smallad()->get_publication_start_date()),
-				array('hidden' => ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE))
+				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != Smallad::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE)))
 			));
 
 			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->common_lang['form.date.end.enable'], $this->get_smallad()->enabled_end_date(),
 				array(
-					'hidden' => ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE),
+					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != Smallad::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE)),
 					'events' => array('click' => '
 						if (HTMLForms.getField("end_date_enable").getValue()) {
 							HTMLForms.getField("publication_end_date").enable();
@@ -366,7 +366,7 @@ class SmalladsItemFormController extends ModuleController
 			));
 
 			$publication_fieldset->add_field($publication_end_date = new FormFieldDateTime('publication_end_date', $this->common_lang['form.date.end'], ($this->get_smallad()->get_publication_end_date() === null ? new date() : $this->get_smallad()->get_publication_end_date()),
-				array('hidden' => !$this->get_smallad()->enabled_end_date())
+				array('hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_end_date_enable', false) : !$this->get_smallad()->enabled_end_date()))
 			));
 
 			$publication_end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($publication_start_date, $publication_end_date));
