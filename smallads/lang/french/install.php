@@ -15,7 +15,7 @@
 
 $lang['default.category.name'] = 'Catégorie de test';
 $lang['default.category.description'] = 'Annonces de démonstration';
-$lang['default.smallad.title'] = 'Petites annonces pour PHPBoost ' . GeneralConfig::load()->get_phpboost_major_version();
+$lang['default.smallad.title'] = 'Petites annonces pour PHPBoost CMS';
 $lang['default.smallad.description'] = '';
 $lang['default.smallad.contents'] = 'Cette première annonce va vous donner quelques conseils simples pour prendre en main ce module.<br />
 <br />

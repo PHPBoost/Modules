@@ -14,7 +14,7 @@
 
 $lang['default.category.name'] = 'Test category';
 $lang['default.category.description'] = 'Demonstration announces';
-$lang['default.smallad.title'] = 'Smallads for PHPBoost ' . GeneralConfig::load()->get_phpboost_major_version();
+$lang['default.smallad.title'] = 'Smallads for PHPBoost CMS';
 $lang['default.smallad.description'] = '';
 $lang['default.smallad.contents'] = 'This first ad will give you some tips for taking control of this module.
 <br /><br />
