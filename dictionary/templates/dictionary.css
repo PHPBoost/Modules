@@ -3,29 +3,29 @@
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
 
-/* --- Admin */
+/* --- Admin --- */
 .admin-cat-list {
 	margin-bottom: 0.456em;
 	overflow: hidden;
 }
 
-/* Home */
+/* --- Home --- */
 .dictionary-word {
 	margin-bottom:0;
 	padding: 0;
 }
 
 .dictionary-definition {
-	padding-top:5px;
-	margin-top:7px;
-	border-top:1px #cccccc solid;
-	overflow-y:auto;
+	padding-top: 5px;
+	margin-top: 7px;
+	border-top: 1px solid var(--bdr-main);
+	overflow-y: auto;
 }
 
 .dictionary-letter a {
 	font-weight: bold;
 	padding: 0 5px;
-	border: 1px solid #366493;
+	border: 1px solid var(--main-tone);
 	margin: 5px 0;
 	display: inline-block;
 }
@@ -37,15 +37,13 @@
 
 .no-script {
 	text-align: center;
-	color: #FF0000;
+	color: var(--error-tone);
 }
 
-.cat-selector {
-	padding: 0.309em 0;
-}
+.cat-selector { padding: 0.309em 0; }
 
 .dictionary-selected-cat {
-	border: 1px solid #366493;
+	border: 1px solid  var(--main-tone);
 	padding: 0.309em 1.618em 0.309em 0.309em;
 	font-size: 0.809em;
 	position: relative;

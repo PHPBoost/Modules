@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 07 26
+ * @version     PHPBoost 6.0 - last update: 2020 05 10
  * @since       PHPBoost 3.0 - 2012 11 15
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -47,7 +47,7 @@ class DictionaryModuleMiniMenu extends ModuleMiniMenu
 			'CATEGORY_ID' => $random_def['cat'],
 			'RANDOM_NAME' => stripslashes($random_def['word']),
 			'RANDOM_DEF' => (TextHelper::strlen($description) > 149) ? TextHelper::substr($description, 0, 150) . "..." : $description,
-			'URL'=> Url::to_rel('/dictionary/' . url('dictionary.php?l=' . $word . '&amp;cat=' . $random_def['cat'] . '#' . $word, 'dictionary-' . $word . '-' . $random_def['cat'] . '.php' . '#' . $word . '-definition'))
+			'URL'=> Url::to_rel('/dictionary/' . url('dictionary.php?l=' . $word . '&amp;cat=' . $random_def['cat'] . '#' . $word, 'dictionary-' . $word . '-' . $random_def['cat'] . '.php' . '#' . $word))
 		));
 
 		return $tpl->render();

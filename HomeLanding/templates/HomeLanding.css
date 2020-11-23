@@ -17,9 +17,7 @@
 }
 
 #module-homelanding h1,
-#module-homelanding .item-content{
-    margin: 0 0 1em;
-}
+#module-homelanding .item-content{ margin: 0 0 1em; }
 
 /* --- Anchors Menu --------------------------------------------------------- */
 #cssmenu-anchors ul {
@@ -27,15 +25,11 @@
     flex-wrap: wrap;
 }
 
-#cssmenu-anchors.small-screen ul {
-	flex-direction: column;
-}
+#cssmenu-anchors.small-screen ul { flex-direction: column; }
 
 /* --- Edito ---------------------------------------------------------------- */
 
-#edito {
-    margin: 0.618em 0;
-}
+#edito { margin: 0.618em 0; }
 
 /* --- last comments -------------------------------------------------------- */
 

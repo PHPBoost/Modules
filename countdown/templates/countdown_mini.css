@@ -1,29 +1,29 @@
 .pbt-timer {
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 0.618em;
 }
 
 .timer-unit {
-    width:23%;
+    width: 23%;
     float: left;
     text-align: center;
 }
 
-.timer-unit:first-child { width:31%; }
+.timer-unit:first-child { width: 31%; }
 
 .timer-date {
     font-size:1.2em;
-    padding: 10px 5px;
+    padding: 0.618em 0.309em;
     margin: 0 2px;
-    border-radius: 4px
+    border-radius: 4px;
 }
 
-.timer-name { font-size:10px; }
+.timer-name { font-size: 0.618em; }
 
 .horizontal-timer { overflow: hidden; display: table; width: 100%;}
 
 .horizontal-timer .pbt-timer {
-    width:60%;
+    width: 60%;
     display: table-cell;
 }
 
@@ -34,6 +34,4 @@
 }
 
 #module-mini-countdown input.input-hours,
-#module-mini-countdown input.input-minutes {
-    width: 80px;
-}
+#module-mini-countdown input.input-minutes { width: 80px; }

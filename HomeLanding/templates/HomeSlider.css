@@ -22,9 +22,7 @@
     background-size: cover;
 }
 
-#pbt-slider .slideLink{
-    display: block;
-}
+#pbt-slider .slideLink{ display: block; }
 
 .slideCaption{
     position: absolute;
@@ -52,14 +50,14 @@
     height:13px;
     width: 13px;
     margin-left: 10px;
-    border:2px solid #222;
+    border:2px solid var(--darken);
     border-radius: 50%;
-    background: rgba(255, 255, 255, .3);
+    background: rgba(var(--lighten), 0.3);
 }
 
 .dotNavigation:hover,
 .slide-active{
-    background: rgba(255, 255, 255, .8);
+    background: rgba(var(--lighten), 0.8);
 }
 
 #imagesNavigation{
@@ -77,7 +75,7 @@
 
 .imageNavigation{
     display: inline-block;
-    border:1px solid black;
+    border:1px solid var(--darken);
     padding: 10px;
     margin: 10px;
     width: 50px;
@@ -91,8 +89,8 @@
 .previous,
 .next{
     position: absolute;
-    background: rgba(0, 0, 0, .4);
-    color: #ffffff;
+    background: rgba(var(--darken), 0.4);
+    color: var(--txt-alt);
     z-index: 9998;
     top:45%;
     left:10px;
@@ -112,6 +110,4 @@
     right: 10px;
 }
 
-.hideArrow{
-    opacity: 0;
-}
+.hideArrow{ opacity: 0; }

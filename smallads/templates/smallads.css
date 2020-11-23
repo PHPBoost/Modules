@@ -49,23 +49,17 @@
 
 /* --- Table view ----------------------------------------------------------- */
 
-.smallads-title {
-	width: 250px;
-}
+.smallads-title { width: 250px; }
 
 /* --- Sort/filter Options - jpList ----------------------------------------- */
-.jplist-panel .cell {
-	position: relative;
-}
+.jplist-panel .cell { position: relative; }
 
 /* --- Pagination --- */
 .jplist-panel .pagination {
 	margin-bottom: 20px;
 	min-height: 30px;
 }
-.pagination .jplist-label {
-	display: none;
-}
+.pagination .jplist-label { display: none; }
 
 .jplist-pagingprev,
 .jplist-pagingmid,
@@ -88,13 +82,9 @@
 	font-weight: bold;
 }
 
-.category-selected i.fa {
-	float: right;
-}
+.category-selected i.fa { float: right; }
 
-.category-select #category-nav.cssmenu.small-screen .menu-button {
-	display: none;
-}
+.category-select #category-nav.cssmenu.small-screen .menu-button { display: none; }
 
 .category-select #category-nav.cssmenu.small-screen .close {
 	left: 0 !important;
@@ -120,22 +110,16 @@
 }
 
 /* --- Filter types --- */
-.jplist-type-filter {
-	position: relative;
-}
+.jplist-type-filter { position: relative; }
 
-.selected-label {
-	cursor: pointer;
-}
+.selected-label { cursor: pointer; }
 
 .selected-label span {
 	font-size: 1.4rem;
 	font-weight: bold;
 }
 
-.selected-label i.fa {
-	float: right;
-}
+.selected-label i.fa { float: right; }
 
 .label-list {
 	opacity: 0;
@@ -161,9 +145,7 @@
 	padding: 0 5px;
 }
 
-.jplist-type-filter .jplist-label:hover {
-	background-color: rgba(var(--darken), 0.05);
-}
+.jplist-type-filter .jplist-label:hover { background-color: rgba(var(--darken), 0.05); }
 
 .jplist-label [type="radio"]{
 	position: absolute;
@@ -173,9 +155,7 @@
 }
 
 /* --- Sort field --- */
-.sort-list {
-	position: relative;
-}
+.sort-list { position: relative; }
 
 .jplist-drop-down .jplist-dd-panel {
 	overflow: hidden;
