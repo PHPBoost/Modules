@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 11 17
+ * @version     PHPBoost 6.0 - last update: 2020 12 04
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -439,7 +439,7 @@ class SmalladsItemFormController extends ModuleController
 			$fieldset->set_description(MessageHelper::display($this->lang['smallads.form.member.edition.explain'], MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
 
-			$fieldset->add_field(new FormFieldRichTextEditor('edittion_description', LangLoader::get_message('smallads.form.member.edition.description', 'common', 'smallads'), '',
+			$fieldset->add_field(new FormFieldRichTextEditor('edition_description', LangLoader::get_message('smallads.form.member.edition.description', 'common', 'smallads'), '',
 				array('description' => $this->lang['smallads.form.member.edition.description.desc'])
 			));
 		}
@@ -730,7 +730,7 @@ class SmalladsItemFormController extends ModuleController
 			if ($smallad->get_id() === null)
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
 			else
-				$contribution->set_description(stripslashes($this->form->get_value('edittion_description')));
+				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
 
 			$contribution->set_entitled($smallad->get_title());
 			$contribution->set_fixing_url(SmalladsUrlBuilder::edit_item($id_smallad)->relative());

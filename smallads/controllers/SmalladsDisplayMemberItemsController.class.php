@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 10 23
+ * @version     PHPBoost 6.0 - last update: 2020 12 04
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -232,18 +232,18 @@ class SmalladsDisplayMemberItemsController extends ModuleController
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->category->get_id() != Category::ROOT_CATEGORY)
-			$graphical_environment->set_page_title($this->lang['items.mine'] . ' - ' . $this->category->get_name(), $this->lang['module.title']);
+			$graphical_environment->set_page_title($this->lang['my.items'] . ' - ' . $this->category->get_name(), $this->lang['module.title']);
 		else
-			$graphical_environment->set_page_title($this->lang['module.title'], $this->lang['items.mine']);
+			$graphical_environment->set_page_title($this->lang['module.title'], $this->lang['my.items']);
 
-		$description = $this->lang['items.mine'] . ' - ' . $this->category->get_description() . ($this->category->get_id() != Category::ROOT_CATEGORY ? ' ' . LangLoader::get_message('category', 'categories-common') . ' ' . $this->category->get_name() : '');
+		$description = $this->lang['my.items'] . ' - ' . $this->category->get_description() . ($this->category->get_id() != Category::ROOT_CATEGORY ? ' ' . LangLoader::get_message('category', 'categories-common') . ' ' . $this->category->get_name() : '');
 		$graphical_environment->get_seo_meta_data()->set_description($description);
 
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
-		$breadcrumb->add($this->lang['items.mine'], SmalladsUrlBuilder::display_member_items());
+		$breadcrumb->add($this->lang['my.items'], SmalladsUrlBuilder::display_member_items());
 
 		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->category->get_id(), true));
 		foreach ($categories as $id => $category)

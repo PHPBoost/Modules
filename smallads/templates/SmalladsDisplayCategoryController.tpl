@@ -9,7 +9,7 @@
 				{@smallads.pending.items}
 			# ELSE #
 				# IF C_MEMBER_ITEMS #
-					{@items.mine}
+					{@my.items}
 				# ELSE #
 					{@module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
 				# ENDIF #
