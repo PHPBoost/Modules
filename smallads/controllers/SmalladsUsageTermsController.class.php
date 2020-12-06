@@ -3,12 +3,12 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 10 31
+ * @version     PHPBoost 6.0 - last update: 2020 12 06
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class SmalladsDisplayUsageTermsController extends ModuleController
+class SmalladsUsageTermsController extends ModuleController
 {
 	private $lang;
 	private $tpl;
@@ -23,7 +23,7 @@ class SmalladsDisplayUsageTermsController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
-		$this->tpl = new FileTemplate('smallads/SmalladsDisplayUsageTermsController.tpl');
+		$this->tpl = new FileTemplate('smallads/SmalladsUsageTermsController.tpl');
 		$this->tpl->add_lang($this->lang);
 	}
 

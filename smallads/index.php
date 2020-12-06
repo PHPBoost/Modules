@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 10 23
+ * @version     PHPBoost 6.0 - last update: 2020 12 06
  * @since       PHPBoost 4.0 - 2013 01 30
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -32,16 +32,16 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('SmalladsDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
 
 	// Usage Terms Conditions
-	new UrlControllerMapper('SmalladsDisplayUsageTermsController', '`^/terms/?$`'),
+	new UrlControllerMapper('SmalladsUsageTermsController', '`^/terms/?$`'),
 
 	//Display items
-	new UrlControllerMapper('SmalladsDisplayMemberItemsController', '`^/my_items/?$`'),
-	new UrlControllerMapper('SmalladsDisplayTagController', '`^/tag/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('tag')),
-	new UrlControllerMapper('SmalladsDisplayPendingItemsController', '`^/pending/([0-9]+)?/?$`'),
-	new UrlControllerMapper('SmalladsDisplayItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title')),
+	new UrlControllerMapper('SmalladsMemberItemsController', '`^/my_items/?$`'),
+	new UrlControllerMapper('SmalladsTagController', '`^/tag/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('tag')),
+	new UrlControllerMapper('SmalladsPendingItemsController', '`^/pending/([0-9]+)?/?$`'),
+	new UrlControllerMapper('SmalladsItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title')),
 
 	//Display home and categories
-	new UrlControllerMapper('SmalladsDisplayCategoryController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([0-9]+)?/?$`', array('id_category', 'rewrited_name'))
+	new UrlControllerMapper('SmalladsCategoryController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([0-9]+)?/?$`', array('id_category', 'rewrited_name'))
 );
 
 DispatchManager::dispatch($url_controller_mappers);

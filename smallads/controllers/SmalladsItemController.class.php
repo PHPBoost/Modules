@@ -3,12 +3,12 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 10 05
+ * @version     PHPBoost 6.0 - last update: 2020 12 06
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class SmalladsDisplayItemController extends ModuleController
+class SmalladsItemController extends ModuleController
 {
 	private $lang;
 	private $county_lang;
@@ -36,7 +36,7 @@ class SmalladsDisplayItemController extends ModuleController
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
 		$this->county_lang = LangLoader::get('counties', 'smallads');
-		$this->tpl = new FileTemplate('smallads/SmalladsDisplayItemController.tpl');
+		$this->tpl = new FileTemplate('smallads/SmalladsItemController.tpl');
 		$this->tpl->add_lang($this->lang);
 		$this->tpl->add_lang($this->county_lang);
 	}
