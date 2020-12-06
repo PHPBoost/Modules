@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 12 30
+ * @version     PHPBoost 6.0 - last update: 2020 12 06
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -229,11 +229,19 @@ class Smallad
 
 	public function get_default_thumbnail()
 	{
-		$file = new File(PATH_TO_ROOT . '/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png');
-		if ($file->exists())
+		$module_id = 'smallads';
+		$module_file = new File(PATH_TO_ROOT . '/' . $module_id . '/templates/images/default_item_thumbnail.png');
+		$module_theme_file = new File(PATH_TO_ROOT . '/templates/' . AppContext::get_current_user()->get_theme() . '/modules/' . $module_id . '/images/default_item_thumbnail.png');
+		$theme_file = new File(PATH_TO_ROOT . '/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png');
+
+		if ($module_file->exists())
+			return new Url('/' . $module_id . '/templates/images/default_item_thumbnail.png');
+		elseif ($module_theme_file->exists())
+			return new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/modules/' . $module_id . '/images/default_item_thumbnail.png');
+		elseif ($theme_file->exists())
 			return new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png');
 		else
-			return new Url('/templates/default/images/default_item_thumbnail.png');
+			return new Url('/templates/__default__/images/default_item_thumbnail.png');
 	}
 
 	public function has_thumbnail()
