@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 12 30
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -57,8 +57,8 @@ class SmalladsSetup extends DefaultModuleSetup
 			'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 			'title' => array('type' => 'string', 'length' => 250, 'notnull' => 1, 'default' => "''"),
 			'rewrited_title' => array('type' => 'string', 'length' => 250, 'default' => "''"),
-			'description' => array('type' => 'text', 'length' => 65000),
-			'contents' => array('type' => 'text', 'length' => 65000),
+			'summary' => array('type' => 'text', 'length' => 65000),
+			'content' => array('type' => 'text', 'length' => 65000),
 			'price' => array('type' => 'decimal', 'length' => 7, 'notnull' => 1, 'scale' => 2, 'default' => 0),
 			'max_weeks' => array('type' => 'integer', 'length' => 11),
 			'smallad_type' => array('type' => 'string', 'length' => 255),
@@ -76,10 +76,10 @@ class SmalladsSetup extends DefaultModuleSetup
 			'displayed_author_phone' => array('type' => 'boolean', 'notnull' => 1, 'default' => 1),
 			'author_phone' => array('type' => 'string', 'length' => 25, 'default' => "''"),
 			'published' => array('type' => 'integer', 'length' => 1, 'notnull' => 1, 'default' => 0),
-			'publication_start_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'publication_end_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'publishing_start_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'publishing_end_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'updated_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
+			'update_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'sources' => array('type' => 'text', 'length' => 65000),
 			'carousel' => array('type' => 'text', 'length' => 65000),
 		);
@@ -88,8 +88,8 @@ class SmalladsSetup extends DefaultModuleSetup
 			'indexes' => array(
 				'id_category' => array('type' => 'key', 'fields' => 'id_category'),
 				'title' => array('type' => 'fulltext', 'fields' => 'title'),
-				'description' => array('type' => 'fulltext', 'fields' => 'description'),
-				'contents' => array('type' => 'fulltext', 'fields' => 'contents')
+				'summary' => array('type' => 'fulltext', 'fields' => 'summary'),
+				'content' => array('type' => 'fulltext', 'fields' => 'content')
 		));
 		PersistenceContext::get_dbms_utils()->create_table(self::$smallads_table, $fields, $options);
 	}
@@ -108,7 +108,6 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function insert_smallads_cats_data()
 	{
-		$this->messages = LangLoader::get('install', 'smallads');
 		PersistenceContext::get_querier()->insert(self::$smallads_cats_table, array(
 			'id' => 1,
 			'id_parent' => 0,
@@ -129,8 +128,8 @@ class SmalladsSetup extends DefaultModuleSetup
 			'thumbnail_url' => '/templates/default/images/default_item_thumbnail.png',
 			'title' => $this->messages['default.smallad.title'],
 			'rewrited_title' => Url::encode_rewrite($this->messages['default.smallad.title']),
-			'description' => $this->messages['default.smallad.description'],
-			'contents' => $this->messages['default.smallad.contents'],
+			'summary' => $this->messages['default.smallad.summary'],
+			'content' => $this->messages['default.smallad.content'],
 			'views_number' => 0,
 			'max_weeks' => 1,
 			'smallad_type' => TextHelper::htmlspecialchars(Url::encode_rewrite($this->messages['default.smallad.type'])),
@@ -141,10 +140,10 @@ class SmalladsSetup extends DefaultModuleSetup
 			'displayed_author_pm' => Smallad::NOTDISPLAYED_AUTHOR_PM,
 			'displayed_author_phone' => Smallad::NOTDISPLAYED_AUTHOR_PHONE,
 			'published' => Smallad::PUBLISHED_NOW,
-			'publication_start_date' => 0,
-			'publication_end_date' => 0,
+			'publishing_start_date' => 0,
+			'publishing_end_date' => 0,
 			'creation_date' => time(),
-			'updated_date' => 0,
+			'update_date' => 0,
 			'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
 			'sources' => TextHelper::serialize(array()),
 			'carousel' => TextHelper::serialize(array())

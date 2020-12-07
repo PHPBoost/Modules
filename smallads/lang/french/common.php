@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 04
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -50,8 +50,8 @@ $lang['config.categories.title'] = 'Configuration des catégories';
 $lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['config.sort.filter.display'] = 'Afficher les filtres de tri';
 $lang['config.characters.number.to.cut'] = 'Nombre de caractères pour couper le condensé de l\'annonce';
-$lang['config.display.descriptions.to.guests'] = 'Afficher le condensé des annonces aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
-$lang['smallads.default.contents'] = 'Contenu par défaut d\'une petite annonce';
+$lang['config.display.summaries.to.guests'] = 'Afficher le condensé des annonces aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
+$lang['smallads.default.content'] = 'Contenu par défaut d\'une petite annonce';
 
 //Smallads items configuration
 $lang['config.items.title'] = 'Configuration des annonces';
@@ -93,9 +93,9 @@ $lang['config.usage.terms.desc'] = 'Description des CGU';
 //Form
 $lang['smallads.form.add'] = 'Ajouter une annonce';
 $lang['smallads.form.edit'] = 'Modifier une annonce';
-$lang['smallads.form.description'] = 'Description (maximum :number caractères)';
-$lang['smallads.form.enabled.description'] = 'Activer le condensé de l\'annonce';
-$lang['smallads.form.enabled.description.description'] = 'ou laissez PHPBoost couper le contenu à :number caractères.';
+$lang['smallads.form.summary'] = 'Description (maximum :number caractères)';
+$lang['smallads.form.enabled.summary'] = 'Activer le condensé de l\'annonce';
+$lang['smallads.form.enabled.summary.description'] = 'ou laissez PHPBoost couper le contenu à :number caractères.';
 $lang['smallads.form.price'] = 'Prix';
 $lang['smallads.form.price.desc'] = 'Laisser à 0 pour ne pas afficher le prix.<br />Utiliser une virgule pour les décimales.';
 $lang['smallads.form.thumbnail'] = 'Vignette de l\'annonce';
@@ -116,15 +116,15 @@ $lang['smallads.form.enabled.author.name.customisation'] = 'Personnaliser le nom
 $lang['smallads.form.custom.author.name'] = 'Nom de l\'auteur personnalisé';
 $lang['smallads.form.completed.ad'] = 'Annonce terminée';
 $lang['smallads.form.completed'] = 'Déclarer cette annonce terminée';
-$lang['smallads.form.completed.warning'] = 'L\'annonce sera supprimée après :delay jours<br /><span style="color:#CC0000">Cette action est irréversible</span>';
+$lang['smallads.form.completed.warning'] = 'L\'annonce sera supprimée après :delay jours<br /><span style="color:var(--error-tone)">Cette action est irréversible</span>';
 
 $lang['smallads.form.smallad.type'] = 'Type d\'annonce';
 $lang['smallads.form.smallads.types'] = 'Types d\'annonces';
 $lang['smallads.form.member.edition'] = 'Modification par l\'auteur';
 $lang['smallads.form.member.contribution.explain'] = 'Votre contribution suivra le parcours classique et sera traitée dans le panneau de contribution. La modification est possible à tout moment, tant qu\'elle est en attente d\'approbation, mais aussi lorsqu\'elle sera publiée. Vous pouvez, dans le champ suivant, justifier votre contribution de façon à expliquer votre démarche à un approbateur.';
 $lang['smallads.form.member.edition.explain'] = 'Vous êtes sur le point de modifier votre annonce. Elle va être déplacée dans les annonces en attente afin d\'être traitée et une nouvelle alerte sera envoyée à un administrateur.';
-$lang['smallads.form.member.edition.description'] = 'Complément de modification';
-$lang['smallads.form.member.edition.description.desc'] = 'Expliquez ce que vous avez modifié pour un meilleur traitement d\'approbation.';
+$lang['smallads.form.member.edition.summary'] = 'Complément de modification';
+$lang['smallads.form.member.edition.summary.desc'] = 'Expliquez ce que vous avez modifié pour un meilleur traitement d\'approbation.';
 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Vues';

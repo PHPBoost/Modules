@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 08
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -82,18 +82,18 @@ class SmalladsItemsManagerController extends ModuleController
 			$br = new BrHTMLElement();
 
 			$dates = '';
-			if ($smallad->get_publication_start_date() != null && $smallad->get_publication_end_date() != null)
+			if ($smallad->get_publishing_start_date() != null && $smallad->get_publishing_end_date() != null)
 			{
-				$dates = LangLoader::get_message('form.date.start', 'common') . ' ' . $smallad->get_publication_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . $br->display() . LangLoader::get_message('form.date.end', 'common') . ' ' . $smallad->get_publication_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
+				$dates = LangLoader::get_message('form.date.start', 'common') . ' ' . $smallad->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . $br->display() . LangLoader::get_message('form.date.end', 'common') . ' ' . $smallad->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
 			}
 			else
 			{
-				if ($smallad->get_publication_start_date() != null)
-					$dates = $smallad->get_publication_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+				if ($smallad->get_publishing_start_date() != null)
+					$dates = $smallad->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 				else
 				{
-					if ($smallad->get_publication_end_date() != null)
-						$dates = LangLoader::get_message('until', 'main') . ' ' . $smallad->get_publication_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+					if ($smallad->get_publishing_end_date() != null)
+						$dates = LangLoader::get_message('until', 'main') . ' ' . $smallad->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 				}
 			}
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 04
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -22,9 +22,9 @@ class SmalladsConfig extends AbstractConfigData
 	const DISPLAY_TABLE_VIEW = 'table';
 	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
 	const DISPLAYED_COLS_NUMBER_PER_LINE = 'displayed_cols_number_per_line';
-	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'descriptions_displayed_to_guests';
+	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'summaries_displayed_to_guests';
 	const AUTHORIZATIONS = 'authorizations';
-    const DEFAULT_CONTENTS = 'default_contents';
+    const DEFAULT_CONTENTS = 'default_content';
 
 	// Items
 	const CURRENCY = 'currency';
@@ -114,17 +114,17 @@ class SmalladsConfig extends AbstractConfigData
 		return $this->get_property(self::ENABLED_CATS_ICON);
 	}
 
-	public function display_descriptions_to_guests()
+	public function display_summaries_to_guests()
 	{
 		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, true);
 	}
 
-	public function hide_descriptions_to_guests()
+	public function hide_summaries_to_guests()
 	{
 		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, false);
 	}
 
-	public function are_descriptions_displayed_to_guests()
+	public function are_summaries_displayed_to_guests()
 	{
 		return $this->get_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS);
 	}
@@ -179,12 +179,12 @@ class SmalladsConfig extends AbstractConfigData
 		$this->set_property(self::SMALLAD_TYPES, $smallad_types);
 	}
 
-    public function get_default_contents()
+    public function get_default_content()
 	{
 		return $this->get_property(self::DEFAULT_CONTENTS);
 	}
 
-	public function set_default_contents($value)
+	public function set_default_content($value)
 	{
 		$this->set_property(self::DEFAULT_CONTENTS, $value);
 	}
@@ -497,7 +497,7 @@ class SmalladsConfig extends AbstractConfigData
 	}
 
 	/**
-	 * Saves the configuration in the database. Has it become persistent.
+	 * Saves the configuration in the database
 	 */
 	public static function save()
 	{

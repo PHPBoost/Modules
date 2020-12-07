@@ -55,7 +55,7 @@ class SmalladsScheduledJobs extends AbstractScheduledJobExtensionPoint
 
 		// Delete item if "ad completed" is checked
 		PersistenceContext::get_querier()->delete(SmalladsSetup::$smallads_table,
-			'WHERE (published = 1) AND (completed = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(updated_date)) > :delay)', array('delay' => (int)$config->get_display_delay_before_delete())
+			'WHERE (published = 1) AND (completed = 1) AND (DATEDIFF(NOW(), FROM_UNIXTIME(update_date)) > :delay)', array('delay' => (int)$config->get_display_delay_before_delete())
 		);
 
 		SmalladsService::clear_cache();

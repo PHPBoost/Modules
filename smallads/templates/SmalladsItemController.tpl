@@ -122,7 +122,7 @@
 								# ENDIF #
 								<li class="li-stretch">
 									<span aria-label="${LangLoader::get_message('form.approbation', 'common')}"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> </span>
-									<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLICATION_START_DATE}# ENDIF #</time>
+									<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLISHING_START_DATE}# ENDIF #</time>
 								</li>
 								<li class="li-stretch">
 									<span role="contentinfo" aria-label="${LangLoader::get_message('sort_by.views.number', 'common')}"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> </span>
@@ -152,7 +152,7 @@
 
 			<div# IF C_COMPLETED # class="error"# ENDIF # itemprop="text">
 				# IF C_COMPLETED #<p class="pinned bgc error larger">{@smallads.completed.item}</p># ENDIF #
-				{CONTENTS}
+				{CONTENT}
 			</div>
 
 			<div class="spacer"></div>
@@ -235,8 +235,8 @@
 	</div>
 	<footer>
 		<meta itemprop="url" content="{U_ITEM}">
-		<meta itemprop="description" content="${escape(DESCRIPTION)}">
-		<meta itemprop="datePublished" content="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLICATION_START_DATE_ISO8601}# ENDIF #">
+		<meta itemprop="description" content="${escape(SUMMARY)}">
+		<meta itemprop="datePublished" content="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLISHING_START_DATE_ISO8601}# ENDIF #">
 		# IF C_HAS_THUMBNAIL #<meta itemprop="thumbnailUrl" content="{U_THUMBNAIL}"># ENDIF #
 		# IF C_COMMENTS_ENABLED #
 			<meta itemprop="discussionUrl" content="{U_COMMENTS}">

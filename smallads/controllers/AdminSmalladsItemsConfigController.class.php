@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author        Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 01 26
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2019 11 04
  * @contributor  Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor  Mipel <mipel@phpboost.com>
@@ -154,7 +154,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 
 		$fieldset->add_field(new SmalladsFormFieldSmalladType('smallad_type', $this->lang['smallads.type.add'], $this->config->get_smallad_types()));
 
-        $fieldset->add_field(new FormFieldRichTextEditor('default_contents', $this->lang['smallads.default.contents'], $this->config->get_default_contents(),
+        $fieldset->add_field(new FormFieldRichTextEditor('default_content', $this->lang['smallads.default.content'], $this->config->get_default_content(),
 			array('rows' => 8, 'cols' => 47)
 		));
 
@@ -215,7 +215,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 		else
 			$this->config->hide_location();
 
-		$this->config->set_default_contents($this->form->get_value('default_contents'));
+		$this->config->set_default_content($this->form->get_value('default_content'));
 
 		SmalladsConfig::save();
 		CategoriesService::get_categories_manager()->regenerate_cache();

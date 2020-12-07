@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 10 28
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -77,7 +77,7 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_descriptions_to_guests', $this->lang['config.display.descriptions.to.guests'], $this->config->are_descriptions_displayed_to_guests(),
+		$fieldset->add_field(new FormFieldCheckbox('display_summaries_to_guests', $this->lang['config.display.summaries.to.guests'], $this->config->are_summaries_displayed_to_guests(),
 			array('class'=> 'custom-checkbox')
 		));
 
@@ -164,10 +164,10 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 			$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut'));
 		}
 
-		if ($this->form->get_value('display_descriptions_to_guests'))
-			$this->config->display_descriptions_to_guests();
+		if ($this->form->get_value('display_summaries_to_guests'))
+			$this->config->display_summaries_to_guests();
 		else
-			$this->config->hide_descriptions_to_guests();
+			$this->config->hide_summaries_to_guests();
 
 
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));

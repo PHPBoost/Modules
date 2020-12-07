@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 08 09
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.0 - 2016 02 02
 */
 
@@ -22,7 +22,7 @@
  		$result = PersistenceContext::get_querier()->select('
  			SELECT smallads.*
  			FROM ' . SmalladsSetup::$smallads_table . ' smallads
-			WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0)))
+			WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
             ORDER BY creation_date DESC
  			LIMIT :module_mini_items_nb OFFSET 0', array(
                 'timestamp_now' => $now->get_timestamp(),

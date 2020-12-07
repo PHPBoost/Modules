@@ -223,7 +223,7 @@
 							</td>
 							# ENDIF #
 							<td>
-								<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLICATION_START_DATE_RELATIVE}# ENDIF #</time>
+								<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLISHING_START_DATE_RELATIVE}# ENDIF #</time>
 							</td>
 							# IF C_MODERATION #
 								<td class="controls">
@@ -265,7 +265,7 @@
 									</span>
 								# ENDIF #
 								<span class="pinned">
-									<i class="far fa-calendar"></i> <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLICATION_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLICATION_START_DATE}# ENDIF #</time>
+									<i class="far fa-calendar"></i> <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLISHING_START_DATE}# ENDIF #</time>
 								</span>
 								<span class="pinned">
 									<i class="far fa-folder"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
@@ -315,7 +315,7 @@
 								</div>
 							# ENDIF #
 							<div class="cell-content">
-								<div itemprop="text">{items.DESCRIPTION}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
+								<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
 								<div class="smallad-price jp-price"># IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF #</div>
 							</div>
 						</div>
@@ -333,7 +333,7 @@
 
 						<footer>
 							<meta itemprop="url" content="{items.U_ITEM}">
-							<meta itemprop="description" content="${escape(items.DESCRIPTION)}"/>
+							<meta itemprop="description" content="${escape(items.SUMMARY)}"/>
 							<meta itemprop="discussionUrl" content="{items.U_COMMENTS}">
 							<meta itemprop="interactionCount" content="{items.COMMENTS_NUMBER} UserComments">
 						</footer>

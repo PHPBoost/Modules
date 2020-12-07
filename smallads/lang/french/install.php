@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 12
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -16,8 +16,8 @@
 $lang['default.category.name'] = 'Catégorie de test';
 $lang['default.category.description'] = 'Annonces de démonstration';
 $lang['default.smallad.title'] = 'Petites annonces pour PHPBoost CMS';
-$lang['default.smallad.description'] = '';
-$lang['default.smallad.contents'] = 'Cette première annonce va vous donner quelques conseils simples pour prendre en main ce module.<br />
+$lang['default.smallad.summary'] = '';
+$lang['default.smallad.content'] = 'Cette première annonce va vous donner quelques conseils simples pour prendre en main ce module.<br />
 <br />
 <ul class="formatter-ul">
 	<li class="formatter-li"> Pour configurer ou personnaliser votre module, rendez-vous dans la <a href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">configuration des catégories</a></li>

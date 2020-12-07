@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 12
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -42,11 +42,11 @@ class SmalladsFeedProvider implements FeedProvider
 
 			$now = new Date();
 			$results = $querier->select('SELECT smallads.id, smallads.id_category, smallads.title, smallads.rewrited_title, smallads.thumbnail_url,
-			smallads.contents, smallads.description, smallads.creation_date, cat.rewrited_name AS rewrited_name_cat
+			smallads.content, smallads.summary, smallads.creation_date, cat.rewrited_name AS rewrited_name_cat
 			FROM ' . SmalladsSetup::$smallads_table . ' smallads
 			LEFT JOIN '. SmalladsSetup::$smallads_cats_table .' cat ON cat.id = smallads.id_category
 			WHERE smallads.id_category IN :cats_ids
-			AND (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0)))
+			AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
 			ORDER BY smallads.creation_date DESC',
 			array(
 				'cats_ids' => $ids_categories,
@@ -61,7 +61,7 @@ class SmalladsFeedProvider implements FeedProvider
 				$item->set_title($row['title']);
 				$item->set_link($link);
 				$item->set_guid($link);
-				$item->set_desc(FormatingHelper::second_parse($row['contents']));
+				$item->set_desc(FormatingHelper::second_parse($row['content']));
 				$item->set_date(new Date($row['creation_date'], Timezone::SERVER_TIMEZONE));
 				$item->set_image_url($row['thumbnail_url']);
 				$item->set_auth(CategoriesService::get_categories_manager($module_id)->get_heritated_authorizations($row['id_category'], Category::READ_AUTHORIZATIONS, Authorizations::AUTH_PARENT_PRIORITY));

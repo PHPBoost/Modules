@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 06
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -95,9 +95,7 @@ class SmalladsItemController extends ModuleController
 		$this->build_navigation_links($this->smallad);
 
 		$this->tpl->put_all(array_merge($this->smallad->get_array_tpl_vars(), array(
-			'C_COMMENTS_ENABLED' => $comments_config->module_comments_is_enabled('smallads'),
-			'CONTENTS'           => FormatingHelper::second_parse($this->smallad->get_contents()),
-			'U_EDIT_ITEM'     	 => SmalladsUrlBuilder::edit_item($this->smallad->get_id())->rel()
+			'C_COMMENTS_ENABLED' => $comments_config->module_comments_is_enabled('smallads')
 		)));
 
 		//Affichage commentaires
@@ -186,13 +184,13 @@ class SmalladsItemController extends ModuleController
 
 		$result = PersistenceContext::get_querier()->select('SELECT
 			id, title, id_category, rewrited_title, thumbnail_url, completed,
-			(2 * FT_SEARCH_RELEVANCE(title, :search_content) + FT_SEARCH_RELEVANCE(contents, :search_content) / 3) AS relevance
+			(2 * FT_SEARCH_RELEVANCE(title, :search_content) + FT_SEARCH_RELEVANCE(content, :search_content) / 3) AS relevance
 		FROM ' . SmalladsSetup::$smallads_table . '
-		WHERE (FT_SEARCH(title, :search_content) OR FT_SEARCH(contents, :search_content)) AND id <> :excluded_id
-		AND (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0)))
+		WHERE (FT_SEARCH(title, :search_content) OR FT_SEARCH(content, :search_content)) AND id <> :excluded_id
+		AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
 		ORDER BY relevance DESC LIMIT 0, :limit_nb', array(
 			'excluded_id' => $smallad->get_id(),
-			'search_content' => $smallad->get_title() .','. $smallad->get_contents(),
+			'search_content' => $smallad->get_title() .','. $smallad->get_content(),
 			'timestamp_now' => $now->get_timestamp(),
 			'limit_nb' => (int)SmalladsConfig::load()->get_suggested_items_nb()
 		));
@@ -220,11 +218,11 @@ class SmalladsItemController extends ModuleController
 		$result = PersistenceContext::get_querier()->select('
 		(SELECT id, title, id_category, rewrited_title, thumbnail_url, completed, \'PREVIOUS\' as type
 		FROM '. SmalladsSetup::$smallads_table .'
-		WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0))) AND creation_date < :timestamp_smallad AND id_category IN :authorized_categories ORDER BY creation_date DESC LIMIT 1 OFFSET 0)
+		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0))) AND creation_date < :timestamp_smallad AND id_category IN :authorized_categories ORDER BY creation_date DESC LIMIT 1 OFFSET 0)
 		UNION
 		(SELECT id, title, id_category, rewrited_title, thumbnail_url, completed, \'NEXT\' as type
 		FROM '. SmalladsSetup::$smallads_table .'
-		WHERE (published = 1 OR (published = 2 AND publication_start_date < :timestamp_now AND (publication_end_date > :timestamp_now OR publication_end_date = 0))) AND creation_date > :timestamp_smallad AND id_category IN :authorized_categories ORDER BY creation_date ASC LIMIT 1 OFFSET 0)
+		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0))) AND creation_date > :timestamp_smallad AND id_category IN :authorized_categories ORDER BY creation_date ASC LIMIT 1 OFFSET 0)
 		', array(
 			'timestamp_now' => $now->get_timestamp(),
 			'timestamp_smallad' => $timestamp_smallad,
@@ -346,7 +344,7 @@ class SmalladsItemController extends ModuleController
 
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->smallad->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $this->category->get_name() . ' - ' : '') . $this->lang['module.title']);
-		$graphical_environment->get_seo_meta_data()->set_description($this->smallad->get_real_description());
+		$graphical_environment->get_seo_meta_data()->set_description($this->smallad->get_real_summary());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_item($this->category->get_id(), $this->category->get_rewrited_name(), $this->smallad->get_id(), $this->smallad->get_rewrited_title()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();

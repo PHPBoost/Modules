@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 04
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -108,27 +108,27 @@ class SmalladsItemFormController extends ModuleController
 			array('description' => $this->lang['smallads.form.thumbnail.desc'])
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('enable_description', $this->lang['smallads.form.enabled.description'], $this->get_smallad()->get_description_enabled(),
+		$fieldset->add_field(new FormFieldCheckbox('enable_summary', $this->lang['smallads.form.enabled.summary'], $this->get_smallad()->get_summary_enabled(),
 			array(
-				'description' => StringVars::replace_vars($this->lang['smallads.form.enabled.description.description'], array('number' => SmalladsConfig::load()->get_characters_number_to_cut())),
+				'description' => StringVars::replace_vars($this->lang['smallads.form.enabled.summary.description'], array('number' => SmalladsConfig::load()->get_characters_number_to_cut())),
 				'events' => array('click' => '
-					if (HTMLForms.getField("enable_description").getValue()) {
-						HTMLForms.getField("description").enable();
+					if (HTMLForms.getField("enable_summary").getValue()) {
+						HTMLForms.getField("summary").enable();
 					} else {
-						HTMLForms.getField("description").disable();
+						HTMLForms.getField("summary").disable();
 					}'
 				)
 			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('description', StringVars::replace_vars($this->lang['smallads.form.description'], array('number' =>SmalladsConfig::load()->get_characters_number_to_cut())), $this->get_smallad()->get_description(),
+		$fieldset->add_field(new FormFieldRichTextEditor('summary', StringVars::replace_vars($this->lang['smallads.form.summary'], array('number' =>SmalladsConfig::load()->get_characters_number_to_cut())), $this->get_smallad()->get_summary(),
 			array(
 				'rows' => 3,
-				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enable_description', false) : !$this->get_smallad()->get_description_enabled())
+				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enable_summary', false) : !$this->get_smallad()->get_summary_enabled())
 			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('contents', $this->common_lang['form.contents'], $this->get_smallad()->get_contents(),
+		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->common_lang['form.content'], $this->get_smallad()->get_content(),
 			array('rows' => 15, 'required' => true)
 		));
 
@@ -334,21 +334,21 @@ class SmalladsItemFormController extends ModuleController
 				array(
 					'events' => array('change' => '
 						if (HTMLForms.getField("publication_state").getValue() == 2) {
-							jQuery("#' . __CLASS__ . '_publication_start_date_field").show();
+							jQuery("#' . __CLASS__ . '_publishing_start_date_field").show();
 							HTMLForms.getField("end_date_enable").enable();
 							if (HTMLForms.getField("end_date_enable").getValue()) {
-								HTMLForms.getField("publication_end_date").enable();
+								HTMLForms.getField("publishing_end_date").enable();
 							}
 						} else {
-							jQuery("#' . __CLASS__ . '_publication_start_date_field").hide();
+							jQuery("#' . __CLASS__ . '_publishing_start_date_field").hide();
 							HTMLForms.getField("end_date_enable").disable();
-							HTMLForms.getField("publication_end_date").disable();
+							HTMLForms.getField("publishing_end_date").disable();
 						}'
 					)
 				)
 			));
 
-			$publication_fieldset->add_field($publication_start_date = new FormFieldDateTime('publication_start_date', $this->common_lang['form.date.start'], ($this->get_smallad()->get_publication_start_date() === null ? new Date() : $this->get_smallad()->get_publication_start_date()),
+			$publication_fieldset->add_field($publishing_start_date = new FormFieldDateTime('publishing_start_date', $this->common_lang['form.date.start'], ($this->get_smallad()->get_publishing_start_date() === null ? new Date() : $this->get_smallad()->get_publishing_start_date()),
 				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != Smallad::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE)))
 			));
 
@@ -357,19 +357,19 @@ class SmalladsItemFormController extends ModuleController
 					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != Smallad::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE)),
 					'events' => array('click' => '
 						if (HTMLForms.getField("end_date_enable").getValue()) {
-							HTMLForms.getField("publication_end_date").enable();
+							HTMLForms.getField("publishing_end_date").enable();
 						} else {
-							HTMLForms.getField("publication_end_date").disable();
+							HTMLForms.getField("publishing_end_date").disable();
 						}'
 					)
 				)
 			));
 
-			$publication_fieldset->add_field($publication_end_date = new FormFieldDateTime('publication_end_date', $this->common_lang['form.date.end'], ($this->get_smallad()->get_publication_end_date() === null ? new date() : $this->get_smallad()->get_publication_end_date()),
+			$publication_fieldset->add_field($publishing_end_date = new FormFieldDateTime('publishing_end_date', $this->common_lang['form.date.end'], ($this->get_smallad()->get_publishing_end_date() === null ? new date() : $this->get_smallad()->get_publishing_end_date()),
 				array('hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_end_date_enable', false) : !$this->get_smallad()->enabled_end_date()))
 			));
 
-			$publication_end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($publication_start_date, $publication_end_date));
+			$publishing_end_date->add_form_constraint(new FormConstraintFieldsDifferenceSuperior($publishing_start_date, $publishing_end_date));
 		}
 
 		$this->build_contribution_fieldset($form);
@@ -566,8 +566,8 @@ class SmalladsItemFormController extends ModuleController
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
 			$smallad->set_id_category($this->form->get_value('id_category')->get_raw_value());
 
-		$smallad->set_description(($this->form->get_value('enable_description') ? $this->form->get_value('description') : ''));
-		$smallad->set_contents($this->form->get_value('contents'));
+		$smallad->set_summary(($this->form->get_value('enable_summary') ? $this->form->get_value('summary') : ''));
+		$smallad->set_content($this->form->get_value('content'));
 
 		if(empty($this->form->get_value('price')))
 			$smallad->set_price('0');
@@ -659,9 +659,9 @@ class SmalladsItemFormController extends ModuleController
 				$config = SmalladsConfig::load();
 				$deferred_operations = $config->get_deferred_operations();
 
-				$old_start_date = $smallad->get_publication_start_date();
-				$start_date = $this->form->get_value('publication_start_date');
-				$smallad->set_publication_start_date($start_date);
+				$old_start_date = $smallad->get_publishing_start_date();
+				$start_date = $this->form->get_value('publishing_start_date');
+				$smallad->set_publishing_start_date($start_date);
 
 				if ($old_start_date !== null && $old_start_date->get_timestamp() != $start_date->get_timestamp() && in_array($old_start_date->get_timestamp(), $deferred_operations))
 				{
@@ -674,9 +674,9 @@ class SmalladsItemFormController extends ModuleController
 
 				if ($this->form->get_value('end_date_enable'))
 				{
-					$old_end_date = $smallad->get_publication_end_date();
-					$end_date = $this->form->get_value('publication_end_date');
-					$smallad->set_publication_end_date($end_date);
+					$old_end_date = $smallad->get_publishing_end_date();
+					$end_date = $this->form->get_value('publishing_end_date');
+					$smallad->set_publishing_end_date($end_date);
 
 					if ($old_end_date !== null && $old_end_date->get_timestamp() != $end_date->get_timestamp() && in_array($old_end_date->get_timestamp(), $deferred_operations))
 					{
@@ -689,7 +689,7 @@ class SmalladsItemFormController extends ModuleController
 				}
 				else
 				{
-					$smallad->clean_publication_end_date();
+					$smallad->clean_publishing_end_date();
 				}
 
 				$config->set_deferred_operations($deferred_operations);
@@ -709,7 +709,7 @@ class SmalladsItemFormController extends ModuleController
 		else
 		{
 			$now = new Date();
-			$smallad->set_updated_date($now);
+			$smallad->set_update_date($now);
 			$id_smallad = $smallad->get_id();
 			SmalladsService::update($smallad);
 		}

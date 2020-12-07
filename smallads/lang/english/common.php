@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 04
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -49,9 +49,9 @@ $lang['smallads.contact.phone'] = 'by phone';
 $lang['config.categories.title'] = 'Categories configuration';
 $lang['config.cats.icon.display'] = 'Categories icon display';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
-$lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'s description';
-$lang['config.display.descriptions.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
-$lang['smallads.default.contents'] = 'Smallads default content';
+$lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'s summary';
+$lang['config.display.summaries.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
+$lang['smallads.default.content'] = 'Smallads default content';
 
 //Smallads items configuration
 $lang['config.items.title'] = 'Ads configuration';
@@ -93,9 +93,9 @@ $lang['config.usage.terms.desc'] = 'Usage terms description.';
 //Form
 $lang['smallads.form.add'] = 'Add an ad';
 $lang['smallads.form.edit'] = 'Modify an ad';
-$lang['smallads.form.description'] = 'Description (maximum :number characters)';
-$lang['smallads.form.enabled.description'] = 'Enable ad description';
-$lang['smallads.form.enabled.description.description'] = 'or let PHPBoost cut the content at :number characters';
+$lang['smallads.form.summary'] = 'Description (maximum :number characters)';
+$lang['smallads.form.enabled.summary'] = 'Enable ad summary';
+$lang['smallads.form.enabled.summary.description'] = 'or let PHPBoost cut the content at :number characters';
 $lang['smallads.form.price'] = 'Price';
 $lang['smallads.form.price.desc'] = 'Leave to 0 to not display the price.<br />Use a comma for decimals.';
 $lang['smallads.form.thumbnail'] = 'Ad\'s thumbnail';
@@ -123,8 +123,8 @@ $lang['smallads.form.smallads.types'] = 'Types of ads';
 $lang['smallads.form.member.edition'] = 'Modification by author';
 $lang['smallads.form.member.contribution.explain'] = 'Your contribution will be sent to pending ads, follow the approval processing in your contribution panel. Modification is possible before and after approbation. You can justify your contribution in the next field.';
 $lang['smallads.form.member.edition.explain'] = 'You are about to modify your ad. It will be sent to pending ads to be processed and a new alert will be sent to administrators';
-$lang['smallads.form.member.edition.description'] = 'Further description of modification';
-$lang['smallads.form.member.edition.description.desc'] = 'Explain what you have modify for a better approval processing.';
+$lang['smallads.form.member.edition.summary'] = 'Further summary of modification';
+$lang['smallads.form.member.edition.summary.desc'] = 'Explain what you have modify for a better approval processing.';
 
 //Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Views';

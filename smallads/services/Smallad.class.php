@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 06
+ * @version     PHPBoost 6.0 - last update: 2020 12 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -16,8 +16,8 @@ class Smallad
 	private $id_category;
 	private $title;
 	private $rewrited_title;
-	private $description;
-	private $contents;
+	private $summary;
+	private $content;
 	private $thumbnail_url;
 	private $views_number;
 	private $price;
@@ -41,11 +41,11 @@ class Smallad
 	private $author_phone;
 
 	private $published;
-	private $publication_start_date;
-	private $publication_end_date;
+	private $publishing_start_date;
+	private $publishing_end_date;
 	private $creation_date;
 	private $enabled_end_date;
-	private $updated_date;
+	private $update_date;
 
 	private $sources;
 	private $carousel;
@@ -140,38 +140,38 @@ class Smallad
 		return $this->rewrited_title != Url::encode_rewrite($this->title);
 	}
 
-	public function set_description($description)
+	public function set_summary($summary)
 	{
-		$this->description = $description;
+		$this->summary = $summary;
 	}
 
-	public function get_description()
+	public function get_summary()
 	{
-		return $this->description;
+		return $this->summary;
 	}
 
-	public function get_description_enabled()
+	public function get_summary_enabled()
 	{
-		return !empty($this->description);
+		return !empty($this->summary);
 	}
 
-	public function get_real_description()
+	public function get_real_summary()
 	{
-		if ($this->get_description_enabled())
+		if ($this->get_summary_enabled())
 		{
-			return FormatingHelper::second_parse($this->description);
+			return FormatingHelper::second_parse($this->summary);
 		}
-		return TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($this->contents), '<br><br/>'), (int)SmalladsConfig::load()->get_characters_number_to_cut());
+		return TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($this->content), '<br><br/>'), (int)SmalladsConfig::load()->get_characters_number_to_cut());
 	}
 
-	public function set_contents($contents)
+	public function set_content($content)
 	{
-		$this->contents = $contents;
+		$this->content = $content;
 	}
 
-	public function get_contents()
+	public function get_content()
 	{
-		return $this->contents;
+		return $this->content;
 	}
 
 	public function set_price($price)
@@ -324,7 +324,7 @@ class Smallad
 	{
 		return $this->displayed_author_email;
 	}
-
+PUBLISHING_
 	public function get_enabled_author_email_customization()
 	{
 		return $this->enabled_author_email_customization;
@@ -433,7 +433,7 @@ class Smallad
 	public function is_published()
 	{
 		$now = new Date();
-		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->read() && ($this->get_publication_state() == self::PUBLISHED_NOW || ($this->get_publication_state() == self::PUBLICATION_DATE && $this->get_publication_start_date()->is_anterior_to($now) && ($this->enabled_end_date ? $this->get_publication_end_date()->is_posterior_to($now) : true)));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->read() && ($this->get_publication_state() == self::PUBLISHED_NOW || ($this->get_publication_state() == self::PUBLICATION_DATE && $this->get_publishing_start_date()->is_anterior_to($now) && ($this->enabled_end_date ? $this->get_publishing_end_date()->is_posterior_to($now) : true)));
 	}
 
 	public function get_status()
@@ -451,25 +451,25 @@ class Smallad
 		}
 	}
 
-	public function set_publication_start_date(Date $publication_start_date)
+	public function set_publishing_start_date(Date $publishing_start_date)
 	{
-		$this->publication_start_date = $publication_start_date;
+		$this->publishing_start_date = $publishing_start_date;
 	}
 
-	public function get_publication_start_date()
+	public function get_publishing_start_date()
 	{
-		return $this->publication_start_date;
+		return $this->publishing_start_date;
 	}
 
-	public function set_publication_end_date(Date $publication_end_date)
+	public function set_publishing_end_date(Date $publishing_end_date)
 	{
-		$this->publication_end_date = $publication_end_date;
+		$this->publishing_end_date = $publishing_end_date;
 		$this->enabled_end_date = true;
 	}
 
-	public function get_publication_end_date()
+	public function get_publishing_end_date()
 	{
-		return $this->publication_end_date;
+		return $this->publishing_end_date;
 	}
 
 	public function enabled_end_date()
@@ -487,14 +487,14 @@ class Smallad
 		return $this->creation_date;
 	}
 
-	public function get_updated_date()
+	public function get_update_date()
 	{
-		return $this->updated_date;
+		return $this->update_date;
 	}
 
-	public function set_updated_date(Date $updated_date)
+	public function set_update_date(Date $update_date)
 	{
-	    $this->updated_date = $updated_date;
+	    $this->update_date = $update_date;
 	}
 
 	public function add_source($source)
@@ -563,15 +563,15 @@ class Smallad
 			'id_category'            => $this->get_id_category(),
 			'title'                  => $this->get_title(),
 			'rewrited_title'         => $this->get_rewrited_title(),
-			'description'            => $this->get_description(),
-			'contents'               => $this->get_contents(),
+			'summary'                => $this->get_summary(),
+			'content'                => $this->get_content(),
 			'price'               	 => $this->get_price(),
 			'max_weeks'              => $this->get_max_weeks(),
 			'smallad_type'           => $this->get_smallad_type(),
 			'brand'               	 => $this->get_brand(),
 			'thumbnail_url'          => $this->get_thumbnail()->relative(),
 			'views_number'           => $this->get_views_number(),
-			'completed' 					 => $this->get_completed(),
+			'completed' 			 => $this->get_completed(),
 			'author_user_id'         => $this->get_author_user()->get_id(),
 			'location' 				 => $this->get_location(),
 			'other_location' 		 => $this->get_other_location(),
@@ -583,10 +583,10 @@ class Smallad
 			'displayed_author_phone' => $this->get_displayed_author_phone(),
 			'author_phone' 			 => $this->get_author_phone(),
 			'published'              => $this->get_publication_state(),
-			'publication_start_date' => $this->get_publication_start_date() !== null ? $this->get_publication_start_date()->get_timestamp() : 0,
-			'publication_end_date'   => $this->get_publication_end_date() !== null ? $this->get_publication_end_date()->get_timestamp() : 0,
+			'publishing_start_date'  => $this->get_publishing_start_date() !== null ? $this->get_publishing_start_date()->get_timestamp() : 0,
+			'publishing_end_date'    => $this->get_publishing_end_date() !== null ? $this->get_publishing_end_date()->get_timestamp() : 0,
 			'creation_date'          => $this->get_creation_date()->get_timestamp(),
-			'updated_date'           => $this->get_updated_date() !== null ? $this->get_updated_date()->get_timestamp() : 0,
+			'update_date'            => $this->get_update_date() !== null ? $this->get_update_date()->get_timestamp() : 0,
 			'sources'                => TextHelper::serialize($this->get_sources()),
 			'carousel'               => TextHelper::serialize($this->get_carousel())
 		);
@@ -598,8 +598,8 @@ class Smallad
 		$this->set_id_category($properties['id_category']);
 		$this->set_title($properties['title']);
 		$this->set_rewrited_title($properties['rewrited_title']);
-		$this->set_description($properties['description']);
-		$this->set_contents($properties['contents']);
+		$this->set_summary($properties['summary']);
+		$this->set_content($properties['content']);
 		$this->set_price($properties['price']);
 		$this->set_max_weeks($properties['max_weeks']);
 		$this->set_smallad_type($properties['smallad_type']);
@@ -616,11 +616,11 @@ class Smallad
 		$this->set_displayed_author_phone($properties['displayed_author_phone']);
 		$this->set_author_phone($properties['author_phone']);
 		$this->set_publication_state($properties['published']);
-		$this->publication_start_date = !empty($properties['publication_start_date']) ? new Date($properties['publication_start_date'], Timezone::SERVER_TIMEZONE) : null;
-		$this->publication_end_date = !empty($properties['publication_end_date']) ? new Date($properties['publication_end_date'], Timezone::SERVER_TIMEZONE) : null;
-		$this->enabled_end_date = !empty($properties['publication_end_date']);
+		$this->publishing_start_date = !empty($properties['publishing_start_date']) ? new Date($properties['publishing_start_date'], Timezone::SERVER_TIMEZONE) : null;
+		$this->publishing_end_date = !empty($properties['publishing_end_date']) ? new Date($properties['publishing_end_date'], Timezone::SERVER_TIMEZONE) : null;
+		$this->enabled_end_date = !empty($properties['publishing_end_date']);
 		$this->set_creation_date(new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE));
-		$this->updated_date = !empty($properties['updated_date']) ? new Date($properties['updated_date'], Timezone::SERVER_TIMEZONE) : null;
+		$this->update_date = !empty($properties['update_date']) ? new Date($properties['update_date'], Timezone::SERVER_TIMEZONE) : null;
 		$this->set_sources(!empty($properties['sources']) ? TextHelper::unserialize($properties['sources']) : array());
 		$this->set_carousel(!empty($properties['carousel']) ? TextHelper::unserialize($properties['carousel']) : array());
 
@@ -647,13 +647,13 @@ class Smallad
 			$max_weeks_config_number = null;
 
 		$this->id_category = $id_category;
-        $this->contents = SmalladsConfig::load()->get_default_contents();
+        $this->content = SmalladsConfig::load()->get_default_content();
 		$this->completed = self::NOTCOMPLETED;
 		$this->displayed_author_name = self::DISPLAYED_AUTHOR_NAME;
 		$this->author_user = AppContext::get_current_user();
 		$this->published = self::PUBLISHED_NOW;
-		$this->publication_start_date = new Date();
-		$this->publication_end_date = new Date();
+		$this->publishing_start_date = new Date();
+		$this->publishing_end_date = new Date();
 		$this->creation_date = new Date();
 		$this->sources = array();
 		$this->carousel = array();
@@ -669,29 +669,30 @@ class Smallad
 
 	public function clean_publication_start_and_end_date()
 	{
-		$this->publication_start_date = null;
-		$this->publication_end_date = null;
+		$this->publishing_start_date = null;
+		$this->publishing_end_date = null;
 		$this->enabled_end_date = false;
 	}
 
-	public function clean_publication_end_date()
+	public function clean_publishing_end_date()
 	{
-		$this->publication_end_date = null;
+		$this->publishing_end_date = null;
 		$this->enabled_end_date = false;
 	}
 
 	public function get_array_tpl_vars()
 	{
 		$this->config = SmalladsConfig::load();
-		$category           = $this->get_category();
-		$contents	 	    = FormatingHelper::second_parse($this->contents);
-		$description        = $this->get_real_description();
-		$user               = $this->get_author_user();
-		$user_group_color   = User::get_group_color($user->get_groups(), $user->get_level(), true);
-		$sources            = $this->get_sources();
-		$nbr_sources        = count($sources);
-		$carousel           = $this->get_carousel();
-		$nbr_pictures		= count($carousel);
+
+		$category         = $this->get_category();
+		$content	 	  = FormatingHelper::second_parse($this->content);
+		$summary 	      = $this->get_real_summary();
+		$user             = $this->get_author_user();
+		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
+		$sources          = $this->get_sources();
+		$nbr_sources      = count($sources);
+		$carousel         = $this->get_carousel();
+		$nbr_pictures	  = count($carousel);
 
 		if($this->config->is_googlemaps_available()) {
 			$unserialized_value = @unserialize($this->get_location());
@@ -714,9 +715,9 @@ class Smallad
 
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
-			Date::get_array_tpl_vars($this->updated_date, 'updated_date'),
-			Date::get_array_tpl_vars($this->publication_start_date, 'publication_start_date'),
-			Date::get_array_tpl_vars($this->publication_end_date, 'publication_end_date'),
+			Date::get_array_tpl_vars($this->update_date, 'update_date'),
+			Date::get_array_tpl_vars($this->publishing_start_date, 'publishing_start_date'),
+			Date::get_array_tpl_vars($this->publishing_end_date, 'publishing_end_date'),
 			array(
 			// Conditions
 			'C_EDIT'                           => $this->is_authorized_to_edit(),
@@ -725,10 +726,10 @@ class Smallad
 			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(), //&& file_exists(PATH_TO_ROOT . $this->get_thumbnail()->relative())
 			'C_USER_GROUP_COLOR'               => !empty($user_group_color),
 			'C_PUBLISHED'                      => $this->is_published(),
-			'C_PUBLICATION_START_AND_END_DATE' => $this->publication_start_date != null && $this->publication_end_date != null,
-			'C_PUBLICATION_START_DATE'         => $this->publication_start_date != null,
-			'C_PUBLICATION_END_DATE'           => $this->publication_end_date != null,
-			'C_UPDATED_DATE'                   => $this->updated_date != null,
+			'C_PUBLISHING_START_AND_END_DATE'  => $this->publishing_start_date != null && $this->publishing_end_date != null,
+			'C_PUBLISHING_START_DATE'          => $this->publishing_start_date != null,
+			'C_PUBLISHING_END_DATE'            => $this->publishing_end_date != null,
+			'C_UPDATED_DATE'                   => $this->update_date != null,
 			'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
 			'C_CONTACT_LEVEL'				   => $contact_level,
 			'C_COMPLETED'         			   => $this->is_completed(),
@@ -738,11 +739,11 @@ class Smallad
 			'C_DISPLAYED_AUTHOR_PHONE'         => $this->is_displayed_author_phone() && !empty($this->get_author_phone()),
 			'C_DISPLAYED_AUTHOR'               => $this->is_displayed_author_name(),
 			'C_CUSTOM_AUTHOR_NAME' 			   => $this->is_enabled_author_name_customization(),
-			'C_READ_MORE'                      => !$this->get_description_enabled() && TextHelper::strlen($contents) > SmalladsConfig::load()->get_characters_number_to_cut() && $description != @strip_tags($contents, '<br><br/>'),
+			'C_READ_MORE'                      => !$this->get_summary_enabled() && TextHelper::strlen($content) > SmalladsConfig::load()->get_characters_number_to_cut() && $summary != @strip_tags($content, '<br><br/>'),
 			'C_SOURCES'                        => $nbr_sources > 0,
 			'C_CAROUSEL'                       => $nbr_pictures > 0,
 			'C_DIFFERED'                       => $this->published == self::PUBLICATION_DATE,
-			'C_NEW_CONTENT'                    => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('smallads', $this->publication_start_date != null ? $this->publication_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
+			'C_NEW_CONTENT'                    => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('smallads', $this->publishing_start_date != null ? $this->publishing_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
 			'C_USAGE_TERMS'					   => $this->config->are_usage_terms_displayed(),
 			'IS_LOCATED'					   => !empty($this->get_location()),
 			'C_OTHER_LOCATION'				   => $this->get_location() === 'other',
@@ -761,7 +762,7 @@ class Smallad
 			'PSEUDO'             	=> $user->get_display_name(),
 			'CUSTOM_AUTHOR_NAME' 	=> $this->custom_author_name,
 			'AUTHOR_PHONE'       	=> $this->get_author_phone(),
-			'DESCRIPTION'        	=> $description,
+			'SUMMARY'        		=> $summary,
 			'PRICE'          	 	=> $this->get_price(),
 			'CURRENCY'          	=> $this->config->get_currency(),
 			'SMALLAD_TYPE'   		=> str_replace('-',' ', $this->get_smallad_type()),
@@ -771,6 +772,7 @@ class Smallad
 			'USER_GROUP_COLOR'   	=> $user_group_color,
 			'LOCATION'				=> $location,
 			'OTHER_LOCATION'		=> $this->get_other_location(),
+			'CONTENT'           	=> FormatingHelper::second_parse($this->get_content()),
 
 			// Category
 			'C_ROOT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY,
