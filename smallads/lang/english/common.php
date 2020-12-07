@@ -13,7 +13,7 @@
 #                      English                      #
 #####################################################
 
-// Titles
+// Module titles
 $lang['module.title'] = 'Smallads';
 
 $lang['item'] = 'Ad';
@@ -45,7 +45,7 @@ $lang['smallads.contact.email'] = 'by email';
 $lang['smallads.contact.pm'] = 'by private message';
 $lang['smallads.contact.phone'] = 'by phone';
 
-//Smallads categories configuration
+// Smallads categories configuration
 $lang['config.categories.title'] = 'Categories configuration';
 $lang['config.cats.icon.display'] = 'Categories icon display';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
@@ -53,7 +53,7 @@ $lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'
 $lang['config.display.summaries.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
 $lang['smallads.default.content'] = 'Smallads default content';
 
-//Smallads items configuration
+// Smallads items configuration
 $lang['config.items.title'] = 'Ads configuration';
 $lang['config.currency'] = 'Currency';
 $lang['smallads.type.add'] = 'Add types of ad';
@@ -84,13 +84,13 @@ $lang['config.mini.autoplay'] = 'Enable autoplay';
 $lang['config.mini.autoplay.speed'] = 'Time between 2 scrolls';
 $lang['config.mini.autoplay.hover'] = 'Enable pause on slideshow hover';
 
-//Smallads Usage Terms Conditions
+// Smallads Usage Terms Conditions
 $lang['config.usage.terms'] = 'Usage terms management';
 $lang['smallads.usage.terms'] = 'Usage terms';
 $lang['config.usage.terms.displayed'] = 'Display the usage terms';
 $lang['config.usage.terms.desc'] = 'Usage terms description.';
 
-//Form
+// Form
 $lang['smallads.form.add'] = 'Add an ad';
 $lang['smallads.form.edit'] = 'Modify an ad';
 $lang['smallads.form.summary'] = 'Description (maximum :number characters)';
@@ -116,7 +116,7 @@ $lang['smallads.form.enabled.author.name.customisation'] = 'Customize author nam
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
 $lang['smallads.form.completed.ad'] = 'Completed ad';
 $lang['smallads.form.completed'] = 'Declare this ad completed';
-$lang['smallads.form.completed.warning'] = 'The ad is deleted :delay day(s) after<br /><span style="color:#CC0000">This action is irreversible</span>';
+$lang['smallads.form.completed.warning'] = 'The ad is deleted :delay day(s) after<br /><span style="color:var(--error-tone)">This action is irreversible</span>';
 
 $lang['smallads.form.smallad.type'] = 'Type of ad';
 $lang['smallads.form.smallads.types'] = 'Types of ads';
@@ -126,7 +126,7 @@ $lang['smallads.form.member.edition.explain'] = 'You are about to modify your ad
 $lang['smallads.form.member.edition.summary'] = 'Further summary of modification';
 $lang['smallads.form.member.edition.summary.desc'] = 'Explain what you have modify for a better approval processing.';
 
-//Sort fields title and mode
+// Sort fields title and mode
 $lang['smallads.sort.field.views'] = 'Views';
 $lang['admin.smallads.sort.field.published'] = 'Published';
 $lang['smallads.sort.by'] = 'Sort by';
@@ -138,13 +138,14 @@ $lang['smallads.sort.coms'] = 'Comments';
 $lang['smallads.sort.view'] = 'Views';
 $lang['smallads.active.page'] = '{pageNumber}';
 
-//SEO
+// SEO
 $lang['smallads.seo.description.root'] = 'All :site\'s ads.';
 $lang['smallads.seo.description.tag'] = 'All :subject\'s ads.';
 $lang['smallads.seo.description.pending'] = 'All pending ads.';
+$lang['smallads.seo.description.member'] = 'All ads of the member: :author.';
 $lang['smallads.seo.description.usage.terms'] = ':site\'s smallads usage terms.';
 
-//Messages
+// Messages helper
 $lang['smallads.message.success.add'] = 'The ad <b>:title</b> has been added';
 $lang['smallads.message.success.edit'] = 'The ad <b>:title</b> has been modified';
 $lang['smallads.message.success.delete'] = 'The ad <b>:title</b> has been deleted';

@@ -723,7 +723,7 @@ class Smallad
 			'C_EDIT'                           => $this->is_authorized_to_edit(),
 			'C_DELETE'                         => $this->is_authorized_to_delete(),
 			'C_PRICE'                  		   => $this->get_price() != 0,
-			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(), 
+			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(),
 			'C_USER_GROUP_COLOR'               => !empty($user_group_color),
 			'C_PUBLISHED'                      => $this->is_published(),
 			'C_PUBLISHING_START_AND_END_DATE'  => $this->publishing_start_date != null && $this->publishing_end_date != null,

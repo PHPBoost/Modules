@@ -142,6 +142,7 @@ $lang['smallads.active.page'] = '{pageNumber}';
 $lang['smallads.seo.description.root'] = 'Toutes les annonces du site :site.';
 $lang['smallads.seo.description.tag'] = 'Toutes les annonces sur le sujet :subject.';
 $lang['smallads.seo.description.pending'] = 'Toutes les annonces en attente.';
+$lang['smallads.seo.description.member'] = 'Toutes les annonces du membre: :author.';
 $lang['smallads.seo.description.usage.terms'] = 'Conditions générales d\'utilisation des annonces du site :site.';
 
 //Messages
