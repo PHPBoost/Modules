@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 09 13
+ * @version     PHPBoost 6.0 - last update: 2020 12 08
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -46,6 +46,8 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 		$event_date = $countdown_config->get_event_date();
 
 		$view->put_all(array(
+			'C_CSS_CACHE_ENABLED' => CSSCacheConfig::load()->is_enabled(),
+
 			'C_DISABLED'        => $countdown_config->get_timer_disabled(),
 			'C_STOP_COUNTER'    => $countdown_config->get_stop_counter(),
 			'C_RELEASE_COUNTER' => !$countdown_config->get_hidden_counter(),

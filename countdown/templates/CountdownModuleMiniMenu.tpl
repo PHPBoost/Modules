@@ -22,7 +22,7 @@
 		</div>
 	</div>
 
-<script src="{PATH_TO_ROOT}/countdown/templates/js/jquery.countdown.js"></script>
+<script src="{PATH_TO_ROOT}/countdown/templates/js/jquery.countdown# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 <script>
     jQuery('#countdown').countdown('{TIMER_YEAR}/{TIMER_MONTH}/{TIMER_DAY} {TIMER_HOUR}:{TIMER_MINUTE}'# IF NOT C_STOP_COUNTER #, {elapse: true}# ENDIF #)
 		# IF C_STOP_COUNTER #

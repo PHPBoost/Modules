@@ -48,6 +48,7 @@
  		$view->put_all(array(
  			'C_ITEMS'         => !empty($smallads_items),
  			'C_ONE_ITEM'      => $items_number == 1,
+			'C_CSS_CACHE_ENABLED' => CSSCacheConfig::load()->is_enabled(),
 			'ITEMS_TOTAL_NB'  => $items_number,
             'CURRENCY'        => $config->get_currency(),
 			'ANIMATION_SPEED' => $config->get_mini_menu_animation_speed(),

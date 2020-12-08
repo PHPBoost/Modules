@@ -43,7 +43,7 @@
 	</div>
 # ENDIF #
 # IF C_ITEMS #
-	<script src="{PATH_TO_ROOT}/smallads/templates/js/flexisel.js"></script>
+	<script src="{PATH_TO_ROOT}/smallads/templates/js/flexisel# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 	<script>
 		jQuery("#smallads-flexisel").flexisel({
 			# IF C_HORIZONTAL #
