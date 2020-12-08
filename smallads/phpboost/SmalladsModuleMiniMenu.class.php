@@ -3,12 +3,12 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 12
+ * @version     PHPBoost 6.0 - last update: 2020 12 08
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
- class SmalladsLastItemsMiniMenu extends ModuleMiniMenu
+ class SmalladsModuleMiniMenu extends ModuleMiniMenu
  {
  	public function get_default_block()
  	{
@@ -32,39 +32,39 @@
 
  	public function get_menu_content()
  	{
- 		$tpl = new FileTemplate('smallads/SmalladsLastItemsMiniMenu.tpl');
- 		$tpl->add_lang(LangLoader::get('common', 'smallads'));
- 		MenuService::assign_positions_conditions($tpl, $this->get_block());
-		Menu::assign_common_template_variables($tpl);
+ 		$view = new FileTemplate('smallads/SmalladsModuleMiniMenu.tpl');
+ 		$view->add_lang(LangLoader::get('common', 'smallads'));
+ 		MenuService::assign_positions_conditions($view, $this->get_block());
+		Menu::assign_common_template_variables($view);
         $config = SmalladsConfig::load();
 
- 		//Load module caches
+ 		// Load module caches
  		$smallads_cache = SmalladsCache::load();
  		$categories_cache = CategoriesService::get_categories_manager('smallads')->get_categories_cache();
 
- 		$smallad = $smallads_cache->get_smallad();
-        $smallad_nb = SmalladsService::count('WHERE published != 0');
+ 		$smallads_items = $smallads_cache->get_smallad();
+        $items_number = SmalladsService::count('WHERE published != 0');
 
- 		$tpl->put_all(array(
- 			'C_SMALLADS'        => !empty($smallad),
- 			'C_ONE_SMALLAD'     => $smallad_nb == 1,
-			'SMALLADS_TOTAL_NB' => $smallad_nb,
-            'CURRENCY'          => $config->get_currency(),
-			'ANIMATION_SPEED'   => $config->get_mini_menu_animation_speed(),
-			'AUTOPLAY'          => $config->is_slideshow_autoplayed(),
-			'AUTOPLAY_SPEED'    => $config->get_mini_menu_autoplay_speed(),
-			'AUTOPLAY_HOVER'    => $config->is_slideshow_hover_enabled(),
+ 		$view->put_all(array(
+ 			'C_ITEMS'         => !empty($smallads_items),
+ 			'C_ONE_ITEM'      => $items_number == 1,
+			'ITEMS_TOTAL_NB'  => $items_number,
+            'CURRENCY'        => $config->get_currency(),
+			'ANIMATION_SPEED' => $config->get_mini_menu_animation_speed(),
+			'AUTOPLAY'        => $config->is_slideshow_autoplayed(),
+			'AUTOPLAY_SPEED'  => $config->get_mini_menu_autoplay_speed(),
+			'AUTOPLAY_HOVER'  => $config->is_slideshow_hover_enabled(),
  		));
 
- 		foreach ($smallad as $file)
+ 		foreach ($smallads_items as $smallad)
  		{
- 			$smallad = new Smallad();
- 			$smallad->set_properties($file);
+ 			$item = new Smallad();
+ 			$item->set_properties($smallad);
 
- 			$tpl->assign_block_vars('items', $smallad->get_array_tpl_vars());
+ 			$view->assign_block_vars('items', $item->get_array_tpl_vars());
  		}
 
- 		return $tpl->render();
+ 		return $view->render();
  	}
 
 	public function display()
