@@ -4,6 +4,7 @@
 */
 
 #smallads-flexisel .flexisel-thumbnail {
+    display: block;
     height: 185px;
     background-position: center;
     background-repeat: no-repeat;
@@ -76,7 +77,7 @@
     font-size: 2rem;
 }
 
-.smallads-mini-infos h6 p {
+.smallads-mini-infos h6 {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

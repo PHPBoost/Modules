@@ -13,19 +13,19 @@ define('PATH_TO_ROOT', '..');
 require_once PATH_TO_ROOT . '/kernel/init.php';
 
 $url_controller_mappers = array(
-	//Config
+	// Config
 	new UrlControllerMapper('AdminSmalladsCategoriesConfigController', '`^/admin(?:/display)?/?$`'),
 	new UrlControllerMapper('AdminSmalladsItemsConfigController', '`^/admin/items/?$`'),
 	new UrlControllerMapper('AdminSmalladsMiniMenuConfigController', '`^/admin/mini/?$`'),
 	new UrlControllerMapper('AdminSmalladsUsageTermsController', '`^/admin/terms/?$`'),
 
-	//Manage categories
+	// Manage categories
 	new UrlControllerMapper('DefaultCategoriesManagementController', '`^/categories/?$`'),
 	new UrlControllerMapper('DefaultCategoriesFormController', '`^/categories/add/?([0-9]+)?/?$`', array('id_parent')),
 	new UrlControllerMapper('DefaultCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('DefaultDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', array('id')),
 
-	//Manage items
+	// Manage items
 	new UrlControllerMapper('SmalladsItemsManagerController', '`^/manage/?$`'),
 	new UrlControllerMapper('SmalladsItemFormController', '`^/add/?([0-9]+)?/?$`', array('id_category')),
 	new UrlControllerMapper('SmalladsItemFormController', '`^(?:/([0-9]+))/edit/?([0-9]+)?/?$`', array('id')),
@@ -34,13 +34,13 @@ $url_controller_mappers = array(
 	// Usage Terms Conditions
 	new UrlControllerMapper('SmalladsUsageTermsController', '`^/terms/?$`'),
 
-	//Display items
+	// Display items
 	new UrlControllerMapper('SmalladsMemberItemsController', '`^/my_items/?$`'),
 	new UrlControllerMapper('SmalladsTagController', '`^/tag/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('tag')),
 	new UrlControllerMapper('SmalladsPendingItemsController', '`^/pending/([0-9]+)?/?$`'),
 	new UrlControllerMapper('SmalladsItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title')),
 
-	//Display home and categories
+	// Display home and categories
 	new UrlControllerMapper('SmalladsCategoryController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([0-9]+)?/?$`', array('id_category', 'rewrited_name'))
 );
 

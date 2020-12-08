@@ -3,16 +3,15 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2020 12 08
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
 class SmalladsItemController extends ModuleController
 {
+	private $view;
 	private $lang;
-	private $county_lang;
-	private $tpl;
 	private $smallad;
 	private $category;
 
@@ -35,10 +34,9 @@ class SmalladsItemController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
-		$this->county_lang = LangLoader::get('counties', 'smallads');
-		$this->tpl = new FileTemplate('smallads/SmalladsItemController.tpl');
-		$this->tpl->add_lang($this->lang);
-		$this->tpl->add_lang($this->county_lang);
+		$county_lang = LangLoader::get('counties', 'smallads');
+		$this->view = new FileTemplate('smallads/SmalladsItemController.tpl');
+		$this->view->add_lang(array_merge($this->lang, $county_lang));
 	}
 
 	private function get_smallad()
@@ -68,7 +66,7 @@ class SmalladsItemController extends ModuleController
 	{
 		if (!$this->smallad->is_published())
 		{
-			$this->tpl->put('NOT_VISIBLE_MESSAGE', MessageHelper::display(LangLoader::get_message('element.not_visible', 'status-messages-common'), MessageHelper::WARNING));
+			$this->view->put('NOT_VISIBLE_MESSAGE', MessageHelper::display(LangLoader::get_message('element.not_visible', 'status-messages-common'), MessageHelper::WARNING));
 		}
 		else
 		{
@@ -94,7 +92,7 @@ class SmalladsItemController extends ModuleController
 		$this->build_suggested_items($this->smallad);
 		$this->build_navigation_links($this->smallad);
 
-		$this->tpl->put_all(array_merge($this->smallad->get_array_tpl_vars(), array(
+		$this->view->put_all(array_merge($this->smallad->get_array_tpl_vars(), array(
 			'C_COMMENTS_ENABLED' => $comments_config->module_comments_is_enabled('smallads')
 		)));
 
@@ -105,7 +103,7 @@ class SmalladsItemController extends ModuleController
 			$comments_topic->set_id_in_module($this->smallad->get_id());
 			$comments_topic->set_url(SmalladsUrlBuilder::display_item($this->category->get_id(), $this->category->get_rewrited_name(), $this->smallad->get_id(), $this->smallad->get_rewrited_title()));
 
-			$this->tpl->put('COMMENTS', $comments_topic->display());
+			$this->view->put('COMMENTS', $comments_topic->display());
 		}
 
 		// Envoi d'email
@@ -113,26 +111,26 @@ class SmalladsItemController extends ModuleController
 		{
 			if ($this->send_smallad_email())
 			{
-				$this->tpl->put('MSG', MessageHelper::display($this->lang['smallads.message.success.email'], MessageHelper::SUCCESS));
-				$this->tpl->put('C_SMALLAD_EMAIL_SENT', true);
+				$this->view->put('MSG', MessageHelper::display($this->lang['smallads.message.success.email'], MessageHelper::SUCCESS));
+				$this->view->put('C_SMALLAD_EMAIL_SENT', true);
 			}
 			else
-				$this->tpl->put('MSG', MessageHelper::display($this->lang['smallads.message.error.email'], MessageHelper::ERROR, 5));
+				$this->view->put('MSG', MessageHelper::display($this->lang['smallads.message.error.email'], MessageHelper::ERROR, 5));
 		}
 
-		$this->tpl->put('EMAIL_FORM', $this->email_form->display());
+		$this->view->put('EMAIL_FORM', $this->email_form->display());
 	}
 
 	private function build_sources_view()
 	{
 		$sources = $this->smallad->get_sources();
 		$nbr_sources = count($sources);
-		$this->tpl->put('C_SOURCES', $nbr_sources > 0);
+		$this->view->put('C_SOURCES', $nbr_sources > 0);
 
 		$i = 1;
 		foreach ($sources as $name => $url)
 		{
-			$this->tpl->assign_block_vars('sources', array(
+			$this->view->assign_block_vars('sources', array(
 				'C_SEPARATOR' => $i < $nbr_sources,
 				'NAME' => $name,
 				'URL' => $url,
@@ -145,13 +143,13 @@ class SmalladsItemController extends ModuleController
 	{
 		$carousel = $this->smallad->get_carousel();
 		$nbr_pictures = count($carousel);
-		$this->tpl->put('C_CAROUSEL', $nbr_pictures > 0);
+		$this->view->put('C_CAROUSEL', $nbr_pictures > 0);
 
 		$i = 1;
 		foreach ($carousel as $id => $options)
 		{
 
-			$this->tpl->assign_block_vars('carousel', array(
+			$this->view->assign_block_vars('carousel', array(
 				'C_DESCRIPTION' => !empty($options['description']),
 				'DESCRIPTION' => $options['description'],
 				'U_PICTURE' => Url::to_rel($options['picture_url']),
@@ -164,12 +162,12 @@ class SmalladsItemController extends ModuleController
 	{
 		$keywords = $this->smallad->get_keywords();
 		$nbr_keywords = count($keywords);
-		$this->tpl->put('C_KEYWORDS', $nbr_keywords > 0);
+		$this->view->put('C_KEYWORDS', $nbr_keywords > 0);
 
 		$i = 1;
 		foreach ($keywords as $keyword)
 		{
-			$this->tpl->assign_block_vars('keywords', array(
+			$this->view->assign_block_vars('keywords', array(
 				'C_SEPARATOR' => $i < $nbr_keywords,
 				'NAME' => $keyword->get_name(),
 				'URL' => SmalladsUrlBuilder::display_tag($keyword->get_rewrited_name())->rel(),
@@ -195,11 +193,11 @@ class SmalladsItemController extends ModuleController
 			'limit_nb' => (int)SmalladsConfig::load()->get_suggested_items_nb()
 		));
 
-		$this->tpl->put_all(array('C_SUGGESTED_ITEMS', $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_items_suggestions()));
+		$this->view->put_all(array('C_SUGGESTED_ITEMS', $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_items_suggestions()));
 
 		while ($row = $result->fetch())
 		{
-			$this->tpl->assign_block_vars('suggested_items', array(
+			$this->view->assign_block_vars('suggested_items', array(
 				'C_COMPLETED' => $row['completed'],
 				'C_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				'TITLE' => $row['title'],
@@ -229,13 +227,13 @@ class SmalladsItemController extends ModuleController
 			'authorized_categories' => array($smallad->get_id_category())
 		));
 
-		$this->tpl->put_all(array(
+		$this->view->put_all(array(
 			'C_RELATED_LINKS' => $result->get_rows_count() > 0 && SmalladsConfig::load()->get_enabled_navigation_links(),
 		));
 
 		while ($row = $result->fetch())
 		{
-			$this->tpl->put_all(array(
+			$this->view->put_all(array(
 				'C_'. $row['type'] .'_COMPLETED' => $row['completed'],
 				'C_'. $row['type'] .'_ITEM' => true,
 				'C_' . $row['type'] . '_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
@@ -340,7 +338,7 @@ class SmalladsItemController extends ModuleController
 
 	private function generate_response()
 	{
-		$response = new SiteDisplayResponse($this->tpl);
+		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->smallad->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $this->category->get_name() . ' - ' : '') . $this->lang['module.title']);

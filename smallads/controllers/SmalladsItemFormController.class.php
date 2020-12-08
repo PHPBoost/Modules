@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2020 12 08
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -19,7 +19,7 @@ class SmalladsItemFormController extends ModuleController
 	 */
 	private $submit_button;
 
-	private $tpl;
+	private $view;
 
 	private $lang;
 	private $county_lang;
@@ -35,9 +35,8 @@ class SmalladsItemFormController extends ModuleController
 		$this->check_authorizations();
 		$this->build_form($request);
 
-		$tpl = new StringTemplate('# INCLUDE FORM #');
-		$tpl->add_lang($this->lang);
-		$tpl->add_lang($this->county_lang);
+		$view = new StringTemplate('# INCLUDE FORM #');
+		$view->add_lang(array_merge($this->lang, $this->county_lang));
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -45,9 +44,9 @@ class SmalladsItemFormController extends ModuleController
 			$this->redirect();
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$view->put('FORM', $this->form->display());
 
-		return $this->generate_response($tpl);
+		return $this->generate_response($view);
 	}
 
 	private function init()
@@ -785,13 +784,13 @@ class SmalladsItemFormController extends ModuleController
 		}
 	}
 
-	private function generate_response(View $tpl)
+	private function generate_response(View $view)
 	{
 		$smallad = $this->get_smallad();
 
 		$location_id = $smallad->get_id() ? 'smallads-edit-'. $smallad->get_id() : '';
 
-		$response = new SiteDisplayResponse($tpl, $location_id);
+		$response = new SiteDisplayResponse($view, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();

@@ -10,27 +10,27 @@
 
 class SmalladsUsageTermsController extends ModuleController
 {
+	private $view;
 	private $lang;
-	private $tpl;
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->init();
 
-		return $this->build_response($this->tpl);
+		return $this->build_response($this->view);
 	}
 
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
-		$this->tpl = new FileTemplate('smallads/SmalladsUsageTermsController.tpl');
-		$this->tpl->add_lang($this->lang);
+		$this->view = new FileTemplate('smallads/SmalladsUsageTermsController.tpl');
+		$this->view->add_lang($this->lang);
 	}
 
 	private function build_response(View $view)
 	{
 		$this->config = SmalladsConfig::load();
-		$response = new SiteDisplayResponse($this->tpl);
+		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
 		$graphical_environment->set_page_title($this->lang['module.title']);
@@ -41,7 +41,7 @@ class SmalladsUsageTermsController extends ModuleController
 		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
 		$breadcrumb->add($this->lang['smallads.usage.terms'], SmalladsUrlBuilder::usage_terms());
 
-		$this->tpl->put_all(array(
+		$this->view->put_all(array(
 			'USAGE_TERMS_TITLE' => $this->lang['smallads.usage.terms'],
 			'USAGE_TERMS_CONTENT' => FormatingHelper::second_parse($this->config->get_usage_terms())
 		));
