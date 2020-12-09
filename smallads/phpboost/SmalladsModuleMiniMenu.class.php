@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 08
+ * @version     PHPBoost 6.0 - last update: 2020 12 09
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -48,7 +48,6 @@
  		$view->put_all(array(
  			'C_ITEMS'         => !empty($smallads_items),
  			'C_ONE_ITEM'      => $items_number == 1,
-			'C_CSS_CACHE_ENABLED' => CSSCacheConfig::load()->is_enabled(),
 			'ITEMS_TOTAL_NB'  => $items_number,
             'CURRENCY'        => $config->get_currency(),
 			'ANIMATION_SPEED' => $config->get_mini_menu_animation_speed(),
