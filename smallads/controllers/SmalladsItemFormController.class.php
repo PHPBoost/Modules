@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 08
+ * @version     PHPBoost 6.0 - last update: 2020 12 09
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -103,7 +103,7 @@ class SmalladsItemFormController extends ModuleController
 			));
 		}
 
-		$fieldset->add_field(new FormFieldUploadPictureFile('thumbnail', $this->lang['smallads.form.thumbnail'], $this->get_smallad()->get_thumbnail()->relative(),
+		$fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['smallads.form.thumbnail'], $this->get_smallad()->get_thumbnail()->relative(), Smallad::THUMBNAIL_URL,
 			array('description' => $this->lang['smallads.form.thumbnail.desc'])
 		));
 
@@ -577,7 +577,7 @@ class SmalladsItemFormController extends ModuleController
 		$smallad->set_smallad_type($this->form->get_value('smallad_type')->get_raw_value());
 		// $smallad->set_brand($this->form->get_value('brand')->get_raw_value());
 
-		$smallad->set_thumbnail(new Url($this->form->get_value('thumbnail')));
+		$smallad->set_thumbnail($this->form->get_value('thumbnail'));
 
 		if($this->config->is_max_weeks_number_displayed())
 		{

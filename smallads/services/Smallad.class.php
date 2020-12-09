@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2020 12 09
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -89,6 +89,8 @@ class Smallad
 
 	const NOTDISPLAYED_AUTHOR_PHONE = 0;
 	const DISPLAYED_AUTHOR_PHONE = 1;
+
+	const THUMBNAIL_URL = '/templates/__default__/images/default_item_thumbnail.png';
 
 	public function set_id($id)
 	{
@@ -214,7 +216,7 @@ class Smallad
 		return $this->brand;
 	}
 
-	public function set_thumbnail(Url $thumbnail)
+	public function set_thumbnail($thumbnail)
 	{
 		$this->thumbnail_url = $thumbnail;
 	}
@@ -222,31 +224,14 @@ class Smallad
 	public function get_thumbnail()
 	{
 		if (!$this->thumbnail_url instanceof Url)
-			return $this->get_default_thumbnail();
+			return new Url($this->thumbnail_url == FormFieldThumbnail::DEFAULT_VALUE ? FormFieldThumbnail::get_default_thumbnail_url(self::THUMBNAIL_URL) : $this->thumbnail_url);
 
 		return $this->thumbnail_url;
 	}
 
-	public function get_default_thumbnail()
-	{
-		$module_id = 'smallads';
-		$module_file = new File(PATH_TO_ROOT . '/' . $module_id . '/templates/images/default_item_thumbnail.png');
-		$module_theme_file = new File(PATH_TO_ROOT . '/templates/' . AppContext::get_current_user()->get_theme() . '/modules/' . $module_id . '/images/default_item_thumbnail.png');
-		$theme_file = new File(PATH_TO_ROOT . '/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png');
-
-		if ($module_file->exists())
-			return new Url('/' . $module_id . '/templates/images/default_item_thumbnail.png');
-		elseif ($module_theme_file->exists())
-			return new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/modules/' . $module_id . '/images/default_item_thumbnail.png');
-		elseif ($theme_file->exists())
-			return new Url('/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png');
-		else
-			return new Url('/templates/__default__/images/default_item_thumbnail.png');
-	}
-
 	public function has_thumbnail()
 	{
-		$thumbnail = $this->thumbnail_url->rel();
+		$thumbnail = ($this->thumbnail_url instanceof Url) ? $this->thumbnail_url->rel() : $this->thumbnail_url;
 		return !empty($thumbnail);
 	}
 
@@ -604,7 +589,7 @@ class Smallad
 		$this->set_max_weeks($properties['max_weeks']);
 		$this->set_smallad_type($properties['smallad_type']);
 		$this->set_brand($properties['brand']);
-		$this->set_thumbnail(new Url($properties['thumbnail_url']));
+		$this->set_thumbnail($properties['thumbnail_url']);
 		$this->set_views_number($properties['views_number']);
 		$this->set_completed($properties['completed']);
 		$this->location = $properties['location'];
@@ -657,7 +642,7 @@ class Smallad
 		$this->creation_date = new Date();
 		$this->sources = array();
 		$this->carousel = array();
-		$this->thumbnail_url = self::get_default_thumbnail();
+		$this->thumbnail_url = FormFieldThumbnail::DEFAULT_VALUE;
 		$this->views_number = 0;
 		$this->price = 0;
 		$this->max_weeks = $max_weeks_config_number;
