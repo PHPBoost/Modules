@@ -9,29 +9,29 @@
 		</h2>
 	</header>
 	<div class="content">
-		# IF C_RSS_FILE #
+		# IF C_ITEMS #
 			<ul>
-				# START item #
+				# START items #
 
 					<li>
 						<span class="flex-between">
-							<a class="big" href="{item.LINK_FEED}" target="_blank" rel="noopener noreferrer">
-								{item.TITLE_FEED}
+							<a class="big" href="{items.U_ITEM}" target="_blank" rel="noopener noreferrer">
+								{items.TITLE}
 							</a>
-							<span class="small">{item.DATE_FEED}</span>
+							<span class="small align-right">{items.DATE}</span>
 						</span>
 						<p>
-							# IF item.C_IMG_FEED #
-								<img src="{item.IMG_FEED}" class="align-left" alt="{item.TITLE_FEED}" />
+							# IF items.C_HAS_THUMBNAIL #
+								<img src="{items.U_THUMBNAIL}" class="align-left" alt="{items.TITLE}" />
 							# ENDIF #
-							{item.DESC}# IF item.C_READ_MORE #...# ENDIF #
+							{items.SUMMARY}# IF items.C_READ_MORE #...# ENDIF #
 						</p>
 					</li>
 
-				# END item #
+				# END items #
 			</ul>
 		# ELSE #
-			{NO_RSS_FILE}
+			{NO_ITEM}
 		# ENDIF #
 	</div>
 	<footer></footer>

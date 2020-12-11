@@ -41,8 +41,8 @@ class HomeLandingRss
         if (empty($xml_url))
         {
             $view->put_all(array(
-                'C_RSS_FILE' => false,
-                'NO_RSS_FILE' => $home_lang['link.no.xml.file']
+                'C_ITEMS' => false,
+                'NO_ITEM' => $home_lang['link.no.xml.file']
             ));
         }
         else
@@ -55,8 +55,8 @@ class HomeLandingRss
 
             if(substr($output, 0, 5) !== "<?xml") {
                 $view->put_all(array(
-                    'C_RSS_FILE' => false,
-                    'NO_RSS_FILE' =>  $home_lang['link.not.xml.file']
+                    'C_ITEMS' => false,
+                    'NO_ITEM' =>  $home_lang['link.not.xml.file']
                 ));
             } else {
                 // create cache file
@@ -91,27 +91,27 @@ class HomeLandingRss
                     $items['date'][]  = $i->pubDate;
                 }
 
-                $nbr_item = $rss_number <= count($items['title']) ? $rss_number : count($items['title']);
+                $items_number = $rss_number <= count($items['title']) ? $rss_number : count($items['title']);
 
                 $view->put_all(array(
-                    'C_RSS_FILE' => true
+                    'C_ITEMS' => true
                 ));
 
-                for($i = 0; $i < $nbr_item ; $i++)
+                for($i = 0; $i < $items_number ; $i++)
                 {
                     $date = strtotime($items['date'][$i]);
-                    $item_date = strftime('%d/%m/%Y %Hh%M', $date);
+                    $item_date = strftime('%d/%m/%Y - %Hh%M', $date);
                     $desc = $items['desc'][$i];
                     $cut_desc = strip_tags(trim(substr($desc, 0, $char_number)));
                     $item_img = $items['img'][$i];
                     $view->assign_block_vars('items',array(
-                        'TITLE_FEED'  => $items['title'][$i],
-                        'LINK_FEED'   => $items['link'][$i],
-                        'DATE_FEED'   => $item_date,
-                        'DESC'        => $cut_desc,
-                        'C_READ_MORE' => $cut_desc != $desc,
-                        'C_IMG_FEED'  => !empty($item_img),
-                        'IMG_FEED'    => $item_img,
+                        'TITLE'      => $items['title'][$i],
+                        'U_ITEM'          => $items['link'][$i],
+                        'DATE'       => $item_date,
+                        'SUMMARY'         => $cut_desc,
+                        'C_READ_MORE'     => $cut_desc != $desc,
+                        'C_HAS_THUMBNAIL' => !empty($item_img),
+                        'U_THUMBNAIL'     => $item_img,
                     ));
                 }
             }

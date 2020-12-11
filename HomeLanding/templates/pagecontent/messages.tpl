@@ -12,39 +12,39 @@
 			${LangLoader::get_message('no_item_now', 'common')}
 		</div>
 	# ELSE #
-		# START item #
+		# START items #
 			<div class="message-container message-small" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 				<header class="message-header-container">
-					# IF C_AVATAR_IMG #<img class="message-user-avatar" src="{item.U_AVATAR_IMG}" alt="{item.PSEUDO}" /># ENDIF #
+					# IF C_AVATAR_IMG #<img class="message-user-avatar" src="{items.U_AVATAR_IMG}" alt="{items.PSEUDO}" /># ENDIF #
 
 					<div class="message-header-infos">
 						<div class="message-user">
 							<h4>
-								# IF item.C_AUTHOR_EXIST #
-									<a class="{item.USER_LEVEL_CLASS}" href="{item.U_AUTHOR_PROFILE}"# IF item.C_USER_GROUP_COLOR # style="{item.USER_GROUP_COLOR}"# ENDIF #>{item.PSEUDO}</a>
+								# IF items.C_AUTHOR_EXIST #
+									<a class="{items.USER_LEVEL_CLASS}" href="{items.U_AUTHOR_PROFILE}"# IF items.C_USER_GROUP_COLOR # style="{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a>
 								# ELSE #
-									{item.PSEUDO}
+									{items.PSEUDO}
 								# ENDIF #
 							</h4>
 						</div>
 						<div class="message-infos">
 							<span aria-label="{@module.post.date}">
-								<i class="far fa-fw fa-clock" aria-hidden="true"></i> {item.DATE}
+								<i class="far fa-fw fa-clock" aria-hidden="true"></i> {items.DATE}
 							</span>
 							# IF C_PARENT #
 								<span aria-label="# IF C_TOPIC #{@module.posted.in.topic}# ELSE #{@module.posted.in.module}# ENDIF #">
-									<i class="fa fa-fw # IF C_TOPIC #fa-file# ELSE #fa-cube# ENDIF #" aria-hidden="true"></i>  <a href="{item.U_TOPIC}">{item.TOPIC}</a>
+									<i class="fa fa-fw # IF C_TOPIC #fa-file# ELSE #fa-cube# ENDIF #" aria-hidden="true"></i>  <a href="{items.U_TOPIC}">{items.TOPIC}</a>
 								</span>
 							# ENDIF #
 						</div>
 					</div>
 				</header>
 				<div class="message-content">
-					{item.CONTENTS} ...
-					<p class="align-right"><a href="{item.U_ITEM}" class="button small bgc link-color">[${LangLoader::get_message('read-more', 'common')}]</a></p>
+					{items.CONTENTS} ...
+					<p class="align-right"><a href="{items.U_ITEM}" class="button small bgc link-color">[${LangLoader::get_message('read-more', 'common')}]</a></p>
 				</div>
 			</div>
-		# END item #
+		# END items #
 	# ENDIF #
 	<footer></footer>
 </article>

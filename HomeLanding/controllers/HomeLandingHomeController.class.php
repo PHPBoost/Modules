@@ -53,7 +53,7 @@ class HomeLandingHomeController extends ModuleController
 
 	private function build_view()
 	{
-		//Config HomeLanding title & edito
+		// Config HomeLanding title & edito
 		$this->view->put_all(array(
 			'MODULE_TITLE' => $this->config->get_module_title(),
 			'C_EDITO_ENABLED' => $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
@@ -75,6 +75,7 @@ class HomeLandingHomeController extends ModuleController
 
 		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_ARTICLES)->read())
 			$this->view->put('ARTICLES_CAT', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_ARTICLES, HomeLandingConfig::MODULE_ARTICLES_CATEGORY));
+
 
 		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read())
 			$this->build_contact_view();

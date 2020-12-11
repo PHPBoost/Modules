@@ -14,21 +14,21 @@
 		</div>
 	# ELSE #
 		<div class="cell-flex cell-columns-{ITEMS_PER_ROW} cell-tile">
-			# START item #
+			# START items #
 				<div class="cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<div class="cell-body">
 						<div class="cell-thumbnail cell-landscape cell-center">
-							<img src="{item.U_PICTURE}" alt="{item.TITLE}" />
-							<a class="cell-thumbnail-caption" href="{item.U_CATEGORY}"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+							<img src="{items.U_PICTURE}" alt="{items.TITLE}" />
+							<a class="cell-thumbnail-caption" href="{items.U_CATEGORY}"><i class="fa fa-eye" aria-hidden="true"></i> </a>
 						</div>
 					</div>
 					<div class="cell-list">
 						<ul>
-							<li class="li-stretch">{item.TITLE} # IF C_VIEWS_ENABLED #{item.VIEWS_NUMBER}# ENDIF #</li>
+							<li class="li-stretch">{items.TITLE} # IF C_VIEWS_ENABLED #{items.VIEWS_NUMBER}# ENDIF #</li>
 						</ul>
 					</div>
 				</div>
-			# END item #
+			# END items #
 		</div>
 	# ENDIF #
 	<footer></footer>
