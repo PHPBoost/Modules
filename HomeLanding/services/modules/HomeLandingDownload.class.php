@@ -67,7 +67,7 @@ class HomeLandingDownload
 
 		while ($row = $result->fetch())
 		{
-			$file = new DownloadFile();
+			$file = new DownloadItem();
 			$file->set_properties($row);
 
 			$view->assign_block_vars('items', array_merge($file->get_array_tpl_vars(), array(
@@ -133,7 +133,7 @@ class HomeLandingDownload
 
 		while ($row = $result->fetch())
 		{
-			$file = new DownloadFile();
+			$file = new DownloadItem();
 			$file->set_properties($row);
 
 			$view->assign_block_vars('items', array_merge($file->get_array_tpl_vars(), array(
