@@ -23,25 +23,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					# START item #
+					# START items #
 						<tr>
-							<td><a href="{item.U_ITEM}">{item.TITLE}</a></td>
-							<td><time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE}</time></td>
-							# IF C_VIEWS_NUMBER #<td>{item.VIEWS_NUMBER}</td># ENDIF #
-							# IF C_DL_NUMBER #<td>{item.DOWNLOADS_NUMBER}</td># ENDIF #
-							# IF C_VISIT #<td><a href="{item.U_VISIT}">{@visit}</a></td># ENDIF #
+							<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
+							<td><time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></td>
+							# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
+							# IF C_DL_NUMBER #<td>{items.DOWNLOADS_NUMBER}</td># ENDIF #
+							# IF C_VISIT #<td><a href="{items.U_VISIT}">{@visit}</a></td># ENDIF #
 						</tr>
-					# END item #
+					# END items #
 				</tbody>
 			</table>
 		# ELSE #
 			<div class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #">
 
-				# START item #
-					<div class="{MODULE_NAME}-items several-items category-{item.CATEGORY_ID} cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+				# START items #
+					<div class="{MODULE_NAME}-items several-items category-{items.CATEGORY_ID} cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 						<div class="cell-header">
 							<h3 class="cell-name">
-								<a href="{item.U_ITEM}">{item.TITLE}</a>
+								<a href="{items.U_ITEM}">{items.TITLE}</a>
 							</h3>
 						</div>
 
@@ -51,39 +51,39 @@
 									# IF C_AUTHOR_DISPLAYED #
 										<span class="pinned">
 											<i class="fa fa-fw fa-user" aria-hidden="true"></i>
-											# IF item.C_AUTHOR_EXIST #<a itemprop="author" class="{item.AUTHOR_LEVEL_CLASS}" href="{item.U_AUTHOR}"# IF item.C_AUTHOR_GROUP_COLOR # style="{item.AUTHOR_GROUP_COLOR}"# ENDIF #>{item.AUTHOR_DISPLAY_NAME}</a># ELSE #{item.AUTHOR_DISPLAY_NAME}# ENDIF #
+											# IF items.C_AUTHOR_EXIST #<a itemprop="author" class="{items.AUTHOR_LEVEL_CLASS}" href="{items.U_AUTHOR}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
 										</span>
 									# ENDIF #
-									# IF NOT C_DATE #<span class="pinned"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{item.DATE_ISO8601}" itemprop="datePublished">{item.DATE}</time></span># ENDIF #
-									<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a itemprop="about" href="{item.U_CATEGORY}">{item.CATEGORY_NAME}</a></span>
-									# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{item.VIEWS_NUMBER} # IF item.C_SEVERAL_VIEWS #${LangLoader::get_message('module.views', 'common', 'HomeLanding')}# ELSE #${LangLoader::get_message('module.view', 'common', 'HomeLanding')}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {item.VIEWS_NUMBER}</span># ENDIF #
+									# IF NOT C_DATE #<span class="pinned"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></span># ENDIF #
+									<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
+									# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{items.VIEWS_NUMBER} # IF items.C_SEVERAL_VIEWS #${LangLoader::get_message('module.views', 'common', 'HomeLanding')}# ELSE #${LangLoader::get_message('module.view', 'common', 'HomeLanding')}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 								</div>
-								# IF item.C_CONTROLS #
+								# IF items.C_CONTROLS #
 									<span class="controls">
-										# IF item.C_EDIT #
-											<a href="{item.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+										# IF items.C_EDIT #
+											<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 										# ENDIF #
-										# IF item.C_DELETE #
-											<a href="{item.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+										# IF items.C_DELETE #
+											<a href="{items.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 										# ENDIF #
 									</span>
 								# ENDIF #
 							</div>
 
-							# IF NOT item.C_FULL_ITEM_DISPLAY #
-								# IF item.C_HAS_THUMBNAIL #
+							# IF NOT items.C_FULL_ITEM_DISPLAY #
+								# IF items.C_HAS_THUMBNAIL #
 									<div class="cell-thumbnail cell-landscape cell-center">
-										<img src="{item.U_THUMBNAIL}" alt="{item.TITLE}" />
-										<a href="{item.U_ITEM}" class="cell-thumbnail-caption">
-											# IF item.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
+										<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
+										<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
+											# IF items.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
 										</a>
 									</div>
 								# ELSE #
-									# IF item.C_HAS_PARTNER_THUMBNAIL #
+									# IF items.C_HAS_PARTNER_THUMBNAIL #
 										<div class="cell-thumbnail cell-landscape cell-center">
-											<img src="{item.U_PARTNER_THUMBNAIL}" alt="{item.TITLE}" />
-											<a href="{item.U_ITEM}" class="cell-thumbnail-caption">
-												# IF item.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
+											<img src="{items.U_PARTNER_THUMBNAIL}" alt="{items.TITLE}" />
+											<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
+												# IF items.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
 											</a>
 										</div>
 									# ENDIF #
@@ -91,21 +91,21 @@
 							# ENDIF #
 							<div class="cell-content">
 								# IF C_DATE #
-									<div class="align-right controls"><i class="fa fa-fw fa-calendar-alt"></i><span>{item.START_DATE}</span> - <span>{item.END_DATE}</span></div>
+									<div class="align-right controls"><i class="fa fa-fw fa-calendar-alt"></i><span>{items.START_DATE}</span> - <span>{items.END_DATE}</span></div>
 								# ENDIF #
-								# IF item.C_FULL_ITEM_DISPLAY #
-									# IF item.C_HAS_THUMBNAIL #
-										<img class="item-thumbnail" itemprop="thumbnailUrl" src="{item.U_THUMBNAIL}" alt="{item.TITLE}" />
+								# IF items.C_FULL_ITEM_DISPLAY #
+									# IF items.C_HAS_THUMBNAIL #
+										<img class="item-thumbnail" itemprop="thumbnailUrl" src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
 									# ENDIF #
-									{item.CONTENTS}
+									{items.CONTENTS}
 								# ELSE #
-									{item.SUMMARY}# IF item.C_READ_MORE #... <a href="{item.U_ITEM}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+									{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
 								# ENDIF #
 							</div>
 						</div>
 
 					</div>
-				# END item #
+				# END items #
 			</div>
 		# ENDIF #
 	# ENDIF #

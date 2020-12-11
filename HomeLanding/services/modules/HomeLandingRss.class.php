@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 07 13
+ * @version     PHPBoost 6.0 - last update: 2020 12 11
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -104,7 +104,7 @@ class HomeLandingRss
                     $desc = $items['desc'][$i];
                     $cut_desc = strip_tags(trim(substr($desc, 0, $char_number)));
                     $item_img = $items['img'][$i];
-                    $view->assign_block_vars('item',array(
+                    $view->assign_block_vars('items',array(
                         'TITLE_FEED'  => $items['title'][$i],
                         'LINK_FEED'   => $items['link'][$i],
                         'DATE_FEED'   => $item_date,

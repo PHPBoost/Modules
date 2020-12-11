@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 13
+ * @version     PHPBoost 6.0 - last update: 2020 12 11
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -71,7 +71,7 @@ class HomeLandingNews
             $description = trim(TextHelper::substr($summary, 0, $characters_number_to_cut));
             $cut_contents = trim(TextHelper::substr($contents, 0, $characters_number_to_cut));
 
-            $view->assign_block_vars('item', array_merge($news->get_array_tpl_vars(), array(
+            $view->assign_block_vars('items', array_merge($news->get_array_tpl_vars(), array(
                 'C_DESCRIPTION' => $news->get_real_summary(),
                 'C_READ_MORE' => $news->get_real_summary() ? ($description != $summary) : ($cut_contents != $contents),
                 'DESCRIPTION' => $description,
@@ -139,7 +139,7 @@ class HomeLandingNews
 			$news = new News();
 			$news->set_properties($row);
 
-			$view->assign_block_vars('item', array_merge($news->get_array_tpl_vars(), array(
+			$view->assign_block_vars('items', array_merge($news->get_array_tpl_vars(), array(
                 'C_SEVERAL_VIEWS' => $news->get_views_number() > 1,
             )));
 		}

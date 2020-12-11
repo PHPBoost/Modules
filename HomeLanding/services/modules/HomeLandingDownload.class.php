@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 06 02
+ * @version     PHPBoost 6.0 - last update: 2020 12 11
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -70,7 +70,7 @@ class HomeLandingDownload
 			$file = new DownloadFile();
 			$file->set_properties($row);
 
-			$view->assign_block_vars('item', array_merge($file->get_array_tpl_vars(), array(
+			$view->assign_block_vars('items', array_merge($file->get_array_tpl_vars(), array(
                 'C_SEVERAL_VIEWS' => $file->get_views_number() > 1,
 			)));
 		}
@@ -136,7 +136,7 @@ class HomeLandingDownload
 			$file = new DownloadFile();
 			$file->set_properties($row);
 
-			$view->assign_block_vars('item', array_merge($file->get_array_tpl_vars(), array(
+			$view->assign_block_vars('items', array_merge($file->get_array_tpl_vars(), array(
                 'C_SEVERAL_VIEWS' => $file->get_views_number() > 1,
             )));
 		}

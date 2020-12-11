@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 13
+ * @version     PHPBoost 6.0 - last update: 2020 12 11
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -31,8 +31,7 @@ class HomeLandingCalendar
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang($home_lang);
-        $view->add_lang($module_lang);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_name);
 
@@ -61,12 +60,12 @@ class HomeLandingCalendar
 
         while ($row = $result->fetch())
         {
-            $event = new CalendarEvent();
-            $event->set_properties($row);
+            $item = new CalendarItem();
+            $item->set_properties($row);
 
             $description = TextHelper::substr(@strip_tags(FormatingHelper::second_parse($row['contents']), '<br><br/>'), 0, $modules[$module_name]->get_characters_number_displayed());
 
-            $view->assign_block_vars('item', array_merge($event->get_array_tpl_vars(), array(
+            $view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
                 'C_READ_MORE' => TextHelper::strlen(FormatingHelper::second_parse($row['contents'])) >= $modules[$module_name]->get_characters_number_displayed(),
                 'SUMMARY' => $description
             )));

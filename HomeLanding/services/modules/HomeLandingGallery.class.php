@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 09 02
+ * @version     PHPBoost 6.0 - last update: 2020 12 11
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -62,7 +62,7 @@ class HomeLandingGallery
 
 		while ($row = $result->fetch())
 		{
-			$view->assign_block_vars('item', array(
+			$view->assign_block_vars('items', array(
 				'U_PICTURE'    => Url::to_rel('/gallery/pics/' . $row['path']),
 				'TITLE'        => $row['name'],
 				'VIEWS_NUMBER' => $row['views'],
