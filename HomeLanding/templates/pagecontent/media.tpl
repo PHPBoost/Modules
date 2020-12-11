@@ -22,7 +22,7 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_swf.PSEUDO}
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_swf.DATE}</span>
 					</div>
-					<div class="media-content" id="media_swf-{media_swf.ID}" style="width:{media_swf.WIDTH}px;height:{media_swf.HEIGHT}px;">
+					<div class="media-content media-swf" id="media_swf-{media_swf.ID}" style="width:{media_swf.WIDTH}px;height:{media_swf.HEIGHT}px;">
 						<object type="{media_swf.MIME}" data="{media_swf.URL}">
 							<param name="allowScriptAccess" value="samedomain" />
 							<param name="allowFullScreen" value="true">
@@ -45,7 +45,7 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
 					</div>
-					<div class="media-content" style="width: {media_host.WIDTH}px; height: {media_host.HEIGHT}px">
+					<div class="media-content media-host" style="width: {media_host.WIDTH}px; height: {media_host.HEIGHT}px">
 						<iframe class="youtube-player" type="text/html" src="{media_host.PLAYER}{media_host.MEDIA_ID}" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
 					</div>
-					<div class="media-content media-mp4" style="width:{media_mp4.WIDTH}px;height:{media_mp4.HEIGHT}px;">
+					<div class="media-content media-html5" style="width:{media_mp4.WIDTH}px;height:{media_mp4.HEIGHT}px;">
 						<video class="video-player"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
 							<source src="{media_mp4.URL}" type="{media_mp4.MIME}" />
 						</video>
@@ -108,8 +108,8 @@
 						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
 					</div>
 
-					<div class="media-content" id="media_other-{media_other.ID}">
-						<object type="{media_other.MIME}" data="{media_other.URL}" style="width:{media_other.WIDTH}px;height:{media_other.HEIGHT}px;">
+					<div class="media-content media-other" id="media_other-{media_other.ID}" style="width:{media_other.WIDTH}px;height:{media_other.HEIGHT}px;">
+						<object type="{media_other.MIME}" data="{media_other.URL}">
 							<param name="allowScriptAccess" value="samedomain" />
 							<param name="allowFullScreen" value="true">
 							<param name="play" value="true" />
