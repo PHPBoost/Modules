@@ -39,7 +39,7 @@ class HomeLandingNews
         LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = news.author_user_id
         WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
         AND id_category IN :categories_id
-        ORDER BY news.update_date DESC
+        ORDER BY news.top_list_enabled DESC, news.update_date DESC, news.creation_date DESC
         LIMIT :news_cat_limit', array(
             'timestamp_now' => $now->get_timestamp(),
             'categories_id' => $categories_id,
@@ -114,7 +114,7 @@ class HomeLandingNews
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = news.author_user_id
 		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
         AND id_category IN :authorized_categories
-		ORDER BY news.update_date DESC
+		ORDER BY news.top_list_enabled DESC, news.update_date DESC, news.creation_date DESC
 		LIMIT :news_limit', array(
 			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),

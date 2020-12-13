@@ -26,7 +26,13 @@
 					# START items #
 						<tr>
 							<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
-							<td><time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></td>
+							<td>
+								# IF items.HAS_UPDATE #
+									<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
+								# ELSE #
+									<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
+								# ENDIF #
+							</td>
 							# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
 							# IF C_DL_NUMBER #<td>{items.DOWNLOADS_NUMBER}</td># ENDIF #
 							# IF C_VISIT #<td><a href="{items.U_VISIT}">{@visit}</a></td># ENDIF #
@@ -54,7 +60,13 @@
 											# IF items.C_AUTHOR_EXIST #<a itemprop="author" class="{items.AUTHOR_LEVEL_CLASS}" href="{items.U_AUTHOR}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
 										</span>
 									# ENDIF #
-									# IF NOT C_DATE #<span class="pinned"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></span># ENDIF #
+									# IF NOT C_DATE #
+										# IF items.C_HAS_UPDATE #
+											<span class="pinned notice text-italic modified-date"><i class="far fa-fw fa-calendar-plus" aria-hidden="true"></i> <time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time></span>
+										# ELSE #
+											<span class="pinned"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></span>
+										# ENDIF #
+									# ENDIF #
 									<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
 									# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{items.VIEWS_NUMBER} # IF items.C_SEVERAL_VIEWS #${LangLoader::get_message('module.views', 'common', 'HomeLanding')}# ELSE #${LangLoader::get_message('module.view', 'common', 'HomeLanding')}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 								</div>
