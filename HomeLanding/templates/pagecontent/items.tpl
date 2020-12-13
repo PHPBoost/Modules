@@ -28,9 +28,9 @@
 							<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
 							<td>
 								# IF items.HAS_UPDATE #
-									<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
-								# ELSE #
 									<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
+								# ELSE #
+									<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
 								# ENDIF #
 							</td>
 							# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
