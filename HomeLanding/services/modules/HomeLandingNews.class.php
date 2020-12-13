@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 11
+ * @version     PHPBoost 6.0 - last update: 2020 12 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -37,9 +37,9 @@ class HomeLandingNews
         $result = PersistenceContext::get_querier()->select('SELECT news.*, member.*
         FROM ' . NewsSetup::$news_table . ' news
         LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = news.author_user_id
-        WHERE (publication = 1 OR (publication = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))
+        WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
         AND id_category IN :categories_id
-        ORDER BY news.creation_date DESC
+        ORDER BY news.update_date DESC
         LIMIT :news_cat_limit', array(
             'timestamp_now' => $now->get_timestamp(),
             'categories_id' => $categories_id,
@@ -62,7 +62,7 @@ class HomeLandingNews
 
         while ($row = $result->fetch())
         {
-            $news = new News();
+            $news = new NewsItem();
             $news->set_properties($row);
 
             $contents = @strip_tags(FormatingHelper::second_parse($news->get_contents()));
@@ -112,9 +112,9 @@ class HomeLandingNews
 		FROM ' . PREFIX . 'news news
 		LEFT JOIN ' . PREFIX . 'news_cats cat ON cat.id = news.id_category
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = news.author_user_id
-		WHERE (publication = 1 OR (publication = 2 AND start_date < :timestamp_now AND (end_date > :timestamp_now OR end_date = 0)))
+		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
         AND id_category IN :authorized_categories
-		ORDER BY news.creation_date DESC
+		ORDER BY news.update_date DESC
 		LIMIT :news_limit', array(
 			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
@@ -136,7 +136,7 @@ class HomeLandingNews
 
 		while ($row = $result->fetch())
 		{
-			$news = new News();
+			$news = new NewsItem();
 			$news->set_properties($row);
 
 			$view->assign_block_vars('items', array_merge($news->get_array_tpl_vars(), array(

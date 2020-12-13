@@ -76,7 +76,6 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_ARTICLES)->read())
 			$this->view->put('ARTICLES_CAT', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_ARTICLES, HomeLandingConfig::MODULE_ARTICLES_CATEGORY));
 
-
 		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed() && ContactAuthorizationsService::check_authorizations()->read())
 			$this->build_contact_view();
 
