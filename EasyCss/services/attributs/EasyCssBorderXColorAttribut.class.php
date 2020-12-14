@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2016 11 14
+ * @version     PHPBoost 6.0 - last update: 2020 12 14
  * @since       PHPBoost 5.0 - 2016 06 03
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
 class EasyCssBorderXColorAttribut extends EasyCssAbstractAttribut
@@ -56,7 +57,7 @@ class EasyCssBorderXColorAttribut extends EasyCssAbstractAttribut
             }
         }
 
-        return parent::get_templates($tpls, AdminEasyCssEditController::get_lang('border_color_description'));
+        return parent::get_templates(AdminEasyCssEditController::get_lang('border_color_description'), $tpls);
     }
 
 

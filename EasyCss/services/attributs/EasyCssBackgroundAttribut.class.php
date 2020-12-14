@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2018 11 30
+ * @version     PHPBoost 6.0 - last update: 2020 12 14
  * @since       PHPBoost 5.0 - 2016 06 03
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -60,6 +60,6 @@ class EasyCssBackgroundAttribut extends EasyCssAbstractAttribut
                 $tpls[] = new StringTemplate("<br/>");
         }
 
-        return parent::get_templates($tpls, AdminEasyCssEditController::get_lang('background_description'));
+        return parent::get_templates(AdminEasyCssEditController::get_lang('background_description'), $tpls);
     }
 }
