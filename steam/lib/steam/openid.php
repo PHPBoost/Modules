@@ -9,7 +9,7 @@
  * @author      Mewp <mewp151 at gmail dot com>
  * @link        https://code.google.com/p/lightopenid/          Project URL
  * @link        https://github.com/iignatov/LightOpenID         GitHub Repo
- * @version     PHPBoost 6.0 - last update: 2018 05 20
+ * @version     PHPBoost 6.0 - last update: 2020 12 14
  * @since       PHPBoost 5.1 - 2018 04 22
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -190,7 +190,7 @@ class LightOpenID
 		return $use_secure_protocol ? 'https://' : 'http://';
 	}
 
-	protected function request_curl($url, $method='GET', $params=array(), $update_claimed_id)
+	protected function request_curl($url, $method='GET', $params=array(), $update_claimed_id=false)
 	{
 		$params = http_build_query($params, '', '&');
 		$curl = curl_init($url . ($method == 'GET' && $params ? '?' . $params : ''));
@@ -290,7 +290,7 @@ class LightOpenID
 		return $response;
 	}
 
-	protected function parse_header_array($array, $update_claimed_id)
+	protected function parse_header_array($array, $update_claimed_id=false)
 	{
 		$headers = array();
 		foreach($array as $header) {
@@ -320,7 +320,7 @@ class LightOpenID
 		return $headers;
 	}
 
-	protected function request_streams($url, $method='GET', $params=array(), $update_claimed_id)
+	protected function request_streams($url, $method='GET', $params=array(), $update_claimed_id=false)
 	{
 		if(!$this->hostExists($url)) {
 			throw new ErrorException("Could not connect to $url.", 404);
