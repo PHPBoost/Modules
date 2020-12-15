@@ -30,7 +30,7 @@ class EasyCssGenericAttribut extends EasyCssAbstractAttribut
         return $this->attribut . ' : ' . $this->value . ';';
     }
 
-    public function get_templates($label = false, $tpl = [])
+    public function get_templates($label = false, $tpl = array())
     {
         return;
     }

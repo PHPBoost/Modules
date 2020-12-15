@@ -43,9 +43,10 @@ class EasyCssBorderColorAttribut extends EasyCssAbstractAttribut
             $this->build_borders_array();
     }
 
-    public function get_templates($label = '', $tpl = [])
+    public function get_templates($label = '', $tpl = array())
     {
         AdminEasyCssEditController::add_field_to_hidden_input($this->parent_id . '/' . $this->id);
+        $tpls = [];
         foreach ($this->values as $key => $tpl)
         {
             $templates = $tpl->get_templates(AdminEasyCssEditController::get_lang($key));

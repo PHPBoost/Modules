@@ -3,11 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 15
+ * @version     PHPBoost 6.0 - last update: 2020 12 14
  * @since       PHPBoost 5.0 - 2016 06 03
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
- * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class EasyCssBackgroundAttribut extends EasyCssAbstractAttribut
@@ -46,9 +45,10 @@ class EasyCssBackgroundAttribut extends EasyCssAbstractAttribut
         }
     }
 
-    public function get_templates($label = '', $tpl = [])
+    public function get_templates($label = 'background', $tpl = array())
     {
         AdminEasyCssEditController::add_field_to_hidden_input($this->parent_id . '/' . $this->id);
+        $tpls = [];
         foreach ($this->values as $key => $tpl)
         {
             $templates = $tpl->get_templates();
