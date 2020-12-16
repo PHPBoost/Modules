@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 07 13
+ * @version     PHPBoost 6.0 - last update: 2020 12 16
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -49,16 +49,20 @@ $lang['anchors.edito'] = 'Édito';
 $lang['anchors.carousel'] = 'Carrousel';
 $lang['anchors.lastcoms'] = 'Commentaires';
 $lang['anchors.articles'] = 'Articles';
+$lang['anchors.articles_category'] = 'Articles';
 $lang['anchors.contact'] = 'Contact';
 $lang['anchors.calendar'] = 'Calendrier';
 $lang['anchors.download'] = 'Téléchargements';
+$lang['anchors.download_category'] = 'Téléchargements';
 $lang['anchors.forum'] = 'Forum';
 $lang['anchors.gallery'] = 'Galerie';
 $lang['anchors.guestbook'] = 'Livre d\'or';
 $lang['anchors.media'] = 'Multimédia';
 $lang['anchors.news'] = 'News';
+$lang['anchors.news_category'] = 'News';
 $lang['anchors.rss'] = 'Rss';
 $lang['anchors.web'] = 'Liens web';
+$lang['anchors.web_category'] = 'Liens web';
 
 // Last Comments
 $lang['last.lastcoms'] = 'Derniers commentaires';

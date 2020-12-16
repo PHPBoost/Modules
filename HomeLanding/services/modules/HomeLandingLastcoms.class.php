@@ -27,7 +27,7 @@ class HomeLandingLastcoms
 
 		$home_lang = LangLoader::get('common', 'HomeLanding');
 		$common_lang = LangLoader::get('common', $module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $view->add_lang(array_merge($home_lang, $common_lang));
 
 		$result = PersistenceContext::get_querier()->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.module_id, ct.is_locked, ct.path, m.*, ext_field.user_avatar
 		FROM ' . DB_TABLE_COMMENTS . ' AS c
