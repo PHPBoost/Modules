@@ -27,7 +27,7 @@
 						<tr>
 							<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
 							<td>
-								# IF items.HAS_UPDATE #
+								# IF items.HAS_UPDATE_DATE #
 									<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
 								# ELSE #
 									<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
