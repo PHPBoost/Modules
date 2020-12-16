@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 11
+ * @version     PHPBoost 6.0 - last update: 2020 12 16
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -27,8 +27,7 @@ class HomeLandingGuestbook
 
 		$home_lang = LangLoader::get('common', 'HomeLanding');
 		$module_lang = LangLoader::get('common', $module_name);
-		$view->add_lang($home_lang);
-		$view->add_lang($module_lang);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
 
 		$result = PersistenceContext::get_querier()->select('SELECT member.*, guestbook.*, guestbook.login as glogin, ext_field.user_avatar
@@ -52,19 +51,12 @@ class HomeLandingGuestbook
 
 		while ($row = $result->fetch())
 		{
-			$message = new GuestbookMessage();
-			$message->set_properties($row);
+			$item = new GuestbookMessage();
+			$item->set_properties($row);
 
-			$contents = @strip_tags(FormatingHelper::second_parse($message->get_contents()));
-			$nb_char = $modules[$module_name]->get_characters_number_displayed();
-			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
-			$cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
-
-			$view->assign_block_vars('items', array_merge($message->get_array_tpl_vars(), array(
-				'C_READ_MORE' => $cut_contents != $contents,
-				'U_AVATAR_IMG' => $user_avatar,
-				'CONTENTS' => $cut_contents,
-			)));
+			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+				'U_AVATAR_IMG' => !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar()
+            )));
 		}
 		$result->dispose();
 		return $view;

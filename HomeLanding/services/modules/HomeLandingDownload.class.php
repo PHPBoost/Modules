@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 13
+ * @version     PHPBoost 6.0 - last update: 2020 12 16
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -30,8 +30,7 @@ class HomeLandingDownload
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang($home_lang);
-        $view->add_lang($module_lang);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
 		$categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->is_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
@@ -67,11 +66,11 @@ class HomeLandingDownload
 
 		while ($row = $result->fetch())
 		{
-			$file = new DownloadItem();
-			$file->set_properties($row);
+			$item = new DownloadItem();
+			$item->set_properties($row);
 
-			$view->assign_block_vars('items', array_merge($file->get_array_tpl_vars(), array(
-                'C_SEVERAL_VIEWS' => $file->get_views_number() > 1,
+			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+                'C_SEVERAL_VIEWS' => $item->get_views_number() > 1,
 			)));
 		}
 		$result->dispose();
@@ -133,11 +132,11 @@ class HomeLandingDownload
 
 		while ($row = $result->fetch())
 		{
-			$file = new DownloadItem();
-			$file->set_properties($row);
+			$item = new DownloadItem();
+			$item->set_properties($row);
 
-			$view->assign_block_vars('items', array_merge($file->get_array_tpl_vars(), array(
-                'C_SEVERAL_VIEWS' => $file->get_views_number() > 1,
+			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+                'C_SEVERAL_VIEWS' => $item->get_views_number() > 1,
             )));
 		}
 		$result->dispose();

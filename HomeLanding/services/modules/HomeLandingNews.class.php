@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 15
+ * @version     PHPBoost 6.0 - last update: 2020 12 16
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -29,8 +29,7 @@ class HomeLandingNews
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang($home_lang);
-        $view->add_lang($module_lang);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
         $categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->is_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
@@ -60,26 +59,16 @@ class HomeLandingNews
             'ITEMS_PER_ROW'      => $module_config->get_items_per_row(),
         ));
 
-        while ($row = $result->fetch())
-        {
-            $news = new NewsItem();
-            $news->set_properties($row);
+		while ($row = $result->fetch())
+		{
+			$item = new NewsItem();
+			$item->set_properties($row);
 
-            $contents = @strip_tags(FormatingHelper::second_parse($news->get_contents()));
-            $summary = @strip_tags(FormatingHelper::second_parse($news->get_real_summary()));
-            $characters_number_to_cut = $modules[$module_cat]->get_characters_number_displayed();
-            $description = trim(TextHelper::substr($summary, 0, $characters_number_to_cut));
-            $cut_contents = trim(TextHelper::substr($contents, 0, $characters_number_to_cut));
-
-            $view->assign_block_vars('items', array_merge($news->get_array_tpl_vars(), array(
-                'C_DESCRIPTION' => $news->get_real_summary(),
-                'C_READ_MORE' => $news->get_real_summary() ? ($description != $summary) : ($cut_contents != $contents),
-                'DESCRIPTION' => $description,
-                'CONTENTS' => $cut_contents,
-                'C_SEVERAL_VIEWS' => $news->get_views_number() > 1,
+			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+                'C_SEVERAL_VIEWS' => $item->get_views_number() > 1,
             )));
-        }
-        $result->dispose();
+		}
+		$result->dispose();
 
         return $view;
 	}
@@ -103,8 +92,7 @@ class HomeLandingNews
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang($home_lang);
-        $view->add_lang($module_lang);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module_config->is_summary_displayed_to_guests(), $module_name);
 
@@ -136,11 +124,11 @@ class HomeLandingNews
 
 		while ($row = $result->fetch())
 		{
-			$news = new NewsItem();
-			$news->set_properties($row);
+			$item = new NewsItem();
+			$item->set_properties($row);
 
-			$view->assign_block_vars('items', array_merge($news->get_array_tpl_vars(), array(
-                'C_SEVERAL_VIEWS' => $news->get_views_number() > 1,
+			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+                'C_SEVERAL_VIEWS' => $item->get_views_number() > 1,
             )));
 		}
 		$result->dispose();

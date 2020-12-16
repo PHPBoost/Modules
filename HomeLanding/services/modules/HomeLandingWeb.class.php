@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 15
+ * @version     PHPBoost 6.0 - last update: 2020 12 16
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -30,8 +30,7 @@ class HomeLandingWeb
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang($home_lang);
-        $view->add_lang($module_lang);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
         $categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->are_descriptions_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
@@ -70,13 +69,8 @@ class HomeLandingWeb
             $link = new WebItem();
             $link->set_properties($row);
 
-            $contents = @strip_tags(FormatingHelper::second_parse($link->get_contents()));
-            $summary = @strip_tags(FormatingHelper::second_parse($link->get_real_summary()));
-            $nb_char = $modules[$module_cat]->get_characters_number_displayed();
-            $description = trim(TextHelper::substr($summary, 0, $nb_char));
-            $cut_contents = trim(TextHelper::substr($contents, 0, $nb_char));
-
             $view->assign_block_vars('items', array_merge($link->get_array_tpl_vars(), array(
+                'C_VISIT'  => true,
                 'C_SEVERAL_VIEWS' => $link->get_views_number() > 1,
             )));
         }
@@ -104,8 +98,7 @@ class HomeLandingWeb
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang($home_lang);
-        $view->add_lang($module_lang);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module_config->are_descriptions_displayed_to_guests(), $module_name);
 
