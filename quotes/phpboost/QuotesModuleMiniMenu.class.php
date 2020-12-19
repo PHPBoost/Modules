@@ -56,9 +56,9 @@ class QuotesModuleMiniMenu extends ModuleMiniMenu
 			{
 				$tpl->put_all(array(
 					'C_QUOTE' => $random_quote,
-					'QUOTE' => strip_tags(FormatingHelper::second_parse($random_quote['quote'])),
-					'AUTHOR' => $random_quote['author'],
-					'U_AUTHOR_LINK' => QuotesUrlBuilder::display_author_quotes($random_quote['rewrited_author'])->rel()
+					'CONTENT' => strip_tags(FormatingHelper::second_parse($random_quote['content'])),
+					'AUTHOR' => $random_quote['writer'],
+					'U_AUTHOR_LINK' => QuotesUrlBuilder::display_writer_items($random_quote['rewrited_writer'])->rel()
 				));
 			}
 		}

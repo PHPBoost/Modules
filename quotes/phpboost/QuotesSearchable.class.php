@@ -11,17 +11,17 @@ class QuotesSearchable extends DefaultSearchable
 {
 	public function __construct()
 	{
-		parent::__construct('quotes', '', "'" . PATH_TO_ROOT . "/quotes/" . (!ServerEnvironmentConfig::load()->is_url_rewriting_enabled() ? "index.php?url=/" : "") . "author/', rewrited_author");
+		parent::__construct('quotes', '', "'" . PATH_TO_ROOT . "/quotes/" . (!ServerEnvironmentConfig::load()->is_url_rewriting_enabled() ? "index.php?url=/" : "") . "writer/', rewrited_writer");
 
 		$this->table_name = QuotesSetup::$quotes_table;
 
-		$this->field_title = 'author';
-		$this->field_rewrited_title = 'rewrited_author';
-		$this->field_content = 'quote';
+		$this->field_title = 'writer';
+		$this->field_rewrited_title = 'rewrited_writer';
+		$this->field_content = 'content';
 
 		$this->field_published = 'approved';
 
-		$this->group_by = 'rewrited_author';
+		$this->group_by = 'rewrited_writer';
 	}
 }
 ?>

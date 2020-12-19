@@ -49,9 +49,9 @@ class QuotesSetup extends DefaultModuleSetup
 		$fields = array(
 			'id' => array('type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1),
 			'id_category' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'author' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
-			'rewrited_author' => array('type' => 'string', 'length' => 255, 'default' => "''"),
-			'quote' => array('type' => 'text', 'length' => 65000),
+			'writer' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
+			'rewrited_writer' => array('type' => 'string', 'length' => 255, 'default' => "''"),
+			'content' => array('type' => 'text', 'length' => 65000),
 			'creation_date' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'approved' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0)
@@ -60,8 +60,8 @@ class QuotesSetup extends DefaultModuleSetup
 			'primary' => array('id'),
 			'indexes' => array(
 				'id_category' => array('type' => 'key', 'fields' => 'id_category'),
-				'title' => array('type' => 'fulltext', 'fields' => 'author'),
-				'contents' => array('type' => 'fulltext', 'fields' => 'quote')
+				'writer' => array('type' => 'fulltext', 'fields' => 'writer'),
+				'content' => array('type' => 'fulltext', 'fields' => 'content')
 			)
 		);
 		PersistenceContext::get_dbms_utils()->create_table(self::$quotes_table, $fields, $options);

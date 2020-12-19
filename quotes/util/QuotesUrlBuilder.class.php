@@ -42,10 +42,10 @@ class QuotesUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_author_quotes($rewrited_author, $page = 1)
+	public static function display_writer_items($rewrited_writer, $page = 1)
 	{
 		$page = $page !== 1 ? $page . '/' : '';
-		return DispatchManager::get_url(self::$dispatcher, '/author/' . $rewrited_author . $page);
+		return DispatchManager::get_url(self::$dispatcher, '/writer/' . $rewrited_writer . $page);
 	}
 
 	/**
@@ -60,11 +60,11 @@ class QuotesUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function add($id_category = null, $rewrited_author = null)
+	public static function add($id_category = null, $rewrited_writer = null)
 	{
-		$id_category = !empty($id_category) || !empty($rewrited_author) ? $id_category . '/': '';
-		$rewrited_author = !empty($rewrited_author) ? $rewrited_author . '/': '';
-		return DispatchManager::get_url(self::$dispatcher, '/add/' . $id_category . $rewrited_author);
+		$id_category = !empty($id_category) || !empty($rewrited_writer) ? $id_category . '/': '';
+		$rewrited_writer = !empty($rewrited_writer) ? $rewrited_writer . '/': '';
+		return DispatchManager::get_url(self::$dispatcher, '/add/' . $id_category . $rewrited_writer);
 	}
 
 	/**
@@ -86,9 +86,9 @@ class QuotesUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function ajax_authors()
+	public static function ajax_writers()
 	{
-		return DispatchManager::get_url(self::$dispatcher, '/ajax_authors/');
+		return DispatchManager::get_url(self::$dispatcher, '/ajax_writers/');
 	}
 
 	/**

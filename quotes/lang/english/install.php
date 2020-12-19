@@ -18,18 +18,18 @@ $lang['quotes.1.quote'] = '
     " Let\'s bet," the tortoise said, "my clever spark, <br />
     Which, you or I, the first shall gain that mark." <br />
     "The first ? what, are you mad ?"';
-$lang['quotes.1.author'] = 'Jean de la Fontaine';
+$lang['quotes.1.writer'] = 'Jean de la Fontaine';
 
 $lang['quotes.2.quote'] = '
     The gay cicada, full of song <br />
     All the sunny season long, <br />
     Was unprovided and brought low, <br />
     When the north wind began to blow ;';
-$lang['quotes.2.author'] = 'Jean de la Fontaine';
+$lang['quotes.2.writer'] = 'Jean de la Fontaine';
 
 $lang['quotes.4.quote'] = 'I have come, I have seen and I have conquered';
-$lang['quotes.4.author'] = 'Julius Caesar';
+$lang['quotes.4.writer'] = 'Julius Caesar';
 
 $lang['quotes.5.quote'] = 'I have nothing more to offer than blood, pain, tears and sweat.';
-$lang['quotes.5.author'] = 'Winston Churchill';
+$lang['quotes.5.writer'] = 'Winston Churchill';
 ?>

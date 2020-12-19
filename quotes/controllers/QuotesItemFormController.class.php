@@ -72,10 +72,10 @@ class QuotesItemFormController extends ModuleController
 			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_quote()->get_id_category(), $search_category_children_options));
 		}
 
-		$fieldset->add_field(new FormFieldAjaxCompleter('author', $this->common_lang['author'], $this->get_quote()->get_author(),
+		$fieldset->add_field(new FormFieldAjaxCompleter('writer', $this->common_lang['writer'], $this->get_quote()->get_writer(),
 			array(
 				'required' => true,
-				'file' => QuotesUrlBuilder::ajax_authors()->rel()
+				'file' => QuotesUrlBuilder::ajax_writers()->rel()
 			)
 		));
 
@@ -142,13 +142,13 @@ class QuotesItemFormController extends ModuleController
 				$this->is_new_quote = true;
 				$this->quote = new QuotesItem();
 				$this->quote->init_default_properties(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY));
-				$rewrited_author = AppContext::get_request()->get_getvalue('author', '');
-				if ($rewrited_author)
+				$rewrited_writer = AppContext::get_request()->get_getvalue('writer', '');
+				if ($rewrited_writer)
 				{
-					if ($author = QuotesCache::load()->get_author($rewrited_author))
+					if ($writer = QuotesCache::load()->get_writer($rewrited_writer))
 					{
-						$this->quote->set_author($author);
-						$this->quote->set_rewrited_author($rewrited_author);
+						$this->quote->set_writer($writer);
+						$this->quote->set_rewrited_writer($rewrited_writer);
 					}
 				}
 			}
@@ -192,7 +192,7 @@ class QuotesItemFormController extends ModuleController
 		else
 			$quote->unapprove();
 
-		$quote->set_author($this->form->get_value('author'));
+		$quote->set_writer($this->form->get_value('writer'));
 		$quote->set_quote($this->form->get_value('quote'));
 
 		if ($quote->get_id() === null)
@@ -217,7 +217,7 @@ class QuotesItemFormController extends ModuleController
 			$contribution = new Contribution();
 			$contribution->set_id_in_module($id);
 			$contribution->set_description(stripslashes($quote->get_quote()));
-			$contribution->set_entitled(StringVars::replace_vars($this->lang['quotes.form.contribution.title'], array('name' => $quote->get_author())));
+			$contribution->set_entitled(StringVars::replace_vars($this->lang['quotes.form.contribution.title'], array('name' => $quote->get_writer())));
 			$contribution->set_fixing_url(QuotesUrlBuilder::edit($id)->relative());
 			$contribution->set_poster_id(AppContext::get_current_user()->get_id());
 			$contribution->set_module('quotes');
@@ -255,16 +255,16 @@ class QuotesItemFormController extends ModuleController
 		elseif ($quote->is_approved())
 		{
 			if ($this->is_new_quote)
-				AppContext::get_response()->redirect(QuotesUrlBuilder::home(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('author' => $quote->get_author())));
+				AppContext::get_response()->redirect(QuotesUrlBuilder::home(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('writer' => $quote->get_writer())));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::home()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('author' => $quote->get_author())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::home()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('writer' => $quote->get_writer())));
 		}
 		else
 		{
 			if ($this->is_new_quote)
-				AppContext::get_response()->redirect(QuotesUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('author' => $quote->get_author())));
+				AppContext::get_response()->redirect(QuotesUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['quotes.message.success.add'], array('writer' => $quote->get_writer())));
 			else
-				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('author' => $quote->get_author())));
+				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], array('writer' => $quote->get_writer())));
 		}
 	}
 

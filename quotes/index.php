@@ -25,12 +25,12 @@ $url_controller_mappers = array(
 
 	//Management
 	new UrlControllerMapper('QuotesItemsManagerController', '`^/manage/?$`'),
-	new UrlControllerMapper('QuotesItemFormController', '`^/add/?([0-9]+)?/?([a-z0-9-_]+)?/?$`', array('id_category', 'author')),
+	new UrlControllerMapper('QuotesItemFormController', '`^/add/?([0-9]+)?/?([a-z0-9-_]+)?/?$`', array('id_category', 'writer')),
 	new UrlControllerMapper('QuotesItemFormController', '`^/([0-9]+)/edit/?$`', array('id')),
 	new UrlControllerMapper('QuotesDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
 
-	new UrlControllerMapper('AjaxQuoteAuthorAutoCompleteController','`^/ajax_authors/?$`'),
-	new UrlControllerMapper('QuotesAuthorController', '`^/author/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('author', 'page')),
+	new UrlControllerMapper('AjaxQuotesWriterAutoCompleteController','`^/ajax_writers/?$`'),
+	new UrlControllerMapper('QuotesWriterController', '`^/writer/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('writer', 'page')),
 
 	new UrlControllerMapper('QuotesPendingItemsQuotesController', '`^/pending/?([0-9]+)?/?$`', array('page')),
 

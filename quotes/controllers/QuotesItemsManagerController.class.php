@@ -71,7 +71,7 @@ class QuotesItemsManagerController extends AdminModuleController
 			$results[] = new HTMLTableRow(array(
 				new HTMLTableRowCell($quote->get_quote(), 'left'),
 				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? LangLoader::get_message('none_e', 'common') : $category->get_name()))),
-				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_author_quotes($quote->get_rewrited_author()), $quote->get_author())),
+				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_writer_items($quote->get_rewrited_writer()), $quote->get_writer())),
 				new HTMLTableRowCell($quote->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
 				new HTMLTableRowCell($quote->is_approved() ? LangLoader::get_message('yes', 'common') : LangLoader::get_message('no', 'common')),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display(), 'controls')

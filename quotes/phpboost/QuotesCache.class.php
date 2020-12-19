@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 12 24
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -12,7 +12,7 @@ class QuotesCache implements CacheData
 {
 	private $quotes = array();
 	private $categories = array();
-	private $authors = array();
+	private $writers = array();
 
 	/**
 	 * {@inheritdoc}
@@ -21,7 +21,7 @@ class QuotesCache implements CacheData
 	{
 		$this->quotes = array();
 
-		$result = PersistenceContext::get_querier()->select('SELECT id, id_category, author, rewrited_author, quote
+		$result = PersistenceContext::get_querier()->select('SELECT id, id_category, writer, rewrited_writer, content
 			FROM ' . QuotesSetup::$quotes_table . '
 			WHERE approved = 1
 			ORDER BY RAND()
@@ -34,21 +34,21 @@ class QuotesCache implements CacheData
 
 			$this->quotes[$row['id_category']][] = array(
 				'id' => $row['id'],
-				'author' => $row['author'],
-				'rewrited_author' => $row['rewrited_author'],
-				'quote' => $row['quote']
+				'writer' => $row['writer'],
+				'rewrited_writer' => $row['rewrited_writer'],
+				'content' => $row['content']
 			);
 		}
 		$result->dispose();
 
-		$result = PersistenceContext::get_querier()->select('SELECT author, rewrited_author
+		$result = PersistenceContext::get_querier()->select('SELECT writer, rewrited_writer
 			FROM ' . QuotesSetup::$quotes_table . '
-			GROUP BY author, rewrited_author'
+			GROUP BY writer, rewrited_writer'
 		);
 
 		while ($row = $result->fetch())
 		{
-			$this->authors[$row['rewrited_author']] = $row['author'];
+			$this->writers[$row['rewrited_writer']] = $row['writer'];
 		}
 		$result->dispose();
 	}
@@ -87,21 +87,21 @@ class QuotesCache implements CacheData
 		return $this->categories;
 	}
 
-	public function get_authors()
+	public function get_writers()
 	{
-		return $this->authors;
+		return $this->writers;
 	}
 
-	public function author_exists($rewrited_name)
+	public function writer_exists($rewrited_name)
 	{
-		return array_key_exists($rewrited_name, $this->authors);
+		return array_key_exists($rewrited_name, $this->writers);
 	}
 
-	public function get_author($rewrited_name)
+	public function get_writer($rewrited_name)
 	{
-		if ($this->author_exists($rewrited_name))
+		if ($this->writer_exists($rewrited_name))
 		{
-			return $this->authors[$rewrited_name];
+			return $this->writers[$rewrited_name];
 		}
 		return null;
 	}

@@ -16,9 +16,9 @@ class QuotesItem
 	private $creation_date;
 	private $approved;
 	private $author_user;
-	private $author;
-	private $rewrited_author;
-	private $quote;
+	private $writer;
+	private $rewrited_writer;
+	private $content;
 
 	public function get_id()
 	{
@@ -80,34 +80,34 @@ class QuotesItem
 		return $this->approved;
 	}
 
-	public function get_author()
+	public function get_writer()
 	{
-		return $this->author;
+		return $this->writer;
 	}
 
-	public function set_author($author)
+	public function set_writer($writer)
 	{
-		$this->author = $author;
+		$this->writer = $writer;
 	}
 
-	public function set_rewrited_author($rewrited_author)
+	public function set_rewrited_writer($rewrited_writer)
 	{
-		$this->rewrited_author = $rewrited_author;
+		$this->rewrited_writer = $rewrited_writer;
 	}
 
-	public function get_rewrited_author()
+	public function get_rewrited_writer()
 	{
-		return Url::encode_rewrite($this->author);
+		return Url::encode_rewrite($this->writer);
 	}
 
-	public function get_quote()
+	public function get_content()
 	{
-		return $this->quote;
+		return $this->content;
 	}
 
-	public function set_quote($quote)
+	public function set_content($content)
 	{
-		$this->quote = $quote;
+		$this->content = $content;
 	}
 
 	public function is_authorized_to_add()
@@ -133,9 +133,9 @@ class QuotesItem
 			'creation_date' => $this->get_creation_date()->get_timestamp(),
 			'approved' => (int)$this->is_approved(),
 			'author_user_id' => $this->get_author_user()->get_id(),
-			'author' => $this->get_author(),
-			'rewrited_author' => $this->get_rewrited_author(),
-			'quote' => $this->get_quote()
+			'writer' => $this->get_writer(),
+			'rewrited_writer' => $this->get_rewrited_writer(),
+			'content' => $this->get_content()
 		);
 	}
 
@@ -148,9 +148,9 @@ class QuotesItem
 			$this->approve();
 		else
 			$this->unapprove();
-		$this->set_author($properties['author']);
-		$this->set_rewrited_author($properties['rewrited_author']);
-		$this->set_quote($properties['quote']);
+		$this->set_writer($properties['writer']);
+		$this->set_rewrited_writer($properties['rewrited_writer']);
+		$this->set_content($properties['content']);
 
 		$user = new User();
 		if (!empty($properties['user_id']))
@@ -175,7 +175,7 @@ class QuotesItem
 	public function get_array_tpl_vars()
 	{
 		$category = $this->get_category();
-		$quote = FormatingHelper::second_parse($this->quote);
+		$content = FormatingHelper::second_parse($this->content);
 		$user = $this->get_author_user();
 		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 
@@ -186,10 +186,10 @@ class QuotesItem
 			'C_DELETE' => $this->is_authorized_to_delete(),
 			'C_USER_GROUP_COLOR' => !empty($user_group_color),
 
-			//quotes
+			// Item
 			'ID' => $this->id,
-			'AUTHOR' => $this->author,
-			'QUOTE' => $quote,
+			'AUTHOR' => $this->writer,
+			'QUOTE' => $content,
 			'DATE' => $this->creation_date->format(Date::FORMAT_DAY_MONTH_YEAR),
 			'DATE_DAY' => $this->creation_date->get_day(),
 			'DATE_MONTH' => $this->creation_date->get_month(),
@@ -211,7 +211,7 @@ class QuotesItem
 			'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($category->get_id())->rel(),
 
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_AUTHOR_LINK' => QuotesUrlBuilder::display_author_quotes($this->rewrited_author)->rel(),
+			'U_AUTHOR_LINK' => QuotesUrlBuilder::display_writer_items($this->rewrited_writer)->rel(),
 			'U_EDIT' => QuotesUrlBuilder::edit($this->id)->rel(),
 			'U_DELETE' => QuotesUrlBuilder::delete($this->id)->rel(),
 		);
