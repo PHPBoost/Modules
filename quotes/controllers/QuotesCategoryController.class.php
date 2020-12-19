@@ -3,12 +3,13 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 10 19
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class QuotesDisplayCategoryController extends ModuleController
+class QuotesCategoryController extends ModuleController
 {
 	private $lang;
 	private $tpl;
@@ -30,7 +31,7 @@ class QuotesDisplayCategoryController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'quotes');
-		$this->tpl = new FileTemplate('quotes/QuotesDisplaySeveralQuotesController.tpl');
+		$this->tpl = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
 		$this->tpl->add_lang($this->lang);
 		$this->config = QuotesConfig::load();
 	}
@@ -113,7 +114,7 @@ class QuotesDisplayCategoryController extends ModuleController
 
 		while ($row = $result->fetch())
 		{
-			$quote = new Quote();
+			$quote = new QuotesItem();
 			$quote->set_properties($row);
 
 			$this->tpl->assign_block_vars('quotes', $quote->get_array_tpl_vars());

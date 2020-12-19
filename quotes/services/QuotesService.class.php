@@ -30,7 +30,7 @@ class QuotesService
 	 * @desc Create a new entry in the database table.
 	 * @param string[] $quote : new Quote
 	 */
-	public static function add(Quote $quote)
+	public static function add(QuotesItem $quote)
 	{
 		$result = self::$db_querier->insert(QuotesSetup::$quotes_table, $quote->get_properties());
 
@@ -41,7 +41,7 @@ class QuotesService
 	 * @desc Update an entry.
 	 * @param string[] $quote : Quote to update
 	 */
-	public static function update(Quote $quote)
+	public static function update(QuotesItem $quote)
 	{
 		self::$db_querier->update(QuotesSetup::$quotes_table, $quote->get_properties(), 'WHERE id=:id', array('id' => $quote->get_id()));
 	}
@@ -76,7 +76,7 @@ class QuotesService
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = quotes.author_user_id
 		' . $condition, $parameters);
 
-		$quote = new Quote();
+		$quote = new QuotesItem();
 		$quote->set_properties($row);
 		return $quote;
 	}

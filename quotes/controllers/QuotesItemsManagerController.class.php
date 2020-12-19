@@ -3,13 +3,13 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 08
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class QuotesManageController extends AdminModuleController
+class QuotesItemsManagerController extends AdminModuleController
 {
 	private $lang;
 	private $view;
@@ -58,7 +58,7 @@ class QuotesManageController extends AdminModuleController
 		);
 		foreach ($result as $row)
 		{
-			$quote = new Quote();
+			$quote = new QuotesItem();
 			$quote->set_properties($row);
 			$category = $quote->get_category();
 
