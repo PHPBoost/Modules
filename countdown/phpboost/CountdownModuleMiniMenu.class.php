@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 09
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -56,19 +56,11 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 			'TIMER_HOUR'        => $event_date->get_hours(),
 			'TIMER_MINUTE'      => $event_date->get_minutes(),
 
-			'NO_JAVAS'          => FormatingHelper::second_parse($countdown_config->get_no_javas()),
+			'NO_JS'          	=> FormatingHelper::second_parse($countdown_config->get_no_js()),
 			'NEXT_EVENT'        => FormatingHelper::second_parse($countdown_config->get_next_event()),
 			'LAST_EVENT'        => FormatingHelper::second_parse($countdown_config->get_last_event()),
 			'STOPPED_EVENT'     => FormatingHelper::second_parse($countdown_config->get_stopped_event()),
 			'NO_EVENT'          => FormatingHelper::second_parse($countdown_config->get_no_event()),
-
-			'L_DAY'             => $lang['day'],
-			'L_HOUR'            => $lang['hour'],
-			'L_MINI_HOUR'       => $lang['mini.hour'],
-			'L_MINUTE'          => $lang['minute'],
-			'L_MINI_MINUTE'     => $lang['mini.minute'],
-			'L_SECOND'          => $lang['seconde'],
-			'L_MINI_SECOND'     => $lang['mini.seconde'],
 		));
 
 		return $view->render();
