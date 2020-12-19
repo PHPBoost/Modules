@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 03 10
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 5.2 - 2018 11 27
 */
 
@@ -32,14 +32,14 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 			return true;
 	}
 
-	public function display($tpl = false)
+	public function display($view = false)
 	{
 		if ($this->is_displayed())
 		{
 			$config = NewscatConfig::load();
 
-			$tpl = new FileTemplate('newscat/NewscatModuleMiniMenu.tpl');
-			$tpl->add_lang(LangLoader::get('common', 'newscat'));
+			$view = new FileTemplate('newscat/NewscatModuleMiniMenu.tpl');
+			$view->add_lang(LangLoader::get('common', 'newscat'));
 
 			if(ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news')) {
 				$now = new Date();
@@ -56,16 +56,15 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 				while ($row_cat = $result_cat->fetch())
 				{
 					$newscat_number++;
-					$tpl->assign_block_vars('items', array(
+					$view->assign_block_vars('items', array(
 						'ID' => $row_cat['id'],
 						'SUB_ORDER' => $row_cat['c_order'],
 						'ID_PARENT' => $row_cat['id_parent'],
 						'CATEGORY_NAME' => $row_cat['name'],
 						'U_CATEGORY' => NewsUrlBuilder::display_category($row_cat['id'], $row_cat['rewrited_name'])->rel()
 					));
-					// Debug::dump($newscat_number);
 
-					$tpl->put_all(array(
+					$view->put_all(array(
 						'C_MENU_VERTICAL' => ($this->get_block() == Menu::BLOCK_POSITION__LEFT) || ($this->get_block() == Menu::BLOCK_POSITION__RIGHT),
 						'C_MENU_LEFT' => $this->get_block() == Menu::BLOCK_POSITION__LEFT,
 						'C_MENU_RIGHT' => $this->get_block() == Menu::BLOCK_POSITION__RIGHT,
@@ -75,7 +74,7 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 						'C_CAT' => $newscat_number > 0,
 					));
 				}
-				return $tpl->render();
+				return $view->render();
 			}
 		}
 		return '';

@@ -62,7 +62,7 @@ class AdminNewscatConfigController extends AdminModuleController
 			array('class' => 'custom-checkbox')
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('module_name', $this->lang['config.module.name'], $this->config->get_module_name()));
+		$fieldset->add_field(new FormFieldTextEditor('module_name', $this->lang['newscat.config.module.name'], $this->config->get_module_name()));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);

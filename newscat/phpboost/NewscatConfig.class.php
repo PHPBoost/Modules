@@ -39,7 +39,7 @@ class NewscatConfig extends AbstractConfigData
 	{
 		return array(
 			self::ONLY_NEWS_MODULE => false,
-			self::MODULE_NAME => LangLoader::get_message('newscat.module.title', 'common', 'newscat'),
+			self::MODULE_NAME => LangLoader::get_message('module.title', 'common', 'newscat'),
 		);
 	}
 
