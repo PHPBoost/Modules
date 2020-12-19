@@ -3,24 +3,24 @@
 		<div class="cell">
 			<div class="cell-header">
 				<h6 class="cell-name">
-					{@lastcoms.title}
+					{@module.title}
 				</h6>
 			</div>
 # ENDIF #
 	# IF C_COMS #
 			<div class="cell-list">
 				<ul class="lastcoms# IF C_HORIZONTAL # lastcoms-horizontal# ENDIF #">
-					# START coms #
+					# START items #
 					<li>
-						<span class="pinned notice small">{coms.DATE_DIFF_NOW}</span>
-						# IF coms.C_AUTHOR_EXIST #<a class="{coms.USER_LEVEL_CLASS}" href="{coms.U_AUTHOR_PROFILE}"# IF coms.C_USER_GROUP_COLOR # style="color:{coms.USER_GROUP_COLOR}"# ENDIF #>{coms.PSEUDO}</a># ELSE #{coms.PSEUDO}# ENDIF #
-						<p><a href="{coms.PATH}"><i class="far fa-comment"></i> {coms.CONTENT}</a></p>
+						<span class="pinned notice small">{items.DATE_DIFF_NOW}</span>
+						# IF items.C_AUTHOR_EXIST #<a class="{items.USER_LEVEL_CLASS}" href="{items.U_AUTHOR_PROFILE}"# IF items.C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
+						<p><a href="{items.PATH}"><i class="far fa-comment"></i> {items.CONTENT}</a></p>
 					</li>
-					# END coms #
+					# END items #
 				</ul>
 			</div>
 	# ELSE #
-		{@lastcoms.no.com}
+		{@lastcoms.no.item}
 	# ENDIF #
 # IF C_HORIZONTAL #
 		</div>

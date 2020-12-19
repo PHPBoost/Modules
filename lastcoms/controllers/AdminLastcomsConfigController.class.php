@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2020 01 16
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -58,17 +58,17 @@ class AdminLastcomsConfigController extends AdminModuleController
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldNumberEditor('lastcoms_number', $this->lang['lastcoms.number'], $this->config->get_lastcoms_number(),
-			array('description' => $this->lang['lastcoms.number.explain'])
+			array('description' => $this->lang['lastcoms.number.description'])
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('lastcoms_char', $this->lang['lastcoms.char'], $this->config->get_lastcoms_char(),
-			array('description' => $this->lang['lastcoms.char.explain'])
+			array('description' => $this->lang['lastcoms.char.description'])
 		));
 
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $common_lang['authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
-		
-		$auth_settings = new AuthorizationsSettings(array(new ActionAuthorization($this->lang['admin.authorizations.read'], LastcomsAuthorizationsService::READ_AUTHORIZATIONS)));
+
+		$auth_settings = new AuthorizationsSettings(array(new ActionAuthorization($this->lang['lastcoms.config.authorizations.read'], LastcomsAuthorizationsService::READ_AUTHORIZATIONS)));
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
 

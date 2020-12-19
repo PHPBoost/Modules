@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2020 09 02
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -28,7 +28,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_title()
 	{
-		return LangLoader::get_message('lastcoms.title', 'common', 'lastcoms');
+		return LangLoader::get_message('module.title', 'common', 'lastcoms');
 	}
 
 	public function is_displayed()
@@ -72,7 +72,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			$content_limited = trim(TextHelper::substr($contents, 0, (int)$coms_char));
 			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
 
-			$view->assign_block_vars('coms', array_merge(
+			$view->assign_block_vars('items', array_merge(
 				Date::get_array_tpl_vars(new Date($row['timestamp'], Timezone::SERVER_TIMEZONE), 'date'),
 				array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
@@ -89,7 +89,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 
 		$view->put_all(array(
 			'C_COMS' => $comments_number > 0,
-			'L_LAST_COMS' => $lang['lastcoms.title'],
+			'L_LAST_COMS' => $lang['module.title'],
 		));
 
 		return $view->render();
