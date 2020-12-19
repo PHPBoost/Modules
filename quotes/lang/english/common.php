@@ -12,33 +12,35 @@
 #                       English                    #
 ####################################################
 
-$lang['module_title'] = 'Quotes';
+// Module titles
+$lang['module.title'] = 'Quotes';
 
 $lang['items'] = 'quotes';
 $lang['item'] = 'quote';
 
 $lang['an.item'] = 'a quote';
+$lang['the.item'] = 'the quote';
+$lang['my.items'] = 'My quotes';
 
-$lang['quotes.actions.add'] = 'Add quote';
-$lang['quotes.add'] = 'New quote';
-$lang['quotes.edit'] = 'Quote edition';
-$lang['quotes.pending'] = 'Pending quotes';
-$lang['quotes.manage'] = 'Manage quotes';
-$lang['quotes.management'] = 'Quotes management';
+$lang['all.items'] = 'All quotes';
+$lang['last.items'] = 'Last quotes';
 
-$lang['quote'] = 'Quote';
-$lang['quotes'] = 'Quotes';
+$lang['quotes.add.item'] = 'Add new quote';
+$lang['quotes.edit.item'] = 'Quote edition';
+$lang['quotes.items.management'] = 'Quotes management';
+$lang['quotes.pending.items'] = 'Pending quotes';
 
-//contribution
+// Contribution
+$lang['quotes.form.content'] = 'Quote content';
 $lang['quotes.form.contribution.title'] = 'Quote from :name';
 $lang['quotes.form.contribution.explain'] = 'You are not authorized to create a new quote, however you can contribute by submitting one.';
 
-//SEO
+// SEO
 $lang['quotes.seo.description.root'] = 'All :site\'s quotes.';
 $lang['quotes.seo.description.pending'] = 'All pending quotes.';
 $lang['quotes.seo.description.writer'] = 'All :writer\'s quotes.';
 
-//Messages
+// Messages helper
 $lang['quotes.message.success.add'] = 'The quote <b>:writer</b> has been added';
 $lang['quotes.message.success.edit'] = 'The quote <b>:writer</b> has been modified';
 $lang['quotes.message.success.delete'] = 'The quote <b>:writer</b> has been deleted';

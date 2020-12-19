@@ -179,41 +179,40 @@ class QuotesItem
 		$user = $this->get_author_user();
 		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 
-		return array(
-			'C_APPROVED' => $this->is_approved(),
-			'C_MODERATION' => CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation(),
-			'C_EDIT' => $this->is_authorized_to_edit(),
-			'C_DELETE' => $this->is_authorized_to_delete(),
-			'C_USER_GROUP_COLOR' => !empty($user_group_color),
+		return array_merge(
+			Date::get_array_tpl_vars($this->creation_date,'date'),
+			array(
+				// Conditions
+				'C_APPROVED' => $this->is_approved(),
+				'C_CONTROLS' => CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation(),
+				'C_EDIT' => $this->is_authorized_to_edit(),
+				'C_DELETE' => $this->is_authorized_to_delete(),
+				'C_USER_GROUP_COLOR' => !empty($user_group_color),
 
-			// Item
-			'ID' => $this->id,
-			'AUTHOR' => $this->writer,
-			'QUOTE' => $content,
-			'DATE' => $this->creation_date->format(Date::FORMAT_DAY_MONTH_YEAR),
-			'DATE_DAY' => $this->creation_date->get_day(),
-			'DATE_MONTH' => $this->creation_date->get_month(),
-			'DATE_YEAR' => $this->creation_date->get_year(),
-			'DATE_DAY_MONTH' => $this->creation_date->format(Date::FORMAT_DAY_MONTH),
-			'DATE_ISO8601' => $this->creation_date->format(Date::FORMAT_ISO8601),
-			'C_AUTHOR_EXIST' => $user->get_id() !== User::VISITOR_LEVEL,
-			'PSEUDO' => $user->get_display_name(),
-			'USER_LEVEL_CLASS' => UserService::get_level_class($user->get_level()),
-			'USER_GROUP_COLOR' => $user_group_color,
+				// Item
+				'ID' => $this->id,
+				'WRITER_NAME' => $this->writer,
+				'CONTENT' => $content,
+				'C_AUTHOR_EXIST' => $user->get_id() !== User::VISITOR_LEVEL,
+				'AUTHOR_DISPLAY_NAME' => $user->get_display_name(),
+				'USER_LEVEL_CLASS' => UserService::get_level_class($user->get_level()),
+				'USER_GROUP_COLOR' => $user_group_color,
 
-			//Category
-			'C_ROOT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY,
-			'CATEGORY_ID' => $category->get_id(),
-			'CATEGORY_NAME' => $category->get_name(),
-			'CATEGORY_DESCRIPTION' => $category->get_description(),
-			'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
-			'U_CATEGORY' => QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-			'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($category->get_id())->rel(),
+				// Category
+				'C_ROOT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY,
+				'CATEGORY_ID' => $category->get_id(),
+				'CATEGORY_NAME' => $category->get_name(),
+				'CATEGORY_DESCRIPTION' => $category->get_description(),
+				'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
+				'U_CATEGORY' => QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
+				'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($category->get_id())->rel(),
 
-			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_AUTHOR_LINK' => QuotesUrlBuilder::display_writer_items($this->rewrited_writer)->rel(),
-			'U_EDIT' => QuotesUrlBuilder::edit($this->id)->rel(),
-			'U_DELETE' => QuotesUrlBuilder::delete($this->id)->rel(),
+				// Item links
+				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+				'U_WRITER' => QuotesUrlBuilder::display_writer_items($this->rewrited_writer)->rel(),
+				'U_EDIT' => QuotesUrlBuilder::edit($this->id)->rel(),
+				'U_DELETE' => QuotesUrlBuilder::delete($this->id)->rel(),
+			)
 		);
 	}
 }

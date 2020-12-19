@@ -3,18 +3,19 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 01 10
+ * @version     PHPBoost 6.0 - last update: 2020 12 19
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesConfig extends AbstractConfigData
 {
-	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
+	const ITEMS_NUMBER_PER_PAGE      = 'items_number_per_page';
 	const CATEGORIES_NUMBER_PER_PAGE = 'categories_number_per_page';
-	const COLUMNS_NUMBER_PER_LINE = 'columns_number_per_line';
-	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
-	const AUTHORIZATIONS = 'authorizations';
+	const CATEGORIES_NUMBER_PER_ROW  = 'categories_number_per_row';
+	const ROOT_CATEGORY_DESCRIPTION  = 'root_category_description';
+	const AUTHORIZATIONS             = 'authorizations';
 
 	public function get_items_number_per_page()
 	{
@@ -36,14 +37,14 @@ class QuotesConfig extends AbstractConfigData
 		$this->set_property(self::CATEGORIES_NUMBER_PER_PAGE, $value);
 	}
 
-	public function get_columns_number_per_line()
+	public function get_categories_number_per_row()
 	{
-		return $this->get_property(self::COLUMNS_NUMBER_PER_LINE);
+		return $this->get_property(self::CATEGORIES_NUMBER_PER_ROW);
 	}
 
-	public function set_columns_number_per_line($value)
+	public function set_categories_number_per_row($value)
 	{
-		$this->set_property(self::COLUMNS_NUMBER_PER_LINE, $value);
+		$this->set_property(self::CATEGORIES_NUMBER_PER_ROW, $value);
 	}
 
 	public function get_root_category_description()
@@ -74,7 +75,7 @@ class QuotesConfig extends AbstractConfigData
 		return array(
 			self::ITEMS_NUMBER_PER_PAGE => 15,
 			self::CATEGORIES_NUMBER_PER_PAGE => 10,
-			self::COLUMNS_NUMBER_PER_LINE => 3,
+			self::CATEGORIES_NUMBER_PER_ROW => 3,
 			self::ROOT_CATEGORY_DESCRIPTION => CategoriesService::get_default_root_category_description('quotes', 0, 5),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)
 		);

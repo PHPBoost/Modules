@@ -12,7 +12,7 @@
 class QuotesCategoryController extends ModuleController
 {
 	private $lang;
-	private $tpl;
+	private $view;
 	private $config;
 
 	private $category;
@@ -31,8 +31,8 @@ class QuotesCategoryController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'quotes');
-		$this->tpl = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
-		$this->tpl->add_lang($this->lang);
+		$this->view = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
+		$this->view->add_lang($this->lang);
 		$this->config = QuotesConfig::load();
 	}
 
@@ -56,7 +56,7 @@ class QuotesCategoryController extends ModuleController
 			{
 				$category_thumbnail = $category->get_thumbnail()->rel();
 
-				$this->tpl->assign_block_vars('sub_categories_list', array(
+				$this->view->assign_block_vars('sub_categories_list', array(
 					'C_CATEGORY_THUMBNAIL' => !empty($category_thumbnail),
 					'C_MORE_THAN_ONE_ELEMENT' => $category->get_elements_number() > 1,
 					'CATEGORY_ID' => $category->get_id(),
@@ -67,10 +67,6 @@ class QuotesCategoryController extends ModuleController
 				));
 			}
 		}
-
-		$nbr_column_cats = ($nbr_cat_displayed > $this->config->get_columns_number_per_line()) ? $this->config->get_columns_number_per_line() : $nbr_cat_displayed;
-		$nbr_column_cats = !empty($nbr_column_cats) ? $nbr_column_cats : 1;
-		$cats_columns_width = floor(100 / $nbr_column_cats);
 
 		$condition = 'WHERE id_category = :id_category AND approved = 1';
 		$parameters = array(
@@ -92,9 +88,8 @@ class QuotesCategoryController extends ModuleController
 
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 
-		$this->tpl->put_all(array(
-			'C_RESULTS' => $result->get_rows_count() > 0,
-			'C_MORE_THAN_ONE_RESULT' => $result->get_rows_count() > 1,
+		$this->view->put_all(array(
+			'C_ITEMS' => $result->get_rows_count() > 0,
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
 			'C_CATEGORY' => true,
 			'C_ROOT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
@@ -102,22 +97,23 @@ class QuotesCategoryController extends ModuleController
 			'C_SUB_CATEGORIES' => $nbr_cat_displayed > 0,
 			'C_PAGINATION' => $pagination->has_several_pages(),
 			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
+
 			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
 			'PAGINATION' => $pagination->display(),
-			'CATEGORIES_PER_ROW' => $this->config->get_columns_number_per_line(),
+			'CATEGORIES_PER_ROW' => $this->config->get_categories_number_per_row(),
 			'ID_CAT' => $this->get_category()->get_id(),
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
-			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
 			'CATEGORY_DESCRIPTION' => $category_description,
+			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit_category($this->get_category()->get_id())->rel()
 		));
 
 		while ($row = $result->fetch())
 		{
-			$quote = new QuotesItem();
-			$quote->set_properties($row);
+			$item = new QuotesItem();
+			$item->set_properties($row);
 
-			$this->tpl->assign_block_vars('quotes', $quote->get_array_tpl_vars());
+			$this->view->assign_block_vars('items', $item->get_array_tpl_vars());
 		}
 		$result->dispose();
 	}
@@ -142,9 +138,9 @@ class QuotesCategoryController extends ModuleController
 
 	private function get_pagination($condition, $parameters, $page, $subcategories_page)
 	{
-		$quotes_number = QuotesService::count($condition, $parameters);
+		$items_number = QuotesService::count($condition, $parameters);
 
-		$pagination = new ModulePagination($page, $quotes_number, (int)QuotesConfig::load()->get_items_number_per_page());
+		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_number_per_page());
 		$pagination->set_url(QuotesUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), '%d', $subcategories_page));
 
 		if ($pagination->current_page_is_empty() && $page > 1)
@@ -204,14 +200,14 @@ class QuotesCategoryController extends ModuleController
 	private function generate_response(HTTPRequestCustom $request)
 	{
 		$page = $request->get_getint('page', 1);
-		$response = new SiteDisplayResponse($this->tpl);
+		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->get_category()->get_id() != Category::ROOT_CATEGORY)
-			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['module_title'], $page);
+			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['module.title'], $page);
 		else
-			$graphical_environment->set_page_title($this->lang['module_title'], '', $page);
+			$graphical_environment->set_page_title($this->lang['module.title'], '', $page);
 
 		$description = $this->get_category()->get_description();
 		if (empty($description))
@@ -220,7 +216,7 @@ class QuotesCategoryController extends ModuleController
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['module_title'], QuotesUrlBuilder::home());
+		$breadcrumb->add($this->lang['module.title'], QuotesUrlBuilder::home());
 
 		$categories = array_reverse(CategoriesService::get_categories_manager('quotes')->get_parents($this->get_category()->get_id(), true));
 		foreach ($categories as $id => $category)
@@ -238,7 +234,7 @@ class QuotesCategoryController extends ModuleController
 		$object->init();
 		$object->check_authorizations();
 		$object->build_view(AppContext::get_request());
-		return $object->tpl;
+		return $object->view;
 	}
 }
 ?>

@@ -71,7 +71,7 @@ class AdminQuotesConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('columns_number_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_columns_number_per_line(),
+		$fieldset->add_field(new FormFieldNumberEditor('categories_number_per_row', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_categories_number_per_row(),
 			array('min' => 1, 'max' => 4, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 4))
 		));
@@ -100,7 +100,7 @@ class AdminQuotesConfigController extends AdminModuleController
 	{
 		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
 		$this->config->set_categories_number_per_page($this->form->get_value('categories_number_per_page'));
-		$this->config->set_columns_number_per_line($this->form->get_value('columns_number_per_line'));
+		$this->config->set_categories_number_per_row($this->form->get_value('categories_number_per_row'));
 		$this->config->set_root_category_description($this->form->get_value('root_category_description'));
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 

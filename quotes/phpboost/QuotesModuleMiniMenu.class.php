@@ -22,7 +22,7 @@ class QuotesModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_title()
 	{
-		return LangLoader::get_message('module_title', 'common', 'quotes');
+		return LangLoader::get_message('module.title', 'common', 'quotes');
 	}
 
 	public function is_displayed()
@@ -33,10 +33,10 @@ class QuotesModuleMiniMenu extends ModuleMiniMenu
 	public function get_menu_content()
 	{
 		//Create file template
-		$tpl = new FileTemplate('quotes/QuotesModuleMiniMenu.tpl');
+		$view = new FileTemplate('quotes/QuotesModuleMiniMenu.tpl');
 
 		//Assign the lang file to the tpl
-		$tpl->add_lang(LangLoader::get('common', 'quotes'));
+		$view->add_lang(LangLoader::get('common', 'quotes'));
 
 		//Load module cache
 		$quotes_cache = QuotesCache::load();
@@ -49,23 +49,23 @@ class QuotesModuleMiniMenu extends ModuleMiniMenu
 		if (!empty($categories))
 		{
 			$id_category = $categories[array_rand($categories)];
-			$category_quotes = $quotes_cache->get_category_quotes($id_category);
-			$random_quote = $category_quotes[array_rand($category_quotes)];
+			$category_items = $quotes_cache->get_items_category($id_category);
+			$random_item = $category_items[array_rand($category_items)];
 
-			if (!empty($random_quote))
+			if (!empty($random_item))
 			{
-				$tpl->put_all(array(
-					'C_QUOTE' => $random_quote,
-					'CONTENT' => strip_tags(FormatingHelper::second_parse($random_quote['content'])),
-					'AUTHOR' => $random_quote['writer'],
-					'U_AUTHOR_LINK' => QuotesUrlBuilder::display_writer_items($random_quote['rewrited_writer'])->rel()
+				$view->put_all(array(
+					'C_ITEMS' => $random_item,
+					'CONTENT' => strip_tags(FormatingHelper::second_parse($random_item['content'])),
+					'WRITER_NAME' => $random_item['writer'],
+					'U_WRITER' => QuotesUrlBuilder::display_writer_items($random_item['rewrited_writer'])->rel()
 				));
 			}
 		}
 
-		$tpl->put('U_MODULE_HOME_PAGE', QuotesUrlBuilder::home()->rel());
+		$view->put('U_MODULE_HOME_PAGE', QuotesUrlBuilder::home()->rel());
 
-		return $tpl->render();
+		return $view->render();
 	}
 }
 ?>

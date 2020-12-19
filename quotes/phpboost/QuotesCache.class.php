@@ -10,7 +10,7 @@
 
 class QuotesCache implements CacheData
 {
-	private $quotes = array();
+	private $items = array();
 	private $categories = array();
 	private $writers = array();
 
@@ -19,7 +19,7 @@ class QuotesCache implements CacheData
 	 */
 	public function synchronize()
 	{
-		$this->quotes = array();
+		$this->items = array();
 
 		$result = PersistenceContext::get_querier()->select('SELECT id, id_category, writer, rewrited_writer, content
 			FROM ' . QuotesSetup::$quotes_table . '
@@ -32,7 +32,7 @@ class QuotesCache implements CacheData
 		{
 			$this->categories[] = $row['id_category'];
 
-			$this->quotes[$row['id_category']][] = array(
+			$this->items[$row['id_category']][] = array(
 				'id' => $row['id'],
 				'writer' => $row['writer'],
 				'rewrited_writer' => $row['rewrited_writer'],
@@ -53,33 +53,33 @@ class QuotesCache implements CacheData
 		$result->dispose();
 	}
 
-	public function get_quotes()
+	public function get_items()
 	{
-		return $this->quotes;
+		return $this->items;
 	}
 
-	public function quotes_exists($id)
+	public function item_exists($id)
 	{
-		return array_key_exists($id, $this->quotes);
+		return array_key_exists($id, $this->items);
 	}
 
-	public function get_quotes_item($id)
+	public function get_item($id)
 	{
-		if ($this->quotes_exists($id))
+		if ($this->item_exists($id))
 		{
-			return $this->quotes[$id];
+			return $this->items[$id];
 		}
 		return null;
 	}
 
-	public function get_number_quotes()
+	public function get_items_number()
 	{
-		return count($this->quotes);
+		return count($this->items);
 	}
 
-	public function get_category_quotes($id_category)
+	public function get_items_category($id_category)
 	{
-		return $this->quotes[$id_category];
+		return $this->items[$id_category];
 	}
 
 	public function get_categories()
@@ -107,7 +107,7 @@ class QuotesCache implements CacheData
 	}
 
 	/**
-	 * Loads and returns the quotes cached data.
+	 * Loads and returns the items cached data.
 	 * @return QuotesCache The cached data
 	 */
 	public static function load()
@@ -116,7 +116,7 @@ class QuotesCache implements CacheData
 	}
 
 	/**
-	 * Invalidates the current quotes cached data.
+	 * Invalidates the current items cached data.
 	 */
 	public static function invalidate()
 	{

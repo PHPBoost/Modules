@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 12 17
+ * @version     PHPBoost 6.0 - last update: 2019 12 19
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesService
@@ -27,27 +28,27 @@ class QuotesService
 	}
 
 	 /**
-	 * @desc Create a new entry in the database table.
-	 * @param string[] $quote : new Quote
+	 * @desc Create a new item in the database table.
+	 * @param string[] $item : new QuotesItem
 	 */
-	public static function add(QuotesItem $quote)
+	public static function add(QuotesItem $item)
 	{
-		$result = self::$db_querier->insert(QuotesSetup::$quotes_table, $quote->get_properties());
+		$result = self::$db_querier->insert(QuotesSetup::$quotes_table, $item->get_properties());
 
 		return $result->get_last_inserted_id();
 	}
 
 	 /**
-	 * @desc Update an entry.
-	 * @param string[] $quote : Quote to update
+	 * @desc Update an item.
+	 * @param string[] $item : QuotesItem to update
 	 */
-	public static function update(QuotesItem $quote)
+	public static function update(QuotesItem $item)
 	{
-		self::$db_querier->update(QuotesSetup::$quotes_table, $quote->get_properties(), 'WHERE id=:id', array('id' => $quote->get_id()));
+		self::$db_querier->update(QuotesSetup::$quotes_table, $item->get_properties(), 'WHERE id=:id', array('id' => $item->get_id()));
 	}
 
 	 /**
-	 * @desc Delete an entry.
+	 * @desc Delete an item.
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition
 	 */
@@ -58,27 +59,27 @@ class QuotesService
 			$controller = PHPBoostErrors::user_in_read_only();
 			DispatchManager::redirect($controller);
 		}
-		
+
 		self::$db_querier->delete(QuotesSetup::$quotes_table, 'WHERE id=:id', array('id' => $id));
 
 		self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'quotes', 'id' => $id));
 	}
 
 	 /**
-	 * @desc Return the properties of a quotes.
+	 * @desc Return the properties of an item.
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition
 	 */
-	public static function get_quote($condition, array $parameters)
+	public static function get_item($condition, array $parameters)
 	{
 		$row = self::$db_querier->select_single_row_query('SELECT quotes.*, member.*
 		FROM ' . QuotesSetup::$quotes_table . ' quotes
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = quotes.author_user_id
 		' . $condition, $parameters);
 
-		$quote = new QuotesItem();
-		$quote->set_properties($row);
-		return $quote;
+		$item = new QuotesItem();
+		$item->set_properties($row);
+		return $item;
 	}
 
 	 /**

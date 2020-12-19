@@ -11,31 +11,31 @@
 
 class QuotesDeleteItemController extends ModuleController
 {
-	private $quote;
+	private $item;
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		AppContext::get_session()->csrf_get_protect();
 
-		$this->get_quote($request);
+		$this->get_item($request);
 
 		$this->check_authorizations();
 
-		QuotesService::delete($this->quote->get_id());
+		QuotesService::delete($this->item->get_id());
 
 		QuotesService::clear_cache();
 
-		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), array('writer' => $this->quote->get_writer())));
+		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), array('writer' => $this->item->get_writer())));
 	}
 
-	private function get_quote(HTTPRequestCustom $request)
+	private function get_item(HTTPRequestCustom $request)
 	{
 		$id = $request->get_getint('id', 0);
 
 		if (!empty($id))
 		{
 			try {
-				$this->quote = QuotesService::get_quote('WHERE quotes.id=:id', array('id' => $id));
+				$this->item = QuotesService::get_item('WHERE quotes.id=:id', array('id' => $id));
 			} catch (RowNotFoundException $e) {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
@@ -45,7 +45,7 @@ class QuotesDeleteItemController extends ModuleController
 
 	private function check_authorizations()
 	{
-		if (!$this->quote->is_authorized_to_delete())
+		if (!$this->item->is_authorized_to_delete())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);

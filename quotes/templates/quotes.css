@@ -4,3 +4,5 @@
 */
 
 #module-quotes article header h2 { border-bottom: 0; }
+
+#module-quotes .writer-items { margin-bottom: 1.618em; }

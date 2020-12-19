@@ -4,7 +4,7 @@
 			# IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
-			# IF C_PENDING #{@quotes.pending}# ELSE #{@module_title}# ENDIF # # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_AUTHOR_NAME # - {AUTHOR_NAME}# ENDIF #
+			# IF C_PENDING_ITEMS #{@quotes.pending.items}# ELSE #{@module.title}# ENDIF # # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_WRITER_ITEMS # - {WRITER_NAME}# ENDIF #
 		</h1>
 	</header>
 	# IF C_CATEGORY_DESCRIPTION #
@@ -21,18 +21,17 @@
 						<div class="cell-name" itemprop="about">
 							<a href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a>
 						</div>
-						<span class="small pinned notice" aria-label="{sub_categories_list.ELEMENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ELEMENT #${TextHelper::lcfirst(@quotes)}# ELSE #${TextHelper::lcfirst(@quote)}# ENDIF #">{sub_categories_list.ELEMENTS_NUMBER}</span>
+						<span class="small pinned notice" aria-label="{sub_categories_list.ELEMENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ELEMENT #${TextHelper::lcfirst(@items)}# ELSE #${TextHelper::lcfirst(@item)}# ENDIF #">{sub_categories_list.ELEMENTS_NUMBER}</span>
 					</div>
 					# IF sub_categories_list.C_CATEGORY_THUMBNAIL #
-					<div class="cell-body">
-						<div class="cell-thumbnail cell-landscape cell-center">
-							<img itemprop="thumbnailUrl" src="{sub_categories_list.U_CATEGORY_THUMBNAIL}" alt="{sub_categories_list.CATEGORY_NAME}" />
-							<a class="cell-thumbnail-caption" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
-								${LangLoader::get_message('see.category', 'categories-common')}
-							</a>
+						<div class="cell-body">
+							<div class="cell-thumbnail cell-landscape cell-center">
+								<img itemprop="thumbnailUrl" src="{sub_categories_list.U_CATEGORY_THUMBNAIL}" alt="{sub_categories_list.CATEGORY_NAME}" />
+								<a class="cell-thumbnail-caption" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
+									${LangLoader::get_message('see.category', 'categories-common')}
+								</a>
+							</div>
 						</div>
-					</div>
-
 					# ENDIF #
 				</div>
 			# END sub_categories_list #
@@ -40,37 +39,35 @@
 		# IF C_SUBCATEGORIES_PAGINATION #<div class="align-center"># INCLUDE SUBCATEGORIES_PAGINATION #</div># ENDIF #
 	# ENDIF #
 
-	# IF C_RESULTS #
-		# START quotes #
-			<article id="quotes-item-{quotes.ID}" class="quotes-item several-items category-{quotes.CATEGORY_ID}" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-				<blockquote class="formatter-container formatter-blockquote">
+	# IF C_ITEMS #
+		# START items #
+			<article id="quotes-item-{items.ID}" class="quotes-item several-items category-{items.CATEGORY_ID}" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+				<blockquote class="formatter-container formatter-blockquote# IF C_WRITER_ITEMS # writer-items# ENDIF #">
 					<h2 class="title-perso">
-						# IF C_AUTHOR_NAME #
-							<span class="small">{quotes.AUTHOR} :</span>
-						# ELSE #
-							<a href="{quotes.U_AUTHOR_LINK}" class="small">{quotes.AUTHOR}</a> :
+						# IF NOT C_WRITER_ITEMS #
+							<a href="{items.U_WRITER}" class="small">{items.WRITER_NAME}</a> :
 						# ENDIF #
 					</h2>
 					<div class="formatter-content">
-						# IF quotes.C_MODERATION #
+						# IF items.C_CONTROLS #
 							<div class="align-right controls">
-								# IF quotes.C_EDIT #
-									<a href="{quotes.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+								# IF items.C_EDIT #
+									<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 								# ENDIF #
-								# IF quotes.C_DELETE #
-									<a href="{quotes.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+								# IF items.C_DELETE #
+									<a href="{items.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 								# ENDIF #
 							</div>
 						# ENDIF #
-						<p itemprop="text">{quotes.QUOTE}</p>
+						<p itemprop="text">{items.CONTENT}</p>
 						<div class="align-right small">
-							<a href="{quotes.U_CATEGORY}"><i class="far fa-folder"></i> {quotes.CATEGORY_NAME}</a>
+							<a href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>
 						</div>
 					</div>
 	            </blockquote>
 				<footer></footer>
 			</article>
-		# END quotes #
+		# END items #
 	# ELSE #
 		# IF NOT C_HIDE_NO_ITEM_MESSAGE #
 			<div class="align-center">

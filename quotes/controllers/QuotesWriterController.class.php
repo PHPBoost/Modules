@@ -12,7 +12,7 @@
 class QuotesWriterController extends ModuleController
 {
 	private $lang;
-	private $tpl;
+	private $view;
 
 	private $cache;
 
@@ -30,8 +30,8 @@ class QuotesWriterController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'quotes');
-		$this->tpl = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
-		$this->tpl->add_lang($this->lang);
+		$this->view = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
+		$this->view->add_lang($this->lang);
 		$this->cache = QuotesCache::load();
 	}
 
@@ -60,21 +60,20 @@ class QuotesWriterController extends ModuleController
 			'display_from' => $pagination->get_display_from()
 		)));
 
-		$this->tpl->put_all(array(
-			'C_RESULTS' => $result->get_rows_count() > 0,
-			'C_MORE_THAN_ONE_RESULT' => $result->get_rows_count() > 1,
-			'C_AUTHOR_NAME' => $this->cache->get_writer($rewrited_writer),
-			'AUTHOR_NAME' => $this->cache->get_writer($rewrited_writer),
+		$this->view->put_all(array(
+			'C_ITEMS' => $result->get_rows_count() > 0,
+			'C_WRITER_ITEMS' => $this->cache->get_writer($rewrited_writer),
+			'WRITER_NAME' => $this->cache->get_writer($rewrited_writer),
 			'C_PAGINATION' => $pagination->has_several_pages(),
 			'PAGINATION' => $pagination->display()
 		));
 
 		while ($row = $result->fetch())
 		{
-			$quote = new QuotesItem();
-			$quote->set_properties($row);
+			$item = new QuotesItem();
+			$item->set_properties($row);
 
-			$this->tpl->assign_block_vars('quotes', $quote->get_array_tpl_vars());
+			$this->view->assign_block_vars('items', $item->get_array_tpl_vars());
 		}
 		$result->dispose();
 	}
@@ -90,9 +89,9 @@ class QuotesWriterController extends ModuleController
 
 	private function get_pagination($condition, $parameters, $rewrited_writer, $page)
 	{
-		$quotes_number = QuotesService::count($condition, $parameters);
+		$items_number = QuotesService::count($condition, $parameters);
 
-		$pagination = new ModulePagination($page, $quotes_number, (int)QuotesConfig::load()->get_items_number_per_page());
+		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_number_per_page());
 		$pagination->set_url(QuotesUrlBuilder::display_writer_items($rewrited_writer, '%d'));
 
 		if ($pagination->current_page_is_empty() && $page > 1)
@@ -118,15 +117,15 @@ class QuotesWriterController extends ModuleController
 		$rewrited_writer = $request->get_getvalue('writer', '');
 		$page = $request->get_getint('page', 1);
 
-		$response = new SiteDisplayResponse($this->tpl);
+		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['module_title'], $this->cache->get_writer($rewrited_writer), $page);
+		$graphical_environment->set_page_title($this->lang['module.title'], $this->cache->get_writer($rewrited_writer), $page);
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['quotes.seo.description.writer'], array('writer' => $this->cache->get_writer($rewrited_writer))));
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_writer_items($rewrited_writer, $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['module_title'], QuotesUrlBuilder::home());
+		$breadcrumb->add($this->lang['module.title'], QuotesUrlBuilder::home());
 		$breadcrumb->add($this->cache->get_writer($rewrited_writer), QuotesUrlBuilder::display_writer_items($rewrited_writer, $page));
 
 		return $response;

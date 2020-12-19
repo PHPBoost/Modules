@@ -12,27 +12,26 @@
 #                       French                     #
 ####################################################
 
-$lang['module_title'] = 'Citations';
+// Module titles
+$lang['module.title'] = 'Citations';
 
 $lang['items'] = 'citations';
 $lang['item'] = 'citation';
 
-$lang['all.items'] = 'Toutes les citations';
-$lang['last.items'] = 'Dernières citations';
 $lang['an.item'] = 'Une citation';
 $lang['the.item'] = 'La citation';
+$lang['my.items'] = 'Mes citations';
 
-$lang['quotes.actions.add'] = 'Ajouter une citation';
-$lang['quotes.add'] = 'Ajout d\'une citation';
-$lang['quotes.edit'] = 'Modification d\'une citation';
-$lang['quotes.pending'] = 'Citations en attente';
-$lang['quotes.manage'] = 'Gérer les citations';
-$lang['quotes.management'] = 'Gestion des citations';
+$lang['all.items'] = 'Toutes les citations';
+$lang['last.items'] = 'Dernières citations';
 
-$lang['quote'] = 'Citation';
-$lang['quotes'] = 'Citations';
+$lang['quotes.add.item'] = 'Ajouter une citation';
+$lang['quotes.edit.item'] = 'Modification de la citation';
+$lang['quotes.items.management'] = 'Gestion des citations';
+$lang['quotes.pending.items'] = 'Citations en attente';
 
-//contribution
+// Contribution
+$lang['quotes.form.content'] = 'Contenu de la citation';
 $lang['quotes.form.contribution.title'] = 'Citation de :name';
 $lang['quotes.form.contribution.explain'] = 'Vous n\'êtes pas autorisé à ajouter une citation, cependant vous pouvez en proposer une.';
 
