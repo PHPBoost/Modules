@@ -103,7 +103,7 @@
 							# ENDIF #
 							<div class="cell-content">
 								# IF C_DATE #
-									<div class="align-right controls"><i class="fa fa-fw fa-calendar-alt"></i><span>{items.START_DATE}</span> - <span>{items.END_DATE}</span></div>
+									<div class="align-right controls"><i class="far fa-fw fa-calendar-alt"></i><span>{items.START_DATE}</span> - <span>{items.END_DATE}</span></div>
 								# ENDIF #
 								# IF items.C_FULL_ITEM_DISPLAY #
 									# IF items.C_HAS_THUMBNAIL #
