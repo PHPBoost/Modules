@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 09
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -103,7 +103,7 @@ class SmalladsItemFormController extends ModuleController
 			));
 		}
 
-		$fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['smallads.form.thumbnail'], $this->get_smallad()->get_thumbnail()->relative(), Smallad::THUMBNAIL_URL,
+		$fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['smallads.form.thumbnail'], $this->get_smallad()->get_thumbnail()->relative(), SmalladsItem::THUMBNAIL_URL,
 			array('description' => $this->lang['smallads.form.thumbnail.desc'])
 		));
 
@@ -320,15 +320,15 @@ class SmalladsItemFormController extends ModuleController
 			if (!$this->get_smallad()->is_published())
 			{
 				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->common_lang['form.update.date.creation'], false,
-					array('hidden' => $this->get_smallad()->get_status() != Smallad::NOT_PUBLISHED)
+					array('hidden' => $this->get_smallad()->get_status() != SmalladsItem::NOT_PUBLISHED)
 				));
 			}
 
 			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publication_state', $this->common_lang['form.approbation'], $this->get_smallad()->get_publication_state(),
 				array(
-					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.not'], Smallad::NOT_PUBLISHED),
-					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.now'], Smallad::PUBLISHED_NOW),
-					new FormFieldSelectChoiceOption($this->common_lang['status.approved.date'], Smallad::PUBLICATION_DATE),
+					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.not'], SmalladsItem::NOT_PUBLISHED),
+					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.now'], SmalladsItem::PUBLISHED_NOW),
+					new FormFieldSelectChoiceOption($this->common_lang['status.approved.date'], SmalladsItem::PUBLICATION_DATE),
 				),
 				array(
 					'events' => array('change' => '
@@ -348,12 +348,12 @@ class SmalladsItemFormController extends ModuleController
 			));
 
 			$publication_fieldset->add_field($publishing_start_date = new FormFieldDateTime('publishing_start_date', $this->common_lang['form.date.start'], ($this->get_smallad()->get_publishing_start_date() === null ? new Date() : $this->get_smallad()->get_publishing_start_date()),
-				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != Smallad::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE)))
+				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != SmalladsItem::PUBLICATION_DATE)))
 			));
 
 			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->common_lang['form.date.end.enable'], $this->get_smallad()->enabled_end_date(),
 				array(
-					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != Smallad::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != Smallad::PUBLICATION_DATE)),
+					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->get_smallad()->get_publication_state() != SmalladsItem::PUBLICATION_DATE)),
 					'events' => array('click' => '
 						if (HTMLForms.getField("end_date_enable").getValue()) {
 							HTMLForms.getField("publishing_end_date").enable();
@@ -470,7 +470,7 @@ class SmalladsItemFormController extends ModuleController
 			else
 			{
 				$this->is_new_smallad = true;
-				$this->smallad = new Smallad();
+				$this->smallad = new SmalladsItem();
 				$this->smallad->init_default_properties(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY));
 			}
 		}
@@ -600,22 +600,22 @@ class SmalladsItemFormController extends ModuleController
 			}
 		}
 
-		$displayed_author_phone = $this->form->get_value('displayed_author_phone') ? $this->form->get_value('displayed_author_phone') : Smallad::NOTDISPLAYED_AUTHOR_PHONE;
+		$displayed_author_phone = $this->form->get_value('displayed_author_phone') ? $this->form->get_value('displayed_author_phone') : SmalladsItem::NOTDISPLAYED_AUTHOR_PHONE;
 		$smallad->set_displayed_author_phone($displayed_author_phone);
 
 		if ($this->get_smallad()->get_displayed_author_phone() == true)
 			$smallad->set_author_phone($this->form->get_value('author_phone'));
 
-		$displayed_author_pm = $this->form->get_value('displayed_author_pm') ? $this->form->get_value('displayed_author_pm') : Smallad::NOTDISPLAYED_AUTHOR_PM;
+		$displayed_author_pm = $this->form->get_value('displayed_author_pm') ? $this->form->get_value('displayed_author_pm') : SmalladsItem::NOTDISPLAYED_AUTHOR_PM;
 		$smallad->set_displayed_author_pm($displayed_author_pm);
 
-		$displayed_author_email = $this->form->get_value('displayed_author_email') ? $this->form->get_value('displayed_author_email') : Smallad::NOTDISPLAYED_AUTHOR_EMAIL;
+		$displayed_author_email = $this->form->get_value('displayed_author_email') ? $this->form->get_value('displayed_author_email') : SmalladsItem::NOTDISPLAYED_AUTHOR_EMAIL;
 		$smallad->set_displayed_author_email($displayed_author_email);
 
 		if ($this->get_smallad()->get_displayed_author_email() == true)
 			$smallad->set_custom_author_email(($this->form->get_value('custom_author_email') && $this->form->get_value('custom_author_email') !== $smallad->get_author_user()->get_email() ? $this->form->get_value('custom_author_email') : ''));
 
-		$displayed_author_name = $this->form->get_value('displayed_author_name') ? $this->form->get_value('displayed_author_name') : Smallad::NOTDISPLAYED_AUTHOR_NAME;
+		$displayed_author_name = $this->form->get_value('displayed_author_name') ? $this->form->get_value('displayed_author_name') : SmalladsItem::NOTDISPLAYED_AUTHOR_NAME;
 		$smallad->set_displayed_author_name($displayed_author_name);
 
 		if ($this->get_smallad()->get_displayed_author_name() == true)
@@ -636,7 +636,7 @@ class SmalladsItemFormController extends ModuleController
 			$smallad->clean_publication_start_and_end_date();
 
 			if (CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->contribution() && !CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->write())
-				$smallad->set_publication_state(Smallad::NOT_PUBLISHED);
+				$smallad->set_publication_state(SmalladsItem::NOT_PUBLISHED);
 		}
 		else
 		{
@@ -654,7 +654,7 @@ class SmalladsItemFormController extends ModuleController
 			$smallad->set_rewrited_title($rewrited_title);
 
 			$smallad->set_publication_state($this->form->get_value('publication_state')->get_raw_value());
-			if ($smallad->get_publication_state() == Smallad::PUBLICATION_DATE)
+			if ($smallad->get_publication_state() == SmalladsItem::PUBLICATION_DATE)
 			{
 				$config = SmalladsConfig::load();
 				$deferred_operations = $config->get_deferred_operations();
@@ -721,7 +721,7 @@ class SmalladsItemFormController extends ModuleController
 		SmalladsService::clear_cache();
 	}
 
-	private function contribution_actions(Smallad $smallad, $id_smallad)
+	private function contribution_actions(SmalladsItem $smallad, $id_smallad)
 	{
 		if ($this->is_contributor_member())
 		{

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 08
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -135,11 +135,11 @@ class SmalladsSetup extends DefaultModuleSetup
 			'smallad_type' => TextHelper::htmlspecialchars(Url::encode_rewrite($this->messages['default.smallad.type'])),
 			'author_user_id' => 1,
 			'custom_author_name' => '',
-			'displayed_author_name' => Smallad::DISPLAYED_AUTHOR_NAME,
-			'displayed_author_email' => Smallad::NOTDISPLAYED_AUTHOR_EMAIL,
-			'displayed_author_pm' => Smallad::NOTDISPLAYED_AUTHOR_PM,
-			'displayed_author_phone' => Smallad::NOTDISPLAYED_AUTHOR_PHONE,
-			'published' => Smallad::PUBLISHED_NOW,
+			'displayed_author_name' => SmalladsItem::DISPLAYED_AUTHOR_NAME,
+			'displayed_author_email' => SmalladsItem::NOTDISPLAYED_AUTHOR_EMAIL,
+			'displayed_author_pm' => SmalladsItem::NOTDISPLAYED_AUTHOR_PM,
+			'displayed_author_phone' => SmalladsItem::NOTDISPLAYED_AUTHOR_PHONE,
+			'published' => SmalladsItem::PUBLISHED_NOW,
 			'publishing_start_date' => 0,
 			'publishing_end_date' => 0,
 			'creation_date' => time(),

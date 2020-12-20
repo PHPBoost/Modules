@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -65,7 +65,7 @@ class SmalladsItemsManagerController extends ModuleController
 		);
 		foreach ($result as $row)
 		{
-			$smallad = new Smallad();
+			$smallad = new SmalladsItem();
 			$smallad->set_properties($row);
 			$category = $smallad->get_category();
 			$user = $smallad->get_author_user();

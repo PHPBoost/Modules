@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 08
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -57,7 +57,7 @@ class SmalladsItemController extends ModuleController
 				}
 			}
 			else
-				$this->smallad = new Smallad();
+				$this->smallad = new SmalladsItem();
 		}
 		return $this->smallad;
 	}
@@ -176,7 +176,7 @@ class SmalladsItemController extends ModuleController
 		}
 	}
 
-	private function build_suggested_items(Smallad $smallad)
+	private function build_suggested_items(SmalladsItem $smallad)
 	{
 		$now = new Date();
 
@@ -208,7 +208,7 @@ class SmalladsItemController extends ModuleController
 		$result->dispose();
 	}
 
-	private function build_navigation_links(Smallad $smallad)
+	private function build_navigation_links(SmalladsItem $smallad)
 	{
 		$now = new Date();
 		$timestamp_smallad = $smallad->get_creation_date()->get_timestamp();
@@ -308,21 +308,21 @@ class SmalladsItemController extends ModuleController
 
 		switch ($smallad->get_publication_state())
 		{
-			case Smallad::PUBLISHED_NOW:
+			case SmalladsItem::PUBLISHED_NOW:
 				if (!CategoriesAuthorizationsService::check_authorizations($smallad->get_id_category())->read())
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
 		   			DispatchManager::redirect($error_controller);
 				}
 			break;
-			case Smallad::NOT_PUBLISHED:
+			case SmalladsItem::NOT_PUBLISHED:
 				if ($not_authorized || ($current_user->get_id() == User::VISITOR_LEVEL))
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
 		   			DispatchManager::redirect($error_controller);
 				}
 			break;
-			case Smallad::PUBLICATION_DATE:
+			case SmalladsItem::PUBLICATION_DATE:
 				if (!$smallad->is_published() && ($not_authorized || ($current_user->get_id() == User::VISITOR_LEVEL)))
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 12
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -12,7 +12,7 @@ class SmalladsCommentsTopic extends CommentsTopic
 {
 	private $smallad;
 
-	public function __construct(Smallad $smallad = null)
+	public function __construct(SmalladsItem $smallad = null)
 	{
 		parent::__construct('smallads');
 		$this->smallad = $smallad;
