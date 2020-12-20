@@ -10,33 +10,33 @@
 
 class SmalladsCommentsTopic extends CommentsTopic
 {
-	private $smallad;
+	private $item;
 
-	public function __construct(SmalladsItem $smallad = null)
+	public function __construct(SmalladsItem $item = null)
 	{
 		parent::__construct('smallads');
-		$this->smallad = $smallad;
+		$this->item = $item;
 	}
 
 	public function get_authorizations()
 	{
 		$authorizations = new CommentsAuthorizations();
-		$authorizations->set_authorized_access_module(CategoriesAuthorizationsService::check_authorizations($this->get_smallad()->get_id_category(), 'smallads')->read());
+		$authorizations->set_authorized_access_module(CategoriesAuthorizationsService::check_authorizations($this->get_item()->get_id_category(), 'smallads')->read());
 		return $authorizations;
 	}
 
 	public function is_display()
 	{
-		return $this->get_smallad()->is_published();
+		return $this->get_item()->is_published();
 	}
 
-	private function get_smallad()
+	private function get_item()
 	{
-		if ($this->smallad === null)
+		if ($this->item === null)
 		{
-			$this->smallad = SmalladsService::get_smallad('WHERE smallads.id=:id', array('id' => $this->get_id_in_module()));
+			$this->item = SmalladsService::get_item('WHERE smallads.id=:id', array('id' => $this->get_id_in_module()));
 		}
-		return $this->smallad;
+		return $this->item;
 	}
 }
 ?>

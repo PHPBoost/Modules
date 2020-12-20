@@ -180,10 +180,10 @@
 				# END sources #
 			</aside>
 		# ENDIF #
-		# IF C_UPDATED_DATE #
-			<aside>
-				<i>${LangLoader::get_message('form.date.update', 'common')} : <time datetime="{UPDATED_DATE_ISO8601}" itemprop="datePublished">{UPDATED_DATE_FULL}</time></i>
-			</aside>
+		# IF C_HAS_UPDATE_DATE #
+			<span class="pinned notice small text-italic modified-date">
+				${LangLoader::get_message('status.last.update', 'common')} : <time datetime="{UPDATE_DATE_ISO8601}" itemprop="dateModified">{UPDATE_DATE_FULL}</time>
+			</span>
 		# ENDIF #
 
 		# IF C_SUGGESTED_ITEMS #

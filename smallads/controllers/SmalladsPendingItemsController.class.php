@@ -71,7 +71,7 @@ class SmalladsPendingItemsController extends ModuleController
 			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
 			'C_DISPLAY_LIST_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_LIST_VIEW,
 			'C_DISPLAY_TABLE_VIEW'   => $this->config->get_display_type() == SmalladsConfig::DISPLAY_TABLE_VIEW,
-			'C_NO_ITEM_AVAILABLE'    => $nbr_items_pending == 0,
+			'C_NO_ITEM'    => $nbr_items_pending == 0,
 			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
 			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
 

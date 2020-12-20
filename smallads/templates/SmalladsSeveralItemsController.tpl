@@ -155,7 +155,7 @@
 		# ENDIF #
 	# ENDIF #
 
-	# IF C_NO_ITEM_AVAILABLE #
+	# IF C_NO_ITEM #
 		# IF NOT C_HIDE_NO_ITEM_MESSAGE #
 			<div class="content">
 				<div class="message-helper bgc notice align-center">

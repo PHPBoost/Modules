@@ -42,11 +42,11 @@
  		$smallads_cache = SmalladsCache::load();
  		$categories_cache = CategoriesService::get_categories_manager('smallads')->get_categories_cache();
 
- 		$smallads_items = $smallads_cache->get_smallad();
+ 		$items = $smallads_cache->get_items();
         $items_number = SmalladsService::count('WHERE published != 0');
 
  		$view->put_all(array(
- 			'C_ITEMS'         => !empty($smallads_items),
+ 			'C_ITEMS'         => !empty($items),
  			'C_ONE_ITEM'      => $items_number == 1,
 			'ITEMS_TOTAL_NB'  => $items_number,
             'CURRENCY'        => $config->get_currency(),
@@ -56,7 +56,7 @@
 			'AUTOPLAY_HOVER'  => $config->is_slideshow_hover_enabled(),
  		));
 
- 		foreach ($smallads_items as $smallad)
+ 		foreach ($items as $smallad)
  		{
  			$item = new SmalladsItem();
  			$item->set_properties($smallad);

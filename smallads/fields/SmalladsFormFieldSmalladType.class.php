@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 08 09
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -20,10 +20,10 @@ class SmalladsFormFieldSmalladType extends AbstractFormField
 	{
 		$template = $this->get_template_to_use();
 
-		$tpl = new FileTemplate('smallads/fields/SmalladsFormFieldSmalladType.tpl');
-		$tpl->add_lang(LangLoader::get('common', 'smallads'));
+		$view = new FileTemplate('smallads/fields/SmalladsFormFieldSmalladType.tpl');
+		$view->add_lang(LangLoader::get('common', 'smallads'));
 
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'NAME' => $this->get_html_id(),
 			'ID' => $this->get_html_id(),
 			'C_DISABLED' => $this->is_disabled()
@@ -34,7 +34,7 @@ class SmalladsFormFieldSmalladType extends AbstractFormField
 		$i = 0;
 		foreach ($this->get_value() as $name)
 		{
-			$tpl->assign_block_vars('fieldelements', array(
+			$view->assign_block_vars('fieldelements', array(
 				'ID' => $i,
 				'NAME' => $name
 			));
@@ -43,13 +43,13 @@ class SmalladsFormFieldSmalladType extends AbstractFormField
 
 		if ($i == 0)
 		{
-			$tpl->assign_block_vars('fieldelements', array(
+			$view->assign_block_vars('fieldelements', array(
 				'ID' => $i,
 				'NAME' => ''
 			));
 		}
 
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'NAME' => $this->get_html_id(),
 			'ID' => $this->get_html_id(),
 			'C_DISABLED' => $this->is_disabled(),
@@ -58,7 +58,7 @@ class SmalladsFormFieldSmalladType extends AbstractFormField
 		));
 
 		$template->assign_block_vars('fieldelements', array(
-			'ELEMENT' => $tpl->render()
+			'ELEMENT' => $view->render()
 		));
 
 		return $template;

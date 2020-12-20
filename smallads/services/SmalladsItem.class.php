@@ -70,7 +70,6 @@ class SmalladsItem
 	const ASC = 'ASC';
 	const DESC = 'DESC';
 
-
 	const NOT_PUBLISHED = 0;
 	const PUBLISHED_NOW = 1;
 	const PUBLICATION_DATE = 2;
@@ -714,7 +713,7 @@ class SmalladsItem
 			'C_PUBLISHING_START_AND_END_DATE'  => $this->publishing_start_date != null && $this->publishing_end_date != null,
 			'C_PUBLISHING_START_DATE'          => $this->publishing_start_date != null,
 			'C_PUBLISHING_END_DATE'            => $this->publishing_end_date != null,
-			'C_UPDATED_DATE'                   => $this->update_date != null,
+			'C_HAS_UPDATE_DATE'                => $this->update_date != null,
 			'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
 			'C_CONTACT_LEVEL'				   => $contact_level,
 			'C_COMPLETED'         			   => $this->is_completed(),

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20 
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -97,7 +97,7 @@ class SmalladsTagController extends ModuleController
 			'C_ITEMS'                => $result->get_rows_count() > 0,
 			'C_TAG'					 => true,
 			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
-			'C_NO_ITEM_AVAILABLE'    => $result->get_rows_count() == 0,
+			'C_NO_ITEM'    => $result->get_rows_count() == 0,
 			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
 			'C_DISPLAY_LIST_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_LIST_VIEW,
 			'C_DISPLAY_TABLE_VIEW'   => $this->config->get_display_type() == SmalladsConfig::DISPLAY_TABLE_VIEW,

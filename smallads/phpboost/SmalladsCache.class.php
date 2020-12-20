@@ -3,20 +3,21 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.0 - 2016 02 02
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
  class SmalladsCache implements CacheData
  {
- 	private $smallad = array();
+ 	private $item = array();
 
  	/**
  	 * {@inheritdoc}
  	 */
  	public function synchronize()
  	{
- 		$this->smallad = array();
+ 		$this->items = array();
  		$now = new Date();
 
  		$result = PersistenceContext::get_querier()->select('
@@ -31,33 +32,33 @@
 
  		while ($row = $result->fetch())
  		{
- 			$this->smallad[$row['id']] = $row;
+ 			$this->items[$row['id']] = $row;
  		}
  		$result->dispose();
  	}
 
- 	public function get_smallad()
+ 	public function get_items()
  	{
- 		return $this->smallad;
+ 		return $this->items;
  	}
 
- 	public function smallad_exists($id)
+ 	public function item_exists($id)
  	{
- 		return array_key_exists($id, $this->smallad);
+ 		return array_key_exists($id, $this->items);
  	}
 
- 	public function get_smallad_item($id)
+ 	public function get_item($id)
  	{
- 		if ($this->smallad_exists($id))
+ 		if ($this->item_exists($id))
  		{
- 			return $this->smallad[$id];
+ 			return $this->items[$id];
  		}
  		return null;
  	}
 
 	public function get_items_number()
 	{
-		return count($this->smallad);
+		return count($this->items);
 	}
 
  	/**

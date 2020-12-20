@@ -65,16 +65,16 @@ class SmalladsItemsManagerController extends ModuleController
 		);
 		foreach ($result as $row)
 		{
-			$smallad = new SmalladsItem();
-			$smallad->set_properties($row);
-			$category = $smallad->get_category();
-			$user = $smallad->get_author_user();
+			$item = new SmalladsItem();
+			$item->set_properties($row);
+			$category = $item->get_category();
+			$user = $item->get_author_user();
 
 			$this->elements_number++;
-			$this->ids[$this->elements_number] = $smallad->get_id();
+			$this->ids[$this->elements_number] = $item->get_id();
 
-			$edit_link = new EditLinkHTMLElement(SmalladsUrlBuilder::edit_item($smallad->get_id()));
-			$delete_link = new DeleteLinkHTMLElement(SmalladsUrlBuilder::delete_item($smallad->get_id()));
+			$edit_link = new EditLinkHTMLElement(SmalladsUrlBuilder::edit_item($item->get_id()));
+			$delete_link = new DeleteLinkHTMLElement(SmalladsUrlBuilder::delete_item($item->get_id()));
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
@@ -82,31 +82,31 @@ class SmalladsItemsManagerController extends ModuleController
 			$br = new BrHTMLElement();
 
 			$dates = '';
-			if ($smallad->get_publishing_start_date() != null && $smallad->get_publishing_end_date() != null)
+			if ($item->get_publishing_start_date() != null && $item->get_publishing_end_date() != null)
 			{
-				$dates = LangLoader::get_message('form.date.start', 'common') . ' ' . $smallad->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . $br->display() . LangLoader::get_message('form.date.end', 'common') . ' ' . $smallad->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
+				$dates = LangLoader::get_message('form.date.start', 'common') . ' ' . $item->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . $br->display() . LangLoader::get_message('form.date.end', 'common') . ' ' . $item->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
 			}
 			else
 			{
-				if ($smallad->get_publishing_start_date() != null)
-					$dates = $smallad->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+				if ($item->get_publishing_start_date() != null)
+					$dates = $item->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 				else
 				{
-					if ($smallad->get_publishing_end_date() != null)
-						$dates = LangLoader::get_message('until', 'main') . ' ' . $smallad->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
+					if ($item->get_publishing_end_date() != null)
+						$dates = LangLoader::get_message('until', 'main') . ' ' . $item->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR);
 				}
 			}
 
 			$start_and_end_dates = new SpanHTMLElement($dates, array(), 'smaller');
 
-			$completed = $smallad->is_completed() ? LangLoader::get_message('smallads.completed.item', 'common', 'smallads') : '';
+			$completed = $item->is_completed() ? LangLoader::get_message('smallads.completed.item', 'common', 'smallads') : '';
 
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $smallad->get_id(), $smallad->get_rewrited_title()), $smallad->get_title()), 'left'),
+				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'left'),
 				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? LangLoader::get_message('none_e', 'common') : $category->get_name()))),
 				new HTMLTableRowCell($author),
-				new HTMLTableRowCell($smallad->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
-				new HTMLTableRowCell($smallad->get_status() . $br->display() . ($dates ? $start_and_end_dates->display() : '')),
+				new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
+				new HTMLTableRowCell($item->get_status() . $br->display() . ($dates ? $start_and_end_dates->display() : '')),
 				new HTMLTableRowCell($completed),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display(), 'controls'),
 			);

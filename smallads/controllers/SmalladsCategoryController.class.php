@@ -64,7 +64,7 @@ class SmalladsCategoryController extends ModuleController
 				'SUB_ORDER' => $row_cat['c_order'],
 				'NAME' => $row_cat['name'],
 				'U_CATEGORY' => SmalladsUrlBuilder::display_category($row_cat['id'], $row_cat['rewrited_name'])->rel(),
-				'C_NO_ITEM_AVAILABLE' => $result_cat->get_rows_count() == 0,
+				'C_NO_ITEM' => $result_cat->get_rows_count() == 0,
 			));
 		}
 		$result_cat->dispose();
@@ -115,12 +115,10 @@ class SmalladsCategoryController extends ModuleController
 			'C_LOCATION'			 => $this->config->is_location_displayed(),
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
 			'C_DISPLAY_CAT_ICONS'    => $this->config->are_cat_icons_enabled(),
-			'C_NO_ITEM_AVAILABLE'    => $result->get_rows_count() == 0,
+			'C_NO_ITEM'   			 => $result->get_rows_count() == 0,
 			'C_SEVERAL_COLUMNS'      => $columns_number_displayed_per_line > 1,
 			'C_MODERATION'           => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'COLUMNS_NUMBER'         => $columns_number_displayed_per_line,
-			'C_ONE_ITEM_AVAILABLE'   => $result->get_rows_count() == 1,
-			'C_TWO_ITEMS_AVAILABLE'  => $result->get_rows_count() == 2,
 			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
 			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
@@ -131,13 +129,13 @@ class SmalladsCategoryController extends ModuleController
 
 		while($row = $result->fetch())
 		{
-			$smallad = new SmalladsItem();
-			$smallad->set_properties($row);
+			$item = new SmalladsItem();
+			$item->set_properties($row);
 
-			$this->build_keywords_view($smallad);
+			$this->build_keywords_view($item);
 
-			$this->view->assign_block_vars('items', $smallad->get_array_tpl_vars());
-			$this->build_sources_view($smallad);
+			$this->view->assign_block_vars('items', $item->get_array_tpl_vars());
+			$this->build_sources_view($item);
 		}
 		$result->dispose();
 	}
@@ -163,9 +161,9 @@ class SmalladsCategoryController extends ModuleController
 		}
 	}
 
-	private function build_sources_view(SmalladsItem $smallad)
+	private function build_sources_view(SmalladsItem $item)
 	{
-		$sources = $smallad->get_sources();
+		$sources = $item->get_sources();
 		$nbr_sources = count($sources);
 		if ($nbr_sources)
 		{
@@ -206,9 +204,9 @@ class SmalladsCategoryController extends ModuleController
 		return $this->category;
 	}
 
-	private function build_keywords_view(SmalladsItem $smallad)
+	private function build_keywords_view(SmalladsItem $item)
 	{
-		$keywords = $smallad->get_keywords();
+		$keywords = $item->get_keywords();
 		$nbr_keywords = count($keywords);
 		$this->view->put('C_KEYWORDS', $nbr_keywords > 0);
 
