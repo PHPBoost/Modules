@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -106,14 +106,23 @@ class QuotesItemFormController extends ModuleController
 
 	private function build_contribution_fieldset($form)
 	{
-		if ($this->get_item()->get_id() === null && $this->is_contributor_member())
+		$user_common = LangLoader::get('user-common');
+		if ($this->item->get_id() === null && $this->is_contributor_member())
 		{
-			$fieldset = new FormFieldsetHTML('contribution', LangLoader::get_message('contribution', 'user-common'));
-			$fieldset->set_description(MessageHelper::display(LangLoader::get_message('contribution.explain', 'user-common') . ' ' . $this->lang['quotes.form.contribution.explain'], MessageHelper::WARNING)->render());
+			$fieldset = new FormFieldsetHTML('contribution', $user_common['contribution']);
+			$fieldset->set_description(MessageHelper::display($user_common['contribution.extended.explain'], MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
 
-			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', LangLoader::get_message('contribution.description', 'user-common'), '',
-				array('description' => LangLoader::get_message('contribution.description.explain', 'user-common'))
+			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', $user_common['contribution.description'], '', array('description' => $user_common['contribution.description.explain'])));
+		}
+		elseif ($this->item->is_approved() && $this->item->is_authorized_to_edit() && !AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
+		{
+			$fieldset = new FormFieldsetHTML('member_edition', $user_common['contribution.member.edition']);
+			$fieldset->set_description(MessageHelper::display($user_common['contribution.member.edition.explain'], MessageHelper::WARNING)->render());
+			$form->add_fieldset($fieldset);
+
+			$fieldset->add_field(new FormFieldRichTextEditor('edition_description', $user_common['contribution.member.edition.description'], '',
+				array('description' => $user_common['contribution.member.edition.description.desc'])
 			));
 		}
 	}
@@ -210,11 +219,15 @@ class QuotesItemFormController extends ModuleController
 
 	private function contribution_actions(QuotesItem $item, $id)
 	{
-		if ($this->is_contributor_member() && $item->get_id() === null)
+		if ($this->is_contributor_member())
 		{
 			$contribution = new Contribution();
 			$contribution->set_id_in_module($id);
-			$contribution->set_description(stripslashes($item->get_content()));
+			if ($item->get_id() === null)
+				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
+			else
+				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
+
 			$contribution->set_entitled(StringVars::replace_vars($this->lang['quotes.form.contribution.title'], array('name' => $item->get_writer())));
 			$contribution->set_fixing_url(QuotesUrlBuilder::edit($id)->relative());
 			$contribution->set_poster_id(AppContext::get_current_user()->get_id());

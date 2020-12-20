@@ -60,6 +60,15 @@ class QuotesUrlBuilder
 	/**
 	 * @return Url
 	 */
+	public static function display_member_items($page = 1)
+	{
+		$page = $page !== 1 ? $page . '/' : '';
+		return DispatchManager::get_url(self::$dispatcher, '/my_items/' . $page);
+	}
+
+	/**
+	 * @return Url
+	 */
 	public static function add($id_category = null, $rewrited_writer = null)
 	{
 		$id_category = !empty($id_category) || !empty($rewrited_writer) ? $id_category . '/': '';

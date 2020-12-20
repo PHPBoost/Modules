@@ -32,7 +32,8 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('AjaxQuotesWriterAutoCompleteController','`^/ajax_writers/?$`'),
 	new UrlControllerMapper('QuotesWriterController', '`^/writer/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('writer', 'page')),
 
-	new UrlControllerMapper('QuotesPendingItemsQuotesController', '`^/pending/?([0-9]+)?/?$`', array('page')),
+	new UrlControllerMapper('QuotesPendingItemsController', '`^/pending/?([0-9]+)?/?$`', array('page')),
+	new UrlControllerMapper('QuotesMemberItemsController', '`^/my_items/?([0-9]+)?/?$`', array('page')),
 
 	new UrlControllerMapper('QuotesCategoryController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([0-9]+)?/?$`', array('id', 'rewrited_name', 'page', 'subcategories_page')),
 

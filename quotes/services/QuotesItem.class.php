@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -117,7 +117,7 @@ class QuotesItem
 
 	public function is_authorized_to_edit()
 	{
-		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution() && !$this->is_approved())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
 	public function is_authorized_to_delete()
@@ -184,7 +184,7 @@ class QuotesItem
 			array(
 				// Conditions
 				'C_APPROVED' => $this->is_approved(),
-				'C_CONTROLS' => CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation(),
+				'C_CONTROLS' => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
 				'C_EDIT' => $this->is_authorized_to_edit(),
 				'C_DELETE' => $this->is_authorized_to_delete(),
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),

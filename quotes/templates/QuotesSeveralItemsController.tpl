@@ -4,7 +4,15 @@
 			# IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
-			# IF C_PENDING_ITEMS #{@quotes.pending.items}# ELSE #{@module.title}# ENDIF # # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_WRITER_ITEMS # - {WRITER_NAME}# ENDIF #
+			# IF C_PENDING_ITEMS #
+				{@quotes.pending.items}
+			# ELSE #
+				# IF C_MEMBER_ITEMS #
+			 		{@my.items}
+				# ELSE #
+					{@module.title} # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_WRITER_ITEMS # - {WRITER_NAME}# ENDIF #
+				# ENDIF #
+			# ENDIF #
 		</h1>
 	</header>
 	# IF C_CATEGORY_DESCRIPTION #
@@ -70,8 +78,10 @@
 		# END items #
 	# ELSE #
 		# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-			<div class="align-center">
-				${LangLoader::get_message('no_item_now', 'common')}
+			<div class="content">
+				<div class="message-helper bgc notice align-center">
+					${LangLoader::get_message('no_item_now', 'common')}
+				</div>
 			</div>
 		# ENDIF #
 	# ENDIF #
