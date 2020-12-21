@@ -1,18 +1,18 @@
 
 
 <div id="home-slideboost" style="order: {CAROUSEL_POSITION};">
-	# START item #
+	# START items #
 		<figure>
-			# IF item.DESCRIPTION #
+			# IF items.DESCRIPTION #
 			<figcaption>
-				# IF item.LINK #<a href="{item.LINK}"># ENDIF #
-					{item.DESCRIPTION}
-				# IF item.LINK #</a># ENDIF #
+				# IF items.LINK #<a href="{items.LINK}"># ENDIF #
+					{items.DESCRIPTION}
+				# IF items.LINK #</a># ENDIF #
 			</figcaption>
 			# ENDIF #
-			<img class="slideImage" src="{item.PICTURE_URL}" alt="{item.PICTURE_URL}" />
+			<img class="slideImage" src="{items.PICTURE_URL}" alt="{items.PICTURE_URL}" />
 		</figure>
-	# END item #
+	# END items #
 </div>
 
 <script>
