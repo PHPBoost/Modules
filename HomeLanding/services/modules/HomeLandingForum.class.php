@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 16
+ * @version     PHPBoost 6.0 - last update: 2020 12 21
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -35,7 +35,7 @@ class HomeLandingForum
 		$result = PersistenceContext::get_querier()->select('SELECT
 			t.id, t.id_category, t.title, t.last_timestamp, t.last_user_id, t.last_msg_id, t.display_msg, t.nbr_msg AS t_nbr_msg, t.user_id AS glogin,
 			member.display_name AS last_login, member.user_groups, member.level,
-			msg.id mid, msg.contents, ext_field.user_avatar
+			msg.id mid, msg.content, ext_field.user_avatar
 		FROM ' . PREFIX . 'forum_topics t
 		LEFT JOIN ' . PREFIX . 'forum_cats cat ON cat.id = t.id_category
 		LEFT JOIN ' . PREFIX . 'forum_msg msg ON msg.id = t.last_msg_id
@@ -62,7 +62,7 @@ class HomeLandingForum
 
 		while ($row = $result->fetch())
 		{
-			$contents = FormatingHelper::second_parse($row['contents']);
+			$content = FormatingHelper::second_parse($row['content']);
 			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
 
 			$last_page = ceil($row['t_nbr_msg'] / $module_config->get_number_messages_per_page());
@@ -83,7 +83,7 @@ class HomeLandingForum
 				'USER_GROUP_COLOR' => $user_group_color,
 				'DATE' => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
 				'TOPIC' => stripslashes($row['title']),
-				'CONTENTS' => TextHelper::cut_string(@strip_tags(stripslashes($contents), 0), (int)$characters_number_to_cut),
+				'CONTENTS' => TextHelper::cut_string(@strip_tags(stripslashes($content), 0), (int)$characters_number_to_cut),
 
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['last_user_id'])->rel(),
 				'U_AVATAR_IMG' => $user_avatar,
