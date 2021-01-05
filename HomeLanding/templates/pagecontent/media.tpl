@@ -51,24 +51,6 @@
 				</div>
 			# END media_host #
 
-			# START media_flv #
-				<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-					<h3><a href="{media_flv.U_MEDIA_LINK}">{media_flv.TITLE}</a></h3>
-					<div class="more">
-						<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_flv.PSEUDO}</span>
-						<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_flv.DATE}</span>
-					</div>
-					<div class="media-content media-flv" style="width:{media_flv.WIDTH}px;height:{media_flv.HEIGHT}px;">
-						<a href="{media_flv.URL}" id="media_flv-{media_flv.ID}" class="media-flv"></a>
-						<script>
-							jQuery(document).ready(function() {
-								insertMoviePlayer('media_flv-{media_flv.ID}');
-							});
-						</script>
-					</div>
-				</div>
-			# END media_flv #
-
 			# START media_mp4 #
 				<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 					<h3><a href="{media_mp4.U_MEDIA_LINK}">{media_mp4.TITLE}</a></h3>

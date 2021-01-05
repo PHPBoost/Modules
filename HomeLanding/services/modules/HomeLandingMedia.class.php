@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 16
+ * @version     PHPBoost 6.0 - last update: 2021 01 05
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -97,23 +97,6 @@ class HomeLandingMedia
                     'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
                     'MEDIA_ID' => $video_id,
                     'PLAYER' => $player,
-                    'WIDTH' => $row['width'],
-                    'HEIGHT' => $row['height']
-                ));
-            }
-            elseif ($mime_type_tpl == 'video/x-flv')
-            {
-                $poster = new Url($row['poster']);
-                $view->assign_block_vars('media_flv', array(
-                    'PSEUDO' => $row['display_name'],
-                    'TITLE' => $row['name'],
-                    'ID' => $row['id'],
-                    'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
-                    'POSTER' => $poster->rel(),
-
-                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
-                    'URL' => $row['url'],
-                    'MIME' => $row['mime_type'],
                     'WIDTH' => $row['width'],
                     'HEIGHT' => $row['height']
                 ));
