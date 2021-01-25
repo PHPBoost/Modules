@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 07 13
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -105,6 +105,12 @@ class HomeLandingHomeController extends ModuleController
 
 		if ($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_NEWS)->read())
 			$this->view->put('NEWS_CAT', HomeLandingNews::get_news_cat_view());
+
+		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_SMALLADS)->read())
+			$this->view->put('SMALLADS', HomeLandingSmallads::get_smallads_view());
+
+		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_SMALLADS)->read())
+			$this->view->put('SMALLADS_CAT', HomeLandingSmallads::get_smallads_cat_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_WEB)->read())
 			$this->view->put('WEB', HomeLandingWeb::get_web_view());
@@ -319,7 +325,7 @@ class HomeLandingHomeController extends ModuleController
 		return $mail_service->try_to_send($mail);
 	}
 
-	//Generation
+	// Generation
 	private function generate_response()
 	{
 		$response = new SiteDisplayResponse($this->view);

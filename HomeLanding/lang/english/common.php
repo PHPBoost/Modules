@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 16
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -22,7 +22,7 @@ $lang['module.post.date'] = 'Post date';
 $lang['module.posted.in.topic'] = 'Posted in topic:';
 $lang['module.posted.in.module'] = 'Posted in module:';
 
-//Modules position
+// Modules position
 $lang['module.carousel'] = 'Carousel';
 $lang['module.anchors_menu'] = 'Homepage Menu';
 $lang['module.edito'] = 'Edito';
@@ -39,11 +39,13 @@ $lang['module.guestbook'] = 'Last guestbook messages';
 $lang['module.media'] = 'Last media files';
 $lang['module.news'] = 'Last news';
 $lang['module.news_category'] = 'Last news of a category';
+$lang['module.smallads'] = 'Last small ads';
+$lang['module.smallads_category'] = 'Last small ads of a category';
 $lang['module.rss'] = 'External RSS Feed';
 $lang['module.web'] = 'Partners websites list';
 $lang['module.web_category'] = 'Partners websites list of a category';
 
-// One page menu
+// Anchors menu
 $lang['anchors.title'] = 'Homepage menu';
 $lang['anchors.edito'] = 'Edito';
 $lang['anchors.carousel'] = 'Slideshow';
@@ -60,6 +62,8 @@ $lang['anchors.guestbook'] = 'Guestbook';
 $lang['anchors.media'] = 'Media';
 $lang['anchors.news'] = 'News';
 $lang['anchors.news_category'] = 'News';
+$lang['anchors.smallads'] = 'Small ads';
+$lang['anchors.smallads_category'] = 'Small ads';
 $lang['anchors.rss'] = 'Rss';
 $lang['anchors.web'] = 'Weblinks';
 $lang['anchors.web_category'] = 'Weblinks';
@@ -121,7 +125,13 @@ $lang['last.news.cat'] = 'Latest news of category ';
 $lang['link.to.news'] = 'See all news';
 $lang['no.news.item'] = 'There is no article in this category';
 
-//Rss
+// Smallads
+$lang['last.smallads'] = 'Latest small ads';
+$lang['last.smallads.cat'] = 'Latest small ads of category ';
+$lang['link.to.smallads'] = 'See all small ads';
+$lang['no.smallads.item'] = 'There is no ad in this category';
+
+// Rss
 $lang['link.to.rss.site'] = 'Rss timeline of the website : ';
 $lang['link.no.xml.file'] = 'No xml file defined';
 $lang['link.not.xml.file'] = 'The url is not a xml file';
@@ -149,7 +159,7 @@ $lang['admin.menu.top.central'] = 'Hide the top central menu';
 $lang['admin.menu.bottom.central'] = 'Hide the bottom central menu';
 $lang['admin.menu.top.footer'] = 'Hide the top footer menu';
 
-//Admin - Carousel
+// Admin - Carousel
 $lang['admin.carousel'] = 'Slideshow display';
 $lang['admin.carousel.enabled'] = 'Display the slideshow';
 $lang['admin.form.carousel'] = 'Content of the slideshow';
@@ -162,7 +172,7 @@ $lang['admin.form.carousel.hover'] = 'Pause on hover';
 $lang['admin.form.carousel.enabled'] = 'Enabled';
 $lang['admin.form.carousel.disabled'] = 'Disabled';
 
-//Admin - Carousel content
+// Admin - Carousel content
 $lang['admin.form.description'] = 'Description of the slide';
 $lang['admin.form.link.url'] = 'Address of the link';
 $lang['admin.form.picture.url'] = 'Address of the picture';
@@ -170,73 +180,80 @@ $lang['admin.form.upload'] = 'Open the file manager';
 $lang['admin.form.add'] = 'Add a picture';
 $lang['admin.form.del'] = 'Delete the slide';
 
-//Admin - One page Menu
+// Admin - Anchors Menu
 $lang['admin.anchors'] = 'Onepage menu display';
 $lang['admin.menu.anchors'] = 'Display the anchors menu';
 $lang['admin.menu.anchors.explain'] = 'Menu for fast navigation inside the homepage';
 
-//Admin - Edito
+// Admin - Edito
 $lang['admin.edito'] = 'Edito display';
 $lang['admin.edito.enabled'] = 'Display the edito';
 $lang['admin.edito.content'] = 'Content of the edito';
 
-//Admin - Lastcoms
+// Admin - Lastcoms
 $lang['admin.lastcoms'] = 'Last comments display';
 $lang['admin.lastcoms.enabled'] = 'Display the last comments';
 $lang['admin.lastcoms.limit'] = 'Number of comments to display';
 
-//Admin - Articles
+// Admin - Articles
 $lang['admin.articles'] = 'Articles module display';
 $lang['admin.articles.enabled'] = 'Display full Articles module';
 $lang['admin.articles.limit'] = 'Number of articles to display';
 $lang['admin.articles.cat.enabled'] = 'Display a category of the Articles module';
 $lang['admin.articles.cat.limit'] = 'Number of articles from the category to display';
 
-//Admin - Calendar
+// Admin - Calendar
 $lang['admin.calendar'] = 'Calendar module display';
 $lang['admin.calendar.enabled'] = 'Display the calendar module';
 $lang['admin.calendar.enabled.desc'] = 'Only displays upcoming events';
 $lang['admin.calendar.limit'] = 'Number of events to display';
 
-//Admin - Contact
+// Admin - Contact
 $lang['admin.contact'] = 'Contact module display';
 $lang['admin.contact.enabled'] = 'Display the Contact module';
 
-//Admin - Download
+// Admin - Download
 $lang['admin.download'] = 'Download module display';
 $lang['admin.download.enabled'] = 'Display the full Download module';
 $lang['admin.download.limit'] = 'Number of files to display';
 $lang['admin.download.cat.enabled'] = 'display a category of the Download module';
 $lang['admin.download.cat.limit'] = 'Number of files from the category to display';
 
-//Admin - Forum
+// Admin - Forum
 $lang['admin.forum'] = 'Forum module display';
 $lang['admin.forum.enabled'] = 'Display the full Forum module';
 $lang['admin.forum.limit'] = 'Number of messages to display';
 
-//Admin - Gallery
+// Admin - Gallery
 $lang['admin.gallery'] = 'Gallery module display';
 $lang['admin.gallery.enabled'] = 'Display the full gallery';
 $lang['admin.gallery.limit'] = 'Number of pictures to display';
 
-//Admin - Guestbook
+// Admin - Guestbook
 $lang['admin.guestbook'] = 'Guestbook module display';
 $lang['admin.guestbook.enabled'] = 'Display the full Guestbook module';
 $lang['admin.guestbook.limit'] = 'Number of messages to display';
 
-//Admin - Media
+// Admin - Media
 $lang['admin.media'] = 'Media module display';
 $lang['admin.media.enabled'] = 'Display the full Media module';
 $lang['admin.media.limit'] = 'Number of media to display';
 
-//Admin - News
+// Admin - News
 $lang['admin.news'] = 'News module display';
 $lang['admin.news.enabled'] = 'Display the full News module';
 $lang['admin.news.limit'] = 'Number of news to display';
 $lang['admin.news.cat.enabled'] = 'Display a category of the News module';
 $lang['admin.news.cat.limit'] = 'Number of news from the category to display';
 
-//Admin - External Rss
+// Admin - Smallads
+$lang['admin.smallads'] = 'Smallads module display';
+$lang['admin.smallads.enabled'] = 'Display the full Smallads module';
+$lang['admin.smallads.limit'] = 'Number of ads to display';
+$lang['admin.smallads.cat.enabled'] = 'Display a category of the Smallads module';
+$lang['admin.smallads.cat.limit'] = 'Number of ads from the category to display';
+
+// Admin - External Rss
 $lang['admin.rss'] = 'Rss timeline display of an external website';
 $lang['admin.rss.enabled'] = 'Display the rss timeline';
 $lang['admin.rss.site.name'] = 'Name of the website';
@@ -245,7 +262,7 @@ $lang['admin.rss.xml.url'] = 'Address of the xml file';
 $lang['admin.rss.xml.nb'] = 'Number of links';
 $lang['admin.rss.xml.char'] = 'Number of character per links';
 
-//Admin - Web
+// Admin - Web
 $lang['admin.web'] = 'Web module display';
 $lang['admin.web.enabled'] = 'Display the full Web module';
 $lang['admin.web.limit'] = 'Number of links to display';

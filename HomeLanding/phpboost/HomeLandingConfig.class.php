@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 06 04
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -54,6 +54,8 @@ class HomeLandingConfig extends AbstractConfigData
 	const MODULE_MEDIA = 'media';
 	const MODULE_NEWS = 'news';
 	const MODULE_NEWS_CATEGORY = 'news_category';
+	const MODULE_SMALLADS = 'smallads';
+	const MODULE_SMALLADS_CATEGORY = 'smallads_category';
 	const MODULE_RSS = 'rss';
 	const MODULE_WEB = 'web';
 	const MODULE_WEB_CATEGORY = 'web_category';
@@ -408,6 +410,20 @@ class HomeLandingConfig extends AbstractConfigData
 		$module = new HomeLandingModuleCategory();
 		$module->set_module_id(self::MODULE_NEWS_CATEGORY);
 		$module->set_phpboost_module_id(self::MODULE_NEWS);
+		$module->hide();
+
+		$modules[] = $module->get_properties();
+
+		$module = new HomeLandingModule();
+		$module->set_module_id(self::MODULE_SMALLADS);
+		$module->set_phpboost_module_id(self::MODULE_SMALLADS);
+		$module->hide();
+
+		$modules[] = $module->get_properties();
+
+		$module = new HomeLandingModuleCategory();
+		$module->set_module_id(self::MODULE_SMALLADS_CATEGORY);
+		$module->set_phpboost_module_id(self::MODULE_SMALLADS);
 		$module->hide();
 
 		$modules[] = $module->get_properties();

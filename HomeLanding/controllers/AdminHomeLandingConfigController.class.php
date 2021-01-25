@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 07 13
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -111,6 +111,15 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('news_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed());
 			}
 
+			if (ModulesManager::is_module_installed('smallads') && ModulesManager::is_module_activated('smallads'))
+			{
+				$this->form->get_field_by_id('smallads_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed());
+				$this->form->get_field_by_id('smallads_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('smallads_subcategories_content_displayed')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('smallads_cat_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('smallads_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
+			}
+
 			$this->form->get_field_by_id('rss_site_name')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
 			$this->form->get_field_by_id('rss_site_url')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
 			$this->form->get_field_by_id('rss_xml_url')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
@@ -143,7 +152,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 	private function tabs_menu_list()
 	{
-		$modules = array('configuration', 'carousel', 'articles', 'calendar', 'contact', 'download', 'forum', 'gallery', 'guestbook', 'media', 'news', 'web', 'rss');
+		$modules = array('configuration', 'carousel', 'articles', 'calendar', 'contact', 'download', 'forum', 'gallery', 'guestbook', 'media', 'news', 'smallads', 'web', 'rss');
         $tabs_li = array();
 
         foreach($modules as $module)
@@ -762,6 +771,84 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 		}
 
+		// Smallads
+		if (ModulesManager::is_module_installed('smallads') && ModulesManager::is_module_activated('smallads'))
+		{
+			$fieldset_smallads = new FormFieldsetMultitabsHTML('admin_smallads',  $this->lang['admin.smallads'],
+				array('css_class' => 'tabs tabs-animation')
+			);
+			$form->add_fieldset($fieldset_smallads);
+
+			$fieldset_smallads->add_field(new FormFieldCheckbox('smallads_enabled', $this->lang['admin.smallads.enabled'], $this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed(),
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("smallads_enabled").getValue()) {
+							HTMLForms.getField("smallads_limit").enable();
+						} else {
+							HTMLForms.getField("smallads_limit").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_smallads->add_field(new FormFieldNumberEditor('smallads_limit', $this->lang['admin.smallads.limit'], $this->modules[HomeLandingConfig::MODULE_SMALLADS]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_smallads->add_field(new FormFieldSpacer('smallads_separator', ''));
+
+			$fieldset_smallads->add_field(new FormFieldCheckbox('smallads_cat_enabled', $this->lang['admin.smallads.cat.enabled'], $this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed(),
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("smallads_cat_enabled").getValue()) {
+							HTMLForms.getField("smallads_cat").enable();
+							HTMLForms.getField("smallads_subcategories_content_displayed").enable();
+							HTMLForms.getField("smallads_cat_limit").enable();
+							HTMLForms.getField("smallads_cat_char").enable();
+						} else {
+							HTMLForms.getField("smallads_cat").disable();
+							HTMLForms.getField("smallads_subcategories_content_displayed").disable();
+							HTMLForms.getField("smallads_cat_limit").disable();
+							HTMLForms.getField("smallads_cat_char").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_smallads->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_SMALLADS)->get_select_categories_form_field('smallads_cat', $this->lang['admin.cat'], $this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed())
+			));
+
+			$fieldset_smallads->add_field(new FormFieldCheckbox('smallads_subcategories_content_displayed', $this->lang['admin.subcategories_content_displayed'], $this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_subcategories_content_displayed(),
+				array(
+					'class'=> 'custom-checkbox',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed()
+				)
+			));
+
+			$fieldset_smallads->add_field(new FormFieldNumberEditor('smallads_cat_limit', $this->lang['admin.smallads.cat.limit'], $this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_smallads->add_field(new FormFieldNumberEditor('smallads_cat_char', $this->lang['admin.char'], $this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->get_characters_number_displayed(),
+				array(
+					'min' => 1, 'max' => 512,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 512))
+			));
+		}
+
 		// Web
 		if (ModulesManager::is_module_installed('web') && ModulesManager::is_module_activated('web'))
 		{
@@ -1115,6 +1202,35 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			}
 			else
 				$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->hide();
+		}
+
+		// Smallads
+		if (ModulesManager::is_module_installed('smallads') & ModulesManager::is_module_activated('smallads'))
+		{
+			if ($this->form->get_value('smallads_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_SMALLADS]->display();
+				$this->modules[HomeLandingConfig::MODULE_SMALLADS]->set_elements_number_displayed($this->form->get_value('smallads_limit'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_SMALLADS]->hide();
+
+			if ($this->form->get_value('smallads_cat_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->display();
+				if (!$this->form->field_is_disabled('smallads_cat'))
+					$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->set_id_category($this->form->get_value('smallads_cat')->get_raw_value());
+
+				if ($this->form->get_value('smallads_subcategories_content_displayed'))
+					$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->display_subcategories_content();
+				else
+					$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->hide_subcategories_content();
+
+				$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->set_elements_number_displayed($this->form->get_value('smallads_cat_limit'));
+				$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->set_characters_number_displayed($this->form->get_value('smallads_cat_char'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->hide();
 		}
 
 		// External Rss
