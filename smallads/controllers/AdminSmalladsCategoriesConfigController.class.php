@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 08
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -40,8 +40,8 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$this->form->get_field_by_id('characters_number_to_cut')->set_hidden($this->config->get_display_type() === SmalladsConfig::DISPLAY_TABLE_VIEW);
-			$this->form->get_field_by_id('displayed_cols_number_per_line')->set_hidden($this->config->get_display_type() !== SmalladsConfig::DISPLAY_GRID_VIEW);
+			$this->form->get_field_by_id('characters_number_to_cut')->set_hidden($this->config->get_display_type() === SmalladsConfig::TABLE_VIEW);
+			$this->form->get_field_by_id('items_per_row')->set_hidden($this->config->get_display_type() !== SmalladsConfig::GRID_VIEW);
 			$view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
 		}
 
@@ -72,7 +72,7 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 			array('class'=> 'custom-checkbox')
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->admin_common_lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
+		$fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->admin_common_lang['config.items.per.page'], $this->config->get_items_per_page(),
 			array('min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
@@ -83,22 +83,22 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->admin_common_lang['config.display.type'], $this->config->get_display_type(),
 			array(
-				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.grid'], SmalladsConfig::DISPLAY_GRID_VIEW, array('data_option_icon' => 'fa fa-th-large')),
-				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.list'], SmalladsConfig::DISPLAY_LIST_VIEW, array('data_option_icon' => 'fa fa-list')),
-				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.table'], SmalladsConfig::DISPLAY_TABLE_VIEW, array('data_option_icon' => 'fa fa-table'))
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.grid'], SmalladsConfig::GRID_VIEW, array('data_option_icon' => 'fa fa-th-large')),
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.list'], SmalladsConfig::LIST_VIEW, array('data_option_icon' => 'fa fa-list')),
+				new FormFieldSelectChoiceOption($this->admin_common_lang['config.display.type.table'], SmalladsConfig::TABLE_VIEW, array('data_option_icon' => 'fa fa-table'))
 			),
 			array(
 				'select_to_list' => true,
 				'events' => array('change' => '
-					if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::DISPLAY_GRID_VIEW . '\') {
+					if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::GRID_VIEW . '\') {
 						HTMLForms.getField("characters_number_to_cut").enable();
-						HTMLForms.getField("displayed_cols_number_per_line").enable();
-					} else if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::DISPLAY_LIST_VIEW . '\') {
+						HTMLForms.getField("items_per_row").enable();
+					} else if (HTMLForms.getField("display_type").getValue() === \'' . SmalladsConfig::LIST_VIEW . '\') {
 						HTMLForms.getField("characters_number_to_cut").enable();
-						HTMLForms.getField("displayed_cols_number_per_line").disable();
+						HTMLForms.getField("items_per_row").disable();
 					} else {
 						HTMLForms.getField("characters_number_to_cut").disable();
-						HTMLForms.getField("displayed_cols_number_per_line").disable();
+						HTMLForms.getField("items_per_row").disable();
 					}'
 				)
 			)
@@ -107,15 +107,15 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		$fieldset->add_field(new FormFieldNumberEditor('characters_number_to_cut', $this->lang['config.characters.number.to.cut'], $this->config->get_characters_number_to_cut(),
 			array(
 				'min' => 20, 'max' => 1000,
-				'hidden' => $this->config->get_display_type() === SmalladsConfig::DISPLAY_TABLE_VIEW
+				'hidden' => $this->config->get_display_type() === SmalladsConfig::TABLE_VIEW
 			),
 			array(new FormFieldConstraintIntegerRange(20, 1000))
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('displayed_cols_number_per_line', $this->admin_common_lang['config.columns_number_per_line'], $this->config->get_displayed_cols_number_per_line(),
+		$fieldset->add_field(new FormFieldNumberEditor('items_per_row', $this->admin_common_lang['config.items.per.row'], $this->config->get_items_per_row(),
 			array(
 				'min' => 1, 'max' => 4,
-				'hidden' => $this->config->get_display_type() !== SmalladsConfig::DISPLAY_GRID_VIEW
+				'hidden' => $this->config->get_display_type() !== SmalladsConfig::GRID_VIEW
 			),
 			array(new FormFieldConstraintIntegerRange(1, 4))
 		));
@@ -150,17 +150,17 @@ class AdminSmalladsCategoriesConfigController extends AdminModuleController
 		else
 			$this->config->disable_sort_filters();
 
-		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
+		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
 		if ($this->form->get_value('display_icon_cats'))
 			$this->config->enable_cats_icon();
 		else
 			$this->config->disable_cats_icon();
 
 		$this->config->set_display_type($this->form->get_value('display_type')->get_raw_value());
-		if($this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW) {
+		if($this->config->get_display_type() == SmalladsConfig::GRID_VIEW) {
 			$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut'));
-			$this->config->set_displayed_cols_number_per_line($this->form->get_value('displayed_cols_number_per_line'));
-		} else if ($this->config->get_display_type() == SmalladsConfig::DISPLAY_LIST_VIEW) {
+			$this->config->set_items_per_row($this->form->get_value('items_per_row'));
+		} else if ($this->config->get_display_type() == SmalladsConfig::LIST_VIEW) {
 			$this->config->set_characters_number_to_cut($this->form->get_value('characters_number_to_cut'));
 		}
 

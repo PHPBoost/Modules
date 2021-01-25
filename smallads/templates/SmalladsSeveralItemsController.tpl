@@ -164,7 +164,7 @@
 			</div>
 		# ENDIF #
 	# ELSE #
-		# IF C_DISPLAY_TABLE_VIEW #
+		# IF C_TABLE_VIEW #
 			<table class="table">
 				<thead>
 					<tr>
@@ -244,7 +244,7 @@
 
 		# ELSE #
 
-			<div data-jplist-group="smallads-items" class="# IF C_DISPLAY_GRID_VIEW #cell-flex cell-columns-{COLUMNS_NUMBER}# ENDIF ## IF C_DISPLAY_LIST_VIEW # cell-row# ENDIF #">
+			<div data-jplist-group="smallads-items" class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ENDIF ## IF C_LIST_VIEW # cell-row# ENDIF #">
 				# START items #
 					<article data-jplist-item id="smallads-items-{items.ID}" class="smallads-items several-items category-{items.ID_CATEGORY} cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 						# IF items.C_COMPLETED # <div class="completed-item bgc error"><span>{@smallads.completed.item}</span></div># ENDIF #

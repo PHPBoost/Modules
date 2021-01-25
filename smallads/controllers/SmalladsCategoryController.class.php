@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -92,15 +92,11 @@ class SmalladsCategoryController extends ModuleController
 			'user_id' => AppContext::get_current_user()->get_id()
 		)));
 
-		$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 		$category_thumbnail = $this->get_category()->get_thumbnail()->rel();
 
 		$this->view->put_all(array(
-			'C_ITEMS'                => $result->get_rows_count() > 0,
-			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
-
-			'C_CATEGORY'             => true, // CategoriesService::get_categories_manager('smallads')->get_categories_cache()->has_categories()
+			'C_CATEGORY'             => true,
 			'C_ROOT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
 			'C_CATEGORY_THUMBNAIL'   => !empty($category_thumbnail),
 			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
@@ -108,20 +104,22 @@ class SmalladsCategoryController extends ModuleController
 			'CATEGORY_DESCRIPTION'   => $category_description,
 			'U_CATEGORY_THUMBNAIL'   => $category_thumbnail,
 
+			'C_ITEMS'                => $result->get_rows_count() > 0,
+			'C_SEVERAL_ITEMS'        => $result->get_rows_count() > 1,
 			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
-			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
-			'C_DISPLAY_LIST_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_LIST_VIEW,
-			'C_DISPLAY_TABLE_VIEW'   => $this->config->get_display_type() == SmalladsConfig::DISPLAY_TABLE_VIEW,
+			'C_GRID_VIEW'            => $this->config->get_display_type() == SmalladsConfig::GRID_VIEW,
+			'C_LIST_VIEW'            => $this->config->get_display_type() == SmalladsConfig::LIST_VIEW,
+			'C_TABLE_VIEW'           => $this->config->get_display_type() == SmalladsConfig::TABLE_VIEW,
 			'C_LOCATION'			 => $this->config->is_location_displayed(),
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
 			'C_DISPLAY_CAT_ICONS'    => $this->config->are_cat_icons_enabled(),
-			'C_NO_ITEM'   			 => $result->get_rows_count() == 0,
-			'C_SEVERAL_COLUMNS'      => $columns_number_displayed_per_line > 1,
+			'C_NO_ITEM' 			 => $result->get_rows_count() == 0,
 			'C_MODERATION'           => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
-			'COLUMNS_NUMBER'         => $columns_number_displayed_per_line,
 			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
-			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
-			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
+			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_per_page(),
+
+			'ITEMS_PER_ROW'          => $this->config->get_items_per_row(),
+			'ITEMS_PER_PAGE'         => $this->config->get_items_per_page(),
 			'ID_CATEGORY'            => $this->get_category()->get_id(),
 			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
 			'U_USAGE_TERMS' 		 => SmalladsUrlBuilder::usage_terms()->rel()

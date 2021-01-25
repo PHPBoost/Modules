@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -90,27 +90,24 @@ class SmalladsTagController extends ModuleController
 
 		$this->build_sorting_smallad_type();
 
-		$columns_number_displayed_per_line = $this->config->get_displayed_cols_number_per_line();
-
 		$this->view->put_all(array(
-			'C_ENABLED_FILTERS'		 => $this->config->are_sort_filters_enabled(),
-			'C_ITEMS'                => $result->get_rows_count() > 0,
-			'C_TAG'					 => true,
-			'C_MORE_THAN_ONE_ITEM'   => $result->get_rows_count() > 1,
-			'C_NO_ITEM'    => $result->get_rows_count() == 0,
-			'C_DISPLAY_GRID_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_GRID_VIEW,
-			'C_DISPLAY_LIST_VIEW'    => $this->config->get_display_type() == SmalladsConfig::DISPLAY_LIST_VIEW,
-			'C_DISPLAY_TABLE_VIEW'   => $this->config->get_display_type() == SmalladsConfig::DISPLAY_TABLE_VIEW,
-			'C_ITEMS_CAT'            => false,
-			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
-			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_number_per_page(),
+			'C_TAG'				 => true,
+			'C_ENABLED_FILTERS'	 => $this->config->are_sort_filters_enabled(),
+			'C_ITEMS'            => $result->get_rows_count() > 0,
+			'C_SEVERAL_ITEMS'    => $result->get_rows_count() > 1,
+			'C_NO_ITEM'          => $result->get_rows_count() == 0,
+			'C_GRID_VIEW'        => $this->config->get_display_type() == SmalladsConfig::GRID_VIEW,
+			'C_LIST_VIEW'        => $this->config->get_display_type() == SmalladsConfig::LIST_VIEW,
+			'C_TABLE_VIEW'       => $this->config->get_display_type() == SmalladsConfig::TABLE_VIEW,
+			'C_ITEMS_CAT'        => false,
+			'C_COMMENTS_ENABLED' => $this->comments_config->are_comments_enabled(),
+			'C_PAGINATION'       => $result->get_rows_count() > $this->config->get_items_per_page(),
 
-			'CATEGORY_NAME'          => $this->get_keyword()->get_name(),
-			'ITEMS_PER_PAGE'         => $this->config->get_items_number_per_page(),
-			'C_SEVERAL_COLUMNS'      => $columns_number_displayed_per_line > 1,
-			'COLUMNS_NUMBER'         => $columns_number_displayed_per_line,
-			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
-			'U_USAGE_TERMS' 		 => SmalladsUrlBuilder::usage_terms()->rel()
+			'CATEGORY_NAME'      => $this->get_keyword()->get_name(),
+			'ITEMS_PER_ROW'      => $this->config->get_items_per_row(),
+			'ITEMS_PER_PAGE'     => $this->config->get_items_per_page(),
+			'C_USAGE_TERMS'	     => $this->config->are_usage_terms_displayed(),
+			'U_USAGE_TERMS' 	 => SmalladsUrlBuilder::usage_terms()->rel()
 		));
 
 		while ($row = $result->fetch())

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2021 01 25
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -14,15 +14,15 @@ class SmalladsConfig extends AbstractConfigData
 	// Categories
 	const ENABLED_SORT_FILTERS = 'enabled_sort_filters';
 	const ENABLED_CATS_ICON = 'enabled_cats_icon';
-	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
+	const ITEMS_PER_ROW = 'items_per_row';
+	const ITEMS_PER_PAGE = 'items_per_page';
 	const ROOT_CATEGORY_DESCRIPTION = 'root_category_description';
 	const DISPLAY_TYPE = 'display_type';
-	const DISPLAY_GRID_VIEW = 'grid';
-	const DISPLAY_LIST_VIEW = 'list';
-	const DISPLAY_TABLE_VIEW = 'table';
+	const GRID_VIEW = 'grid_view';
+	const LIST_VIEW = 'list_view';
+	const TABLE_VIEW = 'table_view';
 	const CHARACTERS_NUMBER_TO_CUT = 'characters_number_to_cut';
-	const DISPLAYED_COLS_NUMBER_PER_LINE = 'displayed_cols_number_per_line';
-	const DESCRIPTIONS_DISPLAYED_TO_GUESTS = 'summaries_displayed_to_guests';
+	const SUMMARIES_DISPLAYED_TO_GUESTS = 'summaries_displayed_to_guests';
 	const AUTHORIZATIONS = 'authorizations';
     const DEFAULT_CONTENTS = 'default_content';
 
@@ -70,24 +70,24 @@ class SmalladsConfig extends AbstractConfigData
 		return $this->get_property(self::ENABLED_SORT_FILTERS);
 	}
 
-	public function get_items_number_per_page()
+	public function get_items_per_page()
 	{
-		return $this->get_property(self::ITEMS_NUMBER_PER_PAGE);
+		return $this->get_property(self::ITEMS_PER_PAGE);
 	}
 
-	public function set_items_number_per_page($number)
+	public function set_items_per_page($number)
 	{
-		$this->set_property(self::ITEMS_NUMBER_PER_PAGE, $number);
+		$this->set_property(self::ITEMS_PER_PAGE, $number);
 	}
 
-	public function get_displayed_cols_number_per_line()
+	public function get_items_per_row()
 	{
-		return $this->get_property(self::DISPLAYED_COLS_NUMBER_PER_LINE);
+		return $this->get_property(self::ITEMS_PER_ROW);
 	}
 
-	public function set_displayed_cols_number_per_line($number)
+	public function set_items_per_row($number)
 	{
-		$this->set_property(self::DISPLAYED_COLS_NUMBER_PER_LINE, $number);
+		$this->set_property(self::ITEMS_PER_ROW, $number);
 	}
 
 	public function get_characters_number_to_cut()
@@ -116,17 +116,17 @@ class SmalladsConfig extends AbstractConfigData
 
 	public function display_summaries_to_guests()
 	{
-		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, true);
+		$this->set_property(self::SUMMARIES_DISPLAYED_TO_GUESTS, true);
 	}
 
 	public function hide_summaries_to_guests()
 	{
-		$this->set_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS, false);
+		$this->set_property(self::SUMMARIES_DISPLAYED_TO_GUESTS, false);
 	}
 
 	public function are_summaries_displayed_to_guests()
 	{
-		return $this->get_property(self::DESCRIPTIONS_DISPLAYED_TO_GUESTS);
+		return $this->get_property(self::SUMMARIES_DISPLAYED_TO_GUESTS);
 	}
 
 	public function get_root_category_description()
@@ -448,11 +448,11 @@ class SmalladsConfig extends AbstractConfigData
 			// Categories
 			self::ENABLED_SORT_FILTERS => true,
 			self::ENABLED_CATS_ICON => false,
-			self::ITEMS_NUMBER_PER_PAGE => 10,
-			self::DISPLAY_TYPE => self::DISPLAY_GRID_VIEW,
+			self::ITEMS_PER_ROW => 2,
+			self::ITEMS_PER_PAGE => 10,
+			self::DISPLAY_TYPE => self::GRID_VIEW,
 			self::CHARACTERS_NUMBER_TO_CUT => 128,
-			self::DISPLAYED_COLS_NUMBER_PER_LINE => 2,
-			self::DESCRIPTIONS_DISPLAYED_TO_GUESTS => false,
+			self::SUMMARIES_DISPLAYED_TO_GUESTS => false,
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'smallads'),
             self::DEFAULT_CONTENTS => '',
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
