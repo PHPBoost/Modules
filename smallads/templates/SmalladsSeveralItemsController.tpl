@@ -5,13 +5,17 @@
 			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
-			# IF C_PENDING #
-				{@smallads.pending.items}
+			# IF C_ARCHIVED #
+				{@archived.items}
 			# ELSE #
-				# IF C_MEMBER_ITEMS #
-					{@my.items}
+				# IF C_PENDING #
+					{@pending.items}
 				# ELSE #
-					{@module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
+					# IF C_MEMBER_ITEMS #
+						{@my.items}
+					# ELSE #
+						{@module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
+					# ENDIF #
 				# ENDIF #
 			# ENDIF #
 		</h1>
@@ -185,7 +189,7 @@
 						<tr data-jplist-item class="# IF items.C_COMPLETED # completed-smallad bgc error# ENDIF # category-{items.ID_CATEGORY}">
 							<td>
 								# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
-									<span class="jp-title" itemprop="name">{items.TITLE}</span>
+									<span class="jp-title# IF items.C_ARCHIVED # text-strike# ENDIF #" itemprop="name">{items.TITLE}</span>
 								# IF NOT items.C_COMPLETED #</a># ENDIF #
 								<span class="jp-view hidden">{items.VIEWS_NUMBER}</span>
 								<span class="jp-comment hidden">{items.COMMENTS_NUMBER}</span>
@@ -223,7 +227,11 @@
 							</td>
 							# ENDIF #
 							<td>
-								<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLISHING_START_DATE_RELATIVE}# ENDIF #</time>
+								# IF items.C_ARCHIVED #
+									{@smallads.archived.item}
+								# ELSE #
+									<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLISHING_START_DATE_RELATIVE}# ENDIF #</time>
+								# ENDIF #
 							</td>
 							# IF C_MODERATION #
 								<td class="controls">
@@ -249,7 +257,7 @@
 					<article data-jplist-item id="smallads-items-{items.ID}" class="smallads-items several-items category-{items.ID_CATEGORY} cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 						# IF items.C_COMPLETED # <div class="completed-item bgc error"><span>{@smallads.completed.item}</span></div># ENDIF #
 						<header class="cell-header">
-							<h2 class="cell-name"><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>
+							<h2 class="cell-name# IF items.C_ARCHIVED # text-strike# ENDIF #"><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>
 						</header>
 						<div class="cell-infos">
 							<div class="more">
@@ -265,7 +273,12 @@
 									</span>
 								# ENDIF #
 								<span class="pinned">
-									<i class="far fa-calendar"></i> <time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLISHING_START_DATE}# ENDIF #</time>
+									<i class="far fa-calendar"></i>
+									# IF items.C_ARCHIVED #
+									{@smallads.archived.item}
+									# ELSE #
+										<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLISHING_START_DATE}# ENDIF #</time>
+									# ENDIF #
 								</span>
 								<span class="pinned">
 									<i class="far fa-folder"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>

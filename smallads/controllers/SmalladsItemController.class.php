@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -64,7 +64,11 @@ class SmalladsItemController extends ModuleController
 
 	private function check_pending_items(HTTPRequestCustom $request)
 	{
-		if (!$this->item->is_published())
+		if(!$this->item->is_published() && $this->item->is_archived())
+		{
+			$this->view->put('NOT_VISIBLE_MESSAGE', MessageHelper::display($this->lang['smallads.item.is.archived'], MessageHelper::ERROR));
+		}
+		else if (!$this->item->is_published())
 		{
 			$this->view->put('NOT_VISIBLE_MESSAGE', MessageHelper::display(LangLoader::get_message('element.not_visible', 'status-messages-common'), MessageHelper::WARNING));
 		}
@@ -181,11 +185,12 @@ class SmalladsItemController extends ModuleController
 		$now = new Date();
 
 		$result = PersistenceContext::get_querier()->select('SELECT
-			id, title, id_category, rewrited_title, thumbnail_url, completed,
+			id, title, id_category, rewrited_title, thumbnail_url, completed, archived,
 			(2 * FT_SEARCH_RELEVANCE(title, :search_content) + FT_SEARCH_RELEVANCE(content, :search_content) / 3) AS relevance
 		FROM ' . SmalladsSetup::$smallads_table . '
 		WHERE (FT_SEARCH(title, :search_content) OR FT_SEARCH(content, :search_content)) AND id <> :excluded_id
 		AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
+		AND completed = 0 AND archived = 0
 		ORDER BY relevance DESC LIMIT 0, :limit_nb', array(
 			'excluded_id' => $item->get_id(),
 			'search_content' => $item->get_title() .','. $item->get_content(),

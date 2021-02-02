@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -99,7 +99,18 @@ class SmalladsItemsManagerController extends ModuleController
 
 			$start_and_end_dates = new SpanHTMLElement($dates, array(), 'smaller');
 
-			$completed = $item->is_completed() ? LangLoader::get_message('smallads.completed.item', 'common', 'smallads') : '';
+			if($item->is_completed()) {
+				$final_status =  $this->lang['smallads.completed.item'];
+				$final_status_class = 'bgc-full error';
+			}
+			else if ($item->is_archived()) {
+				$final_status =  $this->lang['smallads.archived.item'];
+				$final_status_class = 'bgc-full warning';
+			}
+			else {
+				$final_status = '';
+				$final_status_class = '';
+			}
 
 			$row = array(
 				new HTMLTableRowCell(new LinkHTMLElement(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'left'),
@@ -107,7 +118,7 @@ class SmalladsItemsManagerController extends ModuleController
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
 				new HTMLTableRowCell($item->get_status() . $br->display() . ($dates ? $start_and_end_dates->display() : '')),
-				new HTMLTableRowCell($completed),
+				new HTMLTableRowCell($final_status, $final_status_class),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display(), 'controls'),
 			);
 

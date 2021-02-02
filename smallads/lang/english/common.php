@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -22,12 +22,13 @@ $lang['items'] = 'Ads';
 $lang['an.item'] = 'An ad';
 $lang['the.item'] = 'The ad';
 $lang['my.items'] = 'My ads';
+$lang['archived.items'] = 'Archived ads';
+$lang['pending.items'] = 'Pending ads';
 
 $lang['smallads.management'] = 'Smallads management';
 $lang['smallads.add'] = 'Add an ad';
 $lang['smallads.edit'] = 'Item edition';
 $lang['smallads.feed.name'] = 'Last ads';
-$lang['smallads.pending.items'] = 'Pending ads';
 $lang['smallads.published.items'] = 'Published ads';
 
 $lang['smallads.category.list'] = 'Categories';
@@ -36,6 +37,7 @@ $lang['smallads.category.all'] = 'All categories';
 $lang['smallads.select.category'] = 'Select a category';
 
 $lang['smallads.completed.item'] = 'Completed';
+$lang['smallads.archived.item'] = 'Archived';
 $lang['smallads.ad.type'] = 'Type';
 $lang['smallads.category'] = 'Category';
 
@@ -44,6 +46,8 @@ $lang['smallads.contact'] = 'Contact the author';
 $lang['smallads.contact.email'] = 'by email';
 $lang['smallads.contact.pm'] = 'by private message';
 $lang['smallads.contact.phone'] = 'by phone';
+
+$lang['smallads.item.is.archived'] = 'This item has overflown its publication date, It\'s not displayed to other.';
 
 // Smallads categories configuration
 $lang['config.categories.title'] = 'Categories configuration';
@@ -105,6 +109,7 @@ $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Picture address';
 $lang['smallads.form.contact'] = 'Contact details';
 $lang['smallads.form.max.weeks'] = 'Number of weeks of display';
+$lang['smallads.form.max.weeks.description'] = 'After this period, the ad will be unpublished and archived ';
 $lang['smallads.form.displayed.author.pm'] = 'Display the link to pm';
 $lang['smallads.form.displayed.author.email'] = 'Display the link to email';
 $lang['smallads.form.enabled.author.email.customisation'] = 'Customize email';

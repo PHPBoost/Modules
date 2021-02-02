@@ -4,11 +4,10 @@
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @version     PHPBoost 6.0 - last update: 2021 02 02
- * @since       PHPBoost 5.1 - 2018 03 15
- * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @since       PHPBoost 5.2 - 2021 02 02
 */
 
-class SmalladsPendingItemsController extends ModuleController
+class SmalladsArchivedItemsController extends ModuleController
 {
 	private $view;
 	private $lang;
@@ -44,7 +43,7 @@ class SmalladsPendingItemsController extends ModuleController
 		$condition = 'WHERE id_category IN :authorized_categories
 		' . (!CategoriesAuthorizationsService::check_authorizations()->moderation() ? ' AND author_user_id = :user_id' : '') . '
 		AND (published = 0 OR (published = 2 AND (publishing_start_date > :timestamp_now OR (publishing_end_date != 0 AND publishing_end_date < :timestamp_now))))
-		AND archived = 0';
+		AND archived = 1';
 		$parameters = array(
 			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id(),
@@ -65,7 +64,7 @@ class SmalladsPendingItemsController extends ModuleController
 		$this->build_sorting_smallad_type();
 
 		$this->view->put_all(array(
-			'C_PENDING'         => true,
+			'C_ARCHIVED'        => true,
 			'C_ENABLED_FILTERS'	=> $this->config->are_sort_filters_enabled(),
 			'C_ITEMS'           => $result->get_rows_count() > 0,
 			'C_SEVERAL_ITEMS'   => $result->get_rows_count() > 1,
@@ -161,7 +160,7 @@ class SmalladsPendingItemsController extends ModuleController
 
 	private function check_authorizations()
 	{
-		if (!(CategoriesAuthorizationsService::check_authorizations()->write() || CategoriesAuthorizationsService::check_authorizations()->contribution() || CategoriesAuthorizationsService::check_authorizations()->moderation()))
+		if (!CategoriesAuthorizationsService::check_authorizations()->moderation())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);

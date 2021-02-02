@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 07
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -22,12 +22,13 @@ $lang['items'] = 'Annonces';
 $lang['an.item'] = 'Une annonce';
 $lang['the.item'] = 'L\'annonce';
 $lang['my.items'] = 'Mes annonces';
+$lang['archived.items'] = 'Annonces archivées';
+$lang['pending.items'] = 'Annonces en attente';
 
 $lang['smallads.management'] = 'Gestion des annonces';
 $lang['smallads.add'] = 'Ajouter une annonce';
 $lang['smallads.edit'] = 'Modification d\'une annonce';
 $lang['smallads.feed.name'] = 'Dernières annonces';
-$lang['smallads.pending.items'] = 'Annonces en attente';
 $lang['smallads.published.items'] = 'Annonces publiées';
 
 $lang['smallads.category.list'] = 'Catégories';
@@ -36,6 +37,7 @@ $lang['smallads.category.all'] = 'Toutes les catégories';
 $lang['smallads.select.category'] = 'Sélectionnez une catégorie';
 
 $lang['smallads.completed.item'] = 'Terminé';
+$lang['smallads.archived.item'] = 'Archivé';
 $lang['smallads.ad.type'] = 'Type';
 $lang['smallads.category'] = 'Catégorie';
 
@@ -44,6 +46,8 @@ $lang['smallads.contact'] = 'Contacter l\'auteur';
 $lang['smallads.contact.email'] = 'par email';
 $lang['smallads.contact.pm'] = 'par messagerie privée';
 $lang['smallads.contact.phone'] = 'par téléphone';
+
+$lang['smallads.item.is.archived'] = 'Cet élément a dépassé la date de publication, il n\'est pas affiché pour les autres utilisateurs du site.';
 
 //Smallads categories configuration
 $lang['config.categories.title'] = 'Configuration des catégories';
@@ -105,6 +109,7 @@ $lang['smallads.form.image.description'] = 'Description';
 $lang['smallads.form.image.url'] = 'Adresse image';
 $lang['smallads.form.contact'] = 'Coordonnées de contact';
 $lang['smallads.form.max.weeks'] = 'Nombre de semaines d\'affichage';
+$lang['smallads.form.max.weeks.description'] = 'Passé ce délai, l\'annonce sera dépubliée et archivée.';
 $lang['smallads.form.displayed.author.pm'] = 'Afficher le lien vers la messagerie privée';
 $lang['smallads.form.displayed.author.email'] = 'Afficher le lien vers l\'email';
 $lang['smallads.form.enabled.author.email.customisation'] = 'Personnaliser l\'email';

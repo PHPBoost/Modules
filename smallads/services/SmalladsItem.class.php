@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -25,6 +25,7 @@ class SmalladsItem
 	private $brand;
 	private $max_weeks;
 	private $completed;
+	private $archived;
 
 	private $author_user;
 	private $location;
@@ -74,19 +75,22 @@ class SmalladsItem
 	const PUBLISHED_NOW = 1;
 	const PUBLICATION_DATE = 2;
 
-	const NOTCOMPLETED = 0;
+	const NOT_COMPLETED = 0;
 	const COMPLETED = 1;
 
-	const NOTDISPLAYED_AUTHOR_NAME = 0;
+	const NOT_ARCHIVED = 0;
+	const ARCHIVED = 1;
+
+	const NOT_DISPLAYED_AUTHOR_NAME = 0;
 	const DISPLAYED_AUTHOR_NAME = 1;
 
-	const NOTDISPLAYED_AUTHOR_EMAIL = 0;
+	const NOT_DISPLAYED_AUTHOR_EMAIL = 0;
 	const DISPLAYED_AUTHOR_EMAIL = 1;
 
-	const NOTDISPLAYED_AUTHOR_PM = 0;
+	const NOT_DISPLAYED_AUTHOR_PM = 0;
 	const DISPLAYED_AUTHOR_PM = 1;
 
-	const NOTDISPLAYED_AUTHOR_PHONE = 0;
+	const NOT_DISPLAYED_AUTHOR_PHONE = 0;
 	const DISPLAYED_AUTHOR_PHONE = 1;
 
 	const THUMBNAIL_URL = '/templates/__default__/images/default_item_thumbnail.png';
@@ -257,6 +261,21 @@ class SmalladsItem
 	public function is_completed()
 	{
 		return $this->completed;
+	}
+
+	public function get_archived()
+	{
+		return $this->archived;
+	}
+
+	public function set_archived($archived)
+	{
+		$this->archived= $archived;
+	}
+
+	public function is_archived()
+	{
+		return $this->archived;
 	}
 
 	public function set_author_user(User $user)
@@ -556,6 +575,7 @@ class SmalladsItem
 			'thumbnail_url'          => $this->get_thumbnail()->relative(),
 			'views_number'           => $this->get_views_number(),
 			'completed' 			 => $this->get_completed(),
+			'archived' 			 	 => $this->get_archived(),
 			'author_user_id'         => $this->get_author_user()->get_id(),
 			'location' 				 => $this->get_location(),
 			'other_location' 		 => $this->get_other_location(),
@@ -591,6 +611,7 @@ class SmalladsItem
 		$this->set_thumbnail($properties['thumbnail_url']);
 		$this->set_views_number($properties['views_number']);
 		$this->set_completed($properties['completed']);
+		$this->set_archived($properties['archived']);
 		$this->location = $properties['location'];
 		$this->other_location = $properties['other_location'];
 		$this->set_displayed_author_email($properties['displayed_author_email']);
@@ -632,7 +653,8 @@ class SmalladsItem
 
 		$this->id_category = $id_category;
         $this->content = SmalladsConfig::load()->get_default_content();
-		$this->completed = self::NOTCOMPLETED;
+		$this->completed = self::NOT_COMPLETED;
+		$this->archived = self::NOT_ARCHIVED;
 		$this->displayed_author_name = self::DISPLAYED_AUTHOR_NAME;
 		$this->author_user = AppContext::get_current_user();
 		$this->published = self::PUBLISHED_NOW;
@@ -717,6 +739,7 @@ class SmalladsItem
 			'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
 			'C_CONTACT_LEVEL'				   => $contact_level,
 			'C_COMPLETED'         			   => $this->is_completed(),
+			'C_ARCHIVED'         			   => $this->is_archived(),
 			'C_DISPLAYED_AUTHOR_EMAIL'         => $this->is_displayed_author_email(),
 			'C_CUSTOM_AUTHOR_EMAIL'            => $this->is_enabled_author_email_customization(),
 			'C_DISPLAYED_AUTHOR_PM'            => $this->is_displayed_author_pm(),

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -251,7 +251,10 @@ class SmalladsItemFormController extends ModuleController
 		if($this->config->is_max_weeks_number_displayed())
 		{
 			$other_fieldset->add_field(new FormFieldNumberEditor('max_weeks', $this->lang['smallads.form.max.weeks'], $this->item->get_max_weeks(),
-				array('min' => 1, 'max' => 52)
+				array(
+					'min' => 1, 'max' => 52,
+					'description' => $this->lang['smallads.form.max.weeks.description']
+				)
 			));
 		}
 
@@ -598,22 +601,22 @@ class SmalladsItemFormController extends ModuleController
 			}
 		}
 
-		$displayed_author_phone = $this->form->get_value('displayed_author_phone') ? $this->form->get_value('displayed_author_phone') : SmalladsItem::NOTDISPLAYED_AUTHOR_PHONE;
+		$displayed_author_phone = $this->form->get_value('displayed_author_phone') ? $this->form->get_value('displayed_author_phone') : SmalladsItem::NOT_DISPLAYED_AUTHOR_PHONE;
 		$this->item->set_displayed_author_phone($displayed_author_phone);
 
 		if ($this->item->get_displayed_author_phone() == true)
 			$this->item->set_author_phone($this->form->get_value('author_phone'));
 
-		$displayed_author_pm = $this->form->get_value('displayed_author_pm') ? $this->form->get_value('displayed_author_pm') : SmalladsItem::NOTDISPLAYED_AUTHOR_PM;
+		$displayed_author_pm = $this->form->get_value('displayed_author_pm') ? $this->form->get_value('displayed_author_pm') : SmalladsItem::NOT_DISPLAYED_AUTHOR_PM;
 		$this->item->set_displayed_author_pm($displayed_author_pm);
 
-		$displayed_author_email = $this->form->get_value('displayed_author_email') ? $this->form->get_value('displayed_author_email') : SmalladsItem::NOTDISPLAYED_AUTHOR_EMAIL;
+		$displayed_author_email = $this->form->get_value('displayed_author_email') ? $this->form->get_value('displayed_author_email') : SmalladsItem::NOT_DISPLAYED_AUTHOR_EMAIL;
 		$this->item->set_displayed_author_email($displayed_author_email);
 
 		if ($this->item->get_displayed_author_email() == true)
 			$this->item->set_custom_author_email(($this->form->get_value('custom_author_email') && $this->form->get_value('custom_author_email') !== $this->item->get_author_user()->get_email() ? $this->form->get_value('custom_author_email') : ''));
 
-		$displayed_author_name = $this->form->get_value('displayed_author_name') ? $this->form->get_value('displayed_author_name') : SmalladsItem::NOTDISPLAYED_AUTHOR_NAME;
+		$displayed_author_name = $this->form->get_value('displayed_author_name') ? $this->form->get_value('displayed_author_name') : SmalladsItem::NOT_DISPLAYED_AUTHOR_NAME;
 		$this->item->set_displayed_author_name($displayed_author_name);
 
 		if ($this->item->get_displayed_author_name() == true)

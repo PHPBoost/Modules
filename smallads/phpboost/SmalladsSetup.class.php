@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -64,6 +64,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'smallad_type' => array('type' => 'string', 'length' => 255),
 			'brand' => array('type' => 'string', 'length' => 255),
 			'completed' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
+			'archived' => array('type' => 'boolean', 'notnull' => 1, 'default' => 0),
 			'views_number' => array('type' => 'integer', 'length' => 11, 'default' => 0),
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'location' => array('type' => 'text', 'length' => 65000),
@@ -90,7 +91,8 @@ class SmalladsSetup extends DefaultModuleSetup
 				'title' => array('type' => 'fulltext', 'fields' => 'title'),
 				'summary' => array('type' => 'fulltext', 'fields' => 'summary'),
 				'content' => array('type' => 'fulltext', 'fields' => 'content')
-		));
+			)
+		);
 		PersistenceContext::get_dbms_utils()->create_table(self::$smallads_table, $fields, $options);
 	}
 
@@ -136,9 +138,9 @@ class SmalladsSetup extends DefaultModuleSetup
 			'author_user_id' => 1,
 			'custom_author_name' => '',
 			'displayed_author_name' => SmalladsItem::DISPLAYED_AUTHOR_NAME,
-			'displayed_author_email' => SmalladsItem::NOTDISPLAYED_AUTHOR_EMAIL,
-			'displayed_author_pm' => SmalladsItem::NOTDISPLAYED_AUTHOR_PM,
-			'displayed_author_phone' => SmalladsItem::NOTDISPLAYED_AUTHOR_PHONE,
+			'displayed_author_email' => SmalladsItem::NOT_DISPLAYED_AUTHOR_EMAIL,
+			'displayed_author_pm' => SmalladsItem::NOT_DISPLAYED_AUTHOR_PM,
+			'displayed_author_phone' => SmalladsItem::NOT_DISPLAYED_AUTHOR_PHONE,
 			'published' => SmalladsItem::PUBLISHED_NOW,
 			'publishing_start_date' => 0,
 			'publishing_end_date' => 0,

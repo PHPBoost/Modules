@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 06
+ * @version     PHPBoost 6.0 - last update: 2021 02 02
  * @since       PHPBoost 4.0 - 2013 01 30
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -38,6 +38,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('SmalladsMemberItemsController', '`^/my_items/?$`'),
 	new UrlControllerMapper('SmalladsTagController', '`^/tag/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('tag')),
 	new UrlControllerMapper('SmalladsPendingItemsController', '`^/pending/([0-9]+)?/?$`'),
+	new UrlControllerMapper('SmalladsArchivedItemsController', '`^/archives/([0-9]+)?/?$`'),
 	new UrlControllerMapper('SmalladsItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_title')),
 
 	// Display home and categories

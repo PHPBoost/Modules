@@ -12,7 +12,7 @@
 	<div itemscope="itemscope" itemtype="http://schema.org/Smallad" id="article-smallads-{ID}" class="article-smallads# IF C_NEW_CONTENT # new-content# ENDIF #">
 		<div class="flex-between">
 			<div></div>
-			<div class="controls">
+			<div class="controls align-right">
 				# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
 				# IF C_DELETE #<a href="{U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a># ENDIF #
 			</div>
@@ -122,7 +122,12 @@
 								# ENDIF #
 								<li class="li-stretch">
 									<span aria-label="${LangLoader::get_message('form.approbation', 'common')}"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> </span>
-									<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLISHING_START_DATE}# ENDIF #</time>
+									# IF C_ARCHIVED #
+										{@smallads.archived.item}
+									# ELSE #
+										<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLISHING_START_DATE}# ENDIF #</time>
+									# ENDIF #
+
 								</li>
 								<li class="li-stretch">
 									<span role="contentinfo" aria-label="${LangLoader::get_message('sort_by.views.number', 'common')}"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> </span>
