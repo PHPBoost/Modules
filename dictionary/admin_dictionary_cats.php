@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 12 04
+ * @version     PHPBoost 6.0 - last update: 2020 12 27
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -134,7 +134,7 @@ if (retrieve(GET,'add',false))
 		{
 			if ($_FILES['images']['size'] > 0)
 			{
-				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`iu', Upload::UNIQ_NAME, 20*1024);
+				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|webp|bmp)+$`iu', Upload::UNIQ_NAME, 20*1024);
 				if (!empty($Upload->error)) //Erreur, on arrête ici
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&id_cat='.$id_cat.'&erroru=' . $Upload->error) . '#message_helper');
@@ -182,7 +182,7 @@ if (retrieve(GET,'add',false))
 		{
 			if ($_FILES['images']['size'] > 0)
 			{
-				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|bmp)+$`iu',Upload::UNIQ_NAME, 20*1024);
+				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|webp|bmp)+$`iu',Upload::UNIQ_NAME, 20*1024);
 				if ($Upload->get_error() != '') //Erreur, on arrête ici
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $Upload->error) . '#message_helper');
