@@ -1,5 +1,4 @@
 <script>
-<!--
 	function RefreshViewer() {
 		jQuery('#ts3_refresh_picture').show();
 		jQuery.ajax({
@@ -11,25 +10,28 @@
 			}
 		});
 	}
-	
+
 	jQuery(document).ready(function() {
 		RefreshViewer();
 		# IF C_REFRESH_ENABLED #
 		setInterval(RefreshViewer, {REFRESH_DELAY});
 		# ENDIF #
 	});
--->
 </script>
 <section>
-	<header>
+	<header class="section-header">
 		<h1>{@ts_title}</h1>
 	</header>
-	<div class="content">
-		<div id="ts3"></div>
-		<div class="spacer">&nbsp;</div>
-		<div class="align-center">
-			<i class="fa fa-spinner fa-spin fa-2x" id="ts3_refresh_picture"></i>
-		</div>
+	<div class="sub-section">
+		<article class="teamspeak-item several-items">
+			<div class="content">
+				<div id="ts3"></div>
+				<div class="spacer">&nbsp;</div>
+				<div class="align-center">
+					<i class="fa fa-spinner fa-spin fa-2x" id="ts3_refresh_picture"></i>
+				</div>
+			</div>			
+		</article>
 	</div>
 	<footer></footer>
 </section>
