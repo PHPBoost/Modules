@@ -1,5 +1,5 @@
 <section id="module-homelanding">
-	<header style="order: 0;">
+	<header class="section-header" style="order: 0;">
 		<h1>{MODULE_TITLE}</h1>
 	</header>
 
@@ -8,10 +8,12 @@
 	# INCLUDE CAROUSEL #
 
 	# IF C_EDITO_ENABLED #
-		<div id="edito-panel" class="content" style="order: {EDITO_POSITION};">
-			{EDITO}
-			<div class="spacer"></div>
-		</div>
+		<article id="edito-panel" class="sub-section" style="order: {EDITO_POSITION};">
+			<div class="content">
+				{EDITO}
+				<div class="spacer"></div>
+			</div>
+		</article>
 	# ENDIF #
 
 	# INCLUDE LASTCOMS #

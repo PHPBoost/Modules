@@ -1,5 +1,4 @@
-
-<article id="{MODULE_NAME}-panel" style="order: {MODULE_POSITION};">
+<article id="{MODULE_NAME}-panel" class="sub-section" style="order: {MODULE_POSITION};">
 	<header>
 		<h2>
 			{L_MODULE_TITLE}

@@ -1,6 +1,4 @@
-
-
-<div id="home-slideboost" style="order: {CAROUSEL_POSITION};">
+<article id="home-slideboost" class="sub-section" style="order: {CAROUSEL_POSITION};">
 	# START items #
 		<figure>
 			# IF items.DESCRIPTION #
@@ -13,7 +11,7 @@
 			<img class="slideImage" src="{items.PICTURE_URL}" alt="{items.PICTURE_URL}" />
 		</figure>
 	# END items #
-</div>
+</article>
 
 <script>
 	$('#home-slideboost').addClass('owl-carousel').owlCarousel({

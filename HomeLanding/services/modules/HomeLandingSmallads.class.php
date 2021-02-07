@@ -50,6 +50,8 @@ class HomeLandingSmallads
             'C_CATEGORY'         => true,
             'C_NO_ITEM'          => $result->get_rows_count() == 0,
             'C_GRID_VIEW'        => $module_config->get_display_type() == SmalladsConfig::GRID_VIEW,
+            'C_LIST_VIEW'        => $module_config->get_display_type() == SmalladsConfig::LIST_VIEW,
+            'C_TABLE_VIEW'        => $module_config->get_display_type() == SmalladsConfig::TABLE_VIEW,
 			'C_VIEWS_NUMBER'     => true,
 			'C_AUTHOR_DISPLAYED' => true,
             'MODULE_POSITION'    => $home_config->get_module_position_by_id($module_name),
@@ -113,6 +115,8 @@ class HomeLandingSmallads
 		$view->put_all(array(
 			'C_NO_ITEM'          => $result->get_rows_count() == 0,
             'C_GRID_VIEW'        => $module_config->get_display_type() == SmalladsConfig::GRID_VIEW,
+            'C_LIST_VIEW'        => $module_config->get_display_type() == SmalladsConfig::LIST_VIEW,
+            'C_TABLE_VIEW'        => $module_config->get_display_type() == SmalladsConfig::TABLE_VIEW,
 			'C_VIEWS_NUMBER'     => true,
 			'C_AUTHOR_DISPLAYED' => true,
             'MODULE_POSITION'    => $home_config->get_module_position_by_id($module_name),

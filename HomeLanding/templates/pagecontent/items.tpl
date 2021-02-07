@@ -1,5 +1,4 @@
-
-<article id="{MODULE_NAME}# IF C_CATEGORY #_category# ENDIF #-panel" style="order: {MODULE_POSITION};">
+<article id="{MODULE_NAME}# IF C_CATEGORY #_category# ENDIF #-panel" class="sub-section" style="order: {MODULE_POSITION};">
 	<header>
 		<h2>{L_MODULE_TITLE}</h2>
 		<div class="controls align-right">
@@ -12,34 +11,36 @@
 		</div>
 	# ELSE #
 		# IF C_TABLE_VIEW #
-			<table class="table">
-				<thead>
-					<tr>
-						<th>${LangLoader::get_message('form.name', 'common')}</th>
-						<th class="col-small" aria-label="{@creation.date}"><i class="fa fa-fw fa-clock" aria-hidden="true"></i></th>
-						# IF C_VIEWS_NUMBER #<th class="col-small" aria-label="# IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i></th># ENDIF #
-						# IF C_DL_NUMBER #<th class="col-small" aria-label="{@downloads.number}"><i class="fa fa-fw fa-download" aria-hidden="true"></i></th># ENDIF #
-						# IF C_VISIT #<th aria-label="{@website.link}"><i class="fa fa-fw fa-share" aria-hidden="true"></i></th># ENDIF #
-					</tr>
-				</thead>
-				<tbody>
-					# START items #
+			<div class="responsive-table">
+				<table class="table">
+					<thead>
 						<tr>
-							<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
-							<td>
-								# IF items.HAS_UPDATE_DATE #
-									<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
-								# ELSE #
-									<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
-								# ENDIF #
-							</td>
-							# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
-							# IF C_DL_NUMBER #<td>{items.DOWNLOADS_NUMBER}</td># ENDIF #
-							# IF C_VISIT #<td><a href="{items.U_VISIT}">{@visit}</a></td># ENDIF #
+							<th>${LangLoader::get_message('form.name', 'common')}</th>
+							<th class="col-small" aria-label="{@creation.date}"><i class="fa fa-fw fa-clock" aria-hidden="true"></i></th>
+							# IF C_VIEWS_NUMBER #<th class="col-small" aria-label="# IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i></th># ENDIF #
+							# IF C_DL_NUMBER #<th class="col-small" aria-label="{@downloads.number}"><i class="fa fa-fw fa-download" aria-hidden="true"></i></th># ENDIF #
+							# IF C_VISIT #<th aria-label="{@website.link}"><i class="fa fa-fw fa-share" aria-hidden="true"></i></th># ENDIF #
 						</tr>
-					# END items #
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						# START items #
+							<tr>
+								<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
+								<td>
+									# IF items.HAS_UPDATE_DATE #
+										<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
+									# ELSE #
+										<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
+									# ENDIF #
+								</td>
+								# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
+								# IF C_DL_NUMBER #<td>{items.DOWNLOADS_NUMBER}</td># ENDIF #
+								# IF C_VISIT #<td><a href="{items.U_VISIT}">{@visit}</a></td># ENDIF #
+							</tr>
+						# END items #
+					</tbody>
+				</table>				
+			</div>
 		# ELSE #
 			<div class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #">
 
