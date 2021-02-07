@@ -39,13 +39,13 @@
 							</tr>
 						# END items #
 					</tbody>
-				</table>				
+				</table>
 			</div>
 		# ELSE #
 			<div class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #">
 
 				# START items #
-					<div class="{MODULE_NAME}-items several-items category-{items.CATEGORY_ID} cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+					<div class="{MODULE_NAME}-item several-items category-{items.CATEGORY_ID} cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 						<div class="cell-header">
 							<h3 class="cell-name">
 								<a href="{items.U_ITEM}">{items.TITLE}</a>
@@ -104,7 +104,7 @@
 							# ENDIF #
 							<div class="cell-content">
 								# IF C_DATE #
-									<div class="align-right controls"><i class="far fa-fw fa-calendar-alt"></i><span>{items.START_DATE}</span> - <span>{items.END_DATE}</span></div>
+									<div class="controls align-right"><i class="far fa-fw fa-calendar-alt"></i><span>{items.START_DATE}</span> - <span>{items.END_DATE}</span></div>
 								# ENDIF #
 								# IF items.C_FULL_ITEM_DISPLAY #
 									# IF items.C_HAS_THUMBNAIL #

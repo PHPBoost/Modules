@@ -50,7 +50,7 @@ class HomeLandingNews
             'C_CATEGORY'         => true,
             'C_NO_ITEM'          => $result->get_rows_count() == 0,
             'C_GRID_VIEW'        => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
-			'C_VIEWS_NUMBER'     => $module_config->get_views_number(),
+			'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
 			'C_AUTHOR_DISPLAYED' => $module_config->get_author_displayed(),
             'MODULE_POSITION'    => $home_config->get_module_position_by_id($module_name),
             'MODULE_NAME'        => $module_name,
@@ -113,7 +113,7 @@ class HomeLandingNews
 		$view->put_all(array(
 			'C_NO_ITEM'          => $result->get_rows_count() == 0,
             'C_GRID_VIEW'        => $module_config->get_display_type() == NewsConfig::GRID_VIEW,
-			'C_VIEWS_NUMBER'     => $module_config->get_views_number(),
+			'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
 			'C_AUTHOR_DISPLAYED' => $module_config->get_author_displayed(),
             'MODULE_POSITION'    => $home_config->get_module_position_by_id($module_name),
 			'MODULE_NAME'        => $module_name,
