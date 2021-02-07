@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 02
+ * @version     PHPBoost 6.0 - last update: 2021 02 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -726,12 +726,13 @@ class SmalladsItem
 			Date::get_array_tpl_vars($this->publishing_end_date, 'publishing_end_date'),
 			array(
 			// Conditions
+			'C_CONTROLS'					   => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
 			'C_EDIT'                           => $this->is_authorized_to_edit(),
 			'C_DELETE'                         => $this->is_authorized_to_delete(),
 			'C_PRICE'                  		   => $this->get_price() != 0,
 			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(),
 			'C_USER_GROUP_COLOR'               => !empty($user_group_color),
-			'C_PUBLISHED'                      => $this->is_published(),
+			'C_VISIBLE'                        => $this->is_published(),
 			'C_PUBLISHING_START_AND_END_DATE'  => $this->publishing_start_date != null && $this->publishing_end_date != null,
 			'C_PUBLISHING_START_DATE'          => $this->publishing_start_date != null,
 			'C_PUBLISHING_END_DATE'            => $this->publishing_end_date != null,

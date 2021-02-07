@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 02
+ * @version     PHPBoost 6.0 - last update: 2021 02 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -764,20 +764,20 @@ class SmalladsItemFormController extends ModuleController
 	{
 		$category = $this->item->get_category();
 
-		if ($this->is_new_smallad && $this->is_contributor_member() && !$this->item->is_published())
+		if ($this->is_new_item && $this->is_contributor_member() && !$this->item->is_published())
 		{
 			DispatchManager::redirect(new UserContributionSuccessController());
 		}
 		elseif ($this->item->is_published())
 		{
-			if ($this->is_new_smallad)
+			if ($this->is_new_item)
 				AppContext::get_response()->redirect(SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->item->get_id(), $this->item->get_rewrited_title()), StringVars::replace_vars($this->lang['smallads.message.success.add'], array('title' => $this->item->get_title())));
 			else
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->item->get_id(), $this->item->get_rewrited_title())), StringVars::replace_vars($this->lang['smallads.message.success.edit'], array('title' => $this->item->get_title())));
 		}
 		else
 		{
-			if ($this->is_new_smallad)
+			if ($this->is_new_item)
 				AppContext::get_response()->redirect(SmalladsUrlBuilder::display_pending_items(), StringVars::replace_vars($this->lang['smallads.message.success.add'], array('title' => $this->item->get_title())));
 			else
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : SmalladsUrlBuilder::display_pending_items()), StringVars::replace_vars($this->lang['smallads.message.success.edit'], array('title' => $this->item->get_title())));
