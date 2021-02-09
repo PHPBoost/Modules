@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 01 25
+ * @version     PHPBoost 6.0 - last update: 2021 02 09
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -152,6 +152,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 	private function tabs_menu_list()
 	{
+		// TODO: test if module is installed & active
 		$modules = array('configuration', 'carousel', 'articles', 'calendar', 'contact', 'download', 'forum', 'gallery', 'guestbook', 'media', 'news', 'smallads', 'web', 'rss');
         $tabs_li = array();
 
@@ -213,7 +214,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 			$fieldset_config->add_field(new FormFieldSubTitle('admin_anchors', LangLoader::get_message('admin.anchors', 'common', 'HomeLanding'), ''));
 
-			$fieldset_config->add_field(new FormFieldCheckbox('anchors_menu', $this->lang['admin.menu.anchors'], $this->config->get_anchors_menu(),
+			$fieldset_config->add_field(new FormFieldCheckbox('anchors_menu_enabled', $this->lang['admin.menu.anchors'], $this->config->get_anchors_menu(),
 				array(
 					'class' => 'custom-checkbox',
 					'description' => $this->lang['admin.menu.anchors.explain']
@@ -1017,11 +1018,9 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->hide();
 
 		// One page Menu
-		if ($this->form->get_value('anchors_menu'))
-		{
+		$this->config->set_anchors_menu($this->form->get_value('anchors_menu_enabled'));
+		if ($this->form->get_value('anchors_menu_enabled'))
 			$this->modules[HomeLandingConfig::MODULE_ANCHORS_MENU]->display();
-			$this->config->set_anchors_menu($this->form->get_value('anchors_menu'));
-		}
 		else
 			$this->modules[HomeLandingConfig::MODULE_ANCHORS_MENU]->hide();
 
