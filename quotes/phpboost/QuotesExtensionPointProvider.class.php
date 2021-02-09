@@ -14,7 +14,7 @@ class QuotesExtensionPointProvider extends ItemsModuleExtensionPointProvider
 {
 	public function home_page()
 	{
-		return new DefaultHomePageDisplay($this->get_id(), QuotesDisplayCategoryController::get_view());
+		return new DefaultHomePageDisplay($this->get_id(), QuotesCategoryController::get_view());
 	}
 }
 ?>
