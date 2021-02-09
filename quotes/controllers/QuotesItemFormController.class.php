@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 02 09
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -60,8 +60,9 @@ class QuotesItemFormController extends ModuleController
 	private function build_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
+		$form->set_layout_title($this->item->get_id() === null ? $this->lang['quotes.add.item'] : ($this->lang['quotes.edit.item'] . ': ' . $this->item->get_writer()));
 
-		$fieldset = new FormFieldsetHTMLHeading('items', $this->item->get_id() === null ? $this->lang['quotes.add.item'] : $this->lang['quotes.edit.item']);
+		$fieldset = new FormFieldsetHTML('items', $this->common_lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 12 29
+ * @version     PHPBoost 6.0 - last update: 2021 02 09
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -64,7 +64,7 @@ class AdminHomeLandingStickyConfigController extends AdminModuleController
 		$form = new HTMLForm(__CLASS__);
 
 		//Sticky
-		$sticky_fieldset = new FormFieldsetHTMLHeading('sticky', $this->lang['homelanding.sticky.manage']);
+		$sticky_fieldset = new FormFieldsetHTML('sticky', $this->lang['homelanding.sticky.manage']);
 		$form->add_fieldset($sticky_fieldset);
 
 		$sticky_fieldset->add_field(new FormFieldTextEditor('sticky_title', $this->lang['homelanding.sticky.title.label'], $this->config->get_sticky_title()));

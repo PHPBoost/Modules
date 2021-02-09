@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 07
+ * @version     PHPBoost 6.0 - last update: 2021 02 09
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -60,8 +60,9 @@ class SmalladsItemFormController extends ModuleController
 	private function build_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
+		$form->set_layout_title($this->item->get_id() === null ? $this->lang['smallads.form.add'] : ($this->lang['smallads.form.edit'] . ': ' . $this->item->get_title()));
 
-		$fieldset = new FormFieldsetHTMLHeading('smallads', $this->item->get_id() === null ? $this->lang['smallads.form.add'] : $this->lang['smallads.form.edit']);
+		$fieldset = new FormFieldsetHTML('smallads', $this->common_lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('title', $this->common_lang['form.title'], $this->item->get_title(),

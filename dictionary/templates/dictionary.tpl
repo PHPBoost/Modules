@@ -306,7 +306,7 @@
 						</header>
 						<div id="{dictionary.ID}" style="display:none;" class="content dictionary-definition">
 							# IF dictionary.C_CONTROLS #
-								<div class="align-right controls">
+								<div class="controls align-right">
 									# IF dictionary.EDIT_CODE #
 										<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
 									# ENDIF #
@@ -320,7 +320,7 @@
 						<noscript>
 							<div id="{dictionary.ID}"  class="dictionary-definition">
 								# IF dictionary.C_CONTROLS #
-									<div class="align-right controls">
+									<div class="controls align-right">
 										# IF dictionary.EDIT_CODE #
 											<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
 										# ENDIF #
@@ -360,7 +360,7 @@
 					<div class="spacer">&nbsp;</div>
 					<div class="dictionary-word">
 						<div>
-							<span class="align-right controls">
+							<span class="controls align-right">
 								<a href="#" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
 								<a href="#" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
 							</span>
@@ -428,8 +428,8 @@
 					</fieldset>
 				</form>
 			# ENDIF #
-		</div>		
+		</div>
 	</div>
 
-	<footer># IF C_PAGINATION #<div class="align-center"># INCLUDE PAGINATION #</div># ENDIF #</footer>
+	<footer># IF C_PAGINATION #<div class="sub-section"># INCLUDE PAGINATION #</div># ENDIF #</footer>
 </section>

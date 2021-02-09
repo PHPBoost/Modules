@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2021 02 09
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -33,12 +33,12 @@ class QuotesItemsManagerController extends AdminModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'quotes');
-		$this->view = new StringTemplate('# INCLUDE table #');
+		$this->view = new StringTemplate('# INCLUDE TABLE #');
 	}
 
 	private function build_table()
 	{
-		$table_model = new SQLHTMLTableModel(QuotesSetup::$quotes_table, 'table', array(
+		$table_model = new SQLHTMLTableModel(QuotesSetup::$quotes_table, 'items-manager', array(
 			new HTMLTableColumn($this->lang['quote'], 'quote'),
 			new HTMLTableColumn(LangLoader::get_message('category', 'categories-common'), 'id_category'),
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'author'),
@@ -49,7 +49,7 @@ class QuotesItemsManagerController extends AdminModuleController
 
 		$table = new HTMLTable($table_model);
 
-		$table_model->set_caption($this->lang['quotes.items.management']);
+		$table_model->set_layout_title($this->lang['quotes.items.management']);
 
 		$results = array();
 		$result = $table_model->get_sql_results('quotes
@@ -79,7 +79,7 @@ class QuotesItemsManagerController extends AdminModuleController
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
-		$this->view->put('table', $table->display());
+		$this->view->put('TABLE', $table->display());
 
 		return $table->get_page_number();
 	}
