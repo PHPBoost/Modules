@@ -100,7 +100,7 @@ class SmalladsItemController extends ModuleController
 			'C_COMMENTS_ENABLED' => $comments_config->module_comments_is_enabled('smallads')
 		)));
 
-		//Affichage commentaires
+		// Comments
 		if ($comments_config->module_comments_is_enabled('smallads'))
 		{
 			$comments_topic = new SmalladsCommentsTopic($this->item);
@@ -110,7 +110,7 @@ class SmalladsItemController extends ModuleController
 			$this->view->put('COMMENTS', $comments_topic->display());
 		}
 
-		// Envoi d'email
+		// Email sending
 		if ($this->submit_button->has_been_submited() && $this->email_form->validate())
 		{
 			if ($this->send_item_email())
