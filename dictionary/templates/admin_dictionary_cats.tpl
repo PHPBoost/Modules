@@ -114,9 +114,9 @@
 				<legend>{add.L_CATEGORY}</legend>
 				<div class="fieldset-inset">
 					<div class="form-element">
-						<label for="title">* {add.L_NAME_CAT}</label>
-						<div class="form-field">
-							<label><input type="text" size="25" id="name_cat" name="name_cat" value="{add.NAME_CAT}" onchange="check_onchange(this);" /></label>
+						<label for="name_cat">* {add.L_NAME_CAT}</label>
+						<div class="form-field form-field-text">
+							<input type="text" size="25" id="name_cat" name="name_cat" value="{add.NAME_CAT}" onchange="check_onchange(this);" />
 						</div>
 					</div>
 				</div>

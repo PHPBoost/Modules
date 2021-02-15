@@ -62,13 +62,13 @@
 			# END dictionary_list #
 		</tbody>
 		# IF C_PAGINATION #
-		<tfoot>
-			<tr>
-				<th colspan="7">
-					# INCLUDE PAGINATION #
-				</th>
-			</tr>
-		</tfoot>
+			<tfoot>
+				<tr>
+					<th colspan="7">
+						# INCLUDE PAGINATION #
+					</th>
+				</tr>
+			</tfoot>
 		# ENDIF #
 	</table>
 </div>

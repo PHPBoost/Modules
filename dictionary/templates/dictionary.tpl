@@ -264,11 +264,11 @@
 		<h1>{TITLE}</h1>
 	</header>
 	<div class="sub-section">
-		<div class="content">
+		<div class="content-container">
 			# INCLUDE MSG #
 
 			# IF NOT C_EDIT #
-				<div class="dictionary-letter-selector align-center">
+				<div class="content dictionary-letter-selector align-center">
 					<div class="dictionary-letter">
 						<a href="javascript:redirection_letter('');">{L_ALL_DEFINITIONS}</a>
 						# START letter #
@@ -293,32 +293,19 @@
 					</div>
 				</div>
 				<noscript>
-					<div class="no-script"><b>{L_NO_SCRIPT}</b></div>
+					<div class="content no-script"><b>{L_NO_SCRIPT}</b></div>
 				</noscript>
-				<p class="align-center small">{SWITCH_DEF}</p>
-				# START dictionary #
-					<div id="{dictionary.ID}-definition"></div>
-					<article class="dictionary-word category-{dictionary.CAT}" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
-						<header>
-							<h2>
-								<a href="javascript:affCache('{dictionary.ID}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
-							</h2>
-						</header>
-						<div id="{dictionary.ID}" style="display:none;" class="content dictionary-definition">
-							# IF dictionary.C_CONTROLS #
-								<div class="controls align-right">
-									# IF dictionary.EDIT_CODE #
-										<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
-									# ENDIF #
-									# IF dictionary.DEL_CODE #
-										<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
-									# ENDIF #
-								</div>
-							# ENDIF #
-							{dictionary.DESC}
-						</div>
-						<noscript>
-							<div id="{dictionary.ID}"  class="dictionary-definition">
+				<p class="content align-center small">{SWITCH_DEF}</p>
+				<div class="content">
+					# START dictionary #
+						<div id="{dictionary.ID}-definition"></div>
+						<article class="dictionary-item several-items category-{dictionary.CAT}" id="{dictionary.CAT}_cat_{dictionary.ID}" name="{dictionary.CAT}_cat_{dictionary.ID}">
+							<header>
+								<h2>
+									<a href="javascript:affCache('{dictionary.ID}');">{dictionary.CAT_IMG}</a> <a href="javascript:affCache('{dictionary.ID}');">{dictionary.PROPER_NAME}</a>
+								</h2>
+							</header>
+							<div id="{dictionary.ID}" style="display:none;" class="dictionary-definition">
 								# IF dictionary.C_CONTROLS #
 									<div class="controls align-right">
 										# IF dictionary.EDIT_CODE #
@@ -331,22 +318,38 @@
 								# ENDIF #
 								{dictionary.DESC}
 							</div>
-						</noscript>
-					</article>
-					<script>
-					jQuery(document).ready(function() {
-						if ({dictionary.C_AFF} && '{dictionary.ID}' == '{C_LETTER}')
-							affCache('{dictionary.ID}');
-					});
-					</script>
-				# END dictionary #
+							<noscript>
+								<div id="{dictionary.ID}"  class="dictionary-definition">
+									# IF dictionary.C_CONTROLS #
+										<div class="controls align-right">
+											# IF dictionary.EDIT_CODE #
+												<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?edit={dictionary.ID_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
+											# ENDIF #
+											# IF dictionary.DEL_CODE #
+												<a href="{PATH_TO_ROOT}/dictionary/dictionary.php?del={dictionary.ID_DEL}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+											# ENDIF #
+										</div>
+									# ENDIF #
+									{dictionary.DESC}
+								</div>
+							</noscript>
+						</article>
+						<script>
+						jQuery(document).ready(function() {
+							if ({dictionary.C_AFF} && '{dictionary.ID}' == '{C_LETTER}')
+								affCache('{dictionary.ID}');
+						});
+						</script>
+					# END dictionary #
+
+				</div>
 			 	<script>
 					cat=getParam('cat');
 					AffCacheCatLancement(cat);
 				</script>
 				<input type="hidden" value="" id="category_list"name="category_list" />
 				# IF NOT C_RESULTS #
-					<div class="align-center">
+					<div class="content align-center">
 						# IF C_LETTER #
 							{L_NO_WORD_LETTER}
 						# ELSE #
@@ -355,81 +358,84 @@
 					</div>
 				# ENDIF #
 			# ELSE #
-				# IF C_ARTICLES_PREVIEW #
-					<span class="text-strong">{L_PREVIEW}</span>
-					<div class="spacer">&nbsp;</div>
-					<div class="dictionary-word">
-						<div>
-							<span class="controls align-right">
-								<a href="#" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
-								<a href="#" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
-							</span>
-							<h6>
-								<a href="#"><i class="fa fa-folder" aria-hidden="true"></i></a> <a href="#">{WORD}</a>
-							</h6>
-						</div>
-						<div class="dictionary-definition">
-							{CONTENTS_PRW}
-						</div>
-					</div>
-					<div class="spacer">&nbsp;</div>
-				# ENDIF #
-				<form action="dictionary.php" name="form" method="post" onsubmit="return check_form_or();"  class="fieldset-content">
-					<fieldset>
-						<legend>{L_ADD_DICTIONARY}</legend>
-						<div class="form-element">
-							<label for="word">* {L_WORD}</label>
-							<div class="form-field">
-								<label><input type="text" id="word" name="word" value="{WORD}" onchange="check_onchange(this);" /></label>
+				<div class="content">
+					# IF C_ARTICLES_PREVIEW #
+						<span class="text-strong">{L_PREVIEW}</span>
+						<div class="spacer">&nbsp;</div>
+						<div class="dictionary-word">
+							<div>
+								<span class="controls align-right">
+									<a href="#" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="far fa-edit" aria-hidden="true"></i></a>
+									<a href="#" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
+								</span>
+								<h6>
+									<a href="#"><i class="fa fa-folder" aria-hidden="true"></i></a> <a href="#">{WORD}</a>
+								</h6>
+							</div>
+							<div class="dictionary-definition">
+								{CONTENTS_PRW}
 							</div>
 						</div>
-						<div class="form-element">
-							<label for="category">{L_CATEGORY}</label>
-							<div class="form-field">
-								<label>
-									<select id ="category_add" name="category_add">
-										<option selected="selected" value="{ID_CAT_SELECT}">{NAME_CAT_SELECT}
-										# START cat_list_add #
-											<option value="{cat_list_add.VALUE}">{cat_list_add.NAME}
-										# END cat_list_add #
-									</select>
-								</label>
-							</div>
-						</div>
-						<div class="form-element-textarea">
-							<label for="contents">* {L_CONTENTS}</label>
-							{KERNEL_EDITOR}
-							<div class="form-field-textarea">
-								<textarea type="text" rows="15" id="contents" name="contents">{CONTENTS}</textarea>
-							</div>
-						</div>
-					</fieldset>
-					# IF C_CONTRIBUTION #
-					<fieldset>
-						<legend>{L_CONTRIBUTION}</legend>
-						<div class="message-helper bgc notice">{L_CONTRIBUTION_NOTICE}</div>
-						<div class="form-element-textarea">
-							<label for="contribution_counterpart">{L_CONTRIBUTION_COUNTERPART}</label>
-							<span class="field-description">{L_CONTRIBUTION_COUNTERPART_EXPLAIN}</span>
-							{CONTRIBUTION_COUNTERPART_EDITOR}
-							<div class="form-field-textarea">
-								<textarea rows="15" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
-							</div>
-						</div>
-					</fieldset>
+						<div class="spacer">&nbsp;</div>
 					# ENDIF #
-					<fieldset class="fieldset-submit">
-						<legend>{L_VALIDATION}</legend>
-							<input type="hidden" value="{ID}" name="dictionary_id" />
-							<button class="button submit" type="submit" id="valid" name="valid" value="true">{L_SUBMIT}</button>
-							<button class="button preview-button" type="button" name="previs" value="true">{L_PREVIEW}</button>
-							<button class="button reset-button" type="reset" value="true">{L_RESET}</button>
-							<input type="hidden" name="token" value="{TOKEN}" />
-					</fieldset>
-				</form>
+					<form action="dictionary.php" name="form" method="post" onsubmit="return check_form_or();"  class="fieldset-content">
+						<fieldset>
+							<legend>{L_ADD_DICTIONARY}</legend>
+							<div class="form-element">
+								<label for="word">* {L_WORD}</label>
+								<div class="form-field">
+									<label><input type="text" id="word" name="word" value="{WORD}" onchange="check_onchange(this);" /></label>
+								</div>
+							</div>
+							<div class="form-element">
+								<label for="category">{L_CATEGORY}</label>
+								<div class="form-field">
+									<label>
+										<select id ="category_add" name="category_add">
+											<option selected="selected" value="{ID_CAT_SELECT}">{NAME_CAT_SELECT}
+											# START cat_list_add #
+												<option value="{cat_list_add.VALUE}">{cat_list_add.NAME}
+											# END cat_list_add #
+										</select>
+									</label>
+								</div>
+							</div>
+							<div class="form-element-textarea">
+								<label for="contents">* {L_CONTENTS}</label>
+								{KERNEL_EDITOR}
+								<div class="form-field-textarea">
+									<textarea type="text" rows="15" id="contents" name="contents">{CONTENTS}</textarea>
+								</div>
+							</div>
+						</fieldset>
+						# IF C_CONTRIBUTION #
+						<fieldset>
+							<legend>{L_CONTRIBUTION}</legend>
+							<div class="message-helper bgc notice">{L_CONTRIBUTION_NOTICE}</div>
+							<div class="form-element-textarea">
+								<label for="contribution_counterpart">{L_CONTRIBUTION_COUNTERPART}</label>
+								<span class="field-description">{L_CONTRIBUTION_COUNTERPART_EXPLAIN}</span>
+								{CONTRIBUTION_COUNTERPART_EDITOR}
+								<div class="form-field-textarea">
+									<textarea rows="15" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
+								</div>
+							</div>
+						</fieldset>
+						# ENDIF #
+						<fieldset class="fieldset-submit">
+							<legend>{L_VALIDATION}</legend>
+								<input type="hidden" value="{ID}" name="dictionary_id" />
+								<button class="button submit" type="submit" id="valid" name="valid" value="true">{L_SUBMIT}</button>
+								<button class="button preview-button" type="button" name="previs" value="true">{L_PREVIEW}</button>
+								<button class="button reset-button" type="reset" value="true">{L_RESET}</button>
+								<input type="hidden" name="token" value="{TOKEN}" />
+						</fieldset>
+					</form>
+
+				</div>
 			# ENDIF #
 		</div>
 	</div>
 
-	<footer># IF C_PAGINATION #<div class="sub-section"># INCLUDE PAGINATION #</div># ENDIF #</footer>
+	<footer># IF C_PAGINATION #<div class="sub-section"><div class="content-container"># INCLUDE PAGINATION #</div></div># ENDIF #</footer>
 </section>
