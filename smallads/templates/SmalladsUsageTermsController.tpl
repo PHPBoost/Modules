@@ -1,9 +1,13 @@
 <section id="smallads-module">
-	<header>
+	<header class="section-header">
 		<h1>{@module.title} - {USAGE_TERMS_TITLE}</h1>
 	</header>
-	<article itemscope="itemscope" itemtype="http://schema.org/Article" class="article-smallads">
-		{USAGE_TERMS_CONTENT}
-	</article>
+	<div class="cub-section">
+		<div class="content-container">
+			<div itemscope="itemscope" itemtype="http://schema.org/Article" class="content">
+				{USAGE_TERMS_CONTENT}
+			</div>			
+		</div>
+	</div>
 	<footer></footer>
 </section>
