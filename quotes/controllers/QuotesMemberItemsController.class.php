@@ -11,6 +11,7 @@ class QuotesMemberItemsController extends ModuleController
 {
 	private $view;
 	private $lang;
+	private $member;
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -38,7 +39,7 @@ class QuotesMemberItemsController extends ModuleController
 		AND author_user_id = :user_id
 		AND approved = 1';
 		$parameters = array(
-			'user_id' => AppContext::get_current_user()->get_id(),
+			'user_id' => $this->get_member()->get_id(),
 			'authorized_categories' => $authorized_categories
 		);
 
@@ -58,8 +59,10 @@ class QuotesMemberItemsController extends ModuleController
 		$this->view->put_all(array(
 			'C_ITEMS' => $result->get_rows_count() > 0,
 			'C_MEMBER_ITEMS' => true,
+			'C_MY_ITEMS' => $this->is_current_member_displayed(),
 			'C_PAGINATION' => $pagination->has_several_pages(),
-			'PAGINATION' => $pagination->display()
+			'PAGINATION' => $pagination->display(),
+			'MEMBER_NAME' => $this->get_member()->get_display_name()
 		));
 
 		while ($row = $result->fetch())
@@ -72,12 +75,28 @@ class QuotesMemberItemsController extends ModuleController
 		$result->dispose();
 	}
 
+	protected function get_member()
+	{
+		if ($this->member === null)
+		{
+			$this->member = UserService::get_user(AppContext::get_request()->get_getint('user_id', AppContext::get_current_user()->get_id()));
+			if (!$this->member)
+				DispatchManager::redirect(PHPBoostErrors::unexisting_element());
+		}
+		return $this->member;
+	}
+
+	protected function is_current_member_displayed()
+	{
+		return $this->member && $this->member->get_id() == AppContext::get_current_user()->get_id();
+	}
+
 	private function get_pagination($condition, $parameters, $page)
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
 		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_number_per_page());
-		$pagination->set_url(QuotesUrlBuilder::display_member_items('%d'));
+		$pagination->set_url(QuotesUrlBuilder::display_member_items($this->get_member()->get_id(), '%d'));
 
 		if ($pagination->current_page_is_empty() && $page > 1)
 		{
@@ -100,16 +119,17 @@ class QuotesMemberItemsController extends ModuleController
 	private function generate_response(HTTPRequestCustom $request)
 	{
 		$page = $request->get_getint('page', 1);
+		$page_title = $this->is_current_member_displayed() ? $this->lang['my.items'] : $this->lang['member.items'] . ' ' . $this->get_member()->get_display_name();
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['my.items'], $this->lang['module.title'], $page);
+		$graphical_environment->set_page_title($page_title, $this->lang['module.title'], $page);
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['quotes.seo.description.member'], array('author' => AppContext::get_current_user()->get_display_name())), $page);
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_member_items($page));
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_member_items($this->get_member()->get_id(), $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['module.title'], QuotesUrlBuilder::home());
-		$breadcrumb->add($this->lang['my.items'], QuotesUrlBuilder::display_member_items($page));
+		$breadcrumb->add($page_title, QuotesUrlBuilder::display_member_items($this->get_member()->get_id(), $page));
 
 		return $response;
 	}

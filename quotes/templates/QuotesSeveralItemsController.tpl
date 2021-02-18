@@ -8,7 +8,7 @@
 				{@quotes.pending.items}
 			# ELSE #
 				# IF C_MEMBER_ITEMS #
-			 		{@my.items}
+			 		# IF C_MY_ITEMS #{@my.items}# ELSE #{@member.items} {MEMBER_NAME}# ENDIF #
 				# ELSE #
 					{@module.title} # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_WRITER_ITEMS # - {WRITER_NAME}# ENDIF #
 				# ENDIF #
@@ -60,29 +60,31 @@
 			<div class="content-container">
 				# START items #
 					<article id="quotes-item-{items.ID}" class="quotes-item several-items category-{items.CATEGORY_ID}" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-						<blockquote class="formatter-container formatter-blockquote# IF C_WRITER_ITEMS # writer-items# ENDIF #">
-							<h2 class="title-perso">
-								# IF NOT C_WRITER_ITEMS #
-									<a href="{items.U_WRITER}" class="small">{items.WRITER_NAME}</a> :
-								# ENDIF #
-							</h2>
-							<div class="formatter-content">
-								# IF items.C_CONTROLS #
-									<div class="controls align-right">
-										# IF items.C_EDIT #
-											<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-										# ENDIF #
-										# IF items.C_DELETE #
-											<a href="{items.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
-										# ENDIF #
+						<div class="content">
+							<blockquote class="formatter-container formatter-blockquote# IF C_WRITER_ITEMS # writer-items# ENDIF #">
+								<h2 class="title-perso">
+									# IF NOT C_WRITER_ITEMS #
+										<a href="{items.U_WRITER}" class="small">{items.WRITER_NAME}</a> :
+									# ENDIF #
+								</h2>
+								<div class="formatter-content">
+									# IF items.C_CONTROLS #
+										<div class="controls align-right">
+											# IF items.C_EDIT #
+												<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+											# ENDIF #
+											# IF items.C_DELETE #
+												<a href="{items.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+											# ENDIF #
+										</div>
+									# ENDIF #
+									<p itemprop="text">{items.CONTENT}</p>
+									<div class="align-right small">
+										<a href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>
 									</div>
-								# ENDIF #
-								<p itemprop="text">{items.CONTENT}</p>
-								<div class="align-right small">
-									<a href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>
 								</div>
-							</div>
-			            </blockquote>
+				            </blockquote>							
+						</div>
 						<footer></footer>
 					</article>
 				# END items #
@@ -96,10 +98,10 @@
 						<div class="message-helper bgc notice align-center">
 							${LangLoader::get_message('no_item_now', 'common')}
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
 		# ENDIF #
 	# ENDIF #
-	<footer># IF C_PAGINATION #<div class="sub-section"<div class="content-container"># INCLUDE PAGINATION #</div>></div># ENDIF #</footer>
+	<footer># IF C_PAGINATION #<div class="sub-section"><div class="content-container"># INCLUDE PAGINATION #</div></div># ENDIF #</footer>
 </section>

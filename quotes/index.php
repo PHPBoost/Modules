@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2021 02 18
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -33,7 +33,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('QuotesWriterController', '`^/writer/([a-z0-9-_]+)?/?([0-9]+)?/?$`', array('writer', 'page')),
 
 	new UrlControllerMapper('QuotesPendingItemsController', '`^/pending/?([0-9]+)?/?$`', array('page')),
-	new UrlControllerMapper('QuotesMemberItemsController', '`^/my_items/?([0-9]+)?/?$`', array('page')),
+	new UrlControllerMapper('QuotesMemberItemsController', '`^/member/?([0-9]+)?/?([0-9]+)?/?$`', array('user_id', 'page')),
 
 	new UrlControllerMapper('QuotesCategoryController', '`^(?:/([0-9]+)-([a-z0-9-_]+))?/?([0-9]+)?/?$`', array('id', 'rewrited_name', 'page', 'subcategories_page')),
 
