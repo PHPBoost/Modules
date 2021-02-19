@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 21
+ * @version     PHPBoost 6.0 - last update: 2021 02 19
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -83,7 +83,7 @@ class HomeLandingForum
 				'USER_GROUP_COLOR' => $user_group_color,
 				'DATE' => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
 				'TOPIC' => stripslashes($row['title']),
-				'CONTENTS' => TextHelper::cut_string(@strip_tags(stripslashes($content), 0), (int)$characters_number_to_cut),
+				'CONTENT' => TextHelper::cut_string(@strip_tags(stripslashes($content), 0), (int)$characters_number_to_cut),
 
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['last_user_id'])->rel(),
 				'U_AVATAR_IMG' => $user_avatar,

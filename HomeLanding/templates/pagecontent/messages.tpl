@@ -40,7 +40,7 @@
 					</div>
 				</header>
 				<div class="message-content">
-					{items.CONTENTS} ...
+					{items.CONTENT} ...
 					<p class="align-right"><a href="{items.U_ITEM}" class="button small bgc link-color">[${LangLoader::get_message('read-more', 'common')}]</a></p>
 				</div>
 			</div>
