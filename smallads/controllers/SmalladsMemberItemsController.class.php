@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 02
+ * @version     PHPBoost 6.0 - last update: 2021 02 19
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -16,6 +16,7 @@ class SmalladsMemberItemsController extends ModuleController
 	private $config;
 	private $comments_config;
 	private $content_management_config;
+	private $member;
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -55,12 +56,13 @@ class SmalladsMemberItemsController extends ModuleController
 			$authorized_categories = CategoriesService::get_authorized_categories($this->get_category()->get_id(), $this->config->are_summaries_displayed_to_guests());
 
 			$condition = 'WHERE id_category IN :authorized_categories
-			AND smallads.author_user_id = :mbr_id
+			AND smallads.author_user_id = :user_id
+			AND smallads.archived = 0
 			AND ((published = 0 AND archived = 1) OR (published = 1) OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
 			$parameters = array(
 				'authorized_categories' => $authorized_categories,
 				'timestamp_now' => $now->get_timestamp(),
-				'mbr_id' => AppContext::get_current_user()->get_id()
+				'user_id' => $this->get_member()->get_id()
 			);
 
 			$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments
@@ -74,7 +76,8 @@ class SmalladsMemberItemsController extends ModuleController
 			)));
 
 			$this->view->put_all(array(
-				'C_MEMBER'			   => true,
+				'C_MEMBER_ITEMS'	   => true,
+				'C_MY_ITEMS'     => $this->is_current_member_displayed(),
 				'C_ITEMS'              => $result->get_rows_count() > 0,
 				'C_SEVERAL_ITEMS'      => $result->get_rows_count() > 1,
 				'C_ROOT_CATEGORY'	   => false,
@@ -93,6 +96,7 @@ class SmalladsMemberItemsController extends ModuleController
 				'ITEMS_PER_ROW'        => $this->config->get_items_per_row(),
 				'ITEMS_PER_PAGE'       => $this->config->get_items_per_page(),
 				'ID_CATEGORY'          => $this->get_category()->get_id(),
+				'MEMBER_NAME'   	   => $this->get_member()->get_display_name(),
 				'U_USAGE_TERMS' 	   => SmalladsUrlBuilder::usage_terms()->rel()
 			));
 
@@ -112,8 +116,22 @@ class SmalladsMemberItemsController extends ModuleController
 		{
 			AppContext::get_response()->redirect(SmalladsUrlBuilder::home());
 		}
+	}
 
+	protected function get_member()
+	{
+		if ($this->member === null)
+		{
+			$this->member = UserService::get_user(AppContext::get_request()->get_getint('user_id', AppContext::get_current_user()->get_id()));
+			if (!$this->member)
+				DispatchManager::redirect(PHPBoostErrors::unexisting_element());
+		}
+		return $this->member;
+	}
 
+	protected function is_current_member_displayed()
+	{
+		return $this->member && $this->member->get_id() == AppContext::get_current_user()->get_id();
 	}
 
 	private function build_sorting_smallad_type()
@@ -220,16 +238,17 @@ class SmalladsMemberItemsController extends ModuleController
 
 	private function generate_response(HTTPRequestCustom $request)
 	{
+		$page_title = $this->is_current_member_displayed() ? $this->lang['my.items'] : $this->lang['member.items'] . ' ' . $this->get_member()->get_display_name();
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['my.items'], $this->lang['module.title']);
+		$graphical_environment->set_page_title($page_title, $this->lang['module.title']);
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['smallads.seo.description.member'], array('author' => AppContext::get_current_user()->get_display_name())));
-		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_member_items());
+		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_member_items($this->get_member()->get_id()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
-		$breadcrumb->add($this->lang['my.items'], SmalladsUrlBuilder::display_member_items());
+		$breadcrumb->add($page_title, SmalladsUrlBuilder::display_member_items($this->get_member()->get_id()));
 
 		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->category->get_id(), true));
 		foreach ($categories as $id => $category)

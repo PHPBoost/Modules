@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 02
+ * @version     PHPBoost 6.0 - last update: 2021 02 19
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -24,6 +24,7 @@ $lang['the.item'] = 'L\'annonce';
 $lang['my.items'] = 'Mes annonces';
 $lang['archived.items'] = 'Annonces archivées';
 $lang['pending.items'] = 'Annonces en attente';
+$lang['member.items'] = 'Annonces publiées par';
 
 $lang['smallads.management'] = 'Gestion des annonces';
 $lang['smallads.add'] = 'Ajouter une annonce';
