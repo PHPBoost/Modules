@@ -5,6 +5,7 @@
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @version     PHPBoost 6.0 - last update: 2020 12 20
  * @since       PHPBoost 6.0 - 2020 12 20
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesMemberItemsController extends ModuleController
@@ -57,12 +58,13 @@ class QuotesMemberItemsController extends ModuleController
 		)));
 
 		$this->view->put_all(array(
-			'C_ITEMS' => $result->get_rows_count() > 0,
+			'C_ITEMS'        => $result->get_rows_count() > 0,
 			'C_MEMBER_ITEMS' => true,
-			'C_MY_ITEMS' => $this->is_current_member_displayed(),
-			'C_PAGINATION' => $pagination->has_several_pages(),
-			'PAGINATION' => $pagination->display(),
-			'MEMBER_NAME' => $this->get_member()->get_display_name()
+			'C_MY_ITEMS'     => $this->is_current_member_displayed(),
+			'C_PAGINATION'   => $pagination->has_several_pages(),
+			
+			'PAGINATION'     => $pagination->display(),
+			'MEMBER_NAME'    => $this->get_member()->get_display_name()
 		));
 
 		while ($row = $result->fetch())

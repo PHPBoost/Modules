@@ -6,6 +6,7 @@
  * @version     PHPBoost 6.0 - last update: 2021 02 18
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesUrlBuilder
