@@ -1,6 +1,6 @@
-<div class="sub-section">
+<div class="sub-section" style="order: {MODULE_POSITION};">
 	<div class="content-container">
-		<article id="{MODULE_NAME}-panel" class="" style="order: {MODULE_POSITION};">
+		<article id="{MODULE_NAME}-panel">
 			<header>
 				<h2>
 					{L_MODULE_TITLE}

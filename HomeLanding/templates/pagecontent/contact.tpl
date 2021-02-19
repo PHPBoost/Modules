@@ -1,6 +1,6 @@
-<div class="sub-section">
+<div class="sub-section" style="order: {CONTACT_POSITION};">
 	<div class="content-container">
-		<article id="contact-panel" style="order: {CONTACT_POSITION};">
+		<article id="contact-panel">
 			<header>
 				<span class="controls">
 					<a href="{PATH_TO_ROOT}/contact">

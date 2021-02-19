@@ -1,6 +1,6 @@
-<div class="sub-section">
+<div class="sub-section" style="order: {MODULE_POSITION};">
 	<div class="content-container">
-		<article id="rss-panel" class="sub-section" style="order: {MODULE_POSITION};">
+		<article id="rss-panel" class="sub-section">
 			<header>
 				<h2>
 					${Langloader::get_message('link.to.rss.site', 'common', 'HomeLanding')}

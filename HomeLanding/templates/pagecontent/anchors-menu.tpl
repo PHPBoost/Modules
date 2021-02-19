@@ -1,4 +1,4 @@
-<div class="sticky-menu sub-section" style="order: {MENU_POSITION};">
+<div class="sticky-menu" style="order: {MENU_POSITION};">
     <nav id="cssmenu-anchors" class="cssmenu cssmenu-horizontal">
         <ul>
             # START tabs #
