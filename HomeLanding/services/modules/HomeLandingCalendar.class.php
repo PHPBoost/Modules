@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2021 02 19
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -38,7 +38,7 @@ class HomeLandingCalendar
         $result = PersistenceContext::get_querier()->select('SELECT *
             FROM '. PREFIX . 'calendar_events event
             LEFT JOIN ' . PREFIX . 'calendar_events_content event_content ON event_content.id = event.content_id
-            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_id
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
             LEFT JOIN '. PREFIX . 'calendar_cats cat ON cat.id = event_content.id_category
             WHERE approved = 1 AND id_category IN :authorized_categories
             AND start_date >= :timestamp_today
