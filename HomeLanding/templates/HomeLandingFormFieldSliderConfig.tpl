@@ -23,10 +23,10 @@
 				jQuery('<input/> ', {type : 'text', id : 'field_picture_url_' + id, name : 'field_picture_url_' + id, class : 'grouped-element', placeholder : ${escapejs(@admin.form.picture.url)}}).appendTo('#' + id + ' .grouped-inputs');
 				jQuery('#' + id).append(' ');
 
-				jQuery('<a/> ', {class : 'grouped-element', href : '', 'aria-label' : ${escapejs(@admin.form.upload)}, onclick : "window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_" + id + "&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;"}).html('<i class="fa fa-cloud-upload-alt fa-fw" aria-hidden="true"></i>').appendTo('#' + id + ' .grouped-inputs');
+				jQuery('<a/> ', {class : 'grouped-element bgc-full link-color', href : '', 'aria-label' : ${escapejs(@admin.form.upload)}, onclick : "window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_" + id + "&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;"}).html('<i class="fa fa-cloud-upload-alt fa-fw" aria-hidden="true"></i>').appendTo('#' + id + ' .grouped-inputs');
 				jQuery('#' + id).append(' ');
 
-				jQuery('<a/> ', {class : 'grouped-element', href : 'javascript:HomeLandingFormFieldSliderConfig.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(@admin.form.del)}}).html('<i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i>').appendTo('#' + id + ' .grouped-inputs');
+				jQuery('<a/> ', {class : 'grouped-element bgc-full error', href : 'javascript:HomeLandingFormFieldSliderConfig.delete_field('+ this.integer +');', 'aria-label' : ${escapejs(@admin.form.del)}}).html('<i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i>').appendTo('#' + id + ' .grouped-inputs');
 
 				this.integer++;
 			}
@@ -52,8 +52,8 @@
 		<div class="grouped-inputs">
 			<input class="grouped-element" type="text" name="field_link_${escape(ID)}_{fieldelements.ID}" id="field_link_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.LINK}" placeholder="{@admin.form.link.url}"/>
 			<input class="grouped-element" type="text" name="field_picture_url_${escape(ID)}_{fieldelements.ID}" id="field_picture_url_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.PICTURE_URL}" placeholder="{@admin.form.picture.url}"/>
-			<a class="grouped-element" aria-label="{@admin.form.upload}" href="#" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;" aria-label="{@admin.form.upload}"><i class="fa fa-cloud-upload-alt fa-fw" aria-hidden="true"></i></a>
-			<a class="grouped-element" href="javascript:HomeLandingFormFieldSliderConfig.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@admin.form.del}"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+			<a class="grouped-element bgc-full link-color" aria-label="{@admin.form.upload}" href="#" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;" aria-label="{@admin.form.upload}"><i class="fa fa-cloud-upload-alt fa-fw" aria-hidden="true"></i></a>
+			<a class="grouped-element bgc-full error" href="javascript:HomeLandingFormFieldSliderConfig.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@admin.form.del}"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
 		</div>
 	</div>
 # END fieldelements #
