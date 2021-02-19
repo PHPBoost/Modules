@@ -8,12 +8,16 @@
 	# INCLUDE CAROUSEL #
 
 	# IF C_EDITO_ENABLED #
-		<article id="edito-panel" class="sub-section" style="order: {EDITO_POSITION};">
-			<div class="content">
-				{EDITO}
-				<div class="spacer"></div>
+		<div class="sub-section">
+			<div class="content-container">
+				<article id="edito-panel" class="sub-section" style="order: {EDITO_POSITION};">
+					<div class="content">
+						{EDITO}
+						<div class="spacer"></div>
+					</div>
+				</article>
 			</div>
-		</article>
+		</div>
 	# ENDIF #
 
 	# INCLUDE LASTCOMS #

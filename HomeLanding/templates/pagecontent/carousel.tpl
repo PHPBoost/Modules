@@ -1,17 +1,21 @@
-<article id="home-slideboost" class="sub-section" style="order: {CAROUSEL_POSITION};">
-	# START items #
-		<figure>
-			# IF items.DESCRIPTION #
-			<figcaption>
-				# IF items.LINK #<a href="{items.LINK}"># ENDIF #
-					{items.DESCRIPTION}
-				# IF items.LINK #</a># ENDIF #
-			</figcaption>
-			# ENDIF #
-			<img class="slideImage" src="{items.PICTURE_URL}" alt="{items.PICTURE_URL}" />
-		</figure>
-	# END items #
-</article>
+<div class="sub-section">
+	<div class="content-container">
+		<article id="home-slideboost" style="order: {CAROUSEL_POSITION};">
+			# START items #
+				<figure>
+					# IF items.DESCRIPTION #
+					<figcaption>
+						# IF items.LINK #<a href="{items.LINK}"># ENDIF #
+							{items.DESCRIPTION}
+						# IF items.LINK #</a># ENDIF #
+					</figcaption>
+					# ENDIF #
+					<img class="slideImage" src="{items.PICTURE_URL}" alt="{items.PICTURE_URL}" />
+				</figure>
+			# END items #
+		</article>		
+	</div>
+</div>
 
 <script>
 	$('#home-slideboost').addClass('owl-carousel').owlCarousel({
