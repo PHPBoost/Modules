@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 19
+ * @version     PHPBoost 6.0 - last update: 2021 02 20
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -148,7 +148,7 @@ $lang['smallads.active.page'] = '{pageNumber}';
 $lang['smallads.seo.description.root'] = 'All :site\'s ads.';
 $lang['smallads.seo.description.tag'] = 'All :subject\'s ads.';
 $lang['smallads.seo.description.pending'] = 'All pending ads.';
-$lang['smallads.seo.description.member'] = 'All ads of the member: :author.';
+$lang['smallads.seo.description.member'] = 'All :author\'s ads.';
 $lang['smallads.seo.description.usage.terms'] = ':site\'s smallads usage terms.';
 
 // Messages helper

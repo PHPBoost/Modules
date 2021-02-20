@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 19
+ * @version     PHPBoost 6.0 - last update: 2021 02 20
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -148,7 +148,7 @@ $lang['smallads.active.page'] = '{pageNumber}';
 $lang['smallads.seo.description.root'] = 'Toutes les annonces du site :site.';
 $lang['smallads.seo.description.tag'] = 'Toutes les annonces sur le sujet :subject.';
 $lang['smallads.seo.description.pending'] = 'Toutes les annonces en attente.';
-$lang['smallads.seo.description.member'] = 'Toutes les annonces du membre: :author.';
+$lang['smallads.seo.description.member'] = 'Toutes les annonces de :author.';
 $lang['smallads.seo.description.usage.terms'] = 'Conditions générales d\'utilisation des annonces du site :site.';
 
 //Messages
