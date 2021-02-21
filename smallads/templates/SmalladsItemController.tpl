@@ -1,4 +1,4 @@
-<section id="smallads-module" class="category-{ID_CATEGORY}">
+<section id="module-smallads" class="category-{ID_CATEGORY}">
 	<header class="section-header">
 		<div class="controls align-right">
 			<a href="{U_SYNDICATION}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-fw fa-rss warning" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
@@ -245,7 +245,7 @@
 					# ENDIF #
 				</aside>
 				<footer># IF C_USAGE_TERMS # <i class="fa fa-fw fa-book" aria-hidden="true"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
-			</article>			
+			</article>
 		</div>
 	</div>
 	<footer>
