@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2016 07 11
+ * @version     PHPBoost 6.0 - last update: 2021 01 21
  * @since       PHPBoost 5.0 - 2016 05 01
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminHomeLandingModulesPositionController extends AdminModuleController
@@ -26,6 +27,7 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 			$module->set_properties($properties);
 
 			$this->view->assign_block_vars('modules_list', array(
+				'C_ACTIVE' => $module->is_active(),
 				'C_DISPLAY' => $module->is_displayed(),
 				'ID' => $id,
 				'NAME' => $module->get_name(),
