@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 09
+ * @version     PHPBoost 6.0 - last update: 2021 02 21
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -152,7 +152,6 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 	private function tabs_menu_list()
 	{
-		// TODO: test if module is installed & active
 		$modules = array('configuration', 'carousel', 'articles', 'calendar', 'contact', 'download', 'forum', 'gallery', 'guestbook', 'media', 'news', 'smallads', 'web', 'rss');
         $tabs_li = array();
 
@@ -164,7 +163,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['anchors.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-cog');
 			elseif($module == 'rss')
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['anchors.rss'], 'tabs', 'AdminHomeLandingConfigController_admin_rss', 'fa-rss');
-			else
+			elseif (ModulesManager::is_module_installed($module) && ModulesManager::is_module_activated($module))
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['anchors.'.$module.''], 'tabs', 'AdminHomeLandingConfigController_admin_'.$module, '', PATH_TO_ROOT.'/'.$module.'/'.$module.'_mini.png', $module);
         }
 		return $tabs_li;
