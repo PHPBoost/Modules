@@ -10,7 +10,7 @@
 	# IF C_EDITO_ENABLED #
 		<div class="sub-section">
 			<div class="content-container">
-				<article id="edito-panel" class="sub-section" style="order: {EDITO_POSITION};">
+				<article id="edito-panel" style="order: {EDITO_POSITION};">
 					<div class="content">
 						{EDITO}
 						<div class="spacer"></div>
