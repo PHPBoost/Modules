@@ -1,6 +1,6 @@
 <div class="sub-section" style="order: {CAROUSEL_POSITION};">
 	<div class="content-container">
-		<article id="home-slideboost">
+		<div id="home-slideboost" class="content">
 			# START items #
 				<figure>
 					# IF items.DESCRIPTION #
@@ -13,7 +13,7 @@
 					<img class="slideImage" src="{items.PICTURE_URL}" alt="{items.PICTURE_URL}" />
 				</figure>
 			# END items #
-		</article>
+		</div>
 	</div>
 </div>
 

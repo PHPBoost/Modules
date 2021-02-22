@@ -10,8 +10,10 @@
 				</div>
 			</header>
 			# IF C_NO_ITEM #
-				<div class="message-helper bgc notice">
-					${LangLoader::get_message('no_item_now', 'common')}
+				<div class="content">
+					<div class="message-helper bgc notice">
+						${LangLoader::get_message('no_item_now', 'common')}
+					</div>
 				</div>
 			# ELSE #
 				<div class="cell-flex cell-columns-{ITEMS_PER_ROW} cell-tile">
