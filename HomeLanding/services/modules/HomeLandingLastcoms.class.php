@@ -25,8 +25,7 @@ class HomeLandingLastcoms
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/messages.tpl');
 
-		$home_lang = LangLoader::get('common', 'HomeLanding');
-        $view->add_lang(array($home_lang));
+        $view->add_lang(LangLoader::get('common', 'HomeLanding'));
 
 		$result = PersistenceContext::get_querier()->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.module_id, ct.is_locked, ct.path, m.*, ext_field.user_avatar
 		FROM ' . DB_TABLE_COMMENTS . ' AS c

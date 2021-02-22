@@ -13,7 +13,7 @@
 				<div class="content">
 					<div class="message-helper bgc notice">
 						${LangLoader::get_message('no_item_now', 'common')}
-					</div>					
+					</div>
 				</div>
 			# ELSE #
 				# START items #
