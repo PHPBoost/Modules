@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 11 03
+ * @version     PHPBoost 6.0 - last update: 2021 02 22
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
 */
@@ -79,9 +79,9 @@ class QuotesSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$quotes_table, array(
 			'id' => 1,
 			'id_category' => 0,
-			'quote' => $this->messages['quotes.1.quote'],
-			'author' => $this->messages['quotes.1.author'],
-			'rewrited_author' => Url::encode_rewrite($this->messages['quotes.1.author']),
+			'content' => $this->messages['quotes.1.content'],
+			'writer' => $this->messages['quotes.1.writer'],
+			'rewrited_writer' => Url::encode_rewrite($this->messages['quotes.1.writer']),
 			'creation_date' => time(),
 			'author_user_id' => 1,
 			'approved' => 1
@@ -90,9 +90,9 @@ class QuotesSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$quotes_table, array(
 			'id' => 2,
 			'id_category' => 0,
-			'quote' => $this->messages['quotes.2.quote'],
-			'author' => $this->messages['quotes.2.author'],
-			'rewrited_author' => Url::encode_rewrite($this->messages['quotes.2.author']),
+			'content' => $this->messages['quotes.2.content'],
+			'writer' => $this->messages['quotes.2.writer'],
+			'rewrited_writer' => Url::encode_rewrite($this->messages['quotes.2.writer']),
 			'creation_date' => time(),
 			'author_user_id' => 1,
 			'approved' => 1
@@ -101,9 +101,9 @@ class QuotesSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$quotes_table, array(
 			'id' => 3,
 			'id_category' => 0,
-			'quote' => $this->messages['quotes.3.quote'],
-			'author' => $this->messages['quotes.3.author'],
-			'rewrited_author' => Url::encode_rewrite($this->messages['quotes.3.author']),
+			'content' => $this->messages['quotes.3.content'],
+			'writer' => $this->messages['quotes.3.writer'],
+			'rewrited_writer' => Url::encode_rewrite($this->messages['quotes.3.writer']),
 			'creation_date' => time(),
 			'author_user_id' => 1,
 			'approved' => 1
@@ -112,9 +112,9 @@ class QuotesSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$quotes_table, array(
 			'id' => 4,
 			'id_category' => 0,
-			'quote' => $this->messages['quotes.4.quote'],
-			'author' => $this->messages['quotes.4.author'],
-			'rewrited_author' => Url::encode_rewrite($this->messages['quotes.4.author']),
+			'content' => $this->messages['quotes.4.content'],
+			'writer' => $this->messages['quotes.4.writer'],
+			'rewrited_writer' => Url::encode_rewrite($this->messages['quotes.4.writer']),
 			'creation_date' => time(),
 			'author_user_id' => 1,
 			'approved' => 1
@@ -123,9 +123,9 @@ class QuotesSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$quotes_table, array(
 			'id' => 5,
 			'id_category' => 0,
-			'quote' => $this->messages['quotes.5.quote'],
-			'author' => $this->messages['quotes.5.author'],
-			'rewrited_author' => Url::encode_rewrite($this->messages['quotes.5.author']),
+			'content' => $this->messages['quotes.5.content'],
+			'writer' => $this->messages['quotes.5.writer'],
+			'rewrited_writer' => Url::encode_rewrite($this->messages['quotes.5.writer']),
 			'creation_date' => time(),
 			'author_user_id' => 1,
 			'approved' => 1
