@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 01 21
+ * @version     PHPBoost 6.0 - last update: 2021 01 23
  * @since       PHPBoost 5.0 - 2016 05 01
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -26,8 +26,12 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 			$module = new HomeLandingModule();
 			$module->set_properties($properties);
 
+			$not_module = array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss');
+
+			$is_active = in_array($module->get_module_id(), $not_module) ? true : $module->is_active();
+
 			$this->view->assign_block_vars('modules_list', array(
-				'C_ACTIVE' => $module->is_active(),
+				'C_ACTIVE' => $is_active,
 				'C_DISPLAY' => $module->is_displayed(),
 				'ID' => $id,
 				'NAME' => $module->get_name(),
