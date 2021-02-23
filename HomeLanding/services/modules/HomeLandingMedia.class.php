@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 01 05
+ * @version     PHPBoost 6.0 - last update: 2021 02 23
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -48,44 +48,45 @@ class HomeLandingMedia
         {
             $mime_type_tpl = $row['mime_type'];
 
-            if ($mime_type_tpl == 'application/x-shockwave-flash')
-            {
-                $poster = new Url($row['poster']);
-                $view->assign_block_vars('media_swf', array(
-                    'PSEUDO' => $row['display_name'],
-                    'TITLE' => $row['name'],
-                    'ID' => $row['id'],
-                    'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
-                    'POSTER' => $poster->rel(),
-
-                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
-                    'URL' => $row['url'],
-                    'URL_EMBED' => str_replace("v", "embed", $row['url']),
-                    'MIME' => $row['mime_type']
-                ));
-            }
-            elseif ($mime_type_tpl == 'video/host')
+            if ($mime_type_tpl == 'video/host')
             {
                 $poster = new Url($row['poster']);
                 $pathinfo = pathinfo($row['url']);
-            	$video_id = $pathinfo['basename'];
+                $media_id = $pathinfo['basename'];
 
             	if(strpos($pathinfo['dirname'], 'youtu') !== false)
             	{
             		$watch = 'watch?v=';
-            	    if(strpos($video_id, $watch) !== false)
-            	        $video_id = substr_replace($video_id, '', 0, 8);
+            	    if(strpos($media_id, $watch) !== false) {
+        				$media_id = substr_replace($media_id, '', 0, 8);
+        				list($media_id) = explode('&', $media_id);
+                    }
+                    $player = 'https://www.youtube.com/embed/';
+            	}
+            	if(strpos($pathinfo['dirname'], 'vimeo') !== false)
+            	{
+        			$player = 'https://player.vimeo.com/video/';
 
-            			$player = 'https://www.youtube.com/embed/';
             	}
-            	elseif(strpos($pathinfo['dirname'], 'vimeo') !== false)
+            	if(strpos($pathinfo['dirname'], 'dailymotion') !== false)
             	{
-            			$player = 'https://player.vimeo.com/video/';
+        			$player = 'https://www.dailymotion.com/embed/video/';
             	}
-            	elseif(strpos($pathinfo['dirname'], 'dailymotion') !== false)
-            	{
-            			$player = 'https://www.dailymotion.com/embed/video/';
-            	}
+                if(strpos($pathinfo['dirname'], 'odysee') !== false)
+                {
+                    $explode = explode('/', $pathinfo['dirname']);
+			        $media_id = $explode[5] . '/' . $media_id;
+                    $player = 'https://odysee.com/$/embed/';
+                }
+                if(strpos($pathinfo['dirname'], MediaConfig::load()->get_peertube_constant()) !== false)
+                {
+                    $peertube_link = MediaConfig::load()->get_peertube_constant();
+                    $peertube_host = explode('/', $peertube_link);
+                    $peertube_host_player = explode('.', $peertube_host[2]);
+                    $sliced_name = array_slice($peertube_host_player, 0, -1);
+                    $player = implode('.', $sliced_name);
+                    $player = $peertube_link . '/videos/embed/';
+                }
 
                 $view->assign_block_vars('media_host', array(
                     'PSEUDO' => $row['display_name'],
@@ -93,10 +94,10 @@ class HomeLandingMedia
                     'ID' => $row['id'],
                     'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
                     'POSTER' => $poster->rel(),
+                    'PLAYER' => $player,
 
                     'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
-                    'MEDIA_ID' => $video_id,
-                    'PLAYER' => $player,
+                    'MEDIA_ID' => $media_id,
                     'WIDTH' => $row['width'],
                     'HEIGHT' => $row['height']
                 ));

@@ -5,9 +5,9 @@
 				<h2>
 					{L_MODULE_TITLE}
 				</h2>
-				<span class="controls align-right">
+				<div class="controls align-right">
 					<a href="{PATH_TO_ROOT}/{MODULE_NAME}">{L_SEE_ALL_ITEMS}</a>
-				</span>
+				</div>
 			</header>
 
 			# IF C_NO_ITEM #
@@ -18,29 +18,6 @@
 				</div>
 			# ELSE #
 				<div class="content">
-					# START media_swf #
-						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_swf.U_MEDIA_LINK}">{media_swf.TITLE}</a></h3>
-							<div class="more">
-								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_swf.PSEUDO}
-								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_swf.DATE}</span>
-							</div>
-							<div class="media-content media-swf" id="media_swf-{media_swf.ID}" style="width:{media_swf.WIDTH}px;height:{media_swf.HEIGHT}px;">
-								<object type="{media_swf.MIME}" data="{media_swf.URL}">
-									<param name="allowScriptAccess" value="samedomain" />
-									<param name="allowFullScreen" value="true">
-									<param name="play" value="true" />
-									<param name="movie" value="{media_swf.URL}" />
-									<param name="menu" value="false" />
-									<param name="quality" value="high" />
-									<param name="scalemode" value="noborder" />
-									<param name="wmode" value="transparent" />
-									<param name="bgcolor" value="#000000" />
-								</object>
-							</div>
-						</div>
-					# END media_swf #
-
 					# START media_host #
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<h3><a href="{media_host.U_MEDIA_LINK}">{media_host.TITLE}</a></h3>
@@ -49,7 +26,7 @@
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
 							</div>
 							<div class="media-content media-host" style="width: {media_host.WIDTH}px; height: {media_host.HEIGHT}px">
-								<iframe class="youtube-player" type="text/html" src="{media_host.PLAYER}{media_host.MEDIA_ID}" frameborder="0" allowfullscreen></iframe>
+								<iframe class="media-player" type="text/html" src="{media_host.PLAYER}{media_host.MEDIA_ID}" frameborder="0" allowfullscreen></iframe>
 							</div>
 						</div>
 					# END media_host #
