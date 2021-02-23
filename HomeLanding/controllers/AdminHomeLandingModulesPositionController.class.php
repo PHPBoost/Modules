@@ -26,12 +26,8 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 			$module = new HomeLandingModule();
 			$module->set_properties($properties);
 
-			$not_module = array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss');
-
-			$is_active = in_array($module->get_module_id(), $not_module) ? true : $module->is_active();
-
 			$this->view->assign_block_vars('modules_list', array(
-				'C_ACTIVE' => $is_active,
+				'C_ACTIVE' => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss')) ? true : $module->is_active(),
 				'C_DISPLAY' => $module->is_displayed(),
 				'ID' => $id,
 				'NAME' => $module->get_name(),
