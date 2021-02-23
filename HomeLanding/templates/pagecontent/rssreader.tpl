@@ -1,7 +1,7 @@
 <div class="sub-section" style="order: {MODULE_POSITION};">
 	<div class="content-container">
 		<article id="rss-panel" class="sub-section">
-			<header>
+			<header class="module-header">
 				<h2>
 					${Langloader::get_message('link.to.rss.site', 'common', 'HomeLanding')}
 					<a href="{SITE_URL}" target="_blank">

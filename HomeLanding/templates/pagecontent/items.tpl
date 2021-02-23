@@ -1,7 +1,7 @@
 <div class="sub-section" style="order: {MODULE_POSITION};">
 	<div class="content-container">
 		<article id="{MODULE_NAME}# IF C_CATEGORY #_category# ENDIF #-panel">
-			<header>
+			<header class="module-header">
 				<h2>{L_MODULE_TITLE}</h2>
 				<div class="controls align-right">
 					<a href="{PATH_TO_ROOT}/{MODULE_NAME}">{L_SEE_ALL_ITEMS}</a>
@@ -11,7 +11,7 @@
 				<div class="content">
 					<div class="message-helper bgc notice">
 						${LangLoader::get_message('no_item_now', 'common')}
-					</div>					
+					</div>
 				</div>
 			# ELSE #
 				# IF C_TABLE_VIEW #
