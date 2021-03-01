@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 25
+ * @version     PHPBoost 6.0 - last update: 2021 03 01
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -46,6 +46,7 @@ class HomeLandingSetup extends DefaultModuleSetup
 
 			$module = new HomeLandingModule();
 			$module->set_module_id(HomeLandingConfig::MODULE_SMALLADS);
+			$module->set_phpboost_module_id(HomeLandingConfig::MODULE_SMALLADS);
 			$module->hide();
 
 			$new_modules_list[] = $module->get_properties();
@@ -65,6 +66,7 @@ class HomeLandingSetup extends DefaultModuleSetup
 
 			$module = new HomeLandingModule();
 			$module->set_module_id(HomeLandingConfig::MODULE_SMALLADS_CATEGORY);
+			$module->set_phpboost_module_id(HomeLandingConfig::MODULE_SMALLADS);
 			$module->hide();
 
 			$new_modules_list[] = $module->get_properties();
