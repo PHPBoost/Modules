@@ -20,10 +20,28 @@
 							<thead>
 								<tr>
 									<th>${LangLoader::get_message('form.name', 'common')}</th>
-									<th class="col-small" aria-label="{@creation.date}"><i class="fa fa-fw fa-clock" aria-hidden="true"></i></th>
-									# IF C_VIEWS_NUMBER #<th class="col-small" aria-label="# IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i></th># ENDIF #
-									# IF C_DL_NUMBER #<th class="col-small" aria-label="{@downloads.number}"><i class="fa fa-fw fa-download" aria-hidden="true"></i></th># ENDIF #
-									# IF C_VISIT #<th aria-label="{@website.link}"><i class="fa fa-fw fa-share" aria-hidden="true"></i></th># ENDIF #
+									<th class="col-small" aria-label="{@creation.date}">
+										<i class="fa fa-fw fa-clock" aria-hidden="true"></i>
+										<span class="hidden-large-screens">{@creation.date}</span>
+									</th>
+									# IF C_VIEWS_NUMBER #
+										<th class="col-small" aria-label="# IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #">
+											<i class="fa fa-fw fa-# IF C_VISIT #share-square# ELSE #eye# ENDIF #" aria-hidden="true"></i>
+											<span class="hidden-large-screens"># IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #</span>
+										</th>
+									# ENDIF #
+									# IF C_DL_NUMBER #
+										<th class="col-small" aria-label="{@downloads.number}">
+											<i class="fa fa-fw fa-download" aria-hidden="true"></i>
+											<span class="hidden-large-screens">{@downloads.number}</span>
+										</th>
+									# ENDIF #
+									# IF C_VISIT #
+										<th aria-label="{@website.link}">
+											<i class="fa fa-fw fa-share" aria-hidden="true"></i>
+											<span class="hidden-large-screens">{@website.link}</span>
+										</th>
+									# ENDIF #
 								</tr>
 							</thead>
 							<tbody>
