@@ -25,9 +25,9 @@
 										<span class="hidden-large-screens">{@creation.date}</span>
 									</th>
 									# IF C_VIEWS_NUMBER #
-										<th class="col-small" aria-label="# IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #">
+										<th class="col-small" aria-label="# IF C_VISIT #{@visits.number}# ELSE #{@module.views.number}# ENDIF #">
 											<i class="fa fa-fw fa-# IF C_VISIT #share-square# ELSE #eye# ENDIF #" aria-hidden="true"></i>
-											<span class="hidden-large-screens"># IF C_VISIT #{@visits_number}# ELSE #{@module.views.number}# ENDIF #</span>
+											<span class="hidden-large-screens"># IF C_VISIT #{@visits.number}# ELSE #{@module.views.number}# ENDIF #</span>
 										</th>
 									# ENDIF #
 									# IF C_DL_NUMBER #
@@ -37,8 +37,8 @@
 										</th>
 									# ENDIF #
 									# IF C_VISIT #
-										<th aria-label="{@website.link}">
-											<i class="fa fa-fw fa-share" aria-hidden="true"></i>
+										<th class="col-small" aria-label="{@website.link}">
+											<i class="fa fa-fw fa-sign-in-alt" aria-hidden="true"></i>
 											<span class="hidden-large-screens">{@website.link}</span>
 										</th>
 									# ENDIF #
@@ -47,7 +47,7 @@
 							<tbody>
 								# START items #
 									<tr>
-										<td><a href="{items.U_ITEM}">{items.TITLE}</a></td>
+										<td# IF C_VISIT # aria-label="{@website.details}"# ENDIF #><a href="{items.U_ITEM}">{items.TITLE}</a></td>
 										<td>
 											# IF items.HAS_UPDATE_DATE #
 												<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
@@ -57,7 +57,7 @@
 										</td>
 										# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
 										# IF C_DL_NUMBER #<td>{items.DOWNLOADS_NUMBER}</td># ENDIF #
-										# IF C_VISIT #<td><a href="{items.U_VISIT}">{@visit}</a></td># ENDIF #
+										# IF C_VISIT #<td aria-label="{@website.link}"><a href="{items.U_VISIT}"><i class="fa fa-fw fa-sign-in-alt" aria-hidden="true"></i></a></td># ENDIF #
 									</tr>
 								# END items #
 							</tbody>

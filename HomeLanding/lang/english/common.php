@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 01 25
+ * @version     PHPBoost 6.0 - last update: 2021 03 03
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -141,6 +141,8 @@ $lang['last.web'] = 'Partners websites list';
 $lang['last.web.cat'] = 'Latest partners websites of category ';
 $lang['link.to.web'] = 'See all weblinks';
 $lang['website.link'] = 'Direct Link to website';
+$lang['website.details'] = 'See details of the link';
+$lang['visits.number'] = 'Visits number';
 $lang['no.web.item'] = 'There\'s no link in this category';
 
 // Admin
