@@ -13,22 +13,22 @@
 		<script>
 			jQuery(document).ready(function () {
 				// Sort order categories
-				jQuery('\#{MENU_ID}').append(CreatChild(0)).find('ul:first').remove();
-				function CreatChild(id){
+				jQuery('\#{MENU_ID}').append({MODULE_ID}CreatChild(0)).find('ul:first').remove();
+				function {MODULE_ID}CreatChild(id){
 					var $li = jQuery('li[data-parent-id=' + id + ']').sort(function(a, b){
 						return jQuery(a).attr('data-c-order') - jQuery(b).attr('data-c-order');
 					});
 					if($li.length > 0){
 						for(var i = 0; i < $li.length; i++){
 							var $this = $li.eq(i);
-							$this.append(CreatChild($this.attr('data-id')));
+							$this.append({MODULE_ID}CreatChild($this.attr('data-id')));
 						}
 						return jQuery('<ul class="{MENU_ID}-ul">').append($li);
 					}
 				}
 				// Add sub-menu icon
 				jQuery('li').has('ul.{MENU_ID}-ul').addClass('has-sub');
-				jQuery("\#{MENU_ID}").menumaker({ title: "{MENU_TITLE}", format: "multitoggle", breakpoint: 768});
+				jQuery("\#{MENU_ID}").menumaker({title: "{MENU_TITLE}", format: "multitoggle", breakpoint: 768});
 			});
 		</script>
 	# ELSE #

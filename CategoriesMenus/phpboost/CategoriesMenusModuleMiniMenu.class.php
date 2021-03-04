@@ -75,6 +75,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 
 		$view->put_all(array(
 			'C_CATEGORIES' => $categories_number > 0,
+			'MODULE_ID'    => $this->module_id,
 			'MENU_ID'      => $this->get_menu_id(),
 			'MENU_TITLE'   => $this->get_menu_title()
 		));
