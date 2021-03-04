@@ -28,9 +28,9 @@
 				}
 				// Add sub-menu icon
 				jQuery('li').has('ul.{MENU_ID}-ul').addClass('has-sub');
+				jQuery("\#{MENU_ID}").menumaker({ title: "{MENU_TITLE}", format: "multitoggle", breakpoint: 768});
 			});
 		</script>
-		<script>jQuery("\#{MENU_ID}").menumaker({ title: "{MENU_TITLE}", format: "multitoggle", breakpoint: 768}); </script>
 	# ELSE #
 		<div class="cell-content align-center">
 			${LangLoader::get_message('category.no.element', 'categories-common')}
