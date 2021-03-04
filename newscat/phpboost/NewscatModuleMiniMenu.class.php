@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 03
+ * @version     PHPBoost 6.0 - last update: 2021 03 04
  * @since       PHPBoost 5.2 - 2018 11 27
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -36,6 +36,8 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 		{
 			$view = new FileTemplate('newscat/NewscatModuleMiniMenu.tpl');
 			$view->add_lang(LangLoader::get('common', 'newscat'));
+			MenuService::assign_positions_conditions($view, $this->get_block());
+			$this->assign_common_template_variables($view);
 
 			if (ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news'))
 			{
@@ -59,9 +61,6 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 
 				$view->put_all(array(
 					'C_NEWS'          => true,
-					'C_MENU_VERTICAL' => ($this->get_block() == Menu::BLOCK_POSITION__LEFT) || ($this->get_block() == Menu::BLOCK_POSITION__RIGHT),
-					'C_MENU_LEFT'     => $this->get_block() == Menu::BLOCK_POSITION__LEFT,
-					'C_MENU_RIGHT'    => $this->get_block() == Menu::BLOCK_POSITION__RIGHT,
 					'C_CAT'           => $categories_number > 0,
 					'MODULE_ID'       => $this->get_menu_id(),
 					'MODULE_TITLE'    => NewscatConfig::load()->get_module_name()

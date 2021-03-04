@@ -1,4 +1,4 @@
-<div id="{MODULE_ID}" class="cell-mini cell-tile# IF C_MENU_VERTICAL # cell-mini-vertical# ENDIF ## IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
+<div id="{MODULE_ID}" class="cell-mini cell-tile# IF C_VERTICAL # cell-mini-vertical# ENDIF ## IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
 	<div class="cell">
 		<div class="cell-header">
 			<h6 class="cell-name">{MODULE_TITLE}</h6>
@@ -6,7 +6,7 @@
 		# IF C_NEWS #
 			<div class="cell-body">
 				# IF C_CAT #
-					<nav id="newscat-list" class="cssmenu # IF C_MENU_VERTICAL #cssmenu-vertical# ELSE #cssmenu-horizontal# ENDIF ## IF C_MENU_LEFT # cssmenu-left# ENDIF ## IF C_MENU_RIGHT # cssmenu-right# ENDIF #">
+					<nav id="newscat-list" class="cssmenu # IF C_VERTICAL #cssmenu-vertical# ELSE #cssmenu-horizontal# ENDIF ## IF C_LEFT # cssmenu-left# ENDIF ## IF C_RIGHT # cssmenu-right# ENDIF #">
 						<ul>
 							# START items #
 								<li data-id="{items.ID}" data-parent-id="{items.ID_PARENT}" data-c-order="{items.SUB_ORDER}" class="category-{items.ID}">
