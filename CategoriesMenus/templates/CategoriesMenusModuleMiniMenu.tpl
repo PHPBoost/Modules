@@ -1,6 +1,6 @@
 <div class="cell-body">
 	# IF C_CATEGORIES #
-		<nav id="{MENU_ID}" class="cssmenu # IF C_VERTICAL #cssmenu-vertical# ELSE #cssmenu-horizontal# ENDIF ## IF C_LEFT # cssmenu-left# ENDIF ## IF C_RIGHT # cssmenu-right# ENDIF #">
+		<nav id="{MENU_ID}-list" class="cssmenu # IF C_VERTICAL #cssmenu-vertical# ELSE #cssmenu-horizontal# ENDIF ## IF C_LEFT # cssmenu-left# ENDIF ## IF C_RIGHT # cssmenu-right# ENDIF #">
 			<ul>
 				# START items #
 					<li data-id="{items.ID}" data-parent-id="{items.ID_PARENT}" data-c-order="{items.SUB_ORDER}" class="category-{items.ID}">
@@ -13,7 +13,7 @@
 		<script>
 			jQuery(document).ready(function () {
 				// Sort order categories
-				jQuery('\#{MENU_ID}').append({MODULE_ID}CreatChild(0)).find('ul:first').remove();
+				jQuery('\#{MENU_ID}-list').append({MODULE_ID}CreatChild(0)).find('ul:first').remove();
 				function {MODULE_ID}CreatChild(id){
 					var $li = jQuery('li[data-parent-id=' + id + ']').sort(function(a, b){
 						return jQuery(a).attr('data-c-order') - jQuery(b).attr('data-c-order');
@@ -28,7 +28,7 @@
 				}
 				// Add sub-menu icon
 				jQuery('li').has('ul.{MENU_ID}-ul').addClass('has-sub');
-				jQuery("\#{MENU_ID}").menumaker({title: "{MENU_TITLE}", format: "multitoggle", breakpoint: 768});
+				jQuery("\#{MENU_ID}-list").menumaker({title: "{MENU_TITLE}", format: "multitoggle", breakpoint: 768});
 			});
 		</script>
 	# ELSE #
