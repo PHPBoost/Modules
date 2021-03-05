@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 03
+ * @version     PHPBoost 6.0 - last update: 2021 03 06
  * @since       PHPBoost 6.0 - 2021 03 03
 */
 
@@ -60,7 +60,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 		
 		foreach (CategoriesService::get_categories_manager($this->module_id)->get_categories_cache()->get_categories() as $category)
 		{
-			if (in_array($category->get_id(), $authorized_categories))
+			if ($category->get_id() != Category::ROOT_CATEGORY && in_array($category->get_id(), $authorized_categories))
 			{
 				$categories_number++;
 				$view->assign_block_vars('items', array(

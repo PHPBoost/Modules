@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 04
+ * @version     PHPBoost 6.0 - last update: 2021 03 06
  * @since       PHPBoost 5.2 - 2018 11 27
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -46,7 +46,7 @@ class NewscatModuleMiniMenu extends ModuleMiniMenu
 				
 				foreach (CategoriesService::get_categories_manager('news')->get_categories_cache()->get_categories() as $category)
 				{
-					if (in_array($category->get_id(), $authorized_categories))
+					if ($category->get_id() != Category::ROOT_CATEGORY && in_array($category->get_id(), $authorized_categories))
 					{
 						$categories_number++;
 						$view->assign_block_vars('items', array(
