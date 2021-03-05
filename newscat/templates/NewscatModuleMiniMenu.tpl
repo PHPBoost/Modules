@@ -9,7 +9,7 @@
 					<nav id="newscat-list" class="cssmenu # IF C_MENU_VERTICAL #cssmenu-vertical# ELSE #cssmenu-horizontal# ENDIF ## IF C_MENU_LEFT # cssmenu-left# ENDIF ## IF C_MENU_RIGHT # cssmenu-right# ENDIF #">
 						<ul>
 							# START items #
-								<li data-id="{items.ID}" data-parent-id="{items.ID_PARENT}" data-c-order="{items.SUB_ORDER}" class="category-{items.ID}">
+								<li data-id="{items.ID}" data-parent-id="{items.ID_PARENT}" data-c-order="{items.SUB_ORDER}" class="newscat-li category-{items.ID}">
 									<a href="{items.U_CATEGORY}" class="cssmenu-title">{items.CATEGORY_NAME}</a>
 								</li>
 							# END items #
@@ -21,7 +21,7 @@
 							// Sort order categories
 							jQuery('#newscat-list').append(CreatChild(0)).find('ul:first').remove();
 							function CreatChild(id){
-							    var $li = jQuery('li[data-parent-id=' + id + ']').sort(function(a, b){
+							    var $li = jQuery('.newscat-li[data-parent-id=' + id + ']').sort(function(a, b){
 									return jQuery(a).attr('data-c-order') - jQuery(b).attr('data-c-order');
 								});
 							    if($li.length > 0){
