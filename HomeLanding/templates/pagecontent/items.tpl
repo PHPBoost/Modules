@@ -110,7 +110,7 @@
 											<div class="cell-thumbnail cell-landscape cell-center">
 												<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
 												<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
-													# IF items.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
+													# IF items.C_READ_MORE #[${LangLoader::get_message('read.more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
 												</a>
 											</div>
 										# ELSE #
@@ -118,7 +118,7 @@
 												<div class="cell-thumbnail cell-landscape cell-center">
 													<img src="{items.U_PARTNER_THUMBNAIL}" alt="{items.TITLE}" />
 													<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
-														# IF items.C_READ_MORE #[${LangLoader::get_message('read-more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
+														# IF items.C_READ_MORE #[${LangLoader::get_message('read.more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
 													</a>
 												</div>
 											# ENDIF #
@@ -134,7 +134,7 @@
 											# ENDIF #
 											{items.CONTENTS}
 										# ELSE #
-											{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #
+											{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}">[${LangLoader::get_message('read.more', 'common')}]</a># ENDIF #
 										# ENDIF #
 									</div>
 								</div>

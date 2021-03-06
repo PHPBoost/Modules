@@ -334,11 +334,11 @@
 									# IF items.C_HAS_THUMBNAIL #
 										<div class="cell-thumbnail cell-landscape cell-center">
 											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="thumbnailUrl" />
-											<a href="{items.U_ITEM}" class="cell-thumbnail-caption">${LangLoader::get_message('read-more', 'common')}</a>
+											<a href="{items.U_ITEM}" class="cell-thumbnail-caption">${LangLoader::get_message('read.more', 'common')}</a>
 										</div>
 									# ENDIF #
 									<div class="cell-content">
-										<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more">[${LangLoader::get_message('read-more', 'common')}]</a># ENDIF #</div>
+										<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read.more">[${LangLoader::get_message('read.more', 'common')}]</a># ENDIF #</div>
 										<div class="smallad-price jp-price"># IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF #</div>
 									</div>
 								</div>

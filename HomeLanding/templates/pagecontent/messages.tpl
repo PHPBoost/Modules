@@ -46,10 +46,10 @@
 							</div>
 							<div class="message-content flex-between">
 								{items.CONTENT} ...
-								<p class="align-right"><a href="{items.U_ITEM}" class="button small bgc link-color">[${LangLoader::get_message('read-more', 'common')}]</a></p>
+								<p class="align-right"><a href="{items.U_ITEM}" class="button small bgc link-color">[${LangLoader::get_message('.', 'common')}]</a></p>
 							</div>
 						</div>
-					# END items #					
+					# END items #
 				</div>
 			# ENDIF #
 		</article>
