@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 23
+ * @version     PHPBoost 6.0 - last update: 2021 03 12
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -158,7 +158,7 @@ class HomeLandingConfig extends AbstractConfigData
 		return $id_category;
 	}
 
-	// One page menu
+	// Anchors menu
 	public function get_anchors_menu()
 	{
 		return $this->get_property(self::ANCHORS_MENU);
@@ -240,7 +240,6 @@ class HomeLandingConfig extends AbstractConfigData
 	{
 		$this->set_property(self::EDITO, $edito);
 	}
-
 
 	//External Rss
 	public function get_rss_site_name()
@@ -467,8 +466,8 @@ class HomeLandingConfig extends AbstractConfigData
 			self::CAROUSEL_SPEED => 200,
 			self::CAROUSEL_TIME => 5000,
 			self::CAROUSEL_NUMBER => 4,
-			self::CAROUSEL_AUTO => 1,
-			self::CAROUSEL_HOVER => 1,
+			self::CAROUSEL_AUTO => self::CAROUSEL_TRUE,
+			self::CAROUSEL_HOVER => self::CAROUSEL_TRUE,
 
 			self::EDITO => LangLoader::get_message('module.edito.description', 'config', 'HomeLanding'),
 
