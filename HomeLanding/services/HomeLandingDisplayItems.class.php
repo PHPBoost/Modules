@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 11
+ * @version     PHPBoost 6.0 - last update: 2021 03 12
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -29,15 +29,13 @@ class HomeLandingDisplayItems
 
 		$sql_condition = 'WHERE id_category IN :categories
 			AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
-
 		$sql_parameters = array();
 		if ($module_cat)
-			$sql_parameters['categories'] = $home_modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($home_modules[$module_cat]->get_id_category(), $module_config->get_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
+			$sql_parameters['categories'] = $home_modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($home_modules[$module_cat]->get_id_category(), $module_config->get_summary_displayed_to_guests(), $module_name) : array($home_modules[$module_cat]->get_id_category());
 		else
 			$sql_parameters['categories'] = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module->get_configuration()->has_rich_config_parameters() ? $module_config->get_summary_displayed_to_guests() : true, $module_name);
 
 		$items = ItemsService::get_items_manager($module_name)->get_items($sql_condition, $sql_parameters, $home_modules[$page_type]->get_elements_number_displayed(), 0, 'creation_date', Item::DESC);
-
 		$view->put_all(array(
 			'C_NO_ITEM'          => count($items) == 0,
 			'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
