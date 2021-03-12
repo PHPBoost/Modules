@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 06
+ * @version     PHPBoost 6.0 - last update: 2021 03 12
  * @since       PHPBoost 6.0 - 2021 03 03
 */
 
@@ -46,7 +46,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 
 	public function is_displayed()
 	{
-		return ModulesManager::is_module_installed($this->module_id) && ModulesManager::is_module_activated($this->module_id) && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, $this->module_id)->read();
+		return ModulesManager::is_module_installed($this->module_id) && ModulesManager::is_module_activated($this->module_id) && CategoriesService::get_categories_manager($this->module_id)->get_categories_cache()->has_categories() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, $this->module_id)->read();
 	}
 
 	public function get_menu_content()
