@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 23
+ * @version     PHPBoost 6.0 - last update: 2021 03 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -25,11 +25,11 @@ class HomeLandingMedia
         $result = PersistenceContext::get_querier()->select('SELECT media.*, mb.display_name, mb.user_groups, mb.level, notes.average_notes, notes.number_notes, note.note
         FROM ' . PREFIX . 'media AS media
         LEFT JOIN ' . PREFIX . 'media_cats cat ON cat.id = media.id_category
-        LEFT JOIN ' . DB_TABLE_MEMBER . ' AS mb ON media.iduser = mb.user_id
+        LEFT JOIN ' . DB_TABLE_MEMBER . ' AS mb ON media.author_user_id = mb.user_id
         LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = media.id AND notes.module_name = \'media\'
         LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = media.id AND note.module_name = \'media\' AND note.user_id = :user_id
-        WHERE id_category IN :authorized_categories
-        ORDER BY media.timestamp DESC
+        WHERE id_category IN :authorized_categories AND published = 2
+        ORDER BY media.creation_date DESC
         LIMIT :media_limit', array(
             'authorized_categories' => $authorized_categories,
             'user_id' => AppContext::get_current_user()->get_id(),
@@ -50,8 +50,8 @@ class HomeLandingMedia
 
             if ($mime_type_tpl == 'video/host')
             {
-                $poster = new Url($row['poster']);
-                $pathinfo = pathinfo($row['url']);
+                $poster = new Url($row['thumbnail']);
+                $pathinfo = pathinfo($row['file_url']);
                 $media_id = $pathinfo['basename'];
 
             	if(strpos($pathinfo['dirname'], 'youtu') !== false)
@@ -90,13 +90,13 @@ class HomeLandingMedia
 
                 $view->assign_block_vars('media_host', array(
                     'PSEUDO' => $row['display_name'],
-                    'TITLE' => $row['name'],
+                    'TITLE' => $row['title'],
                     'ID' => $row['id'],
-                    'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+                    'DATE' => strftime('%d/%m/%Y', $row['creation_date']),
                     'POSTER' => $poster->rel(),
                     'PLAYER' => $player,
 
-                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
+                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
                     'MEDIA_ID' => $media_id,
                     'WIDTH' => $row['width'],
                     'HEIGHT' => $row['height']
@@ -104,17 +104,17 @@ class HomeLandingMedia
             }
             elseif ($mime_type_tpl == 'video/mp4')
             {
-                $poster = new Url($row['poster']);
+                $poster = new Url($row['thumbnail']);
                 $view->assign_block_vars('media_mp4', array(
                     'PSEUDO' => $row['display_name'],
-                    'TITLE' => $row['name'],
+                    'TITLE' => $row['title'],
                     'ID' => $row['id'],
-                    'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+                    'DATE' => strftime('%d/%m/%Y', $row['creation_date']),
                     'C_POSTER' => !empty($poster),
                     'POSTER' => $poster->rel(),
 
-                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
-                    'URL' => $row['url'],
+                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
+                    'URL' => $row['file_url'],
                     'MIME' => $row['mime_type'],
                     'WIDTH' => $row['width'],
                     'HEIGHT' => $row['height']
@@ -122,17 +122,17 @@ class HomeLandingMedia
             }
             elseif ($mime_type_tpl == 'audio/mpeg')
             {
-                $poster = new Url($row['poster']);
+                $poster = new Url($row['thumbnail']);
                 $view->assign_block_vars('media_mp3', array(
                     'PSEUDO' => $row['display_name'],
-                    'TITLE' => $row['name'],
+                    'TITLE' => $row['title'],
                     'ID' => $row['id'],
-                    'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+                    'DATE' => strftime('%d/%m/%Y', $row['creation_date']),
                     'C_POSTER' => !empty($poster),
                     'POSTER' => $poster->rel(),
 
-                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
-                    'URL' => $row['url'],
+                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
+                    'URL' => $row['file_url'],
                     'MIME' => $row['mime_type'],
                     'WIDTH' => $row['width'],
                     'HEIGHT' => $row['height']
@@ -140,17 +140,17 @@ class HomeLandingMedia
             }
             else
             {
-                $poster = new Url($row['poster']);
+                $poster = new Url($row['thumbnail']);
                 $view->assign_block_vars('media_other', array(
                     'PSEUDO' => $row['display_name'],
-                    'TITLE' => $row['name'],
+                    'TITLE' => $row['title'],
                     'ID' => $row['id'],
-                    'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+                    'DATE' => strftime('%d/%m/%Y', $row['creation_date']),
                     'C_POSTER' => !empty($poster),
                     'POSTER' => $poster->rel(),
 
-                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['name']) . '.php')),
-                    'URL' => $row['url'],
+                    'U_MEDIA_LINK' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
+                    'URL' => $row['file_url'],
                     'MIME' => $row['mime_type'],
                     'WIDTH' => $row['width'],
                     'HEIGHT' => $row['height']
