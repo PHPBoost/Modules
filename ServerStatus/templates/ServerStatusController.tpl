@@ -3,9 +3,9 @@
 		<h1>{@module_title}</h1>
 	</header>
 	<div class="sub-section">
-		<article class="server-item several-items">
+		<div class="content-container">
 			<div class="cell-row">
-				<div class="cell">
+				<article class="cell">
 					# IF C_SERVERS #
 						<div class="cell-list">
 							<ul>
@@ -16,12 +16,14 @@
 						</div>
 					# ELSE #
 						<div class="cell-body">
-							<div class="cell-content align-center">{@admin.config.servers.no_server}</div>
+							<div class="cell-content">
+								<span class="message-helper bgc notice">${LangLoader::get_message('no_item_now', 'common')}</span>
+							</div>
 						</div>
 					# ENDIF #
-				</div>
+				</article>
 			</div>
-		</article>		
+		</div>
 	</div>
 	<footer></footer>
 </section>
