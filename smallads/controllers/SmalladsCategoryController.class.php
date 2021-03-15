@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 02
+ * @version     PHPBoost 6.0 - last update: 2021 03 15
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -82,7 +82,7 @@ class SmalladsCategoryController extends ModuleController
 			'timestamp_now' => $now->get_timestamp()
 		);
 
-		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.number_comments
+		$result = PersistenceContext::get_querier()->select('SELECT smallads.*, member.*, com.comments_number
 		FROM ' . SmalladsSetup::$smallads_table . ' smallads
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
 		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = smallads.id AND com.module_id = \'smallads\'

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 16
+ * @version     PHPBoost 6.0 - last update: 2021 03 15
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -33,7 +33,7 @@ class HomeLandingGallery
         $result = PersistenceContext::get_querier()->select("SELECT
 			g.id, g.id_category, g.name, g.path, g.timestamp, g.aprob, g.width, g.height, g.user_id, g.views, g.aprob,
 			m.display_name, m.user_groups, m.level,
-			notes.average_notes, notes.number_notes, note.note
+			notes.average_notes, notes.notes_number, note.note
 		FROM " . PREFIX . "gallery g
 		LEFT JOIN " . PREFIX . "gallery_cats cat ON cat.id = g.id_category
 		LEFT JOIN " . DB_TABLE_MEMBER . " m ON m.user_id = g.user_id

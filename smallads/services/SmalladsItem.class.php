@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 07
+ * @version     PHPBoost 6.0 - last update: 2021 03 15
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -56,7 +56,7 @@ class SmalladsItem
 	const SORT_DATE = 'creation_date';
 	const SORT_AUTHOR = 'display_name';
 	const SORT_NUMBER_VIEWS = 'views_number';
-	const SORT_NUMBER_COMMENTS = 'number_comments';
+	const SORT_COMMENTS_NUMBER = 'comments_number';
 	const SORT_PRICE = 'price';
 
 	const SORT_FIELDS_URL_VALUES = array(
@@ -64,7 +64,7 @@ class SmalladsItem
 		self::SORT_DATE => 'date',
 		self::SORT_AUTHOR => 'author',
 		self::SORT_NUMBER_VIEWS => 'views',
-		self::SORT_NUMBER_COMMENTS => 'comments',
+		self::SORT_COMMENTS_NUMBER => 'comments',
 		self::SORT_PRICE => 'price'
 	);
 
