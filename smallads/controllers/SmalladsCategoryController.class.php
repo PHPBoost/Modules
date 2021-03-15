@@ -122,7 +122,7 @@ class SmalladsCategoryController extends ModuleController
 			'ITEMS_PER_ROW'          => $this->config->get_items_per_row(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_per_page(),
 			'ID_CATEGORY'            => $this->get_category()->get_id(),
-			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit_category($this->get_category()->get_id())->rel(),
+			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id())->rel(),
 			'U_USAGE_TERMS' 		 => SmalladsUrlBuilder::usage_terms()->rel()
 		));
 

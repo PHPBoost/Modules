@@ -3,15 +3,16 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 12
+ * @version     PHPBoost 6.0 - last update: 2021 03 15
  * @since       PHPBoost 6.0 - 2021 03 03
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 {
 	private $module_id;
 	private $module_configuration;
-	
+
 	public function __construct($module_id, $module_configuration)
 	{
 		$this->module_id = $module_id;
@@ -54,10 +55,10 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 		$view = new FileTemplate('CategoriesMenus/CategoriesMenusModuleMiniMenu.tpl');
 		MenuService::assign_positions_conditions($view, $this->get_block());
 		$this->assign_common_template_variables($view);
-		
+
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, ($this->module_configuration->has_rich_config_parameters() ? $this->module_configuration->get_configuration_parameters()->get_summary_displayed_to_guests() : true), $this->module_id);
 		$categories_number = 0;
-		
+
 		foreach (CategoriesService::get_categories_manager($this->module_id)->get_categories_cache()->get_categories() as $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY && in_array($category->get_id(), $authorized_categories))
@@ -68,7 +69,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 					'SUB_ORDER'     => $category->get_order(),
 					'ID_PARENT'     => $category->get_id_parent(),
 					'CATEGORY_NAME' => $category->get_name(),
-					'U_CATEGORY'    => CategoriesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), $this->module_id)->rel()
+					'U_CATEGORY'    => CategoriesUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->module_id)->rel()
 				));
 			}
 		}
@@ -79,7 +80,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 			'MENU_ID'      => $this->get_menu_id(),
 			'MENU_TITLE'   => $this->get_menu_title()
 		));
-		
+
 		return $view->render();
 	}
 }

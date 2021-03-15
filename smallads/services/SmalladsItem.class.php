@@ -788,7 +788,7 @@ class SmalladsItem
 			'CATEGORY_NAME'        => $category->get_name(),
 			'CATEGORY_DESCRIPTION' => $category->get_description(),
 			'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
-			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit_category($category->get_id())->rel(),
+			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id())->rel(),
 
 			// Links
 			'U_COMMENTS'    => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
