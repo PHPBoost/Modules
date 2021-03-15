@@ -3,16 +3,26 @@
 		<div class="content">
 			<div id="home-slideboost">
 				# START items #
-					<figure>
-						# IF items.DESCRIPTION #
-						<figcaption>
-							# IF items.LINK #<a href="{items.LINK}"># ENDIF #
-								{items.DESCRIPTION}
-							# IF items.LINK #</a># ENDIF #
-						</figcaption>
-						# ENDIF #
-						<img class="slideImage" src="{items.PICTURE_URL}" alt="{items.PICTURE_URL}" />
-					</figure>
+					# IF items.C_LINK_ONLY #
+						<a href="{items.LINK}">
+							<figure>
+								<img class="slideImage" src="{items.U_DEFAULT_PICTURE}" alt="{@carousel.no.alt}" />
+							</figure>
+						</a>
+					# ELSE #
+						# IF items.LINK #<a href="{items.LINK}"># ENDIF #
+							<figure>
+								# IF items.DESCRIPTION #
+									<figcaption>
+										{items.DESCRIPTION}
+									</figcaption>
+								# ENDIF #
+								# IF items.U_PICTURE #
+									<img class="slideImage" src="{items.U_PICTURE}" alt="# IF items.DESCRIPTION #{items.DESCRIPTION}# ELSE #{@carousel.no.alt}# ENDIF #" />
+								# ENDIF #
+							</figure>
+						# IF items.LINK #</a># ENDIF #
+					# ENDIF #
 				# END items #
 			</div>
 		</div>
@@ -25,7 +35,7 @@
 		autoplayTimeout: ${escapejs(CAROUSEL_TIME)},
 		smartSpeed: ${escapejs(CAROUSEL_SPEED)},
 		loop: ${escapejs(CAROUSEL_AUTO)},
-		margin: 15,
+		margin: 14,
 		autoplayHoverPause: ${escapejs(CAROUSEL_HOVER)},
 		responsive: {
 			0: { items: 1},

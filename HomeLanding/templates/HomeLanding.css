@@ -27,6 +27,9 @@
 
 #cssmenu-anchors.small-screen ul { flex-direction: column; }
 
+/* --- Carousel ------------------------------------------------------------- */
+.owl-item figure { display: block; }
+
 /* --- Edito ---------------------------------------------------------------- */
 
 #edito { margin: 0.618em 0; }
