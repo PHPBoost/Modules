@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2016 02 17
+ * @version     PHPBoost 6.0 - last update: 2021 03 15
  * @since       PHPBoost 4.0 - 2014 01 31
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -17,15 +17,11 @@ class DictionaryTreeLinks implements ModuleTreeLinksExtensionPoint
 
 		$tree = new ModuleTreeLinks();
 
-		$manage_categories_link = new AdminModuleLink($LANG['admin.categories.manage'], new Url('/dictionary/admin_dictionary_cats.php'));
-		$manage_categories_link->add_sub_link(new AdminModuleLink($LANG['admin.categories.manage'], new Url('/dictionary/admin_dictionary_cats.php')));
-		$manage_categories_link->add_sub_link(new AdminModuleLink($LANG['dictionary.cats.add'], new Url('/dictionary/admin_dictionary_cats.php?add=1')));
-		$tree->add_link($manage_categories_link);
+		$tree->add_link(new AdminModuleLink($LANG['admin.categories.manage'], new Url('/dictionary/admin_dictionary_cats.php')));
+		$tree->add_link(new AdminModuleLink($LANG['dictionary.cats.add'], new Url('/dictionary/admin_dictionary_cats.php?add=1')));
 
-		$manage_dictionary_link = new AdminModuleLink($LANG['admin.words.manage'], new Url('/dictionary/admin_dictionary_list.php'));
-		$manage_dictionary_link->add_sub_link(new AdminModuleLink($LANG['admin.words.manage'], new Url('/dictionary/admin_dictionary_list.php')));
-		$manage_dictionary_link->add_sub_link(new AdminModuleLink($LANG['create.dictionary'], new Url('/dictionary/dictionary.php?add=1')));
-		$tree->add_link($manage_dictionary_link);
+		$tree->add_link(new AdminModuleLink($LANG['admin.words.manage'], new Url('/dictionary/admin_dictionary_list.php')));
+		$tree->add_link(new AdminModuleLink($LANG['create.dictionary'], new Url('/dictionary/dictionary.php?add=1')));
 
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), DictionaryUrlBuilder::configuration()));
 
