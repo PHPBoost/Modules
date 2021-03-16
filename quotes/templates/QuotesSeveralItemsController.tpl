@@ -1,7 +1,8 @@
 <section id="module-quotes">
 	<header class="section-header">
 		<div class="controls align-right">
-			# IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
+			# IF NOT C_ROOT_CATEGORY #{@module.title}# ENDIF #
+			# IF C_CATEGORY # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_PENDING_ITEMS #
@@ -10,7 +11,7 @@
 				# IF C_MEMBER_ITEMS #
 			 		# IF C_MY_ITEMS #{@my.items}# ELSE #{@member.items} {MEMBER_NAME}# ENDIF #
 				# ELSE #
-					{@module.title} # IF C_CATEGORY ## IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF ## ENDIF # # IF C_WRITER_ITEMS # - {WRITER_NAME}# ENDIF #
+					# IF C_ROOT_CATEGORY #{@module.title}# ELSE ## IF C_WRITER_ITEMS #{WRITER_NAME}# ELSE #{CATEGORY_NAME}# ENDIF ## ENDIF # 
 				# ENDIF #
 			# ENDIF #
 		</h1>
@@ -83,7 +84,7 @@
 										<a href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>
 									</div>
 								</div>
-				            </blockquote>							
+				            </blockquote>
 						</div>
 						<footer></footer>
 					</article>
