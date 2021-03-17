@@ -51,7 +51,7 @@
 		<textarea class="grouped-area" name="field_description_${escape(ID)}_{fieldelements.ID}" id="field_description_${escape(ID)}_{fieldelements.ID}" placeholder="{@admin.form.description}">{fieldelements.DESCRIPTION}</textarea>
 		<div class="grouped-inputs">
 			<input class="grouped-element" type="text" name="field_link_${escape(ID)}_{fieldelements.ID}" id="field_link_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.LINK}" placeholder="{@admin.form.link.url}"/>
-			<input class="grouped-element" type="text" name="field_picture_url_${escape(ID)}_{fieldelements.ID}" id="field_picture_url_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.PICTURE_URL}" placeholder="{@admin.form.picture.url}"/>
+			<input class="grouped-element" type="text" name="field_picture_url_${escape(ID)}_{fieldelements.ID}" id="field_picture_url_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.U_PICTURE}" placeholder="{@admin.form.picture.url}"/>
 			<a class="grouped-element bgc-full link-color" aria-label="{@admin.form.upload}" href="#" onclick="window.open('{PATH_TO_ROOT}/user/upload.php?popup=1&fd=field_picture_url_${escape(ID)}_{fieldelements.ID}&parse=true&no_path=true', '', 'height=500,width=769,resizable=yes,scrollbars=yes');return false;" aria-label="{@admin.form.upload}"><i class="fa fa-cloud-upload-alt fa-fw" aria-hidden="true"></i></a>
 			<a class="grouped-element bgc-full error" href="javascript:HomeLandingFormFieldSliderConfig.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@admin.form.del}"><i class="fa fa-trash-alt fa-fw" aria-hidden="true"></i></a>
 		</div>
