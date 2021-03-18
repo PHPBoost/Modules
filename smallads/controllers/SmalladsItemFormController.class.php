@@ -259,7 +259,7 @@ class SmalladsItemFormController extends ModuleController
 			));
 		}
 
-		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', LangLoader::get_message('config.author_displayed', 'admin-common'), $this->item->get_displayed_author_name(),
+		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', LangLoader::get_message('config.author.displayed', 'admin-common'), $this->item->get_displayed_author_name(),
 			array(
 				'events' => array('click' => '
 					if (HTMLForms.getField("displayed_author_name").getValue()) {
