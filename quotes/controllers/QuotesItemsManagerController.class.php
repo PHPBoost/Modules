@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 24
+ * @version     PHPBoost 6.0 - last update: 2021 03 27
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -38,16 +38,28 @@ class QuotesItemsManagerController extends ModuleController
 
 	private function build_table()
 	{
+		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
+
 		$table_model = new SQLHTMLTableModel(QuotesSetup::$quotes_table, 'items-manager', array(
-			new HTMLTableColumn($this->lang['quote'], 'quote'),
+			new HTMLTableColumn($this->lang['item'], 'quote'),
 			new HTMLTableColumn(LangLoader::get_message('category', 'categories-common'), 'id_category'),
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'author'),
 			new HTMLTableColumn(LangLoader::get_message('form.date.creation', 'common'), 'creation_date'),
 			new HTMLTableColumn(LangLoader::get_message('status.approved', 'common'), 'approved'),
-			new HTMLTableColumn(LangLoader::get_message('actions', 'admin-common'), '', array('sr-only' => true))
+			new HTMLTableColumn(LangLoader::get_message('actions', 'admin-common'), '', array('css_class'=>'col-small', 'sr-only' => true))
 		), new HTMLTableSortingRule('creation_date', HTMLTableSortingRule::DESC));
 
+		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('creation_date', 'filter1', LangLoader::get_message('form.date.creation', 'common') . ' ' . TextHelper::lcfirst(LangLoader::get_message('minimum', 'common'))));
+		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('creation_date', 'filter2', LangLoader::get_message('form.date.creation', 'common') . ' ' . TextHelper::lcfirst(LangLoader::get_message('maximum', 'common'))));
+		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', LangLoader::get_message('author', 'common')));
+		if ($display_categories)
+			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+
+		$status_list = array(Item::PUBLISHED => LangLoader::get_message('status.approved.now', 'common'), Item::NOT_PUBLISHED => LangLoader::get_message('status.approved.not', 'common'), Item::DEFERRED_PUBLICATION => LangLoader::get_message('status.approved.date', 'common'));
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('published', 'filter5', LangLoader::get_message('status', 'common'), $status_list));
+
 		$table = new HTMLTable($table_model);
+		$table->set_filters_fieldset_class_HTML();
 
 		$table_model->set_layout_title($this->lang['quotes.items.management']);
 
@@ -69,7 +81,7 @@ class QuotesItemsManagerController extends ModuleController
 			$delete_link = new DeleteLinkHTMLElement(QuotesUrlBuilder::delete($quote->get_id()));
 
 			$results[] = new HTMLTableRow(array(
-				new HTMLTableRowCell($quote->get_quote(), 'left'),
+				new HTMLTableRowCell($quote->get_content(), 'left'),
 				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? LangLoader::get_message('none_e', 'common') : $category->get_name()))),
 				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_writer_items($quote->get_rewrited_writer()), $quote->get_writer())),
 				new HTMLTableRowCell($quote->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
