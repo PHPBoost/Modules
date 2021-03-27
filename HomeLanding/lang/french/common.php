@@ -37,8 +37,8 @@ $lang['module.forum'] = 'Derniers messages du forum';
 $lang['module.gallery'] = 'Dernières images de la galerie';
 $lang['module.guestbook'] = 'Derniers messages du livre d\'or';
 $lang['module.media'] = 'Derniers fichiers multimédia';
-$lang['module.news'] = 'Dernières news';
-$lang['module.news_category'] = 'Dernières news d\'une catégorie';
+$lang['module.news'] = 'Dernières actualités';
+$lang['module.news_category'] = 'Dernières actualités d\'une catégorie';
 $lang['module.smallads'] = 'Dernières petites annonces';
 $lang['module.smallads_category'] = 'Dernières petites annonces d\'une catégorie';
 $lang['module.rss'] = 'Flux RSS externe';
@@ -60,8 +60,8 @@ $lang['anchors.forum'] = 'Forum';
 $lang['anchors.gallery'] = 'Galerie';
 $lang['anchors.guestbook'] = 'Livre d\'or';
 $lang['anchors.media'] = 'Multimédia';
-$lang['anchors.news'] = 'News';
-$lang['anchors.news_category'] = 'News';
+$lang['anchors.news'] = 'Actualités';
+$lang['anchors.news_category'] = 'Actualités';
 $lang['anchors.smallads'] = 'Petites annonces';
 $lang['anchors.smallads_category'] = 'Petites annonces';
 $lang['anchors.rss'] = 'Rss';
@@ -123,8 +123,8 @@ $lang['last.media'] = 'Derniers fichiers multimédia';
 $lang['link.to.media'] = 'Voir tous les media';
 
 // News
-$lang['last.news'] = 'Dernières news';
-$lang['last.news.cat'] = 'Dernières news de la catégorie ';
+$lang['last.news'] = 'Dernières actualités';
+$lang['last.news.cat'] = 'Dernières actualités de la catégorie ';
 $lang['link.to.news'] = 'Voir toutes les actualités';
 $lang['no.news.item'] = 'Il n\'y a pas d\'article dans cette catégorie';
 
@@ -247,9 +247,9 @@ $lang['admin.media.limit'] = 'Nombre de fichiers multimédia à afficher';
 // Admin - News
 $lang['admin.news'] = 'Affichage du module News';
 $lang['admin.news.enabled'] = 'Afficher le module News complet';
-$lang['admin.news.limit'] = 'Nombre de news à afficher';
+$lang['admin.news.limit'] = 'Nombre d\'actualités à afficher';
 $lang['admin.news.cat.enabled'] = 'Afficher une catégorie du module News';
-$lang['admin.news.cat.limit'] = 'Nombre de news de la catégorie à afficher';
+$lang['admin.news.cat.limit'] = 'Nombre d\'actualités de la catégorie à afficher';
 
 // Admin - Smallads
 $lang['admin.smallads'] = 'Affichage du module Petites annonces';
