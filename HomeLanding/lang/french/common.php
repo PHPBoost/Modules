@@ -245,10 +245,10 @@ $lang['admin.media.enabled'] = 'Afficher le module Multimédia complet';
 $lang['admin.media.limit'] = 'Nombre de fichiers multimédia à afficher';
 
 // Admin - News
-$lang['admin.news'] = 'Affichage du module News';
-$lang['admin.news.enabled'] = 'Afficher le module News complet';
+$lang['admin.news'] = 'Affichage du module Actualités';
+$lang['admin.news.enabled'] = 'Afficher le module Actualités complet';
 $lang['admin.news.limit'] = 'Nombre d\'actualités à afficher';
-$lang['admin.news.cat.enabled'] = 'Afficher une catégorie du module News';
+$lang['admin.news.cat.enabled'] = 'Afficher une catégorie du module Actualités';
 $lang['admin.news.cat.limit'] = 'Nombre d\'actualités de la catégorie à afficher';
 
 // Admin - Smallads
