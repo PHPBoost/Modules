@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 01 26
+ * @version     PHPBoost 6.0 - last update: 2021 03 30
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -62,7 +62,7 @@ class AdminServerStatusServerFormController extends AdminController
 
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTMLHeading('server', !empty($this->id) ? $this->lang['admin.config.servers.title.edit_server'] : $this->lang['admin.config.servers.title.add_server']);
+		$fieldset = new FormFieldsetHTML('server', !empty($this->id) ? $this->lang['admin.config.servers.title.edit_server'] : $this->lang['admin.config.servers.title.add_server']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('name', $this->lang['server.name'], $server->get_name(),
