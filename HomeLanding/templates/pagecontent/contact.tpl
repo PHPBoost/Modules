@@ -2,11 +2,12 @@
 	<div class="content-container">
 		<article id="contact-panel">
 			<header class="module-header">
-				<span class="controls">
+				<h2>{L_MODULE_TITLE}</h2>
+				<div class="controls align-right">
 					<a href="{PATH_TO_ROOT}/contact">
 						${Langloader::get_message('link.to.contact', 'common', 'HomeLanding')}
 					</a>
-				</span>
+				</div>
 			</header>
 			<div class="content">
 				# INCLUDE MSG #

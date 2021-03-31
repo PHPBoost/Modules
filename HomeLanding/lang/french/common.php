@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 03 31
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -83,6 +83,7 @@ $lang['link.to.articles'] = 'Voir tous les articles';
 $lang['no.articles.item'] = 'Il n\'y a pas d\'article dans cette catégorie';
 
 // Contact
+$lang['contact'] = 'Contact';
 $lang['link.to.contact'] = 'Voir la page contact';
 $lang['send.email.success'] = 'Votre message a bien été envoyé. ';
 $lang['send.email.error'] = 'Votre message n\'a pas pu être envoyé. ';
