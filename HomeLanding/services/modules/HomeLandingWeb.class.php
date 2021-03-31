@@ -55,6 +55,7 @@ class HomeLandingWeb
             'C_CATEGORY'      => true,
             'C_VIEWS_NUMBER'  => true,
             'C_VISIT'         => true,
+            'C_LIST_VIEW'     => $module_config->get_display_type() == WebConfig::LIST_VIEW,
             'C_GRID_VIEW'     => $module_config->get_display_type() == WebConfig::GRID_VIEW,
 			'C_TABLE_VIEW'    => $module_config->get_display_type() == WebConfig::TABLE_VIEW,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_cat),

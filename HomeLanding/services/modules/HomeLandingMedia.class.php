@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 03 31
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -12,6 +12,7 @@ class HomeLandingMedia
     public static function get_media_view()
 	{
         $view = new FileTemplate('HomeLanding/pagecontent/media.tpl');
+        $module_config = MediaConfig::load();
 		$home_config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
         $module_name   = HomeLandingConfig::MODULE_MEDIA;
@@ -38,10 +39,13 @@ class HomeLandingMedia
 
         $view->put_all(array(
 			'C_NO_ITEM'       => $result->get_rows_count() == 0,
+            'C_LIST_VIEW'     => $module_config->get_display_type() == MediaConfig::LIST_VIEW,
+            'C_GRID_VIEW'     => $module_config->get_display_type() == MediaConfig::GRID_VIEW,
             'MODULE_NAME'     => $module_name,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
             'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
+			'ITEMS_PER_ROW'   => $module_config->get_items_per_row(),
 		));
 
         while ($row = $result->fetch())

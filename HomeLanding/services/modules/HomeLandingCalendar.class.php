@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 19
+ * @version     PHPBoost 6.0 - last update: 2021 03 31
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -50,12 +50,16 @@ class HomeLandingCalendar
         ));
 
         $view->put_all(array(
-            'C_DATE' => true,
-            'MODULE_NAME' => $module_name,
+            'C_DATE'          => true,
+            'C_NO_ITEM'       => $result->get_rows_count() == 0,
+            'C_LIST_VIEW'     => $module_config->get_display_type() == CalendarConfig::LIST_VIEW,
+            'C_GRID_VIEW'     => $module_config->get_display_type() == CalendarConfig::GRID_VIEW,
+			'C_TABLE_VIEW'    => $module_config->get_display_type() == CalendarConfig::TABLE_VIEW,
+            'MODULE_NAME'     => $module_name,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
-            'L_MODULE_TITLE' => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
+            'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
             'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
-			'C_NO_ITEM' => $result->get_rows_count() == 0,
+			'ITEMS_PER_ROW'   => $module_config->get_items_per_row()
         ));
 
         while ($row = $result->fetch())
@@ -67,7 +71,7 @@ class HomeLandingCalendar
 
             $view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
                 'C_READ_MORE' => TextHelper::strlen(FormatingHelper::second_parse($row['content'])) >= $modules[$module_name]->get_characters_number_displayed(),
-                'SUMMARY' => $description
+                'SUMMARY'     => $description
             )));
         }
         $result->dispose();
