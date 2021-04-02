@@ -73,7 +73,15 @@
 
 .jplist-pagination .jplist-holder { display: inline-block; }
 
-.button.submit.jplist-selected { background-color: var(--success-tone) }
+.jplist-pagination .button {
+	margin: 0.309em;
+	width: auto;
+}
+
+.button.jplist-selected {
+	background-color: var(--main-tone);
+	color: var(--txt-alt); 
+}
 
 /* --- Category-nav --- */
 .category-selected {

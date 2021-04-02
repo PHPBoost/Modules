@@ -286,7 +286,7 @@
 										<span class="pinned">
 											<i class="far fa-calendar"></i>
 											# IF items.C_ARCHIVED #
-											{@smallads.archived.item}
+												{@smallads.archived.item}
 											# ELSE #
 												<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLISHING_START_DATE}# ENDIF #</time>
 											# ENDIF #
@@ -380,15 +380,15 @@
 		        data-current-page="0"
 		        data-name="pagination1"
 			   	data-name="paging">
-					<button class="button" type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
-				    <button class="button" type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
+					<button class="button small" type="button" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> </button>
+				    <button class="button small" type="button" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><i class="fa fa-chevron-left" aria-hidden="true"></i> </button>
 
 				    <div class="jplist-holder" data-type="pages">
-				        <button type="button" class="button submit" data-type="page">{@smallads.active.page}</button>
+				        <button type="button" class="button small" data-type="page">{@smallads.active.page}</button>
 				    </div>
 
-				    <button class="button" type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
-				    <button class="button" type="button" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
+				    <button class="button small" type="button" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><i class="fa fa-chevron-right" aria-hidden="true"></i> </button>
+				    <button class="button small" type="button" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> </button>
 				</div>
 			</div>
 			<div class="spacer"></div>
