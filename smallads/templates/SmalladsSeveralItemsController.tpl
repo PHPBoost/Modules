@@ -82,25 +82,24 @@
 											<div class="label-list dropdown-container">
 												<label class="jplist-label" for="default-radio">
 													<input
-													id="default-radio"
-													type="radio"
-													data-jplist-control="radio-buttons-text-filter"
-													data-path="default"
-			            							data-group="smallads-items"
-												    name="jplist"
-													checked />	{@smallads.all.types.filters}
+														id="default-radio"
+														type="radio"
+														data-jplist-control="radio-buttons-path-filter"
+														data-path="default"
+				            							data-group="smallads-items"
+													    name="smallads-type"
+														checked />	{@smallads.all.types.filters}
 												</label>
 												# START types #
 													<label class="jplist-label" for="{types.TYPE_NAME_FILTER}">
 														<input
-														id="{types.TYPE_NAME_FILTER}"
-														type="radio"
-														data-jplist-control="radio-buttons-text-filter"
-														data-path=".smallads-type"
-														data-control-name="default"
-				            							data-group="smallads-items"
-													    name="jplist"
-														value="{types.TYPE_NAME}"/>	{types.TYPE_NAME}
+															id="{types.TYPE_NAME_FILTER}"
+															type="radio"
+															data-jplist-control="radio-buttons-path-filter"
+															data-path=".{types.TYPE_NAME_FILTER}"
+					            							data-group="smallads-items"
+														    name="smallads-type"
+															value="{types.TYPE_NAME}"/>	{types.TYPE_NAME}
 													</label>
 												# END types #
 											</div>
@@ -115,15 +114,15 @@
 									<div class="cell-content">
 										<span>{@smallads.sort.by} :</span>
 										<div
-									    data-jplist-control="dropdown-sort"
-									    class="jplist-drop-down"
-									    data-group="smallads-items"
-									    data-name="sorttitle">
+										    data-jplist-control="dropdown-sort"
+										    class="jplist-drop-down"
+										    data-group="smallads-items"
+										    data-name="sorttitle">
 											<div data-type="panel" class="jplist-dd-panel"></div>
 											<ul data-type="content" class="dropdown-container">
 												<li> {@smallads.sort.date}
-													<em class="sort-type" data-path=".jp-date" data-order="asc" data-type="date"><span class="sr-only">{@smallads.sort.date} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
-													<em class="sort-type" data-path=".jp-date" data-order="desc" data-type="date" data-selected="true"><span class="sr-only">{@smallads.sort.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+													<em class="sort-type" data-path=".jp-date" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.date} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
+													<em class="sort-type" data-path=".jp-date" data-order="desc" data-type="number" data-selected="true"><span class="sr-only">{@smallads.sort.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 												</li>
 												<li> {@smallads.sort.title}
 													<em class="sort-type" data-path=".jp-title" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8593;</span> <i class="fa fa-sort-alpha-down"></i></em>
@@ -258,6 +257,9 @@
 										# ENDIF #
 									</tr>
 								# END items #
+								<tr class="no-result hidden">
+									<td colspan="# IF IS_ADMIN #8# ELSE #7# ENDIF #"><div class="message-helper bgc notice">${LangLoader::get_message('no_item_now', 'common')}</div></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -363,6 +365,7 @@
 							</article>
 						# END items #
 					</div>
+					<div class="no-result hidden message-helper bgc notice"> ${LangLoader::get_message('no_item_now', 'common')} </div>
 				# ENDIF #
 			# ENDIF #
 		</div>
@@ -407,12 +410,18 @@
 	</footer>
 </section>
 
-<script src="{PATH_TO_ROOT}/smallads/templates/js/jplist.min.js"></script>
-
 <script>
 	jQuery('document').ready(function(){
 		// jpList
 		jplist.init();
+
+		jQuery('input[type=radio][name=smallads-type]').change(function(){
+			var itemsNumber = jQuery('[data-jplist-item]').length;
+			if (itemsNumber < 1)
+				jQuery('.no-result').show();
+			else
+				jQuery('.no-result').hide();
+		});
 
 		// Type filters
 			// toggle sub-menu on click (close on click outside)
