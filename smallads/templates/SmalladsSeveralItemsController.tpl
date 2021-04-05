@@ -382,6 +382,9 @@
 			        data-current-page="0"
 			        data-name="pagination1"
 				   	data-name="paging">
+					<p data-type="info" class="align-center">
+						${LangLoader::get_message('listorder.item.start', 'common')} - ${LangLoader::get_message('listorder.item.end', 'common')} / ${LangLoader::get_message('listorder.items.number', 'common')} ${TextHelper::lcfirst(@items)}
+					</p>
 					<ul>
 						<li class="pagination-item" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><a href="#"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a> </li>
 					    <li class="pagination-item" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><a href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a> </li>
@@ -393,7 +396,6 @@
 					    <li class="pagination-item" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a> </li>
 					    <li class="pagination-item" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><a href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a> </li>
 					</ul>
-
 				</nav>
 				<div class="align-center">
 		            <select data-type="items-per-page">
