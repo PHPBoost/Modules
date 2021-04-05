@@ -43,7 +43,7 @@
 		<div class="sub-section">
 			<div class="content-container">
 				# IF C_TYPES_FILTERS #
-					<div class="jplist-panel">
+					<div class="listorder-panel">
 						<div class="cell-flex cell-tile cell-columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE ## IF C_CATEGORY #3# ELSE #2# ENDIF ## ENDIF ## ENDIF ## ENDIF #">
 							<!-- Categories -->
 							# IF C_CATEGORY #
@@ -71,7 +71,7 @@
 							# ENDIF #
 
 							<!-- Types filter -->
-							<div class="jplist-type-filter cell">
+							<div class="listorder-type-filter cell">
 								<div class="cell-body">
 									<div class="cell-content">
 										<span>{@smallads.form.smallads.types} :</span>
@@ -80,22 +80,22 @@
 												<span>{@smallads.all.types.filters}</span> <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i>
 											</div>
 											<div class="label-list dropdown-container">
-												<label class="jplist-label" for="default-radio">
+												<label class="listorder-label" for="default-radio">
 													<input
 														id="default-radio"
 														type="radio"
-														data-jplist-control="radio-buttons-path-filter"
+														data-listorder-control="radio-buttons-path-filter"
 														data-path="default"
 				            							data-group="smallads-items"
 													    name="smallads-type"
 														checked />	{@smallads.all.types.filters}
 												</label>
 												# START types #
-													<label class="jplist-label" for="{types.TYPE_NAME_FILTER}">
+													<label class="listorder-label" for="{types.TYPE_NAME_FILTER}">
 														<input
 															id="{types.TYPE_NAME_FILTER}"
 															type="radio"
-															data-jplist-control="radio-buttons-path-filter"
+															data-listorder-control="radio-buttons-path-filter"
 															data-path=".{types.TYPE_NAME_FILTER}"
 					            							data-group="smallads-items"
 														    name="smallads-type"
@@ -114,11 +114,11 @@
 									<div class="cell-content">
 										<span>{@smallads.sort.by} :</span>
 										<div
-										    data-jplist-control="dropdown-sort"
-										    class="jplist-drop-down"
+										    data-listorder-control="dropdown-sort"
+										    class="listorder-drop-down"
 										    data-group="smallads-items"
 										    data-name="sorttitle">
-											<div data-type="panel" class="jplist-dd-panel"></div>
+											<div data-type="panel" class="listorder-dd-panel"></div>
 											<ul data-type="content" class="dropdown-container">
 												<li> {@smallads.sort.date}
 													<em class="sort-type" data-path=".jp-date" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.date} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
@@ -194,9 +194,9 @@
 									# ENDIF #
 								</tr>
 							</thead>
-							<tbody data-jplist-group="smallads-items">
+							<tbody data-listorder-group="smallads-items">
 								# START items #
-									<tr data-jplist-item class="# IF items.C_COMPLETED # completed-smallad bgc error# ENDIF # category-{items.ID_CATEGORY}">
+									<tr data-listorder-item class="# IF items.C_COMPLETED # completed-smallad bgc error# ENDIF # category-{items.ID_CATEGORY}">
 										<td>
 											# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
 												<span class="jp-title# IF items.C_ARCHIVED # text-strike# ENDIF #" itemprop="name">{items.TITLE}</span>
@@ -265,9 +265,9 @@
 					</div>
 
 				# ELSE #
-					<div data-jplist-group="smallads-items" class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ENDIF ## IF C_LIST_VIEW # cell-row# ENDIF #">
+					<div data-listorder-group="smallads-items" class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ENDIF ## IF C_LIST_VIEW # cell-row# ENDIF #">
 						# START items #
-							<article data-jplist-item id="smallads-items-{items.ID}" class="smallads-item several-items category-{items.ID_CATEGORY} cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+							<article data-listorder-item id="smallads-items-{items.ID}" class="smallads-item several-items category-{items.ID_CATEGORY} cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 								# IF items.C_COMPLETED # <div class="completed-item bgc error"><span>{@smallads.completed.item}</span></div># ENDIF #
 								<header class="cell-header">
 									<h2 class="cell-name# IF items.C_ARCHIVED # text-strike# ENDIF #"><a class="jp-title" itemprop="url" href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a></h2>
@@ -375,8 +375,8 @@
 		<div class="sub-section items-pagination">
 			<div class="content-container">
 				<nav
-				   	class="jplist-pagination pagination"
-				   	data-jplist-control="pagination"
+				   	class="listorder-pagination pagination"
+				   	data-listorder-control="pagination"
 			        data-group="smallads-items"
 			        data-items-per-page="{ITEMS_PER_PAGE}"
 			        data-current-page="0"
@@ -386,7 +386,7 @@
 						<li class="pagination-item" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><a href="#"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a> </li>
 					    <li class="pagination-item" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><a href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a> </li>
 
-					    <ul class="jplist-holder" data-type="pages">
+					    <ul class="listorder-holder" data-type="pages">
 					        <li class="pagination-item" data-type="page"><a href="#">{@smallads.active.page}</a></li>
 					    </ul>
 
@@ -420,11 +420,11 @@
 
 <script>
 	jQuery('document').ready(function(){
-		// jpList
-		jplist.init();
+		// listorder
+		listorder.init();
 
 		jQuery('input[type=radio][name=smallads-type]').change(function(){
-			var itemsNumber = jQuery('[data-jplist-item]').length,
+			var itemsNumber = jQuery('[data-listorder-item]').length,
 				maxItems = {ITEMS_PER_PAGE};
 			if (itemsNumber < 1) jQuery('.no-result').show();
 			else jQuery('.no-result').hide();
