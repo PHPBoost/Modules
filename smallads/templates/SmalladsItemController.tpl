@@ -123,7 +123,7 @@
 													# IF C_CUSTOM_AUTHOR_NAME #
 														{CUSTOM_AUTHOR_NAME}
 													# ELSE #
-														# IF C_AUTHOR_EXIST #<a itemprop="author" href="{U_AUTHOR}" class="{USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{USER_GROUP_COLOR}"# ENDIF #>{PSEUDO}</a># ELSE #{PSEUDO}# ENDIF #
+														# IF C_AUTHOR_EXIST #<a itemprop="author" href="{U_AUTHOR}" class="{AUTHOR_LEVEL_CLASS}" # IF C_AUTHOR_GROUP_COLOR # style="color:{AUTHOR_GROUP_COLOR}"# ENDIF #>{AUTHOR_DISPLAY_NAME}</a># ELSE #{AUTHOR_DISPLAY_NAME}# ENDIF #
 													# ENDIF #
 												</span>
 											</li>

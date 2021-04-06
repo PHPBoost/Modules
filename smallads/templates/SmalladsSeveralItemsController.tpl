@@ -211,7 +211,7 @@
 												# IF items.C_CUSTOM_AUTHOR_NAME #
 													{items.CUSTOM_AUTHOR_NAME}
 												# ELSE #
-													# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
+													# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS}" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
 												# ENDIF #
 											</td>
 										# ENDIF #
@@ -279,12 +279,12 @@
 									<div class="more">
 										<span class="{items.SMALLAD_TYPE_FILTER} pinned success"><i class="fa fa-ticket-alt"></i> <span>{items.SMALLAD_TYPE}</span></span>
 										# IF items.C_DISPLAYED_AUTHOR #
-											<span class="lo-author pinned {items.USER_LEVEL_CLASS}">
+											<span class="lo-author pinned {items.AUTHOR_LEVEL_CLASS}">
 												<i class="far fa-user"></i>
 												# IF items.C_CUSTOM_AUTHOR_NAME #
 													{items.CUSTOM_AUTHOR_NAME}
 												# ELSE #
-													# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.USER_LEVEL_CLASS}" # IF C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #,
+													# IF items.C_AUTHOR_EXIST #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS}" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #,
 												# ENDIF #
 											</span>
 										# ENDIF #
