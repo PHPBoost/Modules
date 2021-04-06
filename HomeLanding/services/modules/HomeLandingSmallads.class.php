@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 01 25
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 5.2 - 2021 01 25
 */
 
@@ -38,6 +38,7 @@ class HomeLandingSmallads
         LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
         WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
         AND id_category IN :categories_id
+        AND completed = 0
         ORDER BY smallads.update_date DESC
         LIMIT :smallads_cat_limit', array(
             'timestamp_now' => $now->get_timestamp(),
@@ -104,6 +105,7 @@ class HomeLandingSmallads
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
 		WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
         AND id_category IN :authorized_categories
+        AND completed = 0
 		ORDER BY smallads.update_date DESC
 		LIMIT :smallads_limit', array(
 			'authorized_categories' => $authorized_categories,

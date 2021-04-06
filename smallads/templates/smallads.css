@@ -13,14 +13,7 @@
 	opacity: 0.5;
 }
 
-.completed-item {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 9;
-}
+.completed-item { z-index: 9; }
 
 .completed-item span {
 	display: block;
