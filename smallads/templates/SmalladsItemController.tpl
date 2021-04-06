@@ -20,8 +20,8 @@
 					<div></div>
 					# IF C_CONTROLS #
 						<div class="controls align-right">
-							# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
-							# IF C_DELETE #<a href="{U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a># ENDIF #
+							# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a># ENDIF ## ENDIF #
+							# IF C_DELETE #<a href="{U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-fw fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a># ENDIF #
 						</div>
 					# ENDIF #
 				</div>

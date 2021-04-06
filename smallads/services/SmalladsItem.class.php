@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -797,8 +797,8 @@ class SmalladsItem
 			'U_CATEGORY'    => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
 			'U_ITEM'        => SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
 			'U_THUMBNAIL' 	=> $this->get_thumbnail()->rel(),
-			'U_EDIT_ITEM'   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
-			'U_DELETE_ITEM' => SmalladsUrlBuilder::delete_item($this->id)->rel(),
+			'U_EDIT'   		=> SmalladsUrlBuilder::edit_item($this->id)->rel(),
+			'U_DELETE' 		=> SmalladsUrlBuilder::delete_item($this->id)->rel(),
 			'U_SYNDICATION' => SyndicationUrlBuilder::rss('smallads', $category->get_id())->rel(),
 			'U_PRINT_ITEM'  => SmalladsUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel(),
 			'U_USAGE_TERMS' => SmalladsUrlBuilder::usage_terms()->rel()

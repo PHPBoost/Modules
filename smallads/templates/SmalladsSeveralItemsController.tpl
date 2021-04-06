@@ -246,11 +246,11 @@
 											<td class="controls">
 												# IF NOT items.C_COMPLETED #
 													# IF items.C_EDIT #
-														<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
+														<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
 													# ENDIF #
 												# ENDIF #
 													# IF items.C_DELETE #
-														<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+														<a href="{items.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
 													# ENDIF #
 											</td>
 										# ENDIF #
@@ -326,11 +326,11 @@
 										<div class="controls">
 											# IF NOT items.C_COMPLETED #
 												# IF items.C_EDIT #
-													<a href="{items.U_EDIT_ITEM}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
+													<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
 												# ENDIF #
 											# ENDIF #
 											# IF items.C_DELETE #
-												<a href="{items.U_DELETE_ITEM}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+												<a href="{items.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
 											# ENDIF #
 										</div>
 									# ENDIF #
