@@ -19,32 +19,32 @@ class QuotesConfig extends AbstractConfigData
 
 	public function get_items_per_page()
 	{
-		return $this->get_property(self::ITEMS_NUMBER_PER_PAGE);
+		return $this->get_property(self::ITEMS_PER_PAGE);
 	}
 
 	public function set_items_per_page($value)
 	{
-		$this->set_property(self::ITEMS_NUMBER_PER_PAGE, $value);
+		$this->set_property(self::ITEMS_PER_PAGE, $value);
 	}
 
 	public function get_categories_per_page()
 	{
-		return $this->get_property(self::CATEGORIES_NUMBER_PER_PAGE);
+		return $this->get_property(self::CATEGORIES_PER_PAGE);
 	}
 
 	public function set_categories_per_page($value)
 	{
-		$this->set_property(self::CATEGORIES_NUMBER_PER_PAGE, $value);
+		$this->set_property(self::CATEGORIES_PER_PAGE, $value);
 	}
 
 	public function get_categories_per_row()
 	{
-		return $this->get_property(self::CATEGORIES_NUMBER_PER_ROW);
+		return $this->get_property(self::CATEGORIES_PER_ROW);
 	}
 
 	public function set_categories_per_row($value)
 	{
-		$this->set_property(self::CATEGORIES_NUMBER_PER_ROW, $value);
+		$this->set_property(self::CATEGORIES_PER_ROW, $value);
 	}
 
 	public function get_root_category_description()
