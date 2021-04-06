@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -78,7 +78,7 @@ class QuotesPendingItemsController extends ModuleController
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
-		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_number_per_page());
+		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_per_page());
 		$pagination->set_url(QuotesUrlBuilder::display_pending('%d'));
 
 		if ($pagination->current_page_is_empty() && $page > 1)

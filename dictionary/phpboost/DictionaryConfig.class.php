@@ -3,24 +3,25 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2016 02 17
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 4.1 - 2016 02 15
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class DictionaryConfig extends AbstractConfigData
 {
-	const ITEMS_NUMBER_PER_PAGE = 'items_number_per_page';
+	const ITEMS_PER_PAGE = 'items_per_page';
 	const FORBIDDEN_TAGS = 'forbidden_tags';
 	const AUTHORIZATIONS = 'authorizations';
 
-	public function get_items_number_per_page()
+	public function get_items_per_page()
 	{
-		return $this->get_property(self::ITEMS_NUMBER_PER_PAGE);
+		return $this->get_property(self::ITEMS_PER_PAGE);
 	}
 
-	public function set_items_number_per_page($value)
+	public function set_items_per_page($value)
 	{
-		$this->set_property(self::ITEMS_NUMBER_PER_PAGE, $value);
+		$this->set_property(self::ITEMS_PER_PAGE, $value);
 	}
 
 	public function get_forbidden_tags()
@@ -49,7 +50,7 @@ class DictionaryConfig extends AbstractConfigData
 	public function get_default_values()
 	{
 		return array(
-			self::ITEMS_NUMBER_PER_PAGE => 15,
+			self::ITEMS_PER_PAGE => 15,
 			self::FORBIDDEN_TAGS => array('swf', 'movie', 'sound', 'code', 'math', 'mail', 'html', 'feed', 'youtube'),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)
 		);

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -45,7 +45,7 @@ class QuotesCategoryController extends ModuleController
 
 		//Children categories
 		$subcategories = CategoriesService::get_categories_manager('quotes')->get_categories_cache()->get_children($this->get_category()->get_id(), CategoriesService::get_authorized_categories($this->get_category()->get_id(), true, 'quotes'));
-		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_number_per_page(), $page, $subcategories_page);
+		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_per_page(), $page, $subcategories_page);
 
 		$nbr_cat_displayed = 0;
 		foreach ($subcategories as $id => $category)
@@ -100,7 +100,7 @@ class QuotesCategoryController extends ModuleController
 
 			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
 			'PAGINATION' => $pagination->display(),
-			'CATEGORIES_PER_ROW' => $this->config->get_categories_number_per_row(),
+			'CATEGORIES_PER_ROW' => $this->config->get_categories_per_row(),
 			'ID_CAT' => $this->get_category()->get_id(),
 			'CATEGORY_NAME' => $this->get_category()->get_name(),
 			'CATEGORY_DESCRIPTION' => $category_description,
@@ -140,7 +140,7 @@ class QuotesCategoryController extends ModuleController
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
-		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_number_per_page());
+		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_per_page());
 		$pagination->set_url(QuotesUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), '%d', $subcategories_page));
 
 		if ($pagination->current_page_is_empty() && $page > 1)
@@ -152,9 +152,9 @@ class QuotesCategoryController extends ModuleController
 		return $pagination;
 	}
 
-	private function get_subcategories_pagination($subcategories_number, $categories_number_per_page, $page, $subcategories_page)
+	private function get_subcategories_pagination($subcategories_number, $categories_per_page, $page, $subcategories_page)
 	{
-		$pagination = new ModulePagination($subcategories_page, $subcategories_number, (int)$categories_number_per_page);
+		$pagination = new ModulePagination($subcategories_page, $subcategories_number, (int)$categories_per_page);
 		$pagination->set_url(QuotesUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $page, '%d'));
 
 		if ($pagination->current_page_is_empty() && $subcategories_page > 1)

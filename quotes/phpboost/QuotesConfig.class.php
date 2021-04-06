@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,38 +11,38 @@
 
 class QuotesConfig extends AbstractConfigData
 {
-	const ITEMS_NUMBER_PER_PAGE      = 'items_number_per_page';
-	const CATEGORIES_NUMBER_PER_PAGE = 'categories_number_per_page';
-	const CATEGORIES_NUMBER_PER_ROW  = 'categories_number_per_row';
+	const ITEMS_PER_PAGE      = 'items_per_page';
+	const CATEGORIES_PER_PAGE = 'categories_per_page';
+	const CATEGORIES_PER_ROW  = 'categories_per_row';
 	const ROOT_CATEGORY_DESCRIPTION  = 'root_category_description';
 	const AUTHORIZATIONS             = 'authorizations';
 
-	public function get_items_number_per_page()
+	public function get_items_per_page()
 	{
 		return $this->get_property(self::ITEMS_NUMBER_PER_PAGE);
 	}
 
-	public function set_items_number_per_page($value)
+	public function set_items_per_page($value)
 	{
 		$this->set_property(self::ITEMS_NUMBER_PER_PAGE, $value);
 	}
 
-	public function get_categories_number_per_page()
+	public function get_categories_per_page()
 	{
 		return $this->get_property(self::CATEGORIES_NUMBER_PER_PAGE);
 	}
 
-	public function set_categories_number_per_page($value)
+	public function set_categories_per_page($value)
 	{
 		$this->set_property(self::CATEGORIES_NUMBER_PER_PAGE, $value);
 	}
 
-	public function get_categories_number_per_row()
+	public function get_categories_per_row()
 	{
 		return $this->get_property(self::CATEGORIES_NUMBER_PER_ROW);
 	}
 
-	public function set_categories_number_per_row($value)
+	public function set_categories_per_row($value)
 	{
 		$this->set_property(self::CATEGORIES_NUMBER_PER_ROW, $value);
 	}
@@ -73,9 +73,9 @@ class QuotesConfig extends AbstractConfigData
 	public function get_default_values()
 	{
 		return array(
-			self::ITEMS_NUMBER_PER_PAGE => 15,
-			self::CATEGORIES_NUMBER_PER_PAGE => 10,
-			self::CATEGORIES_NUMBER_PER_ROW => 3,
+			self::ITEMS_PER_PAGE => 15,
+			self::CATEGORIES_PER_PAGE => 10,
+			self::CATEGORIES_PER_ROW => 3,
 			self::ROOT_CATEGORY_DESCRIPTION => CategoriesService::get_default_root_category_description('quotes', 0, 5),
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)
 		);

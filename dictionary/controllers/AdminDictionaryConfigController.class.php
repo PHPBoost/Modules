@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 09
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 4.1 - 2016 02 15
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -62,7 +62,7 @@ class AdminDictionaryConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('config', $this->admin_common_lang['configuration']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldNumberEditor('items_number_per_page', $this->admin_common_lang['config.items_number_per_page'], $this->config->get_items_number_per_page(),
+		$fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->admin_common_lang['config.items_per_page'], $this->config->get_items_per_page(),
 			array('class' => 'top-field', 'min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
@@ -103,7 +103,7 @@ class AdminDictionaryConfigController extends AdminModuleController
 
 	private function save()
 	{
-		$this->config->set_items_number_per_page($this->form->get_value('items_number_per_page'));
+		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
 
 		$forbidden_tags = array();
 		foreach ($this->form->get_value('forbidden_tags') as $field => $option)

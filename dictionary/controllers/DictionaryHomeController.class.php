@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 10
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 4.1 - 2016 02 15
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -38,7 +38,7 @@ class DictionaryHomeController extends ModuleController
 			$nbr_words = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE word LIKE '" . $letter . "%'");
 
 			$page = AppContext::get_request()->get_getint('p', 1);
-			$pagination = new ModulePagination($page, $nbr_words, $config->get_items_number_per_page());
+			$pagination = new ModulePagination($page, $nbr_words, $config->get_items_per_page());
 			$pagination->set_url(new Url('/dictionary/dictionary.php?l=' . $letter . '&amp;p=%d'));
 
 			if ($pagination->current_page_is_empty() && $page > 1)

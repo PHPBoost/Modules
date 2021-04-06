@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 27
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -26,7 +26,7 @@ $get_l_error = retrieve(GET, 'erroru', '');
 $nb_cat = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_cat_table);
 
 $page = AppContext::get_request()->get_getint('p', 1);
-$pagination = new ModulePagination($page, $nb_cat, $config->get_items_number_per_page());
+$pagination = new ModulePagination($page, $nb_cat, $config->get_items_per_page());
 $pagination->set_url(new Url('/dictionary/admin_dictionary_cats.php?p=%d'));
 
 if ($pagination->current_page_is_empty() && $page > 1)

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 04 06
  * @since       PHPBoost 6.0 - 2020 12 20
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -62,7 +62,7 @@ class QuotesMemberItemsController extends ModuleController
 			'C_MEMBER_ITEMS' => true,
 			'C_MY_ITEMS'     => $this->is_current_member_displayed(),
 			'C_PAGINATION'   => $pagination->has_several_pages(),
-			
+
 			'PAGINATION'     => $pagination->display(),
 			'MEMBER_NAME'    => $this->get_member()->get_display_name()
 		));
@@ -97,7 +97,7 @@ class QuotesMemberItemsController extends ModuleController
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
-		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_number_per_page());
+		$pagination = new ModulePagination($page, $items_number, (int)QuotesConfig::load()->get_items_per_page());
 		$pagination->set_url(QuotesUrlBuilder::display_member_items($this->get_member()->get_id(), '%d'));
 
 		if ($pagination->current_page_is_empty() && $page > 1)
