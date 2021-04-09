@@ -23,6 +23,7 @@ $lang['an.item'] = 'Une citation';
 $lang['the.item'] = 'La citation';
 $lang['my.items'] = 'Mes citations';
 $lang['member.items'] = 'Citations publiées par';
+$lang['filter.items'] = 'Filtrer les citations';
 
 $lang['all.items'] = 'Toutes les citations';
 $lang['last.items'] = 'Dernières citations';

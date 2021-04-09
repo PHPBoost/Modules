@@ -23,6 +23,7 @@ $lang['an.item'] = 'a quote';
 $lang['the.item'] = 'the quote';
 $lang['my.items'] = 'My quotes';
 $lang['member.items'] = 'Quotes published by';
+$lang['filter.items'] = 'Filter quotes';
 
 $lang['all.items'] = 'All quotes';
 $lang['last.items'] = 'Last quotes';
