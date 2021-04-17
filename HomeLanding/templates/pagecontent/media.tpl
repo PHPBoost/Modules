@@ -20,7 +20,7 @@
 				<div class="content">
 					# START media_host #
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_host.U_MEDIA_LINK}">{media_host.TITLE}</a></h3>
+							<h3><a href="{media_host.U_ITEM}">{media_host.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
@@ -33,14 +33,14 @@
 
 					# START media_mp4 #
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_mp4.U_MEDIA_LINK}">{media_mp4.TITLE}</a></h3>
+							<h3><a href="{media_mp4.U_ITEM}">{media_mp4.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
 							</div>
 							<div class="media-content media-html5" style="width:{media_mp4.WIDTH}px;height:{media_mp4.HEIGHT}px;">
 								<video class="video-player"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
-									<source src="{media_mp4.URL}" type="{media_mp4.MIME}" />
+									<source src="{media_mp4.FILE_URL}" type="{media_mp4.MIME}" />
 								</video>
 							</div>
 						</div>
@@ -48,7 +48,7 @@
 
 					# START media_mp3 #
 						<div class="item-content-audio" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_mp3.U_MEDIA_LINK}">{media_mp3.TITLE}</a></h3>
+							<h3><a href="{media_mp3.U_ITEM}">{media_mp3.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
@@ -56,7 +56,7 @@
 
 							<div class="media-content-audio" id="media_mp3-{media_mp3.ID}">
 								<audio controls>
-									<source src="{media_mp3.URL}" type="{media_mp3.MIME}"></source>
+									<source src="{media_mp3.FILE_URL}" type="{media_mp3.MIME}"></source>
 								</audio>
 							</div>
 						</div>
@@ -64,18 +64,18 @@
 
 					# START media_other #
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_other.U_MEDIA_LINK}">{media_other.TITLE}</a></h3>
+							<h3><a href="{media_other.U_ITEM}">{media_other.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
 							</div>
 
 							<div class="media-content media-other" id="media_other-{media_other.ID}" style="width:{media_other.WIDTH}px;height:{media_other.HEIGHT}px;">
-								<object type="{media_other.MIME}" data="{media_other.URL}">
+								<object type="{media_other.MIME}" data="{media_other.FILE_URL}">
 									<param name="allowScriptAccess" value="samedomain" />
 									<param name="allowFullScreen" value="true">
 									<param name="play" value="true" />
-									<param name="movie" value="{media_other.URL}" />
+									<param name="movie" value="{media_other.FILE_URL}" />
 									<param name="menu" value="false" />
 									<param name="quality" value="high" />
 									<param name="scalemode" value="noborder" />
