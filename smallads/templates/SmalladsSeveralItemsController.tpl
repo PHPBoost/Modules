@@ -120,37 +120,37 @@
 											<div data-type="panel" class="listorder-dd-panel"></div>
 											<ul data-type="content" class="dropdown-container">
 												<li> {@smallads.sort.date}
-													<em class="sort-type" data-path=".lo-date" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.date} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
-													<em class="sort-type" data-path=".lo-date" data-order="desc" data-type="number" data-selected="true"><span class="sr-only">{@smallads.sort.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+													<em class="sort-type bgc-full link-color" data-path=".lo-date" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.date} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+													<em class="sort-type bgc-full logo-color" data-path=".lo-date" data-order="desc" data-type="number" data-selected="true"><span class="sr-only">{@smallads.sort.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 												</li>
 												<li> {@smallads.sort.title}
-													<em class="sort-type" data-path=".lo-title" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8593;</span> <i class="fa fa-sort-alpha-down"></i></em>
-													<em class="sort-type" data-path=".lo-title" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
+													<em class="sort-type bgc-full link-color" data-path=".lo-title" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
+													<em class="sort-type bgc-full logo-color" data-path=".lo-title" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 												</li>
 												<li> {@smallads.sort.price}
-													<em class="sort-type" data-path=".lo-price" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
-													<em class="sort-type" data-path=".lo-price" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+													<em class="sort-type bgc-full link-color" data-path=".lo-price" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+													<em class="sort-type bgc-full logo-color" data-path=".lo-price" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 												</li>
 												# IF C_LOCATION #
 												  	<li> {@location}
-													    <em class="sort-type" data-path=".lo-location" data-order="asc" data-type="text"><span class="sr-only">{@location} &#8593;</span> <i class="fa fa-sort-alpha-down"></i></em>
-													   	<em class="sort-type" data-path=".lo-location" data-order="desc" data-type="text"><span class="sr-only">{@location} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
+													    <em class="sort-type bgc-full link-color" data-path=".lo-location" data-order="asc" data-type="text"><span class="sr-only">{@location} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
+													   	<em class="sort-type bgc-full logo-color" data-path=".lo-location" data-order="desc" data-type="text"><span class="sr-only">{@location} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 											   		</li>
 												# ENDIF #
 							 					# IF NOT C_MEMBER #
 													<li> {@smallads.sort.author}
-														<em class="sort-type" data-path=".lo-author" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8593;</span> <i class="fa fa-sort-alpha-down"></i></em>
-														<em class="sort-type" data-path=".lo-author" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
+														<em class="sort-type bgc-full link-color" data-path=".lo-author" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
+														<em class="sort-type bgc-full logo-color" data-path=".lo-author" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 													</li>
 												# ENDIF #
 												# IF NOT C_PENDING #
 													<li> {@smallads.sort.coms}
-														<em class="sort-type" data-path=".lo-comment" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
-														<em class="sort-type" data-path=".lo-comment" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+														<em class="sort-type bgc-full link-color" data-path=".lo-comment" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+														<em class="sort-type bgc-full logo-color" data-path=".lo-comment" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 													</li>
 													<li> {@smallads.sort.view}
-														<em class="sort-type" data-path=".lo-view" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8593;</span> <i class="fa fa-sort-numeric-down"></i></em>
-														<em class="sort-type" data-path=".lo-view" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+														<em class="sort-type bgc-full link-color" data-path=".lo-view" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+														<em class="sort-type bgc-full logo-color" data-path=".lo-view" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 													</li>
 												# ENDIF #
 											</ul>
