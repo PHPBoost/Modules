@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 05 02
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -51,7 +51,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 
 			return $tpl->render();
 		}
-		else if (AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
+		else if (AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
 		{
 			return MessageHelper::display(LangLoader::get_message('birthday.user.born.field.disabled', 'common', 'birthday'), MessageHelper::WARNING)->render();
 		}

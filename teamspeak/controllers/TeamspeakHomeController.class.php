@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2015 04 13
+ * @version     PHPBoost 6.0 - last update: 2021 05 02
  * @since       PHPBoost 4.1 - 2014 09 24
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class TeamspeakHomeController extends ModuleController
@@ -51,7 +52,7 @@ class TeamspeakHomeController extends ModuleController
 		$ts_ip = $this->config->get_ip();
 		if (empty($ts_ip))
 		{
-			if(AppContext::get_current_user()->check_level(User::ADMIN_LEVEL))
+			if(AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
 			{
 				$this->tpl->put('MSG', MessageHelper::display($this->lang['ts_ip_missing'], MessageHelper::WARNING)->render());
 			}
