@@ -11,11 +11,11 @@
 			<div class="cell-list">
 				<ul class="lastcoms# IF C_HORIZONTAL # lastcoms-horizontal# ENDIF #">
 					# START items #
-					<li>
-						<span class="pinned notice small">{items.DATE_DIFF_NOW}</span>
-						# IF items.C_AUTHOR_EXIST #<a class="{items.USER_LEVEL_CLASS}" href="{items.U_AUTHOR_PROFILE}"# IF items.C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
-						<p><a href="{items.PATH}"><i class="far fa-comment"></i> {items.CONTENT}</a></p>
-					</li>
+						<li>
+							<time class="pinned notice small" datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE_AGO}</time>
+							# IF items.C_AUTHOR_EXIST #<a class="{items.USER_LEVEL_CLASS}" href="{items.U_AUTHOR_PROFILE}"# IF items.C_USER_GROUP_COLOR # style="color:{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a># ELSE #{items.PSEUDO}# ENDIF #
+							<p><a href="{items.PATH}"><i class="far fa-comment"></i> {items.CONTENT}</a></p>
+						</li>
 					# END items #
 				</ul>
 			</div>
