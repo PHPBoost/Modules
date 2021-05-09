@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 31
+ * @version     PHPBoost 6.0 - last update: 2021 05 09
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -17,13 +17,13 @@ class HomeLandingDisplayItems
 		$home_modules  = HomeLandingModulesList::load();
 		$page_type     = $module_cat ? $module_cat : $module_name;
 
-		$theme_id = AppContext::get_current_user()->get_theme();
-		if (file_exists(PATH_TO_ROOT . '/HomeLanding/templates/pagecontent/' . $page_type . '.tpl'))
-			$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $page_type . '.tpl');
-		elseif (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $page_type . '.tpl'))
+        $theme_id = AppContext::get_current_user()->get_theme();
+        if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $page_type . '.tpl'))
 			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $page_type . '.tpl');
+        elseif (file_exists(PATH_TO_ROOT . '/HomeLanding/templates/pagecontent/' . $page_type . '.tpl'))
+			$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $page_type . '.tpl');
 		else
-			$view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
+            $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
 		$view->add_lang(array_merge(LangLoader::get('common', 'HomeLanding'), LangLoader::get('common', $module_name)));
 

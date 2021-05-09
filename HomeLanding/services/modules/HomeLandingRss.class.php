@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 11
+ * @version     PHPBoost 6.0 - last update: 2021 05 09
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -11,11 +11,7 @@ class HomeLandingRss
 {
     public static function get_rss_view()
 	{
-        $theme_id = AppContext::get_current_user()->get_theme();
-        if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/rssreader.tpl'))
-			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/rssreader.tpl');
-        else
-		    $view = new FileTemplate('HomeLanding/pagecontent/rssreader.tpl');
+		$view = new FileTemplate('HomeLanding/pagecontent/rssreader.tpl');
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $view->add_lang($home_lang);
