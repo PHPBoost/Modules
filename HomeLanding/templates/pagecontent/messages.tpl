@@ -12,7 +12,7 @@
 			# IF C_NO_ITEM #
 				<div class="content">
 					<div class="message-helper bgc notice">
-						${LangLoader::get_message('no_item_now', 'common')}
+						${LangLoader::get_message('common.no.item.now', 'common-lang')}
 					</div>
 				</div>
 			# ELSE #
@@ -21,9 +21,8 @@
 						<div class="message-container message-small" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<div class="message-header-container">
 								# IF C_AVATAR_IMG #<img class="message-user-avatar" src="{items.U_AVATAR_IMG}" alt="{items.PSEUDO}" /># ENDIF #
-
 								<div class="message-header-infos">
-									<div class="message-user">
+									<div class="message-user-container">
 										<h4>
 											# IF items.C_AUTHOR_EXIST #
 												<a class="{items.USER_LEVEL_CLASS}" href="{items.U_AUTHOR_PROFILE}"# IF items.C_USER_GROUP_COLOR # style="{items.USER_GROUP_COLOR}"# ENDIF #>{items.PSEUDO}</a>
@@ -32,21 +31,20 @@
 											# ENDIF #
 										</h4>
 										# IF C_PARENT #
-											<span aria-label="# IF C_TOPIC #{@module.posted.in.topic}# ELSE #{@module.posted.in.module}# ENDIF #">
-												<i class="fa fa-fw # IF C_TOPIC #fa-file# ELSE #fa-cube# ENDIF #" aria-hidden="true"></i>  <a href="{items.U_TOPIC}">{items.TOPIC}</a>
-											</span>
+											<div class="controls message-user-infos-preview" aria-label="# IF C_TOPIC #{@module.posted.in.topic}# ELSE #{@module.posted.in.module}# ENDIF #">
+												<a href="{items.U_TOPIC}"><i class="fa fa-fw # IF C_TOPIC #fa-file# ELSE #fa-cube# ENDIF #" aria-hidden="true"></i> {items.TOPIC}</a>
+											</div>
 										# ENDIF #
 									</div>
 									<div class="message-infos">
-										<span aria-label="{@module.post.date}">
-											<i class="far fa-fw fa-clock" aria-hidden="true"></i> {items.DATE}
-										</span>
+										<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
+										<div class="message-action">
+											<a href="{items.U_ITEM}"><i class="fa fa-share"></i> ${LangLoader::get_message('common.read.more', 'common-lang')}</a></div>
 									</div>
 								</div>
 							</div>
 							<div class="message-content flex-between">
 								{items.CONTENT} ...
-								<p class="align-right"><a href="{items.U_ITEM}" class="button small bgc link-color">[${LangLoader::get_message('read.more', 'common')}]</a></p>
 							</div>
 						</div>
 					# END items #
