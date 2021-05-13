@@ -22,7 +22,7 @@
 					<td><a href="{PATH_TO_ROOT}/wiki/{wiki_items.U_ITEM}">{wiki_items.TITLE}</a></td>
 					# IF C_HORIZONTAL #
 						<td><span class="pinned {wiki_items.STATUS_CLASS}">{wiki_items.STATUS}</span></td>
-						<td># IF wiki_items.C_AUTHOR_EXIST #<a href="{wiki_items.U_AUTHOR_PROFILE}" class="{wiki_items.USER_LEVEL_CLASS}" # IF wiki_items.C_USER_GROUP_COLOR # style="color:{wiki_items.USER_GROUP_COLOR}"# ENDIF #>{wiki_items.PSEUDO}</a># ELSE #{wiki_items.AUTHOR_IP}# ENDIF #</td>
+						<td># IF wiki_items.C_AUTHOR_EXISTS #<a href="{wiki_items.U_AUTHOR_PROFILE}" class="{wiki_items.USER_LEVEL_CLASS}" # IF wiki_items.C_USER_GROUP_COLOR # style="color:{wiki_items.USER_GROUP_COLOR}"# ENDIF #>{wiki_items.PSEUDO}</a># ELSE #{wiki_items.AUTHOR_IP}# ENDIF #</td>
 					# ENDIF #
 			</tr>
 			# END wiki_items #

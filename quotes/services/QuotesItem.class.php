@@ -193,7 +193,7 @@ class QuotesItem
 				'ID' => $this->id,
 				'WRITER_NAME' => $this->writer,
 				'CONTENT' => $content,
-				'C_AUTHOR_EXIST' => $user->get_id() !== User::VISITOR_LEVEL,
+				'C_AUTHOR_EXISTS' => $user->get_id() !== User::VISITOR_LEVEL,
 				'AUTHOR_DISPLAY_NAME' => $user->get_display_name(),
 				'USER_LEVEL_CLASS' => UserService::get_level_class($user->get_level()),
 				'USER_GROUP_COLOR' => $user_group_color,

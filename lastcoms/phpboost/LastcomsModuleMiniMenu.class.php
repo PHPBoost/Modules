@@ -76,7 +76,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 				Date::get_array_tpl_vars(new Date($row['timestamp'], Timezone::SERVER_TIMEZONE), 'date'),
 				array(
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
-				'C_AUTHOR_EXIST' => $row['user_id'] !== User::VISITOR_LEVEL,
+				'C_AUTHOR_EXISTS' => $row['user_id'] !== User::VISITOR_LEVEL,
 				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
 				'USER_GROUP_COLOR' => $user_group_color,
 				'PSEUDO' => $row['pseudo'],

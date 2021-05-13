@@ -64,7 +64,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 				'TITLE' => stripslashes($row['title']),
 				'STATUS_CLASS' => in_array($row['defined_status'], array_keys($status_classes)) ? $status_classes[$row['defined_status']] : '',
 				'STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['status.' . $row['defined_status']] ? $lang['status.' . $row['defined_status']] : ''),
-				'C_AUTHOR_EXIST' => !empty($row['display_name']),
+				'C_AUTHOR_EXISTS' => !empty($row['display_name']),
 				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
 				'USER_GROUP_COLOR' => $user_group_color,
