@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 16
+ * @version     PHPBoost 6.0 - last update: 2021 05 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -11,7 +11,9 @@ class HomeLandingAnchorsMenu
 {
     public static function get_anchors_menu_view()
 	{
+        $lang = LangLoader::get('common', 'HomeLanding');
         $view = new FileTemplate('HomeLanding/pagecontent/anchors-menu.tpl');
+        $view->add_lang($lang);
 		$config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
 
@@ -21,12 +23,12 @@ class HomeLandingAnchorsMenu
             {
                 if(isset($module['id_category'])) {
                     if($module['id_category'] != Category::ROOT_CATEGORY)
-                        $module_title = LangLoader::get_message('anchors.' . $module['module_id'], 'common', 'HomeLanding') . '/' .CategoriesService::get_categories_manager($module['phpboost_module_id'])->get_categories_cache()->get_category($modules[$module['module_id']]->get_id_category())->get_name();
+                        $module_title = $lang['homelanding.category.' . $module['module_id'] ]. '/' . CategoriesService::get_categories_manager($module['phpboost_module_id'])->get_categories_cache()->get_category($modules[$module['module_id']]->get_id_category())->get_name();
                     else
-                        $module_title = LangLoader::get_message('anchors.' . $module['module_id'], 'common', 'HomeLanding');
+                        $module_title = $lang['homelanding.category.' . $module['module_id']];
                 }
                 else
-                    $module_title = LangLoader::get_message('anchors.' . $module['module_id'], 'common', 'HomeLanding');
+                    $module_title = $lang['homelanding.module.' . $module['module_id']];
 
                 $view->assign_block_vars('tabs', array(
                     'C_DISPLAYED_TAB' => $module['displayed'],
@@ -34,7 +36,6 @@ class HomeLandingAnchorsMenu
                     'U_TAB'           => '#' . $module['module_id'],
                     'TAB_TITLE'       => $module_title
                 ));
-
             }
         }
 

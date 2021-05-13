@@ -44,7 +44,7 @@ class HomeLandingStickyController extends ModuleController
 	    $graphical_environment = $response->get_graphical_environment();
 	    $graphical_environment->set_page_title($this->lang['homelanding.sticky.title']);
 	    $breadcrumb = $graphical_environment->get_breadcrumb();
-	    $breadcrumb->add(Langloader::get_message('module.title', 'common', 'HomeLanding'), HomeLandingUrlBuilder::home());
+	    $breadcrumb->add(Langloader::get_message('homelanding.module.title', 'common', 'HomeLanding'), HomeLandingUrlBuilder::home());
 	    $breadcrumb->add($this->lang['homelanding.sticky.title']);
         $this->template->put_all(array(
             'STICKY_TITLE' => $config->get_sticky_title(),

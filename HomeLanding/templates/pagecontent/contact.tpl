@@ -1,16 +1,14 @@
 <div class="sub-section" style="order: {CONTACT_POSITION};">
 	<div class="content-container">
 		<article id="contact-panel">
-			<header class="module-header">
+			<header class="module-header flex-between">
 				<h2>{L_MODULE_TITLE}</h2>
 				<div class="controls align-right">
-					<a href="{PATH_TO_ROOT}/contact">
-						${Langloader::get_message('link.to.contact', 'common', 'HomeLanding')}
-					</a>
+					<a href="{PATH_TO_ROOT}/contact" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
 				</div>
 			</header>
 			<div class="content">
-				# INCLUDE MSG #
+				# INCLUDE MESSAGE_HELPER #
 
 				# IF C_MAP_ENABLED #
 					# IF C_MAP_TOP #
@@ -19,7 +17,7 @@
 				# ENDIF #
 				# IF C_MAIL_SENT #
 					<a href="{PATH_TO_ROOT}/contact">
-						${Langloader::get_message('send.another.email', 'common', 'HomeLanding')}
+						{@homelanding.send.another.email}
 					</a>
 				# ELSE #
 					# INCLUDE CONTACT_FORM #

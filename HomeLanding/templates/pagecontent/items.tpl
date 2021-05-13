@@ -1,16 +1,16 @@
 <div class="sub-section" style="order: {MODULE_POSITION};">
 	<div class="content-container">
 		<article id="{MODULE_NAME}# IF C_CATEGORY #_category# ENDIF #-panel">
-			<header class="module-header">
+			<header class="module-header flex-between">
 				<h2>{L_MODULE_TITLE}</h2>
 				<div class="controls align-right">
-					<a href="{PATH_TO_ROOT}/{MODULE_NAME}">{L_SEE_ALL_ITEMS}</a>
+					<a href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
 				</div>
 			</header>
 			# IF C_NO_ITEM #
 				<div class="content">
 					<div class="message-helper bgc notice">
-						${LangLoader::get_message('no_item_now', 'common')}
+						{@common.no.item.now}
 					</div>
 				</div>
 			# ELSE #
@@ -19,27 +19,27 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th>${LangLoader::get_message('form.name', 'common')}</th>
-									<th class="col-small" aria-label="{@creation.date}">
+									<th>{@common.name}</th>
+									<th class="col-small" aria-label="{@common.creation.date}">
 										<i class="fa fa-fw fa-clock" aria-hidden="true"></i>
-										<span class="hidden-large-screens">{@creation.date}</span>
+										<span class="hidden-large-screens">{@common.creation.date}</span>
 									</th>
 									# IF C_VIEWS_NUMBER #
-										<th class="col-small" aria-label="# IF C_VISIT #{@visits.number}# ELSE #{@module.views.number}# ENDIF #">
+										<th class="col-small" aria-label="# IF C_VISIT #{@common.visits.number}# ELSE #{@common.views.number}# ENDIF #">
 											<i class="fa fa-fw fa-# IF C_VISIT #share-square# ELSE #eye# ENDIF #" aria-hidden="true"></i>
-											<span class="hidden-large-screens"># IF C_VISIT #{@visits.number}# ELSE #{@module.views.number}# ENDIF #</span>
+											<span class="hidden-large-screens"># IF C_VISIT #{@common.visits.number}# ELSE #{@common.views.number}# ENDIF #</span>
 										</th>
 									# ENDIF #
 									# IF C_DL_NUMBER #
-										<th class="col-small" aria-label="{@downloads.number}">
+										<th class="col-small" aria-label="{@common.downloads.number}">
 											<i class="fa fa-fw fa-download" aria-hidden="true"></i>
-											<span class="hidden-large-screens">{@downloads.number}</span>
+											<span class="hidden-large-screens">{@common.downloads.number}</span>
 										</th>
 									# ENDIF #
 									# IF C_VISIT #
-										<th class="col-small" aria-label="{@website.link}">
+										<th class="col-small" aria-label="{@common.link.to.website}">
 											<i class="fa fa-fw fa-sign-in-alt" aria-hidden="true"></i>
-											<span class="hidden-large-screens">{@website.link}</span>
+											<span class="hidden-large-screens">{@common.link.to.website}</span>
 										</th>
 									# ENDIF #
 								</tr>
@@ -47,7 +47,7 @@
 							<tbody>
 								# START items #
 									<tr>
-										<td# IF C_VISIT # aria-label="{@website.details}"# ENDIF #><a href="{items.U_ITEM}">{items.TITLE}</a></td>
+										<td# IF C_VISIT # aria-label="{@common.see.details}"# ENDIF #><a href="{items.U_ITEM}">{items.TITLE}</a></td>
 										<td>
 											# IF items.HAS_UPDATE_DATE #
 												<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
@@ -57,7 +57,7 @@
 										</td>
 										# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
 										# IF C_DL_NUMBER #<td>{items.DOWNLOADS_NUMBER}</td># ENDIF #
-										# IF C_VISIT #<td aria-label="{@website.link}"><a href="{items.U_VISIT}"><i class="fa fa-fw fa-sign-in-alt" aria-hidden="true"></i></a></td># ENDIF #
+										# IF C_VISIT #<td aria-label="{@common.link.to.website}"><a href="{items.U_VISIT}"><i class="fa fa-fw fa-sign-in-alt" aria-hidden="true"></i></a></td># ENDIF #
 									</tr>
 								# END items #
 							</tbody>
@@ -91,15 +91,15 @@
 												# ENDIF #
 											# ENDIF #
 											<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
-											# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{items.VIEWS_NUMBER} # IF items.C_SEVERAL_VIEWS #${LangLoader::get_message('module.views', 'common', 'HomeLanding')}# ELSE #${LangLoader::get_message('module.view', 'common', 'HomeLanding')}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
+											# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{items.VIEWS_NUMBER} # IF items.C_SEVERAL_VIEWS #{@common.views}# ELSE #{@common.view}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 										</div>
 										# IF items.C_CONTROLS #
 											<span class="controls">
 												# IF items.C_EDIT #
-													<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+													<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 												# ENDIF #
 												# IF items.C_DELETE #
-													<a href="{items.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+													<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 												# ENDIF #
 											</span>
 										# ENDIF #
@@ -110,7 +110,7 @@
 											<div class="cell-thumbnail cell-landscape cell-center">
 												<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
 												<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
-													# IF items.C_READ_MORE #[${LangLoader::get_message('read.more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
+													{@common.see.details}
 												</a>
 											</div>
 										# ELSE #
@@ -118,7 +118,7 @@
 												<div class="cell-thumbnail cell-landscape cell-center">
 													<img src="{items.U_PARTNER_THUMBNAIL}" alt="{items.TITLE}" />
 													<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
-														# IF items.C_READ_MORE #[${LangLoader::get_message('read.more', 'common')}]# ELSE #<i class="fa fa-eye"></i># ENDIF #
+														{@common.see.details}
 													</a>
 												</div>
 											# ENDIF #
@@ -134,7 +134,7 @@
 											# ENDIF #
 											{items.CONTENTS}
 										# ELSE #
-											{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}">[${LangLoader::get_message('read.more', 'common')}]</a># ENDIF #
+											{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}">[{@common.read.more}]</a># ENDIF #
 										# ENDIF #
 									</div>
 								</div>

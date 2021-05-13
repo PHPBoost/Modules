@@ -4,16 +4,9 @@
 */
 
 /* --- General design ------------------------------------------------------- */
-
 #module-homelanding {
     display: flex;
     flex-direction: column;
-}
-
-#module-homelanding article header:after {
-    content: '';
-    clear: both;
-    display: block;
 }
 
 #module-homelanding h1,
@@ -26,6 +19,8 @@
 }
 
 #cssmenu-anchors.small-screen ul { flex-direction: column; }
+
+[data-tabs] img { vertical-align: bottom; }
 
 /* --- Carousel ------------------------------------------------------------- */
 .owl-item figure { display: block; }

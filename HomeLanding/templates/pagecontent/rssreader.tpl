@@ -3,7 +3,7 @@
 		<article id="rss-panel" class="sub-section">
 			<header class="module-header">
 				<h2>
-					${Langloader::get_message('link.to.rss.site', 'common', 'HomeLanding')}
+					{@homelanding.rss.target} :
 					<a href="{SITE_URL}" target="_blank">
 						{SITE_TITLE}
 					</a>

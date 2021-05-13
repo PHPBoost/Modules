@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 09
+ * @version     PHPBoost 6.0 - last update: 2021 05 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -20,7 +20,7 @@ class HomeLandingGallery
 
         $home_lang = LangLoader::get('common', 'HomeLanding');
         $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $view->add_lang(array_merge($home_lang, $module_lang, LangLoader::get('common-lang')));
 
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_name, 'id_category');
 
@@ -48,10 +48,9 @@ class HomeLandingGallery
             'C_VIEWS_ENABLED' => $module_config->is_views_counter_enabled(),
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'MODULE_NAME'     => $module_name,
-            'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
-            'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
             'ITEMS_PER_ROW'   => $module_config->get_columns_number(),
-		));
+		    'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
+        ));
 
 		while ($row = $result->fetch())
 		{

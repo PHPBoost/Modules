@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 01 23
+ * @version     PHPBoost 6.0 - last update: 2021 05 13
  * @since       PHPBoost 5.0 - 2016 05 01
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -27,28 +27,28 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 			$module->set_properties($properties);
 
 			$this->view->assign_block_vars('modules_list', array(
-				'C_ACTIVE' => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss')) ? true : $module->is_active(),
+				'C_ACTIVE'  => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss')) ? true : $module->is_active(),
 				'C_DISPLAY' => $module->is_displayed(),
-				'ID' => $id,
-				'NAME' => $module->get_name(),
-				'U_EDIT' => HomeLandingUrlBuilder::configuration($module->get_config_module_id())->rel()
+				'ID'        => $id,
+				'NAME'      => $module->get_name(),
+				'U_EDIT'    => HomeLandingUrlBuilder::configuration($module->get_config_module_id())->rel()
 			));
 			$modules_number++;
 		}
 
 		$this->view->put_all(array(
-			'C_MODULES' => $modules_number,
-			'C_MORE_THAN_ONE_MODULE' => $modules_number > 1
+			'C_MODULES'         => $modules_number,
+			'C_SEVERAL_MODULES' => $modules_number > 1
 		));
 
-		return new AdminHomeLandingDisplayResponse($this->view, LangLoader::get_message('admin.elements_position', 'common', 'HomeLanding'));
+		return new AdminHomeLandingDisplayResponse($this->view, LangLoader::get_message('homelanding.modules.position', 'common', 'HomeLanding'));
 	}
 
 	private function init()
 	{
 		$this->lang = LangLoader::get('admin-user-common');
 		$this->view = new FileTemplate('HomeLanding/AdminHomeLandingModulesPositionController.tpl');
-		$this->view->add_lang($this->lang);
+		$this->view->add_lang(array_merge($this->lang, LangLoader::get('common', 'HomeLanding'), LangLoader::get('common-lang'), LangLoader::get('form-lang')));
 		$this->config = HomeLandingConfig::load();
 	}
 
@@ -57,7 +57,7 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 		if ($request->get_value('submit', false))
 		{
 			$this->update_position($request);
-			$this->view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.position.update', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('message.success.position.update', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 	}
 

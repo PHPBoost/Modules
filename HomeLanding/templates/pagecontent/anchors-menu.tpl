@@ -14,7 +14,7 @@
 
 <script>
     jQuery("#cssmenu-anchors").menumaker({
-        title: "${Langloader::get_message('anchors.title', 'common', 'HomeLanding')}",
+        title: "{@homelanding.anchors.title}",
         format: "multitoggle",
         breakpoint: 768
     });

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 09
+ * @version     PHPBoost 6.0 - last update: 2021 05 13
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -25,7 +25,7 @@ class HomeLandingDisplayItems
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
-		$view->add_lang(array_merge(LangLoader::get('common', 'HomeLanding'), LangLoader::get('common', $module_name)));
+		$view->add_lang(array_merge(LangLoader::get('common', 'HomeLanding'), LangLoader::get('common', $module_name), LangLoader::get('common-lang')));
 
 		$sql_condition = 'WHERE id_category IN :categories
 			AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
@@ -43,7 +43,6 @@ class HomeLandingDisplayItems
 			'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
 			'MODULE_NAME'        => $module_name,
 			'MODULE_POSITION'    => HomeLandingConfig::load()->get_module_position_by_id($page_type),
-			'L_SEE_ALL_ITEMS'    => LangLoader::get_message('link.to.' . $module_name, 'common', 'HomeLanding')
 		));
 
 		if ($module->get_configuration()->has_rich_config_parameters())
@@ -63,13 +62,13 @@ class HomeLandingDisplayItems
 			$category = CategoriesService::get_categories_manager($module_name)->get_categories_cache()->get_category($home_modules[$module_cat]->get_id_category());
 			$view->put_all(array(
 				'C_CATEGORY'     => true,
-				'L_MODULE_TITLE' => LangLoader::get_message('last.' . $module_name.'.cat', 'common', 'HomeLanding') . ': ' . $category->get_name()
+				'L_MODULE_TITLE' => LangLoader::get_message('homelanding.category.' . $module_name, 'common', 'HomeLanding') . ': ' . $category->get_name()
 			));
 		}
 		else
 		{
 			$view->put_all(array(
-				'L_MODULE_TITLE' => LangLoader::get_message('last.' . $module_name, 'common', 'HomeLanding'),
+				'L_MODULE_TITLE' => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
 			));
 		}
 

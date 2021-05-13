@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 09
+ * @version     PHPBoost 6.0 - last update: 2021 05 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -28,7 +28,7 @@ class HomeLandingForum
 
 		$home_lang = LangLoader::get('common', 'HomeLanding');
 		$module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $view->add_lang(array_merge($home_lang, $module_lang, LangLoader::get('common-lang')));
 
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_name, 'id_category');
 
@@ -49,15 +49,15 @@ class HomeLandingForum
 		));
 
 		$view->put_all(array(
-			'C_NO_ITEM' => $result->get_rows_count() == 0,
-			'C_PARENT' => true,
-			'C_TOPIC' => true,
-			'C_AVATAR_IMG' => $user_accounts_config->is_default_avatar_enabled(),
+			'C_NO_ITEM'     => $result->get_rows_count() == 0,
+			'C_PARENT'      => true,
+			'C_TOPIC'       => true,
+			'C_AVATAR_IMG'  => $user_accounts_config->is_default_avatar_enabled(),
 			'C_MODULE_LINK' => true,
-			'MODULE_NAME' => $module_name,
+
+			'MODULE_NAME'     => $module_name,
 			'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
-			'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
-			'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
+			'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
 		));
 
 		while ($row = $result->fetch())
@@ -75,20 +75,20 @@ class HomeLandingForum
 			$characters_number_to_cut = $modules[$module_name]->get_characters_number_displayed();
 
 			$view->assign_block_vars('items', array(
-				'C_USER_GROUP_COLOR' => !empty($user_group_color),
-				'C_AUTHOR_EXIST' => $row['last_user_id'] !== User::VISITOR_LEVEL,
+				'C_AUTHOR_GROUP_COLOR' => !empty($user_group_color),
+				'C_AUTHOR_EXISTS'      => $row['last_user_id'] !== User::VISITOR_LEVEL,
 
-				'PSEUDO' => $row['last_login'],
-				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
-				'USER_GROUP_COLOR' => $user_group_color,
-				'DATE' => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
-				'TOPIC' => stripslashes($row['title']),
-				'CONTENT' => TextHelper::cut_string(@strip_tags(stripslashes($content), 0), (int)$characters_number_to_cut),
+				'AUTHOR_DISPLAY_NAME' => $row['last_login'],
+				'AUTHOR_LEVEL_CLASS'  => UserService::get_level_class($row['level']),
+				'AUTHOR_GROUP_COLOR'  => $user_group_color,
+				'DATE'                => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
+				'TOPIC'               => stripslashes($row['title']),
+				'CONTENT'             => TextHelper::cut_string(@strip_tags(stripslashes($content), 0), (int)$characters_number_to_cut),
 
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['last_user_id'])->rel(),
-				'U_AVATAR_IMG' => $user_avatar,
-				'U_TOPIC' => $link_message->rel(),
-				'U_ITEM' => $link->rel(),
+				'U_AVATAR_IMG'     => $user_avatar,
+				'U_TOPIC'          => $link_message->rel(),
+				'U_ITEM'           => $link->rel(),
 			));
 		}
 		$result->dispose();

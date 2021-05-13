@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 05 09
+ * @version     PHPBoost 6.0 - last update: 2021 05 13
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -27,7 +27,7 @@ class HomeLandingGuestbook
 
 		$home_lang = LangLoader::get('common', 'HomeLanding');
 		$module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $view->add_lang(array_merge($home_lang, $module_lang, LangLoader::get('common-lang')));
 
 
 		$result = PersistenceContext::get_querier()->select('SELECT member.*, guestbook.*, guestbook.login as glogin, ext_field.user_avatar
@@ -40,13 +40,12 @@ class HomeLandingGuestbook
 		));
 
 		$view->put_all(array(
-			'C_NO_ITEM' => $result->get_rows_count() == 0,
-			'C_MODULE_LINK' => true,
-			'MODULE_NAME' => $module_name,
+			'C_NO_ITEM'       => $result->get_rows_count() == 0,
+			'C_MODULE_LINK'   => true,
+			'C_AVATAR_IMG'    => $user_accounts_config->is_default_avatar_enabled(),
+			'MODULE_NAME'     => $module_name,
 			'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
-			'L_MODULE_TITLE'  => LangLoader::get_message('last.'.$module_name, 'common', 'HomeLanding'),
-			'L_SEE_ALL_ITEMS' => LangLoader::get_message('link.to.'.$module_name, 'common', 'HomeLanding'),
-			'C_AVATAR_IMG' => $user_accounts_config->is_default_avatar_enabled(),
+			'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
 		));
 
 		while ($row = $result->fetch())

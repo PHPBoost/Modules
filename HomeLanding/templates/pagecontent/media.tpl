@@ -1,19 +1,19 @@
 <div class="sub-section" style="order: {MODULE_POSITION};">
 	<div class="content-container">
 		<article id="{MODULE_NAME}-panel">
-			<header class="module-header">
+			<header class="module-header flex-between">
 				<h2>
 					{L_MODULE_TITLE}
 				</h2>
 				<div class="controls align-right">
-					<a href="{PATH_TO_ROOT}/{MODULE_NAME}">{L_SEE_ALL_ITEMS}</a>
+					<a href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
 				</div>
 			</header>
 
 			# IF C_NO_ITEM #
 				<div class="content">
 					<div class="message-helper bgc notice">
-						${LangLoader::get_message('no_item_now', 'common')}
+						{@common.no.item.now}
 					</div>
 				</div>
 			# ELSE #
@@ -22,7 +22,7 @@
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<h3><a href="{media_host.U_ITEM}">{media_host.TITLE}</a></h3>
 							<div class="more">
-								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}
+								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
 							</div>
 							<div class="media-content media-host" style="width: {media_host.WIDTH}px; height: {media_host.HEIGHT}px">
