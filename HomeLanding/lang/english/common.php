@@ -22,7 +22,7 @@ $lang['homelanding.posted.in.topic']  = 'Posted in topic :';
 $lang['homelanding.posted.in.module'] = 'Posted in module:';
 
 // Modules labels
-$lang['homelanding.see.module']          = 'see.module';
+$lang['homelanding.see.module']               = 'see.module';
 $lang['homelanding.module.carousel']          = 'Carousel';
 $lang['homelanding.module.anchors_menu']      = 'Homepage Menu';
 $lang['homelanding.module.edito']             = 'Edito';
@@ -64,93 +64,93 @@ $lang['homelanding.anchors.title'] = 'Homepage menu';
 $lang['carousel.no.alt'] = 'Carousel item';
 
 // Contact
-$lang['homelanding.link.to.contact'] = 'See contact page';
-$lang['homelanding.send.email.success'] = 'Your email has been sent. ';
-$lang['homelanding.send.email.error'] = 'Your email could not be sent. ';
-$lang['homelanding.send.email.acknowledgment'] = 'A confirmation message has been sent to you. ';
-$lang['homelanding.send.email.tracking.number'] = 'Tracking number';
-$lang['homelanding.send.email.acknowledgment.title'] = 'Confirmation';
+$lang['homelanding.link.to.contact']                   = 'See contact page';
+$lang['homelanding.send.email.success']                = 'Your email has been sent. ';
+$lang['homelanding.send.email.error']                  = 'Your email could not be sent. ';
+$lang['homelanding.send.email.acknowledgment']         = 'A confirmation message has been sent to you. ';
+$lang['homelanding.send.email.tracking.number']        = 'Tracking number';
+$lang['homelanding.send.email.acknowledgment.title']   = 'Confirmation';
 $lang['homelanding.send.email.acknowledgment.correct'] = 'Your email has been correctly sent. ';
-$lang['homelanding.send.another.email'] = 'Send another message. ';
+$lang['homelanding.send.another.email']                = 'Send another message. ';
 
 // Rss
-$lang['homelanding.rss.target'] = 'Rss feed of the website : ';
-$lang['homelanding.no.xml.file'] = 'No xml file defined';
+$lang['homelanding.rss.target']   = 'Rss feed of the website : ';
+$lang['homelanding.no.xml.file']  = 'No xml file defined';
 $lang['homelanding.not.xml.file'] = 'The url is not a xml file';
 
 // Configuration
-$lang['homelanding.label.module.title'] = 'Module title';
+$lang['homelanding.label.module.title']      = 'Module title';
 $lang['homelanding.label.module.title.clue'] = 'Display the module title on the page, the breadcrumb and the page tab';
 
-$lang['homelanding.hide.menu.left'] = 'Hide the left menu column';
-$lang['homelanding.hide.menu.right'] = 'Hide the right menu column';
-$lang['homelanding.hide.menu.top.central'] = 'Hide the top central menu';
+$lang['homelanding.hide.menu.left']           = 'Hide the left menu column';
+$lang['homelanding.hide.menu.right']          = 'Hide the right menu column';
+$lang['homelanding.hide.menu.top.central']    = 'Hide the top central menu';
 $lang['homelanding.hide.menu.bottom.central'] = 'Hide the bottom central menu';
-$lang['homelanding.hide.menu.top.footer'] = 'Hide the top footer menu';
+$lang['homelanding.hide.menu.top.footer']     = 'Hide the top footer menu';
 
-$lang['homelanding.display.module'] = 'Display the module';
-$lang['homelanding.display.full.module'] = 'Display full module';
-$lang['homelanding.display.category'] = 'Display a category';
-$lang['homelanding.items.number'] = 'Items number to display';
-$lang['homelanding.characters.limit'] = 'Limit the number of characters';
-$lang['homelanding.choose.category'] = 'Choose a category';
+$lang['homelanding.display.module']         = 'Display the module';
+$lang['homelanding.display.full.module']    = 'Display full module';
+$lang['homelanding.display.category']       = 'Display a category';
+$lang['homelanding.items.number']           = 'Items number to display';
+$lang['homelanding.characters.limit']       = 'Limit the number of characters';
+$lang['homelanding.choose.category']        = 'Choose a category';
 $lang['homelanding.display.sub.categories'] = 'Display subcategories content';
 
 // Configuration Anchors Menu
-$lang['homelanding.config.anchors'] = 'Onepage menu display';
-$lang['homelanding.display.anchors'] = 'Display the anchors menu';
+$lang['homelanding.config.anchors']       = 'Onepage menu display';
+$lang['homelanding.display.anchors']      = 'Display the anchors menu';
 $lang['homelanding.display.anchors.clue'] = 'Menu for fast navigation inside the homepage';
 
 // Configuration Edito
-$lang['homelanding.config.edito'] = 'Edito display';
+$lang['homelanding.config.edito']  = 'Edito display';
 $lang['homelanding.display.edito'] = 'Display the edito';
 $lang['homelanding.edito.content'] = 'Content of the edito';
 
 // Configuration Lastcoms
-$lang['homelanding.config.lastcoms'] = 'Comments display';
+$lang['homelanding.config.lastcoms']  = 'Comments display';
 $lang['homelanding.display.lastcoms'] = 'Display the last comments';
-$lang['homelanding.lastcoms.limit'] = 'Number of comments to display';
+$lang['homelanding.lastcoms.limit']   = 'Number of comments to display';
 
 // Configuration Carousel
-$lang['homelanding.config.carousel'] = 'Slideshow display';
-$lang['homelanding.display.carousel'] = 'Display the slideshow';
-$lang['homelanding.carousel.content'] = 'Content of the slideshow';
-$lang['homelanding.carousel.speed'] = 'Speed of picture switching (ms)';
-$lang['homelanding.carousel.time'] = 'Display duration of an image (ms)';
-$lang['homelanding.carousel.number'] = 'Displayed Pictures Number';
-$lang['homelanding.carousel.number.explain'] = '0px < 1 image < 768px < 2 images < 1024px < choice';
-$lang['homelanding.carousel.auto'] = 'Autoplay';
-$lang['homelanding.carousel.hover'] = 'Pause on hover';
-$lang['homelanding.carousel.enabled'] = 'Enabled';
-$lang['homelanding.carousel.disabled'] = 'Disabled';
+$lang['homelanding.config.carousel']      = 'Slideshow display';
+$lang['homelanding.display.carousel']     = 'Display the slideshow';
+$lang['homelanding.carousel.content']     = 'Content of the slideshow';
+$lang['homelanding.carousel.speed']       = 'Speed of picture switching (ms)';
+$lang['homelanding.carousel.time']        = 'Display duration of an image (ms)';
+$lang['homelanding.carousel.number']      = 'Displayed Pictures Number';
+$lang['homelanding.carousel.number.clue'] = '0px < 1 image < 768px < 2 images < 1024px < choice';
+$lang['homelanding.carousel.auto']        = 'Autoplay';
+$lang['homelanding.carousel.hover']       = 'Pause on hover';
+$lang['homelanding.carousel.enabled']     = 'Enabled';
+$lang['homelanding.carousel.disabled']    = 'Disabled';
     // Content
 $lang['homelanding.carousel.description'] = 'Description of the slide';
-$lang['homelanding.carousel.link.url'] = 'Address of the link';
+$lang['homelanding.carousel.link.url']    = 'Address of the link';
 $lang['homelanding.carousel.picture.url'] = 'Address of the picture';
-$lang['homelanding.carousel.upload'] = 'Open the file manager';
-$lang['homelanding.carousel.add'] = 'Add a picture';
-$lang['homelanding.carousel.del'] = 'Delete the slide';
+$lang['homelanding.carousel.upload']      = 'Open the file manager';
+$lang['homelanding.carousel.add']         = 'Add a picture';
+$lang['homelanding.carousel.del']         = 'Delete the slide';
 
 // Modules configuration
-$lang['homelanding.display.articles'] = 'Articles module display';
-$lang['homelanding.display.calendar'] = 'Calendar module display';
-$lang['homelanding.calendar.clue'] = 'Only displays upcoming events';
-$lang['homelanding.display.contact'] = 'Contact module display';
-$lang['homelanding.display.download'] = 'Download module display';
-$lang['homelanding.display.forum'] = 'Forum module display';
-$lang['homelanding.display.gallery'] = 'Gallery module display';
+$lang['homelanding.display.articles']  = 'Articles module display';
+$lang['homelanding.display.calendar']  = 'Calendar module display';
+$lang['homelanding.calendar.clue']     = 'Only displays upcoming events';
+$lang['homelanding.display.contact']   = 'Contact module display';
+$lang['homelanding.display.download']  = 'Download module display';
+$lang['homelanding.display.forum']     = 'Forum module display';
+$lang['homelanding.display.gallery']   = 'Gallery module display';
 $lang['homelanding.display.guestbook'] = 'Guestbook module display';
-$lang['homelanding.display.media'] = 'Media module display';
-$lang['homelanding.display.news'] = 'News module display';
-$lang['homelanding.display.smallads'] = 'Smallads module display';
-$lang['homelanding.display.web'] = 'Web module display';
-$lang['homelanding.web.clue'] = 'Displays only the partner links';
+$lang['homelanding.display.media']     = 'Media module display';
+$lang['homelanding.display.news']      = 'News module display';
+$lang['homelanding.display.smallads']  = 'Smallads module display';
+$lang['homelanding.display.web']       = 'Web module display';
+$lang['homelanding.web.clue']          = 'Displays only the partner links';
     // External Rss
-$lang['homelanding.config.rss'] = 'Rss timeline display of an external website';
-$lang['homelanding.display.rss'] = 'Display the rss timeline';
+$lang['homelanding.config.rss']    = 'Rss timeline display of an external website';
+$lang['homelanding.display.rss']   = 'Display the rss timeline';
 $lang['homelanding.rss.site.name'] = 'Name of the website';
-$lang['homelanding.rss.site.url'] = 'Address of the website';
-$lang['homelanding.rss.xml.url'] = 'Address of the xml file';
-$lang['homelanding.rss.xml.nb'] = 'Number of links';
-$lang['homelanding.rss.xml.char'] = 'Number of character per links';
+$lang['homelanding.rss.site.url']  = 'Address of the website';
+$lang['homelanding.rss.xml.url']   = 'Address of the xml file';
+$lang['homelanding.rss.xml.nb']    = 'Number of links';
+$lang['homelanding.rss.xml.char']  = 'Number of character per links';
 ?>

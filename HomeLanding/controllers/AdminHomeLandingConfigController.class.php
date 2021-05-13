@@ -312,7 +312,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$fieldset_carousel->add_field(new FormFieldNumberEditor('carousel_number', $this->lang['homelanding.carousel.number'], $this->config->get_carousel_number(),
 				array(
 					'hidden' => !$this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
-					'description' => $this->lang['homelanding.carousel.number.explain']
+					'description' => $this->lang['homelanding.carousel.number.clue']
 				)
 			));
 
