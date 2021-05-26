@@ -1,21 +1,21 @@
 <section id="module-smallads">
 	<header class="section-header">
 		<div class="controls align-right">
-			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="${LangLoader::get_message('syndication', 'common')}"><i class="fa fa-rss warning" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('syndication', 'common')}</span></a>
-			# IF NOT C_ROOT_CATEGORY #{@module.title}# ENDIF #
-			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
+			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning" aria-hidden="true"></i></a>
+			# IF NOT C_ROOT_CATEGORY #{@smallads.module.title}# ENDIF #
+			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_ARCHIVED #
-				{@archived.items}
+				{@smallads.archived.items}
 			# ELSE #
 				# IF C_PENDING #
-					{@pending.items}
+					{@smallads.pending.items}
 				# ELSE #
 					# IF C_MEMBER_ITEMS #
-				 		# IF C_MY_ITEMS #{@my.items}# ELSE #{@member.items} {MEMBER_NAME}# ENDIF #
+				 		# IF C_MY_ITEMS #{@smallads.my.items}# ELSE #{@smallads.member.items} {MEMBER_NAME}# ENDIF #
 					# ELSE #
-						# IF C_ROOT_CATEGORY #{@module.title}# ELSE #{CATEGORY_NAME}# ENDIF #
+						# IF C_ROOT_CATEGORY #{@smallads.module.title}# ELSE #{CATEGORY_NAME}# ENDIF #
 					# ENDIF #
 				# ENDIF #
 			# ENDIF #
@@ -111,7 +111,7 @@
 							<div class="sort-list cell">
 								<div class="cell-body">
 									<div class="cell-content">
-										<span>{@smallads.sort.by} :</span>
+										<span>{@common.sort.by} :</span>
 										<div
 										    data-listorder-control="dropdown-sort"
 										    class="listorder-drop-down"
@@ -119,38 +119,38 @@
 										    data-name="sorttitle">
 											<div data-type="panel" class="listorder-dd-panel"></div>
 											<ul data-type="content" class="dropdown-container">
-												<li> {@smallads.sort.date}
-													<em class="sort-type bgc-full link-color" data-path=".lo-date" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.date} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
-													<em class="sort-type bgc-full logo-color" data-path=".lo-date" data-order="desc" data-type="number" data-selected="true"><span class="sr-only">{@smallads.sort.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+												<li> {@common.sort.by.date}
+													<em class="sort-type bgc-full link-color" data-path=".lo-date" data-order="asc" data-type="number"><span class="sr-only">{@common.sort.by.date} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+													<em class="sort-type bgc-full logo-color" data-path=".lo-date" data-order="desc" data-type="number" data-selected="true"><span class="sr-only">{@common.sort.by.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 												</li>
-												<li> {@smallads.sort.title}
-													<em class="sort-type bgc-full link-color" data-path=".lo-title" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
-													<em class="sort-type bgc-full logo-color" data-path=".lo-title" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.title} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
+												<li> {@common.sort.by.alphabetic}
+													<em class="sort-type bgc-full link-color" data-path=".lo-title" data-order="asc" data-type="text"><span class="sr-only">{@common.sort.by.alphabetic} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
+													<em class="sort-type bgc-full logo-color" data-path=".lo-title" data-order="desc" data-type="text"><span class="sr-only">{@common.sort.by.alphabetic} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 												</li>
-												<li> {@smallads.sort.price}
-													<em class="sort-type bgc-full link-color" data-path=".lo-price" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
-													<em class="sort-type bgc-full logo-color" data-path=".lo-price" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.price} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+												<li> {@common.sort.by.price}
+													<em class="sort-type bgc-full link-color" data-path=".lo-price" data-order="asc" data-type="number"><span class="sr-only">{@common.sort.by.price} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+													<em class="sort-type bgc-full logo-color" data-path=".lo-price" data-order="desc" data-type="number"><span class="sr-only">{@common.sort.by.price} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 												</li>
 												# IF C_LOCATION #
-												  	<li> {@location}
-													    <em class="sort-type bgc-full link-color" data-path=".lo-location" data-order="asc" data-type="text"><span class="sr-only">{@location} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
-													   	<em class="sort-type bgc-full logo-color" data-path=".lo-location" data-order="desc" data-type="text"><span class="sr-only">{@location} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
+												  	<li> {@common.sort.by.location}
+													    <em class="sort-type bgc-full link-color" data-path=".lo-location" data-order="asc" data-type="text"><span class="sr-only">{@common.sort.by.location} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
+													   	<em class="sort-type bgc-full logo-color" data-path=".lo-location" data-order="desc" data-type="text"><span class="sr-only">{@common.sort.by.location} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 											   		</li>
 												# ENDIF #
 							 					# IF NOT C_MEMBER #
-													<li> {@smallads.sort.author}
-														<em class="sort-type bgc-full link-color" data-path=".lo-author" data-order="asc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
-														<em class="sort-type bgc-full logo-color" data-path=".lo-author" data-order="desc" data-type="text"><span class="sr-only">{@smallads.sort.author} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
+													<li> {@common.sort.by.author}
+														<em class="sort-type bgc-full link-color" data-path=".lo-author" data-order="asc" data-type="text"><span class="sr-only">{@common.sort.by.author} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
+														<em class="sort-type bgc-full logo-color" data-path=".lo-author" data-order="desc" data-type="text"><span class="sr-only">{@common.sort.by.author} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
 													</li>
 												# ENDIF #
 												# IF NOT C_PENDING #
-													<li> {@smallads.sort.coms}
-														<em class="sort-type bgc-full link-color" data-path=".lo-comment" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
-														<em class="sort-type bgc-full logo-color" data-path=".lo-comment" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.coms} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+													<li> {@common.sort.by.comments.number}
+														<em class="sort-type bgc-full link-color" data-path=".lo-comment" data-order="asc" data-type="number"><span class="sr-only">{@common.sort.by.comments.number} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+														<em class="sort-type bgc-full logo-color" data-path=".lo-comment" data-order="desc" data-type="number"><span class="sr-only">{@common.sort.by.comments.number} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 													</li>
-													<li> {@smallads.sort.view}
-														<em class="sort-type bgc-full link-color" data-path=".lo-view" data-order="asc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
-														<em class="sort-type bgc-full logo-color" data-path=".lo-view" data-order="desc" data-type="number"><span class="sr-only">{@smallads.sort.view} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
+													<li> {@common.sort.by.views.number}
+														<em class="sort-type bgc-full link-color" data-path=".lo-view" data-order="asc" data-type="number"><span class="sr-only">{@common.sort.by.views.number} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
+														<em class="sort-type bgc-full logo-color" data-path=".lo-view" data-order="desc" data-type="number"><span class="sr-only">{@common.sort.by.views.number} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 													</li>
 												# ENDIF #
 											</ul>
@@ -171,7 +171,7 @@
 				# IF NOT C_HIDE_NO_ITEM_MESSAGE #
 						<div class="content">
 							<div class="message-helper bgc notice align-center">
-								${LangLoader::get_message('no_item_now', 'common')}
+								{@common.no.item.now}
 							</div>
 						</div>
 				# ENDIF #
@@ -181,15 +181,15 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="smallads-title">${LangLoader::get_message('title', 'main')}</th>
+									<th class="smallads-title">{@common.title}</th>
 									<th>{@smallads.form.price}</th>
 									<th>{@smallads.ad.type}</th>
-									<th>${LangLoader::get_message('author', 'common')}</th>
+									<th>{@common.author}</th>
 									# IF C_LOCATION #<th>{@location}</th># ENDIF #
 									# IF C_CATEGORY #<th>${@smallads.category}</th># ENDIF #
 									<th>${@smallads.publication.date}</th>
 									# IF C_MODERATION #
-										<th>${LangLoader::get_message('administrator_alerts_action', 'admin')}</th>
+										<th>{@common.moderation}</th>
 									# ENDIF #
 								</tr>
 							</thead>
@@ -246,18 +246,18 @@
 											<td class="controls">
 												# IF NOT items.C_COMPLETED #
 													# IF items.C_EDIT #
-														<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
+														<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 													# ENDIF #
 												# ENDIF #
 													# IF items.C_DELETE #
-														<a href="{items.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+														<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 													# ENDIF #
 											</td>
 										# ENDIF #
 									</tr>
 								# END items #
 								<tr class="no-result hidden">
-									<td colspan="# IF IS_ADMIN #8# ELSE #7# ENDIF #"><div class="message-helper bgc notice">${LangLoader::get_message('no_item_now', 'common')}</div></td>
+									<td colspan="# IF IS_ADMIN #8# ELSE #7# ENDIF #"><div class="message-helper bgc notice">{@common.no.item.now}</div></td>
 								</tr>
 							</tbody>
 						</table>
@@ -326,11 +326,11 @@
 										<div class="controls">
 											# IF NOT items.C_COMPLETED #
 												# IF items.C_EDIT #
-													<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('edit', 'common')}</span></a>
+													<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 												# ENDIF #
 											# ENDIF #
 											# IF items.C_DELETE #
-												<a href="{items.U_DELETE}" aria-label="${LangLoader::get_message('delete', 'common')}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">${LangLoader::get_message('delete', 'common')}</span></a>
+												<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 											# ENDIF #
 										</div>
 									# ENDIF #
@@ -341,11 +341,11 @@
 									# IF items.C_HAS_THUMBNAIL #
 										<div class="cell-thumbnail cell-landscape cell-center">
 											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="thumbnailUrl" />
-											# IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="cell-thumbnail-caption">${LangLoader::get_message('read.more', 'common')}</a># ENDIF #
+											# IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="cell-thumbnail-caption">{@common.read.more}</a># ENDIF #
 										</div>
 									# ENDIF #
 									<div class="cell-content">
-										<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... # IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="read.more">[${LangLoader::get_message('read.more', 'common')}]</a># ENDIF ## ENDIF #</div>
+										<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... # IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="read.more">[{@common.read.more}]</a># ENDIF ## ENDIF #</div>
 										<div class="smallad-price lo-price"># IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF #</div>
 									</div>
 								</div>
@@ -353,7 +353,7 @@
 								# IF items.C_SOURCES #
 									<aside>
 										<div id="smallads-sources-container">
-											<span>${LangLoader::get_message('form.sources', 'common')}</span> :
+											<span>{@common.sources}</span> :
 											# START items.sources #
 											<a itemprop="isBasedOnUrl" href="{items.sources.URL}" class="small">{items.sources.NAME}</a># IF items.sources.C_SEPARATOR #, # ENDIF #
 											# END items.sources #
@@ -370,7 +370,7 @@
 							</article>
 						# END items #
 					</div>
-					<div class="no-result hidden message-helper bgc notice"> ${LangLoader::get_message('no_item_now', 'common')} </div>
+					<div class="no-result hidden message-helper bgc notice"> {@common.no.item.now} </div>
 				# ENDIF #
 			# ENDIF #
 		</div>
@@ -386,30 +386,30 @@
 			        data-items-per-page="{ITEMS_PER_PAGE}"
 			        data-current-page="0"
 			        data-name="pagination1"
-				   	data-name="paging">
+					data-id="paging">
 					<p data-type="info" class="align-center">
-						${LangLoader::get_message('listorder.item.start', 'common')} - ${LangLoader::get_message('listorder.item.end', 'common')} / ${LangLoader::get_message('listorder.items.number', 'common')} ${TextHelper::lcfirst(@items)}
+						{@common.listorder.item.start} - {@common.listorder.item.end} / {@common.listorder.items.number} ${TextHelper::lcfirst(@items)}
 					</p>
 					<ul>
-						<li class="pagination-item" data-type="first" aria-label="${LangLoader::get_message('pagination.first', 'common')}"><a href="#"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a> </li>
-					    <li class="pagination-item" data-type="prev" aria-label="${LangLoader::get_message('pagination.previous', 'common')}"><a href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a> </li>
+						<li class="pagination-item" data-type="first" aria-label="{@common.pagination.first}"><a href="#"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a> </li>
+					    <li class="pagination-item" data-type="prev" aria-label="{@common.pagination.previous}"><a href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a> </li>
 
 					    <ul class="listorder-holder" data-type="pages">
-					        <li class="pagination-item" data-type="page"><a href="#">{@smallads.active.page}</a></li>
+					        <li class="pagination-item" data-type="page"><a href="#">{@common.listorder.page.number}</a></li>
 					    </ul>
 
-					    <li class="pagination-item" data-type="next" aria-label="${LangLoader::get_message('pagination.next', 'common')}"><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a> </li>
-					    <li class="pagination-item" data-type="last" aria-label="${LangLoader::get_message('pagination.last', 'common')}"><a href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a> </li>
+					    <li class="pagination-item" data-type="next" aria-label="{@common.pagination.next}"><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a> </li>
+					    <li class="pagination-item" data-type="last" aria-label="{@common.pagination.last}"><a href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a> </li>
 					</ul>
 				</nav>
-				<div class="align-center">
+				<!-- <div class="align-center">
 		            <select data-type="items-per-page">
-		                <option value="{ITEMS_PER_PAGE}"> {ITEMS_PER_PAGE} ${LangLoader::get_message('pagination.per', 'common')}</option>
-		                <option value="50"> 50 ${LangLoader::get_message('pagination.per', 'common')}</option>
-		                <option value="100"> 100 ${LangLoader::get_message('pagination.per', 'common')}</option>
-		                <option value="0"> all </option>
+		                <option value="{ITEMS_PER_PAGE}"> {ITEMS_PER_PAGE} {@common.pagination.per}</option>
+		                <option value="50"> 50 {@common.pagination.per}</option>
+		                <option value="100"> 100 {@common.pagination.per}</option>
+		                <option value="0"> {@common.all.e} </option>
 		            </select>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	# ENDIF #
@@ -477,7 +477,7 @@
 		jQuery('li:not([cat_id=0])').has('ul').addClass('has-sub');
 
 			// change root name
-		jQuery('.category-selected:contains("${LangLoader::get_message('root', 'main')}")').html('{@smallads.category.all} <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i>');
+		jQuery('.category-selected:contains("{@common.root}")').html('{@smallads.category.all} <i class="fa fa-fw fa-caret-down" aria-hidden="true"></i>');
 
 			// toggle sub-menu (close on click outside)
 		jQuery('.category-selected').on('click', function(e){

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 05 26
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -34,7 +34,11 @@ class SmalladsTagController extends ModuleController
 		$this->lang = LangLoader::get('common', 'smallads');
 		$county_lang = LangLoader::get('counties', 'smallads');
 		$this->view = new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
-		$this->view->add_lang(array_merge($this->lang, $county_lang));
+		$this->view->add_lang(array_merge(
+			$this->lang,
+			LangLoader::get('common-lang'),
+			$county_lang
+		));
 		$this->config = SmalladsConfig::load();
 		$this->comments_config = CommentsConfig::load();
 		$this->content_management_config = ContentManagementConfig::load();
@@ -197,12 +201,12 @@ class SmalladsTagController extends ModuleController
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->get_keyword()->get_name(), $this->lang['module.title']);
+		$graphical_environment->set_page_title($this->get_keyword()->get_name(), $this->lang['smallads.module.title']);
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['smallads.seo.description.tag'], array('subject' => $this->get_keyword()->get_name())));
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
+		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
 		$breadcrumb->add($this->get_keyword()->get_name(), SmalladsUrlBuilder::display_tag($this->get_keyword()->get_rewrited_name()));
 
 		return $response;

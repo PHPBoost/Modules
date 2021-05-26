@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 04 09
+ * @version     PHPBoost 6.0 - last update: 2021 05 26
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -13,25 +13,23 @@
 #                      French                       #
 #####################################################
 
-// Titles
-$lang['module.title'] = 'Petites Annonces';
+$lang['smallads.module.title'] = 'Petites Annonces';
 
-$lang['item'] = 'Annonce';
+// Tree links automatic vars
+$lang['item']  = 'Annonce';
 $lang['items'] = 'Annonces';
 
-$lang['an.item'] = 'Une annonce';
-$lang['the.item'] = 'L\'annonce';
-$lang['my.items'] = 'Mes annonces';
-$lang['archived.items'] = 'Annonces archivées';
-$lang['pending.items'] = 'Annonces en attente';
-$lang['member.items'] = 'Annonces publiées par';
-$lang['filter.items'] = 'Filtrer les annonces';
+// Labels
+$lang['smallads.my.items']       = 'Mes annonces';
+$lang['smallads.archived.items'] = 'Annonces archivées';
+$lang['smallads.pending.items']  = 'Annonces en attente';
+$lang['smallads.member.items']   = 'Annonces publiées par';
+$lang['smallads.filter.items']   = 'Filtrer les annonces';
 
-$lang['smallads.management'] = 'Gestion des annonces';
-$lang['smallads.add'] = 'Ajouter une annonce';
-$lang['smallads.edit'] = 'Modification d\'une annonce';
-$lang['smallads.feed.name'] = 'Dernières annonces';
-$lang['smallads.published.items'] = 'Annonces publiées';
+$lang['smallads.items.management'] = 'Gestion des annonces';
+$lang['smallads.add.item']         = 'Ajouter une annonce';
+$lang['smallads.edit.item']        = 'Modification d\'une annonce';
+$lang['smallads.feed.name']        = 'Dernières annonces';
 
 $lang['smallads.category.list'] = 'Catégories';
 $lang['smallads.category.select'] = 'Choisir une catégorie';
@@ -51,7 +49,7 @@ $lang['smallads.contact.phone'] = 'par téléphone';
 
 $lang['smallads.item.is.archived'] = 'Cet élément a dépassé la date de publication, il n\'est pas affiché pour les autres utilisateurs du site.';
 
-//Smallads categories configuration
+// Categories configuration
 $lang['config.categories.title'] = 'Configuration des catégories';
 $lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['config.sort.filter.display'] = 'Afficher les filtres de tri';
@@ -59,7 +57,7 @@ $lang['config.characters.number.to.cut'] = 'Nombre de caractères pour couper le
 $lang['config.display.summaries.to.guests'] = 'Afficher le condensé des annonces aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
 $lang['smallads.default.content'] = 'Contenu par défaut d\'une petite annonce';
 
-//Smallads items configuration
+// Items configuration
 $lang['config.items.title'] = 'Configuration des annonces';
 $lang['config.currency'] = 'Devise';
 $lang['smallads.type.add'] = 'Ajouter des types d\'annonce';
@@ -81,7 +79,7 @@ $lang['config.suggestions.nb'] = 'Nombre d\'annonces suggérées à afficher';
 $lang['config.related.links.display'] = 'Afficher les liens associés aux annonces';
 $lang['config.related.links.display.desc'] = 'Lien précédent, lien suivant.';
 
-//Smallads mini Menu configuration
+// Mini module configuration
 $lang['config.mini.title'] = 'Configuration du mini menu';
 $lang['config.mini.items.nb'] = 'Nombre d\'annonces à afficher dans le mini menu';
 $lang['config.mini.speed.desc'] = 'en millisecondes.';
@@ -90,7 +88,7 @@ $lang['config.mini.autoplay'] = 'Autoriser le défilement automatique';
 $lang['config.mini.autoplay.speed'] = 'Temps entre chaque défilement';
 $lang['config.mini.autoplay.hover'] = 'Autoriser la pause au survol du carrousel';
 
-//Smallads Usage Terms Conditions
+// Usage Terms Conditions
 $lang['config.usage.terms'] = 'Gestion des CGU';
 $lang['smallads.usage.terms'] = 'Conditions générales d\'utilisation';
 $lang['config.usage.terms.displayed'] = 'Afficher les CGU';
@@ -133,32 +131,22 @@ $lang['smallads.form.member.edition.explain'] = 'Vous êtes sur le point de modi
 $lang['smallads.form.member.edition.summary'] = 'Complément de modification';
 $lang['smallads.form.member.edition.summary.desc'] = 'Expliquez ce que vous avez modifié pour un meilleur traitement d\'approbation.';
 
-//Sort fields title and mode
-$lang['smallads.sort.field.views'] = 'Vues';
-$lang['admin.smallads.sort.field.published'] = 'Publié';
-$lang['smallads.sort.by'] = 'Trier par';
-$lang['smallads.sort.date'] = 'Date de création';
-$lang['smallads.sort.title'] = 'Titre';
-$lang['smallads.sort.price'] = 'Prix';
-$lang['smallads.sort.author'] = 'Auteur';
-$lang['smallads.sort.coms'] = 'Commentaires';
-$lang['smallads.sort.view'] = 'Vues';
-$lang['smallads.active.page'] = '{pageNumber}';
-
-//SEO
+// S.E.O.
 $lang['smallads.seo.description.root'] = 'Toutes les annonces du site :site.';
+$lang['smallads.seo.description.archived'] = 'Toutes les annonces archivées du site :site.';
 $lang['smallads.seo.description.tag'] = 'Toutes les annonces sur le sujet :subject.';
 $lang['smallads.seo.description.pending'] = 'Toutes les annonces en attente.';
 $lang['smallads.seo.description.member'] = 'Toutes les annonces de :author.';
 $lang['smallads.seo.description.usage.terms'] = 'Conditions générales d\'utilisation des annonces du site :site.';
 
-//Messages
+// Messages helper
 $lang['smallads.message.success.add'] = 'L\'annonce <b>:title</b> a été ajoutée';
 $lang['smallads.message.success.edit'] = 'L\'annonce <b>:title</b> a été modifiée';
 $lang['smallads.message.success.delete'] = 'L\'annonce <b>:title</b> a été supprimée';
 $lang['smallads.no.type'] = '<div class="warning">Vous devez déclarer les types d\'annonces (Vente, Achat, ...) dans la <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">configuration des annonces</a></div>';
 $lang['smallads.all.types.filters'] = 'Toutes';
 
+// Contact
 $lang['smallads.tel.modal'] = 'Vous devez être connecté pour voir le numéro de téléphone';
 $lang['smallads.email.modal'] = 'Vous devez être connecté pour contacter l\'auteur de cette annonce';
 $lang['smallads.message.success.email'] = 'Votre message a bien été envoyé';
@@ -169,12 +157,13 @@ $lang['email.sender.name'] = 'Votre nom :';
 $lang['email.sender.email'] = 'Votre adresse email :';
 $lang['email.sender.message'] = 'Votre message :';
 
-$lang['mini.last.smallads'] = 'Dernières annonces';
-$lang['mini.no.smallad'] = 'Aucune annonce disponible';
-$lang['mini.there.is'] = 'Il y a';
-$lang['mini.there.are'] = 'Il y a';
-$lang['mini.one.smallad'] = 'annonce sur le site';
-$lang['mini.several.smallads'] = 'annonces sur le site';
+// Mini module
+$lang['smallads.mini.last.smallads']    = 'Dernières annonces';
+$lang['smallads.mini.no.smallad']       = 'Aucune annonce disponible';
+$lang['smallads.mini.there.is']         = 'Il y a';
+$lang['smallads.mini.there.are']        = 'Il y a';
+$lang['smallads.mini.one.smallad']      = 'annonce sur le site';
+$lang['smallads.mini.several.smallads'] = 'annonces sur le site';
 
 // Accessibility
 $lang['open.modal'] = 'Ouverture dans une nouvelle fenêtre';

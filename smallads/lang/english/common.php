@@ -13,25 +13,23 @@
 #                      English                      #
 #####################################################
 
-// Module titles
-$lang['module.title'] = 'Smallads';
+$lang['smallads.module.title'] = 'Smallads';
 
-$lang['item'] = 'Ad';
+// Tree links automatic vars
+$lang['item']  = 'Ad';
 $lang['items'] = 'Ads';
 
-$lang['an.item'] = 'An ad';
-$lang['the.item'] = 'The ad';
-$lang['my.items'] = 'My ads';
-$lang['archived.items'] = 'Archived ads';
-$lang['pending.items'] = 'Pending ads';
-$lang['member.items'] = 'Ads published by';
-$lang['filter.items'] = 'Filter ads';
+// Labels
+$lang['smallads.my.items']       = 'My ads';
+$lang['smallads.archived.items'] = 'Archived ads';
+$lang['smallads.pending.items']  = 'Pending ads';
+$lang['smallads.member.items']   = 'Ads published by';
+$lang['smallads.filter.items']   = 'Filter ads';
 
-$lang['smallads.management'] = 'Smallads management';
-$lang['smallads.add'] = 'Add an ad';
-$lang['smallads.edit'] = 'Item edition';
-$lang['smallads.feed.name'] = 'Last ads';
-$lang['smallads.published.items'] = 'Published ads';
+$lang['smallads.items.management'] = 'Smallads management';
+$lang['smallads.add.item']         = 'Add an ad';
+$lang['smallads.edit.item']        = 'Item edition';
+$lang['smallads.feed.name']        = 'Last ads';
 
 $lang['smallads.category.list'] = 'Categories';
 $lang['smallads.category.select'] = 'Choose a category';
@@ -51,7 +49,7 @@ $lang['smallads.contact.phone'] = 'by phone';
 
 $lang['smallads.item.is.archived'] = 'This item has overflown its publication date, It\'s not displayed to other.';
 
-// Smallads categories configuration
+// Categories configuration
 $lang['config.categories.title'] = 'Categories configuration';
 $lang['config.cats.icon.display'] = 'Categories icon display';
 $lang['config.sort.filter.display'] = 'Display the sort filters';
@@ -59,7 +57,7 @@ $lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'
 $lang['config.display.summaries.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
 $lang['smallads.default.content'] = 'Smallads default content';
 
-// Smallads items configuration
+// Items configuration
 $lang['config.items.title'] = 'Ads configuration';
 $lang['config.currency'] = 'Currency';
 $lang['smallads.type.add'] = 'Add types of ad';
@@ -81,7 +79,7 @@ $lang['config.suggestions.nb'] = 'Number of ads to display';
 $lang['config.related.links.display'] = 'Display related links to ads';
 $lang['config.related.links.display.desc'] = 'Previous link, next link.';
 
-// Smallads mini menu configuration
+// Mini module configuration
 $lang['config.mini.title'] = 'Mini menu configuration';
 $lang['config.mini.items.nb'] = 'Ads number to display mini menu';
 $lang['config.mini.speed.desc'] = 'in milisecondes.';
@@ -90,7 +88,7 @@ $lang['config.mini.autoplay'] = 'Enable autoplay';
 $lang['config.mini.autoplay.speed'] = 'Time between 2 scrolls';
 $lang['config.mini.autoplay.hover'] = 'Enable pause on slideshow hover';
 
-// Smallads Usage Terms Conditions
+// Usage Terms Conditions
 $lang['config.usage.terms'] = 'Usage terms management';
 $lang['smallads.usage.terms'] = 'Usage terms';
 $lang['config.usage.terms.displayed'] = 'Display the usage terms';
@@ -133,20 +131,9 @@ $lang['smallads.form.member.edition.explain'] = 'You are about to modify your ad
 $lang['smallads.form.member.edition.summary'] = 'Further summary of modification';
 $lang['smallads.form.member.edition.summary.desc'] = 'Explain what you have modify for a better approval processing.';
 
-// Sort fields title and mode
-$lang['smallads.sort.field.views'] = 'Views';
-$lang['admin.smallads.sort.field.published'] = 'Published';
-$lang['smallads.sort.by'] = 'Sort by';
-$lang['smallads.sort.date'] = 'Creation date';
-$lang['smallads.sort.title'] = 'Title';
-$lang['smallads.sort.price'] = 'Price';
-$lang['smallads.sort.author'] = 'Author';
-$lang['smallads.sort.coms'] = 'Comments';
-$lang['smallads.sort.view'] = 'Views';
-$lang['smallads.active.page'] = '{pageNumber}';
-
-// SEO
+// S.E.O.
 $lang['smallads.seo.description.root'] = 'All :site\'s ads.';
+$lang['smallads.seo.description.archived'] = 'All :site\'s archived ads.';
 $lang['smallads.seo.description.tag'] = 'All :subject\'s ads.';
 $lang['smallads.seo.description.pending'] = 'All pending ads.';
 $lang['smallads.seo.description.member'] = 'All :author\'s ads.';
@@ -159,6 +146,7 @@ $lang['smallads.message.success.delete'] = 'The ad <b>:title</b> has been delete
 $lang['smallads.no.type'] = '<div class="warning">You must declare some ad types in the <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">ads configuration</a></div>';
 $lang['smallads.all.types.filters'] = 'All';
 
+// Contact
 $lang['smallads.tel.modal'] = 'You must be connected to see the phone number';
 $lang['smallads.email.modal'] = 'You must be connected to contact the author of this ad';
 $lang['smallads.message.success.email'] = 'Your message have been sent';
@@ -169,12 +157,13 @@ $lang['email.sender.name'] = 'Your name :';
 $lang['email.sender.email'] = 'Your email :';
 $lang['email.sender.message'] = 'Your message :';
 
-$lang['mini.last.smallads'] = 'Last ads';
-$lang['mini.no.smallad'] = 'No ad available';
-$lang['mini.there.is'] = 'There is';
-$lang['mini.there.are'] = 'There are';
-$lang['mini.one.smallad'] = 'ad on the website';
-$lang['mini.several.smallads'] = 'ads on the website';
+// Mini module
+$lang['smallads.mini.last.smallads']    = 'Last ads';
+$lang['smallads.mini.no.smallad']       = 'No ad available';
+$lang['smallads.mini.there.is']         = 'There is';
+$lang['smallads.mini.there.are']        = 'There are';
+$lang['smallads.mini.one.smallad']      = 'ad on the website';
+$lang['smallads.mini.several.smallads'] = 'ads on the website';
 
 // Accessibility
 $lang['open.modal'] = 'Opening in a new window';

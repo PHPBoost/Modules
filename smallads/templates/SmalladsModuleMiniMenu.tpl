@@ -2,13 +2,13 @@
 	<div id="module-mini-smallads" class="cell-mini cell-tile# IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
 		<div class="cell">
 			<div class="cell-header">
-				<h6 class="cell-name">{@mini.last.smallads}</h6>
+				<h6 class="cell-name">{@smallads.mini.last.smallads}</h6>
 			</div>
 # ENDIF #
 # IF C_ITEMS #
 	<div class="cell-body">
 		<div class="cell-content">
-			# IF C_ONE_ITEM #{@mini.there.is}# ELSE #{@mini.there.are}# ENDIF # {ITEMS_TOTAL_NB} # IF C_ONE_ITEM #{@mini.one.smallad}# ELSE #{@mini.several.smallads}# ENDIF #
+			# IF C_ONE_ITEM #{@smallads.mini.there.is}# ELSE #{@smallads.mini.there.are}# ENDIF # {ITEMS_TOTAL_NB} # IF C_ONE_ITEM #{@smallads.mini.one.smallad}# ELSE #{@smallads.mini.several.smallads}# ENDIF #
 		</div>
 	</div>
 	<div class="relative-container cell-smallads">
@@ -34,7 +34,7 @@
 # ELSE #
 	<div class="cell-body">
 		<div class="cell-content">
-			{@mini.no.smallad}
+			{@smallads.mini.no.smallad}
 		</div>
 	</div>
 # ENDIF #

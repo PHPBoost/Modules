@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 02
+ * @version     PHPBoost 6.0 - last update: 2021 05 26
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -36,7 +36,11 @@ class SmalladsItemController extends ModuleController
 		$this->lang = LangLoader::get('common', 'smallads');
 		$county_lang = LangLoader::get('counties', 'smallads');
 		$this->view = new FileTemplate('smallads/SmalladsItemController.tpl');
-		$this->view->add_lang(array_merge($this->lang, $county_lang));
+		$this->view->add_lang(array_merge(
+			$this->lang,
+			LangLoader::get('common-lang'),
+			$county_lang
+		));
 	}
 
 	private function get_item()
@@ -293,7 +297,7 @@ class SmalladsItemController extends ModuleController
 		$item_recipient_email = $this->item->get_custom_author_email();
 
 		$item_email = new Mail();
-		$item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['module.title']);
+		$item_email->set_sender(MailServiceConfig::load()->get_default_mail_sender(), $this->lang['smallads.module.title']);
 		$item_email->set_reply_to($item_sender_email, $item_sender_name);
 		$item_email->set_subject($item_subject);
 		$item_email->set_content(TextHelper::html_entity_decode($item_message));
@@ -346,12 +350,12 @@ class SmalladsItemController extends ModuleController
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->item->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $this->category->get_name() . ' - ' : '') . $this->lang['module.title']);
+		$graphical_environment->set_page_title($this->item->get_title(), ($this->category->get_id() != Category::ROOT_CATEGORY ? $this->category->get_name() . ' - ' : '') . $this->lang['smallads.module.title']);
 		$graphical_environment->get_seo_meta_data()->set_description($this->item->get_real_summary());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::display_item($this->category->get_id(), $this->category->get_rewrited_name(), $this->item->get_id(), $this->item->get_rewrited_title()));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['module.title'], SmalladsUrlBuilder::home());
+		$breadcrumb->add($this->lang['smallads.module.title'], SmalladsUrlBuilder::home());
 
 		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->item->get_id_category(), true));
 		foreach ($categories as $id => $category)
