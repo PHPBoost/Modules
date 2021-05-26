@@ -1,7 +1,7 @@
 <section id="module-quotes">
 	<header class="section-header">
 		<div class="controls align-right">
-			# IF NOT C_ROOT_CATEGORY #{@module.title}# ENDIF #
+			# IF NOT C_ROOT_CATEGORY #{@quotes.module.title}# ENDIF #
 			# IF C_CATEGORY # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
@@ -9,9 +9,9 @@
 				{@quotes.pending.items}
 			# ELSE #
 				# IF C_MEMBER_ITEMS #
-			 		# IF C_MY_ITEMS #{@my.items}# ELSE #{@member.items} {MEMBER_NAME}# ENDIF #
+			 		# IF C_MY_ITEMS #{@quotes.my.items}# ELSE #{@quotes.member.items} {MEMBER_NAME}# ENDIF #
 				# ELSE #
-					# IF C_ROOT_CATEGORY #{@module.title}# ELSE ## IF C_WRITER_ITEMS #{WRITER_NAME}# ELSE #{CATEGORY_NAME}# ENDIF ## ENDIF # 
+					# IF C_ROOT_CATEGORY #{@quotes.module.title}# ELSE ## IF C_WRITER_ITEMS #{WRITER_NAME}# ELSE #{CATEGORY_NAME}# ENDIF ## ENDIF #
 				# ENDIF #
 			# ENDIF #
 		</h1>
@@ -43,7 +43,7 @@
 									<div class="cell-thumbnail cell-landscape cell-center">
 										<img itemprop="thumbnailUrl" src="{sub_categories_list.U_CATEGORY_THUMBNAIL}" alt="{sub_categories_list.CATEGORY_NAME}" />
 										<a class="cell-thumbnail-caption" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
-											${LangLoader::get_message('see.category', 'categories-common')}
+											{@common.see.category}
 										</a>
 									</div>
 								</div>
@@ -72,10 +72,10 @@
 									# IF items.C_CONTROLS #
 										<div class="controls align-right">
 											# IF items.C_EDIT #
-												<a href="{items.U_EDIT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+												<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 											# ENDIF #
 											# IF items.C_DELETE #
-												<a href="{items.U_DELETE}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+												<a href="{items.U_DELETE}" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 											# ENDIF #
 										</div>
 									# ENDIF #
@@ -97,7 +97,7 @@
 				<div class="content-container">
 					<div class="content">
 						<div class="message-helper bgc notice align-center">
-							${LangLoader::get_message('no_item_now', 'common')}
+							{@common.no.item.now}
 						</div>
 					</div>
 				</div>

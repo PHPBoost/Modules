@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 04 06
+ * @version     PHPBoost 6.0 - last update: 2021 05 26
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -31,7 +31,10 @@ class QuotesWriterController extends ModuleController
 	{
 		$this->lang = LangLoader::get('common', 'quotes');
 		$this->view = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
-		$this->view->add_lang($this->lang);
+		$this->view->add_lang(array_merge(
+			$this->lang,
+			LangLoader::get('common-lang')
+		));
 		$this->cache = QuotesCache::load();
 	}
 
@@ -120,12 +123,12 @@ class QuotesWriterController extends ModuleController
 		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['module.title'], $this->cache->get_writer($rewrited_writer), $page);
+		$graphical_environment->set_page_title($this->lang['quotes.module.title'], $this->cache->get_writer($rewrited_writer), $page);
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['quotes.seo.description.writer'], array('writer' => $this->cache->get_writer($rewrited_writer))));
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_writer_items($rewrited_writer, $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['module.title'], QuotesUrlBuilder::home());
+		$breadcrumb->add($this->lang['quotes.module.title'], QuotesUrlBuilder::home());
 		$breadcrumb->add($this->cache->get_writer($rewrited_writer), QuotesUrlBuilder::display_writer_items($rewrited_writer, $page));
 
 		return $response;

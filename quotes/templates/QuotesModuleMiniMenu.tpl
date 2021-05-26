@@ -6,10 +6,10 @@
                 <div class="formatter-content">{CONTENT}</div>
             </blockquote>
         # ELSE #
-            <p class="align-center">${LangLoader::get_message('no_item_now', 'common')}</p>
+            <p class="align-center">{@common.no.item.now}</p>
         # ENDIF #
     </div>
     <div class="cell-content align-center">
-        <a class="button small" href="{U_MODULE_HOME_PAGE}">{@module.title}</a>
+        <a class="button small" href="{U_MODULE_HOME_PAGE}">{@quotes.module.title}</a>
     </div>
 </div>

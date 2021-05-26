@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 04 06
+ * @version     PHPBoost 6.0 - last update: 2021 05 26
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -32,7 +32,10 @@ class QuotesCategoryController extends ModuleController
 	{
 		$this->lang = LangLoader::get('common', 'quotes');
 		$this->view = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
-		$this->view->add_lang($this->lang);
+		$this->view->add_lang(array_merge(
+			$this->lang,
+			LangLoader::get('common-lang')
+		));
 		$this->config = QuotesConfig::load();
 	}
 
@@ -205,9 +208,9 @@ class QuotesCategoryController extends ModuleController
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->get_category()->get_id() != Category::ROOT_CATEGORY)
-			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['module.title'], $page);
+			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['quotes.module.title'], $page);
 		else
-			$graphical_environment->set_page_title($this->lang['module.title'], '', $page);
+			$graphical_environment->set_page_title($this->lang['quotes.module.title'], '', $page);
 
 		$description = $this->get_category()->get_description();
 		if (empty($description))
@@ -216,7 +219,7 @@ class QuotesCategoryController extends ModuleController
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $page));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['module.title'], QuotesUrlBuilder::home());
+		$breadcrumb->add($this->lang['quotes.module.title'], QuotesUrlBuilder::home());
 
 		$categories = array_reverse(CategoriesService::get_categories_manager('quotes')->get_parents($this->get_category()->get_id(), true));
 		foreach ($categories as $id => $category)
