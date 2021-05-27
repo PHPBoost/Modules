@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 05 27
  * @since       PHPBoost 6.0 - 2021 03 03
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -37,7 +37,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_title()
 	{
-		return $this->module_configuration->get_name() . ' - ' . LangLoader::get_message('categories', 'categories-common');
+		return $this->module_configuration->get_name() . ' - ' . LangLoader::get_message('category.categories', 'category-lang');
 	}
 
 	public function get_formated_title()
