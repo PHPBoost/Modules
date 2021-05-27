@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 19
+ * @version     PHPBoost 6.0 - last update: 2021 05 27
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -135,14 +135,14 @@ class CountdownConfig extends AbstractConfigData
 	{
 		return array(
 			self::TIMER_DISABLED => false,
-			self::STOP_COUNTER => false,
+			self::STOP_COUNTER   => false,
 			self::HIDDEN_COUNTER => false,
-			self::NO_JS => LangLoader::get_message('countdown.no.js', 'install', 'countdown'),
-			self::EVENT_DATE => new Date(1609459200, Timezone::SERVER_TIMEZONE), //le 1/1/2021 à 0:00:00
-			self::NEXT_EVENT => LangLoader::get_message('countdown.next.event', 'install', 'countdown'),
-			self::LAST_EVENT => LangLoader::get_message('countdown.last.event', 'install', 'countdown'),
-			self::STOPPED_EVENT => LangLoader::get_message('countdown.stoped.event', 'install', 'countdown'),
-			self::NO_EVENT => LangLoader::get_message('countdown.no.event', 'install', 'countdown'),
+			self::NO_JS          => LangLoader::get_message('countdown.no.js', 'install', 'countdown'),
+			self::EVENT_DATE     => new Date(1640995200, Timezone::SERVER_TIMEZONE), //le 1/1/2022 à 0:00:00
+			self::NEXT_EVENT     => LangLoader::get_message('countdown.next.event', 'install', 'countdown'),
+			self::LAST_EVENT     => LangLoader::get_message('countdown.last.event', 'install', 'countdown'),
+			self::STOPPED_EVENT  => LangLoader::get_message('countdown.stoped.event', 'install', 'countdown'),
+			self::NO_EVENT       => LangLoader::get_message('countdown.no.event', 'install', 'countdown'),
 			self::AUTHORIZATIONS => array('r-1' => 3, 'r0' => 3, 'r1' => 7)
 		);
 	}
