@@ -15,8 +15,8 @@ class AdminServerStatusDisplayResponse extends AdminMenuDisplayResponse
 
 		$lang = LangLoader::get('common', 'ServerStatus');
 		
-		$this->add_link($lang['admin.config.servers.management'], ServerStatusUrlBuilder::servers_management());
-		$this->add_link($lang['admin.config.servers.action.add_server'], ServerStatusUrlBuilder::add_server());
+		$this->add_link($lang['server.management'], ServerStatusUrlBuilder::servers_management());
+		$this->add_link($lang['server.add.item'], ServerStatusUrlBuilder::add_server());
 		$this->add_link(LangLoader::get_message('configuration', 'admin'), $this->module->get_configuration()->get_admin_main_page());
 
 		$this->get_graphical_environment()->set_page_title($page_title);

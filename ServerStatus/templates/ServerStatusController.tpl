@@ -1,6 +1,6 @@
 <section>
 	<header class="section-header">
-		<h1>{@module_title}</h1>
+		<h1>{@server.module.title}</h1>
 	</header>
 	<div class="sub-section">
 		<div class="content-container">
@@ -17,7 +17,7 @@
 					# ELSE #
 						<div class="cell-body">
 							<div class="cell-content">
-								<span class="message-helper bgc notice">${LangLoader::get_message('no_item_now', 'common')}</span>
+								<span class="message-helper bgc notice">{@common.no.item.now}</span>
 							</div>
 						</div>
 					# ENDIF #

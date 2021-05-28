@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 30
+ * @version     PHPBoost 6.0 - last update: 2021 05 28
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class AdminServerStatusServerFormController extends AdminController
 {
-	private $tpl;
+	private $view;
 
 	private $lang;
 	/**
@@ -32,20 +32,19 @@ class AdminServerStatusServerFormController extends AdminController
 		$this->init($request);
 		$this->build_form();
 
-		$this->tpl = new StringTemplate('# INCLUDE MSG ## INCLUDE FORM #');
-		$this->tpl->add_lang($this->lang);
+		$this->view = new StringTemplate('# INCLUDE MESSAGE_HELPER ## INCLUDE FORM #');
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			if ($this->save())
 				AppContext::get_response()->redirect(ServerStatusUrlBuilder::servers_management());
 			else
-				$this->tpl->put('MSG', MessageHelper::display($this->lang['message.empty_address'], MessageHelper::ERROR));
+				$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['server.warning.empty.address'], MessageHelper::ERROR));
 		}
 
-		$this->tpl->put('FORM', $this->form->display());
+		$this->view->put('FORM', $this->form->display());
 
-		return new AdminServerStatusDisplayResponse($this->tpl, !empty($this->id) ? $this->lang['admin.config.servers.title.edit_server'] : $this->lang['admin.config.servers.title.add_server']);
+		return new AdminServerStatusDisplayResponse($this->view, !empty($this->id) ? $this->lang['server.edit.item'] : $this->lang['server.add.item']);
 	}
 
 	private function init(HTTPRequestCustom $request)
@@ -58,25 +57,26 @@ class AdminServerStatusServerFormController extends AdminController
 	private function build_form()
 	{
 		$server = $this->get_server();
-		$main_lang = LangLoader::get('main');
+		$form_lang = LangLoader::get('form-lang');
+		$common_lang = LangLoader::get('common-lang');
 
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('server', !empty($this->id) ? $this->lang['admin.config.servers.title.edit_server'] : $this->lang['admin.config.servers.title.add_server']);
+		$fieldset = new FormFieldsetHTML('server', !empty($this->id) ? $this->lang['server.edit.item'] : $this->lang['server.add.item']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('name', $this->lang['server.name'], $server->get_name(),
+		$fieldset->add_field(new FormFieldTextEditor('name', $form_lang['form.name'], $server->get_name(),
 			array('class' => 'text', 'required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('description', $this->lang['server.description'], $server->get_description(),
+		$fieldset->add_field(new FormFieldRichTextEditor('description', $form_lang['form.description'], $server->get_description(),
 			array('rows' => 4, 'cols' => 47)
 		));
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('address_type', $this->lang['server.address_type'], $server->get_address_type(),
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('address_type', $this->lang['server.address.type'], $server->get_address_type(),
 			array(
-				new FormFieldSelectChoiceOption($this->lang['server.address_type.dns'], AbstractServerStatusServer::DNS),
-				new FormFieldSelectChoiceOption($this->lang['server.address_type.ip'], AbstractServerStatusServer::IP)
+				new FormFieldSelectChoiceOption($this->lang['server.address.type.dns'], AbstractServerStatusServer::DNS),
+				new FormFieldSelectChoiceOption($this->lang['server.address.type.ip'], AbstractServerStatusServer::IP)
 			),
 			array(
 				'events' => array('change' => '
@@ -93,17 +93,16 @@ class AdminServerStatusServerFormController extends AdminController
 
 		$fieldset->add_field(new FormFieldTextEditor('dns_address', $this->lang['server.address.dns'], $server->address_type_is_dns() ? $server->get_address() : '',
 			array(
-				'class' => 'text',
-				'description' => $this->lang['server.address.dns.explain'],
+				'required' => true,
+				'description' => $this->lang['server.address.dns.clue'],
 				'hidden' => !$server->address_type_is_dns()
 			)
 		));
 
 		$fieldset->add_field(new FormFieldTextEditor('ip_address', $this->lang['server.address.ip'], $server->address_type_is_ip() ? $server->get_address() : '',
 			array(
-
-				'class' => 'text',
-				'description' => $this->lang['server.address.ip.explain'],
+				'required' => true,
+				'description' => $this->lang['server.address.ip.clue'],
 				'hidden' => !$server->address_type_is_ip()
 			),
 			array(new FormFieldConstraintRegex('`^((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$|^((([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}:([0-9A-Fa-f]{1,4}:)?[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){4}:([0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){3}:([0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){2}:([0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){6}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(([0-9A-Fa-f]{1,4}:){0,5}:((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|(::([0-9A-Fa-f]{1,4}:){0,5}((b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b).){3}(b((25[0-5])|(1d{2})|(2[0-4]d)|(d{1,2}))b))|([0-9A-Fa-f]{1,4}::([0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})|(::([0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){1,7}:))$`iu'))
@@ -114,26 +113,30 @@ class AdminServerStatusServerFormController extends AdminController
 			array('events' => array('change' => $types_properties['events']))
 		));
 
-		$fieldset->add_field(new FormFieldFree('preview_icon', $this->lang['server.icon'], '<img id="preview_icon" ' . ($server->has_medium_icon() ? 'src="' . $server->get_medium_icon() . '"' : 'style="display:none"') . ' alt="' . $this->lang['server.icon'] . '" /><span id="preview_icon_none" ' . ($server->has_medium_icon() ? 'style="display:none"' : '') . '>' . $this->lang['server.icon.none_e'] . '</span>'));
+		$fieldset->add_field(new FormFieldFree('preview_icon', $this->lang['server.icon'], '<img id="preview_icon" ' . ($server->has_medium_icon() ? 'src="' . $server->get_medium_icon() . '"' : 'style="display:none"') . ' alt="' . $this->lang['server.icon'] . '" /><span id="preview_icon_none" ' . ($server->has_medium_icon() ? 'style="display:none"' : '') . '>' . $common_lang['common.none.e'] . '</span>'));
 
 		$fieldset->add_field(new FormFieldTextEditor('port', $this->lang['server.port'], $server->get_port(),
 			array(
 				'class' => 'text', 'maxlength' => 5, 'size' => 5, 'required' => true,
-				'description' => $this->lang['server.port.explain']
+				'description' => $this->lang['server.port.clue']
 			),
 			array(new FormFieldConstraintIntegerRange(1, 65535))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display', $this->lang['server.display'], $server->is_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('display', $common_lang['common.display'], $server->is_displayed(),
 			array('class' => 'custom-checkbox')
 		));
 
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $form_lang['form.authorizations']);
+		$form->add_fieldset($fieldset_authorizations);
+
+
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($this->lang['admin.authorizations.display_server'], AbstractServerStatusServer::DISPLAY_SERVER_AUTHORIZATIONS),
+			new ActionAuthorization($form_lang['form.authorizations.read'], AbstractServerStatusServer::DISPLAY_SERVER_AUTHORIZATIONS),
 		));
 
 		$auth_settings->build_from_auth_array($server->get_authorizations());
-		$fieldset->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
+		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
@@ -163,9 +166,9 @@ class AdminServerStatusServerFormController extends AdminController
 
 	private function get_types_properties()
 	{
-		$array_select = array(new FormFieldSelectChoiceOption('', 'ServerStatusDefaultServerType'));
-		$events = 'if (HTMLForms.getField("type").getValue() == "ServerStatusDefaultServerType") {
-				HTMLForms.getField("port").setValue(\'0\');
+		$array_select = array(new FormFieldSelectChoiceOption('', 'ServerStatusDefaultServer'));
+		$events = 'if (HTMLForms.getField("type").getValue() == "ServerStatusDefaultServer") {
+				HTMLForms.getField("port").setValue(\'1\');
 				jQuery(\'#preview_icon\').attr(\'src\', \'\');
 				jQuery(\'#preview_icon\').hide();
 				jQuery(\'#preview_icon_none\').show();

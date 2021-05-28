@@ -1,7 +1,7 @@
 <div id="module-mini-serverstatus" class="cell-tile cell-mini# IF C_VERTICAL # cell-mini-vertical# ENDIF ## IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
 	<div class="cell">
 		<div class="cell-header">
-			<h6 class="cell-name">{@module_title}</h6>
+			<h6 class="cell-name">{@server.module.title}</h6>
 		</div>
 		# IF C_SERVERS #
 			<div class="cell-list">
@@ -24,7 +24,7 @@
 			</div>
 		# ELSE #
 			<div class="cell-body">
-				<div class="cell-content align-center">{@admin.config.servers.no_server}</div>
+				<div class="cell-content align-center">{@common.no.item.now}</div>
 			</div>
 		# ENDIF #
 	</div>

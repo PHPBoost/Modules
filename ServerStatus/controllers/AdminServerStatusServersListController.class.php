@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2016 02 11
+ * @version     PHPBoost 6.0 - last update: 2021 05 28
  * @since       PHPBoost 4.0 - 2013 08 04
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminServerStatusServersListController extends AdminController
@@ -20,7 +21,7 @@ class AdminServerStatusServersListController extends AdminController
 		if ($request->get_value('regenerate_status', false))
 		{
 			ServerStatusService::check_servers_status(true);
-			$this->view->put('MSG', MessageHelper::display(LangLoader::get_message('process.success', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.process.success', 'warning-lang'), MessageHelper::SUCCESS, 5));
 		}
 
 		$this->update_servers($request);
@@ -29,29 +30,33 @@ class AdminServerStatusServersListController extends AdminController
 		foreach ($this->config->get_servers_list() as $id => $server)
 		{
 			$this->view->assign_block_vars('servers', array(
-				'C_ICON' => $server->has_medium_icon(),
+				'C_ICON'    => $server->has_medium_icon(),
 				'C_DISPLAY' => $server->is_displayed(),
-				'ID' => $id,
-				'NAME' => $server->get_name(),
-				'ICON' => $server->get_medium_icon(),
-				'U_EDIT' => ServerStatusUrlBuilder::edit_server($id)->rel()
+				'ID'        => $id,
+				'NAME'      => $server->get_name(),
+				'ICON'      => $server->get_medium_icon(),
+				'U_EDIT'    => ServerStatusUrlBuilder::edit_server($id)->rel()
 			));
 			$servers_number++;
 		}
 
 		$this->view->put_all(array(
 			'C_SERVERS' => $servers_number,
-			'C_MORE_THAN_ONE_SERVER' => $servers_number > 1
+			'C_SEVERAL_SERVERS' => $servers_number > 1
 		));
 
-		return new AdminServerStatusDisplayResponse($this->view, $this->lang['admin.config.servers.management']);
+		return new AdminServerStatusDisplayResponse($this->view, $this->lang['server.management']);
 	}
 
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'ServerStatus');
 		$this->view = new FileTemplate('ServerStatus/AdminServerStatusServersListController.tpl');
-		$this->view->add_lang($this->lang);
+		$this->view->add_lang(array_merge(
+			$this->lang,
+			LangLoader::get('common-lang'),
+			LangLoader::get('form-lang')
+		));
 		$this->config = ServerStatusConfig::load();
 	}
 
@@ -60,7 +65,7 @@ class AdminServerStatusServersListController extends AdminController
 		if ($request->get_value('submit', false))
 		{
 			$this->update_position($request);
-			$this->view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.position.update', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.message.success.position.update', 'warning-lang'), MessageHelper::SUCCESS, 5));
 		}
 	}
 

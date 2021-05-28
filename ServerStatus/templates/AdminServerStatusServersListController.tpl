@@ -39,14 +39,14 @@
 		this.id = id;
 		this.Servers = servers;
 
-		# IF C_MORE_THAN_ONE_SERVER #
-		this.Servers.change_reposition_pictures();
+		# IF C_SEVERAL_SERVERS #
+			this.Servers.change_reposition_pictures();
 		# ENDIF #
 	};
 
 	Server.prototype = {
 		delete : function() {
-			if (confirm(${escapejs(LangLoader::get_message('confirm.delete', 'status-messages-common'))}))
+			if (confirm(${escapejs(LangLoader::get_message('warning.confirm.delete', 'warning-lang'))}))
 			{
 				jQuery.ajax({
 					url: '${relative_url(ServerStatusUrlBuilder::delete_server())}',
@@ -72,9 +72,9 @@
 				success: function(returnData){
 					if (returnData.id > 0) {
 						if (returnData.display) {
-							jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye"></i>');
+							jQuery("#change-display-" + returnData.id).attr('aria-label', '{@common.displayed}').html('<i class="far fa-eye"></i>');
 						} else {
-							jQuery("#change-display-" + returnData.id).html('<i class="fa fa-eye-slash"></i>');
+							jQuery("#change-display-" + returnData.id).attr('aria-label', '{@common.hidden}').html('<i class="far fa-eye-slash"></i>');
 						}
 					}
 				}
@@ -90,69 +90,84 @@
 		});
 	});
 </script>
-# INCLUDE MSG #
+# INCLUDE MESSAGE_HELPER #
 <form action="{REWRITED_SCRIPT}" method="post" onsubmit="Servers.serialize_sortable();">
 	<fieldset id="servers_management">
-	<legend>{@admin.config.servers.management}</legend>
-		<ul id="servers_list" class="sortable-block">
-			# START servers #
-				<li class="sortable-element" id="list-{servers.ID}" data-id="{servers.ID}">
-					<div class="sortable-selector" aria-label="${LangLoader::get_message('position.move', 'common')}"></div>
-					<div class="sortable-title">
-						<span style="padding:10px;"># IF servers.C_ICON #<img src="{servers.ICON}" alt="{servers.NAME}" /># ELSE #&nbsp;# ENDIF #</span>
-						<span class="text-strong">{servers.NAME}</span>
-					</div>
-					<div class="sortable-actions">
-						# IF C_MORE_THAN_ONE_SERVER #
-							<a href="#" aria-label="{@admin.config.servers.move_up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-							<a href="#" aria-label="{@admin.config.servers.move_down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-						# ENDIF #
-						<a href="{servers.U_EDIT}" aria-label="{@admin.config.servers.action.edit_server}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-						<a href="#" onclick="return false;" aria-label="{@admin.config.servers.delete_server}" id="delete-{servers.ID}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
-						<a href="#" onclick="return false;" id="change-display-{servers.ID}"# IF servers.C_DISPLAY # aria-label="{@server.display}"# ELSE # aria-label="{@server.not_display}"# ENDIF #><i aria-hidden="true"></i></a>
-					</div>
-					<div class="spacer"></div>
-					<script>
-					<!--
-					jQuery(document).ready(function() {
-						var server = new Server({servers.ID}, Servers);
+		<legend>{@server.management}</legend>
+		<div class="fieldset-inset">
+			# IF C_SERVERS #
+				<ul id="servers_list" class="sortable-block">
+					# START servers #
+						<li class="sortable-element" id="list-{servers.ID}" data-id="{servers.ID}">
+							<div class="sortable-selector" aria-label="{@common.move}"></div>
+							<div class="sortable-title">
+								<span class="server-icon"># IF servers.C_ICON #<img src="{servers.ICON}" alt="{servers.NAME}" /># ELSE #&nbsp;# ENDIF #</span>
+								<span>{servers.NAME}</span>
+							</div>
+							<div class="sortable-actions">
+								# IF C_SEVERAL_SERVERS #
+									<a href="#" aria-label="{@common.move.up}" id="move-up-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+									<a href="#" aria-label="{@common.move.down}" id="move-down-{servers.ID}" onclick="return false;"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+								# ENDIF #
+								<a href="{servers.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+								<a href="#" onclick="return false;" aria-label="{@common.delete}" id="delete-{servers.ID}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+								<a href="#" onclick="return false;" id="change-display-{servers.ID}" aria-label="# IF servers.C_DISPLAY #{@common.displayed}# ELSE #{@common.hidden}# ENDIF #"><i class="far fa-eye# IF NOT servers.C_DISPLAY #-slash# ENDIF #" aria-hidden="true"></i></a>
+							</div>
+							<div class="spacer"></div>
+							<script>
+								jQuery(document).ready(function() {
+									var server = new Server({servers.ID}, Servers);
 
-						jQuery("#delete-{servers.ID}").on('click',function(){
-							server.delete();
-						});
-						jQuery("#change-display-{servers.ID}").on('click',function(){
-							server.change_display();
-						});
+									jQuery("#delete-{servers.ID}").on('click',function(){
+										server.delete();
+									});
+									jQuery("#change-display-{servers.ID}").on('click',function(){
+										server.change_display();
+									});
 
-						# IF C_MORE_THAN_ONE_SERVER #
-						jQuery("#move-up-{servers.ID}").on('click',function(){
-							var li = jQuery(this).closest('li');
-							li.insertBefore( li.prev() );
-							Servers.change_reposition_pictures();
-						});
+									# IF C_SEVERAL_SERVERS #
+										jQuery("#move-up-{servers.ID}").on('click',function(){
+											var li = jQuery(this).closest('li');
+											li.insertBefore( li.prev() );
+											Servers.change_reposition_pictures();
+										});
 
-						jQuery("#move-down-{servers.ID}").on('click',function(){
-							var li = jQuery(this).closest('li');
-							li.insertAfter( li.next() );
-							Servers.change_reposition_pictures();
-						});
-						# ENDIF #
-					});
-					-->
-					</script>
-				</li>
-			# END servers #
-		</ul>
-		<div id="no-server" class="align-center"# IF C_SERVERS # style="display:none;"# ENDIF #>
-			<div class="notice message-helper-small">{@admin.config.servers.no_server}</div>
+										jQuery("#move-down-{servers.ID}").on('click',function(){
+											var li = jQuery(this).closest('li');
+											li.insertAfter( li.next() );
+											Servers.change_reposition_pictures();
+										});
+									# ENDIF #
+								});
+							</script>
+						</li>
+					# END servers #
+				</ul>
+			# ELSE #
+				<div class="message-helper bgc notice">{@common.no.item.now}</div>
+			# ENDIF #
 		</div>
 	</fieldset>
-	<fieldset class="fieldset-submit">
-		<input type="hidden" name="token" value="{TOKEN}">
-		# IF C_MORE_THAN_ONE_SERVER #
-			<button type="submit" class="button submit" name="submit" value="true">{@admin.config.servers.update_fields_position}</button>
-			<input type="hidden" name="tree" id="tree" value="">
-		# ENDIF #
-		# IF C_SERVERS #<button type="submit" class="button submit" name="regenerate_status" value="true">{@admin.config.servers.status_refresh}</button># ENDIF #
-	</fieldset>
+	# IF C_SEVERAL_SERVERS #
+		<fieldset class="fieldset-submit">
+			<legend>{@form.submit}</legend>
+			<div class="fielset-inset">
+				<input type="hidden" name="token" value="{TOKEN}">
+				<button type="submit" class="button submit" name="submit" value="true">{@form.submit}</button>
+				<input type="hidden" name="tree" id="tree" value="">
+			</div>
+		</fieldset>
+	# ENDIF #
+	# IF C_SERVERS #
+		<fieldset>
+			<legend>{@server.refresh.status}</legend>
+		</fieldset>
+		<fieldset class="fieldset-submit">
+			<legend>{@form.refresh}</legend>
+			<div class="fieldset-inset">
+				<input type="hidden" name="token" value="{TOKEN}">
+				<button type="submit" class="button submit" name="regenerate_status" value="true">{@form.refresh}</button>
+			</div>
+		</fieldset>
+	# ENDIF #
 </form>

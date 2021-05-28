@@ -16,8 +16,8 @@ class ServerStatusTreeLinks implements ModuleTreeLinksExtensionPoint
 		$lang = LangLoader::get('common', 'ServerStatus');
 		$tree = new ModuleTreeLinks();
 
-		$tree->add_link(new AdminModuleLink($lang['admin.config.servers.manage'], ServerStatusUrlBuilder::servers_management()));
-		$tree->add_link(new AdminModuleLink($lang['admin.config.servers.action.add_server'], ServerStatusUrlBuilder::add_server()));
+		$tree->add_link(new AdminModuleLink($lang['server.management'], ServerStatusUrlBuilder::servers_management()));
+		$tree->add_link(new AdminModuleLink($lang['server.add.item'], ServerStatusUrlBuilder::add_server()));
 
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin'), ServerStatusUrlBuilder::configuration()));
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 30
+ * @version     PHPBoost 6.0 - last update: 2021 05 28
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -28,24 +28,23 @@ class AdminServerStatusConfigController extends AdminController
 		$this->init();
 		$this->build_form();
 
-		$tpl = new StringTemplate('# INCLUDE MSG # # INCLUDE CURL_WARNING_MSG # # INCLUDE FORM #');
-		$tpl->add_lang($this->lang);
+		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE CURL_WARNING_MSG # # INCLUDE FORM #');
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+			$view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
 		}
 
 		$server_configuration = new ServerConfiguration();
 		if ($server_configuration->has_curl_library())
 		{
-			$tpl->put('CURL_WARNING_MSG', MessageHelper::display($this->lang['admin.config.curl_extension_disabled'], MessageHelper::WARNING));
+			$view->put('CURL_WARNING_MSG', MessageHelper::display($this->lang['server.warning.curl.extension'], MessageHelper::WARNING));
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$view->put('FORM', $this->form->display());
 
-		return new AdminServerStatusDisplayResponse($tpl, LangLoader::get_message('configuration', 'admin'));
+		return new AdminServerStatusDisplayResponse($view, LangLoader::get_message('configuration', 'admin'));
 	}
 
 	private function init()
@@ -56,38 +55,39 @@ class AdminServerStatusConfigController extends AdminController
 
 	private function build_form()
 	{
+		$form_lang = LangLoader::get('form-lang');
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('configuration', LangLoader::get_message('configuration', 'admin'));
+		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($form_lang['form.module.title'], array('module_name' => $this->lang['server.module.title'])));
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('refresh_delay', $this->lang['admin.config.refresh_delay'], $this->config->get_refresh_delay(),
+		$fieldset->add_field(new FormFieldNumberEditor('refresh_delay', $this->lang['server.refresh.delay'], $this->config->get_refresh_delay(),
 			array(
-				'maxlength' => 4, 'size' => 4, 'required' => true,
-				'description' => $this->lang['admin.config.refresh_delay.explain']
+				'required' => true,
+				'description' => $this->lang['server.refresh.delay.clue']
 			),
 			array(new FormFieldConstraintRegex('`^[0-9]+$`iu'))
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('timeout', $this->lang['admin.config.timeout'], $this->config->get_timeout(),
+		$fieldset->add_field(new FormFieldNumberEditor('timeout', $this->lang['server.timeout'], $this->config->get_timeout(),
 			array(
-				'maxlength' => 5, 'size' => 5, 'required' => true,
-				'description' => $this->lang['admin.config.timeout.explain']
+				'required' => true,
+				'description' => $this->lang['server.timeout.clue']
 			)
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('address_displayed', $this->lang['admin.config.address_displayed'], $this->config->is_address_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('address_displayed', $this->lang['server.display.address'], $this->config->is_address_displayed(),
 			array(
 				'class' => 'custom-checkbox',
-				'description' => $this->lang['admin.config.address_displayed.explain']
+				'description' => $this->lang['server.display.address.clue']
 			)
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['admin.authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $form_lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($this->lang['admin.authorizations.read'], ServerStatusAuthorizationsService::READ_AUTHORIZATIONS),
+			new ActionAuthorization($form_lang['form.authorizations.read'], ServerStatusAuthorizationsService::READ_AUTHORIZATIONS),
 		));
 
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());

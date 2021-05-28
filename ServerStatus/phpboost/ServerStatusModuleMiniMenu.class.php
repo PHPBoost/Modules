@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2016 02 11
+ * @version     PHPBoost 6.0 - last update: 2021 05 28
  * @since       PHPBoost 4.0 - 2013 08 04
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class ServerStatusModuleMiniMenu extends ModuleMiniMenu
@@ -14,27 +15,27 @@ class ServerStatusModuleMiniMenu extends ModuleMiniMenu
 		return self::BLOCK_POSITION__LEFT;
 	}
 
-	public function display($tpl = false)
+	public function display($view = false)
 	{
 		if (!Url::is_current_url('/ServerStatus/') && ServerStatusAuthorizationsService::check_authorizations()->read())
 		{
 			$lang = LangLoader::get('common', 'ServerStatus');
 			$main_lang = LangLoader::get('main');
 
-			$tpl = new FileTemplate('ServerStatus/ServerStatusModuleMiniMenu.tpl');
-			$tpl->add_lang($lang);
-			MenuService::assign_positions_conditions($tpl, $this->get_block());
+			$view = new FileTemplate('ServerStatus/ServerStatusModuleMiniMenu.tpl');
+			$view->add_lang(array_merge($lang, LangLoader::get('common-lang')));
+			MenuService::assign_positions_conditions($view, $this->get_block());
 
 			ServerStatusService::check_servers_status();
 
 			$config = ServerStatusConfig::load();
 
-			$i = $number_servers = 0;
+			$i = $servers_number = 0;
 			foreach ($config->get_servers_list() as $id => $server)
 			{
 				if ($server->is_authorized() && $server->is_displayed())
 				{
-					$tpl->assign_block_vars('servers', array(
+					$view->assign_block_vars('servers', array(
 						'C_NEW_LINE' => $i % 3 == 0,
 						'C_END_LINE' => $i % 3 == 2,
 						'C_ICON' => $server->has_medium_icon(),
@@ -46,17 +47,17 @@ class ServerStatusModuleMiniMenu extends ModuleMiniMenu
 						'U_DISPLAY_SERVER' => ServerStatusUrlBuilder::home(get_parent_class($server) == 'AbstractServerStatusServer' ? '#' . $server->get_rewrited_name() : $id . '#' . $server->get_rewrited_name())->rel()
 					));
 					$i++;
-					$number_servers++;
+					$servers_number++;
 				}
 			}
 
-			$tpl->put_all(array(
+			$view->put_all(array(
 				'C_ADDRESS_DISPLAYED' => $config->is_address_displayed(),
-				'C_MORE_THAN_ONE_SERVER' => $number_servers > 1,
-				'C_SERVERS' => $number_servers
+				'C_SEVERAL_SERVERS' => $servers_number > 1,
+				'C_SERVERS' => $servers_number
 			));
 
-			return $tpl->render();
+			return $view->render();
 		}
 		return '';
 	}
