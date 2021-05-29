@@ -12,17 +12,17 @@
 /* --- Home --- */
 
 .dictionary-definition {
-	padding-top: 5px;
-	margin-top: 7px;
-	border-top: 1px solid var(--bdr-main);
+	padding-bottom: 0.618em;
+	margin-bottom: 0.618em;
+	border-bottom: 1px solid var(--bdr-main);
 	overflow-y: auto;
 }
 
 .dictionary-letter a {
 	font-weight: bold;
-	padding: 0 5px;
+	padding: 0 0.618em;
 	border: 1px solid var(--main-tone);
-	margin: 5px 0;
+	margin: 0.618em 0;
 	display: inline-block;
 }
 
@@ -46,9 +46,11 @@
 }
 
 .dictionary-selected-cat:after {
+	font-family: 'Font Awesome 5 free';
+	font-weight: 400;
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%);
+	transform: translateY(-45%);
 	right: 0.309em;
-	content:'X'
+	content:'\f057'
 }
