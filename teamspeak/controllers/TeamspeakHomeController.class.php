@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 02
+ * @version     PHPBoost 6.0 - last update: 2021 05 29
  * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -11,7 +11,7 @@
 class TeamspeakHomeController extends ModuleController
 {
 	private $lang;
-	private $tpl;
+	private $view;
 	private $config;
 
 	public function execute(HTTPRequestCustom $request)
@@ -28,16 +28,16 @@ class TeamspeakHomeController extends ModuleController
 	private function init()
 	{
 		$this->lang = LangLoader::get('common', 'teamspeak');
-		$this->tpl = new FileTemplate('teamspeak/TeamspeakHomeController.tpl');
-		$this->tpl->add_lang($this->lang);
+		$this->view = new FileTemplate('teamspeak/TeamspeakHomeController.tpl');
+		$this->view->add_lang($this->lang);
 		$this->config = TeamspeakConfig::load();
 	}
 
 	private function build_view()
 	{
-		$this->tpl->put_all(array(
+		$this->view->put_all(array(
 			'C_REFRESH_ENABLED' => $this->config->get_refresh_delay(),
-			'REFRESH_DELAY' => $this->config->get_refresh_delay() * 60000
+			'REFRESH_DELAY'     => $this->config->get_refresh_delay() * 60000
 		));
 	}
 
@@ -54,7 +54,7 @@ class TeamspeakHomeController extends ModuleController
 		{
 			if(AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
 			{
-				$this->tpl->put('MSG', MessageHelper::display($this->lang['ts_ip_missing'], MessageHelper::WARNING)->render());
+				$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['ts.warning.ip'], MessageHelper::WARNING)->render());
 			}
 			else
 			{
@@ -66,14 +66,14 @@ class TeamspeakHomeController extends ModuleController
 
 	private function generate_response()
 	{
-		$response = new SiteDisplayResponse($this->tpl);
+		$response = new SiteDisplayResponse($this->view);
 
 		$graphical_environment = $response->get_graphical_environment();
-		$graphical_environment->set_page_title($this->lang['ts_title']);
+		$graphical_environment->set_page_title($this->lang['ts.module.title']);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(TeamspeakUrlBuilder::home());
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
-		$breadcrumb->add($this->lang['ts_title'], TeamspeakUrlBuilder::home());
+		$breadcrumb->add($this->lang['ts.module.title'], TeamspeakUrlBuilder::home());
 
 		return $response;
 	}
@@ -84,7 +84,7 @@ class TeamspeakHomeController extends ModuleController
 		$object->init();
 		$object->check_authorizations();
 		$object->build_view();
-		return $object->tpl;
+		return $object->view;
 	}
 }
 ?>

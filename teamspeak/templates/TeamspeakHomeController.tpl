@@ -20,7 +20,7 @@
 </script>
 <section>
 	<header class="section-header">
-		<h1>{@ts_title}</h1>
+		<h1>{@ts.module.title}</h1>
 	</header>
 	<div class="sub-section">
 		<div class="content-container">
@@ -32,7 +32,7 @@
 						<i class="fa fa-spinner fa-spin fa-2x" id="ts3_refresh_picture"></i>
 					</div>
 				</div>
-			</article>			
+			</article>
 		</div>
 	</div>
 	<footer></footer>

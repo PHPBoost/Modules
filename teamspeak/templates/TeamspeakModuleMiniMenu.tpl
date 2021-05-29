@@ -21,7 +21,7 @@
 <div id="mini-teamspeak" class="cell-mini cell-tile# IF C_VERTICAL # cell-mini-vertical# ENDIF #">
 	<div class="cell">
 		<div class="cell-header">
-			<h6 class="cell-name">{@ts_title}</h6>
+			<h6 class="cell-name">{@ts.module.title}</h6>
 		</div>
 		<div class="cell-body">
 			<div class="cell-content">

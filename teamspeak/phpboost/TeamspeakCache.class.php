@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2017 09 14
+ * @version     PHPBoost 6.0 - last update: 2021 05 29
  * @since       PHPBoost 4.1 - 2014 08 27
  * @contributor Arnaud GENET <elenwii@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class TeamspeakCache implements CacheData
@@ -42,16 +43,16 @@ class TeamspeakCache implements CacheData
 
 			$this->view->put_all(array(
 				'C_NUMBER_CLIENTS_DISPLAYED' => $config->is_clients_number_displayed(),
-				'C_MORE_THAN_ONE_CLIENT' => $number_clients > 1,
-				'VIEWER' => $viewer,
+				'C_SEVERAL_CLIENTS'          => $number_clients > 1,
+				'VIEWER'         => $viewer,
 				'NUMBER_CLIENTS' => $number_clients
 			));
 		}
 		catch(Exception $e)
 		{
 			$this->view->put_all(array(
-				'C_ERROR' => true,
-				'ERROR_CODE' => dechex($e->getCode()),
+				'C_ERROR'       => true,
+				'ERROR_CODE'    => dechex($e->getCode()),
 				'ERROR_MESSAGE' => TextHelper::htmlspecialchars($e->getMessage())
 			));
 		}
