@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 13
+ * @version     PHPBoost 6.0 - last update: 2021 05 31
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -52,7 +52,7 @@ class HomeLandingRss
             if(substr($output, 0, 5) !== "<?xml") {
                 $view->put_all(array(
                     'C_ITEMS' => false,
-                    'NO_ITEM' =>  $home_lang['homelanding.not.xml.file']
+                    'NO_ITEM' => $home_lang['homelanding.not.xml.file']
                 ));
             } else {
                 // create cache file
@@ -97,21 +97,21 @@ class HomeLandingRss
                 {
                     $date = strtotime($items['date'][$i]);
                     $item_date = strftime('%d/%m/%Y - %Hh%M', $date);
-                    $desc = $items['desc'][$i];
-                    $cut_desc = strip_tags(trim(substr($desc, 0, $char_number)));
+                    $desc = @strip_tags(FormatingHelper::second_parse($items['desc'][$i]));
+                    $cut_desc = (trim(TextHelper::substr($desc, 0, $char_number)));
                     $item_img = $items['img'][$i];
                     $view->assign_block_vars('items',array(
                         'TITLE'           => $items['title'][$i],
                         'U_ITEM'          => $items['link'][$i],
                         'DATE'            => $item_date,
                         'SUMMARY'         => $cut_desc,
-                        'C_READ_MORE'     => $cut_desc != $desc,
+                        'C_READ_MORE'     => strlen($desc) > $char_number,
+                        'WORDS_NUMBER'    => str_word_count($desc) - str_word_count($cut_desc),
                         'C_HAS_THUMBNAIL' => !empty($item_img),
                         'U_THUMBNAIL'     => $item_img,
                     ));
                 }
             }
-
         }
         return $view;
 	}

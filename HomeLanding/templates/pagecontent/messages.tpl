@@ -39,13 +39,13 @@
 									<div class="message-infos">
 										<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
 										<div class="message-action">
-											<a href="{items.U_ITEM}"><i class="fa fa-share"></i> {@common.read.more}</a>
+											<a href="{items.U_ITEM}" class="pinned bgc-full link-color"><i class="fa fa-share"></i> {@common.read.more}</a>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="message-content flex-between">
-								{items.CONTENT} ...
+								{items.CONTENT} # IF items.C_READ_MORE #... # ENDIF #
 							</div>
 						</div>
 					# END items #

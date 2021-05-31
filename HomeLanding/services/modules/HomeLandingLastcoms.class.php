@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 13
+ * @version     PHPBoost 6.0 - last update: 2021 05 31
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -68,7 +68,7 @@ class HomeLandingLastcoms
 			$view->assign_block_vars('items', array(
 				'C_AUTHOR_GROUP_COLOR' => !empty($user_group_color),
 				'C_AUTHOR_EXISTS'      => $author->get_id() !== User::VISITOR_LEVEL,
-				'C_READ_MORE'          => $cut_contents != $contents,
+				'C_READ_MORE'          => strlen($contents) > $characters_number_to_cut,
 
 				'AUTHOR_DISPLAY_NAME' => $author->get_display_name(),
 				'AUTHOR_LEVEL_CLASS'  => UserService::get_level_class($author->get_level()),
