@@ -7,7 +7,7 @@
 		init_sortable : function() {
 			jQuery("ul#servers_list").sortable({
 				handle: '.sortable-selector',
-				placeholder: '<div class="dropzone">' + ${escapejs(LangLoader::get_message('position.drop_here', 'common'))} + '</div>'
+				placeholder: '<div class="dropzone">' + ${escapejs(@common.drop.here)} + '</div>'
 			});
 		},
 		serialize_sortable : function() {

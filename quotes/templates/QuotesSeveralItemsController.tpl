@@ -2,7 +2,7 @@
 	<header class="section-header">
 		<div class="controls align-right">
 			# IF NOT C_ROOT_CATEGORY #{@quotes.module.title}# ENDIF #
-			# IF C_CATEGORY # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
+			# IF C_CATEGORY # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_PENDING_ITEMS #

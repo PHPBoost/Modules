@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 06 03
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -21,8 +21,11 @@ class SmalladsFormFieldCarousel extends AbstractFormField
 		$template = $this->get_template_to_use();
 
 		$view = new FileTemplate('smallads/fields/SmalladsFormFieldCarousel.tpl');
-		$view->add_lang(LangLoader::get('common'));
-		$view->add_lang(LangLoader::get('common', 'smallads'));
+		$view->add_lang(array_merge(
+			LangLoader::get('common', 'smallads'),
+			LangLoader::get('common-lang'),
+			LangLoader::get('upload-lang')
+		));
 
 		$view->put_all(array(
 			'NAME' => $this->get_html_id(),
