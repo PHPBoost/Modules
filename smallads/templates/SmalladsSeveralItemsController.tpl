@@ -407,7 +407,7 @@
 		                <option value="{ITEMS_PER_PAGE}"> {ITEMS_PER_PAGE} {@common.pagination.per}</option>
 		                <option value="50"> 50 {@common.pagination.per}</option>
 		                <option value="100"> 100 {@common.pagination.per}</option>
-		                <option value="0"> {@common.all.e} </option>
+		                <option value="0"> {@common.all.alt} </option>
 		            </select>
 				</div> -->
 			</div>
