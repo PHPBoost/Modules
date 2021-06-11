@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 29
+ * @version     PHPBoost 6.0 - last update: 2021 06 11
  * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -13,6 +13,11 @@ class TeamspeakModuleMiniMenu extends ModuleMiniMenu
 	public function get_default_block()
 	{
 		return self::BLOCK_POSITION__LEFT;
+	}
+
+	public function get_formated_title()
+	{
+		return LangLoader::get_message('ts.module.title', 'common', 'teamspeak');
 	}
 
 	public function display($view = false)
