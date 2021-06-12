@@ -25,6 +25,11 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 		return LangLoader::get_message('wiki.status.module.title', 'common', 'WikiStatus');
 	}
 
+	public function get_formated_title()
+	{
+		return LangLoader::get_message('wiki.status.formated.module.title', 'common', 'WikiStatus');
+	}
+
 	public function get_menu_content()
 	{
 		$tpl = new FileTemplate('WikiStatus/ArticlesWikiStatusUpdated.tpl');
