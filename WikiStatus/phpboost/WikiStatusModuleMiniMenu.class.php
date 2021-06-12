@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 11
+ * @version     PHPBoost 6.0 - last update: 2021 06 12
  * @since       PHPBoost 5.0 - 2017 01 30
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -23,11 +23,6 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 	public function get_menu_title()
 	{
 		return LangLoader::get_message('wiki.status.module.title', 'common', 'WikiStatus');
-	}
-
-	public function get_formated_title()
-	{
-		return $this->get_menu_title();
 	}
 
 	public function get_menu_content()
