@@ -32,9 +32,9 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_content()
 	{
-		$tpl = new FileTemplate('WikiStatus/ArticlesWikiStatusUpdated.tpl');
+		$view = new FileTemplate('WikiStatus/ArticlesWikiStatusUpdated.tpl');
 		$lang = LangLoader::get('common', 'WikiStatus');
-		$tpl->add_lang($lang);
+		$view->add_lang(array_merge($lang, LangLoader::get('common-lang'), LangLoader::get('user-lang')));
 
 		$status_classes = array(
 			1 => 'success',
@@ -45,7 +45,7 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 		);
 
 		$position = $this->get_block() == Menu::BLOCK_POSITION__LEFT || $this->get_block() == Menu::BLOCK_POSITION__RIGHT;
-		$tpl->put('C_HORIZONTAL', !$position);
+		$view->put('C_HORIZONTAL', !$position);
 
 		//Load module config
 		$querier = PersistenceContext::get_querier();
@@ -65,25 +65,28 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 		while($row = $results->fetch())
 		{
 			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
-			$tpl->assign_block_vars('wiki_items', array(
+			$view->assign_block_vars('wiki_items', array(
+				'C_AUTHOR_GROUP_COLOR' => !empty($user_group_color),
+				'C_AUTHOR_EXISTS'      => !empty($row['display_name']),
+
 				'TITLE' => stripslashes($row['title']),
 				'STATUS_CLASS' => in_array($row['defined_status'], array_keys($status_classes)) ? $status_classes[$row['defined_status']] : '',
-				'STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['status.' . $row['defined_status']] ? $lang['status.' . $row['defined_status']] : ''),
-				'C_AUTHOR_EXISTS' => !empty($row['display_name']),
-				'USER_LEVEL_CLASS' => UserService::get_level_class($row['level']),
-				'C_USER_GROUP_COLOR' => !empty($user_group_color),
-				'USER_GROUP_COLOR' => $user_group_color,
-				'PSEUDO' => $row['display_name'],
-				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel(),
+				'AUTHOR_LEVEL_CLASS' => UserService::get_level_class($row['level']),
+				'AUTHOR_GROUP_COLOR' => $user_group_color,
+				'AUTHOR_DISPLAY_NAME' => $row['display_name'],
 				'AUTHOR_IP' => $row['user_ip'],
 				'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
 				'SHORT_DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
+
+				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel(),
 				'U_ITEM' => $row['activ'] == 1 ? url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']) : url('wiki.php?id_contents=' . $row['id_contents']),
+
+				'L_STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['wiki.status.' . $row['defined_status']] ? $lang['wiki.status.' . $row['defined_status']] : ''),
 			));
 			$maj_article++;
 		}
 
-        return $tpl->render();
+        return $view->render();
 	}
 }
 ?>

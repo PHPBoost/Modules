@@ -15,14 +15,13 @@
 
 $lang['wiki.status.module.title'] = 'Articles created or updated';
 $lang['wiki.status.formated.module.title'] = 'Wiki status';
-$lang['wiki.status.explain'] = 'Only documents whose status has been declared (predefined or customized) are displayed';
-$lang['header.date'] = 'Date';
-$lang['header.item'] = 'Article';
-$lang['header.status'] = 'Status';
-$lang['header.author'] = 'Author';
-$lang['status.1'] = 'Article OK';
-$lang['status.2'] = 'Incomplete';
-$lang['status.3'] = 'Pending';
-$lang['status.4'] = 'Redo';
-$lang['status.5'] = 'Obsolete';
+
+$lang['wiki.status.item'] = 'Article';
+$lang['wiki.status.clue'] = 'Only documents whose status has been declared (predefined or customized) are displayed';
+
+$lang['wiki.status.1'] = 'Article OK';
+$lang['wiki.status.2'] = 'Incomplete';
+$lang['wiki.status.3'] = 'Pending';
+$lang['wiki.status.4'] = 'To redo';
+$lang['wiki.status.5'] = 'Obsolete';
 ?>
