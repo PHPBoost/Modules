@@ -401,15 +401,15 @@
 					    <li class="pagination-item" data-type="next" aria-label="{@common.pagination.next}"><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a> </li>
 					    <li class="pagination-item" data-type="last" aria-label="{@common.pagination.last}"><a href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a> </li>
 					</ul>
+					<div class="align-center">
+			            <select data-type="items-per-page">
+			                <option value="{ITEMS_PER_PAGE}"> {ITEMS_PER_PAGE} {@common.pagination.per}</option>
+			                <option value="25"> 25 {@common.pagination.per}</option>
+			                <option value="50"> 50 {@common.pagination.per}</option>
+			                <option value="0"> {@common.all.alt} </option>
+			            </select>
+					</div>
 				</nav>
-				<!-- <div class="align-center">
-		            <select data-type="items-per-page">
-		                <option value="{ITEMS_PER_PAGE}"> {ITEMS_PER_PAGE} {@common.pagination.per}</option>
-		                <option value="50"> 50 {@common.pagination.per}</option>
-		                <option value="100"> 100 {@common.pagination.per}</option>
-		                <option value="0"> {@common.all.alt} </option>
-		            </select>
-				</div> -->
 			</div>
 		</div>
 	# ENDIF #
