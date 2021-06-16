@@ -1,5 +1,4 @@
 <script>
-	<!--
 	function str_replace2(SRs, SRt, SRu) {
 		  SRRi = SRs.indexOf(SRt);
 		  SRRr = '';
@@ -77,7 +76,6 @@
 		if (!alert_item(o.name_cat)) return false;
 		return true;
 	}
--->
 </script>
 
 <nav id="admin-quick-menu">
@@ -107,11 +105,11 @@
 </nav>
 
 <div id="admin-contents">
-	# INCLUDE MSG #
+	# INCLUDE MESSAGE_HELPER #
 	# START add #
 		<form action="admin_dictionary_cats.php?add=1" method="post" enctype="multipart/form-data" onsubmit="return check_form_conf(this);" class="fieldset-content">
 			<fieldset>
-				<legend>{add.L_CATEGORY}</legend>
+				<legend>{@category.add}</legend>
 				<div class="fieldset-inset">
 					<div class="form-element">
 						<label for="name_cat">* {add.L_NAME_CAT}</label>
@@ -209,31 +207,39 @@
 			</table>
 		</form>
 	# ENDIF #
-	# IF DEL_CAT_NOEMPTY #
+	# IF C_DELETE_CATEGORY #
 		<form action="admin_dictionary_cats.php" method="post" class="fieldset-content">
-			<fieldset>
-				<legend>{L_DEL_CAT}</legend>
-					<p>{L_DEL_TEXT} <strong>{L_WARNING_DEL}</strong></p>
-				<div class="form-field-radio">
-					<input id="action" type="radio" name="action" value="delete">
-					<label for="action"></label>
+			<fieldset class="inline-radio">
+				<legend>{@category.delete}</legend>
+				<div class="fielset-inset">
+					<div class="fieldset-description">
+						<div class="message-helper bgc notice">{@H|category.delete.clue}</div>
+					</div>
+					<div class="form-element">
+						<label for="">{@category.content.management}</label>
+							<div class="form-field form-field-radio-button">
+							<div class="form-field-radio">
+								<input id="action" type="radio" name="action" value="delete">
+								<label for="action"></label>
+							</div>
+							<span class="form-field-radio-span">{@category.delete.all.content}</span>
+							<div class="form-field-radio">
+								<input id="action2" type="radio" name="action" value="move" checked="checked">
+								<label for="action2"></label>
+							</div>
+							<span class="form-field-radio-span">{@category.move.to}</span>
+							<select id="categorie_move" name="categorie_move">
+								# START cat_list #
+								<option value="{cat_list.ID}">{cat_list.NAME}
+								# END cat_list #
+							</select>
+						</div>
+					</div>
 				</div>
-				<span class="form-field-radio-span">{L_DEL_CAT_DEF}</span>
-				<br><br>
-				<div class="form-field-radio">
-					<input id="action2" type="radio" name="action" value="move" checked="checked">
-					<label for="action2"></label>
-				</div>
-				<span class="form-field-radio-span">{L_MOVE} :</span>
-				<select id="categorie_move" name="categorie_move">
-					# START cat_list #
-					<option value="{cat_list.ID}">{cat_list.NAME}
-					# END cat_list #
-				</select>
 			</fieldset>
 			<fieldset class="fieldset-submit">
-				<legend>${LangLoader::get_message('delete', 'common')}</legend>
-				<button class="button submit" type="submit" name="submit" value="true">${LangLoader::get_message('delete', 'common')}</button>
+				<legend>{@form.submit}</legend>
+				<button class="button submit" type="submit" name="submit" value="true">{@form.submit}</button>
 				<input name="id_del_a" value="{ID_DEL}" type="hidden">
 				<input name="cat_to_del" value="1" type="hidden">
 				<input type="hidden" name="token" value="{TOKEN}" />

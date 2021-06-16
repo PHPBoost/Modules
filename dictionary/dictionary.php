@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 12 04
+ * @version     PHPBoost 6.0 - last update: 2021 06 16
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -12,20 +12,35 @@
 
 require_once('../kernel/begin.php');
 load_module_lang('dictionary'); //Chargement de la langue du module.
-define('TITLE', $LANG['dictionary']);
+
+$lang = LangLoader::get('common', 'dictionary');
+
+define('TITLE', $lang['dictionary.module.title']);
 require_once('../kernel/header.php');
 
 $config = DictionaryConfig::load();
-$Template = new FileTemplate('dictionary/dictionary.tpl');
+$view = new FileTemplate('dictionary/dictionary.tpl');
+
+$Bread_crumb->add($lang['dictionary.module.title'], url('dictionary.php'));
 
 $get_l_error = retrieve(GET, 'erroru', '');
-
 if (!empty($get_l_error))
-	$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
-
-if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(POST, 'valid', false) || $id_get = retrieve(GET, 'edit', 0, TINTEGER))// ajout, previsualisation,edition.
 {
+	$view->put('MESSAGE_HELPER', MessageHelper::display($lang[$get_l_error], MessageHelper::WARNING));
+}
+
+if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(POST, 'valid', false) || $id_get = retrieve(GET, 'edit', 0, TINTEGER))// ajout, previsualisation,edition.
+{
+	if(retrieve(GET, 'add', false)) $Bread_crumb->add($lang['dictionary.add.item'], url('dictionary.php?add=1'));
+	$view->add_lang(array_merge(
+		$lang,
+		LangLoader::get('common-lang'),
+		LangLoader::get('contribution-lang'),
+		LangLoader::get('form-lang'),
+		LangLoader::get('warning-lang')
+	));
 	$user_id = AppContext::get_current_user()->get_id();
+
 	if (!(DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution() || DictionaryAuthorizationsService::check_authorizations()->moderation()))
 	{
 		$error_controller = PHPBoostErrors::user_not_authorized();
@@ -37,9 +52,9 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 	ORDER BY id");
 	while ($row_cat = $result_cat->fetch())
 	{
-		$Template->assign_block_vars('cat_list_add', array(
+		$view->assign_block_vars('cat_list_add', array(
 			'VALUE' => $row_cat['id'],
-			'NAME' => TextHelper::strtoupper(stripslashes($row_cat['name'])),
+			'NAME'  => stripslashes($row_cat['name']),
 		));
 	}
 	$result_cat->dispose();
@@ -50,42 +65,28 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 	$counterpart_editor = AppContext::get_content_formatting_service()->get_default_editor();
 	$counterpart_editor->set_identifier('counterpart');
 
-	$Template->put_all(array(
-		'L_ALERT_TEXT_DESC' => $LANG['require.text.desc'],
-		'L_ALERT_TEXT_MOTS' => $LANG['require.text.word'],
-		'L_DELETE_DICTIONARY' => $LANG['delete.dictionary.conf'],
-		'L_ALL_DEFINITIONS' => $LANG['all.definitions'],
-		'L_ADD_DICTIONARY' => $LANG['create.dictionary'],
-		'L_CONTENTS' => $LANG['dictionary.contents'],
-		'L_WORD' => $LANG['dictionary.word'],
-		'L_SUBMIT' => $LANG['submit'],
-		'L_PREVIEW' => $LANG['preview'],
-		'L_RESET' => $LANG['reset'],
-		'L_VALIDATION' => $LANG['validation'],
-		'L_CATEGORY' => $LANG['category'],
-		'C_EDIT' => DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution(),
-		'TITLE' => $LANG['dictionary'],
-		'KERNEL_EDITOR' => $contents_editor->display()
+	$view->put_all(array(
+		'C_EDIT'     => DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution(),
+		'C_ADD_ITEM' => true,
+
+		'KERNEL_EDITOR' => $contents_editor->display(),
 	));
 
 	$c_contrib = !DictionaryAuthorizationsService::check_authorizations()->write() && DictionaryAuthorizationsService::check_authorizations()->contribution();
 
-	$Template->put_all(array(
+	$view->put_all(array(
 		'C_CONTRIBUTION' => $c_contrib,
-		'L_CONTRIBUTION' => $LANG['dictionary.contribution.legend'],
-		'L_CONTRIBUTION_NOTICE' => $LANG['dictionary.contribution.notice'],
-		'L_CONTRIBUTION_COUNTERPART' => $LANG['dictionary.contribution.counterpart'],
-		'L_CONTRIBUTION_COUNTERPART_EXPLAIN' => $LANG['dictionary.contribution.counterpart.explain'],
-		'CONTRIBUTION_COUNTERPART_EDITOR' => $counterpart_editor->display(),
-		'REWRITE'=> (int)ServerEnvironmentConfig::load()->is_url_rewriting_enabled(),
-		'C_APPROVED' => TRUE
+		'C_APPROVED'     => true,
+
+		'CONTRIBUTION_EDITOR' => $counterpart_editor->display(),
+		'REWRITE'             => (int)ServerEnvironmentConfig::load()->is_url_rewriting_enabled(),
 	));
 
-	if (retrieve(POST, 'previs', false)) // prévisualisation
+	if (retrieve(POST, 'preview', false)) // prévisualisation
 	{
 		$word = retrieve(POST, 'word', 'word', TSTRING);
-		$contents = retrieve(POST, 'contents', '', TSTRING_AS_RECEIVED);
-		$contents_preview = retrieve(POST, 'contents', '' , TSTRING_UNCHANGE);
+		$contents = retrieve(POST, 'description', '', TSTRING_AS_RECEIVED);
+		$contents_preview = retrieve(POST, 'description', '' , TSTRING_UNCHANGE);
 		$category_id = retrieve(POST,'category_add','',TINTEGER);
 		$id = retrieve(POST,'dictionary_id','');
 
@@ -93,14 +94,15 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 		try {
 			$cat_name = PersistenceContext::get_querier()->get_column_value(DictionarySetup::$dictionary_cat_table, 'name', 'WHERE id = ' . $category_id);
 		} catch (RowNotFoundException $e) {}
-		$Template->put_all(array(
-			'C_ARTICLES_PREVIEW' => true,
-			'WORD' => stripslashes($word),
-			'ID' => $id,
-			'CONTENTS_PRW' => FormatingHelper::second_parse(stripslashes(FormatingHelper::strparse($contents,$config->get_forbidden_tags()))),
-			'CONTENTS' => $contents_preview,
-			'NAME_CAT_SELECT'=>$cat_name,
-			'ID_CAT_SELECT'=>$category_id,
+		$view->put_all(array(
+			'C_ITEM_PREVIEW' => true,
+
+			'WORD'            => stripslashes($word),
+			'ITEM_ID'         => $id,
+			'CONTENT_PREVIEW' => FormatingHelper::second_parse(stripslashes(FormatingHelper::strparse($contents,$config->get_forbidden_tags()))),
+			'CONTENT'         => $contents_preview,
+			'CATEGORY_NAME'   =>$cat_name,
+			'CATEGORY_ID'     =>$category_id,
 		));
 	}
 	elseif (retrieve(POST, 'valid', false)) // ajout
@@ -108,7 +110,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 		$timestamp = time();
 		$id = retrieve(POST,'dictionary_id','');
 		$word = retrieve(POST, 'word', 'word', TSTRING);
-		$contents = retrieve(POST, 'contents', 'contents', TSTRING_AS_RECEIVED);
+		$contents = retrieve(POST, 'description', 'description', TSTRING_AS_RECEIVED);
 		$contents_cat = retrieve(POST,'category_add','',TINTEGER);
 		$contents = FormatingHelper::second_parse(stripslashes(FormatingHelper::strparse($contents,$config->get_forbidden_tags())));
 
@@ -147,12 +149,11 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 		{
 			if ($row1['approved'] == 0)
 			{
-				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary' . url('.php?erroru=' . "word_exist_contrib") . '#errorh');
+				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary' . url('.php?erroru=' . "dictionary_word_already_exists") . '#errorh');
 			}
 			else
 			{
-				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary' . url('.php?erroru=' . "word_exist") . '#errorh');
-
+				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary' . url('.php?erroru=' . "dictionary_word_already_exists") . '#errorh');
 			}
 		}
 		else
@@ -188,6 +189,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 	}
 	elseif ($id_get = retrieve(GET, 'edit', 0, TINTEGER)) // édition
 	{
+		$Bread_crumb->add($lang['dictionary.edit.item'], url('dictionary.php?edit=' . $id_get));
 		if (!DictionaryAuthorizationsService::check_authorizations()->moderation())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
@@ -205,26 +207,28 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'previs', false) || retrieve(P
 			DispatchManager::redirect($error_controller);
 		}
 
-		$Template->put_all(array(
-			'C_EDIT' => TRUE,
-			'C_CONTRIBUTION' => FALSE,
-			'C_APPROVED' => !empty($row['approved']),
-			'ID' => $id_get,
-			'CONTENTS' => FormatingHelper::unparse(stripslashes($row['description'])),
-			'WORD' => stripslashes($row['word']),
-			'APPROVED' => '',
-			'ID_CAT_SELECT' => $row['cat'],
-			'NAME_CAT_SELECT' => $row['cat_name'],
+		$view->put_all(array(
+			'C_EDIT'         => true,
+			'C_ADD_ITEM'     => false,
+			'C_CONTRIBUTION' => false,
+			'C_APPROVED'     => !empty($row['approved']),
+
+			'ITEM_ID'       => $id_get,
+			'CONTENT'       => FormatingHelper::unparse(stripslashes($row['description'])),
+			'WORD'          => stripslashes($row['word']),
+			'APPROVED'      => '',
+			'CATEGORY_ID'   => $row['cat'],
+			'CATEGORY_NAME' => $row['cat_name'],
 		));
 	}
 	DictionaryCache::invalidate(); //Régénération du cache
-	$Template->display();
+	$view->display();
 }
 elseif ($id_get = retrieve(GET, 'del', 0, TINTEGER))//Supression
 {
 	AppContext::get_session()->csrf_get_protect();
-	$nb_word = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE (approved = 1)");
-	if ($nb_word == 1 )
+	$words_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE (approved = 1)");
+	if ($words_number == 1 )
 	{
 		AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary' . url('.php?erroru=' . "del_word") . '#errorh');
 	}

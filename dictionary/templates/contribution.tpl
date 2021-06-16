@@ -1,11 +1,14 @@
 <section>
 	<header>
-		<h1>{L_CONTRIBUTION_CONFIRMATION}</h1>
+		<h1>{@contribution.confirmed}</h1>
 	</header>
 	<article>
 		<div class="content">
-			<div class="message-helper bgc success">{L_CONTRIBUTION_SUCCESS}</div>
-			{L_CONTRIBUTION_CONFIRMATION_EXPLAIN}
+			<div class="message-helper bgc success">{@H|contribution.confirmed.messages}</div>
+			<p class="align-center">
+				<a class="button" href="${relative_url(DictionaryUrlBuilder::home())}">{@dictionary.module.title}</a>
+				<a class="button" href="${Url::to_rel('dictionary.php?add=1')}">{@dictionary.add.item}</a>
+			</p>
 		</div>
 	</article>
 	<footer></footer>

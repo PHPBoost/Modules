@@ -13,12 +13,21 @@
 
 require_once('../admin/admin_begin.php');
 load_module_lang('dictionary'); //Chargement de la langue du module.
-define('TITLE', $LANG['dictionary']);
+
+$lang = LangLoader::get('common', 'dictionary');
+
+define('TITLE', $lang['dictionary.module.title']);
 require_once('../admin/admin_header.php');
 
 $config = DictionaryConfig::load();
 
-$Template = new FileTemplate('dictionary/admin_dictionary_cats.tpl');
+$view = new FileTemplate('dictionary/admin_dictionary_cats.tpl');
+$view->add_lang(array_merge(
+	$lang,
+	LangLoader::get('category-lang'),
+	LangLoader::get('form-lang'),
+	LangLoader::get('warning-lang')
+));
 
 $get_error = retrieve(GET, 'error', '');
 $get_l_error = retrieve(GET, 'erroru', '');
@@ -35,7 +44,10 @@ if ($pagination->current_page_is_empty() && $page > 1)
 	DispatchManager::redirect($error_controller);
 }
 
-$Template->put_all(array(
+$view->put_all(array(
+	'C_PAGINATION' => $pagination->has_several_pages(),
+	'PAGINATION' => $pagination->display(),
+	//
 	'L_SUBMIT' => $LANG['submit'],
 	'L_RESET' => $LANG['reset'],
 	'L_DICTIONARY_MANAGEMENT' => $LANG['dictionary.management'],
@@ -46,23 +58,21 @@ $Template->put_all(array(
 	'ALERT_DEL' => $LANG['alert.del'],
 	'L_GESTION_CAT' => $LANG['cat.manager'],
 	'L_VAL_INC' => $LANG['invalid.value'],
-	'C_PAGINATION' => $pagination->has_several_pages(),
-	'PAGINATION' => $pagination->display()
 ));
 
 if (!empty($get_l_error))
 {
-	$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
+	$view->put('MESSAGE_HELPER', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
 	$name = "";
 	$id = "";
 }
 
-if (retrieve(GET,'add',false))
+if (retrieve(GET, 'add', false))
 {
 	$row = '';
 	if (!empty($get_l_error))
 	{
-		$Template->put('MSG', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
+		$view->put('MESSAGE_HELPER', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
 		$name = "";
 
 		if ($id = retrieve(GET,'id_cat',false,TINTEGER))
@@ -80,7 +90,7 @@ if (retrieve(GET,'add',false))
 	}
 	elseif (!empty($errstr))
 	{
-		$Template->put('MSG', MessageHelper::display($LANG['error.upload.img'], MessageHelper::NOTICE));
+		$view->put('MESSAGE_HELPER', MessageHelper::display($LANG['error.upload.img'], MessageHelper::NOTICE));
 		$name = "";
 		$id = "";
 	}
@@ -95,10 +105,11 @@ if (retrieve(GET,'add',false))
 		$name = "";
 	}
 	$img = $row && !empty($row['images']) ? '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />' : '<i class="fa fa-folder"></i>';
-	$Template->assign_block_vars('add',array(
+	$view->assign_block_vars('add',array(
 		'LIST_CAT' => false,
 		'ID_CAT' => $id,
 		'NAME_CAT' => $name,
+		//
 		'IMAGES' => $img,
 		'L_NAME_CAT' => $LANG['name.cat'],
 		'L_SUBMIT' => $LANG['submit'],
@@ -117,7 +128,7 @@ if (retrieve(GET,'add',false))
 		'L_IMAGE_ADR' => $LANG['picture.url'],
 	));
 
-	$Template->display();
+	$view->display();
 
 	if (retrieve(POST,'valid',false) && $id_cat = retrieve(POST,'id_cat',false,TINTEGER))
 	{
@@ -265,14 +276,9 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 	}
 	elseif ($nb_word > 0)
 	{
-		$Template->put_all(array(
-			'DEL_CAT_NOEMPTY' => true,
+		$view->put_all(array(
+			'C_DELETE_CATEGORY' => true,
 			'ID_DEL' => $id_del,
-			'L_DEL_CAT' => $LANG['del.cat'],
-			'L_DEL_TEXT' => $LANG['del.text'],
-			'L_DEL_CAT_DEF' => $LANG['del.cat.def'] ,
-			'L_MOVE' => $LANG['move'],
-			'L_WARNING_DEL' => $LANG['warning.del'],
 		));
 
 		$result = PersistenceContext::get_querier()->select("SELECT id, name
@@ -281,14 +287,14 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 		ORDER BY name");
 		while ($row = $result->fetch())
 		{
-			$Template->assign_block_vars('cat_list', array(
+			$view->assign_block_vars('cat_list', array(
 				'NAME' => TextHelper::strtoupper($row['name']),
 				'ID' => $row['id']
 			));
 		}
 		$result->dispose();
 
-		$Template->display();
+		$view->display();
 	}
 	else
 	{
@@ -309,7 +315,7 @@ else
 	while ($row_cat = $result_cat->fetch())
 	{
 		$img = empty($row_cat['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row_cat['images'] . '" alt="' . $row_cat['images'] . '" />';
-		$Template->assign_block_vars('cat', array(
+		$view->assign_block_vars('cat', array(
 			'NAME' => TextHelper::strtoupper($row_cat['name']),
 			'IMAGES' => $img,
 			'ID_CAT' => $row_cat['id']
@@ -317,11 +323,11 @@ else
 	}
 	$result_cat->dispose();
 
-	$Template->put_all( array(
+	$view->put_all( array(
 		'LIST_CAT' => true,
 	));
 
-	$Template->display();
+	$view->display();
 }
 
 require_once('../admin/admin_footer.php');
