@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 27
+ * @version     PHPBoost 6.0 - last update: 2021 06 16
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -35,7 +35,7 @@ class AdminLastcomsConfigController extends AdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$view->put('MSG', MessageHelper::display(LangLoader::get_message('warning.message.success.config', 'warning-lang'), MessageHelper::SUCCESS, 5));
+			$view->put('MSG', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 5));
 		}
 
 		$view->put('FORM', $this->form->display());
