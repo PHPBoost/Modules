@@ -123,7 +123,7 @@
 													# IF C_CUSTOM_AUTHOR_NAME #
 														{CUSTOM_AUTHOR_NAME}
 													# ELSE #
-														# IF C_AUTHOR_EXISTS #<a itemprop="author" href="{U_AUTHOR}" class="{AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{AUTHOR_GROUP_COLOR}"# ENDIF #>{AUTHOR_DISPLAY_NAME}</a># ELSE #{AUTHOR_DISPLAY_NAME}# ENDIF #
+														# IF C_AUTHOR_EXISTS #<a itemprop="author" href="{U_AUTHOR_PROFILE}" class="{AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{AUTHOR_GROUP_COLOR}"# ENDIF #>{AUTHOR_DISPLAY_NAME}</a># ELSE #{AUTHOR_DISPLAY_NAME}# ENDIF #
 													# ENDIF #
 												</span>
 											</li>

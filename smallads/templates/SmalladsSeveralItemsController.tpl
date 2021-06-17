@@ -211,7 +211,7 @@
 												# IF items.C_CUSTOM_AUTHOR_NAME #
 													{items.CUSTOM_AUTHOR_NAME}
 												# ELSE #
-													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
+													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR_PROFILE}" class="{items.AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
 												# ENDIF #
 											</td>
 										# ENDIF #
@@ -284,7 +284,7 @@
 												# IF items.C_CUSTOM_AUTHOR_NAME #
 													{items.CUSTOM_AUTHOR_NAME}
 												# ELSE #
-													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #,
+													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR_PROFILE}" class="{items.AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #,
 												# ENDIF #
 											</span>
 										# ENDIF #

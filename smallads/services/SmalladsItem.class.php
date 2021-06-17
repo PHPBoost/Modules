@@ -791,17 +791,17 @@ class SmalladsItem
 			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id())->rel(),
 
 			// Links
-			'U_COMMENTS'    => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_AUTHOR'      => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_AUTHOR_PM'   => UserUrlBuilder::personnal_message($this->get_author_user()->get_id())->rel(),
-			'U_CATEGORY'    => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-			'U_ITEM'        => SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_THUMBNAIL' 	=> $this->get_thumbnail()->rel(),
-			'U_EDIT'   		=> SmalladsUrlBuilder::edit_item($this->id)->rel(),
-			'U_DELETE' 		=> SmalladsUrlBuilder::delete_item($this->id)->rel(),
-			'U_SYNDICATION' => SyndicationUrlBuilder::rss('smallads', $category->get_id())->rel(),
-			'U_PRINT_ITEM'  => SmalladsUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_USAGE_TERMS' => SmalladsUrlBuilder::usage_terms()->rel()
+			'U_COMMENTS'       => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
+			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+			'U_AUTHOR_PM'      => UserUrlBuilder::personnal_message($this->get_author_user()->get_id())->rel(),
+			'U_CATEGORY'       => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
+			'U_ITEM'           => SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
+			'U_THUMBNAIL' 	   => $this->get_thumbnail()->rel(),
+			'U_EDIT'   		   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
+			'U_DELETE' 		   => SmalladsUrlBuilder::delete_item($this->id)->rel(),
+			'U_SYNDICATION'    => SyndicationUrlBuilder::rss('smallads', $category->get_id())->rel(),
+			'U_PRINT_ITEM'     => SmalladsUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel(),
+			'U_USAGE_TERMS'    => SmalladsUrlBuilder::usage_terms()->rel()
 			)
 		);
 	}
