@@ -2,7 +2,7 @@
 	<header class="section-header">
 		<div class="controls align-right">
 			# IF NOT C_ROOT_CATEGORY #{@quotes.module.title}# ENDIF #
-			# IF C_CATEGORY # # IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
+			# IF C_CATEGORY # # IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_PENDING_ITEMS #
@@ -34,7 +34,7 @@
 						<div class="cell category-{sub_categories_list.CATEGORY_ID}">
 							<div class="cell-header">
 								<div class="cell-name" itemprop="about">
-									<a href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a>
+									<a class="offload" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a>
 								</div>
 								<span class="small pinned notice" aria-label="{sub_categories_list.ELEMENTS_NUMBER} # IF sub_categories_list.C_MORE_THAN_ONE_ELEMENT #${TextHelper::lcfirst(@items)}# ELSE #${TextHelper::lcfirst(@item)}# ENDIF #">{sub_categories_list.ELEMENTS_NUMBER}</span>
 							</div>
@@ -42,7 +42,7 @@
 								<div class="cell-body">
 									<div class="cell-thumbnail cell-landscape cell-center">
 										<img itemprop="thumbnailUrl" src="{sub_categories_list.U_CATEGORY_THUMBNAIL}" alt="{sub_categories_list.CATEGORY_NAME}" />
-										<a class="cell-thumbnail-caption" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
+										<a class="cell-thumbnail-caption offload" itemprop="about" href="{sub_categories_list.U_CATEGORY}">
 											{@common.see.category}
 										</a>
 									</div>
@@ -65,14 +65,14 @@
 							<blockquote class="formatter-container formatter-blockquote# IF C_WRITER_ITEMS # writer-items# ENDIF #">
 								<h2 class="title-perso">
 									# IF NOT C_WRITER_ITEMS #
-										<a href="{items.U_WRITER}" class="small">{items.WRITER_NAME}</a> :
+										<a href="{items.U_WRITER}" class="small offload">{items.WRITER_NAME}</a> :
 									# ENDIF #
 								</h2>
 								<div class="formatter-content">
 									# IF items.C_CONTROLS #
 										<div class="controls align-right">
 											# IF items.C_EDIT #
-												<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+												<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 											# ENDIF #
 											# IF items.C_DELETE #
 												<a href="{items.U_DELETE}" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
@@ -81,7 +81,7 @@
 									# ENDIF #
 									<p itemprop="text">{items.CONTENT}</p>
 									<div class="align-right small">
-										<a href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>
+										<a class="offload" href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>
 									</div>
 								</div>
 				            </blockquote>

@@ -6,8 +6,8 @@
 		<div class="content">
 			<div class="message-helper bgc success">{@H|contribution.confirmed.messages}</div>
 			<p class="align-center">
-				<a class="button" href="${relative_url(DictionaryUrlBuilder::home())}">{@dictionary.module.title}</a>
-				<a class="button" href="${Url::to_rel('dictionary.php?add=1')}">{@dictionary.add.item}</a>
+				<a class="button offload" href="${relative_url(DictionaryUrlBuilder::home())}">{@dictionary.module.title}</a>
+				<a class="button offload" href="${Url::to_rel('dictionary.php?add=1')}">{@dictionary.add.item}</a>
 			</p>
 		</div>
 	</article>

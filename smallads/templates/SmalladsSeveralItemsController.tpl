@@ -1,9 +1,9 @@
 <section id="module-smallads">
 	<header class="section-header">
 		<div class="controls align-right">
-			<a href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning" aria-hidden="true"></i></a>
+			<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning" aria-hidden="true"></i></a>
 			# IF NOT C_ROOT_CATEGORY #{@smallads.module.title}# ENDIF #
-			# IF C_CATEGORY ## IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
+			# IF C_CATEGORY ## IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_ARCHIVED #
@@ -54,11 +54,11 @@
 											<nav id="category-nav" class="cssmenu cssmenu-static dropdown-container">
 												<ul>
 													<li data-sa-cat-id="0" data-sa-parent-id="0" data-sa-c-order="0">
-														<a class="cssmenu-title" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
+														<a class="cssmenu-title offload" href="{PATH_TO_ROOT}/smallads">{@smallads.all.types.filters}</a>
 													</li>
 													# START categories #
 														<li data-sa-cat-id="{categories.ID}" data-sa-parent-id="{categories.ID_PARENT}" data-sa-c-order="{categories.SUB_ORDER}">
-															<a class="cssmenu-title" href="{categories.U_CATEGORY}">{categories.NAME}</a>
+															<a class="cssmenu-title offload" href="{categories.U_CATEGORY}">{categories.NAME}</a>
 														</li>
 													# END categories #
 												</ul>
@@ -197,7 +197,7 @@
 								# START items #
 									<tr data-listorder-item class="# IF items.C_COMPLETED # completed-smallad bgc error# ENDIF # category-{items.ID_CATEGORY}">
 										<td>
-											# IF NOT items.C_COMPLETED #<a itemprop="url" href="{items.U_ITEM}"># ENDIF #
+											# IF NOT items.C_COMPLETED #<a class="offload" itemprop="url" href="{items.U_ITEM}"># ENDIF #
 												<span class="lo-title# IF items.C_ARCHIVED # text-strike# ENDIF #" itemprop="name">{items.TITLE}</span>
 											# IF NOT items.C_COMPLETED #</a># ENDIF #
 											<span class="lo-view hidden">{items.VIEWS_NUMBER}</span>
@@ -211,7 +211,7 @@
 												# IF items.C_CUSTOM_AUTHOR_NAME #
 													{items.CUSTOM_AUTHOR_NAME}
 												# ELSE #
-													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS}" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
+													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
 												# ENDIF #
 											</td>
 										# ENDIF #
@@ -232,7 +232,7 @@
 										# ENDIF #
 										# IF C_CATEGORY #
 										<td>
-											<a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+											<a class="offload" aria-label="{@common.category}" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
 										</td>
 										# ENDIF #
 										<td>
@@ -246,7 +246,7 @@
 											<td class="controls">
 												# IF NOT items.C_COMPLETED #
 													# IF items.C_EDIT #
-														<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+														<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 													# ENDIF #
 												# ENDIF #
 													# IF items.C_DELETE #
@@ -270,7 +270,7 @@
 								# IF items.C_COMPLETED #<span class="bigger">{@smallads.completed.item}</span># ENDIF #
 								<header class="cell-header">
 									<h2 class="cell-name# IF items.C_ARCHIVED # text-strike# ENDIF #">
-										# IF NOT items.C_COMPLETED #<a class="lo-title" itemprop="url" href="{items.U_ITEM}"># ENDIF #
+										# IF NOT items.C_COMPLETED #<a class="lo-title offload" itemprop="url" href="{items.U_ITEM}"># ENDIF #
 											<span itemprop="name">{items.TITLE}</span>
 										# IF NOT items.C_COMPLETED #</a># ENDIF #
 									</h2>
@@ -284,7 +284,7 @@
 												# IF items.C_CUSTOM_AUTHOR_NAME #
 													{items.CUSTOM_AUTHOR_NAME}
 												# ELSE #
-													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS}" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #,
+													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" href="{items.U_AUTHOR}" class="{items.AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #,
 												# ENDIF #
 											</span>
 										# ENDIF #
@@ -297,7 +297,7 @@
 											# ENDIF #
 										</span>
 										<span class="pinned">
-											<i class="far fa-folder"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
+											<i class="far fa-folder"></i> <a class="offload" aria-label="{@common.category}" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a>
 										</span>
 										# IF C_LOCATION #
 											<span class="lo-location pinned">
@@ -326,7 +326,7 @@
 										<div class="controls">
 											# IF NOT items.C_COMPLETED #
 												# IF items.C_EDIT #
-													<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+													<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 												# ENDIF #
 											# ENDIF #
 											# IF items.C_DELETE #
@@ -335,17 +335,15 @@
 										</div>
 									# ENDIF #
 								</div>
-								<a href="#" aria-label="{items.TITLE}" class="item-thumbnail">
-								</a>
 								<div class="cell-body">
 									# IF items.C_HAS_THUMBNAIL #
 										<div class="cell-thumbnail cell-landscape cell-center">
 											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="thumbnailUrl" />
-											# IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="cell-thumbnail-caption">{@common.read.more}</a># ENDIF #
+											# IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">{@common.read.more}</a># ENDIF #
 										</div>
 									# ENDIF #
 									<div class="cell-content">
-										<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... # IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="read.more">[{@common.read.more}]</a># ENDIF ## ENDIF #</div>
+										<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... # IF NOT items.C_COMPLETED #<a class="read-more offload" href="{items.U_ITEM}">[{@common.read.more}]</a># ENDIF ## ENDIF #</div>
 										<div class="smallad-price lo-price"># IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF #</div>
 									</div>
 								</div>
@@ -355,7 +353,7 @@
 										<div id="smallads-sources-container">
 											<span>{@common.sources}</span> :
 											# START items.sources #
-											<a itemprop="isBasedOnUrl" href="{items.sources.URL}" class="small">{items.sources.NAME}</a># IF items.sources.C_SEPARATOR #, # ENDIF #
+												<a itemprop="isBasedOnUrl" href="{items.sources.URL}" class="small offload">{items.sources.NAME}</a># IF items.sources.C_SEPARATOR #, # ENDIF #
 											# END items.sources #
 										</div>
 									</aside>
@@ -418,7 +416,7 @@
 		# IF C_USAGE_TERMS #
 			<div class="sub-section">
 				<div class="content-container">
-					<div class="content"><i class="fa fa-book" aria-hidden="true"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a></div>
+					<div class="content"><i class="fa fa-book" aria-hidden="true"></i> <a class="offload" href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a></div>
 				</div>
 			</div>
 		# ENDIF #

@@ -279,9 +279,9 @@
 			<div class="content-container">
 				<div class="content dictionary-letter-selector align-center">
 					<div class="dictionary-letter">
-						<a class="all-letters submit" href="javascript:redirection_letter('');">${TextHelper::strtoupper(@common.all.alt)}</a>
+						<a class="all-letters submit offload" href="javascript:redirection_letter('');">${TextHelper::strtoupper(@common.all.alt)}</a>
 						# START letter #
-							<a class="letters-list" href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
+							<a class="offload" class="letters-list" href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
 						# END letter #
 					</div>
 					<div class="flex-between flex-between-large">
@@ -321,7 +321,7 @@
 								# IF items.C_CONTROLS #
 									<div class="controls align-right">
 										# IF items.C_EDIT #
-											<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit" aria-hidden="true"></i></a>
+											<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit" aria-hidden="true"></i></a>
 										# ENDIF #
 										# IF items.C_DELETE #
 											<a href="{items.U_DELETE}&token={TOKEN}" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>
@@ -335,7 +335,7 @@
 									# IF items.C_CONTROLS #
 										<div class="controls align-right">
 											# IF items.C_EDIT #
-												<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit" aria-hidden="true"></i></a>
+												<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit" aria-hidden="true"></i></a>
 											# ENDIF #
 											# IF items.C_DELETE #
 												<a href="{items.U_DELETE}&token={TOKEN}" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="far fa-trash-alt" aria-hidden="true"></i></a>

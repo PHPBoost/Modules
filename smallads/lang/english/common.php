@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 04 09
+ * @version     PHPBoost 6.0 - last update: 2021 06 17
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -143,7 +143,7 @@ $lang['smallads.seo.description.usage.terms'] = ':site\'s smallads usage terms.'
 $lang['smallads.message.success.add'] = 'The ad <b>:title</b> has been added';
 $lang['smallads.message.success.edit'] = 'The ad <b>:title</b> has been modified';
 $lang['smallads.message.success.delete'] = 'The ad <b>:title</b> has been deleted';
-$lang['smallads.no.type'] = '<div class="warning">You must declare some ad types in the <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">ads configuration</a></div>';
+$lang['smallads.no.type'] = '<div class="warning">You must declare some ad types in the <a class="offload" href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">ads configuration</a></div>';
 $lang['smallads.all.types.filters'] = 'All';
 
 // Contact

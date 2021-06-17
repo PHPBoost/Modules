@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 26
+ * @version     PHPBoost 6.0 - last update: 2021 06 17
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -143,7 +143,7 @@ $lang['smallads.seo.description.usage.terms'] = 'Conditions générales d\'utili
 $lang['smallads.message.success.add'] = 'L\'annonce <b>:title</b> a été ajoutée';
 $lang['smallads.message.success.edit'] = 'L\'annonce <b>:title</b> a été modifiée';
 $lang['smallads.message.success.delete'] = 'L\'annonce <b>:title</b> a été supprimée';
-$lang['smallads.no.type'] = '<div class="warning">Vous devez déclarer les types d\'annonces (Vente, Achat, ...) dans la <a href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">configuration des annonces</a></div>';
+$lang['smallads.no.type'] = '<div class="warning">Vous devez déclarer les types d\'annonces (Vente, Achat, ...) dans la <a class="offload" href="'. PATH_TO_ROOT . SmalladsUrlBuilder::items_configuration()->relative() . '">configuration des annonces</a></div>';
 $lang['smallads.all.types.filters'] = 'Toutes';
 
 // Contact

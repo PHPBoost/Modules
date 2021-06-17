@@ -5,7 +5,7 @@
 				<h2>{L_MODULE_TITLE}</h2>
 				# IF C_MODULE_LINK #
 					<div class="controls align-right">
-						<a href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
+						<a class="offload" href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square" aria-hidden="true"></i></a>
 					</div>
 				# ENDIF #
 			</header>
@@ -25,21 +25,21 @@
 									<div class="message-user-container">
 										<h4>
 											# IF items.C_AUTHOR_EXISTS #
-												<a class="{items.AUTHOR_LEVEL_CLASS}" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a>
+												<a class="{items.AUTHOR_LEVEL_CLASS} offload" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a>
 											# ELSE #
 												{items.AUTHOR_DISPLAY_NAME}
 											# ENDIF #
 										</h4>
 										# IF C_PARENT #
 											<div class="controls message-user-infos-preview" aria-label="# IF C_TOPIC #{@homelanding.posted.in.topic}# ELSE #{@homelanding.posted.in.module}# ENDIF #">
-												<a href="{items.U_TOPIC}"><i class="fa fa-fw # IF C_TOPIC #fa-file# ELSE #fa-cube# ENDIF #" aria-hidden="true"></i> {items.TOPIC}</a>
+												<a class="offload" href="{items.U_TOPIC}"><i class="fa fa-fw # IF C_TOPIC #fa-file# ELSE #fa-cube# ENDIF #" aria-hidden="true"></i> {items.TOPIC}</a>
 											</div>
 										# ENDIF #
 									</div>
 									<div class="message-infos">
 										<time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time>
 										<div class="message-action">
-											<a href="{items.U_ITEM}" class="pinned bgc-full link-color"><i class="fa fa-share"></i> {@common.read.more}</a>
+											<a href="{items.U_ITEM}" class="pinned bgc-full link-color offload"><i class="fa fa-share"></i> {@common.read.more}</a>
 										</div>
 									</div>
 								</div>

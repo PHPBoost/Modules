@@ -19,12 +19,12 @@
 			# START wiki_items #
 				<tr>
 					<td># IF C_HORIZONTAL #{wiki_items.DATE}# ELSE #{wiki_items.SHORT_DATE}# ENDIF #</td>
-					<td><a href="{PATH_TO_ROOT}/wiki/{wiki_items.U_ITEM}">{wiki_items.TITLE}</a></td>
+					<td><a class="offload" href="{PATH_TO_ROOT}/wiki/{wiki_items.U_ITEM}">{wiki_items.TITLE}</a></td>
 					# IF C_HORIZONTAL #
 						<td><span class="pinned {wiki_items.STATUS_CLASS}">{wiki_items.L_STATUS}</span></td>
 						<td>
 							# IF wiki_items.C_AUTHOR_EXISTS #
-								<a href="{wiki_items.U_AUTHOR_PROFILE}" class="{wiki_items.AUTHOR_LEVEL_CLASS}" # IF wiki_items.C_AUTHOR_GROUP_COLOR # style="color:{wiki_items.AUTHOR_GROUP_COLOR}"# ENDIF #>{wiki_items.AUTHOR_DISPLAY_NAME}</a>
+								<a href="{wiki_items.U_AUTHOR_PROFILE}" class="{wiki_items.AUTHOR_LEVEL_CLASS} offload" # IF wiki_items.C_AUTHOR_GROUP_COLOR # style="color:{wiki_items.AUTHOR_GROUP_COLOR}"# ENDIF #>{wiki_items.AUTHOR_DISPLAY_NAME}</a>
 							# ELSE #
 								<span aria-label="{wiki_items.AUTHOR_IP}">{@user.guest}</span>
 							# ENDIF #

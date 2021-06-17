@@ -1,9 +1,9 @@
 <section id="module-smallads" class="category-{ID_CATEGORY}">
 	<header class="section-header">
 		<div class="controls align-right">
-			<a href="{U_SYNDICATION}" aria-label="{@common.syndication}"><i class="fa fa-fw fa-rss warning" aria-hidden="true"></i></a>
+			<a class="offload" href="{U_SYNDICATION}" aria-label="{@common.syndication}"><i class="fa fa-fw fa-rss warning" aria-hidden="true"></i></a>
 			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
-			# IF IS_ADMIN #<a href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i></a># ENDIF #
+			# IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i></a># ENDIF #
 		</div>
 		<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="pinned bgc error">{@smallads.completed.item}</span># ENDIF #</p>
 		<h1>{TITLE}</h1>
@@ -20,7 +20,7 @@
 					<div></div>
 					# IF C_CONTROLS #
 						<div class="controls align-right">
-							# IF NOT C_COMPLETED ## IF C_EDIT #<a href="{U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
+							# IF NOT C_COMPLETED ## IF C_EDIT #<a class="offload" href="{U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 							# IF C_DELETE #<a href="{U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="fa fa-fw fa-trash-alt" aria-hidden="true"></i></a># ENDIF #
 						</div>
 					# ENDIF #
@@ -33,7 +33,7 @@
 								<div class="cell-body">
 									<div class="cell-thumbnail cell-landscape">
 										<img src="{U_THUMBNAIL}" alt="{TITLE}" />
-										<a class="cell-thumbnail-caption" href="{U_THUMBNAIL}" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection"><i class="fa fa-eye"></i></a>
+										<a class="cell-thumbnail-caption offload" href="{U_THUMBNAIL}" aria-label="{TITLE}" data-lightbox="formatter" data-rel="lightcase:collection"><i class="fa fa-eye"></i></a>
 									</div>
 								</div>
 							# ENDIF #
@@ -89,7 +89,7 @@
 														</div>
 													# ENDIF #
 													# IF C_DISPLAYED_AUTHOR_PM #
-														<a href="{U_AUTHOR_PM}" class="smallad-pm" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-people-arrows" aria-hidden="true"></i></a>
+														<a href="{U_AUTHOR_PM}" class="smallad-pm offload" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-people-arrows" aria-hidden="true"></i></a>
 													 # ENDIF #
 
 													# IF C_DISPLAYED_AUTHOR_PHONE #
@@ -123,7 +123,7 @@
 													# IF C_CUSTOM_AUTHOR_NAME #
 														{CUSTOM_AUTHOR_NAME}
 													# ELSE #
-														# IF C_AUTHOR_EXISTS #<a itemprop="author" href="{U_AUTHOR}" class="{AUTHOR_LEVEL_CLASS}" # IF C_AUTHOR_GROUP_COLOR # style="color:{AUTHOR_GROUP_COLOR}"# ENDIF #>{AUTHOR_DISPLAY_NAME}</a># ELSE #{AUTHOR_DISPLAY_NAME}# ENDIF #
+														# IF C_AUTHOR_EXISTS #<a itemprop="author" href="{U_AUTHOR}" class="{AUTHOR_LEVEL_CLASS} offload" # IF C_AUTHOR_GROUP_COLOR # style="color:{AUTHOR_GROUP_COLOR}"# ENDIF #>{AUTHOR_DISPLAY_NAME}</a># ELSE #{AUTHOR_DISPLAY_NAME}# ENDIF #
 													# ENDIF #
 												</span>
 											</li>
@@ -152,7 +152,7 @@
 												 <span aria-label="{@common.keywords}"><i class="fa fa-fw fa-tags" aria-hidden="true"></i></span>
 												<span>
 													# START keywords #
-														<a itemprop="keywords" href="{keywords.URL}">{keywords.NAME}</a># IF keywords.C_SEPARATOR #, # ENDIF #
+														<a class="offload" itemprop="keywords" href="{keywords.URL}">{keywords.NAME}</a># IF keywords.C_SEPARATOR #, # ENDIF #
 													# END keywords #
 												</span>
 											</li>
@@ -188,7 +188,7 @@
 						<span class="text-strong"><i class="fa fa-map-signs" aria-hidden="true"></i> {@common.sources}</span> :
 						# START sources #
 							<span class="pinned question">
-								<a href="{sources.URL}" itemprop="isBasedOnUrl" rel="nofollow">{sources.NAME}</a>
+								<a class="offload" href="{sources.URL}" itemprop="isBasedOnUrl" rel="nofollow">{sources.NAME}</a>
 							</span># IF sources.C_SEPARATOR ## ENDIF #
 						# END sources #
 					</aside>
@@ -205,7 +205,7 @@
 						<ul>
 							# START suggested_items #
 								<li>
-									<a href="{suggested_items.U_ITEM}# IF suggested_items.C_COMPLETED # error# ENDIF #" class="suggested-item">
+									<a href="{suggested_items.U_ITEM}# IF suggested_items.C_COMPLETED # error# ENDIF #" class="suggested-item offload">
 										<img src="{suggested_items.U_THUMBNAIL}" alt="{suggested_items.TITLE}" /> {suggested_items.TITLE}
 									</a>
 								</li>
@@ -218,7 +218,7 @@
 					<aside>
 						<div class="related-links">
 							# IF C_PREVIOUS_ITEM #
-								<a class="related-item previous-item# IF C_PREVIOUS_COMPLETED # error# ENDIF #" href="{U_PREVIOUS_ITEM}">
+								<a class="related-item previous-item offload# IF C_PREVIOUS_COMPLETED # error# ENDIF #" href="{U_PREVIOUS_ITEM}">
 									<i class="fa fa-chevron-left"></i>
 									<img src="{U_PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM}">
 									{PREVIOUS_ITEM}
@@ -227,7 +227,7 @@
 								<span></span>
 							# ENDIF #
 							# IF C_NEXT_ITEM #
-								<a class="related-item next-item# IF C_NEXT_COMPLETED # error# ENDIF #" href="{U_NEXT_ITEM}">
+								<a class="related-item next-item offload# IF C_NEXT_COMPLETED # error# ENDIF #" href="{U_NEXT_ITEM}">
 									{NEXT_ITEM}
 									<img src="{U_NEXT_THUMBNAIL}" alt="{NEXT_ITEM}">
 									<i class="fa fa-chevron-right"></i>
@@ -246,7 +246,7 @@
 						# INCLUDE COMMENTS #
 					# ENDIF #
 				</aside>
-				<footer># IF C_USAGE_TERMS # <i class="fa fa-fw fa-book" aria-hidden="true"></i> <a href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
+				<footer># IF C_USAGE_TERMS # <i class="fa fa-fw fa-book" aria-hidden="true"></i> <a class="offload" href="{U_USAGE_TERMS}">{@smallads.usage.terms}</a># ENDIF #</footer>
 			</article>
 		</div>
 	</div>

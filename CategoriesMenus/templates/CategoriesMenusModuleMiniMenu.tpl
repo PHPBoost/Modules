@@ -4,7 +4,7 @@
 			<ul>
 				# START items #
 					<li data-id="{items.ID}" data-parent-id="{items.ID_PARENT}" data-c-order="{items.SUB_ORDER}" class="{MENU_ID}-li category-{items.ID}">
-						<a href="{items.U_CATEGORY}" class="cssmenu-title">{items.CATEGORY_NAME}</a>
+						<a href="{items.U_CATEGORY}" class="cssmenu-title offload">{items.CATEGORY_NAME}</a>
 					</li>
 				# END items #
 			</ul>

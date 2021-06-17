@@ -6,7 +6,7 @@
 					{L_MODULE_TITLE}
 				</h2>
 				<div class="controls align-right">
-					<a href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
+					<a class="offload" href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square" aria-hidden="true"></i></a>
 				</div>
 			</header>
 
@@ -20,7 +20,7 @@
 				<div class="content">
 					# START media_host #
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_host.U_ITEM}">{media_host.TITLE}</a></h3>
+							<h3><a class="offload" href="{media_host.U_ITEM}">{media_host.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
@@ -33,7 +33,7 @@
 
 					# START media_mp4 #
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_mp4.U_ITEM}">{media_mp4.TITLE}</a></h3>
+							<h3><a class="offload" href="{media_mp4.U_ITEM}">{media_mp4.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
@@ -48,7 +48,7 @@
 
 					# START media_mp3 #
 						<div class="item-content-audio" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_mp3.U_ITEM}">{media_mp3.TITLE}</a></h3>
+							<h3><a class="offload" href="{media_mp3.U_ITEM}">{media_mp3.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
@@ -64,7 +64,7 @@
 
 					# START media_other #
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a href="{media_other.U_ITEM}">{media_other.TITLE}</a></h3>
+							<h3><a class="offload" href="{media_other.U_ITEM}">{media_other.TITLE}</a></h3>
 							<div class="more">
 								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
 								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>

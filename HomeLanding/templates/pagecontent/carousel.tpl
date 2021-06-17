@@ -4,13 +4,13 @@
 			<div id="home-slideboost">
 				# START items #
 					# IF items.C_LINK_ONLY #
-						<a href="{items.LINK}">
+						<a class="offload" href="{items.LINK}">
 							<figure>
 								<img class="slideImage" src="{items.U_DEFAULT_PICTURE}" alt="{@carousel.no.alt}" />
 							</figure>
 						</a>
 					# ELSE #
-						# IF items.LINK #<a href="{items.LINK}"># ENDIF #
+						# IF items.LINK #<a class="offload" href="{items.LINK}"># ENDIF #
 							<figure>
 								# IF items.DESCRIPTION #
 									<figcaption>

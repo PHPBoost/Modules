@@ -4,7 +4,7 @@
 			<header class="module-header flex-between">
 				<h2>{L_MODULE_TITLE}</h2>
 				<div class="controls align-right">
-					<a href="{PATH_TO_ROOT}/contact" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
+					<a class="offload" href="{PATH_TO_ROOT}/contact" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square" aria-hidden="true"></i></a>
 				</div>
 			</header>
 			<div class="content">
@@ -16,7 +16,7 @@
 					# ENDIF #
 				# ENDIF #
 				# IF C_MAIL_SENT #
-					<a href="{PATH_TO_ROOT}/contact">
+					<a class="offload" href="{PATH_TO_ROOT}/contact">
 						{@homelanding.send.another.email}
 					</a>
 				# ELSE #

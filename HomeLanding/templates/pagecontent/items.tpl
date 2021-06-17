@@ -4,7 +4,7 @@
 			<header class="module-header flex-between">
 				<h2>{L_MODULE_TITLE}</h2>
 				<div class="controls align-right">
-					<a href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
+					<a class="offload" href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square" aria-hidden="true"></i></a>
 				</div>
 			</header>
 			# IF C_NO_ITEM #
@@ -47,7 +47,7 @@
 							<tbody>
 								# START items #
 									<tr>
-										<td# IF C_VISIT # aria-label="{@common.see.details}"# ENDIF #><a href="{items.U_ITEM}">{items.TITLE}</a></td>
+										<td# IF C_VISIT # aria-label="{@common.see.details}"# ENDIF #><a class="offload" href="{items.U_ITEM}">{items.TITLE}</a></td>
 										<td>
 											# IF items.HAS_UPDATE_DATE #
 												<time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time>
@@ -57,7 +57,7 @@
 										</td>
 										# IF C_VIEWS_NUMBER #<td>{items.VIEWS_NUMBER}</td># ENDIF #
 										# IF C_DL_NUMBER #<td>{items.DOWNLOADS_NUMBER}</td># ENDIF #
-										# IF C_VISIT #<td aria-label="{@common.link.to.website}"><a href="{items.U_VISIT}"><i class="fa fa-fw fa-sign-in-alt" aria-hidden="true"></i></a></td># ENDIF #
+										# IF C_VISIT #<td aria-label="{@common.link.to.website}"><a class="offload" href="{items.U_VISIT}"><i class="fa fa-fw fa-sign-in-alt" aria-hidden="true"></i></a></td># ENDIF #
 									</tr>
 								# END items #
 							</tbody>
@@ -70,7 +70,7 @@
 							<div class="{MODULE_NAME}-item several-items category-{items.CATEGORY_ID} cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 								<div class="cell-header">
 									<h3 class="cell-name">
-										<a href="{items.U_ITEM}">{items.TITLE}</a>
+										<a class="offload" href="{items.U_ITEM}">{items.TITLE}</a>
 									</h3>
 								</div>
 
@@ -80,7 +80,7 @@
 											# IF C_AUTHOR_DISPLAYED #
 												<span class="pinned">
 													<i class="fa fa-fw fa-user" aria-hidden="true"></i>
-													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" class="{items.AUTHOR_LEVEL_CLASS}" href="{items.U_AUTHOR}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
+													# IF items.C_AUTHOR_EXISTS #<a itemprop="author" class="{items.AUTHOR_LEVEL_CLASS} offload" href="{items.U_AUTHOR}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
 												</span>
 											# ENDIF #
 											# IF NOT C_DATE #
@@ -90,13 +90,13 @@
 													<span class="pinned"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></span>
 												# ENDIF #
 											# ENDIF #
-											<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
+											<span class="pinned"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
 											# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{items.VIEWS_NUMBER} # IF items.C_SEVERAL_VIEWS #{@common.views}# ELSE #{@common.view}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 										</div>
 										# IF items.C_CONTROLS #
 											<span class="controls">
 												# IF items.C_EDIT #
-													<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+													<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 												# ENDIF #
 												# IF items.C_DELETE #
 													<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
@@ -109,7 +109,7 @@
 										# IF items.C_HAS_THUMBNAIL #
 											<div class="cell-thumbnail cell-landscape cell-center">
 												<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
-												<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
+												<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
 													{@common.see.details}
 												</a>
 											</div>
@@ -117,7 +117,7 @@
 											# IF items.C_HAS_PARTNER_THUMBNAIL #
 												<div class="cell-thumbnail cell-landscape cell-center">
 													<img src="{items.U_PARTNER_THUMBNAIL}" alt="{items.TITLE}" />
-													<a href="{items.U_ITEM}" class="cell-thumbnail-caption">
+													<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
 														{@common.see.details}
 													</a>
 												</div>
@@ -134,7 +134,7 @@
 											# ENDIF #
 											{items.CONTENTS}
 										# ELSE #
-											{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}">[{@common.read.more}]</a># ENDIF #
+											{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more offload">[{@common.read.more}]</a># ENDIF #
 										# ENDIF #
 									</div>
 								</div>

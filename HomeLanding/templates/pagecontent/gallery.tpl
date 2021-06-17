@@ -6,7 +6,7 @@
 					{L_MODULE_TITLE}
 				</h2>
 				<div class="controls align-right">
-					<a href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square"></i></a>
+					<a class="offload" href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square" aria-hidden="true"></i></a>
 				</div>
 			</header>
 			# IF C_NO_ITEM #
@@ -22,7 +22,7 @@
 							<div class="cell-body">
 								<div class="cell-thumbnail cell-landscape cell-center">
 									<img src="{items.U_PICTURE}" alt="{items.TITLE}" />
-									<a class="cell-thumbnail-caption" href="{items.U_CATEGORY}"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+									<a class="cell-thumbnail-caption offload" href="{items.U_CATEGORY}" aria-label="{@common.see.category}"><i class="fa fa-eye" aria-hidden="true"></i> </a>
 								</div>
 							</div>
 							<div class="cell-list">

@@ -8,7 +8,7 @@
 				<ul>
 					# START birthday #
 						<li>
-							<a href="{birthday.U_USER_PROFILE}" class="{birthday.USER_LEVEL_CLASS}" # IF birthday.C_USER_GROUP_COLOR # style="color:{birthday.USER_GROUP_COLOR}" # ENDIF #>{birthday.LOGIN}</a># IF C_DISPLAY_MEMBERS_AGE # ({birthday.AGE})# ENDIF #
+							<a href="{birthday.U_USER_PROFILE}" class="{birthday.USER_LEVEL_CLASS} offload" # IF birthday.C_USER_GROUP_COLOR # style="color:{birthday.USER_GROUP_COLOR}" # ENDIF #>{birthday.LOGIN}</a># IF C_DISPLAY_MEMBERS_AGE # ({birthday.AGE})# ENDIF #
 						</li>
 					# END birthday #
 				</ul>

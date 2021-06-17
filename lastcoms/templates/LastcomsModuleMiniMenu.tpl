@@ -13,8 +13,8 @@
 					# START items #
 						<li>
 							<time class="pinned notice small" datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE_DELAY}</time>
-							# IF items.C_AUTHOR_EXISTS #<a class="{items.AUTHOR_LEVEL_CLASS}" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
-							<p aria-label="{@lastcoms.see.comment}"><a href="{items.PATH}"><i class="far fa-comment"></i> {items.CONTENT}</a></p>
+							# IF items.C_AUTHOR_EXISTS #<a class="{items.AUTHOR_LEVEL_CLASS} offload" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
+							<p aria-label="{@lastcoms.see.comment}"><a class="offload" href="{items.PATH}"><i class="far fa-comment" aria-hidden="true"></i> {items.CONTENT}</a></p>
 						</li>
 					# END items #
 				</ul>

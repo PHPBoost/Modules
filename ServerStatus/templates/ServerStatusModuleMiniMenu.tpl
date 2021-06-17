@@ -10,13 +10,13 @@
 						<li class="li-stretch">
 							# IF servers.C_ICON #<img src="{servers.ICON}" alt="{servers.NAME}" /># ENDIF #
 							<span class="text-strong">
-								<a href="{servers.U_DISPLAY_SERVER}">{servers.NAME}</a>
+								<a class="offload" href="{servers.U_DISPLAY_SERVER}">{servers.NAME}</a>
 								# IF C_ADDRESS_DISPLAYED #<br /><span class="smaller">{servers.ADDRESS}:{servers.PORT}</span># ENDIF #
 							</span>
 							# IF servers.C_ONLINE #
 								<span aria-label="{@server.online}"><i class="fa fa-signal success" aria-hidden="true"></i></span>
 							# ELSE #
-								<span aria-label="{@server.offline}"><i class="fa fa-signal error" aria-hidden="true"></i></span>
+								<span aria-label="{@server.offline}"><i class="fa fa-signal fa-flip-horizontal error" aria-hidden="true"></i></span>
 							# ENDIF #
 						</li>
 					# END servers #
