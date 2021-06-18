@@ -3,9 +3,8 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 06 18
  * @since       PHPBoost 5.0 - 2016 01 02
- * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class HomeLandingTreeLinks implements ModuleTreeLinksExtensionPoint
@@ -17,7 +16,7 @@ class HomeLandingTreeLinks implements ModuleTreeLinksExtensionPoint
 		$config = HomeLandingConfig::load();
 		$sticky_title = $config->get_sticky_title();
 
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), HomeLandingUrlBuilder::configuration()));
+		$tree->add_link(new AdminModuleLink(LangLoader::get_message('form.configuration', 'form-lang'), HomeLandingUrlBuilder::configuration()));
 		$tree->add_link(new AdminModuleLink(LangLoader::get_message('homelanding.modules.position', 'common', $module_id), HomeLandingUrlBuilder::positions()));
 
 		if(AppContext::get_current_user()->check_level(User::MODERATOR_LEVEL)){
@@ -26,7 +25,7 @@ class HomeLandingTreeLinks implements ModuleTreeLinksExtensionPoint
 		}
 
 		if (ModulesManager::get_module($module_id)->get_configuration()->get_documentation())
-			$tree->add_link(new AdminModuleLink(LangLoader::get_message('module.documentation', 'admin-modules-common'), ModulesManager::get_module($module_id)->get_configuration()->get_documentation()));
+			$tree->add_link(new AdminModuleLink(LangLoader::get_message('form.documentation', 'form-lang'), ModulesManager::get_module($module_id)->get_configuration()->get_documentation()));
 
 		return $tree;
 	}
