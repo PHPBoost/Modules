@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 13
+ * @version     PHPBoost 6.0 - last update: 2021 06 20
  * @since       PHPBoost 5.0 - 2016 05 01
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -46,9 +46,8 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('admin-user-common');
 		$this->view = new FileTemplate('HomeLanding/AdminHomeLandingModulesPositionController.tpl');
-		$this->view->add_lang(array_merge($this->lang, LangLoader::get('common', 'HomeLanding'), LangLoader::get('common-lang'), LangLoader::get('form-lang')));
+		$this->view->add_lang(array_merge(LangLoader::get('common', 'HomeLanding'), LangLoader::get('common-lang'), LangLoader::get('form-lang')));
 		$this->config = HomeLandingConfig::load();
 	}
 
