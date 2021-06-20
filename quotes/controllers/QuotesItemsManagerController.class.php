@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 26
+ * @version     PHPBoost 6.0 - last update: 2021 06 20
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -42,7 +42,7 @@ class QuotesItemsManagerController extends ModuleController
 
 		$table_model = new SQLHTMLTableModel(QuotesSetup::$quotes_table, 'items-manager', array(
 			new HTMLTableColumn($this->lang['item'], 'quote'),
-			new HTMLTableColumn(LangLoader::get_message('category', 'categories-common'), 'id_category'),
+			new HTMLTableColumn(LangLoader::get_message('category.category', 'category-lang'), 'id_category'),
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'author'),
 			new HTMLTableColumn(LangLoader::get_message('form.date.creation', 'common'), 'creation_date'),
 			new HTMLTableColumn(LangLoader::get_message('status.approved', 'common'), 'approved'),

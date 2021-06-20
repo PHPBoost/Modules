@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 26
+ * @version     PHPBoost 6.0 - last update: 2021 06 20
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -41,7 +41,7 @@ class SmalladsItemsManagerController extends ModuleController
 
 		$columns = array(
 			new HTMLTableColumn(LangLoader::get_message('form.title', 'common'), 'title'),
-			new HTMLTableColumn(LangLoader::get_message('category', 'categories-common'), 'id_category'),
+			new HTMLTableColumn(LangLoader::get_message('category.category', 'category-lang'), 'id_category'),
 			new HTMLTableColumn(LangLoader::get_message('author', 'common'), 'display_name'),
 			new HTMLTableColumn(LangLoader::get_message('form.date.creation', 'common'), 'creation_date'),
 			new HTMLTableColumn(LangLoader::get_message('status', 'common'), 'published'),
