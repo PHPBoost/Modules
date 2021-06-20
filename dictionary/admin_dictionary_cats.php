@@ -46,6 +46,7 @@ if ($pagination->current_page_is_empty() && $page > 1)
 
 $view->put_all(array(
 	'C_PAGINATION' => $pagination->has_several_pages(),
+
 	'PAGINATION' => $pagination->display(),
 	//
 	'L_SUBMIT' => $LANG['submit'],

@@ -80,11 +80,11 @@
 
 <nav id="admin-quick-menu">
 	<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
-		<i class="fa fa-bars" aria-hidden="true"></i> {L_DICTIONARY_MANAGEMENT}
+		<i class="fa fa-bars" aria-hidden="true"></i> {@form.configuration}
 	</a>
 	<ul>
 		<li>
-			<a href="index.php" class="quick-link">${LangLoader::get_message('home', 'main')}</a>
+			<a href="index.php" class="quick-link">{@form.home}</a>
 		</li>
 		<li>
 			<a href="admin_dictionary_cats.php" class="quick-link">{L_DICTIONARY_CATS}</a>
@@ -213,7 +213,7 @@
 				<legend>{@category.delete}</legend>
 				<div class="fielset-inset">
 					<div class="fieldset-description">
-						<div class="message-helper bgc notice">{@H|category.delete.clue}</div>
+						<div class="message-helper bgc notice">{@H|category.delete.description}</div>
 					</div>
 					<div class="form-element">
 						<label for="">{@category.content.management}</label>
