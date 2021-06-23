@@ -49,11 +49,11 @@ class SteamAuthenticationMethod extends AbstractSocialNetworkAuthenticationMetho
 					return UserService::create($user, $auth_method, $fields_data, $data);
 				}
 				else
-					$this->error_msg = LangLoader::get_message('external-auth.user-data-not-found', 'user-common');
+					$this->error_msg = LangLoader::get_message('user.external.auth.user.data.not.found', 'user-lang');
 			}
 		}
 		else
-			$this->error_msg = LangLoader::get_message('external-auth.user-data-not-found', 'user-common');
+			$this->error_msg = LangLoader::get_message('user.external.auth.user.data.not.found', 'user-lang');
 
 		$this->check_user_bannishment($user_id);
 
