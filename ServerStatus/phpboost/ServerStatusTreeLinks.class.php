@@ -19,9 +19,9 @@ class ServerStatusTreeLinks implements ModuleTreeLinksExtensionPoint
 		$tree->add_link(new AdminModuleLink($lang['server.management'], ServerStatusUrlBuilder::servers_management()));
 		$tree->add_link(new AdminModuleLink($lang['server.add.item'], ServerStatusUrlBuilder::add_server()));
 
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin'), ServerStatusUrlBuilder::configuration()));
-
+		$tree->add_link(new AdminModuleLink(LangLoader::get_message('form.configuration', 'form-lang'), ServerStatusUrlBuilder::configuration()));
 		return $tree;
+
 	}
 }
 ?>
