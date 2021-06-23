@@ -32,8 +32,8 @@
 			<th>{L_CATEGORY}</th>
 			<th>{L_DATE}</th>
 			<th>{L_APPROBATION}</th>
-			<th>${LangLoader::get_message('edit', 'common')}</th>
-			<th>${LangLoader::get_message('delete', 'common')}</th>
+			<th>${LangLoader::get_message('common.edit', 'common-lang')}</th>
+			<th>${LangLoader::get_message('common.delete', 'common-lang')}</th>
 		</thead>
 		<tbody>
 			# START dictionary_list #
@@ -56,7 +56,7 @@
 					<a href="../dictionary/dictionary.php?edit={dictionary_list.ID}" aria-label="{L_UPDATE}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 				</td>
 				<td>
-					<a href="../dictionary/dictionary.php?del={dictionary_list.ID}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('delete', 'common')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+					<a href="../dictionary/dictionary.php?del={dictionary_list.ID}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('common.delete', 'common-lang')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 				</td>
 			</tr>
 			# END dictionary_list #

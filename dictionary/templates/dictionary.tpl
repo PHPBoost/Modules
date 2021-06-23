@@ -425,7 +425,7 @@
 						# IF C_CONTRIBUTION #
 							<fieldset>
 								<legend>{@contribution.contribution}</legend>
-								<div class="message-helper bgc warning">{@H|contribution.clue}</div>
+								<div class="message-helper bgc warning">{@H|contribution.warning}</div>
 								<div class="form-element-textarea">
 									<label for="contribution_counterpart">{@H|contribution.description}</label>
 									<span class="field-description">{@H|contribution.description.clue}</span>

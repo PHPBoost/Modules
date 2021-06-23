@@ -71,15 +71,14 @@ class AdminDictionaryConfigController extends AdminModuleController
 			array('size' => 10)
 		));
 
-		$common_lang = LangLoader::get('common');
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $common_lang['authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->form_lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($common_lang['authorizations.read'], DictionaryAuthorizationsService::READ_AUTHORIZATIONS),
-			new VisitorDisabledActionAuthorization($common_lang['authorizations.write'], DictionaryAuthorizationsService::WRITE_AUTHORIZATIONS),
-			new VisitorDisabledActionAuthorization($common_lang['authorizations.contribution'], DictionaryAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
-			new MemberDisabledActionAuthorization($common_lang['authorizations.moderation'], DictionaryAuthorizationsService::MODERATION_AUTHORIZATIONS)
+			new ActionAuthorization($this->form_lang['form.authorizations.read'], DictionaryAuthorizationsService::READ_AUTHORIZATIONS),
+			new VisitorDisabledActionAuthorization($this->form_lang['form.authorizations.write'], DictionaryAuthorizationsService::WRITE_AUTHORIZATIONS),
+			new VisitorDisabledActionAuthorization($this->form_lang['form.authorizations.contribution'], DictionaryAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
+			new MemberDisabledActionAuthorization($this->form_lang['form.authorizations.moderation'], DictionaryAuthorizationsService::MODERATION_AUTHORIZATIONS)
 		));
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));

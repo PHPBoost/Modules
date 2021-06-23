@@ -187,7 +187,7 @@
 										{cat.IMAGES}&nbsp;{cat.NAME}
 									</span>
 									<span class="float-right">
-										<a href="admin_dictionary_cats.php?add=1&id={cat.ID_CAT}" aria-label="${LangLoader::get_message('edit', 'common')}"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;
+										<a href="admin_dictionary_cats.php?add=1&id={cat.ID_CAT}" aria-label="${LangLoader::get_message('common.edit', 'common-lang')}"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;
 										<a href="admin_dictionary_cats.php?del=1&id={cat.ID_CAT}&token={TOKEN}" aria-label="{ALERT_DEL}" data-confirmation="delete-element"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 									</span>
 								</div>
