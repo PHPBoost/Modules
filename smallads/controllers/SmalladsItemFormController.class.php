@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 23
+ * @version     PHPBoost 6.0 - last update: 2021 06 24
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -23,7 +23,7 @@ class SmalladsItemFormController extends ModuleController
 
 	private $lang;
 	private $county_lang;
-	private $common_lang;
+	private $form_lang;
 
 	private $item;
 	private $is_new_item;
@@ -53,7 +53,7 @@ class SmalladsItemFormController extends ModuleController
 	{
 		$this->lang = LangLoader::get('common', 'smallads');
 		$this->county_lang = LangLoader::get('counties', 'smallads');
-		$this->common_lang = LangLoader::get('common');
+		$this->form_lang = LangLoader::get('form-lang');
 		$this->config = SmalladsConfig::load();
 	}
 
@@ -62,16 +62,16 @@ class SmalladsItemFormController extends ModuleController
 		$form = new HTMLForm(__CLASS__);
 		$form->set_layout_title($this->item->get_id() === null ? $this->lang['smallads.form.add'] : ($this->lang['smallads.form.edit'] . ': ' . $this->item->get_title()));
 
-		$fieldset = new FormFieldsetHTML('smallads', $this->common_lang['form.parameters']);
+		$fieldset = new FormFieldsetHTML('smallads', $this->form_lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('title', $this->common_lang['form.title'], $this->item->get_title(),
+		$fieldset->add_field(new FormFieldTextEditor('title', $this->form_lang['form.title'], $this->item->get_title(),
 			array('required' => true)
 		));
 
 		if (CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation())
 		{
-			$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_title', $this->common_lang['form.rewrited_name.personalize'], $this->item->rewrited_title_is_personalized(),
+			$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_title', $this->form_lang['form.rewrited.title.personalize'], $this->item->rewrited_title_is_personalized(),
 				array('events' => array('click' =>'
 					if (HTMLForms.getField("personalize_rewrited_title").getValue()) {
 						HTMLForms.getField("rewrited_title").enable();
@@ -81,9 +81,9 @@ class SmalladsItemFormController extends ModuleController
 				))
 			));
 
-			$fieldset->add_field(new FormFieldTextEditor('rewrited_title', $this->common_lang['form.rewrited_name'], $this->item->get_rewrited_title(),
+			$fieldset->add_field(new FormFieldTextEditor('rewrited_title', $this->form_lang['form.rewrited.title'], $this->item->get_rewrited_title(),
 				array(
-					'description' => $this->common_lang['form.rewrited_name.description'],
+					'description' => $this->form_lang['form.rewrited.title.clue'],
 			      	'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_personalize_rewrited_title', false) : !$this->item->rewrited_title_is_personalized())
 			  	),
 				array(new FormFieldConstraintRegex('`^[a-z0-9\-]+$`iu'))
@@ -99,7 +99,7 @@ class SmalladsItemFormController extends ModuleController
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['smallads.category'], $this->item->get_id_category(), $search_category_children_options,
+			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->form_lang['form.category'], $this->item->get_id_category(), $search_category_children_options,
 				array('description' => $this->lang['smallads.select.category'])
 			));
 		}
@@ -121,14 +121,14 @@ class SmalladsItemFormController extends ModuleController
 			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('summary', StringVars::replace_vars($this->lang['smallads.form.summary'], array('number' =>SmalladsConfig::load()->get_characters_number_to_cut())), $this->item->get_summary(),
+		$fieldset->add_field(new FormFieldRichTextEditor('summary', StringVars::replace_vars($this->form_lang['form.summary'], array('number' =>SmalladsConfig::load()->get_characters_number_to_cut())), $this->item->get_summary(),
 			array(
 				'rows' => 3,
 				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enable_summary', false) : !$this->item->get_summary_enabled())
 			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->common_lang['form.content'], $this->item->get_content(),
+		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->form_lang['form.content'], $this->item->get_content(),
 			array('rows' => 15, 'required' => true)
 		));
 
@@ -207,9 +207,9 @@ class SmalladsItemFormController extends ModuleController
 					)
 				));
 
-				$contact_fieldset->add_field(new FormFieldCheckbox('enabled_author_email_customization', $this->lang['smallads.form.enabled.author.email.customisation'], $this->item->is_enabled_author_email_customization(),
+				$contact_fieldset->add_field(new FormFieldCheckbox('enabled_author_email_customization', $this->lang['smallads.form.enabled.author.email.customization'], $this->item->is_enabled_author_email_customization(),
 					array(
-						'description' => $this->lang['smallads.form.enabled.author.email.customisation.desc'],
+						'description' => $this->lang['smallads.form.enabled.author.email.customization.desc'],
 						'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_email', false) : !$this->item->is_displayed_author_email()),
 						'events' => array('click' => '
 							if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
@@ -246,7 +246,7 @@ class SmalladsItemFormController extends ModuleController
 			}
 		}
 
-		$other_fieldset = new FormFieldsetHTML('other', $this->common_lang['form.other']);
+		$other_fieldset = new FormFieldsetHTML('other', $this->form_lang['form.other']);
 		$form->add_fieldset($other_fieldset);
 
 		if($this->config->is_max_weeks_number_displayed())
@@ -259,7 +259,7 @@ class SmalladsItemFormController extends ModuleController
 			));
 		}
 
-		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', LangLoader::get_message('config.author.displayed', 'admin-common'), $this->item->get_displayed_author_name(),
+		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', $this->form_lang['form.display.author'], $this->item->get_displayed_author_name(),
 			array(
 				'events' => array('click' => '
 					if (HTMLForms.getField("displayed_author_name").getValue()) {
@@ -277,7 +277,7 @@ class SmalladsItemFormController extends ModuleController
 			)
 		));
 
-		$other_fieldset->add_field(new FormFieldCheckbox('enabled_author_name_customization', $this->lang['smallads.form.enabled.author.name.customisation'], $this->item->is_enabled_author_name_customization(),
+		$other_fieldset->add_field(new FormFieldCheckbox('enabled_author_name_customization', $this->lang['smallads.form.enabled.author.name.customization'], $this->item->is_enabled_author_name_customization(),
 			array(
 				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_name', false) : !$this->item->is_displayed_author_name()),
 				'events' => array('click' => '
@@ -294,11 +294,11 @@ class SmalladsItemFormController extends ModuleController
 			'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enabled_author_name_customization', false) : !$this->item->is_displayed_author_name() || !$this->item->is_enabled_author_name_customization())
 		)));
 
-		$other_fieldset->add_field(KeywordsService::get_keywords_manager()->get_form_field($this->item->get_id(), 'keywords', $this->common_lang['form.keywords'],
-			array('description' => $this->common_lang['form.keywords.description'])
+		$other_fieldset->add_field(KeywordsService::get_keywords_manager()->get_form_field($this->item->get_id(), 'keywords', $this->form_lang['form.keywords'],
+			array('description' => $this->form_lang['form.keywords.clue'])
 		));
 
-		$other_fieldset->add_field(new FormFieldSelectSources('sources', $this->common_lang['form.sources'], $this->item->get_sources()));
+		$other_fieldset->add_field(new FormFieldSelectSources('sources', $this->form_lang['form.sources'], $this->item->get_sources()));
 
 		$other_fieldset->add_field(new SmalladsFormFieldCarousel('carousel', $this->lang['smallads.form.carousel'], $this->item->get_carousel()));
 
@@ -314,25 +314,25 @@ class SmalladsItemFormController extends ModuleController
 
 		if (CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation())
 		{
-			$publication_fieldset = new FormFieldsetHTML('publication', $this->common_lang['form.approbation']);
+			$publication_fieldset = new FormFieldsetHTML('publication', $this->form_lang['form.publication']);
 			$form->add_fieldset($publication_fieldset);
 
-			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->common_lang['form.date.creation'], $this->item->get_creation_date(),
+			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->form_lang['form.creation.date'], $this->item->get_creation_date(),
 				array('required' => true)
 			));
 
 			if (!$this->item->is_published())
 			{
-				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->common_lang['form.update.date.creation'], false,
+				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->form_lang['form.update.date'], false,
 					array('hidden' => $this->item->get_status() != SmalladsItem::NOT_PUBLISHED)
 				));
 			}
 
-			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publication_state', $this->common_lang['form.approbation'], $this->item->get_publication_state(),
+			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publication_state', $this->form_lang['form.publication'], $this->item->get_publication_state(),
 				array(
-					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.not'], SmalladsItem::NOT_PUBLISHED),
-					new FormFieldSelectChoiceOption($this->common_lang['form.approbation.now'], SmalladsItem::PUBLISHED_NOW),
-					new FormFieldSelectChoiceOption($this->common_lang['status.approved.date'], SmalladsItem::PUBLICATION_DATE),
+					new FormFieldSelectChoiceOption($this->form_lang['form.publication.draft'], SmalladsItem::NOT_PUBLISHED),
+					new FormFieldSelectChoiceOption($this->form_lang['form.publication.now'], SmalladsItem::PUBLISHED_NOW),
+					new FormFieldSelectChoiceOption($this->form_lang['form.publication.deffered'], SmalladsItem::PUBLICATION_DATE),
 				),
 				array(
 					'events' => array('change' => '
@@ -351,11 +351,11 @@ class SmalladsItemFormController extends ModuleController
 				)
 			));
 
-			$publication_fieldset->add_field($publishing_start_date = new FormFieldDateTime('publishing_start_date', $this->common_lang['form.date.start'], ($this->item->get_publishing_start_date() === null ? new Date() : $this->item->get_publishing_start_date()),
+			$publication_fieldset->add_field($publishing_start_date = new FormFieldDateTime('publishing_start_date', $this->form_lang['form.start.date'], ($this->item->get_publishing_start_date() === null ? new Date() : $this->item->get_publishing_start_date()),
 				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->item->get_publication_state() != SmalladsItem::PUBLICATION_DATE)))
 			));
 
-			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->common_lang['form.date.end.enable'], $this->item->enabled_end_date(),
+			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->form_lang['form.enable.end.date'], $this->item->enabled_end_date(),
 				array(
 					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->item->get_publication_state() != SmalladsItem::PUBLICATION_DATE)),
 					'events' => array('click' => '
@@ -368,7 +368,7 @@ class SmalladsItemFormController extends ModuleController
 				)
 			));
 
-			$publication_fieldset->add_field($publishing_end_date = new FormFieldDateTime('publishing_end_date', $this->common_lang['form.date.end'], ($this->item->get_publishing_end_date() === null ? new date() : $this->item->get_publishing_end_date()),
+			$publication_fieldset->add_field($publishing_end_date = new FormFieldDateTime('publishing_end_date', $this->form_lang['form.end.date'], ($this->item->get_publishing_end_date() === null ? new date() : $this->item->get_publishing_end_date()),
 				array('hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_end_date_enable', false) : !$this->item->enabled_end_date()))
 			));
 

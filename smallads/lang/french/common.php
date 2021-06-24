@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 17
+ * @version     PHPBoost 6.0 - last update: 2021 06 24
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -50,11 +50,8 @@ $lang['smallads.contact.phone'] = 'par téléphone';
 $lang['smallads.item.is.archived'] = 'Cet élément a dépassé la date de publication, il n\'est pas affiché pour les autres utilisateurs du site.';
 
 // Categories configuration
-$lang['config.categories.title'] = 'Configuration des catégories';
-$lang['config.cats.icon.display'] = 'Afficher l\'icône des catégories';
-$lang['config.sort.filter.display'] = 'Afficher les filtres de tri';
-$lang['config.characters.number.to.cut'] = 'Nombre de caractères pour couper le condensé de l\'annonce';
-$lang['config.display.summaries.to.guests'] = 'Afficher le condensé des annonces aux visiteurs s\'ils n\'ont pas l\'autorisation de lecture';
+$lang['smallads.categories.config'] = 'Configuration des catégories';
+$lang['smallads.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['smallads.default.content'] = 'Contenu par défaut d\'une petite annonce';
 
 // Items configuration
@@ -112,12 +109,12 @@ $lang['smallads.form.max.weeks'] = 'Nombre de semaines d\'affichage';
 $lang['smallads.form.max.weeks.description'] = 'Passé ce délai, l\'annonce sera dépubliée et archivée.';
 $lang['smallads.form.displayed.author.pm'] = 'Afficher le lien vers la messagerie privée';
 $lang['smallads.form.displayed.author.email'] = 'Afficher le lien vers l\'email';
-$lang['smallads.form.enabled.author.email.customisation'] = 'Personnaliser l\'email';
-$lang['smallads.form.enabled.author.email.customisation.desc'] = 'si vous voulez être contacté sur un autre email que celui de votre compte.';
+$lang['smallads.form.enabled.author.email.customization'] = 'Personnaliser l\'email';
+$lang['smallads.form.enabled.author.email.customization.desc'] = 'si vous voulez être contacté sur un autre email que celui de votre compte.';
 $lang['smallads.form.custom.author.email'] = 'Email de contact';
 $lang['smallads.form.displayed.author.phone'] = 'Afficher le numéro de téléphone';
 $lang['smallads.form.author.phone'] = 'Numéro de téléphone';
-$lang['smallads.form.enabled.author.name.customisation'] = 'Personnaliser le nom de l\'auteur';
+$lang['smallads.form.enabled.author.name.customization'] = 'Personnaliser le nom de l\'auteur';
 $lang['smallads.form.custom.author.name'] = 'Nom de l\'auteur personnalisé';
 $lang['smallads.form.completed.ad'] = 'Annonce terminée';
 $lang['smallads.form.completed'] = 'Déclarer cette annonce terminée';

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 02
+ * @version     PHPBoost 6.0 - last update: 2021 06 24
  * @since       PHPBoost 4.0 - 2014 01 31
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -23,7 +23,7 @@ class DictionaryTreeLinks implements ModuleTreeLinksExtensionPoint
 		$tree->add_link(new AdminModuleLink($LANG['admin.words.manage'], new Url('/dictionary/admin_dictionary_list.php')));
 		$tree->add_link(new AdminModuleLink($LANG['create.dictionary'], new Url('/dictionary/dictionary.php?add=1')));
 
-		$tree->add_link(new AdminModuleLink(LangLoader::get_message('configuration', 'admin-common'), DictionaryUrlBuilder::configuration()));
+		$tree->add_link(new AdminModuleLink(LangLoader::get_message('form.configuration', 'form-lang'), DictionaryUrlBuilder::configuration()));
 
 		if (!AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
 		{

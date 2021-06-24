@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 17
+ * @version     PHPBoost 6.0 - last update: 2021 06 24
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -50,11 +50,8 @@ $lang['smallads.contact.phone'] = 'by phone';
 $lang['smallads.item.is.archived'] = 'This item has overflown its publication date, It\'s not displayed to other.';
 
 // Categories configuration
-$lang['config.categories.title'] = 'Categories configuration';
-$lang['config.cats.icon.display'] = 'Categories icon display';
-$lang['config.sort.filter.display'] = 'Display the sort filters';
-$lang['config.characters.number.to.cut'] = 'Number of characters to cut the ad\'s summary';
-$lang['config.display.summaries.to.guests'] = 'Display the ads summary to visitors if they don\'t have read permission';
+$lang['smallads.categories.config'] = 'Categories configuration';
+$lang['smallads.cats.icon.display'] = 'Categories icon display';
 $lang['smallads.default.content'] = 'Smallads default content';
 
 // Items configuration
@@ -112,12 +109,12 @@ $lang['smallads.form.max.weeks'] = 'Number of weeks of display';
 $lang['smallads.form.max.weeks.description'] = 'After this period, the ad will be unpublished and archived ';
 $lang['smallads.form.displayed.author.pm'] = 'Display the link to pm';
 $lang['smallads.form.displayed.author.email'] = 'Display the link to email';
-$lang['smallads.form.enabled.author.email.customisation'] = 'Customize email';
-$lang['smallads.form.enabled.author.email.customisation.desc'] = 'if you want to be contacted on another email than your account one.';
+$lang['smallads.form.enabled.author.email.customization'] = 'Customize email';
+$lang['smallads.form.enabled.author.email.customization.desc'] = 'if you want to be contacted on another email than your account one.';
 $lang['smallads.form.custom.author.email'] = 'Contact email';
 $lang['smallads.form.displayed.author.phone'] = 'Display the phone number';
 $lang['smallads.form.author.phone'] = 'Phone number';
-$lang['smallads.form.enabled.author.name.customisation'] = 'Customize author name';
+$lang['smallads.form.enabled.author.name.customization'] = 'Customize author name';
 $lang['smallads.form.custom.author.name'] = 'Custom author name';
 $lang['smallads.form.completed.ad'] = 'Completed ad';
 $lang['smallads.form.completed'] = 'Declare this ad completed';

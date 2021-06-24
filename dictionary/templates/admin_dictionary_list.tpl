@@ -19,7 +19,7 @@
 			<a href="dictionary.php?add=1" class="quick-link">{L_DICTIONARY_ADD}</a>
 		</li>
 		<li>
-			<a href="${relative_url(DictionaryUrlBuilder::configuration())}" class="quick-link">${LangLoader::get_message('configuration', 'admin-common')}</a>
+			<a href="${relative_url(DictionaryUrlBuilder::configuration())}" class="quick-link">${LangLoader::get_message('form.configuration', 'form-lang')}</a>
 		</li>
 	</ul>
 </nav>
