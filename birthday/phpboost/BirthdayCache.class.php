@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 06 24
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -23,7 +23,7 @@ class BirthdayCache implements CacheData
 
 		while ($row = $result->fetch())
 		{
-			$row['age'] = $row['age'] . ' ' . ($row['age'] > 1 ? LangLoader::get_message('years', 'date-common') : LangLoader::get_message('year', 'date-common'));
+			$row['age'] = $row['age'] . ' ' . ($row['age'] > 1 ? LangLoader::get_message('date.years', 'date-lang') : LangLoader::get_message('date.year', 'date-lang'));
 
 			$this->users_birthday[] = $row;
 		}
