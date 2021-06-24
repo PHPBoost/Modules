@@ -23,7 +23,7 @@ class SmalladsFormFieldSmalladType extends AbstractFormField
 		$view = new FileTemplate('smallads/fields/SmalladsFormFieldSmalladType.tpl');
 		$view->add_lang(array_merge(
 			LangLoader::get('common', 'smallads'),
-			LangLoader::get('common')
+			LangLoader::get('common-lang')
 		));
 
 		$view->put_all(array(

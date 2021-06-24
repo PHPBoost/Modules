@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 23
+ * @version     PHPBoost 6.0 - last update: 2021 06 24
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -21,7 +21,7 @@ class QuotesItemFormController extends ModuleController
 	private $submit_button;
 
 	private $lang;
-	private $common_lang;
+	private $form_lang;
 
 	private $config;
 
@@ -54,7 +54,7 @@ class QuotesItemFormController extends ModuleController
 	{
 		$this->config = QuotesConfig::load();
 		$this->lang = LangLoader::get('common', 'quotes');
-		$this->common_lang = LangLoader::get('common');
+		$this->form_lang = LangLoader::get('form-lang');
 	}
 
 	private function build_form(HTTPRequestCustom $request)
@@ -62,7 +62,7 @@ class QuotesItemFormController extends ModuleController
 		$form = new HTMLForm(__CLASS__);
 		$form->set_layout_title($this->item->get_id() === null ? $this->lang['quotes.add.item'] : ($this->lang['quotes.edit.item'] . ': ' . $this->item->get_writer()));
 
-		$fieldset = new FormFieldsetHTML('items', $this->common_lang['form.parameters']);
+		$fieldset = new FormFieldsetHTML('items', $this->form_lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
@@ -70,10 +70,10 @@ class QuotesItemFormController extends ModuleController
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->common_lang['form.category'], $this->get_item()->get_id_category(), $search_category_children_options));
+			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->form_lang['form.category'], $this->get_item()->get_id_category(), $search_category_children_options));
 		}
 
-		$fieldset->add_field(new FormFieldAjaxCompleter('writer', $this->common_lang['author'], $this->get_item()->get_writer(),
+		$fieldset->add_field(new FormFieldAjaxCompleter('writer', $this->form_lang['form.author'], $this->get_item()->get_writer(),
 			array(
 				'required' => true,
 				'file' => QuotesUrlBuilder::ajax_writers()->rel()
@@ -101,7 +101,7 @@ class QuotesItemFormController extends ModuleController
 	{
 		if (!$this->is_contributor_member())
 		{
-			$fieldset->add_field(new FormFieldCheckbox('approved', $this->common_lang['form.approve'], $this->get_item()->is_approved()));
+			$fieldset->add_field(new FormFieldCheckbox('approved', $this->form_lang['form.approve'], $this->get_item()->is_approved()));
 		}
 	}
 

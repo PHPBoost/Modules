@@ -16,7 +16,7 @@ SmalladsFormFieldSmalladType.prototype = {
 			jQuery('<input/> ', {type : 'text', id : 'field_name_' + id, name : 'field_name_' + id, class : 'grouped-element', placeholder : "{@smallads.type.placeholder}"}).appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
-			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldSmalladType.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(@common.delete))}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">' + ${escapejs(@common.delete)} + '</span>').appendTo('#' + id);
+			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldSmalladType.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(@common.delete)})}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">' + ${escapejs(@common.delete)} + '</span>').appendTo('#' + id);
 
 			this.integer++;
 		}
