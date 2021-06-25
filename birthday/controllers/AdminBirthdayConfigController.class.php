@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 24
+ * @version     PHPBoost 6.0 - last update: 2021 06 25
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -35,7 +35,7 @@ class AdminBirthdayConfigController extends AdminModuleController
 			$this->save();
 			$this->form->get_field_by_id('pm_for_members_birthday_title')->set_hidden(!$this->config->is_pm_for_members_birthday_enabled());
 			$this->form->get_field_by_id('pm_for_members_birthday_content')->set_hidden(!$this->config->is_pm_for_members_birthday_enabled());
-			$view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 5));
+			$view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 5));
 		}
 
 		$user_born_field = ExtendedFieldsCache::load()->get_extended_field_by_field_name('user_born');

@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 27
+ * @version     PHPBoost 6.0 - last update: 2021 06 25
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminCountdownConfigController extends AdminModuleController
@@ -38,7 +39,7 @@ class AdminCountdownConfigController extends AdminModuleController
 			$this->form->get_field_by_id('no_event')->set_hidden(!$this->config->get_timer_disabled());
 			$this->form->get_field_by_id('stopped_event')->set_hidden(!$this->config->get_stop_counter());
 			$this->form->get_field_by_id('hidden_counter')->set_hidden(!$this->config->get_stop_counter());
-			$view->put('MSG', MessageHelper::display(LangLoader::get_message('message.success.config', 'status-messages-common'), MessageHelper::SUCCESS, 4));
+			$view->put('MSG', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 4));
 		}
 
 		$view->put('FORM', $this->form->display());

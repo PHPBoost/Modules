@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 05 20
+ * @version     PHPBoost 6.0 - last update: 2021 06 25
  * @since       PHPBoost 5.1 - 2018 04 22
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class SteamSetup extends DefaultModuleSetup
@@ -19,7 +20,7 @@ class SteamSetup extends DefaultModuleSetup
 		}
 		else
 		{
-			$controller = new UserErrorController(LangLoader::get_message('error', 'status-messages-common'), LangLoader::get_message('module_social_networks_not_installed', 'common', 'steam'), UserErrorController::FATAL);
+			$controller = new UserErrorController(LangLoader::get_message('warning.error', 'warning-lang'), LangLoader::get_message('module_social_networks_not_installed', 'common', 'steam'), UserErrorController::FATAL);
 			DispatchManager::redirect($controller);
 		}
 	}
