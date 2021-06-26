@@ -34,7 +34,7 @@ class SmalladsFeedProvider implements FeedProvider
 			$data->set_link(SyndicationUrlBuilder::rss('smallads', $idcat));
 			$data->set_host(HOST);
 			$data->set_desc($feed_module_name . ' - ' . $site_name);
-			$data->set_lang(LangLoader::get_message('xml_lang', 'main'));
+			$data->set_lang(LangLoader::get_message('common.xml.lang', 'common-lang'));
 			$data->set_auth_bit(Category::READ_AUTHORIZATIONS);
 
 			$categories = CategoriesService::get_categories_manager($module_id)->get_children($idcat, new SearchCategoryChildrensOptions(), true);

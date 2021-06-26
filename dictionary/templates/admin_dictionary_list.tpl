@@ -4,7 +4,7 @@
 	</a>
 	<ul>
 		<li>
-			<a href="index.php" class="quick-link">${LangLoader::get_message('home', 'main')}</a>
+			<a href="index.php" class="quick-link">${LangLoader::get_message('common.home', 'common-lang')}</a>
 		</li>
 		<li>
 			<a href="admin_dictionary_cats.php" class="quick-link">{L_DICTIONARY_CATS}</a>
