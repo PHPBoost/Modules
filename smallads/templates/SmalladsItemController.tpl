@@ -5,7 +5,7 @@
 			{@smallads.module.title}# IF NOT C_ROOT_CATEGORY # - {CATEGORY_NAME}# ENDIF #
 			# IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i></a># ENDIF #
 		</div>
-		<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="pinned bgc error">{@smallads.completed.item}</span># ENDIF #</p>
+		<p>{SMALLAD_TYPE}# IF C_COMPLETED # - <span class="pinned bgc error">{@common.status.finished}</span># ENDIF #</p>
 		<h1>{TITLE}</h1>
 	</header>
 	<div class="sub-section">
@@ -131,7 +131,7 @@
 										<li class="li-stretch">
 											<span aria-label="{@common.creation.date}"><i class="fa fa-fw fa-calendar-alt" aria-hidden="true"></i> </span>
 											# IF C_ARCHIVED #
-												{@smallads.archived.item}
+												{@common.status.archived.alt}
 											# ELSE #
 												<time datetime="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT C_DIFFERED #{DATE}# ELSE #{PUBLISHING_START_DATE}# ENDIF #</time>
 											# ENDIF #
@@ -164,7 +164,7 @@
 					</div>
 
 					<div# IF C_COMPLETED # class="error"# ENDIF # itemprop="text">
-						# IF C_COMPLETED #<p class="pinned bgc error larger">{@smallads.completed.item}</p># ENDIF #
+						# IF C_COMPLETED #<p class="pinned bgc error larger">{@common.status.finished}</p># ENDIF #
 						{CONTENT}
 					</div>
 

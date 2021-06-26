@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 24
+ * @version     PHPBoost 6.0 - last update: 2021 06 26
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -443,7 +443,7 @@ class SmalladsItem
 	{
 		switch ($this->published) {
 			case self::PUBLISHED_NOW:
-				return LangLoader::get_message('common.status.approved', 'common-lang');
+				return LangLoader::get_message('common.status.published.alt', 'common-lang');
 			break;
 			case self::PUBLICATION_DATE:
 				return LangLoader::get_message('common.status.deffered.date', 'common-lang');

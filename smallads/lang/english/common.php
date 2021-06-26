@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 24
+ * @version     PHPBoost 6.0 - last update: 2021 06 26
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -36,8 +36,6 @@ $lang['smallads.category.select'] = 'Choose a category';
 $lang['smallads.category.all'] = 'All categories';
 $lang['smallads.select.category'] = 'Select a category';
 
-$lang['smallads.completed.item'] = 'Completed';
-$lang['smallads.archived.item'] = 'Archived';
 $lang['smallads.ad.type'] = 'Type';
 $lang['smallads.category'] = 'Category';
 

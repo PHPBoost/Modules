@@ -7,7 +7,7 @@
 		</div>
 		<h1>
 			# IF C_ARCHIVED #
-				{@smallads.archived.items}
+				{@common.status.archived.alts}
 			# ELSE #
 				# IF C_PENDING #
 					{@smallads.pending.items}
@@ -204,7 +204,7 @@
 											<span class="lo-comment hidden">{items.COMMENTS_NUMBER}</span>
 											<span class="lo-date hidden">{items.DATE_TIMESTAMP}</span>
 										</td>
-										<td class="lo-price"># IF items.C_COMPLETED #{@smallads.completed.item}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
+										<td class="lo-price"># IF items.C_COMPLETED #{@common.status.finished}# ELSE ## IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF ## ENDIF #</td>
 										<td class="{items.SMALLAD_TYPE_FILTER} smallads-type">{items.SMALLAD_TYPE}</td>
 										# IF items.C_DISPLAYED_AUTHOR #
 											<td class="lo-author">
@@ -237,7 +237,7 @@
 										# ENDIF #
 										<td>
 											# IF items.C_ARCHIVED #
-												{@smallads.archived.item}
+												{@common.status.archived.alt}
 											# ELSE #
 												<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLISHING_START_DATE_RELATIVE}# ENDIF #</time>
 											# ENDIF #
@@ -267,7 +267,7 @@
 					<div data-listorder-group="smallads-items" class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ENDIF ## IF C_LIST_VIEW # cell-row# ENDIF #">
 						# START items #
 							<article data-listorder-item id="smallads-items-{items.ID}" class="smallads-item several-items category-{items.ID_CATEGORY} cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
-								# IF items.C_COMPLETED #<span class="bigger">{@smallads.completed.item}</span># ENDIF #
+								# IF items.C_COMPLETED #<span class="bigger">{@common.status.finished}</span># ENDIF #
 								<header class="cell-header">
 									<h2 class="cell-name# IF items.C_ARCHIVED # text-strike# ENDIF #">
 										# IF NOT items.C_COMPLETED #<a class="lo-title offload" itemprop="url" href="{items.U_ITEM}"># ENDIF #
@@ -291,7 +291,7 @@
 										<span class="pinned">
 											<i class="far fa-calendar"></i>
 											# IF items.C_ARCHIVED #
-												{@smallads.archived.item}
+												{@common.status.archived.alt}
 											# ELSE #
 												<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.PUBLISHING_START_DATE}# ENDIF #</time>
 											# ENDIF #
