@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 12
+ * @version     PHPBoost 6.0 - last update: 2021 07 04
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -450,7 +450,7 @@ class HomeLandingConfig extends AbstractConfigData
 	public function get_default_values()
 	{
 		return array(
-			self::MODULE_TITLE => LangLoader::get_message('title', 'config', 'HomeLanding'),
+			self::MODULE_TITLE => LangLoader::get_message('homelanding.title', 'common', 'HomeLanding'),
 
 			self::LEFT_COLUMNS => true,
 			self::RIGHT_COLUMNS => true,
@@ -469,7 +469,7 @@ class HomeLandingConfig extends AbstractConfigData
 			self::CAROUSEL_AUTO => self::CAROUSEL_TRUE,
 			self::CAROUSEL_HOVER => self::CAROUSEL_TRUE,
 
-			self::EDITO => LangLoader::get_message('module.edito.description', 'config', 'HomeLanding'),
+			self::EDITO => LangLoader::get_message('homelanding.edito.description', 'common', 'HomeLanding'),
 
 			self::RSS_SITE_NAME => '',
 			self::RSS_SITE_URL => '',

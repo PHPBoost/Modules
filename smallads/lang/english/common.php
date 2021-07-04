@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 26
+ * @version     PHPBoost 6.0 - last update: 2021 07 04
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -51,6 +51,22 @@ $lang['smallads.item.is.archived'] = 'This item has overflown its publication da
 $lang['smallads.categories.config'] = 'Categories configuration';
 $lang['smallads.cats.icon.display'] = 'Categories icon display';
 $lang['smallads.default.content'] = 'Smallads default content';
+    // Default
+$lang['smallad.default.type'] = '1st Type';
+$lang['smallad.root.category.description'] = '
+    Welcome to the smallads section of the website!
+    <br /><br />
+    One category and one announce were created to show you how this module works. Here are some tips to get started on this module.
+    <br /><br />
+    <ul class="formatter-ul">
+    <li class="formatter-li"> To configure or customize your module, go into the <a href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">categories configuration</a></li>
+    <li class="formatter-li"> To configure or customize the ads and filters, go into the <a href="' . SmalladsUrlBuilder::items_configuration()->relative() . '">ads configuration</a></li>
+    <li class="formatter-li"> To configure or customize the terms and conditions page, go into the <a href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">module T&C administration</a></li>
+    <li class="formatter-li"> To create categories, <a href="' . CategoriesUrlBuilder::add('smallads')->relative() . '">click here</a></li>
+    <li class="formatter-li"> To create announces, <a href="' . SmalladsUrlBuilder::add_item()->relative() . '">click here</a></li>
+    </ul>
+    <br />To learn more, please read the documentation for the module at <a href="https://www.phpboost.com">PHPBoost</a> website.
+';
 
 // Items configuration
 $lang['config.items.title'] = 'Ads configuration';

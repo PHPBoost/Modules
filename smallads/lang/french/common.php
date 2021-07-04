@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 26
+ * @version     PHPBoost 6.0 - last update: 2021 07 04
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -51,6 +51,22 @@ $lang['smallads.item.is.archived'] = 'Cet élément a dépassé la date de publi
 $lang['smallads.categories.config'] = 'Configuration des catégories';
 $lang['smallads.cats.icon.display'] = 'Afficher l\'icône des catégories';
 $lang['smallads.default.content']   = 'Contenu par défaut d\'une petite annonce';
+    // Default
+$lang['smallads.default.type'] = 'Type de test';
+$lang['smallads.root.category.description'] = '
+    Bienvenue dans le module Petites Annonces du site !
+    <br /><br />
+    Une catégorie et une annonce ont été créées pour vous montrer comment fonctionne ce module. Voici quelques conseils pour bien débuter sur ce module.
+    <br /><br />
+    <ul class="formatter-ul">
+    <li class="formatter-li"> Pour configurer ou personnaliser votre module, rendez-vous dans la <a href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">configuration des catégories</a></li>
+    <li class="formatter-li"> Pour configurer ou personnaliser les annonces et filtres d\'affichage, rendez-vous dans la <a href="' . SmalladsUrlBuilder::items_configuration()->relative() . '">configuration des annonces</a></li>
+    <li class="formatter-li"> Pour configurer ou personnaliser les conditions générales d\'utilisation, rendez-vous dans la <a href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">configuration des CGU</a></li>
+    <li class="formatter-li"> Pour créer des catégories, <a href="' . CategoriesUrlBuilder::add('smallads')->relative() . '">cliquez ici</a> </li>
+    <li class="formatter-li"> Pour ajouter des annonces, <a href="' . SmalladsUrlBuilder::add_item()->relative() . '">cliquez ici</a></li>
+    </ul>
+    <br />Pour en savoir plus, n\'hésitez pas à consulter la documentation du module sur le site de <a href="https://www.phpboost.com">PHPBoost</a>.
+';
 
 // Items configuration
 $lang['config.items.title']                      = 'Configuration des annonces';

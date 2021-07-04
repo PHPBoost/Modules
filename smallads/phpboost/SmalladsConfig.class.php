@@ -443,7 +443,7 @@ class SmalladsConfig extends AbstractConfigData
 
 	public function get_default_values()
 	{
-		$config_lang = LangLoader::get('install', 'smallads');
+		$config_lang = LangLoader::get('common', 'smallads');
 		return array(
 			// Categories
 			self::ENABLED_SORT_FILTERS => true,
@@ -453,13 +453,13 @@ class SmalladsConfig extends AbstractConfigData
 			self::DISPLAY_TYPE => self::GRID_VIEW,
 			self::CHARACTERS_NUMBER_TO_CUT => 128,
 			self::SUMMARIES_DISPLAYED_TO_GUESTS => false,
-			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('root_category_description', 'config', 'smallads'),
+			self::ROOT_CATEGORY_DESCRIPTION => $config_lang['smallad.root.category.description'],
             self::DEFAULT_CONTENTS => '',
 			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
 
 			// Items
 			self::CURRENCY => '€',
-			self::SMALLAD_TYPES => array($config_lang['default.smallad.type']),
+			self::SMALLAD_TYPES => array($config_lang['smallad.default.type']),
 			self::MAX_WEEKS_NUMBER_DISPLAYED => true,
 			self::MAX_WEEKS_NUMBER => 12,
 			self::DISPLAY_DELAY_BEFORE_DELETE => 2,

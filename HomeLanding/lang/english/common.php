@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 13
+ * @version     PHPBoost 6.0 - last update: 2021 07 04
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -61,7 +61,7 @@ $lang['homelanding.category.web']      = 'Partners links';
 $lang['homelanding.anchors.title'] = 'Homepage menu';
 
 // Carousel
-$lang['carousel.no.alt'] = 'Carousel item';
+$lang['homelanding.carousel.no.alt'] = 'Carousel item';
 
 // Contact
 $lang['homelanding.link.to.contact']                   = 'See contact page';
@@ -95,6 +95,9 @@ $lang['homelanding.items.number']           = 'Items number to display';
 $lang['homelanding.characters.limit']       = 'Limit the number of characters';
 $lang['homelanding.choose.category']        = 'Choose a category';
 $lang['homelanding.display.sub.categories'] = 'Display subcategories content';
+    // Default
+$lang['homelanding.title'] = 'Welcome';
+$lang['homelanding.edito.description'] = 'Modify the <a class="offload" href="' . HomeLandingUrlBuilder::configuration()->relative() . '">module configuration</a> to setup the landing page';
 
 // Configuration Anchors Menu
 $lang['homelanding.config.anchors']       = 'Onepage menu display';

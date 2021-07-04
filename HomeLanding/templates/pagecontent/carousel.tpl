@@ -6,7 +6,7 @@
 					# IF items.C_LINK_ONLY #
 						<a class="offload" href="{items.LINK}">
 							<figure>
-								<img class="slideImage" src="{items.U_DEFAULT_PICTURE}" alt="{@carousel.no.alt}" />
+								<img class="slideImage" src="{items.U_DEFAULT_PICTURE}" alt="{@homelanding.carousel.no.alt}" />
 							</figure>
 						</a>
 					# ELSE #
@@ -18,7 +18,7 @@
 									</figcaption>
 								# ENDIF #
 								# IF items.U_PICTURE #
-									<img class="slideImage" src="{items.U_PICTURE}" alt="# IF items.DESCRIPTION #{items.DESCRIPTION}# ELSE #{@carousel.no.alt}# ENDIF #" />
+									<img class="slideImage" src="{items.U_PICTURE}" alt="# IF items.DESCRIPTION #{items.DESCRIPTION}# ELSE #{@homelanding.carousel.no.alt}# ENDIF #" />
 								# ENDIF #
 							</figure>
 						# IF items.LINK #</a># ENDIF #
