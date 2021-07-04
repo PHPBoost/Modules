@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 04 06
+ * @version     PHPBoost 6.0 - last update: 2021 07 04
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -12,9 +12,10 @@
 */
 
 require_once('../admin/admin_begin.php');
-load_module_lang('dictionary'); //Chargement de la langue du module.
 
 $lang = LangLoader::get('common', 'dictionary');
+$error_lang = LangLoader::get('errors');
+$warning_lang = LangLoader::get('warning-lang');
 
 define('TITLE', $lang['dictionary.module.title']);
 require_once('../admin/admin_header.php');
@@ -24,18 +25,19 @@ $config = DictionaryConfig::load();
 $view = new FileTemplate('dictionary/admin_dictionary_cats.tpl');
 $view->add_lang(array_merge(
 	$lang,
+	LangLoader::get('common-lang'),
 	LangLoader::get('category-lang'),
 	LangLoader::get('form-lang'),
-	LangLoader::get('warning-lang')
+	$warning_lang
 ));
 
 $get_error = retrieve(GET, 'error', '');
 $get_l_error = retrieve(GET, 'erroru', '');
 
-$nb_cat = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_cat_table);
+$categories_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_cat_table);
 
 $page = AppContext::get_request()->get_getint('p', 1);
-$pagination = new ModulePagination($page, $nb_cat, $config->get_items_per_page());
+$pagination = new ModulePagination($page, $categories_number, $config->get_items_per_page());
 $pagination->set_url(new Url('/dictionary/admin_dictionary_cats.php?p=%d'));
 
 if ($pagination->current_page_is_empty() && $page > 1)
@@ -48,22 +50,11 @@ $view->put_all(array(
 	'C_PAGINATION' => $pagination->has_several_pages(),
 
 	'PAGINATION' => $pagination->display(),
-	//
-	'L_SUBMIT' => $LANG['submit'],
-	'L_RESET' => $LANG['reset'],
-	'L_DICTIONARY_MANAGEMENT' => $LANG['dictionary.management'],
-	'L_DICTIONARY_ADD' => $LANG['create.dictionary'],
-	'L_DICTIONARY_CATS' => $LANG['dictionary.cats'],
-	'L_DICTIONARY_CATS_ADD' => $LANG['dictionary.cats.add'],
-	'L_LIST_DEF' => $LANG['list.def'],
-	'ALERT_DEL' => $LANG['alert.del'],
-	'L_GESTION_CAT' => $LANG['cat.manager'],
-	'L_VAL_INC' => $LANG['invalid.value'],
 ));
 
 if (!empty($get_l_error))
 {
-	$view->put('MESSAGE_HELPER', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
+	$view->put('MESSAGE_HELPER', MessageHelper::display($error_lang[$get_l_error], MessageHelper::WARNING));
 	$name = "";
 	$id = "";
 }
@@ -73,7 +64,7 @@ if (retrieve(GET, 'add', false))
 	$row = '';
 	if (!empty($get_l_error))
 	{
-		$view->put('MESSAGE_HELPER', MessageHelper::display($LANG[$get_l_error], MessageHelper::WARNING));
+		$view->put('MESSAGE_HELPER', MessageHelper::display($error_lang[$get_l_error], MessageHelper::WARNING));
 		$name = "";
 
 		if ($id = retrieve(GET,'id_cat',false,TINTEGER))
@@ -91,7 +82,7 @@ if (retrieve(GET, 'add', false))
 	}
 	elseif (!empty($errstr))
 	{
-		$view->put('MESSAGE_HELPER', MessageHelper::display($LANG['error.upload.img'], MessageHelper::NOTICE));
+		$view->put('MESSAGE_HELPER', MessageHelper::display($warning_lang['warning.invalid.picture'], MessageHelper::NOTICE));
 		$name = "";
 		$id = "";
 	}
@@ -105,28 +96,25 @@ if (retrieve(GET, 'add', false))
 	{
 		$name = "";
 	}
-	$img = $row && !empty($row['images']) ? '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />' : '<i class="fa fa-folder"></i>';
+
+	$img = $row && !empty($row['images']) ? $row['images'] : '';
+
+	$server_img = '<option value="">--</option>';
+	$image_folder_path = new Folder(PATH_TO_ROOT . '/dictionary/templates/images');
+	foreach ($image_folder_path->get_files('`\.(png|webp|jpg|bmp|gif|svg)$`iu') as $image)
+	{
+		$file = $image->get_name();
+		$selected = ('../dictionary/templates/images/' . $file == $img) ? ' selected="selected"' : '';
+		$server_img .= '<option value="' . $file . '"' . $selected . '>' . $file . '</option>';
+	}
+
 	$view->assign_block_vars('add',array(
-		'LIST_CAT' => false,
-		'ID_CAT' => $id,
-		'NAME_CAT' => $name,
-		//
-		'IMAGES' => $img,
-		'L_NAME_CAT' => $LANG['name.cat'],
-		'L_SUBMIT' => $LANG['submit'],
-		'L_RESET' => $LANG['reset'],
-		'L_VALIDATION' => $LANG['validation'],
-		'L_CATEGORY' => $LANG['category'],
-		'L_IMAGE' => $LANG['picture'],
-		'L_IMAGE_A' => $LANG['current.picture'],
-		'L_IMAGE_UP' => $LANG['upload.picture'],
-		'L_WEIGHT_MAX' => $LANG['max.weight'],
-		'L_HEIGHT_MAX' => $LANG['max.height'],
-		'L_WIDTH_MAX' => $LANG['max.width'],
-		'L_IMAGE_UP_ONE' => $LANG['upload.one.picture'],
-		'L_IMAGE_SERV' => $LANG['self.hosted.picture'],
-		'L_IMAGE_LINK' => $LANG['picture.link'],
-		'L_IMAGE_ADR' => $LANG['picture.url'],
+		'C_IS_PICTURE' => $row && !empty($row['images']),
+		'CATEGORIES_LIST' => false,
+		'CATEGORY_ID' => $id,
+		'CATEGORY_NAME' => $name,
+		'U_CATEGORY_IMAGE' => $img,
+		'CATEGORY_IMAGES_LIST' => $server_img
 	));
 
 	$view->display();
@@ -146,7 +134,7 @@ if (retrieve(GET, 'add', false))
 		{
 			if ($_FILES['images']['size'] > 0)
 			{
-				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|webp|bmp)+$`iu', Upload::UNIQ_NAME, 20*1024);
+				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|webp|bmp|svg)+$`iu', Upload::UNIQ_NAME, 20*1024);
 				if (!empty($Upload->error)) //Erreur, on arrête ici
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&id_cat='.$id_cat.'&erroru=' . $Upload->error) . '#message_helper');
@@ -168,12 +156,12 @@ if (retrieve(GET, 'add', false))
 		}
 		if (retrieve(POST, 'image', ''))
 		{
-			$path = strprotect(retrieve(POST, 'image', ''));
+			$path = TextHelper::strprotect(retrieve(POST, 'image', ''));
 			$error = $Upload->check_img(16, 16,false);
 			if (!empty($error)) //Erreur, on arrête ici
 				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $error) . '#message_helper&id_cat='.$id_cat);
 			else
-				$cat_img = $path; //image uploadé et validé.
+				$cat_img = $dir . $path; //image uploadé et validé.
 		}
 		$cat_img = !empty($cat_img) ? $cat_img : (!empty($row['images']) ? $row['images'] : '');
 		$name_cat = retrieve(POST,'name_cat','',TSTRING);
@@ -216,12 +204,12 @@ if (retrieve(GET, 'add', false))
 		}
 		if (retrieve(POST, 'image', ''))
 		{
-			$path = strprotect(retrieve(POST, 'image', ''));
+			$path = TextHelper::strprotect(retrieve(POST, 'image', ''));
 			$error = $Upload->check_img(16, 16,false);
 			if (!empty($error)) //Erreur, on arrête ici
 				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $error) . '#message_helper');
 			else
-				$cat_img = $path; //image uploadé et validé.
+				$cat_img = $dir . $path; //image uploadée et validée.
 		}
 		$name_cat = retrieve(POST,'name_cat','',TSTRING);
 
@@ -248,9 +236,9 @@ elseif (retrieve(POST,'cat_to_del',0,TINTEGER) && retrieve(POST,'id_del_a',0,TIN
 	}
 	else
 	{
-		if (retrieve(POST,'categorie_move',0,TINTEGER))
+		if (retrieve(POST,'category-move',0,TINTEGER))
 		{
-			$id_move = retrieve(POST,'categorie_move',0,TINTEGER);
+			$id_move = retrieve(POST,'category-move',0,TINTEGER);
 			$result = PersistenceContext::get_querier()->select("SELECT id, cat
 			FROM ".PREFIX."dictionary
 			WHERE `cat`  = '" . $id_del . "'
@@ -269,17 +257,19 @@ elseif (retrieve(POST,'cat_to_del',0,TINTEGER) && retrieve(POST,'id_del_a',0,TIN
 elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER))
 {
 	AppContext::get_session()->csrf_get_protect();
-	$nb_cat = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_cat_table);
-	$nb_word = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE cat = :id", array('id' =>$id_del));
-	if ($nb_cat == 1 )
+	$categories_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_cat_table);
+	$items_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE cat = :id", array('id' =>$id_del));
+	if ($categories_number == 1 )
 	{
 		AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?erroru=' . "del_cat") . '#errorh');
 	}
-	elseif ($nb_word > 0)
+	elseif ($items_number > 0)
 	{
+		$row_name = PersistenceContext::get_querier()->select_single_row(DictionarySetup::$dictionary_cat_table, array('id', 'name', 'images'), 'WHERE id=:id', array('id' => $id_del));
 		$view->put_all(array(
 			'C_DELETE_CATEGORY' => true,
-			'ID_DEL' => $id_del,
+			'CATEGORY_ID' => $id_del,
+			'CATEGORY_NAME' => $row_name['name'],
 		));
 
 		$result = PersistenceContext::get_querier()->select("SELECT id, name
@@ -289,8 +279,8 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 		while ($row = $result->fetch())
 		{
 			$view->assign_block_vars('cat_list', array(
-				'NAME' => TextHelper::strtoupper($row['name']),
-				'ID' => $row['id']
+				'CATEGORY_NAME' => TextHelper::strtoupper($row['name']),
+				'CATEGORY_ID' => $row['id']
 			));
 		}
 		$result->dispose();
@@ -317,15 +307,15 @@ else
 	{
 		$img = empty($row_cat['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row_cat['images'] . '" alt="' . $row_cat['images'] . '" />';
 		$view->assign_block_vars('cat', array(
-			'NAME' => TextHelper::strtoupper($row_cat['name']),
-			'IMAGES' => $img,
-			'ID_CAT' => $row_cat['id']
+			'CATEGORY_NAME' => TextHelper::strtoupper($row_cat['name']),
+			'CATEGORY_IMAGE' => $img,
+			'CATEGORY_ID' => $row_cat['id']
 		));
 	}
 	$result_cat->dispose();
 
 	$view->put_all( array(
-		'LIST_CAT' => true,
+		'CATEGORIES_LIST' => true,
 	));
 
 	$view->display();

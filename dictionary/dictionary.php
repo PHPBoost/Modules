@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 16
+ * @version     PHPBoost 6.0 - last update: 2021 07 04
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -11,7 +11,6 @@
 */
 
 require_once('../kernel/begin.php');
-load_module_lang('dictionary'); //Chargement de la langue du module.
 
 $lang = LangLoader::get('common', 'dictionary');
 
@@ -174,7 +173,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 				$dictionary_contribution = new Contribution();
 				$dictionary_contribution->set_id_in_module($last_msg_id);
 				$dictionary_contribution->set_description(retrieve(POST, 'counterpart', '', TSTRING_PARSE));
-				$dictionary_contribution->set_entitled(sprintf($LANG['dictionary.contribution.entitled'], $last_msg_id));
+				$dictionary_contribution->set_entitled(sprintf($lang['dictionary.contribution.entitled'], $last_msg_id));
 				$dictionary_contribution->set_fixing_url('/dictionary/dictionary.php?edit=' . $last_msg_id);
 				$dictionary_contribution->set_poster_id($user_id);
 				$dictionary_contribution->set_module('dictionary');

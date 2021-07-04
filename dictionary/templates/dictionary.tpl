@@ -261,7 +261,7 @@
 	// Current letter
 	jQuery('.letters-list').each(function(){
 		var currentLetter = jQuery(this).text().toLowerCase();
-		if (window.location.href.indexOf('-' + currentLetter + '-') > -1){
+		if (window.location.href.indexOf('-' + currentLetter + '-') > -1) {
 			jQuery(this).addClass('submit').attr('aria-label', '{@common.pagination.current}');
 			jQuery('.all-letters').removeClass('submit');
 		}
@@ -281,7 +281,7 @@
 					<div class="dictionary-letter">
 						<a class="all-letters submit offload" href="javascript:redirection_letter('');">${TextHelper::strtoupper(@common.all.alt)}</a>
 						# START letter #
-							<a class="offload" class="letters-list" href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
+							<a class="letters-list offload" href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
 						# END letter #
 					</div>
 					<div class="flex-between flex-between-large">

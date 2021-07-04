@@ -1,64 +1,61 @@
 <nav id="admin-quick-menu">
 	<a href="#" class="js-menu-button" onclick="open_submenu('admin-quick-menu');return false;">
-		<i class="fa fa-bars" aria-hidden="true"></i> {L_DICTIONARY_MANAGEMENT}
+		<i class="fa fa-bars" aria-hidden="true"></i> {@dictionary.items.management}
 	</a>
 	<ul>
 		<li>
-			<a href="index.php" class="quick-link">${LangLoader::get_message('common.home', 'common-lang')}</a>
+			<a href="index.php" class="quick-link">{@common.home}</a>
 		</li>
 		<li>
-			<a href="admin_dictionary_cats.php" class="quick-link">{L_DICTIONARY_CATS}</a>
+			<a href="admin_dictionary_cats.php" class="quick-link">{@category.categories.management}</a>
 		</li>
 		<li>
-			<a href="admin_dictionary_cats.php?add=1" class="quick-link">{L_DICTIONARY_CATS_ADD}</a>
+			<a href="admin_dictionary_cats.php?add=1" class="quick-link">{@category.add}</a>
 		</li>
 		<li>
-			<a href="admin_dictionary_list.php" class="quick-link">{L_LIST_DEF}</a>
+			<a href="admin_dictionary_list.php" class="quick-link">{@dictionary.items.management}</a>
 		</li>
 		<li>
-			<a href="dictionary.php?add=1" class="quick-link">{L_DICTIONARY_ADD}</a>
+			<a href="dictionary.php?add=1" class="quick-link">{@dictionary.add.item}</a>
 		</li>
 		<li>
-			<a href="${relative_url(DictionaryUrlBuilder::configuration())}" class="quick-link">${LangLoader::get_message('form.configuration', 'form-lang')}</a>
+			<a href="${relative_url(DictionaryUrlBuilder::configuration())}" class="quick-link">{@form.configuration}</a>
 		</li>
 	</ul>
 </nav>
 
 <div id="admin-contents">
 	<table class="table">
-		<caption>{L_LIST_DEF}</caption>
+		<caption>{@dictionary.items.management}</caption>
 		<thead>
-			<th>{L_DICTIONARY_WORD}</th>
-			<th>{L_CATEGORY}</th>
-			<th>{L_DATE}</th>
-			<th>{L_APPROBATION}</th>
-			<th>${LangLoader::get_message('common.edit', 'common-lang')}</th>
-			<th>${LangLoader::get_message('common.delete', 'common-lang')}</th>
+			<th class="align-left">{@dictionary.items}</th>
+			<th class="align-left">{@category.category}</th>
+			<th>{@common.creation.date}</th>
+			<th>{@common.status.approved}</th>
+			<th><span class="sr-only">{@common.moderation}</span></th>
 		</thead>
 		<tbody>
 			# START dictionary_list #
-			<tr>
-				<td>
-					<a href="../dictionary/dictionary.php?l={dictionary_list.NAME}">{dictionary_list.NAME}</a>
-				</td>
-				<td>
-					<a href="../dictionary/admin_dictionary_cats.php?add=1&id={dictionary_list.IDCAT}">
-						{dictionary_list.IMG} {dictionary_list.CAT}
-					</a>
-				</td>
-				<td>
-					{dictionary_list.DATE}
-				</td>
-				<td>
-					{dictionary_list.APROBATION}
-				</td>
-				<td>
-					<a href="../dictionary/dictionary.php?edit={dictionary_list.ID}" aria-label="{L_UPDATE}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-				</td>
-				<td>
-					<a href="../dictionary/dictionary.php?del={dictionary_list.ID}&token={TOKEN}" data-confirmation="delete-element" aria-label="${LangLoader::get_message('common.delete', 'common-lang')}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
-				</td>
-			</tr>
+				<tr>
+					<td class="align-left">
+						<a href="../dictionary/dictionary.php?l={dictionary_list.NAME}">{dictionary_list.NAME}</a>
+					</td>
+					<td class="align-left">
+						<a href="../dictionary/admin_dictionary_cats.php?add=1&id={dictionary_list.CATEGORY_ID}">
+							{dictionary_list.CATEGORY_IMAGE} {dictionary_list.CATEGORY_NAME}
+						</a>
+					</td>
+					<td>
+						{dictionary_list.DATE}
+					</td>
+					<td>
+						{dictionary_list.APPROBATION}
+					</td>
+					<td class="col-small controls">
+						<a href="../dictionary/dictionary.php?edit={dictionary_list.ITEM_ID}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+						<a href="../dictionary/dictionary.php?del={dictionary_list.ITEM_ID}&token={TOKEN}" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+					</td>
+				</tr>
 			# END dictionary_list #
 		</tbody>
 		# IF C_PAGINATION #
