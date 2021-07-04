@@ -14,7 +14,7 @@
 require_once('../admin/admin_begin.php');
 
 $lang = LangLoader::get('common', 'dictionary');
-$error_lang = LangLoader::get('errors');
+$error_lang = array_merge($lang, LangLoader::get('errors'));
 $warning_lang = LangLoader::get('warning-lang');
 
 define('TITLE', $lang['dictionary.module.title']);
