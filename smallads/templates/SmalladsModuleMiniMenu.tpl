@@ -18,7 +18,7 @@
 	        		<a
 						itemprop="url"
 						href="# IF items.C_COMPLETED ### ELSE #{items.U_ITEM}# ENDIF #"
-						class="flexisel-thumbnail # IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_COMPLETED # completed-smallad# ENDIF #"
+						class="offload flexisel-thumbnail # IF items.C_NEW_CONTENT # new-content# ENDIF ## IF items.C_COMPLETED # completed-smallad# ENDIF #"
 						style="background-image: url(# IF items.C_HAS_THUMBNAIL #{items.U_THUMBNAIL}# ELSE #{PATH_TO_ROOT}/smallads/templates/images/no-thumb.png# ENDIF #)">
 						# IF items.C_COMPLETED #<span class="completed-item"><span>{@common.status.finished}</span></span># ENDIF #
 						<div class="smallads-mini-infos">
