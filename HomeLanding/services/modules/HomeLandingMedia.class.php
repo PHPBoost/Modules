@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 13
+ * @version     PHPBoost 6.0 - last update: 2021 07 12
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -89,6 +89,13 @@ class HomeLandingMedia
                     $sliced_name = array_slice($peertube_host_player, 0, -1);
                     $player = implode('.', $sliced_name);
                     $player = $peertube_link . '/videos/embed/';
+                }
+                if(strpos($pathinfo['dirname'], 'twitch') !== false)
+                {
+        			$parent = pathinfo(GeneralConfig::load()->get_site_url());
+        			$parent = $parent['basename'];
+			        $media_id = $media_id . '&parent=' . $parent;
+                    $player = 'https://player.twitch.tv/?video=';
                 }
 
                 $view->assign_block_vars('media_host', array(
