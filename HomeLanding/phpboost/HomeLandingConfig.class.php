@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 04
+ * @version     PHPBoost 6.0 - last update: 2021 07 12
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -296,8 +296,6 @@ class HomeLandingConfig extends AbstractConfigData
 	private function init_modules_array()
 	{
 		$modules = array();
-
-		$lang = LangLoader::get('config', 'HomeLanding');
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_ANCHORS_MENU);
