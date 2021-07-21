@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 24
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -73,7 +73,7 @@ class QuotesItemFormController extends ModuleController
 			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->form_lang['form.category'], $this->get_item()->get_id_category(), $search_category_children_options));
 		}
 
-		$fieldset->add_field(new FormFieldAjaxCompleter('writer', $this->form_lang['form.author'], $this->get_item()->get_writer(),
+		$fieldset->add_field(new FormFieldAjaxCompleter('writer', $this->form_lang['form.author.custom.name'], $this->get_item()->get_writer(),
 			array(
 				'required' => true,
 				'file' => QuotesUrlBuilder::ajax_writers()->rel()
