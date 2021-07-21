@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author        Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 25
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.1 - 2019 11 04
  * @contributor  Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor  Mipel <mipel@phpboost.com>
@@ -47,7 +47,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 
 		$view->put('FORM', $this->form->display());
 
-		return new AdminSmalladsDisplayResponse($view, $this->lang['config.items.title']);
+		return new AdminSmalladsDisplayResponse($view, $this->lang['smallads.items.config']);
 	}
 
 	private function init()
@@ -61,20 +61,20 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('smallads_options_config', $this->lang['config.items.title']);
+		$fieldset = new FormFieldsetHTML('smallads_options_config', $this->lang['smallads.items.config']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldSelectCurrencies('currency', $this->lang['config.currency'], $this->config->get_currency()));
+		$fieldset->add_field(new FormFieldSelectCurrencies('currency', $this->lang['smallads.currency'], $this->config->get_currency()));
 
-		$fieldset->add_field(new FormFieldNumberEditor('display_delay_before_delete', $this->lang['config.display.delay.before.delete'], $this->config->get_display_delay_before_delete(),
+		$fieldset->add_field(new FormFieldNumberEditor('display_delay_before_delete', $this->lang['smallads.delay.before.archiving'], $this->config->get_display_delay_before_delete(),
 			array(
 				'min' => 1, 'max' => 7, 'required' => true,
-				'description' => $this->lang['config.display.delay.before.delete.desc']
+				'description' => $this->lang['smallads.delay.before.archiving.clue']
 			),
 			array(new FormFieldConstraintIntegerRange(1, 7))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('max_weeks_number_displayed', $this->lang['config.max.weeks.number.displayed'], $this->config->is_max_weeks_number_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('max_weeks_number_displayed', $this->lang['smallads.limit.max.weeks'], $this->config->is_max_weeks_number_displayed(),
 			array(
 				'class'=> 'custom-checkbox',
 				'events' => array('click' => '
@@ -87,7 +87,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			)
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('max_weeks_number', $this->lang['config.max.weeks.number'], $this->config->get_max_weeks_number(),
+		$fieldset->add_field(new FormFieldNumberEditor('max_weeks_number', $this->lang['smallads.max.weeks'], $this->config->get_max_weeks_number(),
 			array(
 				'min' => 1, 'max' => 52, 'required' => true,
 				'hidden' => !$this->config->is_max_weeks_number_displayed()
@@ -97,37 +97,37 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 
 		$fieldset->add_field(new FormFieldSpacer('1_separator', ''));
 
-		$fieldset->add_field(new FormFieldCheckbox('contact_level', $this->lang['config.display.contact.to.visitors'], $this->config->is_user_allowed(),
+		$fieldset->add_field(new FormFieldCheckbox('contact_level', $this->lang['smallads.contact.to.visitors'], $this->config->is_user_allowed(),
 			array(
 				'class'=> 'custom-checkbox',
-				'description' => $this->lang['config.display.contact.to.visitors.desc']
+				'description' => $this->lang['smallads.contact.to.visitors.clue']
 			)
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_email_enabled', $this->lang['config.display.email.enabled'], $this->config->is_email_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('display_email_enabled', $this->lang['smallads.enable.email.contact'], $this->config->is_email_displayed(),
 			array('class'=> 'custom-checkbox')
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_pm_enabled', $this->lang['config.display.pm.enabled'], $this->config->is_pm_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('display_pm_enabled', $this->lang['smallads.enable.pm.contact'], $this->config->is_pm_displayed(),
 			array('class'=> 'custom-checkbox')
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_phone_enabled', $this->lang['config.display.phone.enabled'], $this->config->is_phone_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('display_phone_enabled', $this->lang['smallads.enable.phone.contact'], $this->config->is_phone_displayed(),
 			array('class'=> 'custom-checkbox')
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('enabled_navigation_links', $this->lang['config.related.links.display'], $this->config->get_enabled_navigation_links(),
+		$fieldset->add_field(new FormFieldCheckbox('enabled_navigation_links', $this->lang['smallads.enable.related.links'], $this->config->get_enabled_navigation_links(),
 			array(
 				'class' => 'custom-checkbox',
-				'description' => $this->lang['config.related.links.display.desc']
+				'description' => $this->lang['smallads.related.links.clue']
 			)
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display_location_enabled', $this->lang['config.location'], $this->config->is_location_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('display_location_enabled', $this->lang['smallads.enable.location'], $this->config->is_location_displayed(),
 			array('class'=> 'custom-checkbox')
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('enabled_items_suggestions', $this->lang['config.suggestions.display'], $this->config->get_enabled_items_suggestions(),
+		$fieldset->add_field(new FormFieldCheckbox('enabled_items_suggestions', $this->lang['smallads.enable.suggestions'], $this->config->get_enabled_items_suggestions(),
 			array(
 				'class' => 'custom-checkbox',
 				'events' => array('click' => '
@@ -140,7 +140,7 @@ class AdminSmalladsItemsConfigController extends AdminModuleController
 			)
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('suggested_items_nb', $this->lang['config.suggestions.nb'], $this->config->get_suggested_items_nb(),
+		$fieldset->add_field(new FormFieldNumberEditor('suggested_items_nb', $this->lang['smallads.suggestions.number'], $this->config->get_suggested_items_nb(),
 			array(
 				'min' => 1, 'max' => 10,
 				'hidden' => !$this->config->get_enabled_items_suggestions()

@@ -68,9 +68,9 @@
 												<span>{@smallads.contact} :</span>
 												<div class="modal-container cell-modal cell-tile">
 													# IF C_DISPLAYED_AUTHOR_EMAIL #
-														<a href="#email-modal" data-modal data-target="email-modal" class="email-modal-btn" aria-label="{@smallads.contact.email} - {@open.modal}"><i class="fa fa-fw iboost fa-iboost-email" aria-hidden="true"></i></a>
+														<a href="#email-modal" data-modal data-target="email-modal" class="email-modal-btn" aria-label="{@smallads.contact.email} - {@smallads.open.modal}"><i class="fa fa-fw iboost fa-iboost-email" aria-hidden="true"></i></a>
 														<div id="email-modal" class="modal modal-animation">
-															<div class="close-modal" role="button" aria-label="{@close.modal}"></div>
+															<div class="close-modal" role="button" aria-label="{@smallads.close.modal}"></div>
 															<div class="content-panel cell">
 																<div class="cell-body">
 																	# IF C_CONTACT_LEVEL #
@@ -80,7 +80,7 @@
 																		# ENDIF #
 																	# ELSE #
 																		<div class="warning is-not-connected">
-																			<a href="#email-modal-close" class="modal-close" aria-label="{@close.modal}"><i class="fa fa-fw fa-times" aria-hidden="true"></i></a>
+																			<a href="#email-modal-close" class="modal-close" aria-label="{@smallads.close.modal}"><i class="fa fa-fw fa-times" aria-hidden="true"></i></a>
 																			{@smallads.email.modal}
 																		</div>
 																	# ENDIF #
@@ -93,9 +93,9 @@
 													 # ENDIF #
 
 													# IF C_DISPLAYED_AUTHOR_PHONE #
-														<a href="#" data-modal data-target="tel-modal" aria-label="{@smallads.contact.phone} - {@open.modal}"><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.phone}</span></a>
+														<a href="#" data-modal data-target="tel-modal" aria-label="{@smallads.contact.phone} - {@smallads.open.modal}"><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.phone}</span></a>
 														<div id="tel-modal" class="modal modal-animation">
-															<div class="close-modal" role="button" aria-label="{@close.modal}"></div>
+															<div class="close-modal" role="button" aria-label="{@smallads.close.modal}"></div>
 															<div class="content-panel cell">
 																<div class="cell-body">
 																	<div class="cell-content align-center">

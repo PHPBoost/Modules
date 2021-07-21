@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 25
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -46,7 +46,7 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 
 		$view->put('FORM', $this->form->display());
 
-		return new AdminSmalladsDisplayResponse($view, $this->lang['config.usage.terms']);
+		return new AdminSmalladsDisplayResponse($view, $this->lang['smallads.usage.terms.management']);
 	}
 
 	private function init()
@@ -61,10 +61,10 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('config_usage_terms_configuration', $this->lang['config.usage.terms']);
+		$fieldset = new FormFieldsetHTML('config_usage_terms_configuration', $this->lang['smallads.usage.terms.management']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldCheckbox('usage_terms_displayed', $this->lang['config.usage.terms.displayed'], $this->config->are_usage_terms_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('usage_terms_displayed', $this->lang['smallads.display.usage.terms'], $this->config->are_usage_terms_displayed(),
 			array(
 				'class' => 'custom-checkbox',
 				'events' => array('click' => '
@@ -77,7 +77,7 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('usage_terms', $this->lang['config.usage.terms.desc'], $this->config->get_usage_terms(),
+		$fieldset->add_field(new FormFieldRichTextEditor('usage_terms', $this->lang['smallads.usage.terms.clue'], $this->config->get_usage_terms(),
 			array(
 				'rows' => 25,
 				'hidden' => !$this->config->are_usage_terms_displayed()

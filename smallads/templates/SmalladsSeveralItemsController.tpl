@@ -7,7 +7,7 @@
 		</div>
 		<h1>
 			# IF C_ARCHIVED #
-				{@common.status.archived.alts}
+				{@smallads.archived.items}
 			# ELSE #
 				# IF C_PENDING #
 					{@smallads.pending.items}

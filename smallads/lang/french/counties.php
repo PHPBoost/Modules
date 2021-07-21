@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 08 09
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -12,7 +12,7 @@
 #####################################################
 
 $lang['location'] = 'Localisation';
-$lang['location.desc'] = 'Commencez à taper une adresse puis sélectionnez la dans la liste déroulante.<br />Vous pouvez vous limiter au département/région/ville etc, si vous ne souhaitez pas faire apparaitre une adresse complète.';
+$lang['location.clue'] = 'Commencez à taper une adresse puis sélectionnez la dans la liste déroulante.<br />Vous pouvez vous limiter au département/région/ville etc, si vous ne souhaitez pas faire apparaitre une adresse complète.';
 $lang['county'] = 'Département';
 $lang['other.country'] = 'Autre Pays';
 $lang['other.country.explain'] = 'Hors de France';

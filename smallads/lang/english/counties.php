@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 08 09
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -12,7 +12,7 @@
 #####################################################
 
 $lang['location'] = 'Location';
-$lang['location.desc'] = 'Start typing an address then select it in the scrolling list.<br />You can limit to a country/state/county/city and so on, if you don\'t want to show your complete address.';
+$lang['location.clue'] = 'Start typing an address then select it in the scrolling list.<br />You can limit to a country/state/county/city and so on, if you don\'t want to show your complete address.';
 $lang['county'] = 'County';
 $lang['other.country'] = 'Other country';
 $lang['other.country.explain'] = 'Out of England';

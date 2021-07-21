@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 02
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -124,6 +124,7 @@ class SmalladsSetup extends DefaultModuleSetup
 
 	private function insert_smallads_data()
 	{
+		$common_lang = langloader::get('common', 'smallads');
 		PersistenceContext::get_querier()->insert(self::$smallads_table, array(
 			'id' => 1,
 			'id_category' => 1,
@@ -134,7 +135,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'content' => $this->messages['default.smallad.content'],
 			'views_number' => 0,
 			'max_weeks' => 1,
-			'smallad_type' => TextHelper::htmlspecialchars(Url::encode_rewrite($this->messages['default.smallad.type'])),
+			'smallad_type' => TextHelper::htmlspecialchars(Url::encode_rewrite($common_lang['smallads.default.type'])),
 			'author_user_id' => 1,
 			'custom_author_name' => '',
 			'displayed_author_name' => SmalladsItem::DISPLAYED_AUTHOR_NAME,
@@ -146,7 +147,6 @@ class SmalladsSetup extends DefaultModuleSetup
 			'publishing_end_date' => 0,
 			'creation_date' => time(),
 			'update_date' => 0,
-			'smallad_type' => Url::encode_rewrite($this->messages['default.smallad.type']),
 			'sources' => TextHelper::serialize(array()),
 			'carousel' => TextHelper::serialize(array())
 		));

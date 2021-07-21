@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 24
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -105,12 +105,12 @@ class SmalladsItemFormController extends ModuleController
 		}
 
 		$fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['smallads.form.thumbnail'], $this->item->get_thumbnail()->relative(), SmalladsItem::THUMBNAIL_URL,
-			array('description' => $this->lang['smallads.form.thumbnail.desc'])
+			array('description' => $this->lang['smallads.form.thumbnail.clue'])
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('enable_summary', $this->lang['smallads.form.enabled.summary'], $this->item->get_summary_enabled(),
+		$fieldset->add_field(new FormFieldCheckbox('enable_summary', $this->lang['smallads.form.enable.summary'], $this->item->get_summary_enabled(),
 			array(
-				'description' => StringVars::replace_vars($this->lang['smallads.form.enabled.summary.description'], array('number' => SmalladsConfig::load()->get_characters_number_to_cut())),
+				'description' => StringVars::replace_vars($this->lang['smallads.form.enable.summary.clue'], array('number' => SmalladsConfig::load()->get_characters_number_to_cut())),
 				'events' => array('click' => '
 					if (HTMLForms.getField("enable_summary").getValue()) {
 						HTMLForms.getField("summary").enable();
@@ -134,7 +134,7 @@ class SmalladsItemFormController extends ModuleController
 
 		$fieldset->add_field(new FormFieldDecimalNumberEditor('price', $this->lang['smallads.form.price'], $this->item->get_price(),
 			array(
-				'description' => $this->lang['smallads.form.price.desc'],
+				'description' => $this->lang['smallads.form.price.clue'],
 				'min' => 0,
 				'step' => 0.01
 			)
@@ -153,7 +153,7 @@ class SmalladsItemFormController extends ModuleController
 					$location = $location_value;
 
 				$fieldset->add_field(new GoogleMapsFormFieldSimpleAddress('location', $this->county_lang['location'], $location,
-					array('description' => $this->county_lang['location.desc'])
+					array('description' => $this->county_lang['location.clue'])
 				));
 			}
 			else {
@@ -185,11 +185,11 @@ class SmalladsItemFormController extends ModuleController
 			$form->add_fieldset($contact_fieldset);
 
 			if($this->config->is_pm_displayed())
-				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_pm', $this->lang['smallads.form.displayed.author.pm'], $this->item->get_displayed_author_pm()));
+				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_pm', $this->lang['smallads.form.display.author.pm'], $this->item->get_displayed_author_pm()));
 
 			if($this->config->is_email_displayed())
 			{
-				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_email', $this->lang['smallads.form.displayed.author.email'], $this->item->get_displayed_author_email(),
+				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_email', $this->lang['smallads.form.display.author.email'], $this->item->get_displayed_author_email(),
 					array(
 						'events' => array('click' => '
 							if (HTMLForms.getField("displayed_author_email").getValue()) {
@@ -207,9 +207,9 @@ class SmalladsItemFormController extends ModuleController
 					)
 				));
 
-				$contact_fieldset->add_field(new FormFieldCheckbox('enabled_author_email_customization', $this->lang['smallads.form.enabled.author.email.customization'], $this->item->is_enabled_author_email_customization(),
+				$contact_fieldset->add_field(new FormFieldCheckbox('enabled_author_email_customization', $this->lang['smallads.form.author.email.customization'], $this->item->is_enabled_author_email_customization(),
 					array(
-						'description' => $this->lang['smallads.form.enabled.author.email.customization.desc'],
+						'description' => $this->lang['smallads.form.author.email.customization.clue'],
 						'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_email', false) : !$this->item->is_displayed_author_email()),
 						'events' => array('click' => '
 							if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
@@ -228,7 +228,7 @@ class SmalladsItemFormController extends ModuleController
 
 			if($this->config->is_phone_displayed())
 			{
-				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_phone', $this->lang['smallads.form.displayed.author.phone'], $this->item->get_displayed_author_phone(),
+				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_phone', $this->lang['smallads.form.display.author.phone'], $this->item->get_displayed_author_phone(),
 					array(
 						'events' => array('click' => '
 							if (HTMLForms.getField("displayed_author_phone").getValue()) {
@@ -254,7 +254,7 @@ class SmalladsItemFormController extends ModuleController
 			$other_fieldset->add_field(new FormFieldNumberEditor('max_weeks', $this->lang['smallads.form.max.weeks'], $this->item->get_max_weeks(),
 				array(
 					'min' => 1, 'max' => 52,
-					'description' => $this->lang['smallads.form.max.weeks.description']
+					'description' => $this->lang['smallads.form.max.weeks.clue']
 				)
 			));
 		}
@@ -277,7 +277,7 @@ class SmalladsItemFormController extends ModuleController
 			)
 		));
 
-		$other_fieldset->add_field(new FormFieldCheckbox('enabled_author_name_customization', $this->lang['smallads.form.enabled.author.name.customization'], $this->item->is_enabled_author_name_customization(),
+		$other_fieldset->add_field(new FormFieldCheckbox('enabled_author_name_customization', $this->lang['smallads.form.author.name.customization'], $this->item->is_enabled_author_name_customization(),
 			array(
 				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_name', false) : !$this->item->is_displayed_author_name()),
 				'events' => array('click' => '

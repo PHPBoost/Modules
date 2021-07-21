@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 25
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -263,20 +263,20 @@ class SmalladsItemController extends ModuleController
 
 		$email_form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('send_a_mail', $this->lang['email.smallad.contact'], array('description' => $author_name));
+		$fieldset = new FormFieldsetHTML('send_a_mail', $this->lang['smallads.contact.author'], array('description' => $author_name));
 		$email_form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldFree('email_smallad_title', $this->lang['email.smallad.title'], $this->item->get_title()));
+		$fieldset->add_field(new FormFieldFree('email_smallad_title', $this->lang['smallads.item.interest'], $this->item->get_title()));
 
-		$fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['email.sender.name'], AppContext::get_current_user()->get_display_name(),
+		$fieldset->add_field(new FormFieldTextEditor('sender_name', $this->lang['smallads.sender.name'], AppContext::get_current_user()->get_display_name(),
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['email.sender.email'], AppContext::get_current_user()->get_email(),
+		$fieldset->add_field(new FormFieldMailEditor('sender_email', $this->lang['smallads.sender.email'], AppContext::get_current_user()->get_email(),
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldMultiLineTextEditor('sender_message', $this->lang['email.sender.message'], '',
+		$fieldset->add_field(new FormFieldMultiLineTextEditor('sender_message', $this->lang['smallads.sender.message'], '',
 			array('required' => true)
 		));
 

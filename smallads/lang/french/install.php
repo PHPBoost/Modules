@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 04
+ * @version     PHPBoost 6.0 - last update: 2021 07 21
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -24,7 +24,7 @@ $lang['default.smallad.content'] = '
 		<li class="formatter-li"> Pour configurer ou personnaliser votre module, rendez-vous dans la <a class="offload" href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">configuration des catégories</a></li>
 		<li class="formatter-li"> Pour configurer ou personnaliser les annonces et filtres d\'affichage, rendez-vous dans la <a class="offload" href="' . SmalladsUrlBuilder::items_configuration()->relative() . '">configuration des annonces</a></li>
 		<li class="formatter-li"> Pour configurer ou personnaliser les conditions générales d\'utilisation, rendez-vous dans la <a class="offload" href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">configuration des CGU</a></li>
-		<li class="formatter-li"> Pour créer des catégories, <a class="offload" href="' . CategoriesUrlBuilder::add('smallads')->relative() . '">cliquez ici</a> </li>
+		<li class="formatter-li"> Pour créer des catégories, <a class="offload" href="' . CategoriesUrlBuilder::add(Category::ROOT_CATEGORY, 'smallads')->relative() . '">cliquez ici</a> </li>
 		<li class="formatter-li"> Pour ajouter des annonces, <a class="offload" href="' . SmalladsUrlBuilder::add_item()->relative() . '">cliquez ici</a></li>
 	</ul>
 	<ul class="formatter-ul">
@@ -37,7 +37,7 @@ $lang['default.smallad.content'] = '
 	<br />
 	Bonne utilisation de ce module.
 ';
-$lang['config.usage.terms.conditions'] = '
+$lang['smallads.default.usage.terms'] = '
 	<h2 class="formatter-title">ARTICLE 1 : Objet</h2>
 	<p>Les présentes « conditions générales d\'utilisation » ont pour objet l\'encadrement juridique des modalités de mise à disposition des services du site <span style="background-color:#CCFFFF;">[Nom du site]</span> et leur utilisation par « l\'utilisateur ».</p>
 	<p>Les conditions générales d\'utilisation doivent être acceptées par tout utilisateur souhaitant accéder au site. Elles constituent le contrat entre le site et l\'utilisateur. L\'accès au site par l\'utilisateur signifie son acceptation des présentes conditions générales d’utilisation.</p>
