@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 04
+ * @version     PHPBoost 6.0 - last update: 2021 09 01
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -22,27 +22,17 @@ $lang['homelanding.posted.in.topic']  = 'Posted in topic :';
 $lang['homelanding.posted.in.module'] = 'Posted in module:';
 
 // Modules labels
-$lang['homelanding.see.module']               = 'see.module';
-$lang['homelanding.module.carousel']          = 'Carousel';
-$lang['homelanding.module.anchors_menu']      = 'Homepage Menu';
-$lang['homelanding.module.edito']             = 'Edito';
-$lang['homelanding.module.lastcoms']          = 'Comments';
-$lang['homelanding.module.articles']          = 'Articles';
+$lang['homelanding.see.module']          = 'see.module';
+$lang['homelanding.module.carousel']     = 'Carousel';
+$lang['homelanding.module.anchors_menu'] = 'Homepage Menu';
+$lang['homelanding.module.edito']        = 'Edito';
+$lang['homelanding.module.lastcoms']     = 'Comments';
+$lang['homelanding.module.rss']          = 'External RSS';
+    // Module position
 $lang['homelanding.module.articles_category'] = 'Articles - category';
-$lang['homelanding.module.calendar']          = 'Calendar';
-$lang['homelanding.module.contact']           = 'Contact';
-$lang['homelanding.module.download']          = 'Downloads';
 $lang['homelanding.module.download_category'] = 'Downloads - category';
-$lang['homelanding.module.forum']             = 'Forum';
-$lang['homelanding.module.gallery']           = 'Gallery';
-$lang['homelanding.module.guestbook']         = 'Guestbook';
-$lang['homelanding.module.media']             = 'Media';
-$lang['homelanding.module.news']              = 'News';
 $lang['homelanding.module.news_category']     = 'News - category';
-$lang['homelanding.module.smallads']          = 'Small ads';
 $lang['homelanding.module.smallads_category'] = 'Small ads - category';
-$lang['homelanding.module.rss']               = 'External RSS';
-$lang['homelanding.module.web']               = 'Partners links';
 $lang['homelanding.module.web_category']      = 'Partners links - category';
     // Anchors tab
 $lang['homelanding.category.articles_category'] = 'Articles';
@@ -50,12 +40,8 @@ $lang['homelanding.category.download_category'] = 'Downloads';
 $lang['homelanding.category.news_category']     = 'News';
 $lang['homelanding.category.smallads_category'] = 'Small ads';
 $lang['homelanding.category.web_category']      = 'Partners links';
-    // Categories on front end
-$lang['homelanding.category.articles'] = 'Articles';
-$lang['homelanding.category.download'] = 'Downloads';
-$lang['homelanding.category.news']     = 'News';
-$lang['homelanding.category.smallads'] = 'Small ads';
-$lang['homelanding.category.web']      = 'Partners links';
+
+// Additional modules
 
 // Anchors menu
 $lang['homelanding.anchors.title'] = 'Homepage menu';
@@ -88,8 +74,9 @@ $lang['homelanding.hide.menu.top.central']    = 'Hide the top central menu';
 $lang['homelanding.hide.menu.bottom.central'] = 'Hide the bottom central menu';
 $lang['homelanding.hide.menu.top.footer']     = 'Hide the top footer menu';
 
-$lang['homelanding.display.module']         = 'Display the module';
-$lang['homelanding.display.full.module']    = 'Display full module';
+$lang['homelanding.module.display']         = 'Module display';
+$lang['homelanding.show.module']            = 'Display the module';
+$lang['homelanding.show.full.module']    = 'Display full module';
 $lang['homelanding.display.category']       = 'Display a category';
 $lang['homelanding.items.number']           = 'Items number to display';
 $lang['homelanding.characters.limit']       = 'Limit the number of characters';
@@ -135,18 +122,7 @@ $lang['homelanding.carousel.add']         = 'Add a picture';
 $lang['homelanding.carousel.del']         = 'Delete the slide';
 
 // Modules configuration
-$lang['homelanding.display.articles']  = 'Articles module display';
-$lang['homelanding.display.calendar']  = 'Calendar module display';
 $lang['homelanding.calendar.clue']     = 'Only displays upcoming events';
-$lang['homelanding.display.contact']   = 'Contact module display';
-$lang['homelanding.display.download']  = 'Download module display';
-$lang['homelanding.display.forum']     = 'Forum module display';
-$lang['homelanding.display.gallery']   = 'Gallery module display';
-$lang['homelanding.display.guestbook'] = 'Guestbook module display';
-$lang['homelanding.display.media']     = 'Media module display';
-$lang['homelanding.display.news']      = 'News module display';
-$lang['homelanding.display.smallads']  = 'Smallads module display';
-$lang['homelanding.display.web']       = 'Web module display';
 $lang['homelanding.web.clue']          = 'Displays only the partner links';
     // External Rss
 $lang['homelanding.config.rss']    = 'Rss timeline display of an external website';

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 13
+ * @version     PHPBoost 6.0 - last update: 2021 09 01
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -55,10 +55,10 @@ class HomeLandingHomeController extends ModuleController
 	{
 		// Config HomeLanding title & edito
 		$this->view->put_all(array(
-			'MODULE_TITLE' => $this->config->get_module_title(),
+			'MODULE_TITLE'    => $this->config->get_module_title(),
 			'C_EDITO_ENABLED' => $this->modules[HomeLandingConfig::MODULE_EDITO]->is_displayed(),
-			'EDITO' => FormatingHelper::second_parse($this->config->get_edito()),
-			'EDITO_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_EDITO),
+			'EDITO'           => FormatingHelper::second_parse($this->config->get_edito()),
+			'EDITO_POSITION'  => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_EDITO),
 		));
 
 		if ($this->modules[HomeLandingConfig::MODULE_ANCHORS_MENU]->is_displayed())
@@ -120,6 +120,15 @@ class HomeLandingHomeController extends ModuleController
 
 		if ($this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
 		 	$this->view->put('RSS_READER', HomeLandingRss::get_rss_view());
+
+		// Files autoload for additional template variables
+		$home_directory = PATH_TO_ROOT . '/HomeLanding/additional/home/';
+		$scan_home = scandir($home_directory);
+		foreach ($scan_home as $key => $value)
+		{
+	      	if (!in_array($value,array('.', '..', '.empty')))
+				require_once($home_directory . $value);
+		}
 	}
 
 	//Contact
@@ -128,12 +137,13 @@ class HomeLandingHomeController extends ModuleController
 		$view = new FileTemplate('HomeLanding/pagecontent/contact.tpl');
 		$view->add_lang($this->lang);
 		$contact_config = ContactConfig::load();
+        $module_name = HomeLandingConfig::MODULE_CONTACT;
 		$view->put_all(array(
 			'CONTACT_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_CONTACT),
 			'C_MAP_ENABLED'    => $contact_config->is_map_enabled(),
 			'C_MAP_TOP'        => $contact_config->is_map_enabled() && $contact_config->is_map_top(),
 			'C_MAP_BOTTOM'     => $contact_config->is_map_enabled() && $contact_config->is_map_bottom(),
-			'L_MODULE_TITLE'   => $this->lang['homelanding.module.contact'],
+			'L_MODULE_TITLE'   => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
 		));
 
 		$this->build_contact_form();

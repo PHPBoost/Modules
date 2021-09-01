@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 13
+ * @version     PHPBoost 6.0 - last update: 2021 09 01
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -61,7 +61,7 @@ class HomeLandingWeb
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_cat),
             'MODULE_NAME'     => $module_name,
             'ITEMS_PER_ROW'   => $module_config->get_items_per_row(),
-            'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.category.' . $module_name, 'common', 'HomeLanding') . ': ' . $category->get_name(),
+            'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name() . ': ' . $category->get_name(),
         ));
 
         while ($row = $result->fetch())
@@ -86,7 +86,7 @@ class HomeLandingWeb
         $module_config = WebConfig::load();
 		$home_config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
-        $module_name   = HomeLandingConfig::MODULE_WEB;
+        $module_name = HomeLandingConfig::MODULE_WEB;
 
         $theme_id = AppContext::get_current_user()->get_theme();
         if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl'))
@@ -125,7 +125,7 @@ class HomeLandingWeb
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
 			'MODULE_NAME'     => $module_name,
             'ITEMS_PER_ROW'   => $module_config->get_items_per_row(),
-		    'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
+		    'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
         ));
 
         while ($row = $result->fetch())

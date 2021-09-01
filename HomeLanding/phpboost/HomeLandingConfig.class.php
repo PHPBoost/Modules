@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 12
+ * @version     PHPBoost 6.0 - last update: 2021 09 01
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -36,8 +36,13 @@ class HomeLandingConfig extends AbstractConfigData
 	const RSS_SITE_URL = 'rss_site_url';
 	const RSS_XML_URL = 'rss_xml_url';
 
+	const STICKY_TEXT = 'sticky_text';
+	const STICKY_TITLE = 'sticky_title';
+
 	const ELEMENTS_NUMBER_DISPLAYED = 5;
 	const CHARACTERS_NUMBER_DISPLAYED = 128;
+
+	// Modules
 	const MODULE_CAROUSEL = 'carousel';
 	const MODULE_ANCHORS_MENU = 'anchors_menu';
 	const MODULE_EDITO = 'edito';
@@ -60,8 +65,7 @@ class HomeLandingConfig extends AbstractConfigData
 	const MODULE_WEB = 'web';
 	const MODULE_WEB_CATEGORY = 'web_category';
 
-	const STICKY_TEXT = 'sticky_text';
-	const STICKY_TITLE = 'sticky_title';
+	// Additional modules
 
 	// Module Title
 	public function get_module_title()
@@ -440,6 +444,15 @@ class HomeLandingConfig extends AbstractConfigData
 		$module->hide();
 
 		$modules[] = $module->get_properties();
+
+		// Files autoload for adding new modules
+		$init_directory = PATH_TO_ROOT . '/HomeLanding/additional/init/';
+		$scan_init = scandir($init_directory);
+		foreach ($scan_init as $key => $value)
+		{
+	      	if (!in_array($value,array('.', '..', '.empty')))
+				require_once($init_directory . $value);
+		}
 
 		return $modules;
 	}

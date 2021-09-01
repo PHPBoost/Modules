@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 12
+ * @version     PHPBoost 6.0 - last update: 2021 09 01
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -44,7 +44,7 @@ class HomeLandingMedia
             'MODULE_NAME'     => $module_name,
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
         	'ITEMS_PER_ROW'   => $module_config->get_items_per_row(),
-		    'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
+		    'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
         ));
 
         while ($row = $result->fetch())

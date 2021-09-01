@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 16
+ * @version     PHPBoost 6.0 - last update: 2021 09 01
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -37,8 +37,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 		$this->build_form();
 
-		$tpl = new StringTemplate('# INCLUDE MSG # # INCLUDE FORM #');
-		$tpl->add_lang($this->lang);
+		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
+		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -56,7 +56,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->form->get_field_by_id('lastcoms_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
 			$this->form->get_field_by_id('lastcoms_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->is_displayed());
 
-			if (ModulesManager::is_module_installed('articles') && ModulesManager::is_module_activated('articles'))
+			if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_active())
 			{
 				$this->form->get_field_by_id('articles_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed());
 				$this->form->get_field_by_id('articles_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed());
@@ -65,13 +65,13 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('articles_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('calendar') && ModulesManager::is_module_activated('calendar'))
+			if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_active())
 			{
 				$this->form->get_field_by_id('calendar_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed());
 				$this->form->get_field_by_id('calendar_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('download') && ModulesManager::is_module_activated('download'))
+			if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_active())
 			{
 				$this->form->get_field_by_id('download_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed());
 				$this->form->get_field_by_id('download_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed());
@@ -80,29 +80,29 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('download_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('forum') && ModulesManager::is_module_activated('forum'))
+			if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active())
 			{
 				$this->form->get_field_by_id('forum_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed());
 				$this->form->get_field_by_id('forum_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery'))
+			if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_active())
 			{
 				$this->form->get_field_by_id('gallery_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('guestbook') && ModulesManager::is_module_activated('guestbook'))
+			if ($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_active())
 			{
 				$this->form->get_field_by_id('guestbook_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed());
 				$this->form->get_field_by_id('guestbook_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('media') && ModulesManager::is_module_activated('media'))
+			if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_active())
 			{
 				$this->form->get_field_by_id('media_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news'))
+			if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_active())
 			{
 				$this->form->get_field_by_id('news_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed());
 				$this->form->get_field_by_id('news_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed());
@@ -111,7 +111,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('news_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed());
 			}
 
-			if (ModulesManager::is_module_installed('smallads') && ModulesManager::is_module_activated('smallads'))
+			if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
 			{
 				$this->form->get_field_by_id('smallads_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed());
 				$this->form->get_field_by_id('smallads_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
@@ -126,7 +126,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->form->get_field_by_id('rss_xml_nb')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
 			$this->form->get_field_by_id('rss_xml_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
 
-			if (ModulesManager::is_module_installed('web') && ModulesManager::is_module_activated('web'))
+			if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active())
 			{
 				$this->form->get_field_by_id('web_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed());
 				$this->form->get_field_by_id('web_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed());
@@ -135,12 +135,21 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('web_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed());
 			}
 
-			$tpl->put('MSG', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 4));
+			// Files autoload for additional field state after validation
+			$submit_directory = PATH_TO_ROOT . '/HomeLanding/additional/submit/';
+			$scan_submit = scandir($submit_directory);
+			foreach ($scan_submit as $key => $value)
+			{
+		      	if (!in_array($value,array('.', '..', '.empty')))
+					require_once($submit_directory . $value);
+			}
+
+			$view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 4));
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$view->put('FORM', $this->form->display());
 
-		return new AdminHomeLandingDisplayResponse($tpl, LangLoader::get_message('form.configuration', 'form-lang'));
+		return new AdminHomeLandingDisplayResponse($view, LangLoader::get_message('form.configuration', 'form-lang'));
 	}
 
 	private function init()
@@ -152,10 +161,16 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 	private function tabs_menu_list()
 	{
-		$modules = array('configuration', 'carousel', 'articles', 'calendar', 'contact', 'download', 'forum', 'gallery', 'guestbook', 'media', 'news', 'smallads', 'web', 'rss');
-        $tabs_li = array();
+		$activated_home_modules = ModulesManager::get_activated_feature_modules('homelanding');
 
-        foreach($modules as $module)
+		$tabs_li = $home_modules = array();
+		$home_modules += array('0' => 'configuration', '1' => 'carousel', '2' => 'rss');
+		foreach ($activated_home_modules as $module)
+		{
+			$home_modules[] = $module->get_id();
+		}
+
+        foreach($home_modules as $module)
         {
 			if($module == 'configuration')
             	$tabs_li[] = new FormFieldMultitabsLinkElement(LangLoader::get_message('form.configuration', 'form-lang'), 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cog');
@@ -163,9 +178,15 @@ class AdminHomeLandingConfigController extends AdminModuleController
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-cog');
 			elseif($module == 'rss')
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.rss'], 'tabs', 'AdminHomeLandingConfigController_admin_rss', 'fa-rss');
-			elseif (ModulesManager::is_module_installed($module) && ModulesManager::is_module_activated($module))
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.'.$module], 'tabs', 'AdminHomeLandingConfigController_admin_'.$module, '', PATH_TO_ROOT.'/'.$module.'/'.$module.'_mini.png', $module);
-        }
+			else
+				$tabs_li[] = new FormFieldMultitabsLinkElement(
+					ModulesManager::get_module($module)->get_configuration()->get_name(),
+					'tabs',
+					'AdminHomeLandingConfigController_admin_' . $module,
+					'',
+					PATH_TO_ROOT . '/' . $module . '/' . $module . '_mini.png', $module
+				);
+		}
 		return $tabs_li;
 	}
 
@@ -346,14 +367,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 
 		// Articles
-		if (ModulesManager::is_module_installed('articles') && ModulesManager::is_module_activated('articles'))
+		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_active())
 		{
-			$fieldset_articles = new FormFieldsetMultitabsHTML('admin_articles', $this->lang['homelanding.display.articles'],
+			$fieldset_articles = new FormFieldsetMultitabsHTML('admin_articles', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_ARTICLES]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_articles);
 
-			$fieldset_articles->add_field(new FormFieldCheckbox('articles_enabled', $this->lang['homelanding.display.full.module'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed(),
+			$fieldset_articles->add_field(new FormFieldCheckbox('articles_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -423,14 +444,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Calendar
-		if (ModulesManager::is_module_installed('calendar') && ModulesManager::is_module_activated('calendar'))
+		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_active())
 		{
-			$fieldset_calendar = new FormFieldsetMultitabsHTML('admin_calendar', $this->lang['homelanding.display.calendar'],
+			$fieldset_calendar = new FormFieldsetMultitabsHTML('admin_calendar', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_calendar);
 
-			$fieldset_calendar->add_field(new FormFieldCheckbox('calendar_enabled', $this->lang['homelanding.display.module'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed(),
+			$fieldset_calendar->add_field(new FormFieldCheckbox('calendar_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'description' => $this->lang['homelanding.calendar.clue'],
@@ -464,27 +485,27 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Contact
-		if (ModulesManager::is_module_installed('contact') && ModulesManager::is_module_activated('contact'))
+		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_active())
 		{
-			$fieldset_contact = new FormFieldsetMultitabsHTML('admin_contact', $this->lang['homelanding.display.contact'],
+			$fieldset_contact = new FormFieldsetMultitabsHTML('admin_contact', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_CONTACT]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_contact);
 
-			$fieldset_contact->add_field(new FormFieldCheckbox('contact_enabled', $this->lang['homelanding.display.module'], $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed(),
+			$fieldset_contact->add_field(new FormFieldCheckbox('contact_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed(),
 				array('class'=> 'custom-checkbox')
 			));
 		}
 
 		// Download
-		if (ModulesManager::is_module_installed('download') && ModulesManager::is_module_activated('download'))
+		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_active())
 		{
-			$fieldset_download = new FormFieldsetMultitabsHTML('admin_download', $this->lang['homelanding.display.download'],
+			$fieldset_download = new FormFieldsetMultitabsHTML('admin_download', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_download);
 
-			$fieldset_download->add_field(new FormFieldCheckbox('download_enabled', $this->lang['homelanding.display.full.module'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed(),
+			$fieldset_download->add_field(new FormFieldCheckbox('download_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -554,14 +575,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Forum
-		if (ModulesManager::is_module_installed('forum') && ModulesManager::is_module_activated('forum'))
+		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active())
 		{
-			$fieldset_forum = new FormFieldsetMultitabsHTML('admin_forum', $this->lang['homelanding.display.forum'],
+			$fieldset_forum = new FormFieldsetMultitabsHTML('admin_forum', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_FORUM]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_forum);
 
-			$fieldset_forum->add_field(new FormFieldCheckbox('forum_enabled', $this->lang['homelanding.display.module'], $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed(),
+			$fieldset_forum->add_field(new FormFieldCheckbox('forum_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -594,14 +615,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Gallery
-		if (ModulesManager::is_module_installed('gallery') && ModulesManager::is_module_activated('gallery'))
+		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_active())
 		{
-			$fieldset_gallery = new FormFieldsetMultitabsHTML('admin_gallery', $this->lang['homelanding.display.gallery'],
+			$fieldset_gallery = new FormFieldsetMultitabsHTML('admin_gallery', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_GALLERY]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_gallery);
 
-			$fieldset_gallery->add_field(new FormFieldCheckbox('gallery_enabled', $this->lang['homelanding.display.module'], $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed(),
+			$fieldset_gallery->add_field(new FormFieldCheckbox('gallery_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -624,14 +645,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Guestbook
-		if (ModulesManager::is_module_installed('guestbook') && ModulesManager::is_module_activated('guestbook'))
+		if ($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_active())
 		{
-			$fieldset_guestbook = new FormFieldsetMultitabsHTML('admin_guestbook', $this->lang['homelanding.display.guestbook'],
+			$fieldset_guestbook = new FormFieldsetMultitabsHTML('admin_guestbook', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_guestbook);
 
-			$fieldset_guestbook->add_field(new FormFieldCheckbox('guestbook_enabled', $this->lang['homelanding.display.module'], $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed(),
+			$fieldset_guestbook->add_field(new FormFieldCheckbox('guestbook_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -664,14 +685,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Media
-		if (ModulesManager::is_module_installed('media') && ModulesManager::is_module_activated('media'))
+		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_active())
 		{
-			$fieldset_media = new FormFieldsetMultitabsHTML('admin_media', $this->lang['homelanding.display.media'],
+			$fieldset_media = new FormFieldsetMultitabsHTML('admin_media', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_MEDIA]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_media);
 
-			$fieldset_media->add_field(new FormFieldCheckbox('media_enabled', $this->lang['homelanding.display.module'], $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed(),
+			$fieldset_media->add_field(new FormFieldCheckbox('media_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -694,14 +715,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// News
-		if (ModulesManager::is_module_installed('news') && ModulesManager::is_module_activated('news'))
+		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_active())
 		{
-			$fieldset_news = new FormFieldsetMultitabsHTML('admin_news',  $this->lang['homelanding.display.news'],
+			$fieldset_news = new FormFieldsetMultitabsHTML('admin_news', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_NEWS]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_news);
 
-			$fieldset_news->add_field(new FormFieldCheckbox('news_enabled', $this->lang['homelanding.display.full.module'], $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed(),
+			$fieldset_news->add_field(new FormFieldCheckbox('news_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -772,14 +793,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Smallads
-		if (ModulesManager::is_module_installed('smallads') && ModulesManager::is_module_activated('smallads'))
+		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
 		{
-			$fieldset_smallads = new FormFieldsetMultitabsHTML('admin_smallads',  $this->lang['homelanding.display.smallads'],
+			$fieldset_smallads = new FormFieldsetMultitabsHTML('admin_smallads', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_SMALLADS]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_smallads);
 
-			$fieldset_smallads->add_field(new FormFieldCheckbox('smallads_enabled', $this->lang['homelanding.display.full.module'], $this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed(),
+			$fieldset_smallads->add_field(new FormFieldCheckbox('smallads_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'events' => array('click' => '
@@ -850,14 +871,14 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Web
-		if (ModulesManager::is_module_installed('web') && ModulesManager::is_module_activated('web'))
+		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active())
 		{
-			$fieldset_web = new FormFieldsetMultitabsHTML('admin_web',  $this->lang['homelanding.display.web'],
+			$fieldset_web = new FormFieldsetMultitabsHTML('admin_web',  $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_WEB]->get_module_id())->get_configuration()->get_name(),
 				array('css_class' => 'tabs tabs-animation')
 			);
 			$form->add_fieldset($fieldset_web);
 
-			$fieldset_web->add_field(new FormFieldCheckbox('web_enabled', $this->lang['homelanding.display.full.module'], $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed(),
+			$fieldset_web->add_field(new FormFieldCheckbox('web_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed(),
 				array(
 					'class'=> 'custom-checkbox',
 					'description' => $this->lang['homelanding.web.clue'],
@@ -984,6 +1005,15 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				array(new FormFieldConstraintIntegerRange(0, 512))
 			));
 
+		// Files autoload for additional fields
+		$form_directory = PATH_TO_ROOT . '/HomeLanding/additional/form/';
+		$scan_form = scandir($form_directory);
+		foreach ($scan_form as $key => $value)
+		{
+	      	if (!in_array($value, array('.', '..', '.empty')))
+				require_once($form_directory . $value);
+		}
+
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
 		$form->add_button(new FormButtonReset());
@@ -1044,7 +1074,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->modules[HomeLandingConfig::MODULE_LASTCOMS]->hide();
 
 		// Articles
-		if (ModulesManager::is_module_installed('articles') & ModulesManager::is_module_activated('articles'))
+		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_active())
 		{
 			if ($this->form->get_value('articles_enabled'))
 			{
@@ -1073,7 +1103,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Calendar
-		if (ModulesManager::is_module_installed('calendar') & ModulesManager::is_module_activated('calendar'))
+		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_active())
 		{
 			if ($this->form->get_value('calendar_enabled'))
 			{
@@ -1086,7 +1116,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Contact
-		if (ModulesManager::is_module_installed('contact') & ModulesManager::is_module_activated('contact'))
+		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_active())
 		{
 			if ($this->form->get_value('contact_enabled'))
 				$this->modules[HomeLandingConfig::MODULE_CONTACT]->display();
@@ -1095,7 +1125,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Download
-		if (ModulesManager::is_module_installed('download') & ModulesManager::is_module_activated('download'))
+		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_active())
 		{
 			if ($this->form->get_value('download_enabled'))
 			{
@@ -1124,7 +1154,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Forum
-		if (ModulesManager::is_module_installed('forum') & ModulesManager::is_module_activated('forum'))
+		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active())
 		{
 			if ($this->form->get_value('forum_enabled'))
 			{
@@ -1137,7 +1167,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Gallery
-		if (ModulesManager::is_module_installed('gallery') & ModulesManager::is_module_activated('gallery'))
+		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_active())
 		{
 			if ($this->form->get_value('gallery_enabled'))
 			{
@@ -1149,7 +1179,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Guestbook
-		if (ModulesManager::is_module_installed('guestbook') & ModulesManager::is_module_activated('guestbook'))
+		if ($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_active())
 		{
 			if ($this->form->get_value('guestbook_enabled'))
 			{
@@ -1162,7 +1192,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Media
-		if (ModulesManager::is_module_installed('media') & ModulesManager::is_module_activated('media'))
+		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_active())
 		{
 			if ($this->form->get_value('media_enabled'))
 			{
@@ -1174,7 +1204,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// News
-		if (ModulesManager::is_module_installed('news') & ModulesManager::is_module_activated('news'))
+		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_active())
 		{
 			if ($this->form->get_value('news_enabled'))
 			{
@@ -1203,7 +1233,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Smallads
-		if (ModulesManager::is_module_installed('smallads') & ModulesManager::is_module_activated('smallads'))
+		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
 		{
 			if ($this->form->get_value('smallads_enabled'))
 			{
@@ -1245,7 +1275,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			$this->modules[HomeLandingConfig::MODULE_RSS]->hide();
 
 		// Web
-		if (ModulesManager::is_module_installed('web') & ModulesManager::is_module_activated('web'))
+		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active())
 		{
 			if ($this->form->get_value('web_enabled'))
 			{
@@ -1271,6 +1301,15 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			}
 			else
 				$this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->hide();
+		}
+
+		// Files autoload for additional saving properties
+		$save_directory = PATH_TO_ROOT . '/HomeLanding/additional/save/';
+		$scan_save = scandir($save_directory);
+		foreach ($scan_save as $key => $value)
+		{
+			if (!in_array($value,array('.', '..', '.empty')))
+				require_once($save_directory . $value);
 		}
 
 		HomeLandingModulesList::save($this->modules);

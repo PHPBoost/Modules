@@ -68,5 +68,7 @@
 
 	# INCLUDE  WEB_CAT #
 
+	<!-- Additional modules -->
+
 	<footer style="order: 9999;"></footer>
 </section>

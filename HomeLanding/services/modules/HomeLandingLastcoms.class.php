@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 31
+ * @version     PHPBoost 6.0 - last update: 2021 08 30
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -46,7 +46,7 @@ class HomeLandingLastcoms
 			'C_AVATAR_IMG' => $user_accounts_config->is_default_avatar_enabled(),
 			'MODULE_NAME' => $module_name,
 			'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
-			'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
+			'L_MODULE_TITLE'  => $home_lang['homelanding.module.' . $module_name],
 		));
 
 		while ($row = $result->fetch())
