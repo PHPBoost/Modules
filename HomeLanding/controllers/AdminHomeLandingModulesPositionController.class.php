@@ -3,14 +3,13 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 09 04
  * @since       PHPBoost 5.0 - 2016 05 01
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminHomeLandingModulesPositionController extends AdminModuleController
 {
-	private $lang;
 	private $view;
 	private $config;
 
@@ -30,7 +29,7 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 				'C_ACTIVE'  => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss')) ? true : $module->is_active(),
 				'C_DISPLAY' => $module->is_displayed(),
 				'ID'        => $id,
-				'NAME'      => $module->get_name(),
+				'NAME'      => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss')) ? $module->get_name() : ($module->is_active() ? $module->get_name() : ''),
 				'U_EDIT'    => HomeLandingUrlBuilder::configuration($module->get_config_module_id())->rel()
 			));
 			$modules_number++;
