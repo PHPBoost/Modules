@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 09 04
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -38,7 +38,6 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$this->build_form();
 
 		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
-		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -161,13 +160,20 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 	private function tabs_menu_list()
 	{
-		$activated_home_modules = ModulesManager::get_activated_feature_modules('homelanding');
+		$tabs_li = $home_modules = $modules_from_list = array();
 
-		$tabs_li = $home_modules = array();
+		// List of installed modules compatible with HomeLanding
+		$compatible_modules = ModulesManager::get_activated_feature_modules('homelanding');
 		$home_modules += array('0' => 'configuration', '1' => 'carousel', '2' => 'rss');
-		foreach ($activated_home_modules as $module)
+		foreach ($compatible_modules as $module)
 		{
 			$home_modules[] = $module->get_id();
+		}
+
+		// list of modules installed in HomeLanding
+		foreach($this->config->get_modules() as $id => $module)
+		{
+			$modules_from_list[] = $module['module_id'];
 		}
 
         foreach($home_modules as $module)
@@ -178,7 +184,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-cog');
 			elseif($module == 'rss')
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.rss'], 'tabs', 'AdminHomeLandingConfigController_admin_rss', 'fa-rss');
-			else
+			elseif(in_array($module, $modules_from_list))
 				$tabs_li[] = new FormFieldMultitabsLinkElement(
 					ModulesManager::get_module($module)->get_configuration()->get_name(),
 					'tabs',
@@ -1015,6 +1021,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		$this->submit_button = new FormButtonDefaultSubmit();
+		$this->init_button = new FormButtonDefaultSubmit('add module');
 		$form->add_button($this->submit_button);
 		$form->add_button(new FormButtonReset());
 
