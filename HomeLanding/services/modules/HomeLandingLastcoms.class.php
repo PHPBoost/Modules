@@ -46,7 +46,7 @@ class HomeLandingLastcoms
 			'C_AVATAR_IMG' => $user_accounts_config->is_default_avatar_enabled(),
 			'MODULE_NAME' => $module_name,
 			'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
-			'L_MODULE_TITLE'  => $home_lang['homelanding.module.' . $module_name],
+			'L_MODULE_TITLE'  => LangLoader::get_message('homelanding.module.' . $module_name, 'common', 'HomeLanding'),
 		));
 
 		while ($row = $result->fetch())
