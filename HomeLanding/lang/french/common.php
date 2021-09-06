@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 09 06
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -16,6 +16,21 @@
 $lang['homelanding.module.title']        = 'Page d\'accueil';
 $lang['homelanding.config.module.title'] = 'Configuration du module Page d\'accueil';
 $lang['homelanding.modules.position']    = 'Position des éléments';
+
+// Module detection
+$lang['homelanding.add.modules']             = 'Ajouter des éléments';
+$lang['homelanding.add.modules.warning']     = '
+    <p class="text-strong">:modules_list</p>
+    <p>Après avoir suivi les instructions de <a href="https://www.phpboost.com/wiki/ajouter-un-module-dans-homelanding">la documentation</a> sur le site officiel de PHPBoost, cliquer sur <strong>Valider</strong> pour ajouter les nouveaux modules à la <strong>Page d\'accueil</strong>.</p>
+';
+$lang['homelanding.new.modules']             = 'Nouveaux modules détectés';
+$lang['homelanding.no.new.module']           = '<p>Les nouveaux modules ont bien été ajoutés à la <strong>Page d\'accueil</strong>.</p>';
+$lang['homelanding.back.to.configuration']   = '<p>La <a href="' . HomeLandingUrlBuilder::configuration()->rel() . '">configuration</a> des nouveaux modules est maintenant disponible.</p>';
+$lang['homelanding.new.modules.description'] = '
+    <p>Des nouveaux modules compatibles à la <strong>Page d\'accueil</strong> ont été installés et activés sur le site: </p>
+    <p class="text-strong">:modules_list</p>
+    <p>S\'ils ne sont pas prévus nativement dans le module <strong>Page d\'accueil</strong>, ils peuvent y être ajoutés en suivant les instructions de <a href="https://www.phpboost.com/wiki/ajouter-un-module-dans-homelanding">la documentation</a> sur le site officiel de PHPBoost.</p>
+';
 
 // Messages
 $lang['homelanding.posted.in.topic']  = 'Posté dans le sujet :';

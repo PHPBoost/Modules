@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 04
+ * @version     PHPBoost 6.0 - last update: 2021 09 06
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -25,6 +25,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 	 * @var HomeLandingConfig
 	 */
 	private $config;
+	private $compatible;
 
 	/**
 	 * @var HomeLandingModulesList
@@ -156,6 +157,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$this->lang = LangLoader::get('common', 'HomeLanding');
 		$this->config = HomeLandingConfig::load();
 		$this->modules = HomeLandingModulesList::load();
+		$this->compatible = ModulesManager::get_activated_feature_modules('homelanding');
 	}
 
 	private function tabs_menu_list()
@@ -163,9 +165,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$tabs_li = $home_modules = $modules_from_list = array();
 
 		// List of installed modules compatible with HomeLanding
-		$compatible_modules = ModulesManager::get_activated_feature_modules('homelanding');
 		$home_modules += array('0' => 'configuration', '1' => 'carousel', '2' => 'rss');
-		foreach ($compatible_modules as $module)
+		foreach ($this->compatible as $module)
 		{
 			$home_modules[] = $module->get_id();
 		}
@@ -200,6 +201,35 @@ class AdminHomeLandingConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 		$form->set_css_class('tabs-container fieldset-content');
+
+		// New modules warning
+		$compatible_list = $config_list = $new_modules_list = array();
+		foreach ($this->compatible as $module)
+		{
+			$compatible_list[] = $module->get_id();
+		}
+
+		foreach($this->config->get_modules() as $id => $module)
+		{
+			$config_list[] = $module['module_id'];
+		}
+
+		$new_modules = array_diff($compatible_list, $config_list);
+		if($new_modules)
+		{
+			$fieldset_new_modules = new FormFieldMenuFieldset('new_modules_list', $this->lang['homelanding.new.modules']);
+			$form->add_fieldset($fieldset_new_modules);
+
+			foreach($new_modules as $module)
+			{
+				$new_module_name[] = ModulesManager::get_module($module)->get_configuration()->get_name() . ' | ';
+			}
+			$modules_list = substr(json_encode($new_module_name), 2, -4);
+
+			$fieldset_new_modules->add_field(new FormFieldFree('new_modules', $this->lang['homelanding.new.modules'], StringVars::replace_vars($this->lang['homelanding.new.modules.description'], array('modules_list' => $modules_list)) ,
+				array('class' => 'bgc warning message-helper full-field')
+			));
+		}
 
 		// Tabs menu
 		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');

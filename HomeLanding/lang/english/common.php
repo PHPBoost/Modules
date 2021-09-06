@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 09 06
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -16,6 +16,21 @@
 $lang['homelanding.module.title']        = 'Home Page';
 $lang['homelanding.config.module.title'] = 'Home Page module configuration';
 $lang['homelanding.modules.position']    = 'Elements position';
+
+// Module detection
+$lang['homelanding.add.modules']             = 'Add some elements';
+$lang['homelanding.add.modules.warning']     = '
+    <p class="text-strong">:modules_list</p>
+    <p>After following the instructions form  <a href="https://www.phpboost.com/wiki/ajouter-un-module-dans-homelanding">the documentation</a> on PHPBoost official website, click on <strong>Submit</strong>to add new modules on <strong>home page</strong>.</p>
+';
+$lang['homelanding.new.modules']             = 'New modules detected';
+$lang['homelanding.no.new.module']           = '<p>New modules have been added to <strong>Home page</strong>.</p>';
+$lang['homelanding.back.to.configuration']   = '<p>The module <a href="' . HomeLandingUrlBuilder::configuration()->rel() . '">configuration</a> is now available.</p>';
+$lang['homelanding.new.modules.description'] = '
+    <p>New <strong>Home page</strong> compatible modules have been installed and activated on website : </p>
+    <p class="text-strong">:modules_list</p>
+    <p>If they are not ready-to-use from the original module list of HomeLanding, They can be added by following <a href="https://www.phpboost.com/wiki/ajouter-un-module-dans-homelanding">the documentation</a> on PHPBoost official website.</p>
+';
 
 // Messages
 $lang['homelanding.posted.in.topic']  = 'Posted in topic :';
