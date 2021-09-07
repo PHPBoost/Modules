@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 06
+ * @version     PHPBoost 6.0 - last update: 2021 09 07
  * @since       PHPBoost 5.0 - 2016 01 02
 */
 
@@ -35,6 +35,7 @@ class AdminHomeLandingDisplayResponse extends AdminMenuDisplayResponse
 			$this->add_link(LangLoader::get_message('homelanding.add.modules', 'common', 'HomeLanding'), HomeLandingUrlBuilder::add_modules());
 		$this->add_link(LangLoader::get_message('homelanding.sticky.manage', 'sticky', 'HomeLanding') . ': '. $sticky_title, HomeLandingUrlBuilder::sticky_manage());
 		$this->add_link($sticky_title, HomeLandingUrlBuilder::sticky());
+		$this->add_link(LangLoader::get_message('form.documentation', 'form-lang'), $this->module->get_configuration()->get_documentation());
 
 		$this->get_graphical_environment()->set_page_title($page_title);
 	}
