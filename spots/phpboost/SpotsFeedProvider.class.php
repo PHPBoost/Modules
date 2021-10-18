@@ -60,7 +60,7 @@ class SpotsFeedProvider implements FeedProvider
 				$item->set_guid($link);
 				$item->set_desc(FormatingHelper::second_parse($row['content']));
 				$item->set_date(new Date($row['creation_date'], Timezone::SERVER_TIMEZONE));
-				$item->set_image_url($row['thumbnail_url']);
+				$item->set_image_url($row['thumbnail']);
 				$item->set_auth(CategoriesService::get_categories_manager($module_id)->get_heritated_authorizations($row['id_category'], Category::READ_AUTHORIZATIONS, Authorizations::AUTH_PARENT_PRIORITY));
 				$data->add_item($item);
 			}
