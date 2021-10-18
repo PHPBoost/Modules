@@ -1,0 +1,124 @@
+.leaflet-popup { min-width: 250px; }
+
+.marker-container {
+	position: relative;
+	display: inline-block;
+}
+
+@media (max-width: 768px) {
+	.marker-container.hidden-small-screens,
+	.cell-name a .marker-container.hidden-small-screens { display: none; }
+}
+
+.marker-container .inner-marker {
+    position: absolute;
+    top: 25%;
+    left: 46%;
+    transform: translate(-50%, -50%);
+}
+
+span.marker-container .inner-marker {
+	font-size: 0.809em;
+    top: 28%;
+    left: 50%;
+}
+
+.marker-container.colored-category {
+	position: relative;
+	display: flex;
+}
+
+.marker-container.colored-category .data-color-surround { width: 1.618em; }
+
+.marker-container.colored-category .inner-marker {
+	font-size: 0.618em;
+    top: 50%;
+	left: 0.809em;
+}
+
+.colored-category[data-color-surround] {
+	padding-left: 1.809em;
+	position: relative;
+}
+
+#cssmenu-module-spots > ul { z-index: 1010; }
+
+@media (min-width: 769px) {
+
+	.cell-options { max-width: 30%; }
+	.gm-style-iw-d { min-width: 300px;}
+
+	.gm-location { min-width: 190px; }
+
+	.article-several .spots-picture {
+		float: right;
+		padding: 0 0 0 10px;
+		max-width: 500px;
+	}
+
+	/*#onblurContainerResponseSpotsFormController_gps,*/
+	#onblurContainerResponseSpotsFormController_location {
+		width: 58%;
+	}
+
+	.gmap-autocomplete,
+	#onblurContainerResponseSpotsFormController_gps,
+	#onblurContainerResponseSpotsFormController_gps input {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	#onblurContainerResponseSpotsFormController_gps .map-canvas {
+		width: 100%;
+		padding-bottom: 52.76%;
+		height: auto;
+	}
+}
+
+#map,
+#gmap {
+	width: 100%;
+	padding-bottom: 52.76%
+}
+
+.gm-style img { max-width: 280px !important; }
+
+.fixed-top.sticky {
+	top: 0;
+	margin: 0 auto;
+	position: fixed;
+	z-index: 10;
+}
+
+@media (min-width: 769px) {
+	.fixed-top.sticky {
+		left: 10%;
+		right: 10%;
+	}
+
+	.fixed-top.sticky #map,
+	.fixed-top.sticky #gmap {
+		padding-bottom: 35%;
+	}
+}
+
+.gmap-autocomplete {
+	margin-bottom: 10px;
+}
+
+.adp-listsel,
+[data-route-index]:hover,
+.adp-placemark {
+    background-color: rgba(var(--main-rgb-t), 0.1) !important;
+}
+
+#map-SpotsItemController_new_gps {
+	opacity: 0;
+	visibility: hidden;
+	padding: 0;
+}
+
+.front-fieldset fieldset { margin: 0; }
+.front-fieldset .fieldset-inset {
+    padding: 0.618em 0 0;
+}
