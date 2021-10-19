@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 03
+ * @version     PHPBoost 6.0 - last update: 2021 10 19
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -24,8 +24,8 @@ class SmalladsFormFieldBrand extends AbstractFormField
 		$view->add_lang(LangLoader::get('common', 'smallads'));
 
 		$view->put_all(array(
-			'NAME' => $this->get_html_id(),
-			'ID' => $this->get_html_id(),
+			'NAME'       => $this->get_html_id(),
+			'ID'         => $this->get_html_id(),
 			'C_DISABLED' => $this->is_disabled()
 		));
 
@@ -35,7 +35,7 @@ class SmalladsFormFieldBrand extends AbstractFormField
 		foreach ($this->get_value() as $name)
 		{
 			$view->assign_block_vars('fieldelements', array(
-				'ID' => $i,
+				'ID'   => $i,
 				'NAME' => $name
 			));
 			$i++;
@@ -44,17 +44,17 @@ class SmalladsFormFieldBrand extends AbstractFormField
 		if ($i == 0)
 		{
 			$view->assign_block_vars('fieldelements', array(
-				'ID' => $i,
+				'ID'   => $i,
 				'NAME' => ''
 			));
 		}
 
 		$view->put_all(array(
-			'NAME' => $this->get_html_id(),
-			'ID' => $this->get_html_id(),
-			'C_DISABLED' => $this->is_disabled(),
-			'MAX_INPUT' => $this->max_input,
-			'NBR_FIELDS' => $i == 0 ? 1 : $i
+			'NAME'          => $this->get_html_id(),
+			'ID'            => $this->get_html_id(),
+			'C_DISABLED'    => $this->is_disabled(),
+			'MAX_INPUT'     => $this->max_input,
+			'FIELDS_NUMBER' => $i == 0 ? 1 : $i
 		));
 
 		$template->assign_block_vars('fieldelements', array(

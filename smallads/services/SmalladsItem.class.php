@@ -671,6 +671,7 @@ class SmalladsItem
 		$this->custom_author_name = $this->author_user->get_display_name();
 		$this->enabled_author_email_customization = false;
 		$this->enabled_author_name_customization = false;
+		$this->displayed_author_pm = true;
 	}
 
 	public function clean_publication_start_and_end_date()

@@ -77,3 +77,6 @@
 	top: 100%;
 	transition: top 0.5s ease;
 }
+
+/* --- Form --- */
+#SmalladsItemFormController_warning_field .form-field { width: 100%; }

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2020 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 21
+ * @version     PHPBoost 6.0 - last update: 2021 10 19
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -59,11 +59,11 @@ $lang['smallads.root.category.description'] = '
     One category and one announce were created to show you how this module works. Here are some tips to get started on this module.
     <br /><br />
     <ul class="formatter-ul">
-    <li class="formatter-li"> To configure or customize your module, go into the <a class="offload" href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">categories configuration</a></li>
-    <li class="formatter-li"> To configure or customize the ads and filters, go into the <a class="offload" href="' . SmalladsUrlBuilder::items_configuration()->relative() . '">ads configuration</a></li>
-    <li class="formatter-li"> To configure or customize the terms and conditions page, go into the <a href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">module T&C administration</a></li>
-    <li class="formatter-li"> To create categories, <a class="offload" href="' . CategoriesUrlBuilder::add(Category::ROOT_CATEGORY, 'smallads')->relative() . '">click here</a></li>
-    <li class="formatter-li"> To create announces, <a class="offload" href="' . SmalladsUrlBuilder::add_item()->relative() . '">click here</a></li>
+        <li class="formatter-li"> To configure or customize your module, go into the <a class="offload" href="' . SmalladsUrlBuilder::categories_configuration()->relative() . '">categories configuration</a></li>
+        <li class="formatter-li"> To configure or customize the ads and filters, go into the <a class="offload" href="' . SmalladsUrlBuilder::items_configuration()->relative() . '">ads configuration</a></li>
+        <li class="formatter-li"> To configure or customize the terms and conditions page, go into the <a href="' . SmalladsUrlBuilder::usage_terms_configuration()->relative() . '">module T&C administration</a></li>
+        <li class="formatter-li"> To create categories, <a class="offload" href="' . CategoriesUrlBuilder::add(Category::ROOT_CATEGORY, 'smallads')->relative() . '">click here</a></li>
+        <li class="formatter-li"> To create announces, <a class="offload" href="' . SmalladsUrlBuilder::add_item()->relative() . '">click here</a></li>
     </ul>
     <br />To learn more, please read the documentation for the module at <a class="offload" href="https://www.phpboost.com">PHPBoost</a> website.
 ';
@@ -106,6 +106,7 @@ $lang['smallads.display.usage.terms']    = 'Display the usage terms';
 $lang['smallads.usage.terms.clue']       = 'Usage terms description.';
 
 // Form
+$lang['smallads.form.warning']                         = 'Validation is available on each tab. Be sure to fill all wanted fields on every page before validate the item.';
 $lang['smallads.form.add']                             = 'Add an ad';
 $lang['smallads.form.edit']                            = 'Modify an ad';
 $lang['smallads.form.summary']                         = 'Description (maximum :number characters)';
@@ -132,7 +133,9 @@ $lang['smallads.form.author.name.customization']       = 'Customize author name'
 $lang['smallads.form.custom.author.name']              = 'Custom author name';
 $lang['smallads.form.completed.ad']                    = 'Completed ad';
 $lang['smallads.form.completed']                       = 'Declare this ad completed';
-$lang['smallads.form.completed.warning']               = 'The ad is deleted :delay day(s) after<br /><span style="color:var(--error-tone)">This action is irreversible</span>';
+$lang['smallads.form.completed.warning']               = 'The ad is archived :delay day(s) after.<br /><span style="color:var(--error-tone)">This action is irreversible.</span>';
+$lang['smallads.form.unarchive']                       = 'Unarchive the ad';
+$lang['smallads.form.unarchive.clue']                  = '<span class="error">Modify the publication date to restart the count before the next archiving.</span>';
 
 $lang['smallads.form.smallad.type']                = 'Type of ad';
 $lang['smallads.form.smallads.types']              = 'Types of ads';

@@ -61,8 +61,25 @@ class SmalladsItemFormController extends ModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 		$form->set_layout_title($this->item->get_id() === null ? $this->lang['smallads.form.add'] : ($this->lang['smallads.form.edit'] . ': ' . $this->item->get_title()));
+		$form->set_css_class('tabs-container fieldset-content');
 
-		$fieldset = new FormFieldsetHTML('smallads', $this->form_lang['form.parameters']);
+		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
+		$form->add_fieldset($fieldset_tabs_menu);
+		$fieldset_tabs_menu->set_css_class('tabs-nav');
+
+        $fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',
+			array(
+				new FormFieldMultitabsLinkElement($this->form_lang['form.parameters'], 'tabs', 'SmalladsItemFormController_smallads'),
+				new FormFieldMultitabsLinkElement($this->form_lang['form.options'], 'tabs', 'SmalladsItemFormController_other'),
+				new FormFieldMultitabsLinkElement($this->form_lang['form.publication'], 'tabs', 'SmalladsItemFormController_publication'),
+			)
+		));
+
+		$fieldset_tabs_menu->add_field(new FormFieldFree('warning', '', $this->lang['smallads.form.warning'], array('class' => 'message-helper bgc notice')));
+
+		$fieldset = new FormFieldsetMultitabsHTML('smallads', $this->form_lang['form.parameters'],
+			array('css_class' => 'tabs tabs-animation first-tab')
+		);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('title', $this->form_lang['form.title'], $this->item->get_title(),
@@ -179,74 +196,9 @@ class SmalladsItemFormController extends ModuleController
 			}
 		}
 
-		if($this->config->is_email_displayed() || $this->config->is_pm_displayed() || $this->config->is_phone_displayed())
-		{
-			$contact_fieldset = new FormFieldsetHTML('contact', $this->lang['smallads.form.contact']);
-			$form->add_fieldset($contact_fieldset);
-
-			if($this->config->is_pm_displayed())
-				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_pm', $this->lang['smallads.form.display.author.pm'], $this->item->get_displayed_author_pm()));
-
-			if($this->config->is_email_displayed())
-			{
-				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_email', $this->lang['smallads.form.display.author.email'], $this->item->get_displayed_author_email(),
-					array(
-						'events' => array('click' => '
-							if (HTMLForms.getField("displayed_author_email").getValue()) {
-								HTMLForms.getField("enabled_author_email_customization").enable();
-									if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
-										HTMLForms.getField("custom_author_email").enable();
-									}
-							} else {
-								HTMLForms.getField("enabled_author_email_customization").disable();
-									if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
-										HTMLForms.getField("custom_author_email").disable();
-									}
-							}'
-						)
-					)
-				));
-
-				$contact_fieldset->add_field(new FormFieldCheckbox('enabled_author_email_customization', $this->lang['smallads.form.author.email.customization'], $this->item->is_enabled_author_email_customization(),
-					array(
-						'description' => $this->lang['smallads.form.author.email.customization.clue'],
-						'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_email', false) : !$this->item->is_displayed_author_email()),
-						'events' => array('click' => '
-							if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
-								HTMLForms.getField("custom_author_email").enable();
-							} else {
-								HTMLForms.getField("custom_author_email").disable();
-							}'
-						)
-					)
-				));
-
-				$contact_fieldset->add_field(new FormFieldMailEditor('custom_author_email', $this->lang['smallads.form.custom.author.email'], $this->item->get_custom_author_email(),
-					array( 'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enabled_author_email_customization', false) : !$this->item->is_displayed_author_email() || !$this->item->is_enabled_author_email_customization()))
-				));
-			}
-
-			if($this->config->is_phone_displayed())
-			{
-				$contact_fieldset->add_field(new FormFieldCheckbox('displayed_author_phone', $this->lang['smallads.form.display.author.phone'], $this->item->get_displayed_author_phone(),
-					array(
-						'events' => array('click' => '
-							if (HTMLForms.getField("displayed_author_phone").getValue()) {
-								HTMLForms.getField("author_phone").enable();
-							} else {
-								HTMLForms.getField("author_phone").disable();
-							}'
-						)
-					)
-				));
-
-				$contact_fieldset->add_field(new FormFieldTelEditor('author_phone', $this->lang['smallads.form.author.phone'], $this->item->get_author_phone(),
-					array('hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_phone', false) : !$this->item->get_displayed_author_phone()))
-				));
-			}
-		}
-
-		$other_fieldset = new FormFieldsetHTML('other', $this->form_lang['form.other']);
+		$other_fieldset = new FormFieldsetMultitabsHTML('other', $this->form_lang['form.options'],
+			array('css_class' => 'tabs tabs-animation')
+		);
 		$form->add_fieldset($other_fieldset);
 
 		if($this->config->is_max_weeks_number_displayed())
@@ -302,20 +254,93 @@ class SmalladsItemFormController extends ModuleController
 
 		$other_fieldset->add_field(new SmalladsFormFieldCarousel('carousel', $this->lang['smallads.form.carousel'], $this->item->get_carousel()));
 
+		if($this->config->is_email_displayed() || $this->config->is_pm_displayed() || $this->config->is_phone_displayed())
+		{
+			$other_fieldset->add_field(new FormFieldSubTitle('contact', $this->lang['smallads.form.contact'], ''));
+
+			if($this->config->is_pm_displayed())
+				$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_pm', $this->lang['smallads.form.display.author.pm'], $this->item->get_displayed_author_pm()));
+
+			if($this->config->is_email_displayed())
+			{
+				$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_email', $this->lang['smallads.form.display.author.email'], $this->item->get_displayed_author_email(),
+					array(
+						'events' => array('click' => '
+							if (HTMLForms.getField("displayed_author_email").getValue()) {
+								HTMLForms.getField("enabled_author_email_customization").enable();
+									if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
+										HTMLForms.getField("custom_author_email").enable();
+									}
+							} else {
+								HTMLForms.getField("enabled_author_email_customization").disable();
+									if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
+										HTMLForms.getField("custom_author_email").disable();
+									}
+							}'
+						)
+					)
+				));
+
+				$other_fieldset->add_field(new FormFieldCheckbox('enabled_author_email_customization', $this->lang['smallads.form.author.email.customization'], $this->item->is_enabled_author_email_customization(),
+					array(
+						'description' => $this->lang['smallads.form.author.email.customization.clue'],
+						'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_email', false) : !$this->item->is_displayed_author_email()),
+						'events' => array('click' => '
+							if (HTMLForms.getField("enabled_author_email_customization").getValue()) {
+								HTMLForms.getField("custom_author_email").enable();
+							} else {
+								HTMLForms.getField("custom_author_email").disable();
+							}'
+						)
+					)
+				));
+
+				$other_fieldset->add_field(new FormFieldMailEditor('custom_author_email', $this->lang['smallads.form.custom.author.email'], $this->item->get_custom_author_email(),
+					array( 'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enabled_author_email_customization', false) : !$this->item->is_displayed_author_email() || !$this->item->is_enabled_author_email_customization()))
+				));
+			}
+
+			if($this->config->is_phone_displayed())
+			{
+				$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_phone', $this->lang['smallads.form.display.author.phone'], $this->item->get_displayed_author_phone(),
+					array(
+						'events' => array('click' => '
+							if (HTMLForms.getField("displayed_author_phone").getValue()) {
+								HTMLForms.getField("author_phone").enable();
+							} else {
+								HTMLForms.getField("author_phone").disable();
+							}'
+						)
+					)
+				));
+
+				$other_fieldset->add_field(new FormFieldTelEditor('author_phone', $this->lang['smallads.form.author.phone'], $this->item->get_author_phone(),
+					array('hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_displayed_author_phone', false) : !$this->item->get_displayed_author_phone()))
+				));
+			}
+		}
+
+		$publication_fieldset = new FormFieldsetMultitabsHTML('publication', $this->form_lang['form.publication'],
+			array('css_class' => 'tabs tabs-animation')
+		);
+		$form->add_fieldset($publication_fieldset);
+
 		if($this->item->get_id() !== null)
 		{
-			$completed_fieldset = new FormFieldsetHTML('completed_ad', $this->lang['smallads.form.completed.ad']);
-			$form->add_fieldset($completed_fieldset);
-
-			$completed_fieldset->add_field(new FormFieldCheckbox('completed', $this->lang['smallads.form.completed'], $this->item->get_completed(),
+			$publication_fieldset->add_field(new FormFieldCheckbox('completed', $this->lang['smallads.form.completed'], $this->item->get_completed(),
 				array('description' => StringVars::replace_vars($this->lang['smallads.form.completed.warning'],array('delay' => SmalladsConfig::load()->get_display_delay_before_delete())))
+			));
+		}
+
+		if ($this->item->is_archived())
+		{
+			$publication_fieldset->add_field(new FormFieldCheckbox('unarchived', $this->lang['smallads.form.unarchive'], !$this->item->is_archived(),
+				array('description' => $this->lang['smallads.form.unarchive.clue'])
 			));
 		}
 
 		if (CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation())
 		{
-			$publication_fieldset = new FormFieldsetHTML('publication', $this->form_lang['form.publication']);
-			$form->add_fieldset($publication_fieldset);
 
 			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->form_lang['form.creation.date'], $this->item->get_creation_date(),
 				array('required' => true)
@@ -628,6 +653,12 @@ class SmalladsItemFormController extends ModuleController
 
 		if($this->item->get_id() !== null)
 			$this->item->set_completed($this->form->get_value('completed'));
+
+		if ($this->item->is_archived()) {
+			if ($this->form->get_value('unarchived'))
+				$this->item->set_archived(SmalladsItem::NOT_ARCHIVED);
+		}
+
 
 		if (!CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation())
 		{

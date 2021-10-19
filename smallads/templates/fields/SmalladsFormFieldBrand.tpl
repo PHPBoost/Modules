@@ -1,7 +1,7 @@
 <script>
 <!--
 var SmalladsFormFieldBrand = function(){
-	this.integer = {NBR_FIELDS};
+	this.integer = {FIELDS_NUMBER};
 	this.id_input = ${escapejs(ID)};
 	this.max_input = {MAX_INPUT};
 };
