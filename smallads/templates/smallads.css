@@ -3,9 +3,9 @@
 * https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
 */
 
-#smallads-module .formatter-content {display: table;}
+#module-smallads .formatter-content { display: table; }
 
-#smallads-module .carousel-thumbnail { max-width: 10em; }
+#module-smallads .carousel-thumbnail { max-width: 10em; }
 
 /* --- Sold item --- */
 .completed-smallad {
