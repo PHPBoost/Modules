@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 12
+ * @version     PHPBoost 6.0 - last update: 2021 10 29
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -71,6 +71,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 			$content = @strip_tags(FormatingHelper::second_parse($row['message']));
 			$limited_content = trim(TextHelper::substr($content, 0, (int)$coms_char));
 			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
+			$modules_config = ModulesConfig::load();
 
 			$view->assign_block_vars('items', array_merge(
 				Date::get_array_tpl_vars(new Date($row['timestamp'], Timezone::SERVER_TIMEZONE), 'date'),
@@ -83,6 +84,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 				'AUTHOR_DISPLAY_NAME' => $row['pseudo'],
 				'CONTENT'             => $limited_content . (TextHelper::strlen($content) > $coms_char ? '...' : ''),
 				'PATH'                => Url::to_rel($row['path'] . '#com' . $row['id']),
+				'MODULE_NAME'		  => $modules_config->get_module($row['module_id']) ? $modules_config->get_module($row['module_id'])->get_configuration()->get_name() : '',
 
 				'U_AUTHOR_PROFILE'   => UserUrlBuilder::profile($row['user_id'])->rel()
 				)
