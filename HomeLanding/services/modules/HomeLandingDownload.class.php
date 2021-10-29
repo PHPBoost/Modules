@@ -69,7 +69,7 @@ class HomeLandingDownload
 			$item = new DownloadItem();
 			$item->set_properties($row);
 
-			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+			$view->assign_block_vars('items', array_merge($item->get_template_vars(), array(
                 'C_SEVERAL_VIEWS' => $item->get_views_number() > 1,
 			)));
 		}
@@ -133,7 +133,7 @@ class HomeLandingDownload
 			$item = new DownloadItem();
 			$item->set_properties($row);
 
-			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+			$view->assign_block_vars('items', array_merge($item->get_template_vars(), array(
                 'C_SEVERAL_VIEWS' => $item->get_views_number() > 1,
             )));
 		}

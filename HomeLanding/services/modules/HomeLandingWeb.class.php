@@ -69,7 +69,7 @@ class HomeLandingWeb
             $link = new WebItem();
             $link->set_properties($row);
 
-            $view->assign_block_vars('items', array_merge($link->get_array_tpl_vars(), array(
+            $view->assign_block_vars('items', array_merge($link->get_template_vars(), array(
                 'C_VISIT'  => true,
                 'C_SEVERAL_VIEWS' => $link->get_views_number() > 1,
             )));
@@ -133,7 +133,7 @@ class HomeLandingWeb
             $link = new WebItem();
             $link->set_properties($row);
 
-            $view->assign_block_vars('items', array_merge($link->get_array_tpl_vars(), array(
+            $view->assign_block_vars('items', array_merge($link->get_template_vars(), array(
                 'C_VISIT'  => true,
                 'C_SEVERAL_VIEWS' => $link->get_views_number() > 1,
             )));
