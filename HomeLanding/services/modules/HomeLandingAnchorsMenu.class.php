@@ -19,7 +19,7 @@ class HomeLandingAnchorsMenu
 
         foreach($config->get_modules() as $key => $module)
         {
-            if(!in_array($module['module_id'], array('anchors_menu', 'carousel')))
+            if(!in_array($module['module_id'], array('anchors_menu', 'carousel')) && $module['displayed'] == 1)
             {
                 if(isset($module['id_category'])) {
                     if($module['id_category'] != Category::ROOT_CATEGORY)
@@ -28,7 +28,7 @@ class HomeLandingAnchorsMenu
                         $module_title = $lang['homelanding.category.' . $module['module_id']];
                 }
                 else {
-                    if(!in_array($module['module_id'], array('edito', 'lastcoms', 'rss')))
+                    if(!in_array($module['module_id'], array('edito', 'lastcoms', 'rss'))) 
                         $module_title = ModulesManager::get_module($module['module_id'])->get_configuration()->get_name();
                     else
                         $module_title = $lang['homelanding.module.' . $module['module_id']];
