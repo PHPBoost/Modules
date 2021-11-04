@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 15
+ * @version     PHPBoost 6.0 - last update: 2021 11 04
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -86,7 +86,7 @@ $lang['spots.root.category.description'] = '
     <ul class="formatter-ul">
     	<li class="formatter-li"> To configure or customize the module homepage your module, go into the <a class="offload" href="' . SpotsUrlBuilder::configuration()->relative() . '">module administration</a></li>
     	<li class="formatter-li"> To create categories, <a class="offload" href="' . CategoriessUrlBuilder::add()->relative() . '">clic here</a></li>
-    	<li class="formatter-li"> To create links, <a class="offload" href="' . SpotsUrlBuilder::add()->relative() . '">clic here</a></li>
+    	<li class="formatter-li"> To create locations, <a class="offload" href="' . SpotsUrlBuilder::add()->relative() . '">clic here</a></li>
     </ul>
     <br />To learn more, don \'t hesitate to consult the documentation for the module on <a class="offload" href="https://www.phpboost.com">PHPBoost</a>.
 ';

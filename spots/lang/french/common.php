@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 15
+ * @version     PHPBoost 6.0 - last update: 2021 11 04
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -87,7 +87,7 @@ $lang['spots.root.category.description'] = '
     <ul class="formatter-ul">
     	<li class="formatter-li"> Pour configurer ou personnaliser l\'accueil de votre module, rendez vous dans l\'<a class="offload" href="' . SpotsUrlBuilder::configuration()->relative() . '">administration du module</a></li>
     	<li class="formatter-li"> Pour créer des catégories, <a class="offload" href="' . CategoriesUrlBuilder::add()->relative() . '">cliquez ici</a> </li>
-    	<li class="formatter-li"> Pour ajouter des liens, <a class="offload" href="' . SpotsUrlBuilder::add()->relative() . '">cliquez ici</a></li>
+    	<li class="formatter-li"> Pour ajouter des localisations, <a class="offload" href="' . SpotsUrlBuilder::add()->relative() . '">cliquez ici</a></li>
     </ul>
     <br />Pour en savoir plus, n\'hésitez pas à consulter la documentation du module sur le site de <a class="offload" href="https://www.phpboost.com">PHPBoost</a>.
 ';
