@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 21
+ * @version     PHPBoost 6.0 - last update: 2021 11 06
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -119,11 +119,11 @@ class SmalladsItemController extends ModuleController
 		{
 			if ($this->send_item_email())
 			{
-				$this->view->put('MSG', MessageHelper::display($this->lang['smallads.message.success.email'], MessageHelper::SUCCESS));
+				$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['smallads.message.success.email'], MessageHelper::SUCCESS));
 				$this->view->put('C_SMALLAD_EMAIL_SENT', true);
 			}
 			else
-				$this->view->put('MSG', MessageHelper::display($this->lang['smallads.message.error.email'], MessageHelper::ERROR, 5));
+				$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['smallads.message.error.email'], MessageHelper::ERROR, 5));
 		}
 
 		$this->view->put('EMAIL_FORM', $this->email_form->display());

@@ -74,7 +74,7 @@
 															<div class="content-panel cell">
 																<div class="cell-body">
 																	# IF C_CONTACT_LEVEL #
-																		# INCLUDE MSG #
+																		# INCLUDE MESSAGE_HELPER #
 																		# IF NOT C_SMALLAD_EMAIL_SENT #
 																			# INCLUDE EMAIL_FORM #
 																		# ENDIF #
