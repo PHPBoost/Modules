@@ -210,7 +210,7 @@ class SpotsItemFormController extends ModuleController
 			if (!empty($id))
 			{
 				try {
-					$this->item = SpotsService::get_item('WHERE spots.id=:id', array('id' => $id));
+					$this->item = SpotsService::get_item($id);
 				} catch (RowNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
@@ -310,11 +310,15 @@ class SpotsItemFormController extends ModuleController
 		if ($item->get_id() === null)
 		{
 			$id = SpotsService::add($item);
+			$item->set_id($id);
+			HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
 		{
+			$item->set_update_date(new Date());
 			$id = $item->get_id();
 			SpotsService::update($item);
+			HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 
 		$this->contribution_actions($item, $id);

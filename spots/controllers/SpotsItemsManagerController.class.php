@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 16
+ * @version     PHPBoost 6.0 - last update: 2021 11 08
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -79,7 +79,7 @@ class SpotsItemsManagerController extends AdminModuleController
 			$row = array(
 				new HTMLTableRowCell(new LinkHTMLElement(SpotsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'left'),
 				new HTMLTableRowCell(new LinkHTMLElement(
-					CalendarUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()),
+					SpotsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()),
 					($category->get_id() == Category::ROOT_CATEGORY ? LangLoader::get_message('common.none.alt', 'common-lang') : $category->get_name()),
 					array('data-color-surround' => $category->get_id() != Category::ROOT_CATEGORY ? $category->get_color() : SpotsConfig::load()->get_default_color()), 'pinned')
 				),

@@ -3,13 +3,14 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 16
+ * @version     PHPBoost 6.0 - last update: 2021 11 08
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
 class SpotsService
 {
 	private static $db_querier;
+	protected static $module_id = 'spots';
 
 	public static function __static()
 	{
@@ -84,7 +85,7 @@ class SpotsService
             $controller = PHPBoostErrors::user_in_read_only();
             DispatchManager::redirect($controller);
         }
-			self::$db_querier->delete(SpotsSetup::$web_table, 'WHERE id=:id', array('id' => $id));
+			self::$db_querier->delete(SpotsSetup::$spots_table, 'WHERE id=:id', array('id' => $id));
 
 			self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', array('module' => 'spots', 'id' => $id));
 	}
@@ -94,12 +95,15 @@ class SpotsService
 	 * @param string $condition : Restriction to apply to the list
 	 * @param string[] $parameters : Parameters of the condition
 	 */
-	public static function get_item($condition, array $parameters)
+	public static function get_item(int $id)
 	{
-		$row = self::$db_querier->select_single_row_query('SELECT spots.*, member.*
-		FROM ' . SpotsSetup::$spots_table . ' spots
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = spots.author_user_id
-		' . $condition, $parameters);
+		$row = self::$db_querier->select_single_row_query('SELECT ' . self::$module_id . '.*, member.*
+		FROM ' . SpotsSetup::$spots_table . ' ' . self::$module_id . '
+		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = ' . self::$module_id . '.author_user_id
+		WHERE ' . self::$module_id . '.id=:id', array(
+			'id'              => $id,
+			'current_user_id' => AppContext::get_current_user()->get_id()
+		));
 
 		$item = new SpotsItem();
 		$item->set_properties($row);
@@ -109,7 +113,6 @@ class SpotsService
 	public static function clear_cache()
 	{
 		Feed::clear_cache('spots');
-		// SpotsCache::invalidate();
 		CategoriesService::get_categories_manager()->regenerate_cache();
 	}
 }
