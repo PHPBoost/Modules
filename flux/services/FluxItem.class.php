@@ -352,7 +352,7 @@ class FluxItem
 
 			'U_SYNDICATION'    => SyndicationUrlBuilder::rss('flux', $this->id_category)->rel(),
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_ITEM'           => FluxUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel(),
+			'U_ITEM'           => $this->get_item_url(),
 			'U_VISIT'          => FluxUrlBuilder::visit($this->id)->rel(),
 			'U_DEADLINK'       => FluxUrlBuilder::dead_link($this->id)->rel(),
 			'U_CATEGORY'       => FluxUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),

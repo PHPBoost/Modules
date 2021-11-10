@@ -60,7 +60,7 @@ class FluxCategoryController extends ModuleController
 			{
 				$this->view->assign_block_vars('sub_categories_list', array(
 					'C_SEVERAL_ITEMS' => $category->get_elements_number() > 1,
-					'C_CATEGORY_THUMBNAIL' => !empty($category_thumbnail),
+					'C_CATEGORY_THUMBNAIL' => !empty($category->get_thumbnail()->rel()),
 
 					'CATEGORY_ID'            => $category->get_id(),
 					'CATEGORY_NAME'          => $category->get_name(),
@@ -112,7 +112,7 @@ class FluxCategoryController extends ModuleController
 			'C_DISPLAY_LAST_FEEDS'		 => $this->config->get_last_feeds_display(),
 
 			'MODULE_NAME'              => $this->config->get_module_name(),
-			'ITEMS_NUMBER'			   => $this->config->get_rss_number(),
+			'LAST_FEEDS_NUMBER'		   => $this->config->get_last_feeds_number(),
 			'LAST_FEEDS'			   => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
 			'ROOT_CATEGORY_DESC'       => $this->config->get_root_category_description(),
 			'CATEGORY_NAME'            => $this->get_category()->get_name(),
@@ -137,86 +137,73 @@ class FluxCategoryController extends ModuleController
 
 	private function last_feeds_view(HTTPRequestCustom $request)
 	{
-		// $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY);
-		//
-		// $result = PersistenceContext::get_querier()->select('SELECT flux.*, member.*
-		// FROM '. FluxSetup::$flux_table .' flux
-		// LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = flux.author_user_id
-		// WHERE id_category IN :authorised_categories
-		// AND published = 1
-		// ORDER BY flux.title ASC', array(
-		// 	'user_id' => AppContext::get_current_user()->get_id(),
-		// 	'authorised_categories' => $authorized_categories
-		// ));
-		// $this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
-		// while ($row = $result->fetch())
-		// {
-		// 	$item = new FluxItem();
-		// 	$item->set_properties($row);
-		//
-		// 	$this->view->assign_block_vars('feeds', array_merge($item->get_template_vars(), array(
-		//
-		// 	)));
-		// }
-		// $result->dispose();
-		// ------------------------------------------------------------------------------------------------------
+		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY);
 
-		// Get last $rss_number feed items among all files
-		$rss_number = $this->config->get_rss_number();
-		$char_number = $this->config->get_characters_number_to_cut();
+		$result = PersistenceContext::get_querier()->select('SELECT flux.*, member.*
+		FROM '. FluxSetup::$flux_table .' flux
+		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = flux.author_user_id
+		WHERE id_category IN :authorised_categories
+		AND published = 1
+		ORDER BY flux.title ASC', array(
+			'user_id' => AppContext::get_current_user()->get_id(),
+			'authorised_categories' => $authorized_categories
+		));
+		$this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
 
-		$last_feeds = glob(PATH_TO_ROOT . '/flux/xml/*.xml');
-		if (!empty($last_feeds))
+		while ($row = $result->fetch())
 		{
-			$this->view->put('C_LAST_FEEDS', true);
-			foreach ($last_feeds as $filename) {
-				$xml = simplexml_load_file($filename);
-				$items = array();
-				$items['host']  = array();
-				$items['title'] = array();
-				$items['link']  = array();
-				$items['desc']  = array();
-				$items['img']   = array();
-				$items['date']  = array();
+			$item = new FluxItem();
+			$item->set_properties($row);
 
-				foreach($xml->channel->item as $i)
-				{
-					$items['host'][]  = $i->host;
-					$items['title'][] = $i->title;
-					$items['link'][]  = $i->link;
-					$items['desc'][]  = $i->description;
-					$items['img'][]   = $i->enclosure->url;
-					$items['date'][]  = $i->pubDate;
-				}
+			$rss_number = $this->config->get_rss_number();
+			$char_number = $this->config->get_characters_number_to_cut();
 
-				$items_number = $rss_number <= count($items['title']) ? $rss_number : count($items['title']);
+			$xml = simplexml_load_file($item->get_xml_path());
+			$xml_items = array();
+			$xml_items['title'] = array();
+			$xml_items['link']  = array();
+			$xml_items['desc']  = array();
+			$xml_items['img']   = array();
+			$xml_items['date']  = array();
 
-				for($i = 0; $i < $items_number ; $i++)
-				{
-					$item_host = basename(parse_url($items['link'][$i], PHP_URL_HOST));
+			foreach($xml->channel->item as $i)
+			{
+				$xml_items['title'][] = $i->title;
+				$xml_items['link'][]  = $i->link;
+				$xml_items['desc'][]  = $i->description;
+				$xml_items['img'][]   = $i->enclosure->url;
+				$xml_items['date'][]  = $i->pubDate;
+			}
 
-					$date = strtotime($items['date'][$i]);
-					$item_date = strftime('%d/%m/%Y - %Hh%M', $date);
-					$desc = @strip_tags(FormatingHelper::second_parse($items['desc'][$i]));
-					$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
-					$item_img = $items['img'][$i];
-					$this->view->assign_block_vars('feed_items',array(
-						'TITLE'           => $items['title'][$i],
-						'U_ITEM'          => $items['link'][$i],
-						'ITEM_HOST'       => $item_host,
-						'DATE'            => $item_date,
-						'SORT_DATE'       => $date,
-						'SUMMARY'         => $cut_desc,
-						'C_READ_MORE'     => strlen($desc) > $char_number,
-						'WORDS_NUMBER'    => str_word_count($desc) - str_word_count($cut_desc),
-						'C_HAS_THUMBNAIL' => !empty($item_img),
-						'U_THUMBNAIL'     => !empty($item_img) ? $item_img->absolute() : '#',
-					));
-				}
+			$xml_items_number = $rss_number <= count($xml_items['title']) ? $rss_number : count($xml_items['title']);
+
+			for($i = 0; $i < $xml_items_number ; $i++)
+			{
+				$item_host = basename(parse_url($xml_items['link'][$i], PHP_URL_HOST));
+
+				$date = strtotime($xml_items['date'][$i]);
+				$item_date = strftime('%d/%m/%Y - %Hh%M', $date);
+				$desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
+				$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
+				$item_img = $xml_items['img'][$i];
+				$words_number = str_word_count($desc) - str_word_count($cut_desc);
+
+				$this->view->assign_block_vars('feed_items',array(
+					'TITLE'           => $xml_items['title'][$i],
+					'U_ITEM'          => $xml_items['link'][$i],
+					'ITEM_HOST'       => $item->get_title(),
+					'U_ITEM_HOST'     => $item->get_item_url(),
+					'DATE'            => $item_date,
+					'SORT_DATE'       => $date,
+					'SUMMARY'         => $cut_desc,
+					'C_READ_MORE'     => strlen($desc) > $char_number,
+					'WORDS_NUMBER'    => $words_number > 0 ? $words_number : '',
+					'C_HAS_THUMBNAIL' => !empty($item_img),
+					'U_THUMBNAIL'     => !empty($item_img) ? $item_img->absolute() : '#',
+				));
 			}
 		}
-		else
-			$this->view->put('C_LAST_FEEDS', false);
+		$result->dispose();
 	}
 
 	private function get_pagination($condition, $parameters, $page, $subcategories_page)

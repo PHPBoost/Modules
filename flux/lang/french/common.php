@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2021 11 10
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -14,6 +14,7 @@
 $lang['flux.module.title']     = 'Flux RSS';
 $lang['flux.last.feeds.title'] = 'Les :feeds_number éléments de flux les plus récents';
 $lang['flux.no.last.feeds']    = 'Aucun flux n\'a été initialisé.';
+$lang['flux.words.not.read']   = 'Mots restant à lire';
 
 $lang['items'] = 'flux';
 $lang['item']  = 'flux';

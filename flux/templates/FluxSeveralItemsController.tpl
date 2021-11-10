@@ -58,13 +58,13 @@
 														{feed_items.TITLE}
 													</a>
 												</h6>
-												<span class="small align-right"><span class="text-italic">{feed_items.ITEM_HOST}</span> | {feed_items.DATE}</span>
+												<span class="small align-right"><a href="{feed_items.U_ITEM_HOST}" class="offload text-italic">{feed_items.ITEM_HOST}</a> | {feed_items.DATE}</span>
 											</span>
 											<p>
 												# IF feed_items.C_HAS_THUMBNAIL #
 													<img src="{feed_items.U_THUMBNAIL}" class="align-left" alt="{feed_items.TITLE}" />
 												# ENDIF #
-												{feed_items.SUMMARY}# IF feed_items.C_READ_MORE #...# ENDIF #
+												{feed_items.SUMMARY} # IF feed_items.C_READ_MORE # <span aria-label="{@flux.words.not.read}" class="small text-italic pinned notice">{feed_items.WORDS_NUMBER}</span># ENDIF #
 											</p>
 										</li>
 									# END feed_items #
@@ -78,7 +78,7 @@
 									   	class="listorder-pagination pagination"
 									   	data-listorder-control="pagination"
 								        data-group="feed-items"
-								        data-items-per-page="{ITEMS_NUMBER}"
+								        data-items-per-page="{LAST_FEEDS_NUMBER}"
 								        data-current-page="0"
 								        data-name="pagination1"
 										data-id="paging">
