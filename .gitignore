@@ -2,3 +2,6 @@
 
 # HomeLanding
 HomeLanding/templates/rsscache/*
+
+# Flux
+flux/xml/*
