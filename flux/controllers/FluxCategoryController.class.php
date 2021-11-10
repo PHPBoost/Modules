@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2021 11 10
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -153,8 +153,7 @@ class FluxCategoryController extends ModuleController
 		// {
 		// 	$item = new FluxItem();
 		// 	$item->set_properties($row);
-		// 	Debug::dump($item->get_xml_path());
-		// 	Debug::dump($item->get_title());
+		//
 		// 	$this->view->assign_block_vars('feeds', array_merge($item->get_template_vars(), array(
 		//
 		// 	)));

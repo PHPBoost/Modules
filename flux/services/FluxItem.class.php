@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2021 11 10
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -314,7 +314,6 @@ class FluxItem
 		$user = $this->get_author_user();
 		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
         $config = FluxConfig::load();
-		Debug::dump($config->get_new_window());
 
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
