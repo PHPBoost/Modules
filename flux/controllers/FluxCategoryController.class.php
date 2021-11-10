@@ -148,7 +148,6 @@ class FluxCategoryController extends ModuleController
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'authorised_categories' => $authorized_categories
 		));
-		$this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
 
 		while ($row = $result->fetch())
 		{
@@ -158,49 +157,54 @@ class FluxCategoryController extends ModuleController
 			$rss_number = $this->config->get_rss_number();
 			$char_number = $this->config->get_characters_number_to_cut();
 
-			$xml = simplexml_load_file($item->get_xml_path());
-			$xml_items = array();
-			$xml_items['title'] = array();
-			$xml_items['link']  = array();
-			$xml_items['desc']  = array();
-			$xml_items['img']   = array();
-			$xml_items['date']  = array();
-
-			foreach($xml->channel->item as $i)
+			if(!empty($item->get_xml_path()))
 			{
-				$xml_items['title'][] = $i->title;
-				$xml_items['link'][]  = $i->link;
-				$xml_items['desc'][]  = $i->description;
-				$xml_items['img'][]   = $i->enclosure->url;
-				$xml_items['date'][]  = $i->pubDate;
-			}
+				$this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
+				
+				$xml = simplexml_load_file($item->get_xml_path());
+				$xml_items = array();
+				$xml_items['title'] = array();
+				$xml_items['link']  = array();
+				$xml_items['desc']  = array();
+				$xml_items['img']   = array();
+				$xml_items['date']  = array();
 
-			$xml_items_number = $rss_number <= count($xml_items['title']) ? $rss_number : count($xml_items['title']);
+				foreach($xml->channel->item as $i)
+				{
+					$xml_items['title'][] = $i->title;
+					$xml_items['link'][]  = $i->link;
+					$xml_items['desc'][]  = $i->description;
+					$xml_items['img'][]   = $i->enclosure->url;
+					$xml_items['date'][]  = $i->pubDate;
+				}
 
-			for($i = 0; $i < $xml_items_number ; $i++)
-			{
-				$item_host = basename(parse_url($xml_items['link'][$i], PHP_URL_HOST));
+				$xml_items_number = $rss_number <= count($xml_items['title']) ? $rss_number : count($xml_items['title']);
 
-				$date = strtotime($xml_items['date'][$i]);
-				$item_date = strftime('%d/%m/%Y - %Hh%M', $date);
-				$desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
-				$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
-				$item_img = $xml_items['img'][$i];
-				$words_number = str_word_count($desc) - str_word_count($cut_desc);
+				for($i = 0; $i < $xml_items_number ; $i++)
+				{
+					$item_host = basename(parse_url($xml_items['link'][$i], PHP_URL_HOST));
 
-				$this->view->assign_block_vars('feed_items',array(
-					'TITLE'           => $xml_items['title'][$i],
-					'U_ITEM'          => $xml_items['link'][$i],
-					'ITEM_HOST'       => $item->get_title(),
-					'U_ITEM_HOST'     => $item->get_item_url(),
-					'DATE'            => $item_date,
-					'SORT_DATE'       => $date,
-					'SUMMARY'         => $cut_desc,
-					'C_READ_MORE'     => strlen($desc) > $char_number,
-					'WORDS_NUMBER'    => $words_number > 0 ? $words_number : '',
-					'C_HAS_THUMBNAIL' => !empty($item_img),
-					'U_THUMBNAIL'     => !empty($item_img) ? $item_img->absolute() : '#',
-				));
+					$date = strtotime($xml_items['date'][$i]);
+					$item_date = strftime('%d/%m/%Y - %Hh%M', $date);
+					$desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
+					$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
+					$item_img = $xml_items['img'][$i];
+					$words_number = str_word_count($desc) - str_word_count($cut_desc);
+
+					$this->view->assign_block_vars('feed_items',array(
+						'TITLE'           => $xml_items['title'][$i],
+						'U_ITEM'          => $xml_items['link'][$i],
+						'ITEM_HOST'       => $item->get_title(),
+						'U_ITEM_HOST'     => $item->get_item_url(),
+						'DATE'            => $item_date,
+						'SORT_DATE'       => $date,
+						'SUMMARY'         => $cut_desc,
+						'C_READ_MORE'     => strlen($desc) > $char_number,
+						'WORDS_NUMBER'    => $words_number > 0 ? $words_number : '',
+						'C_HAS_THUMBNAIL' => !empty($item_img),
+						'U_THUMBNAIL'     => !empty($item_img) ? $item_img->absolute() : '#',
+					));
+				}
 			}
 		}
 		$result->dispose();
