@@ -132,7 +132,7 @@
 											# IF items.C_HAS_THUMBNAIL #
 												<img class="item-thumbnail" itemprop="thumbnailUrl" src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
 											# ENDIF #
-											{items.CONTENTS}
+											{items.CONTENT}
 										# ELSE #
 											{items.SUMMARY}# IF items.C_READ_MORE #... <a href="{items.U_ITEM}" class="read-more offload">[{@common.read.more}]</a># ENDIF #
 										# ENDIF #
