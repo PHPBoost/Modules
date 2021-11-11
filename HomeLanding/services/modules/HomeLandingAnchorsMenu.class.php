@@ -36,7 +36,7 @@ class HomeLandingAnchorsMenu
 
                 $module_displayed = $module['displayed'];
                 if ($module['module_id'] == 'pinned_news') {
-                    $module_displayed = $module['displayed'] && HomeLandingPinnedNews::get_items_number() > 0;
+                    $module_displayed = $module['displayed'] && count(HomeLandingPinnedNews::get_items()) > 0;
                     $module_title = $config->get_pinned_news_title();
                 }
 

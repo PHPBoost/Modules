@@ -17,7 +17,6 @@ class HomeLandingDisplayItems
 		$home_modules  = HomeLandingModulesList::load();
 		$page_type     = $module_cat ? $module_cat : $module_name;
 
-
         $theme_id = AppContext::get_current_user()->get_theme();
         if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $page_type . '.tpl'))
 			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $page_type . '.tpl');
@@ -30,8 +29,13 @@ class HomeLandingDisplayItems
 		$module_lang = LangLoader::get('common', $module_name);
 		$view->add_lang(array_merge($home_lang, $module_lang, LangLoader::get('common-lang')));
 
-		$sql_condition = 'WHERE id_category IN :categories
+		if (($module_name = 'news') && $home_modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed())
+			$sql_condition = 'WHERE id_category IN :categories
+			AND top_list_enabled = 0
 			AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
+		else
+			$sql_condition = 'WHERE id_category IN :categories
+				AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
 
 		$sql_parameters = array();
 		if ($module_cat)

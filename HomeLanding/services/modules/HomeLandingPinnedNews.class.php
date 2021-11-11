@@ -9,7 +9,7 @@
 
 class HomeLandingPinnedNews
 {
-	public static function get_items_number()
+	public static function get_items()
 	{
 		$parent_module = HomeLandingConfig::MODULE_NEWS;
 		$module = ModulesManager::get_module(HomeLandingConfig::MODULE_NEWS);
@@ -25,9 +25,7 @@ class HomeLandingPinnedNews
 
 		$items = ItemsService::get_items_manager($parent_module)->get_items($sql_condition, $sql_parameters, $home_modules[$page_type]->get_elements_number_displayed(), 0, 'creation_date', Item::DESC);
 
-		$items_number = count($items);
-
-		return $items_number;
+		return $items;
 	}
 
 	public static function get_pinned_news_view()
@@ -58,10 +56,8 @@ class HomeLandingPinnedNews
 		$sql_parameters = array();
 		$sql_parameters['categories'] = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module->get_configuration()->has_rich_config_parameters() ? $module_config->get_summary_displayed_to_guests() : true, $parent_module);
 
-		$items = ItemsService::get_items_manager($parent_module)->get_items($sql_condition, $sql_parameters, $home_modules[$page_type]->get_elements_number_displayed(), 0, 'creation_date', Item::DESC);
-
 		$view->put_all(array(
-			'C_NO_ITEM'          => count($items) == 0,
+			'C_NO_ITEM'          => count(self::get_items()) == 0,
 			'C_VIEWS_NUMBER'     => $module_config->get_views_number_enabled(),
 			'MODULE_NAME'        => $parent_module,
 			'MODULE_POSITION'    => HomeLandingConfig::load()->get_module_position_by_id($page_type),
@@ -80,7 +76,7 @@ class HomeLandingPinnedNews
 			));
 		}
 
-		foreach ($items as $item)
+		foreach (self::get_items() as $item)
 		{
 			$view->assign_block_vars('items', $item->get_template_vars());
 		}

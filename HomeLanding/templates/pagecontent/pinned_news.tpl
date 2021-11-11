@@ -11,7 +11,7 @@
 				<div class="cell-row">
 
 					# START items #
-						<div class="{MODULE_NAME}-item several-items category-{items.CATEGORY_ID} cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+						<div class="{MODULE_NAME}-item several-items category-{items.CATEGORY_ID} cell prime-item" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<div class="cell-header">
 								<h3 class="cell-name">
 									<a class="offload" href="{items.U_ITEM}">{items.TITLE}</a>
