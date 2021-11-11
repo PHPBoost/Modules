@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 06
+ * @version     PHPBoost 6.0 - last update: 2021 11 11
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -47,6 +47,7 @@ $lang['homelanding.module.rss']          = 'RSS externe';
 $lang['homelanding.module.articles_category'] = 'Articles - catégorie';
 $lang['homelanding.module.download_category'] = 'Téléchargements - catégorie';
 $lang['homelanding.module.news_category']     = 'Actualités - catégorie';
+$lang['homelanding.module.pinned_news']       = 'Actualités épinglées';
 $lang['homelanding.module.smallads_category'] = 'Petites annonces - catégorie';
 $lang['homelanding.module.web_category']      = 'Liens web - catégorie';
     // Anchors tab
@@ -97,6 +98,9 @@ $lang['homelanding.items.number']           = 'Nombre d\'éléments à afficher'
 $lang['homelanding.characters.limit']       = 'Limiter le nombre de caractères';
 $lang['homelanding.choose.category']        = 'Choisir une catégorie';
 $lang['homelanding.display.sub.categories'] = 'Afficher le contenu des sous-catégories';
+    // Pinned news
+$lang['homelanding.pinned.news.title']      = 'Titre sur la page d\'accueil';
+$lang['homelanding.show.pinned.news']       = 'Afficher les actualités épinglées';
     // Default
 $lang['homelanding.title'] = 'Bienvenue';
 $lang['homelanding.edito.description'] = 'Accédez à la <a class="offload" href="' . HomeLandingUrlBuilder::configuration()->relative() . '">configuration du module</a> pour paramétrer la page d\'accueil';

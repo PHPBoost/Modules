@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 06
+ * @version     PHPBoost 6.0 - last update: 2021 11 11
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -109,6 +109,8 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('news_subcategories_content_displayed')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed());
 				$this->form->get_field_by_id('news_cat_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed());
 				$this->form->get_field_by_id('news_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('pinned_news_title')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed());
+				$this->form->get_field_by_id('pinned_news_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed());
 			}
 
 			if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
@@ -826,6 +828,35 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				),
 				array(new FormFieldConstraintIntegerRange(1, 512))
 			));
+
+			$fieldset_news->add_field(new FormFieldSpacer('pinned_news_separator', ''));
+
+			$fieldset_news->add_field(new FormFieldCheckbox('pinned_news_enabled', $this->lang['homelanding.show.pinned.news'], $this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed(),
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("pinned_news_enabled").getValue()) {
+							HTMLForms.getField("pinned_news_title").enable();
+							HTMLForms.getField("pinned_news_limit").enable();
+						} else {
+							HTMLForms.getField("pinned_news_title").disable();
+							HTMLForms.getField("pinned_news_limit").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_news->add_field(new FormFieldTextEditor('pinned_news_title', $this->lang['homelanding.pinned.news.title'], $this->config->get_pinned_news_title(),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed())
+			));
+
+			$fieldset_news->add_field(new FormFieldNumberEditor('pinned_news_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
 		}
 
 		// Smallads
@@ -1267,6 +1298,15 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			}
 			else
 				$this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->hide();
+
+			if ($this->form->get_value('pinned_news_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->display();
+				$this->config->set_pinned_news_title($this->form->get_value('pinned_news_title'));
+				$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->set_elements_number_displayed($this->form->get_value('pinned_news_limit'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->hide();
 		}
 
 		// Smallads

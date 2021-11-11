@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 11 11
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -31,6 +31,7 @@ class HomeLandingConfig extends AbstractConfigData
 
 	const ANCHORS_MENU = 'anchors_menu';
 	const EDITO = 'edito';
+	const PINNED_NEWS_TITLE = 'pinned_news_title';
 
 	const RSS_SITE_NAME = 'rss_site_name';
 	const RSS_SITE_URL = 'rss_site_url';
@@ -59,6 +60,7 @@ class HomeLandingConfig extends AbstractConfigData
 	const MODULE_MEDIA = 'media';
 	const MODULE_NEWS = 'news';
 	const MODULE_NEWS_CATEGORY = 'news_category';
+	const MODULE_PINNED_NEWS = 'pinned_news';
 	const MODULE_SMALLADS = 'smallads';
 	const MODULE_SMALLADS_CATEGORY = 'smallads_category';
 	const MODULE_RSS = 'rss';
@@ -245,6 +247,17 @@ class HomeLandingConfig extends AbstractConfigData
 		$this->set_property(self::EDITO, $edito);
 	}
 
+	// Pinned news title
+	public function get_pinned_news_title()
+	{
+		return $this->get_property(self::PINNED_NEWS_TITLE);
+	}
+
+	public function set_pinned_news_title($edito)
+	{
+		$this->set_property(self::PINNED_NEWS_TITLE, $edito);
+	}
+
 	//External Rss
 	public function get_rss_site_name()
 	{
@@ -411,6 +424,13 @@ class HomeLandingConfig extends AbstractConfigData
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
+		$module->set_module_id(self::MODULE_PINNED_NEWS);
+		$module->set_phpboost_module_id(self::MODULE_NEWS);
+		$module->hide();
+
+		$modules[] = $module->get_properties();
+
+		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_SMALLADS);
 		$module->set_phpboost_module_id(self::MODULE_SMALLADS);
 		$module->hide();
@@ -463,30 +483,31 @@ class HomeLandingConfig extends AbstractConfigData
 		return array(
 			self::MODULE_TITLE => LangLoader::get_message('homelanding.title', 'common', 'HomeLanding'),
 
-			self::LEFT_COLUMNS => true,
-			self::RIGHT_COLUMNS => true,
-			self::TOP_CENTRAL => true,
+			self::LEFT_COLUMNS   => true,
+			self::RIGHT_COLUMNS  => true,
+			self::TOP_CENTRAL    => true,
 			self::BOTTOM_CENTRAL => true,
-			self::TOP_FOOTER => true,
+			self::TOP_FOOTER     => true,
 
 			self::MODULES_LIST => self::init_modules_array(),
 
 			self::ANCHORS_MENU => false,
 
-			self::CAROUSEL => array(),
-			self::CAROUSEL_SPEED => 200,
-			self::CAROUSEL_TIME => 5000,
+			self::CAROUSEL        => array(),
+			self::CAROUSEL_SPEED  => 200,
+			self::CAROUSEL_TIME   => 5000,
 			self::CAROUSEL_NUMBER => 4,
-			self::CAROUSEL_AUTO => self::CAROUSEL_TRUE,
-			self::CAROUSEL_HOVER => self::CAROUSEL_TRUE,
+			self::CAROUSEL_AUTO   => self::CAROUSEL_TRUE,
+			self::CAROUSEL_HOVER  => self::CAROUSEL_TRUE,
 
-			self::EDITO => LangLoader::get_message('homelanding.edito.description', 'common', 'HomeLanding'),
+			self::EDITO             => LangLoader::get_message('homelanding.edito.description', 'common', 'HomeLanding'),
+			self::PINNED_NEWS_TITLE => LangLoader::get_message('homelanding.module.pinned_news', 'common', 'HomeLanding'),
 
 			self::RSS_SITE_NAME => '',
-			self::RSS_SITE_URL => '',
-			self::RSS_XML_URL => '',
-			self::STICKY_TEXT => LangLoader::get_message('homelanding.sticky.content', 'sticky', 'HomeLanding'),
-			self::STICKY_TITLE => LangLoader::get_message('homelanding.sticky', 'sticky', 'HomeLanding'),
+			self::RSS_SITE_URL  => '',
+			self::RSS_XML_URL   => '',
+			self::STICKY_TEXT   => LangLoader::get_message('homelanding.sticky.content', 'sticky', 'HomeLanding'),
+			self::STICKY_TITLE  => LangLoader::get_message('homelanding.sticky', 'sticky', 'HomeLanding'),
 		);
 	}
 

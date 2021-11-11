@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 11 11
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -28,14 +28,21 @@ class HomeLandingAnchorsMenu
                         $module_title = $lang['homelanding.category.' . $module['module_id']];
                 }
                 else {
-                    if(!in_array($module['module_id'], array('edito', 'lastcoms', 'rss'))) 
+                    if(!in_array($module['module_id'], array('edito', 'lastcoms', 'rss', 'pinned_news')))
                         $module_title = ModulesManager::get_module($module['module_id'])->get_configuration()->get_name();
                     else
                         $module_title = $lang['homelanding.module.' . $module['module_id']];
                 }
 
+                $module_displayed = $module['displayed'];
+                if ($module['module_id'] == 'pinned_news') {
+                    $module_displayed = $module['displayed'] && HomeLandingPinnedNews::get_items_number() > 0;
+                    $module_title = $config->get_pinned_news_title();
+                }
+
+
                 $view->assign_block_vars('tabs', array(
-                    'C_DISPLAYED_TAB' => $module['displayed'],
+                    'C_DISPLAYED_TAB' => $module_displayed,
                     'TAB_POSITION'    => $config->get_module_position_by_id($module['module_id']),
                     'U_TAB'           => '#' . $module['module_id'],
                     'TAB_TITLE'       => $module_title

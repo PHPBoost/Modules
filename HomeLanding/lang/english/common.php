@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 06
+ * @version     PHPBoost 6.0 - last update: 2021 11 11
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -47,6 +47,7 @@ $lang['homelanding.module.rss']          = 'External RSS';
 $lang['homelanding.module.articles_category'] = 'Articles - category';
 $lang['homelanding.module.download_category'] = 'Downloads - category';
 $lang['homelanding.module.news_category']     = 'News - category';
+$lang['homelanding.module.pinned_news']       = 'Pinned news';
 $lang['homelanding.module.smallads_category'] = 'Small ads - category';
 $lang['homelanding.module.web_category']      = 'Partners links - category';
     // Anchors tab
@@ -97,6 +98,9 @@ $lang['homelanding.items.number']           = 'Items number to display';
 $lang['homelanding.characters.limit']       = 'Limit the number of characters';
 $lang['homelanding.choose.category']        = 'Choose a category';
 $lang['homelanding.display.sub.categories'] = 'Display subcategories content';
+    // Pinned news
+$lang['homelanding.pinned.news.title']      = 'Title on homepage';
+$lang['homelanding.show.pinned.news']       = 'Display the pinned news';
     // Default
 $lang['homelanding.title'] = 'Welcome';
 $lang['homelanding.edito.description'] = 'Modify the <a class="offload" href="' . HomeLandingUrlBuilder::configuration()->relative() . '">module configuration</a> to setup the landing page';

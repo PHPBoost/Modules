@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 11 11
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -105,6 +105,9 @@ class HomeLandingHomeController extends ModuleController
 
 		if ($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_NEWS)->read())
 			$this->view->put('NEWS_CAT', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_NEWS, HomeLandingConfig::MODULE_NEWS_CATEGORY));
+
+		if ($this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read())
+			$this->view->put('PINNED_NEWS', HomeLandingPinnedNews::get_pinned_news_view(HomeLandingConfig::MODULE_PINNED_NEWS));
 
 		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_SMALLADS)->read())
 			$this->view->put('SMALLADS', HomeLandingSmallads::get_smallads_view());
