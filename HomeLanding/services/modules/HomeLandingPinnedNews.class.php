@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 11
+ * @version     PHPBoost 6.0 - last update: 2021 11 12
  * @since       PHPBoost 6.0 - 2021 11 11
 */
 
@@ -33,9 +33,7 @@ class HomeLandingPinnedNews
 		$parent_module = HomeLandingConfig::MODULE_NEWS;
 		$module = ModulesManager::get_module(HomeLandingConfig::MODULE_NEWS);
 		$module_config = $module->get_configuration()->get_configuration_parameters();
-		$home_modules  = HomeLandingModulesList::load();
 		$page_type     = HomeLandingConfig::MODULE_PINNED_NEWS;
-
 
         $theme_id = AppContext::get_current_user()->get_theme();
         if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $page_type . '.tpl'))

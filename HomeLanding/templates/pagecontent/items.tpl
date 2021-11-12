@@ -94,7 +94,7 @@
 											# IF C_VIEWS_NUMBER #<span class="pinned" aria-label="{items.VIEWS_NUMBER} # IF items.C_SEVERAL_VIEWS #{@common.views}# ELSE #{@common.view}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 										</div>
 										# IF items.C_CONTROLS #
-											<span class="controls">
+											<span class="controls align-right">
 												# IF items.C_EDIT #
 													<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 												# ENDIF #

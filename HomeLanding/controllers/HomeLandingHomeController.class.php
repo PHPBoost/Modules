@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 11
+ * @version     PHPBoost 6.0 - last update: 2021 11 12
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -101,10 +101,10 @@ class HomeLandingHomeController extends ModuleController
 			$this->view->put('MEDIA', HomeLandingMedia::get_media_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read())
-			$this->view->put('NEWS', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_NEWS));
+			$this->view->put('NEWS', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_NEWS, false, true));
 
 		if ($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_NEWS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_NEWS)->read())
-			$this->view->put('NEWS_CAT', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_NEWS, HomeLandingConfig::MODULE_NEWS_CATEGORY));
+			$this->view->put('NEWS_CAT', HomeLandingDisplayItems::build_view(HomeLandingConfig::MODULE_NEWS, HomeLandingConfig::MODULE_NEWS_CATEGORY, true));
 
 		if ($this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read())
 			$this->view->put('PINNED_NEWS', HomeLandingPinnedNews::get_pinned_news_view(HomeLandingConfig::MODULE_PINNED_NEWS));

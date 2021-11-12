@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 11 12
  * @since       PHPBoost 5.2 - 2020 03 06
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
 class HomeLandingDisplayItems
 {
-	public static function build_view($module_name, $module_cat = false)
+	public static function build_view($module_name, $module_cat = false, $has_pinned = false)
 	{
 		$module        = ModulesManager::get_module($module_name);
 		$module_config = $module->get_configuration()->get_configuration_parameters();
@@ -29,13 +29,14 @@ class HomeLandingDisplayItems
 		$module_lang = LangLoader::get('common', $module_name);
 		$view->add_lang(array_merge($home_lang, $module_lang, LangLoader::get('common-lang')));
 
-		if (($module_name = 'news') && $home_modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed())
+		$sql_condition = 'WHERE id_category IN :categories
+			AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
+
+		// Manage pinned item in News
+		if ($has_pinned && $home_modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed())
 			$sql_condition = 'WHERE id_category IN :categories
 			AND top_list_enabled = 0
 			AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
-		else
-			$sql_condition = 'WHERE id_category IN :categories
-				AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
 
 		$sql_parameters = array();
 		if ($module_cat)
