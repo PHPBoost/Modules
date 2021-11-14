@@ -26,10 +26,10 @@ class AdminHomeLandingModulesPositionController extends AdminModuleController
 			$module->set_properties($properties);
 
 			$this->view->assign_block_vars('modules_list', array(
-				'C_ACTIVE'  => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss')) ? true : $module->is_active(),
+				'C_ACTIVE'  => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms')) ? true : $module->is_active(),
 				'C_DISPLAY' => $module->is_displayed(),
 				'ID'        => $id,
-				'NAME'      => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms', 'rss')) ? $module->get_name() : ($module->is_active() ? $module->get_name() : ''),
+				'NAME'      => in_array($module->get_module_id(), array('anchors_menu', 'carousel', 'edito', 'lastcoms')) ? $module->get_name() : ($module->is_active() ? $module->get_name() : ''),
 				'U_EDIT'    => HomeLandingUrlBuilder::configuration($module->get_config_module_id())->rel()
 			));
 			$modules_number++;

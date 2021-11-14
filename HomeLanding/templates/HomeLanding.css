@@ -43,6 +43,26 @@
 
 /* --- Last downloads from categories --------------------------------------- */
 
+/* --- Last fedd items ---------------------------------------------------- */
+.last-feeds {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.feed-title {
+    display: flex !important;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+@media (min-width: 769px) {
+    .feed-title {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
 /* --- Last forum topics ---------------------------------------------------- */
 
 /* --- Last pictures from Gallery ------------------------------------------- */

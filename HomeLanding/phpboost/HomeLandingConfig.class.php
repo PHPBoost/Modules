@@ -33,10 +33,6 @@ class HomeLandingConfig extends AbstractConfigData
 	const EDITO = 'edito';
 	const PINNED_NEWS_TITLE = 'pinned_news_title';
 
-	const RSS_SITE_NAME = 'rss_site_name';
-	const RSS_SITE_URL = 'rss_site_url';
-	const RSS_XML_URL = 'rss_xml_url';
-
 	const STICKY_TEXT = 'sticky_text';
 	const STICKY_TITLE = 'sticky_title';
 
@@ -54,6 +50,7 @@ class HomeLandingConfig extends AbstractConfigData
 	const MODULE_CONTACT = 'contact';
 	const MODULE_DOWNLOAD = 'download';
 	const MODULE_DOWNLOAD_CATEGORY = 'download_category';
+	const MODULE_FLUX = 'flux';
 	const MODULE_FORUM = 'forum';
 	const MODULE_GALLERY = 'gallery';
 	const MODULE_GUESTBOOK = 'guestbook';
@@ -63,7 +60,6 @@ class HomeLandingConfig extends AbstractConfigData
 	const MODULE_PINNED_NEWS = 'pinned_news';
 	const MODULE_SMALLADS = 'smallads';
 	const MODULE_SMALLADS_CATEGORY = 'smallads_category';
-	const MODULE_RSS = 'rss';
 	const MODULE_WEB = 'web';
 	const MODULE_WEB_CATEGORY = 'web_category';
 
@@ -258,37 +254,6 @@ class HomeLandingConfig extends AbstractConfigData
 		$this->set_property(self::PINNED_NEWS_TITLE, $edito);
 	}
 
-	//External Rss
-	public function get_rss_site_name()
-	{
-		return $this->get_property(self::RSS_SITE_NAME);
-	}
-
-	public function set_rss_site_name($site_name)
-	{
-		$this->set_property(self::RSS_SITE_NAME, $site_name);
-	}
-
-	public function get_rss_site_url()
-	{
-		return $this->get_property(self::RSS_SITE_URL);
-	}
-
-	public function set_rss_site_url($site_url)
-	{
-		$this->set_property(self::RSS_SITE_URL, $site_url);
-	}
-
-	public function get_rss_xml_url()
-	{
-		return $this->get_property(self::RSS_XML_URL);
-	}
-
-	public function set_rss_xml_url($xml_url)
-	{
-		$this->set_property(self::RSS_XML_URL, $xml_url);
-	}
-
 	public function get_sticky_text()
     {
         return $this->get_property(self::STICKY_TEXT);
@@ -382,6 +347,13 @@ class HomeLandingConfig extends AbstractConfigData
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
+		$module->set_module_id(self::MODULE_FLUX);
+		$module->set_phpboost_module_id(self::MODULE_FLUX);
+		$module->hide();
+
+		$modules[] = $module->get_properties();
+
+		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_FORUM);
 		$module->set_phpboost_module_id(self::MODULE_FORUM);
 		$module->hide();
@@ -445,13 +417,6 @@ class HomeLandingConfig extends AbstractConfigData
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
-		$module->set_module_id(self::MODULE_RSS);
-		$module->set_elements_number_displayed(10);
-		$module->hide();
-
-		$modules[] = $module->get_properties();
-
-		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_WEB);
 		$module->set_phpboost_module_id(self::MODULE_WEB);
 		$module->hide();
@@ -502,10 +467,7 @@ class HomeLandingConfig extends AbstractConfigData
 
 			self::EDITO             => LangLoader::get_message('homelanding.edito.description', 'common', 'HomeLanding'),
 			self::PINNED_NEWS_TITLE => LangLoader::get_message('homelanding.module.pinned_news', 'common', 'HomeLanding'),
-
-			self::RSS_SITE_NAME => '',
-			self::RSS_SITE_URL  => '',
-			self::RSS_XML_URL   => '',
+			
 			self::STICKY_TEXT   => LangLoader::get_message('homelanding.sticky.content', 'sticky', 'HomeLanding'),
 			self::STICKY_TITLE  => LangLoader::get_message('homelanding.sticky', 'sticky', 'HomeLanding'),
 		);

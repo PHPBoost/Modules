@@ -88,6 +88,9 @@ class HomeLandingHomeController extends ModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_DOWNLOAD)->read())
 			$this->view->put('DOWNLOAD_CAT', HomeLandingDownload::get_download_cat_view());
 
+		if ($this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed())
+		 	$this->view->put('FLUX', HomeLandingFlux::get_flux_view());
+
 		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed() && ForumAuthorizationsService::check_authorizations()->read())
 			$this->view->put('FORUM', HomeLandingForum::get_forum_view());
 
@@ -120,9 +123,6 @@ class HomeLandingHomeController extends ModuleController
 
 		if ($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_WEB_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_WEB)->read())
 			$this->view->put('WEB_CAT', HomeLandingWeb::get_web_cat_view());
-
-		if ($this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
-		 	$this->view->put('RSS_READER', HomeLandingRss::get_rss_view());
 
 		// Files autoload for additional template variables
 		$home_directory = PATH_TO_ROOT . '/HomeLanding/additional/home/';

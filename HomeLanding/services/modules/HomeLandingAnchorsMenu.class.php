@@ -28,7 +28,7 @@ class HomeLandingAnchorsMenu
                         $module_title = $lang['homelanding.category.' . $module['module_id']];
                 }
                 else {
-                    if(!in_array($module['module_id'], array('edito', 'lastcoms', 'rss', 'pinned_news')))
+                    if(!in_array($module['module_id'], array('edito', 'lastcoms', 'pinned_news')))
                         $module_title = ModulesManager::get_module($module['module_id'])->get_configuration()->get_name();
                     else
                         $module_title = $lang['homelanding.module.' . $module['module_id']];

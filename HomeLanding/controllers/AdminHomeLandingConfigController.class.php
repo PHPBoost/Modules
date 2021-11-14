@@ -80,6 +80,12 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('download_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed());
 			}
 
+			if ($this->modules[HomeLandingConfig::MODULE_FLUX]->is_active())
+			{
+				$this->form->get_field_by_id('flux_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed());
+				$this->form->get_field_by_id('flux_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed());
+			}
+
 			if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active())
 			{
 				$this->form->get_field_by_id('forum_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed());
@@ -122,12 +128,6 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->form->get_field_by_id('smallads_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
 			}
 
-			$this->form->get_field_by_id('rss_site_name')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
-			$this->form->get_field_by_id('rss_site_url')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
-			$this->form->get_field_by_id('rss_xml_url')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
-			$this->form->get_field_by_id('rss_xml_nb')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
-			$this->form->get_field_by_id('rss_xml_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed());
-
 			if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active())
 			{
 				$this->form->get_field_by_id('web_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed());
@@ -167,7 +167,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		$tabs_li = $home_modules = $modules_from_list = array();
 
 		// List of installed modules compatible with HomeLanding
-		$home_modules += array('0' => 'configuration', '1' => 'carousel', '2' => 'rss');
+		$home_modules += array('0' => 'configuration', '1' => 'carousel');
 		foreach ($this->compatible as $module)
 		{
 			$home_modules[] = $module->get_id();
@@ -185,8 +185,6 @@ class AdminHomeLandingConfigController extends AdminModuleController
             	$tabs_li[] = new FormFieldMultitabsLinkElement(LangLoader::get_message('form.configuration', 'form-lang'), 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cog');
 			elseif($module == 'carousel')
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-cog');
-			elseif($module == 'rss')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.rss'], 'tabs', 'AdminHomeLandingConfigController_admin_rss', 'fa-rss');
 			elseif(in_array($module, $modules_from_list))
 				$tabs_li[] = new FormFieldMultitabsLinkElement(
 					ModulesManager::get_module($module)->get_configuration()->get_name(),
@@ -612,6 +610,46 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 		}
 
+		// Flux
+		if ($this->modules[HomeLandingConfig::MODULE_FLUX]->is_active())
+		{
+			$fieldset_flux = new FormFieldsetMultitabsHTML('admin_flux', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_FLUX]->get_module_id())->get_configuration()->get_name(),
+				array('css_class' => 'tabs tabs-animation')
+			);
+			$form->add_fieldset($fieldset_flux);
+
+			$fieldset_flux->add_field(new FormFieldCheckbox('flux_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed(),
+				array(
+					'class'=> 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("flux_enabled").getValue()) {
+							HTMLForms.getField("flux_limit").enable();
+							HTMLForms.getField("flux_char").enable();
+						} else {
+							HTMLForms.getField("flux_limit").disable();
+							HTMLForms.getField("flux_char").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_flux->add_field(new FormFieldNumberEditor('flux_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_FLUX]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_flux->add_field(new FormFieldNumberEditor('flux_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_FLUX]->get_characters_number_displayed(),
+				array(
+					'min' => 1, 'max' => 512,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 512))
+			));
+		}
+
 		// Forum
 		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active())
 		{
@@ -1017,61 +1055,6 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			));
 		}
 
-		// External Rss
-		$fieldset_rss = new FormFieldsetMultitabsHTML('admin_rss',  $this->lang['homelanding.display.rss'],
-				array('css_class' => 'tabs tabs-animation')
-			);
-			$form->add_fieldset($fieldset_rss);
-
-			$fieldset_rss->add_field(new FormFieldCheckbox('rss_enabled', $this->lang['homelanding.display.rss'], $this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed(),
-				array(
-				'class'=> 'custom-checkbox',
-				'events' => array('click' => '
-					if (HTMLForms.getField("rss_enabled").getValue()) {
-						HTMLForms.getField("rss_site_name").enable();
-						HTMLForms.getField("rss_site_url").enable();
-						HTMLForms.getField("rss_xml_url").enable();
-						HTMLForms.getField("rss_xml_nb").enable();
-						HTMLForms.getField("rss_xml_char").enable();
-					} else {
-						HTMLForms.getField("rss_site_name").disable();
-						HTMLForms.getField("rss_site_url").disable();
-						HTMLForms.getField("rss_xml_url").disable();
-						HTMLForms.getField("rss_xml_nb").disable();
-						HTMLForms.getField("rss_xml_char").disable();
-					}'
-				)
-			)
-			));
-
-			$fieldset_rss->add_field(new FormFieldTextEditor('rss_site_name', $this->lang['homelanding.rss.site.name'], $this->config->get_rss_site_name(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
-			));
-
-			$fieldset_rss->add_field(new FormFieldUrlEditor('rss_site_url', $this->lang['homelanding.rss.site.url'], $this->config->get_rss_site_url(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
-			));
-
-			$fieldset_rss->add_field(new FormFieldUrlEditor('rss_xml_url', $this->lang['homelanding.rss.xml.url'], $this->config->get_rss_xml_url(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed())
-			));
-
-			$fieldset_rss->add_field(new FormFieldNumberEditor('rss_xml_nb', $this->lang['homelanding.rss.xml.nb'], $this->modules[HomeLandingConfig::MODULE_RSS]->get_elements_number_displayed(),
-				array(
-					'min' => 1, 'max' => 100,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 100))
-			));
-
-			$fieldset_rss->add_field(new FormFieldNumberEditor('rss_xml_char', $this->lang['homelanding.rss.xml.char'], $this->modules[HomeLandingConfig::MODULE_RSS]->get_characters_number_displayed(),
-				array(
-					'min' => 0, 'max' => 512,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_RSS]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(0, 512))
-			));
-
 		// Files autoload for additional fields
 		$form_directory = PATH_TO_ROOT . '/HomeLanding/additional/form/';
 		$scan_form = scandir($form_directory);
@@ -1221,6 +1204,19 @@ class AdminHomeLandingConfigController extends AdminModuleController
 				$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->hide();
 		}
 
+		// Flux
+		if ($this->modules[HomeLandingConfig::MODULE_FLUX]->is_active())
+		{
+			if ($this->form->get_value('flux_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_FLUX]->display();
+				$this->modules[HomeLandingConfig::MODULE_FLUX]->set_elements_number_displayed($this->form->get_value('flux_limit'));
+				$this->modules[HomeLandingConfig::MODULE_FLUX]->set_characters_number_displayed($this->form->get_value('flux_char'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_FLUX]->hide();
+		}
+
 		// Forum
 		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active())
 		{
@@ -1337,19 +1333,6 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			else
 				$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->hide();
 		}
-
-		// External Rss
-		if ($this->form->get_value('rss_enabled'))
-		{
-			$this->modules[HomeLandingConfig::MODULE_RSS]->display();
-			$this->config->set_rss_site_name($this->form->get_value('rss_site_name'));
-			$this->config->set_rss_site_url($this->form->get_value('rss_site_url'));
-			$this->config->set_rss_xml_url($this->form->get_value('rss_xml_url'));
-			$this->modules[HomeLandingConfig::MODULE_RSS]->set_elements_number_displayed($this->form->get_value('rss_xml_nb'));
-			$this->modules[HomeLandingConfig::MODULE_RSS]->set_characters_number_displayed($this->form->get_value('rss_xml_char'));
-		}
-		else
-			$this->modules[HomeLandingConfig::MODULE_RSS]->hide();
 
 		// Web
 		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active())

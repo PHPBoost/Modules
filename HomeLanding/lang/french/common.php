@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 11
+ * @version     PHPBoost 6.0 - last update: 2021 11 14
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -42,7 +42,6 @@ $lang['homelanding.module.carousel']     = 'Carrousel';
 $lang['homelanding.module.anchors_menu'] = 'Menu d\'accueil';
 $lang['homelanding.module.edito']        = 'Edito';
 $lang['homelanding.module.lastcoms']     = 'Commentaires';
-$lang['homelanding.module.rss']          = 'RSS externe';
     // Module position
 $lang['homelanding.module.articles_category'] = 'Articles - catégorie';
 $lang['homelanding.module.download_category'] = 'Téléchargements - catégorie';
@@ -74,11 +73,6 @@ $lang['homelanding.send.email.tracking.number']        = 'Numéro de suivi';
 $lang['homelanding.send.email.acknowledgment.title']   = 'Confirmation';
 $lang['homelanding.send.email.acknowledgment.correct'] = 'Votre message a été envoyé correctement. ';
 $lang['homelanding.send.another.email']                = 'Envoyer un autre message.';
-
-// Rss
-$lang['homelanding.rss.target']   = 'Fil rss du site';
-$lang['homelanding.no.xml.file']  = 'Il n\'y a pas de fichier rss déclaré';
-$lang['homelanding.not.xml.file'] = 'L\'adresse déclarée n\'est pas un fichier rss';
 
 // Configuration
 $lang['homelanding.label.module.title']      = 'Titre du module';
@@ -142,13 +136,6 @@ $lang['homelanding.carousel.del']         = 'Supprimer le slide';
 
 // Modules configuration
 $lang['homelanding.calendar.clue']     = 'Affiche uniquement les événements à venir';
+$lang['homelanding.flux.clue']     = 'Affiche les éléments de flux les plus récents parmi tous les flux';
 $lang['homelanding.web.clue']          = 'Affiche seulement les liens partenaires';
-    // External Rss
-$lang['homelanding.config.rss']    = 'Affichage d\'un fil Rss d\'un site externe';
-$lang['homelanding.display.rss']   = 'Afficher le fil Rss';
-$lang['homelanding.rss.site.name'] = 'Nom du site';
-$lang['homelanding.rss.site.url']  = 'Adresse du site';
-$lang['homelanding.rss.xml.url']   = 'Adresse du fichier xml';
-$lang['homelanding.rss.xml.nb']    = 'Nombre de liens';
-$lang['homelanding.rss.xml.char']  = 'Nombre de caractères par lien';
 ?>
