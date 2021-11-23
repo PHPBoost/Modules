@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -240,14 +240,18 @@ class FluxItemFormController extends ModuleController
 		{
 			$id = FluxService::add($item);
 			$item->set_id($id);
-			HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+
+			if (!$this->is_contributor_member())
+				HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
 		{
 			$item->set_update_date(new Date());
 			$id = $item->get_id();
 			FluxService::update($item);
-			HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+
+			if (!$this->is_contributor_member())
+				HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 
 		$this->contribution_actions($item, $id);
@@ -276,6 +280,7 @@ class FluxItemFormController extends ModuleController
 				)
 			);
 			ContributionService::save_contribution($contribution);
+			HooksService::execute_hook_action($this->is_new_item ? 'add_contribution' : 'edit_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
 		{
@@ -287,6 +292,7 @@ class FluxItemFormController extends ModuleController
 					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
 					ContributionService::save_contribution($contribution);
 				}
+				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 			}
 		}
 		$item->set_id($id);

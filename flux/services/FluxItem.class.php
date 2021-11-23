@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 10
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -306,7 +306,7 @@ class FluxItem
 		return FluxUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel();
 	}
 
-	public function get_array_tpl_vars()
+	public function get_templates_vars()
 	{
 		$category = $this->get_category();
 		$content = FormatingHelper::second_parse($this->content);
@@ -316,7 +316,7 @@ class FluxItem
         $config = FluxConfig::load();
 
 		return array_merge(
-			Date::get_array_tpl_vars($this->creation_date, 'date'),
+			Date::get_templates_vars($this->creation_date, 'date'),
 			array(
             'C_NEW_WINDOW'         => $config->get_new_window(),
             'C_CONTENT'            => !empty($content),

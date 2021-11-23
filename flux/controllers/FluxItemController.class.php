@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -122,7 +122,7 @@ class FluxItemController extends ModuleController
 			));
 		}
 
-		$this->view->put_all(array_merge($item->get_array_tpl_vars(), array(
+		$this->view->put_all(array_merge($item->get_templates_vars(), array(
 			'FORM' => $this->form->display(),
 			'NOT_VISIBLE_MESSAGE' => MessageHelper::display(LangLoader::get_message('warning.element.not.visible', 'warning-lang'), MessageHelper::WARNING),
 			'MODULE_NAME' => $this->config->get_module_name()
