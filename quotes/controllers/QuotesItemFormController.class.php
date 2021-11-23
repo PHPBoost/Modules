@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 21
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -208,11 +208,17 @@ class QuotesItemFormController extends ModuleController
 		if ($this->item->get_id() === null)
 		{
 			$id = QuotesService::add($this->item);
+
+			if (!$this->is_contributor_member())
+				HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
 		{
 			$id = $this->item->get_id();
 			QuotesService::update($this->item);
+
+			if (!$this->is_contributor_member())
+				HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 
 		$this->contribution_actions($this->item, $id);
@@ -242,6 +248,7 @@ class QuotesItemFormController extends ModuleController
 				)
 			);
 			ContributionService::save_contribution($contribution);
+			HooksService::execute_hook_action($this->is_new_item ? 'add_contribution' : 'edit_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
 		{
@@ -252,6 +259,7 @@ class QuotesItemFormController extends ModuleController
 				$item_contribution->set_status(Event::EVENT_STATUS_PROCESSED);
 
 				ContributionService::save_contribution($item_contribution);
+				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 			}
 		}
 		$item->set_id($id);

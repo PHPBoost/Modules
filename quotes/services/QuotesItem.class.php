@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -172,10 +172,16 @@ class QuotesItem
 			$this->unapprove();
 	}
 
-	public function get_array_tpl_vars()
+	public function get_item_url()
+	{
+		return QuotesUrlBuilder::display_writer_items($this->rewrited_writer)->rel() . '#quotes-item-' . $this->id;
+	}
+
+	public function get_template_vars()
 	{
 		$category = $this->get_category();
 		$content = FormatingHelper::second_parse($this->content);
+		$rich_content = HooksService::execute_hook_display_action('faq', $content, $this->get_properties());
 		$user = $this->get_author_user();
 		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 
@@ -183,35 +189,36 @@ class QuotesItem
 			Date::get_array_tpl_vars($this->creation_date,'date'),
 			array(
 				// Conditions
-				'C_APPROVED' => $this->is_approved(),
-				'C_CONTROLS' => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
-				'C_EDIT' => $this->is_authorized_to_edit(),
-				'C_DELETE' => $this->is_authorized_to_delete(),
+				'C_APPROVED'         => $this->is_approved(),
+				'C_CONTROLS'         => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
+				'C_EDIT'             => $this->is_authorized_to_edit(),
+				'C_DELETE'           => $this->is_authorized_to_delete(),
 				'C_USER_GROUP_COLOR' => !empty($user_group_color),
 
 				// Item
-				'ID' => $this->id,
-				'WRITER_NAME' => $this->writer,
-				'CONTENT' => $content,
-				'C_AUTHOR_EXISTS' => $user->get_id() !== User::VISITOR_LEVEL,
+				'ID'                  => $this->id,
+				'WRITER_NAME'         => $this->writer,
+				'CONTENT'             => $rich_content,
+				'C_AUTHOR_EXISTS'     => $user->get_id() !== User::VISITOR_LEVEL,
 				'AUTHOR_DISPLAY_NAME' => $user->get_display_name(),
-				'USER_LEVEL_CLASS' => UserService::get_level_class($user->get_level()),
-				'USER_GROUP_COLOR' => $user_group_color,
+				'USER_LEVEL_CLASS'    => UserService::get_level_class($user->get_level()),
+				'USER_GROUP_COLOR'    => $user_group_color,
 
 				// Category
-				'C_ROOT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY,
-				'CATEGORY_ID' => $category->get_id(),
-				'CATEGORY_NAME' => $category->get_name(),
+				'C_ROOT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY,
+				'CATEGORY_ID'          => $category->get_id(),
+				'CATEGORY_NAME'        => $category->get_name(),
 				'CATEGORY_DESCRIPTION' => $category->get_description(),
 				'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
-				'U_CATEGORY' => QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-				'U_EDIT_CATEGORY' => $category->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id())->rel(),
+				'U_CATEGORY'           => QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
+				'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id())->rel(),
 
 				// Item links
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-				'U_WRITER' => QuotesUrlBuilder::display_writer_items($this->rewrited_writer)->rel(),
-				'U_EDIT' => QuotesUrlBuilder::edit($this->id)->rel(),
-				'U_DELETE' => QuotesUrlBuilder::delete($this->id)->rel(),
+				'U_WRITER'         => QuotesUrlBuilder::display_writer_items($this->rewrited_writer)->rel(),
+				'U_ITEM'           => $this->get_item_url(),
+				'U_EDIT'           => QuotesUrlBuilder::edit($this->id)->rel(),
+				'U_DELETE'         => QuotesUrlBuilder::delete($this->id)->rel(),
 			)
 		);
 	}

@@ -69,16 +69,17 @@
 									# ENDIF #
 								</h2>
 								<div class="formatter-content">
-									# IF items.C_CONTROLS #
-										<div class="controls align-right">
+									<div class="controls align-right">
+										<a class="offload copy-link-to-clipboard" href="{U_SITE}{items.U_ITEM}" aria-label="{@common.copy.link.to.clipboard}"><i class="fa fa-hashtag" aria-hidden="true"></i></a>
+										# IF items.C_CONTROLS #
 											# IF items.C_EDIT #
 												<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 											# ENDIF #
 											# IF items.C_DELETE #
 												<a href="{items.U_DELETE}" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 											# ENDIF #
-										</div>
-									# ENDIF #
+										# ENDIF #
+									</div>
 									<p itemprop="text">{items.CONTENT}</p>
 									<div class="align-right small">
 										<a class="offload" href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 26
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -115,7 +115,7 @@ class QuotesCategoryController extends ModuleController
 			$item = new QuotesItem();
 			$item->set_properties($row);
 
-			$this->view->assign_block_vars('items', $item->get_array_tpl_vars());
+			$this->view->assign_block_vars('items', $item->get_template_vars());
 		}
 		$result->dispose();
 	}
