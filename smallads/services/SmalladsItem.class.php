@@ -690,7 +690,7 @@ class SmalladsItem
 	public function get_item_url()
 	{
 		$category = $this->get_category();
-		return FaqUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id)->rel();
+		return SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->id)->rel();
 	}
 
 	public function get_template_vars()
