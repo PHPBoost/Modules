@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 06
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -35,7 +35,6 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 		$this->build_form();
 
 		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
-		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -51,7 +50,10 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'smallads');
+		$this->lang = array_merge(
+			LangLoader::get('common', 'smallads'),
+			LangLoader::get('form-lang')
+		);
 		$this->config = SmalladsConfig::load();
 		$this->comments_config = CommentsConfig::load();
 		$this->content_management_config = ContentManagementConfig::load();
@@ -103,6 +105,7 @@ class AdminSmalladsUsageTermsController extends AdminModuleController
 
 		SmalladsConfig::save();
 		CategoriesService::get_categories_manager()->regenerate_cache();
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>

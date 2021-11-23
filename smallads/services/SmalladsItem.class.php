@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 26
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -687,12 +687,19 @@ class SmalladsItem
 		$this->enabled_end_date = false;
 	}
 
-	public function get_array_tpl_vars()
+	public function get_item_url()
+	{
+		$category = $this->get_category();
+		return FaqUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id)->rel();
+	}
+
+	public function get_template_vars()
 	{
 		$this->config = SmalladsConfig::load();
 
 		$category         = $this->get_category();
 		$content	 	  = FormatingHelper::second_parse($this->content);
+		$rich_content 	  = HooksService::execute_hook_display_action('smallads', $content, $this->get_properties());
 		$summary 	      = $this->get_real_summary();
 		$user             = $this->get_author_user();
 		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
@@ -781,7 +788,7 @@ class SmalladsItem
 			'AUTHOR_GROUP_COLOR'   	=> $user_group_color,
 			'LOCATION'				=> $location,
 			'OTHER_LOCATION'		=> $this->get_other_location(),
-			'CONTENT'           	=> FormatingHelper::second_parse($this->get_content()),
+			'CONTENT'           	=> $rich_content,
 
 			// Category
 			'C_ROOT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY,
@@ -796,7 +803,7 @@ class SmalladsItem
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
 			'U_AUTHOR_PM'      => UserUrlBuilder::personnal_message($this->get_author_user()->get_id())->rel(),
 			'U_CATEGORY'       => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-			'U_ITEM'           => SmalladsUrlBuilder::display_item($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
+			'U_ITEM'           => $this->get_item_url(),
 			'U_THUMBNAIL' 	   => $this->get_thumbnail()->rel(),
 			'U_EDIT'   		   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
 			'U_DELETE' 		   => SmalladsUrlBuilder::delete_item($this->id)->rel(),

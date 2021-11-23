@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 08 25
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -659,7 +659,6 @@ class SmalladsItemFormController extends ModuleController
 				$this->item->set_archived(SmalladsItem::NOT_ARCHIVED);
 		}
 
-
 		if (!CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation())
 		{
 			if ($this->item->get_id() === null)
@@ -738,6 +737,9 @@ class SmalladsItemFormController extends ModuleController
 		{
 			$this->item->set_author_user(AppContext::get_current_user());
 			$item_id = SmalladsService::add($this->item);
+
+			if (!$this->is_contributor_member())
+				HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
 		{
@@ -745,6 +747,9 @@ class SmalladsItemFormController extends ModuleController
 			$this->item->set_update_date($now);
 			$item_id = $this->item->get_id();
 			SmalladsService::update($this->item);
+
+			if (!$this->is_contributor_member())
+				HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 
 		$this->contribution_actions($this->item, $item_id);
@@ -776,6 +781,7 @@ class SmalladsItemFormController extends ModuleController
 				)
 			);
 			ContributionService::save_contribution($contribution);
+			HooksService::execute_hook_action($this->is_new_item ? 'add_contribution' : 'edit_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 		}
 		else
 		{
@@ -787,6 +793,7 @@ class SmalladsItemFormController extends ModuleController
 					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
 					ContributionService::save_contribution($contribution);
 				}
+				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 			}
 		}
 		$item->set_id($item_id);
