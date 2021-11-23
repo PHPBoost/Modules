@@ -739,7 +739,7 @@ class SmalladsItemFormController extends ModuleController
 			$item_id = SmalladsService::add($this->item);
 
 			if (!$this->is_contributor_member())
-				HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+				HooksService::execute_hook_action('add', self::$module_id, array_merge($this->item->get_properties(), array('item_url' => $this->item->get_item_url())));
 		}
 		else
 		{
@@ -749,7 +749,7 @@ class SmalladsItemFormController extends ModuleController
 			SmalladsService::update($this->item);
 
 			if (!$this->is_contributor_member())
-				HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+				HooksService::execute_hook_action('edit', self::$module_id, array_merge($this->item->get_properties(), array('item_url' => $this->item->get_item_url())));
 		}
 
 		$this->contribution_actions($this->item, $item_id);

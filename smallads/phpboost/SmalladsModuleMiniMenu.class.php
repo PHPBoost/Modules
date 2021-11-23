@@ -61,10 +61,10 @@
 			'AUTOPLAY_HOVER'  => $config->is_slideshow_hover_enabled(),
  		));
 
- 		foreach ($items as $smallad)
+ 		foreach ($items as $item)
  		{
  			$item = new SmalladsItem();
- 			$item->set_properties($smallad);
+ 			$item->set_properties($item);
 
  			$view->assign_block_vars('items', $item->get_array_tpl_vars());
  		}

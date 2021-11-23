@@ -116,13 +116,13 @@ class SmalladsTagController extends ModuleController
 
 		while ($row = $result->fetch())
 		{
-			$smallad = new SmalladsItem();
-			$smallad->set_properties($row);
+			$item = new SmalladsItem();
+			$item->set_properties($row);
 
-			$this->build_keywords_view($smallad);
+			$this->build_keywords_view($item);
 
-			$this->view->assign_block_vars('items', $smallad->get_template_vars());
-			$this->build_sources_view($smallad);
+			$this->view->assign_block_vars('items', $item->get_template_vars());
+			$this->build_sources_view($item);
 		}
 		$result->dispose();
 	}
@@ -148,9 +148,9 @@ class SmalladsTagController extends ModuleController
 		}
 	}
 
-	private function build_sources_view(SmalladsItem $smallad)
+	private function build_sources_view(SmalladsItem $item)
 	{
-		$sources = $smallad->get_sources();
+		$sources = $item->get_sources();
 		$nbr_sources = count($sources);
 		if ($nbr_sources)
 		{
@@ -169,9 +169,9 @@ class SmalladsTagController extends ModuleController
 		}
 	}
 
-	private function build_keywords_view(SmalladsItem $smallad)
+	private function build_keywords_view(SmalladsItem $item)
 	{
-		$keywords = $smallad->get_keywords();
+		$keywords = $item->get_keywords();
 		$nbr_keywords = count($keywords);
 		$this->view->put('C_KEYWORDS', $nbr_keywords > 0);
 
