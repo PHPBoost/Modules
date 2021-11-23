@@ -316,7 +316,7 @@ class FluxItem
         $config = FluxConfig::load();
 
 		return array_merge(
-			Date::get_templates_vars($this->creation_date, 'date'),
+			Date::get_array_tpl_vars($this->creation_date, 'date'),
 			array(
             'C_NEW_WINDOW'         => $config->get_new_window(),
             'C_CONTENT'            => !empty($content),
