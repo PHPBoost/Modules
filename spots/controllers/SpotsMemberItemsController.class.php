@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 16
+ * @version     PHPBoost 6.0 - last update: 2021 09 23
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -82,7 +82,7 @@ class SpotsMemberItemsController extends ModuleController
 			$item = new SpotsItem();
 			$item->set_properties($row);
 
-			$this->view->assign_block_vars('items', array_merge($item->get_array_tpl_vars()));
+			$this->view->assign_block_vars('items', array_merge($item->get_template_vars()));
 		}
 		$result->dispose();
 	}

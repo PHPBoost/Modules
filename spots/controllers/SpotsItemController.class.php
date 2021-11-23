@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 08
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -57,7 +57,7 @@ class SpotsItemController extends ModuleController
 
 		$this->build_new_address_form($request);
 
-		$this->view->put_all(array_merge($item->get_array_tpl_vars(), array(
+		$this->view->put_all(array_merge($item->get_template_vars(), array(
 			'FORM' => $this->form->display(),
 			'NOT_VISIBLE_MESSAGE' => MessageHelper::display(LangLoader::get_message('warning.element.not.visible', 'warning-lang'), MessageHelper::WARNING),
 			'MODULE_NAME' => $this->config->get_module_name(),
