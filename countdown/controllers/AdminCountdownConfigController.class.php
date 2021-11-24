@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 06
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -49,16 +49,18 @@ class AdminCountdownConfigController extends AdminModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'countdown');
+		$this->lang = array_merge(
+			LangLoader::get('common', 'countdown'),
+			LangLoader::get('form-lang')
+		);
 		$this->config = CountdownConfig::load();
 	}
 
 	private function build_form()
 	{
-		$form_lang = LangLoader::get('form-lang');
 		$form = new HTMLForm('countdown');
 
-		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($form_lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
+		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldDateTime('event_date', $this->lang['countdown.config.event.date'], $this->config->get_event_date(),
@@ -139,10 +141,10 @@ class AdminCountdownConfigController extends AdminModuleController
 			)
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $form_lang['form.authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
-		$auth_settings = new AuthorizationsSettings(array(new ActionAuthorization($form_lang['form.authorizations.read'], CountdownAuthorizationsService::READ_AUTHORIZATIONS)));
+		$auth_settings = new AuthorizationsSettings(array(new ActionAuthorization($this->lang['form.authorizations.read'], CountdownAuthorizationsService::READ_AUTHORIZATIONS)));
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
 
@@ -174,6 +176,7 @@ class AdminCountdownConfigController extends AdminModuleController
 
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 		CountdownConfig::save();
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>

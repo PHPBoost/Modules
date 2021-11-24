@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 16
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -50,12 +50,14 @@ class AdminTeamspeakConfigController extends AdminModuleController
 	private function init()
 	{
 		$this->config = TeamspeakConfig::load();
-		$this->lang = LangLoader::get('common', 'teamspeak');
+		$this->lang = array_merge(
+			LangLoader::get('common', 'teamspeak'),
+			LangLoader::get('form-lang')
+		);
 	}
 
 	private function build_form()
 	{
-		$form_lang = LangLoader::get('form-lang');
 		$form = new HTMLForm(__CLASS__);
 
 		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($form_lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
@@ -145,6 +147,7 @@ class AdminTeamspeakConfigController extends AdminModuleController
 
 		TeamspeakConfig::save();
 		TeamspeakCache::invalidate();
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>

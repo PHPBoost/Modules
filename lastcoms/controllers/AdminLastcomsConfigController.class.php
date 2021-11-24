@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 06
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -45,16 +45,18 @@ class AdminLastcomsConfigController extends AdminModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'lastcoms');
+		$this->lang = array_merge(
+			LangLoader::get('common', 'lastcoms'),
+			LangLoader::get('form-lang')
+		);
 		$this->config = LastcomsConfig::load();
 	}
 
 	private function build_form()
 	{
-		$form_lang = LangLoader::get('form-lang');
 		$form = new HTMLForm('lastcoms');
 
-		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($form_lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
+		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldNumberEditor('lastcoms_number', $this->lang['lastcoms.number'], $this->config->get_lastcoms_number(),
@@ -65,10 +67,10 @@ class AdminLastcomsConfigController extends AdminModuleController
 			array('description' => $this->lang['lastcoms.char.clue'])
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $form_lang['form.authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
-		$auth_settings = new AuthorizationsSettings(array(new ActionAuthorization($form_lang['form.authorizations.read'], LastcomsAuthorizationsService::READ_AUTHORIZATIONS)));
+		$auth_settings = new AuthorizationsSettings(array(new ActionAuthorization($this->lang['form.authorizations.read'], LastcomsAuthorizationsService::READ_AUTHORIZATIONS)));
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
 
@@ -85,6 +87,7 @@ class AdminLastcomsConfigController extends AdminModuleController
 		$this->config->set_lastcoms_char($this->form->get_value('lastcoms_char'));
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 		LastcomsConfig::save();
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>

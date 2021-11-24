@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 25
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -52,7 +52,10 @@ class AdminBirthdayConfigController extends AdminModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'birthday');
+		$this->lang = array_merge(
+			LangLoader::get('common', 'birthday'),
+			LangLoader::get('form-lang')
+		);
 		$this->config = BirthdayConfig::load();
 	}
 
@@ -60,7 +63,7 @@ class AdminBirthdayConfigController extends AdminModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars(LangLoader::get_message('form.module.title', 'form-lang'), array('module_name' => self::get_module()->get_configuration()->get_name())));
+		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldCheckbox('members_age_displayed', $this->lang['birthday.members.age.displayed'], $this->config->is_members_age_displayed(),
@@ -97,11 +100,11 @@ class AdminBirthdayConfigController extends AdminModuleController
 			)
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations', LangLoader::get_message('form.authorizations', 'form-lang'));
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization(LangLoader::get_message('form.authorizations.menu', 'form-lang'), BirthdayAuthorizationsService::READ_AUTHORIZATIONS),
+			new ActionAuthorization($this->lang['form.authorizations.menu'], BirthdayAuthorizationsService::READ_AUTHORIZATIONS),
 		));
 
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
@@ -135,6 +138,7 @@ class AdminBirthdayConfigController extends AdminModuleController
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 
 		BirthdayConfig::save();
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>

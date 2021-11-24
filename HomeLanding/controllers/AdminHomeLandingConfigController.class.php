@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 11
+ * @version     PHPBoost 6.0 - last update: 2021 11 23
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -156,7 +156,10 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'HomeLanding');
+		$this->lang = array_merge(
+			LangLoader::get('common', 'HomeLanding'),
+			LangLoader::get('form-lang')
+		);
 		$this->config = HomeLandingConfig::load();
 		$this->modules = HomeLandingModulesList::load();
 		$this->compatible = ModulesManager::get_activated_feature_modules('homelanding');
@@ -1374,6 +1377,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
 
 		HomeLandingModulesList::save($this->modules);
 		HomeLandingConfig::save();
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>
