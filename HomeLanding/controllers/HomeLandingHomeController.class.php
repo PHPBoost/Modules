@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 12
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -37,9 +37,12 @@ class HomeLandingHomeController extends ModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'HomeLanding');
+		$this->lang = array_merge(
+			LangLoader::get('common-lang'),
+			LangLoader::get('common', 'HomeLanding')
+		);
 		$this->view = new FileTemplate('HomeLanding/home.tpl');
-		$this->view->add_lang(array_merge($this->lang, LangLoader::get('common-lang')));
+		$this->view->add_lang($this->lang);
 		$this->config = HomeLandingConfig::load();
 		$this->modules = HomeLandingModulesList::load();
 
