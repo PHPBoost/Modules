@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -50,8 +50,8 @@ class AdminFluxConfigController extends AdminModuleController
 	{
 		$this->config = FluxConfig::load();
 		$this->lang = array_merge(
-			LangLoader::get('common', 'flux'),
-			LangLoader::get('form-lang')
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'flux')
 		);
 	}
 

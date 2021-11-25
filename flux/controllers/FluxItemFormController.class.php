@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -19,7 +19,6 @@ class FluxItemFormController extends ModuleController
 	private $submit_button;
 
 	private $lang;
-	private $form_lang;
     private $config;
 
 	private $item;
@@ -48,8 +47,10 @@ class FluxItemFormController extends ModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'flux');
-		$this->form_lang = LangLoader::get('form-lang');
+		$this->lang = array_merge(
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'flux')
+		);
         $this->config = FluxConfig::load();
 	}
 
@@ -58,10 +59,10 @@ class FluxItemFormController extends ModuleController
 		$form = new HTMLForm(__CLASS__);
 		$form->set_layout_title($this->get_item()->get_id() === null ? $this->lang['flux.add'] : ($this->lang['flux.edit']));
 
-		$fieldset = new FormFieldsetHTML('flux', $this->form_lang['form.parameters']);
+		$fieldset = new FormFieldsetHTML('flux', $this->lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('title', $this->form_lang['form.name'], $this->get_item()->get_title(),
+		$fieldset->add_field(new FormFieldTextEditor('title', $this->lang['form.name'], $this->get_item()->get_title(),
 			array('required' => true)
 		));
 
@@ -70,37 +71,37 @@ class FluxItemFormController extends ModuleController
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->form_lang['form.category'], $this->get_item()->get_id_category(), $search_category_children_options));
+			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['form.category'], $this->get_item()->get_id_category(), $search_category_children_options));
 		}
 
 		$fieldset->add_field(new FormFieldUrlEditor('website_xml', $this->lang['flux.website.xml'], $this->get_item()->get_website_xml()->absolute(),
 			array('required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->form_lang['form.thumbnail'], $this->get_item()->get_thumbnail()->relative(), FluxItem::THUMBNAIL_URL));
+		$fieldset->add_field(new FormFieldThumbnail('thumbnail', $this->lang['form.thumbnail'], $this->get_item()->get_thumbnail()->relative(), FluxItem::THUMBNAIL_URL));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->form_lang['form.description'], $this->get_item()->get_content()));
+		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['form.description'], $this->get_item()->get_content()));
 
         if (CategoriesAuthorizationsService::check_authorizations($this->get_item()->get_id_category())->moderation())
 		{
-			$publication_fieldset = new FormFieldsetHTML('publication', $this->form_lang['form.publication']);
+			$publication_fieldset = new FormFieldsetHTML('publication', $this->lang['form.publication']);
 			$form->add_fieldset($publication_fieldset);
 
-			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->form_lang['form.creation.date'], $this->get_item()->get_creation_date(),
+			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->lang['form.creation.date'], $this->get_item()->get_creation_date(),
 				array('required' => true)
 			));
 
 			if (!$this->get_item()->is_published())
 			{
-				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->form_lang['form.update.creation.date'], false,
+				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->lang['form.update.creation.date'], false,
 					array('hidden' => $this->get_item()->get_status() != FluxItem::NOT_PUBLISHED)
 				));
 			}
 
-			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('published', $this->form_lang['form.publication'], $this->get_item()->get_published(),
+			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('published', $this->lang['form.publication'], $this->get_item()->get_published(),
 				array(
-					new FormFieldSelectChoiceOption($this->form_lang['form.publication.draft'], FluxItem::NOT_PUBLISHED),
-					new FormFieldSelectChoiceOption($this->form_lang['form.publication.now'], FluxItem::PUBLISHED),
+					new FormFieldSelectChoiceOption($this->lang['form.publication.draft'], FluxItem::NOT_PUBLISHED),
+					new FormFieldSelectChoiceOption($this->lang['form.publication.now'], FluxItem::PUBLISHED),
 				)
 			));
 		}
