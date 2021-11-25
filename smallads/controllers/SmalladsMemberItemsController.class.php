@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -31,14 +31,13 @@ class SmalladsMemberItemsController extends ModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'smallads');
-		$county_lang = LangLoader::get('counties', 'smallads');
-		$this->view = new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
-		$this->view->add_lang(array_merge(
-			$this->lang,
+		$this->lang = array_merge(
 			LangLoader::get('common-lang'),
-			$county_lang
-		));
+			LangLoader::get('counties', 'smallads'),
+			LangLoader::get('common', 'smallads')
+		);
+		$this->view = new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
+		$this->view->add_lang($this->lang);
 		$this->config = SmalladsConfig::load();
 		$this->comments_config = CommentsConfig::load();
 		$this->content_management_config = ContentManagementConfig::load();

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -22,8 +22,6 @@ class SmalladsItemFormController extends ModuleController
 	private $view;
 
 	private $lang;
-	private $county_lang;
-	private $form_lang;
 
 	private $item;
 	private $is_new_item;
@@ -36,7 +34,6 @@ class SmalladsItemFormController extends ModuleController
 		$this->build_form($request);
 
 		$view = new StringTemplate('# INCLUDE FORM #');
-		$view->add_lang(array_merge($this->lang, $this->county_lang));
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -51,9 +48,11 @@ class SmalladsItemFormController extends ModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'smallads');
-		$this->county_lang = LangLoader::get('counties', 'smallads');
-		$this->form_lang = LangLoader::get('form-lang');
+		$this->lang = array_merge(
+			LangLoader::get('counties', 'smallads'),
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'smallads')
+		);
 		$this->config = SmalladsConfig::load();
 	}
 
@@ -69,26 +68,26 @@ class SmalladsItemFormController extends ModuleController
 
         $fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',
 			array(
-				new FormFieldMultitabsLinkElement($this->form_lang['form.parameters'], 'tabs', 'SmalladsItemFormController_smallads'),
-				new FormFieldMultitabsLinkElement($this->form_lang['form.options'], 'tabs', 'SmalladsItemFormController_other'),
-				new FormFieldMultitabsLinkElement($this->form_lang['form.publication'], 'tabs', 'SmalladsItemFormController_publication'),
+				new FormFieldMultitabsLinkElement($this->lang['form.parameters'], 'tabs', 'SmalladsItemFormController_smallads'),
+				new FormFieldMultitabsLinkElement($this->lang['form.options'], 'tabs', 'SmalladsItemFormController_other'),
+				new FormFieldMultitabsLinkElement($this->lang['form.publication'], 'tabs', 'SmalladsItemFormController_publication'),
 			)
 		));
 
 		$fieldset_tabs_menu->add_field(new FormFieldFree('warning', '', $this->lang['smallads.form.warning'], array('class' => 'message-helper bgc notice')));
 
-		$fieldset = new FormFieldsetMultitabsHTML('smallads', $this->form_lang['form.parameters'],
+		$fieldset = new FormFieldsetMultitabsHTML('smallads', $this->lang['form.parameters'],
 			array('css_class' => 'tabs tabs-animation first-tab')
 		);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('title', $this->form_lang['form.title'], $this->item->get_title(),
+		$fieldset->add_field(new FormFieldTextEditor('title', $this->lang['form.title'], $this->item->get_title(),
 			array('required' => true)
 		));
 
 		if (CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation())
 		{
-			$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_title', $this->form_lang['form.rewrited.title.personalize'], $this->item->rewrited_title_is_personalized(),
+			$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_title', $this->lang['form.rewrited.title.personalize'], $this->item->rewrited_title_is_personalized(),
 				array('events' => array('click' =>'
 					if (HTMLForms.getField("personalize_rewrited_title").getValue()) {
 						HTMLForms.getField("rewrited_title").enable();
@@ -98,9 +97,9 @@ class SmalladsItemFormController extends ModuleController
 				))
 			));
 
-			$fieldset->add_field(new FormFieldTextEditor('rewrited_title', $this->form_lang['form.rewrited.title'], $this->item->get_rewrited_title(),
+			$fieldset->add_field(new FormFieldTextEditor('rewrited_title', $this->lang['form.rewrited.title'], $this->item->get_rewrited_title(),
 				array(
-					'description' => $this->form_lang['form.rewrited.title.clue'],
+					'description' => $this->lang['form.rewrited.title.clue'],
 			      	'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_personalize_rewrited_title', false) : !$this->item->rewrited_title_is_personalized())
 			  	),
 				array(new FormFieldConstraintRegex('`^[a-z0-9\-]+$`iu'))
@@ -116,7 +115,7 @@ class SmalladsItemFormController extends ModuleController
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			$search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->form_lang['form.category'], $this->item->get_id_category(), $search_category_children_options,
+			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['form.category'], $this->item->get_id_category(), $search_category_children_options,
 				array('description' => $this->lang['smallads.select.category'])
 			));
 		}
@@ -138,14 +137,14 @@ class SmalladsItemFormController extends ModuleController
 			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('summary', StringVars::replace_vars($this->form_lang['form.summary'], array('number' =>SmalladsConfig::load()->get_characters_number_to_cut())), $this->item->get_summary(),
+		$fieldset->add_field(new FormFieldRichTextEditor('summary', StringVars::replace_vars($this->lang['form.summary'], array('number' =>SmalladsConfig::load()->get_characters_number_to_cut())), $this->item->get_summary(),
 			array(
 				'rows' => 3,
 				'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enable_summary', false) : !$this->item->get_summary_enabled())
 			)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->form_lang['form.content'], $this->item->get_content(),
+		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['form.content'], $this->item->get_content(),
 			array('rows' => 15, 'required' => true)
 		));
 
@@ -169,13 +168,13 @@ class SmalladsItemFormController extends ModuleController
 				else if (!is_array($location_value))
 					$location = $location_value;
 
-				$fieldset->add_field(new GoogleMapsFormFieldSimpleAddress('location', $this->county_lang['location'], $location,
-					array('description' => $this->county_lang['location.clue'])
+				$fieldset->add_field(new GoogleMapsFormFieldSimpleAddress('location', $this->lang['location'], $location,
+					array('description' => $this->lang['location.clue'])
 				));
 			}
 			else {
 				$location = $this->item->get_location();
-				$fieldset->add_field(new FormFieldSimpleSelectChoice('location', $this->county_lang['county'], $location, $this->list_counties(),
+				$fieldset->add_field(new FormFieldSimpleSelectChoice('location', $this->lang['county'], $location, $this->list_counties(),
 					array(
 						'events' => array('change' =>
 							'if (HTMLForms.getField("location").getValue() == "other") {
@@ -187,16 +186,16 @@ class SmalladsItemFormController extends ModuleController
 					)
 				));
 
-				$fieldset->add_field(new FormFieldTextEditor('other_location', $this->county_lang['other.country'], $this->item->get_other_location(),
+				$fieldset->add_field(new FormFieldTextEditor('other_location', $this->lang['other.country'], $this->item->get_other_location(),
 					array(
-						'description' => $this->county_lang['other.country.explain'],
+						'description' => $this->lang['other.country.explain'],
 						'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_location', false) : $this->item->get_location() != 'other')
 					)
 				));
 			}
 		}
 
-		$other_fieldset = new FormFieldsetMultitabsHTML('other', $this->form_lang['form.options'],
+		$other_fieldset = new FormFieldsetMultitabsHTML('other', $this->lang['form.options'],
 			array('css_class' => 'tabs tabs-animation')
 		);
 		$form->add_fieldset($other_fieldset);
@@ -211,7 +210,7 @@ class SmalladsItemFormController extends ModuleController
 			));
 		}
 
-		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', $this->form_lang['form.display.author'], $this->item->get_displayed_author_name(),
+		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', $this->lang['form.display.author'], $this->item->get_displayed_author_name(),
 			array(
 				'events' => array('click' => '
 					if (HTMLForms.getField("displayed_author_name").getValue()) {
@@ -246,11 +245,11 @@ class SmalladsItemFormController extends ModuleController
 			'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_enabled_author_name_customization', false) : !$this->item->is_displayed_author_name() || !$this->item->is_enabled_author_name_customization())
 		)));
 
-		$other_fieldset->add_field(KeywordsService::get_keywords_manager()->get_form_field($this->item->get_id(), 'keywords', $this->form_lang['form.keywords'],
-			array('description' => $this->form_lang['form.keywords.clue'])
+		$other_fieldset->add_field(KeywordsService::get_keywords_manager()->get_form_field($this->item->get_id(), 'keywords', $this->lang['form.keywords'],
+			array('description' => $this->lang['form.keywords.clue'])
 		));
 
-		$other_fieldset->add_field(new FormFieldSelectSources('sources', $this->form_lang['form.sources'], $this->item->get_sources()));
+		$other_fieldset->add_field(new FormFieldSelectSources('sources', $this->lang['form.sources'], $this->item->get_sources()));
 
 		$other_fieldset->add_field(new SmalladsFormFieldCarousel('carousel', $this->lang['smallads.form.carousel'], $this->item->get_carousel()));
 
@@ -320,7 +319,7 @@ class SmalladsItemFormController extends ModuleController
 			}
 		}
 
-		$publication_fieldset = new FormFieldsetMultitabsHTML('publication', $this->form_lang['form.publication'],
+		$publication_fieldset = new FormFieldsetMultitabsHTML('publication', $this->lang['form.publication'],
 			array('css_class' => 'tabs tabs-animation')
 		);
 		$form->add_fieldset($publication_fieldset);
@@ -342,22 +341,22 @@ class SmalladsItemFormController extends ModuleController
 		if (CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation())
 		{
 
-			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->form_lang['form.creation.date'], $this->item->get_creation_date(),
+			$publication_fieldset->add_field(new FormFieldDateTime('creation_date', $this->lang['form.creation.date'], $this->item->get_creation_date(),
 				array('required' => true)
 			));
 
 			if (!$this->item->is_published())
 			{
-				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->form_lang['form.update.creation.date'], false,
+				$publication_fieldset->add_field(new FormFieldCheckbox('update_creation_date', $this->lang['form.update.creation.date'], false,
 					array('hidden' => $this->item->get_status() != SmalladsItem::NOT_PUBLISHED)
 				));
 			}
 
-			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publication_state', $this->form_lang['form.publication'], $this->item->get_publication_state(),
+			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publication_state', $this->lang['form.publication'], $this->item->get_publication_state(),
 				array(
-					new FormFieldSelectChoiceOption($this->form_lang['form.publication.draft'], SmalladsItem::NOT_PUBLISHED),
-					new FormFieldSelectChoiceOption($this->form_lang['form.publication.now'], SmalladsItem::PUBLISHED_NOW),
-					new FormFieldSelectChoiceOption($this->form_lang['form.publication.deffered'], SmalladsItem::PUBLICATION_DATE),
+					new FormFieldSelectChoiceOption($this->lang['form.publication.draft'], SmalladsItem::NOT_PUBLISHED),
+					new FormFieldSelectChoiceOption($this->lang['form.publication.now'], SmalladsItem::PUBLISHED_NOW),
+					new FormFieldSelectChoiceOption($this->lang['form.publication.deffered'], SmalladsItem::PUBLICATION_DATE),
 				),
 				array(
 					'events' => array('change' => '
@@ -376,11 +375,11 @@ class SmalladsItemFormController extends ModuleController
 				)
 			));
 
-			$publication_fieldset->add_field($publishing_start_date = new FormFieldDateTime('publishing_start_date', $this->form_lang['form.start.date'], ($this->item->get_publishing_start_date() === null ? new Date() : $this->item->get_publishing_start_date()),
+			$publication_fieldset->add_field($publishing_start_date = new FormFieldDateTime('publishing_start_date', $this->lang['form.start.date'], ($this->item->get_publishing_start_date() === null ? new Date() : $this->item->get_publishing_start_date()),
 				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->item->get_publication_state() != SmalladsItem::PUBLICATION_DATE)))
 			));
 
-			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->form_lang['form.enable.end.date'], $this->item->enabled_end_date(),
+			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->lang['form.enable.end.date'], $this->item->enabled_end_date(),
 				array(
 					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->item->get_publication_state() != SmalladsItem::PUBLICATION_DATE)),
 					'events' => array('click' => '
@@ -393,7 +392,7 @@ class SmalladsItemFormController extends ModuleController
 				)
 			));
 
-			$publication_fieldset->add_field($publishing_end_date = new FormFieldDateTime('publishing_end_date', $this->form_lang['form.end.date'], ($this->item->get_publishing_end_date() === null ? new date() : $this->item->get_publishing_end_date()),
+			$publication_fieldset->add_field($publishing_end_date = new FormFieldDateTime('publishing_end_date', $this->lang['form.end.date'], ($this->item->get_publishing_end_date() === null ? new date() : $this->item->get_publishing_end_date()),
 				array('hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_end_date_enable', false) : !$this->item->enabled_end_date()))
 			));
 
@@ -540,7 +539,7 @@ class SmalladsItemFormController extends ModuleController
 
 		$options[] = new FormFieldSelectChoiceOption('', '');
 
-		$options[] = new FormFieldSelectChoiceOption($this->county_lang['other.country'], 'other');
+		$options[] = new FormFieldSelectChoiceOption($this->lang['other.country'], 'other');
 
 		if($installed_lang == 'Français')
 		{
@@ -548,37 +547,37 @@ class SmalladsItemFormController extends ModuleController
 			{
 				if ($i == 20)
 				{
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.2A'], '2A');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.2B'], '2B');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.2A'], '2A');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.2B'], '2B');
 				}
 				else if ($i == 96)
 				{
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.971'], '971');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.972'], '972');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.973'], '973');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.974'], '974');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.975'], '975');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.976'], '976');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.977'], '977');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.978'], '978');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.971'], '971');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.972'], '972');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.973'], '973');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.974'], '974');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.975'], '975');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.976'], '976');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.977'], '977');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.978'], '978');
 				}
 				else if ($i == 97)
 				{
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.984'], '984');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.986'], '986');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.987'], '987');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.988'], '974');
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.989'], '989');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.984'], '984');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.986'], '986');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.987'], '987');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.988'], '974');
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.989'], '989');
 				}
 				else
-					$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.' . $i], $i);
+					$options[] = new FormFieldSelectChoiceOption($this->lang['county.' . $i], $i);
 			}
 		}
 		else if ($installed_lang == 'English')
 		{
 			for ($i = 1; $i <= 48 ; $i++)
 			{
-				$options[] = new FormFieldSelectChoiceOption($this->county_lang['county.' . $i], $i);
+				$options[] = new FormFieldSelectChoiceOption($this->lang['county.' . $i], $i);
 			}
 		}
 
