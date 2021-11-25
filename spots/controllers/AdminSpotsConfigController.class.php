@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -19,7 +19,6 @@ class AdminSpotsConfigController extends AdminModuleController
 	private $submit_button;
 
 	private $lang;
-	private $form_lang;
 
 	/**
 	 * @var SpotsConfig
@@ -50,15 +49,17 @@ class AdminSpotsConfigController extends AdminModuleController
 	private function init()
 	{
 		$this->config = SpotsConfig::load();
-		$this->lang = LangLoader::get('common', 'spots');
-		$this->form_lang = LangLoader::get('form-lang');
+		$this->lang = array_merge(
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'spots')
+		);
 	}
 
 	private function build_form()
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('config', $this->form_lang['form.configuration']);
+		$fieldset = new FormFieldsetHTML('config', $this->lang['form.configuration']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('module_name', $this->lang['spots.module.name'], $this->config->get_module_name()));
@@ -76,22 +77,22 @@ class AdminSpotsConfigController extends AdminModuleController
 
 		$fieldset->add_field(new FormFieldSpacer('default_config', ''));
 
-        $fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->form_lang['form.items.per.page'], $this->config->get_items_per_page(),
+        $fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->lang['form.items.per.page'], $this->config->get_items_per_page(),
 			array('min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('new_window', $this->form_lang['form.new.window'], $this->config->get_new_window(),
+		$fieldset->add_field(new FormFieldCheckbox('new_window', $this->lang['form.new.window'], $this->config->get_new_window(),
 			array(
-	            'description' => $this->form_lang['form.new.window.clue'],
+	            'description' => $this->lang['form.new.window.clue'],
 				'class' => 'custom-checkbox'
         	)
 		));
 
-        $fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->form_lang['form.display.type'], $this->config->get_display_type(),
+        $fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->lang['form.display.type'], $this->config->get_display_type(),
 			array(
-				new FormFieldSelectChoiceOption($this->form_lang['form.display.type.grid'], SpotsConfig::GRID_VIEW, array('data_option_icon' => 'fa fa-th-large')),
-				new FormFieldSelectChoiceOption($this->form_lang['form.display.type.table'], SpotsConfig::TABLE_VIEW, array('data_option_icon' => 'fa fa-table'))
+				new FormFieldSelectChoiceOption($this->lang['form.display.type.grid'], SpotsConfig::GRID_VIEW, array('data_option_icon' => 'fa fa-th-large')),
+				new FormFieldSelectChoiceOption($this->lang['form.display.type.table'], SpotsConfig::TABLE_VIEW, array('data_option_icon' => 'fa fa-table'))
 			),
 			array(
 				'select_to_list' => true,
@@ -105,7 +106,7 @@ class AdminSpotsConfigController extends AdminModuleController
 			)
 		));
 
-        $fieldset->add_field(new FormFieldNumberEditor('items_per_row', $this->form_lang['form.items.per.row'], $this->config->get_items_per_row(),
+        $fieldset->add_field(new FormFieldNumberEditor('items_per_row', $this->lang['form.items.per.row'], $this->config->get_items_per_row(),
 			array(
 				'min' => 1, 'max' => 4, 'required' => true,
 				'hidden' => $this->config->get_display_type() !== SpotsConfig::GRID_VIEW
@@ -113,35 +114,35 @@ class AdminSpotsConfigController extends AdminModuleController
 			array(new FormFieldConstraintIntegerRange(1, 4))
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('default_content', $this->form_lang['form.item.default.content'], $this->config->get_default_content(),
+		$fieldset->add_field(new FormFieldRichTextEditor('default_content', $this->lang['form.item.default.content'], $this->config->get_default_content(),
 			array('rows' => 8, 'cols' => 47)
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('categories_per_page', $this->form_lang['form.categories.per.page'], $this->config->get_categories_per_page(),
+		$fieldset->add_field(new FormFieldNumberEditor('categories_per_page', $this->lang['form.categories.per.page'], $this->config->get_categories_per_page(),
 			array('min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
 
-		$fieldset->add_field(new FormFieldNumberEditor('categories_per_row', $this->form_lang['form.categories.per.row'], $this->config->get_categories_per_row(),
+		$fieldset->add_field(new FormFieldNumberEditor('categories_per_row', $this->lang['form.categories.per.row'], $this->config->get_categories_per_row(),
 			array('min' => 1, 'max' => 4, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 4))
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->form_lang['form.root.category.description'], $this->config->get_root_category_description(),
+		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->lang['form.root.category.description'], $this->config->get_root_category_description(),
 			array('rows' => 8, 'cols' => 47)
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->form_lang['form.authorizations'],
-			array('description' => $this->form_lang['form.authorizations.clue'])
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations'],
+			array('description' => $this->lang['form.authorizations.clue'])
 		);
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($this->form_lang['form.authorizations.read'], Category::READ_AUTHORIZATIONS),
-			new ActionAuthorization($this->form_lang['form.authorizations.write'], Category::WRITE_AUTHORIZATIONS),
-			new ActionAuthorization($this->form_lang['form.authorizations.contribution'], Category::CONTRIBUTION_AUTHORIZATIONS),
-			new ActionAuthorization($this->form_lang['form.authorizations.moderation'], Category::MODERATION_AUTHORIZATIONS),
-			new ActionAuthorization($this->form_lang['form.authorizations.categories'], Category::CATEGORIES_MANAGEMENT_AUTHORIZATIONS)
+			new ActionAuthorization($this->lang['form.authorizations.read'], Category::READ_AUTHORIZATIONS),
+			new ActionAuthorization($this->lang['form.authorizations.write'], Category::WRITE_AUTHORIZATIONS),
+			new ActionAuthorization($this->lang['form.authorizations.contribution'], Category::CONTRIBUTION_AUTHORIZATIONS),
+			new ActionAuthorization($this->lang['form.authorizations.moderation'], Category::MODERATION_AUTHORIZATIONS),
+			new ActionAuthorization($this->lang['form.authorizations.categories'], Category::CATEGORIES_MANAGEMENT_AUTHORIZATIONS)
 		));
 		$auth_setter = new FormFieldAuthorizationsSetter('authorizations', $auth_settings);
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
@@ -176,7 +177,7 @@ class AdminSpotsConfigController extends AdminModuleController
 		SpotsConfig::save();
 		CategoriesService::get_categories_manager()->regenerate_cache();
 
-		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->form_lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>
