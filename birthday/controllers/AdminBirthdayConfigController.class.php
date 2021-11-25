@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -53,8 +53,8 @@ class AdminBirthdayConfigController extends AdminModuleController
 	private function init()
 	{
 		$this->lang = array_merge(
-			LangLoader::get('common', 'birthday'),
-			LangLoader::get('form-lang')
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'birthday')
 		);
 		$this->config = BirthdayConfig::load();
 	}
