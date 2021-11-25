@@ -27,12 +27,12 @@ class QuotesPendingItemsController extends ModuleController
 
 	public function init()
 	{
-		$this->lang = LangLoader::get('common', 'quotes');
+		$this->lang = array_merge(
+			LangLoader::get('common-lang'),
+			LangLoader::get('common', 'quotes')
+		);
 		$this->view = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
-		$this->view->add_lang(array_merge(
-			$this->lang,
-			LangLoader::get('common-lang')
-		));
+		$this->view->add_lang($this->lang);
 	}
 
 	public function build_view(HTTPRequestCustom $request)

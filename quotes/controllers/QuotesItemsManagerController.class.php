@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 26
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -32,33 +32,35 @@ class QuotesItemsManagerController extends ModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'quotes');
+		$this->lang = array_merge(
+			LangLoader::get('common-lang'),
+			LangLoader::get('common', 'quotes')
+		);
 		$this->view = new StringTemplate('# INCLUDE TABLE #');
 	}
 
 	private function build_table()
 	{
-		$common_lang = LangLoader::get('common-lang');
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
 		$table_model = new SQLHTMLTableModel(QuotesSetup::$quotes_table, 'items-manager', array(
 			new HTMLTableColumn($this->lang['item'], 'quote'),
-			new HTMLTableColumn($common_lang['common.category'], 'id_category'),
-			new HTMLTableColumn($common_lang['common.author'], 'author'),
-			new HTMLTableColumn($common_lang['common.creation.date'], 'creation_date'),
-			new HTMLTableColumn($common_lang['common.status.approved'], 'approved'),
-			new HTMLTableColumn($common_lang['common.moderation'], '', array('css_class'=>'col-small', 'sr-only' => true))
+			new HTMLTableColumn($this->lang['common.category'], 'id_category'),
+			new HTMLTableColumn($this->lang['common.author'], 'author'),
+			new HTMLTableColumn($this->lang['common.creation.date'], 'creation_date'),
+			new HTMLTableColumn($this->lang['common.status.approved'], 'approved'),
+			new HTMLTableColumn($this->lang['common.moderation'], '', array('css_class'=>'col-small', 'sr-only' => true))
 		), new HTMLTableSortingRule('creation_date', HTMLTableSortingRule::DESC));
 
 		$table_model->set_filters_menu_title($this->lang['quotes.filter.items']);
-		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('creation_date', 'filter1', $common_lang['common.creation.date'] . ' ' . TextHelper::lcfirst($common_lang['common.minimum'])));
-		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('creation_date', 'filter2', $common_lang['common.creation.date'] . ' ' . TextHelper::lcfirst($common_lang['common.maximum'])));
-		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $common_lang['common.author']));
+		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('creation_date', 'filter1', $this->lang['common.creation.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
+		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('creation_date', 'filter2', $this->lang['common.creation.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
+		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $this->lang['common.author']));
 		if ($display_categories)
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
 
-		$status_list = array(Item::PUBLISHED => $common_lang['common.status.approved'], Item::NOT_PUBLISHED => $common_lang['common.status.draft']);
-		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $common_lang['common.status.publication'], $status_list));
+		$status_list = array(Item::PUBLISHED => $this->lang['common.status.approved'], Item::NOT_PUBLISHED => $this->lang['common.status.draft']);
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status.publication'], $status_list));
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
@@ -84,10 +86,10 @@ class QuotesItemsManagerController extends ModuleController
 
 			$results[] = new HTMLTableRow(array(
 				new HTMLTableRowCell($quote->get_content(), 'left'),
-				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? $common_lang['common.none.alt'] : $category->get_name()))),
+				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? $this->lang['common.none.alt'] : $category->get_name()))),
 				new HTMLTableRowCell(new LinkHTMLElement(QuotesUrlBuilder::display_writer_items($quote->get_rewrited_writer()), $quote->get_writer())),
 				new HTMLTableRowCell($quote->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
-				new HTMLTableRowCell($quote->is_approved() ? $common_lang['common.yes'] : $common_lang['common.no']),
+				new HTMLTableRowCell($quote->is_approved() ? $this->lang['common.yes'] : $this->lang['common.no']),
 				new HTMLTableRowCell($edit_link->display() . $delete_link->display(), 'controls')
 			));
 		}

@@ -50,8 +50,8 @@ class AdminQuotesConfigController extends AdminModuleController
 	{
 		$this->config = QuotesConfig::load();
 		$this->lang = array_merge(
-			LangLoader::get('common', 'quotes'),
-			LangLoader::get('form-lang')
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'quotes')
 		);
 	}
 

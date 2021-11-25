@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 12
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -37,7 +37,10 @@ class QuotesModuleMiniMenu extends ModuleMiniMenu
 		$view = new FileTemplate('quotes/QuotesModuleMiniMenu.tpl');
 
 		//Assign the lang file to the tpl
-		$view->add_lang(array_merge(LangLoader::get('common', 'quotes'), LangLoader::get('common-lang')));
+		$view->add_lang(array_merge(
+			LangLoader::get('common-lang'),
+			LangLoader::get('common', 'quotes')
+		));
 
 		//Load module cache
 		$quotes_cache = QuotesCache::load();
