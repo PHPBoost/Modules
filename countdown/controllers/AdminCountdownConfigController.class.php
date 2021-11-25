@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -31,7 +31,6 @@ class AdminCountdownConfigController extends AdminModuleController
 		$this->build_form();
 
 		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
-		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -50,8 +49,8 @@ class AdminCountdownConfigController extends AdminModuleController
 	private function init()
 	{
 		$this->lang = array_merge(
-			LangLoader::get('common', 'countdown'),
-			LangLoader::get('form-lang')
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'countdown')
 		);
 		$this->config = CountdownConfig::load();
 	}
