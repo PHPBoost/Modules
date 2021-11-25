@@ -28,7 +28,6 @@ class AdminBirthdayConfigController extends AdminModuleController
 		$this->build_form();
 
 		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE USER_BORN_DISABLED_MSG # # INCLUDE FORM #');
-		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -30,7 +30,6 @@ class AdminLastcomsConfigController extends AdminModuleController
 		$this->build_form();
 
 		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
-		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -46,8 +45,8 @@ class AdminLastcomsConfigController extends AdminModuleController
 	private function init()
 	{
 		$this->lang = array_merge(
-			LangLoader::get('common', 'lastcoms'),
-			LangLoader::get('form-lang')
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'lastcoms')
 		);
 		$this->config = LastcomsConfig::load();
 	}
