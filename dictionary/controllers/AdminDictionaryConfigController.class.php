@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 11 25
  * @since       PHPBoost 4.1 - 2016 02 15
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -20,7 +20,6 @@ class AdminDictionaryConfigController extends AdminModuleController
 	private $submit_button;
 
 	private $lang;
-	private $form_lang;
 
 	/**
 	 * @var ForumConfig
@@ -34,7 +33,6 @@ class AdminDictionaryConfigController extends AdminModuleController
 		$this->build_form();
 
 		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
-		$view->add_lang($this->lang);
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -51,8 +49,10 @@ class AdminDictionaryConfigController extends AdminModuleController
 	private function init()
 	{
 		$this->config = DictionaryConfig::load();
-		$this->lang = LangLoader::get('common', 'dictionary');
-		$this->form_lang = LangLoader::get('form-lang');
+		$this->lang = array_merge(
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'dictionary')
+		);
 	}
 
 	private function build_form()
@@ -62,23 +62,23 @@ class AdminDictionaryConfigController extends AdminModuleController
 		$fieldset = new FormFieldsetHTML('config', $this->lang['dictionary.config.module.title']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->form_lang['form.items.per.page'], $this->config->get_items_per_page(),
+		$fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->lang['form.items.per.page'], $this->config->get_items_per_page(),
 			array('class' => 'top-field', 'min' => 1, 'max' => 50, 'required' => true),
 			array(new FormFieldConstraintIntegerRange(1, 50))
 		));
 
-		$fieldset->add_field(new FormFieldMultipleSelectChoice('forbidden_tags', $this->form_lang['form.forbidden.tags'], $this->config->get_forbidden_tags(), $this->generate_forbidden_tags_option(),
+		$fieldset->add_field(new FormFieldMultipleSelectChoice('forbidden_tags', $this->lang['form.forbidden.tags'], $this->config->get_forbidden_tags(), $this->generate_forbidden_tags_option(),
 			array('size' => 10)
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->form_lang['form.authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($this->form_lang['form.authorizations.read'], DictionaryAuthorizationsService::READ_AUTHORIZATIONS),
-			new VisitorDisabledActionAuthorization($this->form_lang['form.authorizations.write'], DictionaryAuthorizationsService::WRITE_AUTHORIZATIONS),
-			new VisitorDisabledActionAuthorization($this->form_lang['form.authorizations.contribution'], DictionaryAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
-			new MemberDisabledActionAuthorization($this->form_lang['form.authorizations.moderation'], DictionaryAuthorizationsService::MODERATION_AUTHORIZATIONS)
+			new ActionAuthorization($this->lang['form.authorizations.read'], DictionaryAuthorizationsService::READ_AUTHORIZATIONS),
+			new VisitorDisabledActionAuthorization($this->lang['form.authorizations.write'], DictionaryAuthorizationsService::WRITE_AUTHORIZATIONS),
+			new VisitorDisabledActionAuthorization($this->lang['form.authorizations.contribution'], DictionaryAuthorizationsService::CONTRIBUTION_AUTHORIZATIONS),
+			new MemberDisabledActionAuthorization($this->lang['form.authorizations.moderation'], DictionaryAuthorizationsService::MODERATION_AUTHORIZATIONS)
 		));
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));
@@ -116,7 +116,7 @@ class AdminDictionaryConfigController extends AdminModuleController
 
 		DictionaryConfig::save();
 
-		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->form_lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>
