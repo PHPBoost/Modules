@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 16
+ * @version     PHPBoost 6.0 - last update: 2021 11 26
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -50,13 +50,13 @@ class AdminServerStatusServersListController extends AdminController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'ServerStatus');
-		$this->view = new FileTemplate('ServerStatus/AdminServerStatusServersListController.tpl');
-		$this->view->add_lang(array_merge(
-			$this->lang,
+		$this->lang = array_merge(
 			LangLoader::get('common-lang'),
-			LangLoader::get('form-lang')
-		));
+			LangLoader::get('form-lang'),
+			LangLoader::get('common', 'ServerStatus')
+		);
+		$this->view = new FileTemplate('ServerStatus/AdminServerStatusServersListController.tpl');
+		$this->view->add_lang($this->lang);
 		$this->config = ServerStatusConfig::load();
 	}
 

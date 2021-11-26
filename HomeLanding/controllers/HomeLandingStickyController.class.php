@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 04 11
+ * @version     PHPBoost 6.0 - last update: 2021 11 26
  * @since       PHPBoost 5.0 - 2016 01 02
 */
 
 class HomeLandingStickyController extends ModuleController
 {
     private $lang;
-    private $template;
+    private $view;
 
     public function execute(HTTPRequestCustom $request)
     {
@@ -18,14 +18,14 @@ class HomeLandingStickyController extends ModuleController
 
         $this->init();
 
-        return $this->build_response($this->template);
+        return $this->build_response($this->view);
     }
 
     private function init()
     {
-        $this->template = new FileTemplate('HomeLanding/HomeLandingStickyController.tpl');
+        $this->view = new FileTemplate('HomeLanding/HomeLandingStickyController.tpl');
         $this->lang = LangLoader::get('sticky', 'HomeLanding');
-        $this->template->add_lang($this->lang);
+        $this->view->add_lang($this->lang);
     }
 
     private function check_authorization()
@@ -46,7 +46,7 @@ class HomeLandingStickyController extends ModuleController
 	    $breadcrumb = $graphical_environment->get_breadcrumb();
 	    $breadcrumb->add(Langloader::get_message('homelanding.module.title', 'common', 'HomeLanding'), HomeLandingUrlBuilder::home());
 	    $breadcrumb->add($this->lang['homelanding.sticky.title']);
-        $this->template->put_all(array(
+        $this->view->put_all(array(
             'STICKY_TITLE' => $config->get_sticky_title(),
             'STICKY_CONTENT' => FormatingHelper::second_parse($config->get_sticky_text())
         ));

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2021 11 26
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -25,22 +25,24 @@ class FluxItemsManagerController extends AdminModuleController
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'flux');
+		$this->lang = array_merge(
+			LangLoader::get('common-lang'),
+			LangLoader::get('common', 'flux')
+		);
 		$this->view = new StringTemplate('# INCLUDE table #');
 	}
 
 	private function build_table()
 	{
-		$common_lang = LangLoader::get('common-lang');
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
 		$table_model = new SQLHTMLTableModel(FluxSetup::$flux_table, 'table', array(
-			new HTMLTableColumn($common_lang['common.title'], 'title'),
-			new HTMLTableColumn($common_lang['common.category'], 'id_category'),
-			new HTMLTableColumn($common_lang['common.author'], 'display_name'),
-			new HTMLTableColumn($common_lang['common.creation.date'], 'creation_date'),
-			new HTMLTableColumn($common_lang['common.status'], 'published'),
-			new HTMLTableColumn($common_lang['common.moderation'], '', array('sr-only' => true))
+			new HTMLTableColumn($this->lang['common.title'], 'title'),
+			new HTMLTableColumn($this->lang['common.category'], 'id_category'),
+			new HTMLTableColumn($this->lang['common.author'], 'display_name'),
+			new HTMLTableColumn($this->lang['common.creation.date'], 'creation_date'),
+			new HTMLTableColumn($this->lang['common.status'], 'published'),
+			new HTMLTableColumn($this->lang['common.moderation'], '', array('sr-only' => true))
 		), new HTMLTableSortingRule('creation_date', HTMLTableSortingRule::DESC));
 
 		$table_model->set_filters_menu_title($this->lang['flux.filter.items']);
@@ -79,7 +81,7 @@ class FluxItemsManagerController extends AdminModuleController
 
 			$row = array(
 				new HTMLTableRowCell(new LinkHTMLElement(FluxUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'left'),
-				new HTMLTableRowCell(new LinkHTMLElement(FluxUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? $common_lang['common.none.alt'] : $category->get_name()))),
+				new HTMLTableRowCell(new LinkHTMLElement(FluxUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), ($category->get_id() == Category::ROOT_CATEGORY ? $this->lang['common.none.alt'] : $category->get_name()))),
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
 				new HTMLTableRowCell($item->get_status()),
