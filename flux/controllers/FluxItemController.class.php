@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 11 28
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -59,7 +59,7 @@ class FluxItemController extends ModuleController
 		$path = parse_url($xml_url, PHP_URL_PATH);
 		$firstname = preg_replace("~[/.#=?]~", "-", $path);
 
-		$filename = PATH_TO_ROOT . '/flux/xml/' . $lastname . $firstname . '.xml';
+		$filename = '/flux/xml/' . $lastname . $firstname . '.xml';
 
 		if ($item->is_published())
 		{
@@ -67,16 +67,16 @@ class FluxItemController extends ModuleController
 			{
 				// load feed items in file
 				$content = file_get_contents($xml_url);
-				file_put_contents($filename, $content);
+				file_put_contents(PATH_TO_ROOT . $filename, $content);
 				$item->set_xml_path($filename);
 				FluxService::update($item);
 			}
 		}
 
 		// Read cache file
-		if(file_exists($filename))
+		if(file_exists(PATH_TO_ROOT . $filename))
 		{
-			$xml = simplexml_load_file($filename);
+			$xml = simplexml_load_file(PATH_TO_ROOT . $filename);
 			$items = array();
 			$items['title'] = array();
 			$items['link']  = array();

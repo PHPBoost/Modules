@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 11 28
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -161,7 +161,7 @@ class FluxCategoryController extends ModuleController
 			{
 				$this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
 
-				$xml = simplexml_load_file($item->get_xml_path());
+				$xml = simplexml_load_file(PATH_TO_ROOT . '/' . $item->get_xml_path());
 				$xml_items = array();
 				$xml_items['title'] = array();
 				$xml_items['link']  = array();
