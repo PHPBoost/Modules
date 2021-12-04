@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 12 20
+ * @version     PHPBoost 6.0 - last update: 2021 11 29
  * @since       PHPBoost 4.1 - 2012 11 15
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -12,8 +12,6 @@
 ####################################################
 #                      French                      #
 ####################################################
-
-$lang = array();
 
 $lang['category.1.name'] = 'Informatique';
 $lang['category.2.name'] = 'Divers';
