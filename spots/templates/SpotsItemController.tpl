@@ -166,7 +166,7 @@
 			# IF C_LOCATION #
 				var spot = {lat: {LATITUDE}, lng: {LONGITUDE}};
 			# ELSE #
-				var spot = {lat: {DEFAULT_LAT}, lng: {DEFAULT_LNG}};
+				var spot = {lat: {CATEGORY_LATITUDE}, lng: {CATEGORY_LONGITUDE}};
 			# ENDIF #
 			var map;
 			function initMap() {
@@ -185,7 +185,7 @@
 					# IF C_NEW_ADDRESS #
 						origin = {lat: {NEW_LAT}, lng: {NEW_LNG}}
 					# ELSE #
-						origin = {lat: {DEFAULT_LAT}, lng: {DEFAULT_LNG}}
+						origin = {lat: {CATEGORY_LATITUDE}, lng: {CATEGORY_LONGITUDE}}
 					# ENDIF #
 
 				calculate = function(){

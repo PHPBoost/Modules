@@ -183,6 +183,12 @@
 
 	<script>
 		var map = new L.Map('map', {
+    		# IF C_ROOT_CATEGORY #
+				center: new L.LatLng({DEFAULT_LAT}, {DEFAULT_LNG}),
+			# ELSE #
+				center: new L.LatLng({CATEGORY_LATITUDE}, {CATEGORY_LONGITUDE}),
+			# ENDIF #
+			zoom: 12,
 			maxZoom: 18,
 			minZoom: 1,
 		});

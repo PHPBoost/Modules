@@ -480,6 +480,8 @@ class SpotsItem
         $loca_lng_min = ($loca_lng - $loca_lng_deg)*60;
         $loca_lng_sec = ($loca_lng_min - intval($loca_lng))*60;
 
+		$category_address_values = @unserialize($category->get_category_address());
+
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
 			array(
@@ -516,6 +518,9 @@ class SpotsItem
 			'CATEGORY_NAME'        => $category->get_name(),
 			'CATEGORY_COLOR'   	   => !$category->get_id() == Category::ROOT_CATEGORY ? $category->get_color() : $config->get_default_color(),
 			'CATEGORY_INNER_ICON'  => !$category->get_id() == Category::ROOT_CATEGORY  ? (!empty($category->get_inner_icon()) ? $category->get_inner_icon() : $config->get_default_inner_icon()) : $config->get_default_inner_icon(),
+			'CATEGORY_LATITUDE'    => !empty($category->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
+			'CATEGORY_LONGITUDE'   => !empty($category->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
+
 			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id())->rel(),
 
 			// Item

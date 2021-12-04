@@ -3,36 +3,20 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 26
+ * @version     PHPBoost 6.0 - last update: 2021 12 04
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
-class SpotsItemFormController extends ModuleController
+class SpotsItemFormController extends DefaultModuleController
 {
-	/**
-	 * @var HTMLForm
-	 */
-	private $form;
-	/**
-	 * @var FormButtonSubmit
-	 */
-	private $submit_button;
-
-	private $lang;
-    private $config;
-
 	private $item;
 	private $is_new_item;
 
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
-
 		$this->check_authorizations();
 
 		$this->build_form($request);
-
-		$view = new StringTemplate('# INCLUDE FORM #');
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -41,18 +25,9 @@ class SpotsItemFormController extends ModuleController
 			$this->redirect();
 		}
 
-		$view->put('FORM', $this->form->display());
+		$this->view->put('CONTENT', $this->form->display());
 
-		return $this->build_response($view);
-	}
-
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('form-lang'),
-			LangLoader::get('common', 'spots')
-		);
-        $this->config = SpotsConfig::load();
+		return $this->build_response($this->view);
 	}
 
 	private function build_form(HTTPRequestCustom $request)
