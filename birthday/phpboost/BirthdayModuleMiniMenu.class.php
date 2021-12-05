@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 05
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -26,7 +26,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 
 		if (BirthdayAuthorizationsService::check_authorizations()->read() && !empty($user_born_field) && $user_born_field['display'])
 		{
-			$lang = LangLoader::get('common', 'birthday');
+			$lang = LangLoader::get_all_langs('birthday');
 
 			$view = new FileTemplate('birthday/BirthdayModuleMiniMenu.tpl');
 			$view->add_lang($lang);
@@ -58,7 +58,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 		}
 		else if (AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
 		{
-			return MessageHelper::display(LangLoader::get_message('birthday.user.born.field.disabled', 'common', 'birthday'), MessageHelper::WARNING)->render();
+			return MessageHelper::display($lang['birthday.user.born.field.disabled'], MessageHelper::WARNING)->render();
 		}
 		return '';
 	}
