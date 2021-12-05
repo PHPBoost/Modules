@@ -231,7 +231,6 @@ class SpotsCategoryController extends DefaultModuleController
 	public static function get_view()
 	{
 		$object = new self();
-		$object->init();
 		$object->check_authorizations();
 		$object->build_view(AppContext::get_request());
 		return $object->view;
