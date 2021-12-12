@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 04
+ * @version     PHPBoost 6.0 - last update: 2021 12 12
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -83,10 +83,10 @@ class SpotsCategoryController extends DefaultModuleController
 		$root_category = $this->get_category()->get_id() == Category::ROOT_CATEGORY;
 
 		if(!$root_category){
-			$category_address_values = @unserialize($this->get_category()->get_category_address());
+			$category_address_values = TextHelper::deserialize($this->get_category()->get_category_address());
 			$this->view->put_all(array(
-				'CATEGORY_LATITUDE' => !empty($this->get_category()->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
-				'CATEGORY_LONGITUDE' => !empty($this->get_category()->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
+				'CATEGORY_LATITUDE' => (!empty($this->get_category()->get_category_address()) || TextHelper::is_serialized($this->get_category()->get_category_address())) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
+				'CATEGORY_LONGITUDE' => (!empty($this->get_category()->get_category_address()) || TextHelper::is_serialized($this->get_category()->get_category_address())) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
 			));
 		}
 

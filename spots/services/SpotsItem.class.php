@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 27
+ * @version     PHPBoost 6.0 - last update: 2021 12 12
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -480,7 +480,7 @@ class SpotsItem
         $loca_lng_min = ($loca_lng - $loca_lng_deg)*60;
         $loca_lng_sec = ($loca_lng_min - intval($loca_lng))*60;
 
-		$category_address_values = @unserialize($category->get_category_address());
+		$category_address_values = TextHelper::deserialize($category->get_category_address());
 
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),

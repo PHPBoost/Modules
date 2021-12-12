@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 12 12
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -708,19 +708,22 @@ class SmalladsItem
 		$carousel         = $this->get_carousel();
 		$nbr_pictures	  = count($carousel);
 
-		if($this->config->is_googlemaps_available()) {
-			$unserialized_value = @unserialize($this->get_location());
-			$location_value = $unserialized_value !== false ? $unserialized_value : $this->get_location();
+		if($this->config->is_googlemaps_available())
+		{
+			$location_value = TextHelper::deserialize($this->get_location());
 			$location = '';
 			if (is_array($location_value) && isset($location_value['address']))
 				$location = $location_value['address'];
 			else if (!is_array($location_value))
 				$location = $location_value;
-		} else
+		}
+		else
+		{
 			if(is_numeric($this->get_location()))
 				$location = LangLoader::get_message('county.' . $this->get_location(), 'counties', 'smallads');
 			else
 				$location = $this->get_location();
+		}
 
 		if($this->config->is_user_allowed())
 			$contact_level = AppContext::get_current_user()->check_level(User::VISITOR_LEVEL);
