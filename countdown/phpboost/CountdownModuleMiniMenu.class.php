@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 12
+ * @version     PHPBoost 6.0 - last update: 2021 12 13
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -36,9 +36,9 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_content()
 	{
-		$lang = LangLoader::get('common', 'countdown');
+		$lang = LangLoader::get_all_langs('countdown');
 		$view = new FileTemplate('countdown/CountdownModuleMiniMenu.tpl');
-		$view->add_lang((array_merge($lang, LangLoader::get('date-lang'))));
+		$view->add_lang($lang);
 		MenuService::assign_positions_conditions($view, $this->get_block());
 		Menu::assign_common_template_variables($view);
 
