@@ -63,3 +63,9 @@
 		</article>
 	</div>
 </div>
+
+<script>
+	jQuery('document').ready(function(){
+		listorder.init();
+	});
+</script>
