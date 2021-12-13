@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 04
+ * @version     PHPBoost 6.0 - last update: 2021 12 13
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -12,13 +12,14 @@
 
 require_once('../kernel/begin.php');
 
-$lang = LangLoader::get('common', 'dictionary');
+$lang = LangLoader::get_all_langs('dictionary');
 
 define('TITLE', $lang['dictionary.module.title']);
 require_once('../kernel/header.php');
 
 $config = DictionaryConfig::load();
 $view = new FileTemplate('dictionary/dictionary.tpl');
+$view->add_lang($lang);
 
 $Bread_crumb->add($lang['dictionary.module.title'], url('dictionary.php'));
 
@@ -31,13 +32,6 @@ if (!empty($get_l_error))
 if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(POST, 'valid', false) || $id_get = retrieve(GET, 'edit', 0, TINTEGER))// ajout, previsualisation,edition.
 {
 	if(retrieve(GET, 'add', false)) $Bread_crumb->add($lang['dictionary.add.item'], url('dictionary.php?add=1'));
-	$view->add_lang(array_merge(
-		$lang,
-		LangLoader::get('common-lang'),
-		LangLoader::get('contribution-lang'),
-		LangLoader::get('form-lang'),
-		LangLoader::get('warning-lang')
-	));
 	$user_id = AppContext::get_current_user()->get_id();
 
 	if (!(DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution() || DictionaryAuthorizationsService::check_authorizations()->moderation()))

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 04
+ * @version     PHPBoost 6.0 - last update: 2021 12 13
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -13,9 +13,7 @@
 
 require_once('../admin/admin_begin.php');
 
-$lang = LangLoader::get('common', 'dictionary');
-$error_lang = array_merge($lang, LangLoader::get('errors'));
-$warning_lang = LangLoader::get('warning-lang');
+$lang = LangLoader::get_all_langs('dictionary');
 
 define('TITLE', $lang['dictionary.module.title']);
 require_once('../admin/admin_header.php');
@@ -23,13 +21,7 @@ require_once('../admin/admin_header.php');
 $config = DictionaryConfig::load();
 
 $view = new FileTemplate('dictionary/admin_dictionary_cats.tpl');
-$view->add_lang(array_merge(
-	$lang,
-	LangLoader::get('common-lang'),
-	LangLoader::get('category-lang'),
-	LangLoader::get('form-lang'),
-	$warning_lang
-));
+$view->add_lang($lang);
 
 $get_error = retrieve(GET, 'error', '');
 $get_l_error = retrieve(GET, 'erroru', '');
@@ -54,7 +46,7 @@ $view->put_all(array(
 
 if (!empty($get_l_error))
 {
-	$view->put('MESSAGE_HELPER', MessageHelper::display($error_lang[$get_l_error], MessageHelper::WARNING));
+	$view->put('MESSAGE_HELPER', MessageHelper::display($lang[$get_l_error], MessageHelper::WARNING));
 	$name = "";
 	$id = "";
 }
@@ -64,7 +56,7 @@ if (retrieve(GET, 'add', false))
 	$row = '';
 	if (!empty($get_l_error))
 	{
-		$view->put('MESSAGE_HELPER', MessageHelper::display($error_lang[$get_l_error], MessageHelper::WARNING));
+		$view->put('MESSAGE_HELPER', MessageHelper::display($lang[$get_l_error], MessageHelper::WARNING));
 		$name = "";
 
 		if ($id = retrieve(GET,'id_cat',false,TINTEGER))
@@ -82,7 +74,7 @@ if (retrieve(GET, 'add', false))
 	}
 	elseif (!empty($errstr))
 	{
-		$view->put('MESSAGE_HELPER', MessageHelper::display($warning_lang['warning.invalid.picture'], MessageHelper::NOTICE));
+		$view->put('MESSAGE_HELPER', MessageHelper::display($lang['warning.invalid.picture'], MessageHelper::NOTICE));
 		$name = "";
 		$id = "";
 	}
