@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 11
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -11,7 +11,7 @@ class HomeLandingAnchorsMenu
 {
     public static function get_anchors_menu_view()
 	{
-        $lang = LangLoader::get('common', 'HomeLanding');
+        $lang = LangLoader::get_all_langs('HomeLanding');
         $view = new FileTemplate('HomeLanding/pagecontent/anchors-menu.tpl');
         $view->add_lang($lang);
 		$config = HomeLandingConfig::load();

@@ -3,18 +3,13 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 06
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 6.0 - 2021 09 06
 */
 
-class AdminHomeLandingAddModulesController extends AdminModuleController
+class AdminHomeLandingAddModulesController extends DefaultAdminModuleController
 {
-	private $lang;
-
-	private $config;
 	private $features;
-
-	private $submit_button;
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -22,17 +17,13 @@ class AdminHomeLandingAddModulesController extends AdminModuleController
 
 		$this->build_form();
 
-		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
+		$this->view->put('CONTENT', $this->form->display());
 
-		$view->put('FORM', $this->form->display());
-
-		return new AdminHomeLandingDisplayResponse($view, $this->lang['homelanding.add.modules']);
+		return new AdminHomeLandingDisplayResponse($this->view, $this->lang['homelanding.add.modules']);
 	}
 
 	private function init()
 	{
-		$this->lang = LangLoader::get('common', 'HomeLanding');
-		$this->config = HomeLandingConfig::load();
 		$this->features = ModulesManager::get_activated_feature_modules('homelanding');
 	}
 
@@ -98,12 +89,11 @@ class AdminHomeLandingAddModulesController extends AdminModuleController
 		$modules_list = $this->config->get_modules();
 		$modules = array();
 
-		$add_directory = PATH_TO_ROOT . '/HomeLanding/additional/add/';
-		$scan_add = scandir($add_directory);
-		foreach ($scan_add as $key => $value)
+		$add_directory = new Folder(PATH_TO_ROOT . '/HomeLanding/additional/add/');
+		$add_files = $add_directory->get_files();
+		foreach ($add_files as $add_file)
 		{
-	      	if (!in_array($value,array('.', '..', '.empty')))
-				require_once($add_directory . $value);
+	      	require_once($add_file->get_path());
 		}
 
 		foreach ($modules_list as $module)

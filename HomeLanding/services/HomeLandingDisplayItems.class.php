@@ -25,9 +25,9 @@ class HomeLandingDisplayItems
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
-		$home_lang = LangLoader::get('common', 'HomeLanding');
-		$module_lang = LangLoader::get('common', $module_name);
-		$view->add_lang(array_merge($home_lang, $module_lang, LangLoader::get('common-lang')));
+		$home_lang = LangLoader::get_all_langs('HomeLanding');
+		$module_lang = LangLoader::get_all_langs($module_name);
+		$view->add_lang(array_merge($home_lang, $module_lang));
 
 		$sql_condition = 'WHERE id_category IN :categories
 			AND (published = ' . Item::PUBLISHED . ' OR (published = ' . Item::DEFERRED_PUBLICATION . ' AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';

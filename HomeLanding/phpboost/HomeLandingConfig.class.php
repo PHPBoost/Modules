@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 11
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -431,12 +431,11 @@ class HomeLandingConfig extends AbstractConfigData
 		$modules[] = $module->get_properties();
 
 		// Files autoload for adding new modules
-		$init_directory = PATH_TO_ROOT . '/HomeLanding/additional/init/';
-		$scan_init = scandir($init_directory);
-		foreach ($scan_init as $key => $value)
+		$init_directory = new Folder(PATH_TO_ROOT . '/HomeLanding/additional/init/');
+		$init_files = $init_directory->get_files();
+		foreach ($init_files as $init_file)
 		{
-	      	if (!in_array($value,array('.', '..', '.empty')))
-				require_once($init_directory . $value);
+	      	require_once($init_file->get_path());
 		}
 
 		return $modules;
@@ -467,7 +466,7 @@ class HomeLandingConfig extends AbstractConfigData
 
 			self::EDITO             => LangLoader::get_message('homelanding.edito.description', 'common', 'HomeLanding'),
 			self::PINNED_NEWS_TITLE => LangLoader::get_message('homelanding.module.pinned_news', 'common', 'HomeLanding'),
-			
+
 			self::STICKY_TEXT   => LangLoader::get_message('homelanding.sticky.content', 'sticky', 'HomeLanding'),
 			self::STICKY_TITLE  => LangLoader::get_message('homelanding.sticky', 'sticky', 'HomeLanding'),
 		);

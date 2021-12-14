@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -12,7 +12,7 @@ class HomeLandingCarousel
     public static function get_carousel_view()
 	{
         $view = new FileTemplate('HomeLanding/pagecontent/carousel.tpl');
-        $view->add_lang(LangLoader::get('common', 'HomeLanding'));
+        $view->add_lang(LangLoader::get_all_langs('HomeLanding'));
 		$config = HomeLandingConfig::load();
         $modules = HomeLandingModulesList::load();
         $carousel = $config->get_carousel();

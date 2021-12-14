@@ -3,28 +3,23 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
 */
 
-class HomeLandingHomeController extends ModuleController
+class HomeLandingHomeController extends DefaultModuleController
 {
-	private $view;
-	private $lang;
-	private $form;
-	private $submit_button;
-
-	/**
-	 * @var HomeLandingConfig
-	 */
-	private $config;
-
 	/**
 	 * @var HomeLandingModulesList
 	 */
 	private $modules;
+
+    protected function get_template_to_use()
+    {
+	    return new FileTemplate('HomeLanding/home.tpl');
+    }
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -37,13 +32,6 @@ class HomeLandingHomeController extends ModuleController
 
 	private function init()
 	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'HomeLanding')
-		);
-		$this->view = new FileTemplate('HomeLanding/home.tpl');
-		$this->view->add_lang($this->lang);
-		$this->config = HomeLandingConfig::load();
 		$this->modules = HomeLandingModulesList::load();
 
 		$columns_disabled = ThemesManager::get_theme(AppContext::get_current_user()->get_theme())->get_columns_disabled();
@@ -128,12 +116,11 @@ class HomeLandingHomeController extends ModuleController
 			$this->view->put('WEB_CAT', HomeLandingWeb::get_web_cat_view());
 
 		// Files autoload for additional template variables
-		$home_directory = PATH_TO_ROOT . '/HomeLanding/additional/home/';
-		$scan_home = scandir($home_directory);
-		foreach ($scan_home as $key => $value)
+		$home_directory = new Folder(PATH_TO_ROOT . '/HomeLanding/additional/home/');
+		$home_files = $home_directory->get_files();
+		foreach ($home_files as $home_file)
 		{
-	      	if (!in_array($value,array('.', '..', '.empty')))
-				require_once($home_directory . $value);
+	      	require_once($home_file->get_path());
 		}
 	}
 

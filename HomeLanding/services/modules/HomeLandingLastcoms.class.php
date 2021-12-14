@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 08 30
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -25,7 +25,7 @@ class HomeLandingLastcoms
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/messages.tpl');
 
-        $view->add_lang(array_merge(LangLoader::get('common', 'HomeLanding'), LangLoader::get('common-lang')));
+        $view->add_lang(LangLoader::get_all_langs('HomeLanding'));
 
 		$result = PersistenceContext::get_querier()->select('SELECT c.id, c.user_id, c.pseudo, c.message, c.timestamp, ct.module_id, ct.is_locked, ct.path, m.*, ext_field.user_avatar
 		FROM ' . DB_TABLE_COMMENTS . ' AS c

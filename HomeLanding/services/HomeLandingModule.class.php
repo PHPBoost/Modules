@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 01
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.0 - 2016 05 01
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -18,10 +18,11 @@ class HomeLandingModule
 
 	public function get_name()
 	{
+		$lang = LangLoader::get_all_langs('HomeLanding');
 		if ($this->get_module_id() == $this->get_phpboost_module_id())
 			return ModulesManager::get_module($this->get_module_id())->get_configuration()->get_name();
 		else
-			return LangLoader::get_message('homelanding.module.' . $this->get_module_id(), 'common', 'HomeLanding');
+			return $lang['homelanding.module.' . $this->get_module_id()];
 	}
 
 	public function display()

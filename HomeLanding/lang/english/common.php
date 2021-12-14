@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 14
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -55,8 +55,6 @@ $lang['homelanding.category.download_category'] = 'Downloads';
 $lang['homelanding.category.news_category']     = 'News';
 $lang['homelanding.category.smallads_category'] = 'Small ads';
 $lang['homelanding.category.web_category']      = 'Partners links';
-
-// Additional modules
 
 // Anchors menu
 $lang['homelanding.anchors.title'] = 'Homepage menu';

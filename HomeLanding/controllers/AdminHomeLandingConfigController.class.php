@@ -3,28 +3,13 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 26
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class AdminHomeLandingConfigController extends AdminModuleController
+class AdminHomeLandingConfigController extends DefaultAdminModuleController
 {
-	/**
-	 * @var HTMLForm
-	 */
-	private $form;
-	/**
-	 * @var FormButtonSubmit
-	 */
-	private $submit_button;
-
-	private $lang;
-
-	/**
-	 * @var HomeLandingConfig
-	 */
-	private $config;
 	private $compatible;
 
 	/**
@@ -138,29 +123,23 @@ class AdminHomeLandingConfigController extends AdminModuleController
 			}
 
 			// Files autoload for additional field state after validation
-			$submit_directory = PATH_TO_ROOT . '/HomeLanding/additional/submit/';
-			$scan_submit = scandir($submit_directory);
-			foreach ($scan_submit as $key => $value)
+			$submit_directory = new Folder(PATH_TO_ROOT . '/HomeLanding/additional/submit/');
+			$submit_files = $submit_directory->get_files();
+			foreach ($submit_files as $submit_file)
 			{
-		      	if (!in_array($value,array('.', '..', '.empty')))
-					require_once($submit_directory . $value);
+		      	require_once($submit_file->get_path());
 			}
 
-			$view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 4));
+			$view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.config'], MessageHelper::SUCCESS, 4));
 		}
 
 		$view->put('FORM', $this->form->display());
 
-		return new AdminHomeLandingDisplayResponse($view, LangLoader::get_message('form.configuration', 'form-lang'));
+		return new AdminHomeLandingDisplayResponse($view, $this->lang['form.configuration']);
 	}
 
 	private function init()
 	{
-		$this->lang = array_merge(
-			LangLoader::get('form-lang'),
-			LangLoader::get('common', 'HomeLanding')
-		);
-		$this->config = HomeLandingConfig::load();
 		$this->modules = HomeLandingModulesList::load();
 		$this->compatible = ModulesManager::get_activated_feature_modules('homelanding');
 	}
@@ -185,7 +164,7 @@ class AdminHomeLandingConfigController extends AdminModuleController
         foreach($home_modules as $module)
         {
 			if($module == 'configuration')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement(LangLoader::get_message('form.configuration', 'form-lang'), 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cog');
+            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cog');
 			elseif($module == 'carousel')
             	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-cog');
 			elseif(in_array($module, $modules_from_list))
@@ -1059,12 +1038,11 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Files autoload for additional fields
-		$form_directory = PATH_TO_ROOT . '/HomeLanding/additional/form/';
-		$scan_form = scandir($form_directory);
-		foreach ($scan_form as $key => $value)
+		$form_directory = new Folder(PATH_TO_ROOT . '/HomeLanding/additional/form/');
+		$form_files = $form_directory->get_files();
+		foreach ($form_files as $form_file)
 		{
-	      	if (!in_array($value, array('.', '..', '.empty')))
-				require_once($form_directory . $value);
+	      	require_once($form_file->get_path());
 		}
 
 		$this->submit_button = new FormButtonDefaultSubmit();
@@ -1367,12 +1345,11 @@ class AdminHomeLandingConfigController extends AdminModuleController
 		}
 
 		// Files autoload for additional saving properties
-		$save_directory = PATH_TO_ROOT . '/HomeLanding/additional/save/';
-		$scan_save = scandir($save_directory);
-		foreach ($scan_save as $key => $value)
+		$save_directory = new Folder(PATH_TO_ROOT . '/HomeLanding/additional/save/');
+		$save_files = $save_directory->get_files();
+		foreach ($save_files as $save_file)
 		{
-			if (!in_array($value,array('.', '..', '.empty')))
-				require_once($save_directory . $value);
+			require_once($save_file->get_path());
 		}
 
 		HomeLandingModulesList::save($this->modules);

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 03 15
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 5.0 - 2016 04 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -21,10 +21,10 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 	{
 		$template = $this->get_template_to_use();
 
-		$tpl = new FileTemplate('HomeLanding/HomeLandingFormFieldSliderConfig.tpl');
-		$tpl->add_lang(LangLoader::get('common', 'HomeLanding'));
+		$view = new FileTemplate('HomeLanding/HomeLandingFormFieldSliderConfig.tpl');
+		$view->add_lang(LangLoader::get_all_langs('HomeLanding'));
 
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'NAME' => $this->get_html_id(),
 			'ID' => $this->get_html_id(),
 			'C_DISABLED' => $this->is_disabled()
@@ -35,7 +35,7 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 		$i = 0;
 		foreach ($this->get_value() as $id => $options)
 		{
-			$tpl->assign_block_vars('fieldelements', array(
+			$view->assign_block_vars('fieldelements', array(
 				'ID'          => $i,
 				'U_PICTURE'   => $options['picture_url'],
 				'DESCRIPTION' => $options['description'],
@@ -46,7 +46,7 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 
 		if ($i == 0)
 		{
-			$tpl->assign_block_vars('fieldelements', array(
+			$view->assign_block_vars('fieldelements', array(
 				'ID'          => $i,
 				'U_PICTURE'   => '',
 				'DESCRIPTION' => '',
@@ -54,13 +54,13 @@ class HomeLandingFormFieldSliderConfig extends AbstractFormField
 			));
 		}
 
-		$tpl->put_all(array(
+		$view->put_all(array(
 			'MAX_INPUT' => $this->max_input,
 			'NBR_FIELDS' => $i == 0 ? 1 : $i
 		));
 
 		$template->assign_block_vars('fieldelements', array(
-			'ELEMENT' => $tpl->render()
+			'ELEMENT' => $view->render()
 		));
 
 		return $template;

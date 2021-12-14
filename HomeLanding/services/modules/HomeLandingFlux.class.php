@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 14
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -21,9 +21,9 @@ class HomeLandingFlux
         $theme_id = AppContext::get_current_user()->get_theme();
 		$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $module_name . '.tpl');
 
-        $home_lang = LangLoader::get('common', 'HomeLanding');
-        $module_lang = LangLoader::get('common', $module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang, LangLoader::get('common-lang')));
+        $home_lang = LangLoader::get_all_langs('HomeLanding');
+        $module_lang = LangLoader::get_all_langs($module_name);
+        $view->add_lang(array_merge($home_lang, $module_lang));
 
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, '', $module_name);
 
