@@ -3,33 +3,19 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 26
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
-class FluxItemsManagerController extends AdminModuleController
+class FluxItemsManagerController extends DefaultAdminModuleController
 {
-	private $lang;
-	private $view;
-
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
 
-		$this->init();
-
 		$this->build_table();
 
 		return $this->generate_response();
-	}
-
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'flux')
-		);
-		$this->view = new StringTemplate('# INCLUDE table #');
 	}
 
 	private function build_table()
@@ -46,14 +32,14 @@ class FluxItemsManagerController extends AdminModuleController
 		), new HTMLTableSortingRule('creation_date', HTMLTableSortingRule::DESC));
 
 		$table_model->set_filters_menu_title($this->lang['flux.filter.items']);
-		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('creation_date', 'filter1', LangLoader::get_message('common.creation.date', 'common-lang') . ' ' . TextHelper::lcfirst(LangLoader::get_message('common.minimum', 'common-lang'))));
-		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('creation_date', 'filter2', LangLoader::get_message('common.creation.date', 'common-lang') . ' ' . TextHelper::lcfirst(LangLoader::get_message('common.maximum', 'common-lang'))));
-		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', LangLoader::get_message('common.author', 'common-lang')));
+		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('creation_date', 'filter1', $this->lang['common.creation.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
+		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('creation_date', 'filter2', $this->lang['common.creation.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
+		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $this->lang['common.author']));
 		// if ($display_categories)
 		// 	$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
 
-		$status_list = array(Item::PUBLISHED => LangLoader::get_message('common.status.published.alt', 'common-lang'), Item::NOT_PUBLISHED => LangLoader::get_message('common.status.draft', 'common-lang'), Item::DEFERRED_PUBLICATION => LangLoader::get_message('common.status.deffered.date', 'common-lang'));
-		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('published', 'filter5', LangLoader::get_message('common.status', 'common-lang'), $status_list));
+		$status_list = array(Item::PUBLISHED => $this->lang['common.status.published.alt'], Item::NOT_PUBLISHED => $this->lang['common.status.draft'], Item::DEFERRED_PUBLICATION => $this->lang['common.status.deffered.date']);
+		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('published', 'filter5', $this->lang['common.status'], $status_list));
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
@@ -73,8 +59,8 @@ class FluxItemsManagerController extends AdminModuleController
 			$category = $item->get_category();
 			$user = $item->get_author_user();
 
-			$edit_item = new LinkHTMLElement(FluxUrlBuilder::edit($item->get_id()), '', array('title' => LangLoader::get_message('common.edit', 'common-lang')), 'fa fa-edit');
-			$delete_item = new LinkHTMLElement(FluxUrlBuilder::delete($item->get_id()), '', array('title' => LangLoader::get_message('common.delete', 'common-lang'), 'data-confirmation' => 'delete-element'), 'far fa-trash-alt');
+			$edit_item = new LinkHTMLElement(FluxUrlBuilder::edit($item->get_id()), '', array('title' => $this->lang['common.edit']), 'fa fa-edit');
+			$delete_item = new LinkHTMLElement(FluxUrlBuilder::delete($item->get_id()), '', array('title' => $this->lang['common.delete'], 'data-confirmation' => 'delete-element'), 'far fa-trash-alt');
 
 			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
@@ -95,7 +81,7 @@ class FluxItemsManagerController extends AdminModuleController
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
-		$this->view->put('table', $table->display());
+		$this->view->put('CONTENT', $table->display());
 	}
 
 	private function check_authorizations()

@@ -3,36 +3,24 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
-class FluxPendingItemsController extends ModuleController
+class FluxPendingItemsController extends DefaultModuleController
 {
-	private $view;
-	private $lang;
-	private $config;
+	protected function get_template_to_use()
+	{
+	   return new FileTemplate('flux/FluxSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
 
-		$this->init();
-
 		$this->build_view($request);
 
 		return $this->generate_response();
-	}
-
-	public function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'flux')
-		);
-		$this->view = new FileTemplate('flux/FluxSeveralItemsController.tpl');
-		$this->view->add_lang($this->lang);
-		$this->config = FluxConfig::load();
 	}
 
 	public function build_view(HTTPRequestCustom $request)

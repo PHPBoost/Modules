@@ -3,43 +3,31 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 14
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
-class FluxMemberItemsController extends ModuleController
+class FluxMemberItemsController extends DefaultModuleController
 {
-	private $view;
-	private $lang;
 	private $member;
-	private $config;
+
+	protected function get_template_to_use()
+	{
+	   return new FileTemplate('flux/FluxSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
-
-		$this->init();
 
 		$this->build_view($request);
 
 		return $this->generate_response($request);
 	}
 
-	public function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'flux')
-		);
-		$this->view = new FileTemplate('flux/FluxSeveralItemsController.tpl');
-		$this->view->add_lang($this->lang);
-		$this->config = FluxConfig::load();
-	}
-
 	public function build_view(HTTPRequestCustom $request)
 	{
 		$now = new Date();
-		$config = FluxConfig::load();
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY);
 
 		$condition = 'WHERE id_category IN :authorized_categories
@@ -70,12 +58,12 @@ class FluxMemberItemsController extends ModuleController
 			'C_ITEMS'            => $result->get_rows_count() > 0,
 			'C_CONTROLS'         => CategoriesAuthorizationsService::check_authorizations()->moderation(),
 			'C_SEVERAL_ITEMS'    => $result->get_rows_count() > 1,
-			'C_GRID_VIEW'        => $config->get_display_type() == FluxConfig::GRID_VIEW,
-			'C_TABLE_VIEW'       => $config->get_display_type() == FluxConfig::TABLE_VIEW,
+			'C_GRID_VIEW'        => $this->config->get_display_type() == FluxConfig::GRID_VIEW,
+			'C_TABLE_VIEW'       => $this->config->get_display_type() == FluxConfig::TABLE_VIEW,
 			'C_PAGINATION'       => $pagination->has_several_pages(),
 
-			'CATEGORIES_PER_ROW' => $config->get_categories_per_row(),
-			'ITEMS_PER_ROW'      => $config->get_items_per_row(),
+			'CATEGORIES_PER_ROW' => $this->config->get_categories_per_row(),
+			'ITEMS_PER_ROW'      => $this->config->get_items_per_row(),
 			'PAGINATION'         => $pagination->display(),
 			'MEMBER_NAME'        => $this->get_member()->get_display_name()
 		));
