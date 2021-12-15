@@ -3,58 +3,35 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 16
+ * @version     PHPBoost 6.0 - last update: 2021 12 15
  * @since       PHPBoost 3.0 - 2012 12 20
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class AdminGoogleAnalyticsController extends AdminModuleController
+class AdminGoogleAnalyticsController extends DefaultAdminModuleController
 {
-	private $lang;
-	/**
-	 * @var HTMLForm
-	 */
-	private $form;
-	/**
-	 * @var FormButtonDefaultSubmit
-	 */
-	private $submit_button;
-	/**
-	 * @var GoogleAnalyticsConfig
-	 */
-	private $config;
-
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
 		$this->build_form();
-
-		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.config'], MessageHelper::SUCCESS, 5));
 		}
 
-		$view->put('FORM', $this->form->display());
+		$this->view->put('CONTENT', $this->form->display());
 
-		return new DefaultAdminDisplayResponse($view);
-	}
-
-	private function init()
-	{
-		$this->lang = LangLoader::get('common', 'GoogleAnalytics');
-		$this->config = GoogleAnalyticsConfig::load();
+		return new DefaultAdminDisplayResponse($this->view);
 	}
 
 	private function build_form()
 	{
 		$form = new HTMLForm('GoogleAnalytics');
 
-		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars(LangLoader::get_message('form.module.title', 'form-lang'), array('module_name' => self::get_module()->get_configuration()->get_name())));
+		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('identifier', $this->lang['ga.identifier'], $this->config->get_identifier(),
@@ -64,7 +41,7 @@ class AdminGoogleAnalyticsController extends AdminModuleController
 			)
 		));
 
-		$fieldset->add_field(new FormFieldFree('login', LangLoader::get_message('user.sign.in', 'user-lang'), StringVars::replace_vars($this->lang['ga.analytics.login'], array('link' => 'https://www.google.com/analytics/')),
+		$fieldset->add_field(new FormFieldFree('login', $this->lang['user.sign.in'], StringVars::replace_vars($this->lang['ga.analytics.login'], array('link' => 'https://www.google.com/analytics/')),
 			array('class' => 'half-field')
 		));
 
@@ -79,6 +56,7 @@ class AdminGoogleAnalyticsController extends AdminModuleController
 	{
 		$this->config->set_identifier($this->form->get_value('identifier'));
 		GoogleAnalyticsConfig::save();
+		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>
