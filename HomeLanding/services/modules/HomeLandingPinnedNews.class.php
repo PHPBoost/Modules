@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2021 12 15
  * @since       PHPBoost 6.0 - 2021 11 11
 */
 
@@ -43,8 +43,8 @@ class HomeLandingPinnedNews
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
-		$home_lang = LangLoader::get_all_langs('common', 'HomeLanding');
-		$module_lang = LangLoader::get_all_langs('common', $parent_module);
+		$home_lang = LangLoader::get_all_langs('HomeLanding');
+		$module_lang = LangLoader::get_all_langs($parent_module);
 		$view->add_lang(array_merge($home_lang, $module_lang));
 
 		$sql_condition = 'WHERE id_category IN :categories
