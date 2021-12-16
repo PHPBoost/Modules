@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -39,6 +39,7 @@ class HomeLandingFlux
 
         $view->put_all(array(
             'C_NO_ITEM'       => $result->get_rows_count() == 0,
+            'C_NEW_WINDOW'    => $module_config->get_new_window(),
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
 			'MODULE_NAME'     => $module_name,
 		    'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name(),

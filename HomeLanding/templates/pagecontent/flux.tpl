@@ -28,7 +28,7 @@
 								<span class="lo-date hidden">{feed_items.SORT_DATE}</span>
 								<span class="feed-title">
 									<h6>
-										<a href="{feed_items.U_ITEM}"# IF feed_items.C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
+										<a href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
 											{feed_items.TITLE}
 										</a>
 									</h6>
