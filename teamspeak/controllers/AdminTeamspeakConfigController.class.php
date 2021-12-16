@@ -3,63 +3,34 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class AdminTeamspeakConfigController extends AdminModuleController
+class AdminTeamspeakConfigController extends DefaultAdminModuleController
 {
-	/**
-	 * @var HTMLForm
-	 */
-	private $form;
-	/**
-	 * @var FormButtonSubmit
-	 */
-	private $submit_button;
-
-	private $lang;
-
-	/**
-	 * @var TeamspeakConfig
-	 */
-	private $config;
-
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
-
 		$this->build_form();
-
-		$tpl = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$tpl->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.config'], MessageHelper::SUCCESS, 5));
 		}
 
-		$tpl->put('FORM', $this->form->display());
+		$this->view->put('CONTENT', $this->form->display());
 
-		return new DefaultAdminDisplayResponse($tpl);
-	}
-
-	private function init()
-	{
-		$this->config = TeamspeakConfig::load();
-		$this->lang = array_merge(
-			LangLoader::get('form-lang'),
-			LangLoader::get('common', 'teamspeak')
-		);
+		return new DefaultAdminDisplayResponse($this->view);
 	}
 
 	private function build_form()
 	{
 		$form = new HTMLForm(__CLASS__);
 
-		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($form_lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
+		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('ts_ip', $this->lang['ts.ip'], $this->config->get_ip(),
@@ -112,11 +83,11 @@ class AdminTeamspeakConfigController extends AdminModuleController
 			array('class' => 'custom-checkbox')
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $form_lang['form.authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($form_lang['form.authorizations.read'], TeamspeakAuthorizationsService::READ_AUTHORIZATIONS),
+			new ActionAuthorization($this->lang['form.authorizations.read'], TeamspeakAuthorizationsService::READ_AUTHORIZATIONS),
 		));
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field(new FormFieldAuthorizationsSetter('authorizations', $auth_settings));

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 12
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -30,7 +30,7 @@ class TeamspeakModuleMiniMenu extends ModuleMiniMenu
 			if (!Url::is_current_url('/teamspeak/') && TeamspeakAuthorizationsService::check_authorizations()->read())
 			{
 				$view = new FileTemplate('teamspeak/TeamspeakModuleMiniMenu.tpl');
-				$view->add_lang(LangLoader::get('common', 'teamspeak'));
+				$view->add_lang(LangLoader::get_all_langs('teamspeak'));
 
 				MenuService::assign_positions_conditions($view, $this->get_block());
 

@@ -8,29 +8,20 @@
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class TeamspeakHomeController extends ModuleController
+class TeamspeakHomeController extends DefaultModuleController
 {
-	private $lang;
-	private $view;
-	private $config;
+	protected function get_template_to_use()
+   	{
+	   	return new FileTemplate('teamspeak/TeamspeakHomeController.tpl');
+   	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
-
 		$this->check_authorizations();
 
 		$this->build_view();
 
 		return $this->generate_response();
-	}
-
-	private function init()
-	{
-		$this->lang = LangLoader::get('common', 'teamspeak');
-		$this->view = new FileTemplate('teamspeak/TeamspeakHomeController.tpl');
-		$this->view->add_lang($this->lang);
-		$this->config = TeamspeakConfig::load();
 	}
 
 	private function build_view()
@@ -81,7 +72,6 @@ class TeamspeakHomeController extends ModuleController
 	public static function get_view()
 	{
 		$object = new self();
-		$object->init();
 		$object->check_authorizations();
 		$object->build_view();
 		return $object->view;
