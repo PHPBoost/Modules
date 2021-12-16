@@ -3,25 +3,24 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 26
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class AdminServerStatusServersListController extends AdminController
+class AdminServerStatusServersListController extends DefaultAdminModuleController
 {
-	private $lang;
-	private $view;
-	private $config;
+	protected function get_template_to_use()
+	{
+		return new FileTemplate('ServerStatus/AdminServerStatusServersListController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
-
 		if ($request->get_value('regenerate_status', false))
 		{
 			ServerStatusService::check_servers_status(true);
-			$this->view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.process.success', 'warning-lang'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.process.success'], MessageHelper::SUCCESS, 5));
 		}
 
 		$this->update_servers($request);
@@ -48,24 +47,12 @@ class AdminServerStatusServersListController extends AdminController
 		return new AdminServerStatusDisplayResponse($this->view, $this->lang['server.management']);
 	}
 
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('form-lang'),
-			LangLoader::get('common', 'ServerStatus')
-		);
-		$this->view = new FileTemplate('ServerStatus/AdminServerStatusServersListController.tpl');
-		$this->view->add_lang($this->lang);
-		$this->config = ServerStatusConfig::load();
-	}
-
 	private function update_servers(HTTPRequestCustom $request)
 	{
 		if ($request->get_value('submit', false))
 		{
 			$this->update_position($request);
-			$this->view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.success.position.update', 'warning-lang'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.position.update'], MessageHelper::SUCCESS, 5));
 		}
 	}
 

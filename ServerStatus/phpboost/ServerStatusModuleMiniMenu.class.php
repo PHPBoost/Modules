@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 26
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -24,10 +24,10 @@ class ServerStatusModuleMiniMenu extends ModuleMiniMenu
 	{
 		if (!Url::is_current_url('/ServerStatus/') && ServerStatusAuthorizationsService::check_authorizations()->read())
 		{
-			$lang = LangLoader::get('common', 'ServerStatus');
+			$lang = LangLoader::get_all_langs('ServerStatus');
 
 			$view = new FileTemplate('ServerStatus/ServerStatusModuleMiniMenu.tpl');
-			$view->add_lang(array_merge($lang, LangLoader::get('common-lang')));
+			$view->add_lang($lang);
 			MenuService::assign_positions_conditions($view, $this->get_block());
 
 			ServerStatusService::check_servers_status();

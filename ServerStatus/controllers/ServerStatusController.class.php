@@ -3,33 +3,24 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 26
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 4.0 - 2013 08 12
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class ServerStatusController extends ModuleController
+class ServerStatusController extends DefaultModuleController
 {
-	private $lang;
-	private $view;
+	protected function get_template_to_use()
+	{
+		return new FileTemplate('ServerStatus/ServerStatusController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
 		$this->build_view();
 
 		return $this->generate_response();
-	}
-
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'ServerStatus')
-		);
-		$this->view = new FileTemplate('ServerStatus/ServerStatusController.tpl');
-		$this->view->add_lang($this->lang);
 	}
 
 	public function build_view()
@@ -37,8 +28,7 @@ class ServerStatusController extends ModuleController
 		$servers_number = 0;
 
 		ServerStatusService::check_servers_status();
-		$config = ServerStatusConfig::load();
-		$servers_list = $config->get_servers_list();
+		$servers_list = $this->config->get_servers_list();
 
 		foreach ($servers_list as $id => $server)
 		{

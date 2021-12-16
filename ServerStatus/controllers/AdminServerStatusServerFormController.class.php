@@ -3,36 +3,20 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 28
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class AdminServerStatusServerFormController extends AdminController
+class AdminServerStatusServerFormController extends DefaultAdminModuleController
 {
-	private $view;
-
-	private $lang;
-	/**
-	 * @var HTMLForm
-	 */
-	private $form;
-	/**
-	 * @var FormButtonDefaultSubmit
-	 */
-	private $submit_button;
-
-	private $config;
-
 	private $server;
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->init($request);
 		$this->build_form();
-
-		$this->view = new StringTemplate('# INCLUDE MESSAGE_HELPER ## INCLUDE FORM #');
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -42,34 +26,30 @@ class AdminServerStatusServerFormController extends AdminController
 				$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['server.warning.empty.address'], MessageHelper::ERROR));
 		}
 
-		$this->view->put('FORM', $this->form->display());
+		$this->view->put('CONTENT', $this->form->display());
 
 		return new AdminServerStatusDisplayResponse($this->view, !empty($this->id) ? $this->lang['server.edit.item'] : $this->lang['server.add.item']);
 	}
 
 	private function init(HTTPRequestCustom $request)
 	{
-		$this->lang = LangLoader::get('common', 'ServerStatus');
-		$this->config = ServerStatusConfig::load();
 		$this->id = $request->get_getint('id', 0);
 	}
 
 	private function build_form()
 	{
 		$server = $this->get_server();
-		$form_lang = LangLoader::get('form-lang');
-		$common_lang = LangLoader::get('common-lang');
 
 		$form = new HTMLForm(__CLASS__);
 
 		$fieldset = new FormFieldsetHTML('server', !empty($this->id) ? $this->lang['server.edit.item'] : $this->lang['server.add.item']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldTextEditor('name', $form_lang['form.name'], $server->get_name(),
+		$fieldset->add_field(new FormFieldTextEditor('name', $this->lang['form.name'], $server->get_name(),
 			array('class' => 'text', 'required' => true)
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('description', $form_lang['form.description'], $server->get_description(),
+		$fieldset->add_field(new FormFieldRichTextEditor('description', $this->lang['form.description'], $server->get_description(),
 			array('rows' => 4, 'cols' => 47)
 		));
 
@@ -113,7 +93,7 @@ class AdminServerStatusServerFormController extends AdminController
 			array('events' => array('change' => $types_properties['events']))
 		));
 
-		$fieldset->add_field(new FormFieldFree('preview_icon', $this->lang['server.icon'], '<img id="preview_icon" ' . ($server->has_medium_icon() ? 'src="' . $server->get_medium_icon() . '"' : 'style="display:none"') . ' alt="' . $this->lang['server.icon'] . '" /><span id="preview_icon_none" ' . ($server->has_medium_icon() ? 'style="display:none"' : '') . '>' . $common_lang['common.none.alt'] . '</span>'));
+		$fieldset->add_field(new FormFieldFree('preview_icon', $this->lang['server.icon'], '<img id="preview_icon" ' . ($server->has_medium_icon() ? 'src="' . $server->get_medium_icon() . '"' : 'style="display:none"') . ' alt="' . $this->lang['server.icon'] . '" /><span id="preview_icon_none" ' . ($server->has_medium_icon() ? 'style="display:none"' : '') . '>' . $this->lang['common.none.alt'] . '</span>'));
 
 		$fieldset->add_field(new FormFieldTextEditor('port', $this->lang['server.port'], $server->get_port(),
 			array(
@@ -123,16 +103,16 @@ class AdminServerStatusServerFormController extends AdminController
 			array(new FormFieldConstraintIntegerRange(1, 65535))
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('display', $common_lang['common.display'], $server->is_displayed(),
+		$fieldset->add_field(new FormFieldCheckbox('display', $this->lang['common.display'], $server->is_displayed(),
 			array('class' => 'custom-checkbox')
 		));
 
-		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $form_lang['form.authorizations']);
+		$fieldset_authorizations = new FormFieldsetHTML('authorizations', $this->lang['form.authorizations']);
 		$form->add_fieldset($fieldset_authorizations);
 
 
 		$auth_settings = new AuthorizationsSettings(array(
-			new ActionAuthorization($form_lang['form.authorizations.read'], AbstractServerStatusServer::DISPLAY_SERVER_AUTHORIZATIONS),
+			new ActionAuthorization($this->lang['form.authorizations.read'], AbstractServerStatusServer::DISPLAY_SERVER_AUTHORIZATIONS),
 		));
 
 		$auth_settings->build_from_auth_array($server->get_authorizations());

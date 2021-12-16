@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2018 12 19
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 4.0 - 2013 08 09
 */
 
@@ -260,7 +260,7 @@ abstract class AbstractServerStatusServer
 
 	public function get_view()
 	{
-		$lang = LangLoader::get('common', 'ServerStatus');
+		$lang = LangLoader::get_all_langs('ServerStatus');
 		$config = ServerStatusConfig::load();
 
 		$tpl = new FileTemplate('ServerStatus/ServerStatusServer.tpl');
