@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -147,25 +147,24 @@ class SpotsItemFormController extends DefaultModuleController
 
 	private function build_contribution_fieldset($form)
 	{
-		$contribution = LangLoader::get('contribution-lang');
 		if ($this->get_item()->get_id() === null && $this->is_contributor_member())
 		{
-			$fieldset = new FormFieldsetHTML('contribution', $contribution['contribution.contribution']);
-			$fieldset->set_description(MessageHelper::display($contribution['contribution.extended.warning'], MessageHelper::WARNING)->render());
+			$fieldset = new FormFieldsetHTML('contribution', $this->lang['contribution.contribution']);
+			$fieldset->set_description(MessageHelper::display($this->lang['contribution.extended.warning'], MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
 
-			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', $contribution['contribution.description'], '',
-				array('description' => $contribution['contribution.description.clue'])
+			$fieldset->add_field(new FormFieldRichTextEditor('contribution_description', $this->lang['contribution.description'], '',
+				array('description' => $this->lang['contribution.description.clue'])
 			));
 		}
 		elseif ($this->get_item()->is_published() && $this->get_item()->is_authorized_to_edit() && !AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
 		{
-			$fieldset = new FormFieldsetHTML('member_edition', $contribution['contribution.member.edition']);
-			$fieldset->set_description(MessageHelper::display($contribution['contribution.edition.warning'], MessageHelper::WARNING)->render());
+			$fieldset = new FormFieldsetHTML('member_edition', $this->lang['contribution.member.edition']);
+			$fieldset->set_description(MessageHelper::display($this->lang['contribution.edition.warning'], MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
 
-			$fieldset->add_field(new FormFieldRichTextEditor('edition_description', $contribution['contribution.edition.description'], '',
-				array('description' => $contribution['contribution.edition.description.clue'])
+			$fieldset->add_field(new FormFieldRichTextEditor('edition_description', $this->lang['contribution.edition.description'], '',
+				array('description' => $this->lang['contribution.edition.description.clue'])
 			));
 		}
 	}
