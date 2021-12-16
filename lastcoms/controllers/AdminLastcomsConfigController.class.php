@@ -3,52 +3,26 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class AdminLastcomsConfigController extends AdminModuleController
+class AdminLastcomsConfigController extends DefaultAdminModuleController
 {
-	private $lang;
-	/**
-	 * @var HTMLForm
-	 */
-	private $form;
-	/**
-	 * @var FormButtonDefaultSubmit
-	 */
-	private $submit_button;
-	/**
-	 * @var GoogleAnalyticsConfig
-	 */
-	private $config;
-
 	public function execute(HTTPRequestCustom $request)
 	{
-		$this->init();
 		$this->build_form();
-
-		$view = new StringTemplate('# INCLUDE MESSAGE_HELPER # # INCLUDE FORM #');
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.success.config', 'warning-lang'), MessageHelper::SUCCESS, 5));
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.config'], MessageHelper::SUCCESS, 5));
 		}
 
-		$view->put('FORM', $this->form->display());
+		$this->view->put('CONTENT', $this->form->display());
 
-		return new DefaultAdminDisplayResponse($view);
-	}
-
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('form-lang'),
-			LangLoader::get('common', 'lastcoms')
-		);
-		$this->config = LastcomsConfig::load();
+		return new DefaultAdminDisplayResponse($this->view);
 	}
 
 	private function build_form()
