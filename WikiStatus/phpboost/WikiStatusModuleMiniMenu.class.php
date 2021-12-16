@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 12
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.0 - 2017 01 30
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -33,8 +33,8 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 	public function get_menu_content()
 	{
 		$view = new FileTemplate('WikiStatus/ArticlesWikiStatusUpdated.tpl');
-		$lang = LangLoader::get('common', 'WikiStatus');
-		$view->add_lang(array_merge($lang, LangLoader::get('common-lang'), LangLoader::get('user-lang')));
+		$lang = LangLoader::get_all_langs('WikiStatus');
+		$view->add_lang($lang);
 
 		$status_classes = array(
 			1 => 'success',
