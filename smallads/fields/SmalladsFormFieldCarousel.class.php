@@ -21,11 +21,7 @@ class SmalladsFormFieldCarousel extends AbstractFormField
 		$template = $this->get_template_to_use();
 
 		$view = new FileTemplate('smallads/fields/SmalladsFormFieldCarousel.tpl');
-		$view->add_lang(array_merge(
-			LangLoader::get('common', 'smallads'),
-			LangLoader::get('common-lang'),
-			LangLoader::get('upload-lang')
-		));
+		$view->add_lang(LangLoader::get_all_langs('smallads'));
 
 		$view->put_all(array(
 			'NAME'       => $this->get_html_id(),

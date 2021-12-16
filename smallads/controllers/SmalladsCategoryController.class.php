@@ -3,19 +3,21 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class SmalladsCategoryController extends ModuleController
+class SmalladsCategoryController extends DefaultModuleController
 {
-	private $view;
-	private $lang;
 	private $category;
-	private $config;
 	private $comments_config;
 	private $content_management_config;
+
+	protected function get_template_to_use()
+   	{
+	   	return new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
+   	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -27,14 +29,6 @@ class SmalladsCategoryController extends ModuleController
 
 	private function init()
 	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('counties', 'smallads'),
-			LangLoader::get('common', 'smallads')
-		);
-		$this->view = new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
-		$this->view->add_lang($this->lang);
-		$this->config = SmalladsConfig::load();
 		$this->comments_config = CommentsConfig::load();
 		$this->content_management_config = ContentManagementConfig::load();
 	}
@@ -62,12 +56,12 @@ class SmalladsCategoryController extends ModuleController
 		while ($row_cat = $result_cat->fetch())
 		{
 			$this->view->assign_block_vars('categories', array(
-				'ID' => $row_cat['id'],
-				'ID_PARENT' => $row_cat['id_parent'],
-				'SUB_ORDER' => $row_cat['c_order'],
-				'NAME' => $row_cat['name'],
+				'ID'         => $row_cat['id'],
+				'ID_PARENT'  => $row_cat['id_parent'],
+				'SUB_ORDER'  => $row_cat['c_order'],
+				'NAME'       => $row_cat['name'],
 				'U_CATEGORY' => SmalladsUrlBuilder::display_category($row_cat['id'], $row_cat['rewrited_name'])->rel(),
-				'C_NO_ITEM' => $result_cat->get_rows_count() == 0,
+				'C_NO_ITEM'  => $result_cat->get_rows_count() == 0,
 			));
 		}
 		$result_cat->dispose();
@@ -277,7 +271,6 @@ class SmalladsCategoryController extends ModuleController
 	public static function get_view()
 	{
 		$object = new self();
-		$object->init();
 		$object->check_authorizations();
 		$object->build_view(AppContext::get_request());
 		return $object->view;

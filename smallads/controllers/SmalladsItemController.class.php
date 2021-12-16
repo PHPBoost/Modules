@@ -3,43 +3,31 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 26
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class SmalladsItemController extends ModuleController
+class SmalladsItemController extends DefaultModuleController
 {
-	private $view;
-	private $lang;
-	private $item;
 	private $category;
 
 	private $email_form;
-	private $submit_button;
+	
+	protected function get_template_to_use()
+   	{
+	   	return new FileTemplate('smallads/SmalladsItemController.tpl');
+   	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
-
-		$this->init();
 
 		$this->check_pending_items($request);
 
 		$this->build_view($request);
 
 		return $this->generate_response();
-	}
-
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('counties', 'smallads'),
-			LangLoader::get('common', 'smallads')
-		);
-		$this->view = new FileTemplate('smallads/SmalladsItemController.tpl');
-		$this->view->add_lang($this->lang);
 	}
 
 	private function get_item()

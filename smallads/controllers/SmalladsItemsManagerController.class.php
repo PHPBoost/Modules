@@ -3,16 +3,13 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
-class SmalladsItemsManagerController extends ModuleController
+class SmalladsItemsManagerController extends DefaultModuleController
 {
-	private $lang;
-	private $view;
-
 	private $elements_number = 0;
 	private $ids = array();
 
@@ -20,22 +17,11 @@ class SmalladsItemsManagerController extends ModuleController
 	{
 		$this->check_authorizations();
 
-		$this->init();
-
 		$current_page = $this->build_table();
 
 		$this->execute_multiple_delete_if_needed($request);
 
 		return $this->generate_response($current_page);
-	}
-
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'smallads')
-		);
-		$this->view = new StringTemplate('# INCLUDE TABLE #');
 	}
 
 	private function build_table()
@@ -98,7 +84,7 @@ class SmalladsItemsManagerController extends ModuleController
 			$dates = '';
 			if ($item->get_publishing_start_date() != null && $item->get_publishing_end_date() != null)
 			{
-				$dates = LangLoader::get_message('form.start.date', 'form-lang') . ' ' . $item->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . $br->display() . LangLoader::get_message('form.end.date', 'form-lang') . ' ' . $item->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
+				$dates = $this->lang['form.start.date'] . ' ' . $item->get_publishing_start_date()->format(Date::FORMAT_DAY_MONTH_YEAR) . $br->display() . $this->lang['form.end.date'] . ' ' . $item->get_publishing_end_date()->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE);
 			}
 			else
 			{
@@ -143,7 +129,7 @@ class SmalladsItemsManagerController extends ModuleController
 		}
 		$table->set_rows($table_model->get_number_of_matching_rows(), $results);
 
-		$this->view->put('TABLE', $table->display());
+		$this->view->put('CONTENT', $table->display());
 
 		return $table->get_page_number();
 	}
@@ -165,7 +151,7 @@ class SmalladsItemsManagerController extends ModuleController
 
 			SmalladsService::clear_cache();
 
-			AppContext::get_response()->redirect(SmalladsUrlBuilder::manage_items(), LangLoader::get_message('warning.process.success', 'warning-lang'));
+			AppContext::get_response()->redirect(SmalladsUrlBuilder::manage_items(), $this->lang['warning.process.success']);
 		}
 	}
 

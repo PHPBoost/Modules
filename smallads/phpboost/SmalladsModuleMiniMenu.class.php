@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 21
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -38,7 +38,7 @@
  	public function get_menu_content()
  	{
  		$view = new FileTemplate('smallads/SmalladsModuleMiniMenu.tpl');
- 		$view->add_lang(LangLoader::get('common', 'smallads'));
+ 		$view->add_lang(LangLoader::get_all_langs('smallads'));
  		MenuService::assign_positions_conditions($view, $this->get_block());
 		Menu::assign_common_template_variables($view);
         $config = SmalladsConfig::load();

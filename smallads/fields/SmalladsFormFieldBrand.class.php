@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 19
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -21,7 +21,7 @@ class SmalladsFormFieldBrand extends AbstractFormField
 		$template = $this->get_template_to_use();
 
 		$view = new FileTemplate('smallads/fields/SmalladsFormFieldBrand.tpl');
-		$view->add_lang(LangLoader::get('common', 'smallads'));
+		$view->add_lang(LangLoader::get_all_langs('smallads'));
 
 		$view->put_all(array(
 			'NAME'       => $this->get_html_id(),
