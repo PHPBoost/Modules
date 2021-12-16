@@ -3,40 +3,28 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 25
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class QuotesCategoryController extends ModuleController
+class QuotesCategoryController extends DefaultModuleController
 {
-	private $lang;
-	private $view;
-	private $config;
-
 	private $category;
+
+	protected function get_template_to_use()
+	{
+	   return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
 
-		$this->init();
-
 		$this->build_view($request);
 
 		return $this->generate_response($request);
-	}
-
-	private function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'quotes')
-		);
-		$this->view = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
-		$this->view->add_lang($this->lang);
-		$this->config = QuotesConfig::load();
 	}
 
 	private function build_view(HTTPRequestCustom $request)
@@ -91,23 +79,23 @@ class QuotesCategoryController extends ModuleController
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 
 		$this->view->put_all(array(
-			'C_ITEMS' => $result->get_rows_count() > 0,
-			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
-			'C_CATEGORY' => true,
-			'C_ROOT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
-			'C_HIDE_NO_ITEM_MESSAGE' => $this->get_category()->get_id() == Category::ROOT_CATEGORY && ($nbr_cat_displayed != 0 || !empty($category_description)),
-			'C_SUB_CATEGORIES' => $nbr_cat_displayed > 0,
-			'C_PAGINATION' => $pagination->has_several_pages(),
+			'C_ITEMS'                    => $result->get_rows_count() > 0,
+			'C_CATEGORY_DESCRIPTION'     => !empty($category_description),
+			'C_CATEGORY'                 => true,
+			'C_ROOT_CATEGORY'            => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
+			'C_HIDE_NO_ITEM_MESSAGE'     => $this->get_category()->get_id() == Category::ROOT_CATEGORY && ($nbr_cat_displayed != 0 || !empty($category_description)),
+			'C_SUB_CATEGORIES'           => $nbr_cat_displayed > 0,
+			'C_PAGINATION'               => $pagination->has_several_pages(),
 			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
 
 			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
-			'PAGINATION' => $pagination->display(),
-			'CATEGORIES_PER_ROW' => $this->config->get_categories_per_row(),
-			'ID_CAT' => $this->get_category()->get_id(),
-			'CATEGORY_NAME' => $this->get_category()->get_name(),
-			'CATEGORY_DESCRIPTION' => $category_description,
-			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
-			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id())->rel()
+			'PAGINATION'               => $pagination->display(),
+			'CATEGORIES_PER_ROW'       => $this->config->get_categories_per_row(),
+			'ID_CAT'                   => $this->get_category()->get_id(),
+			'CATEGORY_NAME'            => $this->get_category()->get_name(),
+			'CATEGORY_DESCRIPTION'     => $category_description,
+			'U_CATEGORY_THUMBNAIL'     => $this->get_category()->get_thumbnail()->rel(),
+			'U_EDIT_CATEGORY'          => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? QuotesUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id())->rel()
 		));
 
 		while ($row = $result->fetch())

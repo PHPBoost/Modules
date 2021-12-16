@@ -3,36 +3,26 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-class QuotesPendingItemsController extends ModuleController
+class QuotesPendingItemsController extends DefaultModuleController
 {
-	private $view;
-	private $lang;
+	protected function get_template_to_use()
+	{
+	   return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
 
-		$this->init();
-
 		$this->build_view($request);
 
 		return $this->generate_response($request);
-	}
-
-	public function init()
-	{
-		$this->lang = array_merge(
-			LangLoader::get('common-lang'),
-			LangLoader::get('common', 'quotes')
-		);
-		$this->view = new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
-		$this->view->add_lang($this->lang);
 	}
 
 	public function build_view(HTTPRequestCustom $request)
