@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 10 09
+ * @version     PHPBoost 6.0 - last update: 2021 12 16
  * @since       PHPBoost 3.0 - 2012 08 25
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -25,7 +25,7 @@ class HomeCustomHomePageExtensionPoint implements HomePageExtensionPoint
 
 	private function get_view()
 	{
-		$this->lang = LangLoader::get('common', 'HomeCustom');
+		$this->lang = LangLoader::get_all_langs('HomeCustom');
 		$this->tpl = new FileTemplate('HomeCustom/home.tpl');
 		$this->tpl->add_lang($this->lang);
 
