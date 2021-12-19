@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2021 12 19
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -16,10 +16,32 @@ class HomeLandingHomeController extends DefaultModuleController
 	 */
 	private $modules;
 
-    protected function get_template_to_use()
-    {
-	    return new FileTemplate('HomeLanding/home.tpl');
-    }
+	public static function __static()
+	{
+		self::$module_id = 'HomeLanding';
+	}
+
+	public function __construct($module_id = '')
+	{
+		self::$module_id = 'HomeLanding';
+
+		$this->init_parameters();
+		$this->init_view();
+	}
+
+	protected function init_parameters()
+	{
+		$this->request = AppContext::get_request();
+		$this->config = HomelandingConfig::load();
+		$this->lang = LangLoader::get_all_langs(self::$module_id);
+	}
+
+	protected function init_view()
+	{
+		$this->view = new FileTemplate('HomeLanding/home.tpl');
+
+		$this->view->add_lang($this->lang);
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
