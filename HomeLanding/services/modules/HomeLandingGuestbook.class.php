@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2021 12 19
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -53,7 +53,7 @@ class HomeLandingGuestbook
 			$item = new GuestbookMessage();
 			$item->set_properties($row);
 
-			$view->assign_block_vars('items', array_merge($item->get_array_tpl_vars(), array(
+			$view->assign_block_vars('items', array_merge($item->get_template_vars(), array(
 				'U_AVATAR_IMG' => !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar()
             )));
 		}
