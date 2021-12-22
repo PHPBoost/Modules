@@ -4,7 +4,7 @@
 			<h6 class="cell-name">{@countdown.module.title}</h6>
 			# IF IS_ADMIN #
 				<span class="controls">
-					<a class="offload" href="${relative_url(ModulesUrlBuilder::configuration('countdown'))}" aria-label="${LangLoader::get_message('form.configuration', 'form-lang')}">
+					<a class="offload" href="${relative_url(ModulesUrlBuilder::configuration('countdown'))}" aria-label="{@form.configuration}">
 						<i class="fa fa-cog"></i>
 					</a>
 				</span>

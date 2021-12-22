@@ -33,7 +33,7 @@
 		</script>
 	# ELSE #
 		<div class="cell-content align-center">
-			${LangLoader::get_message('category.no.element', 'category-lang')}
+			{@category.no.element}
 		</div>
 	# ENDIF #
 </div>

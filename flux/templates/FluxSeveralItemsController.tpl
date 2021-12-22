@@ -121,7 +121,7 @@
 									<div class="cell-thumbnail cell-landscape cell-center">
 										<img itemprop="thumbnailUrl" src="{sub_categories_list.U_CATEGORY_THUMBNAIL}" alt="{sub_categories_list.CATEGORY_NAME}" />
 										<a class="cell-thumbnail-caption offload" href="{sub_categories_list.U_CATEGORY}">
-											${LangLoader::get_message('category.see.category', 'category-lang')}
+											{@category.see.category}
 										</a>
 									</div>
 								</div>

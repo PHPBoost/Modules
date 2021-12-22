@@ -16,7 +16,7 @@ SmalladsFormFieldBrand.prototype = {
 			jQuery('<input/> ', {type : 'text', id : 'field_name_' + id, name : 'field_name_' + id, class : 'grouped-element', placeholder : "{@smallads.brand.placeholder}"}).appendTo('#' + id);
 			jQuery('#' + id).append(' ');
 
-			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldBrand.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(LangLoader::get_message('common.delete', 'common-lang'))}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">' + ${escapejs(LangLoader::get_message('common.delete', 'common-lang'))} + '</span>').appendTo('#' + id);
+			jQuery('<a/> ', {href : 'javascript:SmalladsFormFieldBrand.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(@common.delete)}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i> <span class="sr-only">' + ${escapejs(@common.delete)} + '</span>').appendTo('#' + id);
 
 			this.integer++;
 		}
@@ -40,8 +40,8 @@ var SmalladsFormFieldBrand = new SmalladsFormFieldBrand();
 # START fieldelements #
 		<div id="${escape(ID)}_{fieldelements.ID}" class="grouped-inputs">
 			<input type="text" name="field_name_${escape(ID)}_{fieldelements.ID}" id="field_name_${escape(ID)}_{fieldelements.ID}" class="grouped-element" value="{fieldelements.NAME}" placeholder="{@smallads.brand.placeholder}"/>
-			<a href="javascript:SmalladsFormFieldBrand.delete_field({fieldelements.ID});" data-confirmation="delete-element" class="grouped-element" aria-label="${LangLoader::get_message('common.delete', 'common-lang')}"><i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('common.delete', 'common-lang'))}</span></a>
+			<a href="javascript:SmalladsFormFieldBrand.delete_field({fieldelements.ID});" data-confirmation="delete-element" class="grouped-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i><span class="sr-only">${escapejs(@common.delete)}</span></a>
 		</div>
 # END fieldelements #
 </div>
-<a href="javascript:SmalladsFormFieldBrand.add_field();" id="add-${escape(ID)}" class="add-more-values" aria-label="${LangLoader::get_message('common.add', 'common-lang')}"><i class="far fa-lg fa-plus-square" aria-hidden="true"></i><span class="sr-only">${escapejs(LangLoader::get_message('common.add', 'common-lang'))}</span></a>
+<a href="javascript:SmalladsFormFieldBrand.add_field();" id="add-${escape(ID)}" class="add-more-values" aria-label="{@common.add}"><i class="far fa-lg fa-plus-square" aria-hidden="true"></i><span class="sr-only">${escapejs(@common.add)}</span></a>
