@@ -35,19 +35,14 @@
 						</header>
 						<div class="content">
 							<div
-								data-listorder-control="dropdown-sort"
-								class="listorder-drop-down hidden"
+								class="hidden"
+								data-listorder-control="hidden-sort"
 								data-group="feed-items"
-								data-name="sorttitle">
-								<div data-type="panel" class="listorder-dd-panel"></div>
-								<ul data-type="content" class="dropdown-container">
-									<li> {@common.sort.by.date}
-										<em class="sort-type bgc-full link-color" data-path=".lo-date" data-order="asc" data-type="number"><span class="sr-only">{@common.sort.by.date} &#8593;</span> <i class="fa fa-sort-numeric-up-alt"></i></em>
-										<em class="sort-type bgc-full logo-color" data-path=".lo-date" data-order="desc" data-type="number" data-selected="true"><span class="sr-only">{@common.sort.by.date} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
-									</li>
-								</ul>
+								data-path=".lo-date"
+								data-order="desc"
+								data-type="number">
 							</div>
-							<ul class="last-feeds" data-type="content" data-listorder-group="feed-items">
+							<ul class="last-feeds" data-listorder-group="feed-items">
 								# IF C_LAST_FEEDS #
 									# START feed_items #
 										<li data-listorder-item>
