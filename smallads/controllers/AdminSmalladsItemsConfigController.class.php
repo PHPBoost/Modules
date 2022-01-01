@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2021 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author        Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2022 01 01
  * @since       PHPBoost 5.1 - 2019 11 04
  * @contributor  Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor  Mipel <mipel@phpboost.com>
@@ -130,13 +130,17 @@ class AdminSmalladsItemsConfigController extends DefaultAdminModuleController
 
 		$fieldset->add_field(new FormFieldSpacer('2_separator', ''));
 
-		$fieldset->add_field(new SmalladsFormFieldSmalladType('smallad_type', $this->lang['smallads.type.add'], $this->config->get_smallad_types()));
+		$fieldset->add_field(new SmalladsFormFieldSmalladType('smallad_type', $this->lang['smallads.type.add'], $this->config->get_smallad_types(),
+			array('class' => ' full-field')
+		));
+
+		// $fieldset->add_field(new SmalladsFormFieldBrand('smallad_brand', $this->lang['smallads.brand.add'], $this->config->get_brands(),
+		// 	array('class' => ' full-field')
+		// ));
 
         $fieldset->add_field(new FormFieldRichTextEditor('default_content', $this->lang['smallads.default.content'], $this->config->get_default_content(),
 			array('rows' => 8, 'cols' => 47)
 		));
-
-		// $fieldset->add_field(new SmalladsFormFieldBrand('smallad_brand', $this->lang['smallads.brand.add'], $this->config->get_brands()));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
