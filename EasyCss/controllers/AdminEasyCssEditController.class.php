@@ -1,7 +1,7 @@
 <?php
 /**
  * Cette page permet la modification des fichiers CSS contenus dans le dossier 'theme' des thèmes installés
- * @copyright   &copy; 2005-2021 PHPBoost
+ * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
  * @version     PHPBoost 6.0 - last update: 2018 11 30
