@@ -284,16 +284,14 @@
 							<a class="letters-list offload" href="javascript:redirection_letter('{letter.LETTER}');">{letter.LETTER}</a>
 						# END letter #
 					</div>
-					<div class="flex-between flex-between-large">
-						<div class="grouped-inputs">
-							<span class="grouped-element">{@dictionary.filter.by.category}</span>
-							<select id="category-selector" name="category" class="grouped-element">
-								<option value="ALL">{@common.all.alt}
-								# START cat_list #
-									<option value='{cat_list.CATEGORY_ID}'>{cat_list.CATEGORY_NAME}
-								# END cat_list #
-							</select>
-						</div>
+					<div class="grouped-inputs">
+						<span class="grouped-element">{@dictionary.filter.by.category}</span>
+						<select id="category-selector" name="category" class="grouped-element">
+							<option value="ALL">{@common.all.alt}
+							# START cat_list #
+								<option value='{cat_list.CATEGORY_ID}'>{cat_list.CATEGORY_NAME}
+							# END cat_list #
+						</select>
 						<a class="grouped-element button" href="javascript:toggleCategory(' ');">{@form.apply}</a>
 					</div>
 					<div class="cat-selector">
@@ -307,6 +305,10 @@
 				<noscript>
 					<div class="message-helper bgc warning no-script">{@common.no.script}</div>
 				</noscript>
+			</div>
+		</div>
+		<div class="sub-section">
+			<div class="content-container">
 				# IF C_RESULTS #<p class="content align-center small">{@dictionary.switch.content}</p># ENDIF #
 				<div class="content">
 					# START items #

@@ -19,13 +19,15 @@
 	</header>
 
 	# IF C_ROOT_CATEGORY #
-		<div class="sub-section">
-			<div class="content-container">
-				<div class="cat-description">
-					{ROOT_CATEGORY_DESC}
+		# IF C_ROOT_CATEGORY_DESCRIPTION #
+			<div class="sub-section">
+				<div class="content-container">
+					<div class="cat-description">
+						{ROOT_CATEGORY_DESCRIPTION}
+					</div>
 				</div>
 			</div>
-		</div>
+		# ENDIF #
 		# IF C_DISPLAY_LAST_FEEDS #
 			<div class="sub-section">
 				<div class="content-container">
@@ -34,16 +36,16 @@
 							<h5>{LAST_FEEDS}</h5>
 						</header>
 						<div class="content">
-							<div
-								class="hidden"
-								data-listorder-control="hidden-sort"
-								data-group="feed-items"
-								data-path=".lo-date"
-								data-order="desc"
-								data-type="number">
-							</div>
-							<ul class="last-feeds" data-listorder-group="feed-items">
-								# IF C_LAST_FEEDS #
+							# IF C_LAST_FEEDS #
+								<div
+									class="hidden"
+									data-listorder-control="hidden-sort"
+									data-group="feed-items"
+									data-path=".lo-date"
+									data-order="desc"
+									data-type="number">
+								</div>
+								<ul class="last-feeds" data-listorder-group="feed-items">
 									# START feed_items #
 										<li data-listorder-item>
 											<span class="lo-date hidden">{feed_items.SORT_DATE}</span>
@@ -63,23 +65,19 @@
 											</p>
 										</li>
 									# END feed_items #
-								# ELSE #
-									<div class="message-helper bgc notice">{@flux.no.last.feeds}</div>
-								# ENDIF #
-							</ul>
-							<div class="sub-section items-pagination">
-								<div class="content-container">
-									<nav
-									   	class="listorder-pagination pagination"
-									   	data-listorder-control="pagination"
-								        data-group="feed-items"
-								        data-items-per-page="{LAST_FEEDS_NUMBER}"
-								        data-current-page="0"
-								        data-name="pagination1"
-										data-id="paging">
-									</nav>
-								</div>
-							</div>
+								</ul>
+								<nav
+								   	class="listorder-pagination pagination"
+								   	data-listorder-control="pagination"
+							        data-group="feed-items"
+							        data-items-per-page="{LAST_FEEDS_NUMBER}"
+							        data-current-page="0"
+							        data-name="pagination1"
+									data-id="paging">
+								</nav>
+							# ELSE #
+								<div class="message-helper bgc notice">{@flux.no.last.feeds}</div>
+							# ENDIF #
 						</div>
 					</article>
 				</div>
@@ -219,13 +217,15 @@
 			# ENDIF #
 		</div>
 	# ELSE #
-		<div class="content">
-			# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-				<div class="message-helper bgc notice">
-					{@common.no.item.now}
+		# IF NOT C_HIDE_NO_ITEM_MESSAGE #
+			<div class="sub-section">
+				<div class="content-container">
+					<div class="message-helper bgc notice">
+						{@common.no.item.now}
+					</div>
 				</div>
-			# ENDIF #
-		</div>
+			</div>			
+		# ENDIF #
 	# ENDIF #
 
 	<footer># IF C_PAGINATION # # INCLUDE PAGINATION # # ENDIF #</footer>

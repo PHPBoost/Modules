@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 01 04
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -82,32 +82,33 @@ class FluxCategoryController extends DefaultModuleController
 		$this->last_feeds_view($request);
 
 		$this->view->put_all(array(
-			'C_CATEGORY'                 => true,
-			'C_ITEMS'                    => $result->get_rows_count() > 0,
-            'C_SEVERAL_ITEMS'            => $result->get_rows_count() > 1,
-			'C_GRID_VIEW'                => $this->config->get_display_type() == FluxConfig::GRID_VIEW,
-			'C_TABLE_VIEW'               => $this->config->get_display_type() == FluxConfig::TABLE_VIEW,
-			'C_CATEGORY_DESCRIPTION'     => !empty($this->get_category()->get_description()),
-			'C_CONTROLS'                 => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
-			'C_PAGINATION'               => $pagination->has_several_pages(),
-			'C_ROOT_CATEGORY'            => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
-			'C_HIDE_NO_ITEM_MESSAGE'     => $this->get_category()->get_id() == Category::ROOT_CATEGORY && ($sub_categories_number != 0 || !empty($this->get_category()->get_description())),
-			'C_SUB_CATEGORIES'           => $sub_categories_number > 0,
-			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
-			'C_NEW_WINDOW' 				 => $this->config->get_new_window(),
-			'C_DISPLAY_LAST_FEEDS'		 => $this->config->get_last_feeds_display(),
+			'C_CATEGORY'                  => true,
+			'C_ITEMS'                     => $result->get_rows_count() > 0,
+            'C_SEVERAL_ITEMS'             => $result->get_rows_count() > 1,
+			'C_GRID_VIEW'                 => $this->config->get_display_type() == FluxConfig::GRID_VIEW,
+			'C_TABLE_VIEW'                => $this->config->get_display_type() == FluxConfig::TABLE_VIEW,
+			'C_ROOT_CATEGORY_DESCRIPTION' => !empty($this->config->get_root_category_description()),
+			'C_CATEGORY_DESCRIPTION'      => !empty($this->get_category()->get_description()),
+			'C_CONTROLS'                  => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
+			'C_PAGINATION'                => $pagination->has_several_pages(),
+			'C_ROOT_CATEGORY'             => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
+			'C_HIDE_NO_ITEM_MESSAGE'      => $this->get_category()->get_id() == Category::ROOT_CATEGORY && ($sub_categories_number != 0 || !empty($this->get_category()->get_description())),
+			'C_SUB_CATEGORIES'            => $sub_categories_number > 0,
+			'C_SUBCATEGORIES_PAGINATION'  => $subcategories_pagination->has_several_pages(),
+			'C_NEW_WINDOW' 				  => $this->config->get_new_window(),
+			'C_DISPLAY_LAST_FEEDS'		  => $this->config->get_last_feeds_display(),
 
-			'MODULE_NAME'              => $this->config->get_module_name(),
-			'LAST_FEEDS_NUMBER'		   => $this->config->get_last_feeds_number(),
-			'LAST_FEEDS'			   => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
-			'ROOT_CATEGORY_DESC'       => $this->config->get_root_category_description(),
-			'CATEGORY_NAME'            => $this->get_category()->get_name(),
-			'CATEGORY_DESCRIPTION'     => FormatingHelper::second_parse($this->get_category()->get_description()),
-			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
-			'PAGINATION'               => $pagination->display(),
-			'CATEGORIES_PER_ROW'       => $this->config->get_categories_per_row(),
-			'ITEMS_PER_ROW'            => $this->config->get_items_per_row(),
-			'ID_CAT'                   => $this->get_category()->get_id(),
+			'MODULE_NAME'               => $this->config->get_module_name(),
+			'LAST_FEEDS_NUMBER'		    => $this->config->get_last_feeds_number(),
+			'LAST_FEEDS'			    => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
+			'ROOT_CATEGORY_DESCRIPTION' => $this->config->get_root_category_description(),
+			'CATEGORY_NAME'             => $this->get_category()->get_name(),
+			'CATEGORY_DESCRIPTION'      => FormatingHelper::second_parse($this->get_category()->get_description()),
+			'SUBCATEGORIES_PAGINATION'  => $subcategories_pagination->display(),
+			'PAGINATION'                => $pagination->display(),
+			'CATEGORIES_PER_ROW'        => $this->config->get_categories_per_row(),
+			'ITEMS_PER_ROW'             => $this->config->get_items_per_row(),
+			'ID_CAT'                    => $this->get_category()->get_id(),
 
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? FluxUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id())->rel()
 		));
@@ -145,7 +146,7 @@ class FluxCategoryController extends DefaultModuleController
 
 			if(!empty($item->get_xml_path()))
 			{
-				$this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
+				$this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0 && $this->config->get_last_feeds_display());
 
 				$xml = simplexml_load_file(PATH_TO_ROOT . '/' . $item->get_xml_path());
 				$xml_items = array();
