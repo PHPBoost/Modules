@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 27
+ * @version     PHPBoost 6.0 - last update: 2022 01 05
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -138,7 +138,7 @@ class CountdownConfig extends AbstractConfigData
 			self::STOP_COUNTER   => false,
 			self::HIDDEN_COUNTER => false,
 			self::NO_JS          => LangLoader::get_message('countdown.no.js', 'install', 'countdown'),
-			self::EVENT_DATE     => new Date(1640995200, Timezone::SERVER_TIMEZONE), //le 1/1/2022 à 0:00:00
+			self::EVENT_DATE     => new Date(1672527600, Timezone::SERVER_TIMEZONE), //le 1/1/2023 à 0:00:00
 			self::NEXT_EVENT     => LangLoader::get_message('countdown.next.event', 'install', 'countdown'),
 			self::LAST_EVENT     => LangLoader::get_message('countdown.last.event', 'install', 'countdown'),
 			self::STOPPED_EVENT  => LangLoader::get_message('countdown.stoped.event', 'install', 'countdown'),
