@@ -154,7 +154,7 @@
 
 # IF C_GMAP_ENABLED #
 	# IF C_DEFAULT_ADDRESS #
-		<script src="{PATH_TO_ROOT}/spots/templates/js/sticky.js"></script>
+		<script src="{PATH_TO_ROOT}/spots/templates/js/sticky# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 
 		<script>
 			jQuery(function(){

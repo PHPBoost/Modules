@@ -179,7 +179,7 @@
 # IF C_GMAP_ENABLED #
 	<script src="{PATH_TO_ROOT}/spots/templates/js/leaflet.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key={GMAP_API_KEY}"></script>
-	<script src="{PATH_TO_ROOT}/spots/templates/js/leaflet.google.js"></script>
+	<script src="{PATH_TO_ROOT}/spots/templates/js/leaflet.google# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 
 	<script>
 		var map = new L.Map('map', {
