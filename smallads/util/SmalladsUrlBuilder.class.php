@@ -102,7 +102,7 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
-	public static function display_item($id_category, $rewrited_name_category, $id_smallad, $rewrited_title)
+	public static function display($id_category, $rewrited_name_category, $id_smallad, $rewrited_title)
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/' . $id_category . '-' . $rewrited_name_category . '/' . $id_smallad . '-' .$rewrited_title . '/');
 	}

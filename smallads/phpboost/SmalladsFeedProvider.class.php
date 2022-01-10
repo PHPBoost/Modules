@@ -56,7 +56,7 @@ class SmalladsFeedProvider implements FeedProvider
 			foreach ($results as $row)
 			{
 				$row['rewrited_name_cat'] = !empty($row['id_category']) ? $row['rewrited_name_cat'] : 'root';
-				$link = SmalladsUrlBuilder::display_item($row['id_category'], $row['rewrited_name_cat'], $row['id'], $row['rewrited_title']);
+				$link = SmalladsUrlBuilder::display($row['id_category'], $row['rewrited_name_cat'], $row['id'], $row['rewrited_title']);
 				$item = new FeedItem();
 				$item->set_title($row['title']);
 				$item->set_link($link);
