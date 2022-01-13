@@ -3,17 +3,22 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 01 13
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
 class FluxItemsManagerController extends DefaultAdminModuleController
 {
+	private $elements_number = 0;
+	private $ids = array();
+
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->check_authorizations();
 
 		$this->build_table();
+
+		$this->execute_multiple_delete_if_needed($request);
 
 		return $this->generate_response();
 	}
@@ -59,6 +64,9 @@ class FluxItemsManagerController extends DefaultAdminModuleController
 			$category = $item->get_category();
 			$user = $item->get_author_user();
 
+			$this->elements_number++;
+			$this->ids[$this->elements_number] = $item->get_id();
+
 			$edit_item = new LinkHTMLElement(FluxUrlBuilder::edit($item->get_id()), '', array('title' => $this->lang['common.edit']), 'fa fa-edit');
 			$delete_item = new LinkHTMLElement(FluxUrlBuilder::delete($item->get_id()), '', array('title' => $this->lang['common.delete'], 'data-confirmation' => 'delete-element'), 'far fa-trash-alt');
 
@@ -83,6 +91,28 @@ class FluxItemsManagerController extends DefaultAdminModuleController
 
 		$this->view->put('CONTENT', $table->display());
 	}
+
+	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
+    {
+        if ($request->get_string('delete-selected-elements', false))
+        {
+            for ($i = 1; $i <= $this->elements_number; $i++)
+            {
+                if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on')
+                {
+                    if (isset($this->ids[$i]))
+                    {
+						$item = FluxService::get_item($this->ids[$i]);
+                        FluxService::delete($this->ids[$i]);
+						HooksService::execute_hook_action('delete', self::$module_id, $item->get_properties());
+                    }
+                }
+            }
+            FluxService::clear_cache();
+
+            AppContext::get_response()->redirect(FluxUrlBuilder::manage(), $this->lang['warning.process.success']);
+        }
+    }
 
 	private function check_authorizations()
 	{
