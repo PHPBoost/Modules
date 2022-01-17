@@ -25,7 +25,13 @@
 			</ul>
 		</div>
 	# ELSE #
-		{@lastcoms.no.item}
+		<div class="cell-body">
+			<div class="cell-content">
+				<div class="message-helper bgc notice">
+					{@lastcoms.no.item}
+				</div>				
+			</div>
+		</div>
 	# ENDIF #
 # IF C_HORIZONTAL #
 		</div>
