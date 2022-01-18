@@ -136,14 +136,14 @@
 							<div class="cell-body">
 								<div class="cell-infos">
 									<div class="more">
-										<span class="pinned" aria-label="{@common.views.number}"> <i class="fa fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span>
-										# IF items.C_VISIT #<span class="pinned" aria-label="{@common.visits.number}"> <i class="fa fa-external-link-alt" aria-hidden="true"></i> {items.VISITS_NUMBER}</span># ENDIF #
-										<span class="pinned-category" data-color-surround="{items.CATEGORY_COLOR}" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
+										<span class="pinned item-views-number" aria-label="{@common.views.number}"> <i class="fa fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span>
+										# IF items.C_VISIT #<span class="pinned item-visits-number" aria-label="{@common.visits.number}"> <i class="fa fa-external-link-alt" aria-hidden="true"></i> {items.VISITS_NUMBER}</span># ENDIF #
+										<span class="pinned-category item-category" data-color-surround="{items.CATEGORY_COLOR}" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
 									</div>
 									# IF items.C_CONTROLS #
 										<div class="controls align-right">
-											# IF items.C_EDIT #<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit"></i></a># ENDIF #
-											# IF items.C_DELETE #<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a># ENDIF #
+											# IF items.C_EDIT #<a class="offload item-edit" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit"></i></a># ENDIF #
+											# IF items.C_DELETE #<a class="item-delete" href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a># ENDIF #
 										</div>
 									# ENDIF #
 								</div>

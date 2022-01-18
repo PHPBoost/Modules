@@ -22,8 +22,8 @@
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<h3><a class="offload" href="{media_host.U_ITEM}">{media_host.TITLE}</a></h3>
 							<div class="more">
-								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}</span>
-								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
+								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}</span>
+								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
 							</div>
 							<div class="media-content media-host" style="width: {media_host.WIDTH}px; height: {media_host.HEIGHT}px">
 								<iframe class="media-player" type="text/html" src="{media_host.PLAYER}{media_host.MEDIA_ID}" frameborder="0" allowfullscreen></iframe>
@@ -35,8 +35,8 @@
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<h3><a class="offload" href="{media_mp4.U_ITEM}">{media_mp4.TITLE}</a></h3>
 							<div class="more">
-								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
-								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
+								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
+								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
 							</div>
 							<div class="media-content media-html5" style="width:{media_mp4.WIDTH}px;height:{media_mp4.HEIGHT}px;">
 								<video class="video-player"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
@@ -50,8 +50,8 @@
 						<div class="item-content-audio" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<h3><a class="offload" href="{media_mp3.U_ITEM}">{media_mp3.TITLE}</a></h3>
 							<div class="more">
-								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
-								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
+								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
+								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
 							</div>
 
 							<div class="media-content-audio" id="media_mp3-{media_mp3.ID}">
@@ -66,8 +66,8 @@
 						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<h3><a class="offload" href="{media_other.U_ITEM}">{media_other.TITLE}</a></h3>
 							<div class="more">
-								<span class="pinned"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
-								<span class="pinned"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
+								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
+								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
 							</div>
 
 							<div class="media-content media-other" id="media_other-{media_other.ID}" style="width:{media_other.WIDTH}px;height:{media_other.HEIGHT}px;">
