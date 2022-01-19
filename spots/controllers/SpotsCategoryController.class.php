@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 12
+ * @version     PHPBoost 6.0 - last update: 2022 01 19
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -117,7 +117,7 @@ class SpotsCategoryController extends DefaultModuleController
 			'ITEMS_PER_ROW'            => $this->config->get_items_per_row(),
 			'ID_CAT'                   => $this->get_category()->get_id(),
 
-			'U_EDIT_CATEGORY' => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id())->rel()
+			'U_EDIT_CATEGORY' => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'spots')->rel()
 		));
 
 		while ($row = $result->fetch())

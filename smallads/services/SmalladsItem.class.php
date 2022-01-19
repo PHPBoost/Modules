@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 10
+ * @version     PHPBoost 6.0 - last update: 2022 01 19
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -799,7 +799,7 @@ class SmalladsItem
 			'CATEGORY_NAME'        => $category->get_name(),
 			'CATEGORY_DESCRIPTION' => $category->get_description(),
 			'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
-			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id())->rel(),
+			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'smallads')->rel(),
 
 			// Links
 			'U_COMMENTS'       => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),

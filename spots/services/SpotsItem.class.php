@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 12
+ * @version     PHPBoost 6.0 - last update: 2022 01 19
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -521,7 +521,7 @@ class SpotsItem
 			'CATEGORY_LATITUDE'    => !empty($category->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
 			'CATEGORY_LONGITUDE'   => !empty($category->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
 
-			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id())->rel(),
+			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'spots')->rel(),
 
 			// Item
 			'ID'                  => $this->id,

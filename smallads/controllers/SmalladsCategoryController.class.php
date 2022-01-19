@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2022 01 19
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -119,7 +119,7 @@ class SmalladsCategoryController extends DefaultModuleController
 			'ITEMS_PER_ROW'          => $this->config->get_items_per_row(),
 			'ITEMS_PER_PAGE'         => $this->config->get_items_per_page(),
 			'ID_CATEGORY'            => $this->get_category()->get_id(),
-			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id())->rel(),
+			'U_EDIT_CATEGORY'        => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'smallads')->rel(),
 			'U_USAGE_TERMS' 		 => SmalladsUrlBuilder::usage_terms()->rel()
 		));
 
