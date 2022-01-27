@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 19
+ * @version     PHPBoost 6.0 - last update: 2022 01 27
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -16,11 +16,6 @@ class HomeLandingHomeController extends DefaultModuleController
 	 */
 	private $modules;
 
-	public static function __static()
-	{
-		self::$module_id = 'HomeLanding';
-	}
-
 	public function __construct($module_id = '')
 	{
 		self::$module_id = 'HomeLanding';
@@ -32,7 +27,7 @@ class HomeLandingHomeController extends DefaultModuleController
 	protected function init_parameters()
 	{
 		$this->request = AppContext::get_request();
-		$this->config = HomelandingConfig::load();
+		$this->config = HomeLandingConfig::load();
 		$this->lang = LangLoader::get_all_langs(self::$module_id);
 	}
 
