@@ -78,7 +78,6 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 					'LOGIN' => $user['display_name'],
 					'USER_LEVEL_CLASS' => UserService::get_level_class($user['level']),
 					'USER_GROUP_COLOR' => $user_group_color,
-					// 'DELAY' => $user['delay'],
 					'BIRTHDATE' => $user['birthdate'],
 					'U_USER_PROFILE' => UserUrlBuilder::profile($user['user_id'])->absolute()
 				));
@@ -96,32 +95,6 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 		));
 
 		return $view->render();
-	}
-
-	public function display()
-	{
-		if ($this->is_displayed())
-		{
-			if ($this->get_block() == Menu::BLOCK_POSITION__LEFT || $this->get_block() == Menu::BLOCK_POSITION__RIGHT)
-			{
-				$template = $this->get_template_to_use();
-				MenuService::assign_positions_conditions($template, $this->get_block());
-				$this->assign_common_template_variables($template);
-
-				$template->put_all(array(
-					'ID' => $this->get_menu_id(),
-					'TITLE' => $this->get_menu_title(),
-					'CONTENTS' => $this->get_menu_content()
-				));
-
-				return $template->render();
-			}
-			else
-			{
-				return $this->get_menu_content();
-			}
-		}
-		return '';
 	}
 }
 ?>

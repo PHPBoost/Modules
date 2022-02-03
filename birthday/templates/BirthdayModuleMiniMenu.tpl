@@ -1,6 +1,6 @@
-# IF C_BIRTHDAY_ENABLED #	
+# IF C_BIRTHDAY_ENABLED #
 	<div class="cell-list cell-list-inline">
-		<span class="text-italic small">{@date.today}</span>
+		<span class="text-italic small pinned">{@date.today}</span>
 		<ul>
 			# IF C_HAS_BIRTHDAY #
 				# START birthday #
@@ -17,7 +17,7 @@
 		</ul>
 	</div>
 	<div class="cell-list cell-list-inline">
-		<span class="text-italic small">{L_COMING_NEXT}</span>
+		<span class="text-italic small pinned">{L_COMING_NEXT}</span>
 		<ul>
 			# IF C_UPCOMING_BIRTHDAYS #
 				# START upcoming_birthdays #
