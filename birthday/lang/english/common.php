@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 17
+ * @version     PHPBoost 6.0 - last update: 2022 02 03
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -15,13 +15,15 @@
 // Titles
 $lang['birthday.module.title'] = 'Birthdays';
 $lang['birthday.happy.birthday'] = 'Happy birthday!';
+$lang['birthday.next.days'] = 'In :coming_next next days';
 
 // Configuration
-$lang['birthday.members.age.displayed'] = 'Display members age in the menu';
-$lang['birthday.send.pm.for.members.birthday'] = 'Send a PM on members birthday';
-$lang['birthday.pm.for.members.birthday.title'] = 'PM title';
-$lang['birthday.pm.for.members.birthday.title.clue'] = 'Use <b>:user_display_name</b> to display the name of the member in the title and <b>:user_age</b> to display his age if needed.';
-$lang['birthday.pm.for.members.birthday.content'] = 'PM content';
+$lang['birthday.coming.next.number']                   = 'Number of days to display upcoming birthdays';
+$lang['birthday.members.age.displayed']                = 'Display members age in the menu';
+$lang['birthday.send.pm.for.members.birthday']         = 'Send a PM on members birthday';
+$lang['birthday.pm.for.members.birthday.title']        = 'PM title';
+$lang['birthday.pm.for.members.birthday.title.clue']   = 'Use <b>:user_display_name</b> to display the name of the member in the title and <b>:user_age</b> to display his age if needed.';
+$lang['birthday.pm.for.members.birthday.content']      = 'PM content';
 $lang['birthday.pm.for.members.birthday.content.clue'] = 'Use <b>:user_display_name</b> to display the name of the member in the content and <b>:user_age</b> to display his age if needed';
 
 // Errors

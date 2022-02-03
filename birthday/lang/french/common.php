@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 06 17
+ * @version     PHPBoost 6.0 - last update: 2022 02 03
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -16,8 +16,10 @@
 // Titles
 $lang['birthday.module.title']   = 'Anniversaires';
 $lang['birthday.happy.birthday'] = 'Joyeux anniversaire !';
+$lang['birthday.next.days'] = 'Dans les :coming_next prochains jours';
 
 // Configuration
+$lang['birthday.coming.next.number']                   = 'Nombre de jours pour afficher les prochains anniversaires';
 $lang['birthday.members.age.displayed']                = 'Afficher l\'âge des membres dans le menu';
 $lang['birthday.send.pm.for.members.birthday']         = 'Envoyer un MP à l\'anniversaire des membres';
 $lang['birthday.pm.for.members.birthday.title']        = 'Titre du MP';

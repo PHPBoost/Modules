@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 05
+ * @version     PHPBoost 6.0 - last update: 2022 02 03
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -43,13 +43,17 @@ class AdminBirthdayConfigController extends DefaultAdminModuleController
 		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module()->get_configuration()->get_name())));
 		$form->add_fieldset($fieldset);
 
+		$fieldset->add_field(new FormFieldNumberEditor('coming_next', $this->lang['birthday.coming.next.number'], $this->config->get_coming_next(),
+			array('class' => 'top-field')
+		));
+
 		$fieldset->add_field(new FormFieldCheckbox('members_age_displayed', $this->lang['birthday.members.age.displayed'], $this->config->is_members_age_displayed(),
-			array('class' => 'third-field top-field custom-checkbox')
+			array('class' => 'top-field custom-checkbox')
 		));
 
 		$fieldset->add_field(new FormFieldCheckbox('pm_for_members_birthday_enabled', $this->lang['birthday.send.pm.for.members.birthday'], $this->config->is_pm_for_members_birthday_enabled(),
 			array(
-				'class' => 'third-field top-field custom-checkbox',
+				'class' => 'top-field custom-checkbox',
 				'events' => array('click' => '
 					if (HTMLForms.getField("pm_for_members_birthday_enabled").getValue()) {
 						HTMLForms.getField("pm_for_members_birthday_title").enable();
@@ -64,7 +68,7 @@ class AdminBirthdayConfigController extends DefaultAdminModuleController
 
 		$fieldset->add_field(new FormFieldTextEditor('pm_for_members_birthday_title', $this->lang['birthday.pm.for.members.birthday.title'], $this->config->get_pm_for_members_birthday_title(),
 			array(
-				'class' => 'third-field', 'size' => 40,
+				'size' => 40,
 				'description' => $this->lang['birthday.pm.for.members.birthday.title.clue'],
 				'hidden' => !$this->config->is_pm_for_members_birthday_enabled()
 			)

@@ -3,19 +3,30 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 26
+ * @version     PHPBoost 6.0 - last update: 2022 02 03
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BirthdayConfig extends AbstractConfigData
 {
+	const COMING_NEXT = 'coming_next';
 	const MEMBERS_AGE_DISPLAYED = 'members_age_displayed';
 	const PM_FOR_MEMBERS_BIRTHDAY_ENABLED = 'pm_for_members_birthday_enabled';
 	const PM_FOR_MEMBERS_BIRTHDAY_TITLE = 'pm_for_members_birthday_title';
 	const PM_FOR_MEMBERS_BIRTHDAY_CONTENT = 'pm_for_members_birthday_content';
 
 	const AUTHORIZATIONS = 'authorizations';
+
+	public function get_coming_next()
+	{
+		return $this->get_property(self::COMING_NEXT);
+	}
+
+	public function set_coming_next($value)
+	{
+	$this->set_property(self::COMING_NEXT, $value);
+	}
 
 	public function display_members_age()
 	{
@@ -57,6 +68,7 @@ class BirthdayConfig extends AbstractConfigData
 	$this->set_property(self::PM_FOR_MEMBERS_BIRTHDAY_TITLE, $value);
 	}
 
+
 	public function get_pm_for_members_birthday_content()
 	{
 		return $this->get_property(self::PM_FOR_MEMBERS_BIRTHDAY_CONTENT);
@@ -90,6 +102,7 @@ class BirthdayConfig extends AbstractConfigData
 	public function get_default_values()
 	{
 		return array(
+			self::COMING_NEXT => 7,
 			self::MEMBERS_AGE_DISPLAYED => true,
 			self::PM_FOR_MEMBERS_BIRTHDAY_ENABLED => false,
 			self::PM_FOR_MEMBERS_BIRTHDAY_TITLE => LangLoader::get_message('birthday.config.pm.for.members.birthday.default.title', 'common', 'birthday'),
