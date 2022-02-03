@@ -1,24 +1,17 @@
-<div id="module-mini-countdown" class="cell-tile cell-mini# IF C_VERTICAL # cell-mini-vertical# ENDIF ## IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
-	<div class="cell">
-		<div class="cell-header">
-			<h6 class="cell-name">{@countdown.module.title}</h6>
-			# IF IS_ADMIN #
-				<span class="controls">
-					<a class="offload" href="${relative_url(ModulesUrlBuilder::configuration('countdown'))}" aria-label="{@form.configuration}">
-						<i class="fa fa-cog"></i>
-					</a>
-				</span>
-			# ENDIF #
-		</div>
-	<div class="cell-body">
-		<div class="cell-content">
-			# IF C_DISABLED #
-				{NO_EVENT}
-			# ELSE #
-				<div id="countdown"><noscript>{NO_JS}</noscript></div>
-			# ENDIF #
-		</div>
-	</div>
+<div class="cell-body">
+	<div class="cell-content">
+		# IF C_DISABLED #
+			{NO_EVENT}
+		# ELSE #
+			<div id="countdown"><noscript>{NO_JS}</noscript></div>
+		# ENDIF #
+		# IF IS_ADMIN #
+			<div class="controls align-right">
+				<a class="offload" href="${relative_url(ModulesUrlBuilder::configuration('countdown'))}" aria-label="{@form.configuration}">
+					<i class="fa fa-cog"></i>
+				</a>
+			</div>
+		# ENDIF #
 	</div>
 </div>
 

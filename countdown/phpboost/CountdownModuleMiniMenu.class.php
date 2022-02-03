@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 13
+ * @version     PHPBoost 6.0 - last update: 2022 02 03
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -14,17 +14,17 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 		return self::BLOCK_POSITION__RIGHT;
 	}
 
-	public function admin_display()
-	{
-		return '';
-	}
-
 	public function get_menu_id()
 	{
 		return 'module-mini-countdown';
 	}
 
 	public function get_menu_title()
+	{
+		return LangLoader::get_message('countdown.module.title', 'common', 'countdown');
+	}
+
+	public function get_formated_title()
 	{
 		return LangLoader::get_message('countdown.module.title', 'common', 'countdown');
 	}
@@ -64,15 +64,6 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 		));
 
 		return $view->render();
-	}
-
-	public function display()
-	{
-		if ($this->is_displayed())
-		{
-			return $this->get_menu_content();
-		}
-		return '';
 	}
 }
 ?>

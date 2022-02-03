@@ -12,10 +12,19 @@
 .timer-unit:first-child { width: 31%; }
 
 .timer-date {
-    font-size:1.2em;
+    font-size: 1.228em;
     padding: 0.618em 0.309em;
     margin: 0 2px;
-    border-radius: 4px;
+}
+
+@media (min-width: 769px) {
+    .timer-date { font-size: 1em; }
+    [class*="narrow-menu-"] .timer-date { font-size: 0.618em; }
+}
+
+@media (min-width: 1025px) {
+    .timer-date { font-size: 1.228em; }
+    [class*="narrow-menu-"] .timer-date { font-size: 1em; }
 }
 
 .timer-name { font-size: 0.618em; }
