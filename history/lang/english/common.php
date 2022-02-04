@@ -1,0 +1,65 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2022 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version     PHPBoost 6.0 - last update: 2022 02 04
+ * @since       PHPBoost 6.0 - 2021 10 22
+*/
+
+#####################################################
+#                    English                        #
+#####################################################
+
+$lang['history.config.topics.disabled'] = 'Topics to be taken into account in the history';
+$lang['history.config.log.retention.period'] = 'Log retention period';
+$lang['history.config.topic.items'] = 'Add / edit / delete content';
+$lang['history.config.topic.categories'] = 'Categories';
+$lang['history.config.topic.contributions'] = 'Contributions';
+$lang['history.config.topic.moderation'] = 'Moderation';
+$lang['history.config.topic.comments'] = 'Comments';
+$lang['history.config.topic.notation'] = 'Notation';
+$lang['history.config.topic.config'] = 'Configuration changes';
+$lang['history.config.topic.module_specific'] = ':module_name specific hooks';
+
+// Actions
+$lang['history.action'] = 'Action';
+$lang['history.action.add'] = 'Add';
+$lang['history.action.edit'] = 'Edit';
+$lang['history.action.delete'] = 'Delete';
+$lang['history.action.add_category'] = 'Categorie add';
+$lang['history.action.edit_category'] = 'Categorie edit';
+$lang['history.action.delete_category'] = 'Categorie delete';
+$lang['history.action.add_contribution'] = 'Contribution add';
+$lang['history.action.edit_contribution'] = 'Contribution edit';
+$lang['history.action.delete_contribution'] = 'Contribution delete';
+$lang['history.action.process_contribution'] = 'Contribution process';
+$lang['history.action.user_warning'] = 'User warning';
+$lang['history.action.user_punishment'] = 'User punishment';
+$lang['history.action.user_ban'] = 'User ban';
+$lang['history.action.user_change_level'] = 'User change level';
+$lang['history.action.add_comment'] = 'Comment add';
+$lang['history.action.edit_comment'] = 'Comment edit';
+$lang['history.action.delete_comment'] = 'Comment delete';
+$lang['history.action.notation'] = 'Note add';
+$lang['history.action.edit_config'] = 'Configuration change';
+$lang['history.action.install_lang'] = 'Lang installation';
+$lang['history.action.uninstall_lang'] = 'Lang uninstallation';
+$lang['history.action.install_module'] = 'Module installation';
+$lang['history.action.uninstall_module'] = 'Module uninstallation';
+$lang['history.action.update_module'] = 'Module update';
+$lang['history.action.install_theme'] = 'Theme installation';
+$lang['history.action.uninstall_theme'] = 'Theme uninstallation';
+$lang['history.action.bugtracker_change_status'] = 'Ticket status change';
+$lang['history.action.wiki_change_status'] = 'Page status change';
+$lang['history.action.wiki_delete_archive'] = 'Archive delete';
+$lang['history.action.wiki_restore_archive'] = 'Archive restoration';
+$lang['history.action.forum_add_topic'] = 'Topic add';
+$lang['history.action.forum_edit_topic'] = 'Topic edit';
+$lang['history.action.forum_delete_topic'] = 'Topic delete';
+$lang['history.action.forum_lock_topic'] = 'Topic lock';
+$lang['history.action.forum_unlock_topic'] = 'Topic unlock';
+$lang['history.action.forum_move_topic'] = 'Topic move';
+$lang['history.action.forum_add_poll'] = 'Poll add';
+$lang['history.action.forum_answer_poll'] = 'Poll answer';
+?>
