@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 22
+ * @version     PHPBoost 6.0 - last update: 2022 02 05
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -21,6 +21,8 @@ class AdminHistoryController extends DefaultAdminModuleController
 
 	private function build_table()
 	{
+		$modules_specific_hooks = HooksService::get_specific_hooks_list_with_localized_names();
+		
 		$columns = array(
 			new HTMLTableColumn($this->lang['common.creation.date'], 'creation_date'),
 			new HTMLTableColumn($this->lang['common.author'], 'display_name'),
@@ -88,7 +90,7 @@ class AdminHistoryController extends DefaultAdminModuleController
 				new HTMLTableRowCell($creation_date->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE)),
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($row['module_id'] != 'kernel' && $module ? $module->get_configuration()->get_name() : ($row['module_id'] == 'kernel' ? LangLoader::get_message('admin.kernel', 'admin-lang') : $row['module_id'])),
-				new HTMLTableRowCell(isset($this->lang['history.action.' . $row['action']]) ? $this->lang['history.action.' . $row['action']] : $row['action']),
+				new HTMLTableRowCell(isset($modules_specific_hooks[$row['action']]) ? $modules_specific_hooks[$row['action']] : (isset($this->lang['history.action.' . $row['action']]) ? $this->lang['history.action.' . $row['action']] : $row['action'])),
 				new HTMLTableRowCell(($row['url'] ? new LinkHTMLElement($row['url'], $title) : ($row['action'] == 'edit_config' && $module ? '' : $title)), 'left'),
 				new HTMLTableRowCell($row['description'], 'left')
 			);

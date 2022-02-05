@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 04
+ * @version     PHPBoost 6.0 - last update: 2022 02 05
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -50,16 +50,4 @@ $lang['history.action.uninstall_module'] = 'Module uninstallation';
 $lang['history.action.update_module'] = 'Module update';
 $lang['history.action.install_theme'] = 'Theme installation';
 $lang['history.action.uninstall_theme'] = 'Theme uninstallation';
-$lang['history.action.bugtracker_change_status'] = 'Ticket status change';
-$lang['history.action.wiki_change_status'] = 'Page status change';
-$lang['history.action.wiki_delete_archive'] = 'Archive delete';
-$lang['history.action.wiki_restore_archive'] = 'Archive restoration';
-$lang['history.action.forum_add_topic'] = 'Topic add';
-$lang['history.action.forum_edit_topic'] = 'Topic edit';
-$lang['history.action.forum_delete_topic'] = 'Topic delete';
-$lang['history.action.forum_lock_topic'] = 'Topic lock';
-$lang['history.action.forum_unlock_topic'] = 'Topic unlock';
-$lang['history.action.forum_move_topic'] = 'Topic move';
-$lang['history.action.forum_add_poll'] = 'Poll add';
-$lang['history.action.forum_answer_poll'] = 'Poll answer';
 ?>
