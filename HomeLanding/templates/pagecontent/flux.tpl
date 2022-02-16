@@ -12,7 +12,7 @@
 					class="hidden"
 					data-listorder-control="hidden-sort"
 					data-group="feed-items"
-					data-path=".lo-date"
+					data-path=".lo-date-flux"
 					data-order="desc"
 					data-type="number">
 				</div>
@@ -20,7 +20,7 @@
 					# IF C_LAST_FEEDS #
 						# START feed_items #
 							<li data-listorder-item>
-								<span class="lo-date hidden">{feed_items.SORT_DATE}</span>
+								<span class="lo-date-flux hidden">{feed_items.SORT_DATE}</span>
 								<span class="feed-title">
 									<h6>
 										<a href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
@@ -58,9 +58,3 @@
 		</article>
 	</div>
 </div>
-
-<script>
-	jQuery('document').ready(function(){
-		listorder.init();
-	});
-</script>

@@ -17,71 +17,99 @@
 					</div>
 				</div>
 			# ELSE #
-				<div class="content">
+				<div
+					class="hidden"
+					data-listorder-control="hidden-sort"
+					data-group="media-items"
+					data-path=".lo-date-media"
+					data-order="desc"
+					data-type="number">
+				</div>
+				<div class="content cell-flex cell-columns-{ITEMS_PER_ROW}" data-type="content" data-listorder-group="media-items">
 					# START media_host #
-						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a class="offload" href="{media_host.U_ITEM}">{media_host.TITLE}</a></h3>
-							<div class="more">
-								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}</span>
-								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
-							</div>
-							<div class="media-content media-host" style="width: {media_host.WIDTH}px; height: {media_host.HEIGHT}px">
-								<iframe class="media-player" type="text/html" src="{media_host.PLAYER}{media_host.MEDIA_ID}" frameborder="0" allowfullscreen></iframe>
+						<div data-listorder-item class="cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+							<span class="lo-date-media hidden">{media_host.SORT_DATE}</span>
+							<header class="cell-header">
+								<h3 class="cell-name"><a class="offload" href="{media_host.U_ITEM}">{media_host.TITLE}</a></h3>
+							</header>
+							<div class="cell-body">
+								<div class="cell-infos">
+									<div class="more">
+										<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_host.PSEUDO}</span>
+										<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_host.DATE}</span>
+										<span class="pinned item-category"><i class="far fa-fw fa-folder"></i> {media_host.CATEGORY_NAME}</span>
+									</div>
+								</div>
+								<div class="cell-thumbnail cell-landscape cell-center">
+									<img src="{media_host.POSTER}" alt="{media_host.TITLE}">
+									<a class="cell-thumbnail-caption offload" href="{media_host.U_ITEM}"><i class="fa fa-2x fa-play-circle" aria-hidden="true"></i></a>
+								</div>
 							</div>
 						</div>
 					# END media_host #
 
 					# START media_mp4 #
-						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a class="offload" href="{media_mp4.U_ITEM}">{media_mp4.TITLE}</a></h3>
-							<div class="more">
-								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
-								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
-							</div>
-							<div class="media-content media-html5" style="width:{media_mp4.WIDTH}px;height:{media_mp4.HEIGHT}px;">
-								<video class="video-player"# IF media_mp4.C_POSTER # poster="{media_mp4.POSTER}"# ENDIF # controls>
-									<source src="{media_mp4.FILE_URL}" type="{media_mp4.MIME}" />
-								</video>
+						<div data-listorder-item class="cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+							<span class="lo-date-media hidden">{media_mp4.SORT_DATE}</span>
+							<header class="cell-header">
+								<h3 class="cell-name"><a class="offload" href="{media_mp4.U_ITEM}">{media_mp4.TITLE}</a></h3>
+							</header>
+							<div class="cell-body">
+								<div class="cell-infos">
+									<div class="more">
+										<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_mp4.PSEUDO}</span>
+										<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_mp4.DATE}</span>
+										<span class="pinned item-category"><i class="far fa-fw fa-folder"></i> {media_mp4.CATEGORY_NAME}</span>
+									</div>
+								</div>
+								<div class="cell-thumbnail cell-landscape cell-center">
+									<img src="{media_mp4.POSTER}" alt="{media_mp4.TITLE}">
+									<a class="cell-thumbnail-caption offload" href="{media_mp4.U_ITEM}"><i class="fa fa-2x fa-play-circle" aria-hidden="true"></i></a>
+								</div>
 							</div>
 						</div>
 					# END media_mp4 #
 
 					# START media_mp3 #
-						<div class="item-content-audio" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a class="offload" href="{media_mp3.U_ITEM}">{media_mp3.TITLE}</a></h3>
-							<div class="more">
-								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
-								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
-							</div>
-
-							<div class="media-content-audio" id="media_mp3-{media_mp3.ID}">
-								<audio controls>
-									<source src="{media_mp3.FILE_URL}" type="{media_mp3.MIME}"></source>
-								</audio>
+						<div data-listorder-item class="cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+							<span class="lo-date-media hidden">{media_mp3.SORT_DATE}</span>
+							<header class="cell-header">
+								<h3 class="cell-name"><a class="offload" href="{media_mp3.U_ITEM}">{media_mp3.TITLE}</a></h3>
+							</header>
+							<div class="cell-body">
+								<div class="cell-infos">
+									<div class="more">
+										<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_mp3.PSEUDO}</span>
+										<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_mp3.DATE}</span>
+										<span class="pinned item-category"><i class="far fa-fw fa-folder"></i> {media_mp3.CATEGORY_NAME}</span>
+									</div>
+								</div>
+								<div class="cell-thumbnail cell-landscape cell-center">
+									<img src="{media_mp3.POSTER}" alt="{media_mp3.TITLE}">
+									<a class="cell-thumbnail-caption offload" href="{media_mp3.U_ITEM}"><i class="fa fa-2x fa-music" aria-hidden="true"></i></a>
+								</div>
 							</div>
 						</div>
 					# END media_mp3 #
 
 					# START media_other #
-						<div class="item-content" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<h3><a class="offload" href="{media_other.U_ITEM}">{media_other.TITLE}</a></h3>
-							<div class="more">
-								<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
-								<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
-							</div>
-
-							<div class="media-content media-other" id="media_other-{media_other.ID}" style="width:{media_other.WIDTH}px;height:{media_other.HEIGHT}px;">
-								<object type="{media_other.MIME}" data="{media_other.FILE_URL}">
-									<param name="allowScriptAccess" value="samedomain" />
-									<param name="allowFullScreen" value="true">
-									<param name="play" value="true" />
-									<param name="movie" value="{media_other.FILE_URL}" />
-									<param name="menu" value="false" />
-									<param name="quality" value="high" />
-									<param name="scalemode" value="noborder" />
-									<param name="wmode" value="transparent" />
-									<param name="bgcolor" value="#000000" />
-								</object>
+						<div data-listorder-item class="cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+							<span class="lo-date-media hidden">{media_other.SORT_DATE}</span>
+							<header class="cell-header">
+								<h3 class="cell-name"><a class="offload" href="{media_other.U_ITEM}">{media_other.TITLE}</a></h3>
+							</header>
+							<div class="cell-body">
+								<div class="cell-infos">
+									<div class="more">
+										<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {media_other.PSEUDO}</span>
+										<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {media_other.DATE}</span>
+										<span class="pinned item-category"><i class="far fa-fw fa-folder"></i> {media_other.CATEGORY_NAME}</span>
+									</div>
+								</div>
+								<div class="cell-thumbnail cell-landscape cell-center">
+									<img src="{media_other.POSTER}" alt="{media_other.TITLE}">
+									<a class="cell-thumbnail-caption offload" href="{media_other.U_ITEM}"><i class="fa fa-2x fa-play-circle" aria-hidden="true"></i></a>
+								</div>
 							</div>
 						</div>
 					# END media_other #
@@ -93,14 +121,3 @@
 
 	</div>
 </div>
-<script>
-	// for several mp4 players only - pause running video when start another
-	document.addEventListener('play', function(e){
-		var videos = document.getElementsByTagName('video');
-		for(var i = 0, len = videos.length; i < len;i++){
-			if(videos[i] != e.target){
-				videos[i].pause();
-			}
-		}
-	}, true);
-</script>

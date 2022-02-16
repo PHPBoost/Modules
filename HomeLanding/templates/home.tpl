@@ -74,3 +74,9 @@
 
 	<footer style="order: 9999;"></footer>
 </section>
+
+<script>
+	jQuery('document').ready(function(){
+		listorder.init();
+	});
+</script>

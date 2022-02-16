@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 02 16
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -30,7 +30,6 @@ class HomeLandingMedia
         LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = media.id AND notes.module_name = \'media\'
         LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = media.id AND note.module_name = \'media\' AND note.user_id = :user_id
         WHERE id_category IN :authorized_categories AND published = 2
-        ORDER BY media.creation_date DESC
         LIMIT :media_limit', array(
             'authorized_categories' => $authorized_categories,
             'user_id' => AppContext::get_current_user()->get_id(),
@@ -99,14 +98,17 @@ class HomeLandingMedia
                 }
 
                 $view->assign_block_vars('media_host', array(
-                    'PSEUDO' => $row['display_name'],
-                    'TITLE'  => $row['title'],
-                    'ID'     => $row['id'],
-                    'DATE'   => strftime('%d/%m/%Y', $row['creation_date']),
-                    'POSTER' => $poster->rel(),
-                    'PLAYER' => $player,
+                    'PSEUDO'        => $row['display_name'],
+                    'TITLE'         => $row['title'],
+                    'ID'            => $row['id'],
+                    'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
+                    'SORT_DATE'     => $row['creation_date'],
+                    'C_POSTER'      => !empty($poster),
+                    'POSTER'        => $poster->rel(),
+                    'PLAYER'        => $player,
+                    'CATEGORY_NAME' => $row['id_category'] == Category::ROOT_CATEGORY ? $module_lang['common.root'] : CategoriesService::get_categories_manager('media')->get_categories_cache()->get_category($row['id_category'])->get_name(),
 
-                    'U_ITEM'   => Url::to_rel('/media/' . url('media.php?id =' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
+                    'U_ITEM'   => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
                     'MEDIA_ID' => $media_id,
                     'WIDTH'    => $row['width'],
                     'HEIGHT'   => $row['height']
@@ -116,14 +118,16 @@ class HomeLandingMedia
             {
                 $poster = new Url($row['thumbnail']);
                 $view->assign_block_vars('media_mp4', array(
-                    'PSEUDO'   => $row['display_name'],
-                    'TITLE'    => $row['title'],
-                    'ID'       => $row['id'],
-                    'DATE'     => strftime('%d/%m/%Y', $row['creation_date']),
-                    'C_POSTER' => !empty($poster),
-                    'POSTER'   => $poster->rel(),
+                    'PSEUDO'        => $row['display_name'],
+                    'TITLE'         => $row['title'],
+                    'ID'            => $row['id'],
+                    'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
+                    'SORT_DATE'     => $row['creation_date'],
+                    'C_POSTER'      => !empty($poster),
+                    'POSTER'        => $poster->rel(),
+                    'CATEGORY_NAME' => $row['id_category'] == Category::ROOT_CATEGORY ? $module_lang['common.root'] : CategoriesService::get_categories_manager('media')->get_categories_cache()->get_category($row['id_category'])->get_name(),
 
-                    'U_ITEM'   => Url::to_rel('/media/' . url('media.php?id =' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
+                    'U_ITEM'   => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
                     'FILE_URL' => Url::to_rel($row['file_url']),
                     'MIME'     => $row['mime_type'],
                     'WIDTH'    => $row['width'],
@@ -134,14 +138,16 @@ class HomeLandingMedia
             {
                 $poster = new Url($row['thumbnail']);
                 $view->assign_block_vars('media_mp3', array(
-                    'PSEUDO'   => $row['display_name'],
-                    'TITLE'    => $row['title'],
-                    'ID'       => $row['id'],
-                    'DATE'     => strftime('%d/%m/%Y', $row['creation_date']),
-                    'C_POSTER' => !empty($poster),
-                    'POSTER'   => $poster->rel(),
+                    'PSEUDO'        => $row['display_name'],
+                    'TITLE'         => $row['title'],
+                    'ID'            => $row['id'],
+                    'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
+                    'SORT_DATE'     => $row['creation_date'],
+                    'C_POSTER'      => !empty($poster),
+                    'POSTER'        => $poster->rel(),
+                    'CATEGORY_NAME' => $row['id_category'] == Category::ROOT_CATEGORY ? $module_lang['common.root'] : CategoriesService::get_categories_manager('media')->get_categories_cache()->get_category($row['id_category'])->get_name(),
 
-                    'U_ITEM'   => Url::to_rel('/media/' . url('media.php?id =' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
+                    'U_ITEM'   => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
                     'FILE_URL' => Url::to_rel($row['file_url']),
                     'MIME'     => $row['mime_type'],
                     'WIDTH'    => $row['width'],
@@ -152,12 +158,14 @@ class HomeLandingMedia
             {
                 $poster = new Url($row['thumbnail']);
                 $view->assign_block_vars('media_other', array(
-                    'PSEUDO' => $row['display_name'],
-                    'TITLE' => $row['title'],
-                    'ID' => $row['id'],
-                    'DATE' => strftime('%d/%m/%Y', $row['creation_date']),
-                    'C_POSTER' => !empty($poster),
-                    'POSTER' => $poster->rel(),
+                    'PSEUDO'        => $row['display_name'],
+                    'TITLE'         => $row['title'],
+                    'ID'            => $row['id'],
+                    'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
+                    'SORT_DATE'     => $row['creation_date'],
+                    'C_POSTER'      => !empty($poster),
+                    'POSTER'        => $poster->rel(),
+                    'CATEGORY_NAME' => $row['id_category'] == Category::ROOT_CATEGORY ? $module_lang['common.root'] : CategoriesService::get_categories_manager('media')->get_categories_cache()->get_category($row['id_category'])->get_name(),
 
                     'U_ITEM' => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
                     'FILE_URL' => Url::to_rel($row['file_url']),
