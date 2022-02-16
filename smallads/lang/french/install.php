@@ -42,21 +42,21 @@ $lang['default.smallad.content'] = '
 ';
 $lang['smallads.default.usage.terms'] = '
 	<h2 class="formatter-title">ARTICLE 1 : Objet</h2>
-	<p>Les présentes « conditions générales d\'utilisation » ont pour objet l\'encadrement juridique des modalités de mise à disposition des services du site <span style="background-color:var(--bgc-alt);">[Nom du site]</span> et leur utilisation par « l\'utilisateur ».</p>
+	<p>Les présentes « conditions générales d\'utilisation » ont pour objet l\'encadrement juridique des modalités de mise à disposition des services du site <span style="background-color:var(--bgc-sub);">[Nom du site]</span> et leur utilisation par « l\'utilisateur ».</p>
 	<p>Les conditions générales d\'utilisation doivent être acceptées par tout utilisateur souhaitant accéder au site. Elles constituent le contrat entre le site et l\'utilisateur. L\'accès au site par l\'utilisateur signifie son acceptation des présentes conditions générales d’utilisation.</p>
 	<p>Éventuellement :</p>
 	<ul class="formatter-ul">
 	    <li class="formatter-li">En cas de non-acceptation des conditions générales d\'utilisation stipulées dans le présent contrat, l\'utilisateur se doit de renoncer à l\'accès des services proposés par le site.</li>
-	    <li class="formatter-li"><span style="background-color:var(--bgc-alt);">[Nom du site]</span> se réserve le droit de modifier unilatéralement et à tout moment le contenu des présentes conditions générales d\'utilisation.</li>
+	    <li class="formatter-li"><span style="background-color:var(--bgc-sub);">[Nom du site]</span> se réserve le droit de modifier unilatéralement et à tout moment le contenu des présentes conditions générales d\'utilisation.</li>
 	</ul>
 
 	<h2 class="formatter-title">ARTICLE 2 : Mentions légales</h2>
-	<p>L\'édition du site <span style="background-color:var(--bgc-alt);">[Nom du site]</span> est assurée par la Société <span style="background-color:var(--bgc-alt);">[Nom de la société]</span> <span style="background-color:var(--bgc-alt);">[SAS / SA / SARL, etc.]</span> au capital de <span style="background-color:var(--bgc-alt);">[montant en euros]</span> € dont le siège social est situé au <span style="background-color:var(--bgc-alt);">[adresse du siège social]</span>.</p>
-	<p><span style="background-color:var(--bgc-alt);">[Le Directeur / La Directrice]</span> de la publication est <span style="background-color:var(--bgc-alt);">[Madame / Monsieur]</span> <span style="background-color:var(--bgc-alt);">[Nom & Prénom]</span>.</p>
+	<p>L\'édition du site <span style="background-color:var(--bgc-sub);">[Nom du site]</span> est assurée par la Société <span style="background-color:var(--bgc-sub);">[Nom de la société]</span> <span style="background-color:var(--bgc-sub);">[SAS / SA / SARL, etc.]</span> au capital de <span style="background-color:var(--bgc-sub);">[montant en euros]</span> € dont le siège social est situé au <span style="background-color:var(--bgc-sub);">[adresse du siège social]</span>.</p>
+	<p><span style="background-color:var(--bgc-sub);">[Le Directeur / La Directrice]</span> de la publication est <span style="background-color:var(--bgc-sub);">[Madame / Monsieur]</span> <span style="background-color:var(--bgc-sub);">[Nom & Prénom]</span>.</p>
 	<p>Éventuellement :</p>
 	<ul class="formatter-ul">
-	    <li class="formatter-li"><span style="background-color:var(--bgc-alt);">[Nom de la société]</span> est une société du groupe <span style="background-color:var(--bgc-alt);">[Nom de la société]</span> <span style="background-color:var(--bgc-alt);">[SAS / SA / SARL, etc.]</span> au capital de <span style="background-color:var(--bgc-alt);">[montant en euros]</span> € dont le siège social est situé au <span style="background-color:var(--bgc-alt);">[adresse du siège social]</span>.</li>
-	    <li class="formatter-li">L\'hébergeur du site <span style="background-color:var(--bgc-alt);">[Nom du site]</span> est la Société <span style="background-color:var(--bgc-alt);">[Nom de la société]</span> <span style="background-color:var(--bgc-alt);">[SAS / SA / SARL, etc.]</span> au capital de <span style="background-color:var(--bgc-alt);">[montant en euros]</span> € dont le siège social est situé au <span style="background-color:var(--bgc-alt);">[adresse du siège social]</span>.</li>
+	    <li class="formatter-li"><span style="background-color:var(--bgc-sub);">[Nom de la société]</span> est une société du groupe <span style="background-color:var(--bgc-sub);">[Nom de la société]</span> <span style="background-color:var(--bgc-sub);">[SAS / SA / SARL, etc.]</span> au capital de <span style="background-color:var(--bgc-sub);">[montant en euros]</span> € dont le siège social est situé au <span style="background-color:var(--bgc-sub);">[adresse du siège social]</span>.</li>
+	    <li class="formatter-li">L\'hébergeur du site <span style="background-color:var(--bgc-sub);">[Nom du site]</span> est la Société <span style="background-color:var(--bgc-sub);">[Nom de la société]</span> <span style="background-color:var(--bgc-sub);">[SAS / SA / SARL, etc.]</span> au capital de <span style="background-color:var(--bgc-sub);">[montant en euros]</span> € dont le siège social est situé au <span style="background-color:var(--bgc-sub);">[adresse du siège social]</span>.</li>
 	</ul>
 
 	<h2 class="formatter-title">ARTICLE 3 : Définitions</h2>
@@ -71,19 +71,19 @@ $lang['smallads.default.usage.terms'] = '
 	<h2 class="formatter-title">ARTICLE 4 : accès aux services</h2>
 	<p>Le site permet à l\'utilisateur un accès gratuit aux services suivants :</p>
 	<ul class="formatter-ul">
-	    <li class="formatter-li"><span style="background-color:var(--bgc-alt);">[articles d’information]</span> ;</li>
-	    <li class="formatter-li"><span style="background-color:var(--bgc-alt);">[annonces classées]</span> ;</li>
-	    <li class="formatter-li"><span style="background-color:var(--bgc-alt);">[mise en relation de personnes]</span> ;</li>
-	    <li class="formatter-li"><span style="background-color:var(--bgc-alt);">[publication de commentaires / d’œuvres personnelles]</span> ;</li>
-	    <li class="formatter-li"><span style="background-color:var(--bgc-alt);">[…]</span>.</li>
+	    <li class="formatter-li"><span style="background-color:var(--bgc-sub);">[articles d’information]</span> ;</li>
+	    <li class="formatter-li"><span style="background-color:var(--bgc-sub);">[annonces classées]</span> ;</li>
+	    <li class="formatter-li"><span style="background-color:var(--bgc-sub);">[mise en relation de personnes]</span> ;</li>
+	    <li class="formatter-li"><span style="background-color:var(--bgc-sub);">[publication de commentaires / d’œuvres personnelles]</span> ;</li>
+	    <li class="formatter-li"><span style="background-color:var(--bgc-sub);">[…]</span>.</li>
 	</ul>
 	<p>Le site est accessible gratuitement en tout lieu à tout utilisateur ayant un accès à Internet. Tous les frais supportés par l\'utilisateur pour accéder au service (matériel informatique, logiciels, connexion Internet, etc.) sont à sa charge.</p>
 	<p>Selon le cas :</p>
 	<p>L\'utilisateur non membre n\'a pas accès aux services réservés aux membres. Pour cela, il doit s\'identifier à l\'aide de son identifiant et de son mot de passe.</p>
 	<p>Le site met en œuvre tous les moyens mis à sa disposition pour assurer un accès de qualité à ses services. L\'obligation étant de moyens, le site ne s\'engage pas à atteindre ce résultat.</p>
-	<p>Tout événement dû à un cas de force majeure ayant pour conséquence un dysfonctionnement du réseau ou du serveur n\'engage pas la responsabilité de <span style="background-color:var(--bgc-alt);">[Nom du site]</span>.</p>
+	<p>Tout événement dû à un cas de force majeure ayant pour conséquence un dysfonctionnement du réseau ou du serveur n\'engage pas la responsabilité de <span style="background-color:var(--bgc-sub);">[Nom du site]</span>.</p>
 	<p>L\'accès aux services du site peut à tout moment faire l\'objet d\'une interruption, d\'une suspension, d\'une modification sans préavis pour une maintenance ou pour tout autre cas. L\'utilisateur s\'oblige à ne réclamer aucune indemnisation suite à l\'interruption, à la suspension ou à la modification du présent contrat.</p>
-	<p>L\'utilisateur a la possibilité de contacter le site par messagerie électronique à l’adresse <span style="background-color:var(--bgc-alt);">[contact@nomdusite.com]</span>.</p>
+	<p>L\'utilisateur a la possibilité de contacter le site par messagerie électronique à l’adresse <span style="background-color:var(--bgc-sub);">[contact@nomdusite.com]</span>.</p>
 
 	<h2 class="formatter-title">ARTICLE 5 : Propriété intellectuelle</h2>
 	<p>Les marques, logos, signes et tout autre contenu du site font l\'objet d\'une protection par le Code de la propriété intellectuelle et plus particulièrement par le droit d\'auteur.</p>
@@ -94,13 +94,13 @@ $lang['smallads.default.usage.terms'] = '
 
 	<h2 class="formatter-title">ARTICLE 6 : Données personnelles</h2>
 	<p>Les informations demandées à l’inscription au site sont nécessaires et obligatoires pour la création du compte de l\'utilisateur. En particulier, l\'adresse électronique pourra être utilisée par le site pour l\'administration, la gestion et l\'animation du service.</p>
-	<p>Le site assure à l\'utilisateur une collecte et un traitement d\'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l\'informatique, aux fichiers et aux libertés. Le site est déclaré à la CNIL sous le numéro <span style="background-color:var(--bgc-alt);">[numéro]</span>.</p>
+	<p>Le site assure à l\'utilisateur une collecte et un traitement d\'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l\'informatique, aux fichiers et aux libertés. Le site est déclaré à la CNIL sous le numéro <span style="background-color:var(--bgc-sub);">[numéro]</span>.</p>
 	<p>En vertu des articles 39 et 40 de la loi en date du 6 janvier 1978, l\'utilisateur dispose d\'un droit d\'accès, de rectification, de suppression et d\'opposition de ses données personnelles. L\'utilisateur exerce ce droit via :</p>
 	<ul class="formatter-ul">
 	    <li class="formatter-li">son espace personnel ;</li>
 	    <li class="formatter-li">un formulaire de contact ;</li>
-	    <li class="formatter-li">par mail à <span style="background-color:var(--bgc-alt);">[adresse mail]</span> ;</li>
-	    <li class="formatter-li">par voie postale au <span style="background-color:var(--bgc-alt);">[adresse]</span>.</li>
+	    <li class="formatter-li">par mail à <span style="background-color:var(--bgc-sub);">[adresse mail]</span> ;</li>
+	    <li class="formatter-li">par voie postale au <span style="background-color:var(--bgc-sub);">[adresse]</span>.</li>
 	</ul>
 
 	<h2 class="formatter-title">ARTICLE 7 : Responsabilité et force majeure</h2>
@@ -112,7 +112,7 @@ $lang['smallads.default.usage.terms'] = '
 	<p>La responsabilité du site ne peut être engagée en cas de force majeure ou du fait imprévisible et insurmontable d\'un tiers.</p>
 
 	<h2 class="formatter-title">ARTICLE 8 : Liens hypertextes</h2>
-	<p>De nombreux liens hypertextes sortants sont présents sur le site, cependant les pages web où mènent ces liens n\'engagent en rien la responsabilité de <span style="background-color:var(--bgc-alt);">[Nom du site]</span> qui n\'a pas le contrôle de ces liens.</p>
+	<p>De nombreux liens hypertextes sortants sont présents sur le site, cependant les pages web où mènent ces liens n\'engagent en rien la responsabilité de <span style="background-color:var(--bgc-sub);">[Nom du site]</span> qui n\'a pas le contrôle de ces liens.</p>
 	<p>L\'utilisateur s\'interdit donc à engager la responsabilité du site concernant le contenu et les ressources relatives à ces liens hypertextes sortants.</p>
 
 	<h2 class="formatter-title">ARTICLE 9 : Évolution du contrat</h2>
@@ -122,12 +122,12 @@ $lang['smallads.default.usage.terms'] = '
 	<p>La durée du présent contrat est indéterminée. Le contrat produit ses effets à l\'égard de l\'utilisateur à compter de l\'utilisation du service.</p>
 
 	<h2 class="formatter-title">ARTICLE 11 : Droit applicable et juridiction compétente</h2>
-	<p>La législation française s\'applique au présent contrat. En cas d\'absence de résolution amiable d\'un litige né entre les parties, seuls les tribunaux <span style="background-color:var(--bgc-alt);">[du ressort de la Cour d\'appel de / de la ville de]</span> <span style="background-color:var(--bgc-alt);">[Ville]</span> sont compétents.</p>
+	<p>La législation française s\'applique au présent contrat. En cas d\'absence de résolution amiable d\'un litige né entre les parties, seuls les tribunaux <span style="background-color:var(--bgc-sub);">[du ressort de la Cour d\'appel de / de la ville de]</span> <span style="background-color:var(--bgc-sub);">[Ville]</span> sont compétents.</p>
 
 	<h2 class="formatter-title">ARTICLE 12 : Publication par l’utilisateur</h2>
-	<p>Le site permet aux membres de publier <span style="background-color:var(--bgc-alt);">[des commentaires / des œuvres personnelles]</span>.</p>
+	<p>Le site permet aux membres de publier <span style="background-color:var(--bgc-sub);">[des commentaires / des œuvres personnelles]</span>.</p>
 	<p>Dans ses publications, le membre s’engage à respecter les règles de la Netiquette et les règles de droit en vigueur.</p>
-	<p>Le site exerce une modération <span style="background-color:var(--bgc-alt);">[a priori / a posteriori]</span> sur les publications et se réserve le droit de refuser leur mise en ligne, sans avoir à s’en justifier auprès du membre.</p>
+	<p>Le site exerce une modération <span style="background-color:var(--bgc-sub);">[a priori / a posteriori]</span> sur les publications et se réserve le droit de refuser leur mise en ligne, sans avoir à s’en justifier auprès du membre.</p>
 	<p>Le membre reste titulaire de l’intégralité de ses droits de propriété intellectuelle. Mais en publiant une publication sur le site, il cède à la société éditrice le droit non exclusif et gratuit de représenter, reproduire, adapter, modifier, diffuser et distribuer sa publication, directement ou par un tiers autorisé, dans le monde entier, sur tout support (numérique ou physique), pour la durée de la propriété intellectuelle.
 	Le Membre cède notamment le droit d\'utiliser sa publication sur internet et sur les réseaux de téléphonie mobile.</p>
 	<p>La société éditrice s\'engage à faire figurer le nom du membre à proximité de chaque utilisation de sa publication.</p>
