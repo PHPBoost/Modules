@@ -251,7 +251,7 @@ class HistoryHook extends Hook
 			{
 				if ($action != 'delete' && method_exists($manager_class, 'get_item'))
 				{
-					if (is_subclass_of($item_class, 'Item'))
+					if (ClassLoader::is_class_registered_and_valid($item_class) && is_subclass_of($item_class, 'Item'))
 					{
 						$manager = new $manager_class($module_id);
 						$item = $manager->get_item($id_in_module);
@@ -282,9 +282,5 @@ class HistoryHook extends Hook
 		}
 		return false;
 	}
-	
-	/* TODO :
-	Hook forum  ==> reste del_poll et cut_topic
-	*/
 }
 ?>
