@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 04
+ * @version     PHPBoost 6.0 - last update: 2022 02 18
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -242,10 +242,10 @@ class HistoryHook extends Hook
 			if ($module && $module->get_configuration()->has_items())
 			{
 				$item_class = $module->get_configuration()->get_item_name();
-				$manager_class = class_exists($item_manager_class) ? $item_manager_class : 'ItemsManager';
+				$manager_class = ClassLoader::is_class_registered_and_valid($item_manager_class) ? $item_manager_class : 'ItemsManager';
 			}
 			else
-				$manager_class = class_exists($item_manager_class) ? $item_manager_class : (class_exists($item_service_class) ? $item_service_class : '');
+				$manager_class = ClassLoader::is_class_registered_and_valid($item_manager_class) ? $item_manager_class : (ClassLoader::is_class_registered_and_valid($item_service_class) ? $item_service_class : '');
 			
 			if ($manager_class && $id_in_module && (!$title || !$url))
 			{
@@ -282,5 +282,9 @@ class HistoryHook extends Hook
 		}
 		return false;
 	}
+	
+	/* TODO :
+	Hook forum  ==> reste del_poll et cut_topic
+	*/
 }
 ?>
