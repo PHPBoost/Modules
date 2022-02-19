@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 19
+ * @version     PHPBoost 6.0 - last update: 2022 02 19
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -27,7 +27,7 @@ class FluxItem
 	private $visits_number;
 	private $thumbnail_url;
 
-	const THUMBNAIL_URL = '/templates/__default__/images/default_item_thumbnail.png';
+	const THUMBNAIL_URL = '/templates/__default__/images/default_item.webp';
 
 	const NOT_PUBLISHED = 0;
 	const PUBLISHED = 1;

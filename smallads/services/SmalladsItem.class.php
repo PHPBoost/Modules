@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 19
+ * @version     PHPBoost 6.0 - last update: 2022 02 19
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -93,7 +93,7 @@ class SmalladsItem
 	const NOT_DISPLAYED_AUTHOR_PHONE = 0;
 	const DISPLAYED_AUTHOR_PHONE = 1;
 
-	const THUMBNAIL_URL = '/templates/__default__/images/default_item_thumbnail.png';
+	const THUMBNAIL_URL = '/templates/__default__/images/default_item.webp';
 
 	public function set_id($id)
 	{

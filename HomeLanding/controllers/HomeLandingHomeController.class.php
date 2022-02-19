@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 27
+ * @version     PHPBoost 6.0 - last update: 2022 02 19
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -356,7 +356,7 @@ class HomeLandingHomeController extends DefaultModuleController
 		$graphical_environment->get_seo_meta_data()->set_description(GeneralConfig::load()->get_site_description());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(HomeLandingUrlBuilder::home());
 
-		$graphical_environment->get_seo_meta_data()->set_picture_url(new Url(PATH_TO_ROOT.'/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item_thumbnail.png'));
+		$graphical_environment->get_seo_meta_data()->set_picture_url(new Url(PATH_TO_ROOT.'/templates/' . AppContext::get_current_user()->get_theme() . '/images/default_item.webp'));
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->config->get_module_title(), HomeLandingUrlBuilder::home());

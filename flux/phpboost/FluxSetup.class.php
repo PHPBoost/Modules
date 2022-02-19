@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2022 02 19
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -125,7 +125,7 @@ class FluxSetup extends DefaultModuleSetup
 			'author_user_id' => 1,
 			'views_number'   => 0,
 			'visits_number'  => 0,
-			'thumbnail_url'  => '/templates/__default__/images/default_item_thumbnail.png',
+			'thumbnail_url'  => '/templates/__default__/images/default_item.webp',
 		));
 	}
 }

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 22
+ * @version     PHPBoost 6.0 - last update: 2022 02 19
  * @since       PHPBoost 4.0 - 2013 01 29
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -118,7 +118,7 @@ class SmalladsSetup extends DefaultModuleSetup
 			'rewrited_name' => Url::encode_rewrite($this->messages['default.category.name']),
 			'name' => $this->messages['default.category.name'],
 			'description' => $this->messages['default.category.description'],
-			'thumbnail' => '/templates/__default__/images/default_category_thumbnail.png'
+			'thumbnail' => '/templates/__default__/images/default_category.webp'
 		));
 	}
 
@@ -128,7 +128,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		PersistenceContext::get_querier()->insert(self::$smallads_table, array(
 			'id' => 1,
 			'id_category' => 1,
-			'thumbnail_url' => '/templates/__default__/images/default_item_thumbnail.png',
+			'thumbnail_url' => '/templates/__default__/images/default_item.webp',
 			'title' => $this->messages['default.smallad.title'],
 			'rewrited_title' => Url::encode_rewrite($this->messages['default.smallad.title']),
 			'content' => $this->messages['default.smallad.content'],
