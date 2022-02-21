@@ -19,7 +19,10 @@ class HomeLandingFlux
         $module_name = HomeLandingConfig::MODULE_FLUX;
 
         $theme_id = AppContext::get_current_user()->get_theme();
-		$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $module_name . '.tpl');
+        if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl'))
+			$view = new FileTemplate('/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl');
+        elseif (file_exists(PATH_TO_ROOT . '/HomeLanding/templates/pagecontent/' . $module_name . '.tpl'))
+			$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $module_name . '.tpl');
 
         $home_lang = LangLoader::get_all_langs('HomeLanding');
         $module_lang = LangLoader::get_all_langs($module_name);
