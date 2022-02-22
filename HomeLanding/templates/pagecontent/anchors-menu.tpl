@@ -4,7 +4,7 @@
             # START tabs #
                 # IF tabs.C_DISPLAYED_TAB #
                     <li style="order: {tabs.TAB_POSITION};">
-                        <a href="{tabs.U_TAB}-panel" class="cssmenu-title">{tabs.TAB_TITLE}</a>
+                        <a href="{tabs.U_TAB}-panel" class="cssmenu-title">{tabs.TAB_TITLE}# IF tabs.C_CATEGORY #/{tabs.TAB_CATEGORY}# ENDIF #</a>
                     </li>
                 # ENDIF #
             # END tabs #

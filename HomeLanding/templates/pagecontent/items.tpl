@@ -2,7 +2,7 @@
 	<div class="content-container">
 		<article id="{MODULE_NAME}# IF C_CATEGORY #_category# ENDIF #-panel">
 			<header class="module-header flex-between">
-				<h2>{L_MODULE_TITLE}</h2>
+				<h2>{L_MODULE_TITLE}# IF C_CATEGORY #: {L_CATEGORY_NAME}# ENDIF #</h2>
 				<div class="controls align-right">
 					<a class="offload" href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square" aria-hidden="true"></i></a>
 				</div>

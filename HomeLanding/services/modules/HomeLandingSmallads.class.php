@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 19
+ * @version     PHPBoost 6.0 - last update: 2022 02 22
  * @since       PHPBoost 5.2 - 2021 01 25
 */
 
@@ -58,7 +58,8 @@ class HomeLandingSmallads
             'MODULE_POSITION'    => $home_config->get_module_position_by_id($module_name),
             'MODULE_NAME'        => $module_name,
             'ITEMS_PER_ROW'      => $module_config->get_items_per_row(),
-            'L_MODULE_TITLE'     => ModulesManager::get_module($module_name)->get_configuration()->get_name() . ': ' . $category->get_name(),
+            'L_MODULE_TITLE'     => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
+            'L_CATEGORY_NAME'    => $category->get_name(),
         ));
 
 		while ($row = $result->fetch())
