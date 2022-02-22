@@ -271,7 +271,7 @@
 # INCLUDE MESSAGE_HELPER #
 
 # IF NOT C_EDIT #
-	<section id="module-dictionary">
+	<section id="module-dictionary" class="several-items">
 		<header class="section-header">
 			<h1>{@dictionary.module.title}</h1>
 		</header>
@@ -313,7 +313,7 @@
 				<div class="content">
 					# START items #
 						<div id="{items.ITEM_ID}-definition"></div>
-						<article class="items-item several-items category-{items.CATEGORY_ID}" id="{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}" name="{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}">
+						<article class="items-item category-{items.CATEGORY_ID}" id="{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}" name="{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}">
 							<header>
 								<h2>
 									<a href="javascript:toggleDisplay('{items.ITEM_ID}_{items.REWRITED_NAME}');">{items.CATEGORY_ICON} {items.WORD}</a>

@@ -1,4 +1,4 @@
-<section id="module-quotes">
+<section id="module-quotes" class="several-items">
 	<header class="section-header">
 		<div class="controls align-right">
 			# IF NOT C_ROOT_CATEGORY #{@quotes.module.title}# ENDIF #

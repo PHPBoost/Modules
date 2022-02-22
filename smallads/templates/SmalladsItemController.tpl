@@ -1,4 +1,4 @@
-<section id="module-smallads" class="category-{ID_CATEGORY}">
+<section id="module-smallads" class="category-{ID_CATEGORY} single-item">
 	<header class="section-header">
 		<div class="controls align-right">
 			<a class="offload" href="{U_SYNDICATION}" aria-label="{@common.syndication}"><i class="fa fa-fw fa-rss warning" aria-hidden="true"></i></a>
@@ -15,7 +15,7 @@
 					# INCLUDE NOT_VISIBLE_MESSAGE #
 				</div>
 			# ENDIF #
-			<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="smallads-item-{ID}" class="smallads-item single-item# IF C_NEW_CONTENT # new-content# ENDIF #">
+			<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="smallads-item-{ID}" class="smallads-item# IF C_NEW_CONTENT # new-content# ENDIF #">
 				<div class="flex-between">
 					<div></div>
 					# IF C_CONTROLS #

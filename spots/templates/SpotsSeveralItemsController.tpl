@@ -1,4 +1,4 @@
-<section id="module-spots">
+<section id="module-spots" class="several-items">
 	<header class="section-header">
 		<div class="controls align-right">
 			<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('spots', ID_CAT))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning"></i></a>
@@ -127,7 +127,7 @@
 			# ELSE #
 				<div class="cell-flex cell-columns-{ITEMS_PER_ROW}">
 					# START items #
-						<article id="article-spots-{items.ID}" class="spots-item several-items cell# IF items.C_IS_PARTNER # content-friends# ENDIF ## IF items.C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF#" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+						<article id="article-spots-{items.ID}" class="spots-item cell# IF items.C_IS_PARTNER # content-friends# ENDIF ## IF items.C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF#" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<header class="cell-header">
 								<h2>
 									<a class="offload" href="{items.U_ITEM}" itemprop="name">{items.TITLE}</a>

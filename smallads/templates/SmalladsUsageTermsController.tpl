@@ -1,4 +1,4 @@
-<section id="module-smallads">
+<section id="module-smallads" class="single-item">
 	<header class="section-header">
 		<div class="controls align-right">{@smallads.module.title}</div>
 		<h1>{@smallads.usage.terms}</h1>

@@ -11,7 +11,7 @@
 				<div class="cell-row">
 
 					# START items #
-						<div class="{MODULE_NAME}-item several-items category-{items.CATEGORY_ID} cell prime-item" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+						<div class="{MODULE_NAME}-item category-{items.CATEGORY_ID} cell prime-item" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<div class="cell-header">
 								<h3 class="cell-name">
 									<a class="offload" href="{items.U_ITEM}">{items.TITLE}</a>
@@ -26,12 +26,10 @@
 												# IF items.C_AUTHOR_EXISTS #<a itemprop="author" class="{items.AUTHOR_LEVEL_CLASS} offload" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
 											</span>
 										# ENDIF #
-										# IF NOT C_DATE #
-											# IF items.C_HAS_UPDATE #
-												<span class="pinned notice text-italic item-modified-date"><i class="far fa-fw fa-calendar-plus" aria-hidden="true"></i> <time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time></span>
-											# ELSE #
-												<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></span>
-											# ENDIF #
+										# IF items.C_HAS_UPDATE #
+											<span class="pinned notice text-italic item-modified-date"><i class="far fa-fw fa-calendar-plus" aria-hidden="true"></i> <time datetime="{items.UPDATE_DATE_ISO8601}" itemprop="dateModified">{items.UPDATE_DATE}</time></span>
+										# ELSE #
+											<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> <time datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE}</time></span>
 										# ENDIF #
 										<span class="pinned item-category"><i class="far fa-fw fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
 										# IF C_VIEWS_NUMBER #<span class="pinned item-views-number" aria-label="{items.VIEWS_NUMBER} # IF items.C_SEVERAL_VIEWS #{@common.views}# ELSE #{@common.view}# ENDIF #"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #

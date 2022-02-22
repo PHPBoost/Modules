@@ -1,4 +1,4 @@
-<section id="module-flux" class="category-{CATEGORY_ID}">
+<section id="module-flux" class="category-{CATEGORY_ID} single-item">
 	<header class="section-header">
 		<div class="controls align-right">
 			<a class="offload" href="{U_SYNDICATION}" aria-label="{@common.syndication}"><i class="fa fa-rss"></i></a>
@@ -13,7 +13,7 @@
 			# IF NOT C_IS_PUBLISHED #
 				# INCLUDE NOT_VISIBLE_MESSAGE #
 			# ENDIF #
-			<article id="article-flux-{ID}" itemscope="itemscope" itemtype="https://schema.org/CreativeWork" class="flux-item single-item# IF C_IS_PARTNER # content-friends# ENDIF ## IF C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF C_NEW_CONTENT # new-content# ENDIF#">
+			<article id="article-flux-{ID}" itemscope="itemscope" itemtype="https://schema.org/CreativeWork" class="flux-item# IF C_IS_PARTNER # content-friends# ENDIF ## IF C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF C_NEW_CONTENT # new-content# ENDIF#">
 				# IF C_CONTROLS #
 					<div class="controls align-right">
 						# IF C_EDIT #

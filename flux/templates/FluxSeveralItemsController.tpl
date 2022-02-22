@@ -1,4 +1,4 @@
-<section id="module-flux">
+<section id="module-flux" class="several-items">
 	<header class="section-header">
 		<div class="controls align-right">
 			<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('flux', ID_CAT))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning"></i></a>
@@ -131,90 +131,92 @@
 		# IF C_SEVERAL_ITEMS #
 			<div class="spacer"></div>
 		# ENDIF #
-		<div class="content-container">
-			# IF C_TABLE_VIEW #
-				<table class="table">
-					<thead>
-						<tr>
-							<th>{@common.name}</th>
-							<th class="coll-small" aria-label="{@common.website}"><i class="fa fa-link" aria-hidden="true"></i><span class="hidden-large-screens">{@common.website}</span></th>
-							<th class="col-small" aria-label="{@common.views.number}"><i class="fa fa-eye" aria-hidden="true"></i><span class="hidden-large-screens">{@common.views.number}</span></th>
-							<th class="col-small" aria-label="{@common.visits.number}"><i class="fa fa-external-link-alt" aria-hidden="true"></i><span class="hidden-large-screens">{@common.visits.number}</span></th>
-							# IF C_CONTROLS #<th class="col-small" aria-label="{@common.moderation}"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-large-screens">{@common.moderation}</span></th># ENDIF #
-						</tr>
-					</thead>
-					<tbody>
-						# START items #
+		<div class="sub-section">
+			<div class="content-container">
+				# IF C_TABLE_VIEW #
+					<table class="table">
+						<thead>
 							<tr>
-								<td>
-									<a class="offload" href="{items.U_ITEM}"><span itemprop="name" aria-label="{@common.see.details}">{items.TITLE}</span></a>
-								</td>
-								<td>
-									# IF items.C_VISIT #
-										<a class="basic-button" aria-label="{@common.visit}" # IF items.C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # href="{items.U_VISIT}">{@common.visit}</a>
-									# ELSE #
-										{@flux.no.website}
-									# ENDIF #
-								</td>
-								<td>
-									{items.VIEWS_NUMBER}
-								</td>
-								<td>
-									{items.VISITS_NUMBER}
-								</td>
-								# IF C_CONTROLS #
+								<th>{@common.name}</th>
+								<th class="coll-small" aria-label="{@common.website}"><i class="fa fa-link" aria-hidden="true"></i><span class="hidden-large-screens">{@common.website}</span></th>
+								<th class="col-small" aria-label="{@common.views.number}"><i class="fa fa-eye" aria-hidden="true"></i><span class="hidden-large-screens">{@common.views.number}</span></th>
+								<th class="col-small" aria-label="{@common.visits.number}"><i class="fa fa-external-link-alt" aria-hidden="true"></i><span class="hidden-large-screens">{@common.visits.number}</span></th>
+								# IF C_CONTROLS #<th class="col-small" aria-label="{@common.moderation}"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-large-screens">{@common.moderation}</span></th># ENDIF #
+							</tr>
+						</thead>
+						<tbody>
+							# START items #
+								<tr>
 									<td>
-										# IF items.C_EDIT #
-											<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a>
-										# ENDIF #
-										# IF items.C_DELETE #
-											<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a>
+										<a class="offload" href="{items.U_ITEM}"><span itemprop="name" aria-label="{@common.see.details}">{items.TITLE}</span></a>
+									</td>
+									<td>
+										# IF items.C_VISIT #
+											<a class="basic-button" aria-label="{@common.visit}" # IF items.C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # href="{items.U_VISIT}">{@common.visit}</a>
+										# ELSE #
+											{@flux.no.website}
 										# ENDIF #
 									</td>
-								# ENDIF #
-							</tr>
-						# END items #
-					</tbody>
-				</table>
-			# ELSE #
-				<div class="cell-flex cell-columns-{ITEMS_PER_ROW}">
-					# START items #
-						<article id="article-flux-{items.ID}" class="flux-item several-items cell# IF items.C_IS_PARTNER # content-friends# ENDIF ## IF items.C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF#" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-							<header class="cell-header">
-								<h2>
-									<a class="offload" href="{items.U_ITEM}" itemprop="name">{items.TITLE}</a>
-								</h2>
-							</header>
-							<div class="cell-body">
-								<div class="cell-infos">
-									<div class="more">
-										<span class="pinned item-views-number" aria-label="{@common.views.number}"> <i class="fa fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span>
-										# IF items.C_VISIT #<span class="pinned item-visits-number" aria-label="{@common.visits.number}"> <i class="fa fa-external-link-alt" aria-hidden="true"></i> {items.VISITS_NUMBER}</span># ENDIF #
-										<span class="pinned-category item-category" data-color-surround="{items.CATEGORY_COLOR}" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
+									<td>
+										{items.VIEWS_NUMBER}
+									</td>
+									<td>
+										{items.VISITS_NUMBER}
+									</td>
+									# IF C_CONTROLS #
+										<td>
+											# IF items.C_EDIT #
+												<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a>
+											# ENDIF #
+											# IF items.C_DELETE #
+												<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a>
+											# ENDIF #
+										</td>
+									# ENDIF #
+								</tr>
+							# END items #
+						</tbody>
+					</table>
+				# ELSE #
+					<div class="cell-flex cell-columns-{ITEMS_PER_ROW}">
+						# START items #
+							<article id="article-flux-{items.ID}" class="flux-item cell# IF items.C_IS_PARTNER # content-friends# ENDIF ## IF items.C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF#" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+								<header class="cell-header">
+									<h2>
+										<a class="offload" href="{items.U_ITEM}" itemprop="name">{items.TITLE}</a>
+									</h2>
+								</header>
+								<div class="cell-body">
+									<div class="cell-infos">
+										<div class="more">
+											<span class="pinned item-views-number" aria-label="{@common.views.number}"> <i class="fa fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span>
+											# IF items.C_VISIT #<span class="pinned item-visits-number" aria-label="{@common.visits.number}"> <i class="fa fa-external-link-alt" aria-hidden="true"></i> {items.VISITS_NUMBER}</span># ENDIF #
+											<span class="pinned-category item-category" data-color-surround="{items.CATEGORY_COLOR}" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
+										</div>
+										# IF items.C_CONTROLS #
+											<div class="controls align-right">
+												# IF items.C_EDIT #<a class="offload item-edit" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit"></i></a># ENDIF #
+												# IF items.C_DELETE #<a class="item-delete" href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a># ENDIF #
+											</div>
+										# ENDIF #
 									</div>
-									# IF items.C_CONTROLS #
-										<div class="controls align-right">
-											# IF items.C_EDIT #<a class="offload item-edit" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit"></i></a># ENDIF #
-											# IF items.C_DELETE #<a class="item-delete" href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a># ENDIF #
+									# IF items.C_HAS_THUMBNAIL #
+										<div class="cell-thumbnail cell-landscape cell-center">
+											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="image" />
+											<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
+												{@common.see.details}
+											</a>
 										</div>
 									# ENDIF #
-								</div>
-								# IF items.C_HAS_THUMBNAIL #
-									<div class="cell-thumbnail cell-landscape cell-center">
-										<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="image" />
-										<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
-											{@common.see.details}
-										</a>
+									<div class="cell-content">
+										<div itemprop="text">{items.CONTENT}</div>
 									</div>
-								# ENDIF #
-								<div class="cell-content">
-									<div itemprop="text">{items.CONTENT}</div>
 								</div>
-							</div>
-						</article>
-					# END items #
-				</div>
-			# ENDIF #
+							</article>
+						# END items #
+					</div>
+				# ENDIF #
+			</div>
 		</div>
 	# ELSE #
 		# IF NOT C_HIDE_NO_ITEM_MESSAGE #

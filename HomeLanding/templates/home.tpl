@@ -1,4 +1,4 @@
-<section id="module-homelanding">
+<section id="module-homelanding" class="several-items">
 	<header class="section-header" style="order: 0;">
 		<h1>{MODULE_TITLE}</h1>
 	</header>
