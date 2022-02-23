@@ -23,8 +23,8 @@
 				</ul>
 			</div>
 		# ELSE #
-			<div class="cell-body">
-				<div class="cell-content align-center">{@common.no.item.now}</div>
+			<div class="cell-alert">
+				<div class="message-helper bgc notice">{@common.no.item.now}</div>
 			</div>
 		# ENDIF #
 	</div>

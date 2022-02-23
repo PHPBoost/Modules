@@ -25,11 +25,9 @@
 			</ul>
 		</div>
 	# ELSE #
-		<div class="cell-body">
-			<div class="cell-content">
-				<div class="message-helper bgc notice">
-					{@lastcoms.no.item}
-				</div>				
+		<div class="cell-alert">
+			<div class="message-helper bgc notice">
+				{@lastcoms.no.item}
 			</div>
 		</div>
 	# ENDIF #

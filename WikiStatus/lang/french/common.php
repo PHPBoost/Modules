@@ -13,8 +13,9 @@
 #                    French                        #
 ####################################################
 
-$lang['wiki.status.module.title'] = 'Articles WIKI créés ou mis à jour';
+$lang['wiki.status.module.title'] = 'Statut du Wiki';
 $lang['wiki.status.formated.module.title'] = 'Statut du Wiki';
+$lang['wiki.status.no.item.now'] = 'Aucun article du Wiki n\'a été récement modifié ou ajouté';
 
 $lang['wiki.status.item'] = 'Article';
 $lang['wiki.status.clue'] = 'Seuls les documents dont le statut a été déclaré (prédéfini ou personnalisé) sont affichés';

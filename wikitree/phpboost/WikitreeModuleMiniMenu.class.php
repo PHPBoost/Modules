@@ -53,8 +53,12 @@ class WikitreeModuleMiniMenu extends ModuleMiniMenu
 			ORDER BY title ASC'
 		);
 
+		$categories = WikiCategoriesCache::load()->get_number_categories();
+
 		$view->put_all(array(
+			'C_HAS_ITEMS'  => $root_results->get_rows_count() > 0 || $categories > 0,
 			'C_ROOT_ITEMS' => $root_results->get_rows_count() > 0,
+			'C_CATEGORIES' => $categories > 0,
 		));
 
 		while($root_row = $root_results->fetch())
@@ -68,10 +72,6 @@ class WikitreeModuleMiniMenu extends ModuleMiniMenu
 		}
 
 		// Categories & category's items
-		$view->put_all(array(
-			'C_CATEGORIES' => WikiCategoriesCache::load()->get_number_categories() > 0,
-		));
-
 		foreach (WikiCategoriesCache::load()->get_categories() as $category)
 		{
 	        $results = $querier->select('SELECT

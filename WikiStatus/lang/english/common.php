@@ -13,8 +13,9 @@
 #                    English                       #
 ####################################################
 
-$lang['wiki.status.module.title'] = 'Articles created or updated';
+$lang['wiki.status.module.title'] = 'Wiki Status';
 $lang['wiki.status.formated.module.title'] = 'Wiki status';
+$lang['wiki.status.no.item.now'] = 'No article of the Wiki have been recently modified or added';
 
 $lang['wiki.status.item'] = 'Article';
 $lang['wiki.status.clue'] = 'Only documents whose status has been declared (predefined or customized) are displayed';

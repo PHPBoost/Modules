@@ -35,11 +35,9 @@
 	</div>
 # ELSE #
 	# IF IS_ADMIN #
-		<div class="cell-body">
-			<div class="cell-content">
-				<div class="message-helper bgc warning">
-					{@H|birthday.user.born.field.disabled}
-				</div>
+		<div class="cell-alert">
+			<div class="message-helper bgc warning">
+				{@H|birthday.user.born.field.disabled}
 			</div>
 		</div>
 	# ENDIF #

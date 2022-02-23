@@ -1,5 +1,5 @@
-<div class="cell-body">
-	# IF C_CATEGORIES #
+# IF C_CATEGORIES #
+	<div class="cell-body">
 		<nav id="{MENU_ID}-list" class="cssmenu # IF C_VERTICAL #cssmenu-vertical# ELSE #cssmenu-horizontal# ENDIF ## IF C_LEFT # cssmenu-left# ENDIF ## IF C_RIGHT # cssmenu-right# ENDIF #">
 			<ul>
 				# START items #
@@ -31,9 +31,9 @@
 				jQuery("\#{MENU_ID}-list").menumaker({title: "{MENU_TITLE}", format: "multitoggle", breakpoint: 768});
 			});
 		</script>
-	# ELSE #
-		<div class="cell-content align-center">
-			{@category.no.element}
-		</div>
-	# ENDIF #
-</div>
+	</div>
+# ELSE #
+	<div class="cell-alert">
+		<div class="message-helper bgc notice">{@category.no.element}</div>		
+	</div>
+# ENDIF #

@@ -32,9 +32,10 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 
 	public function get_menu_content()
 	{
-		$view = new FileTemplate('WikiStatus/ArticlesWikiStatusUpdated.tpl');
-		$lang = LangLoader::get_all_langs('WikiStatus');
-		$view->add_lang($lang);
+		$view = new FileTemplate('WikiStatus/WikiStatusModuleMiniMenu.tpl');
+		$view->add_lang(LangLoader::get_all_langs('WikiStatus'));
+		MenuService::assign_positions_conditions($view, $this->get_block());
+		Menu::assign_common_template_variables($view);
 
 		$status_classes = array(
 			1 => 'success',
@@ -43,9 +44,6 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 			4 => 'warning',
 			5 => 'error'
 		);
-
-		$position = $this->get_block() == Menu::BLOCK_POSITION__LEFT || $this->get_block() == Menu::BLOCK_POSITION__RIGHT;
-		$view->put('C_HORIZONTAL', !$position);
 
 		//Load module config
 		$querier = PersistenceContext::get_querier();
@@ -62,6 +60,8 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 			'user_id' => AppContext::get_current_user()->get_id()
 		));
 
+		$view->put('C_ITEMS', $results->get_rows_count() > 0 );
+
 		while($row = $results->fetch())
 		{
 			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
@@ -69,17 +69,17 @@ class WikiStatusModuleMiniMenu extends ModuleMiniMenu
 				'C_AUTHOR_GROUP_COLOR' => !empty($user_group_color),
 				'C_AUTHOR_EXISTS'      => !empty($row['display_name']),
 
-				'TITLE' => stripslashes($row['title']),
-				'STATUS_CLASS' => in_array($row['defined_status'], array_keys($status_classes)) ? $status_classes[$row['defined_status']] : '',
-				'AUTHOR_LEVEL_CLASS' => UserService::get_level_class($row['level']),
-				'AUTHOR_GROUP_COLOR' => $user_group_color,
+				'TITLE'               => stripslashes($row['title']),
+				'STATUS_CLASS'        => in_array($row['defined_status'], array_keys($status_classes)) ? $status_classes[$row['defined_status']] : '',
+				'AUTHOR_LEVEL_CLASS'  => UserService::get_level_class($row['level']),
+				'AUTHOR_GROUP_COLOR'  => $user_group_color,
 				'AUTHOR_DISPLAY_NAME' => $row['display_name'],
-				'AUTHOR_IP' => $row['user_ip'],
-				'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
-				'SHORT_DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
+				'AUTHOR_IP'           => $row['user_ip'],
+				'DATE'                => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+				'SHORT_DATE'          => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['user_id'])->rel(),
-				'U_ITEM' => $row['activ'] == 1 ? url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']) : url('wiki.php?id_contents=' . $row['id_contents']),
+				'U_ITEM' 		   => $row['activ'] == 1 ? url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']) : url('wiki.php?id_contents=' . $row['id_contents']),
 
 				'L_STATUS' => $row['undefined_status'] ? $row['undefined_status'] : ($lang['wiki.status.' . $row['defined_status']] ? $lang['wiki.status.' . $row['defined_status']] : ''),
 			));
