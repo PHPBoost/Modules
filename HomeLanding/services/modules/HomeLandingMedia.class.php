@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 16
+ * @version     PHPBoost 6.0 - last update: 2022 02 25
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -101,7 +101,7 @@ class HomeLandingMedia
                     'PSEUDO'        => $row['display_name'],
                     'TITLE'         => $row['title'],
                     'ID'            => $row['id'],
-                    'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
+                    'DATE'          => Date::to_format($row['creation_date'], Date::FORMAT_DAY_MONTH_YEAR),
                     'SORT_DATE'     => $row['creation_date'],
                     'C_POSTER'      => !empty($poster),
                     'POSTER'        => $poster->rel(),
@@ -121,7 +121,7 @@ class HomeLandingMedia
                     'PSEUDO'        => $row['display_name'],
                     'TITLE'         => $row['title'],
                     'ID'            => $row['id'],
-                    'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
+                    'DATE'          => Date::to_format($row['creation_date'], Date::FORMAT_DAY_MONTH_YEAR),
                     'SORT_DATE'     => $row['creation_date'],
                     'C_POSTER'      => !empty($poster),
                     'POSTER'        => $poster->rel(),
@@ -142,7 +142,7 @@ class HomeLandingMedia
                     'TITLE'         => $row['title'],
                     'ID'            => $row['id'],
                     'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
-                    'SORT_DATE'     => $row['creation_date'],
+                    'SORT_DATE'     => Date::to_format($row['creation_date'], Date::FORMAT_DAY_MONTH_YEAR),
                     'C_POSTER'      => !empty($poster),
                     'POSTER'        => $poster->rel(),
                     'CATEGORY_NAME' => $row['id_category'] == Category::ROOT_CATEGORY ? $module_lang['common.root'] : CategoriesService::get_categories_manager('media')->get_categories_cache()->get_category($row['id_category'])->get_name(),
@@ -161,7 +161,7 @@ class HomeLandingMedia
                     'PSEUDO'        => $row['display_name'],
                     'TITLE'         => $row['title'],
                     'ID'            => $row['id'],
-                    'DATE'          => strftime('%d/%m/%Y', $row['creation_date']),
+                    'DATE'          => Date::to_format($row['creation_date'], Date::FORMAT_DAY_MONTH_YEAR),
                     'SORT_DATE'     => $row['creation_date'],
                     'C_POSTER'      => !empty($poster),
                     'POSTER'        => $poster->rel(),
