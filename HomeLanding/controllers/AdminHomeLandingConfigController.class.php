@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 02 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -163,18 +163,27 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 
         foreach($home_modules as $module)
         {
+
 			if($module == 'configuration')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cog');
+            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cogs');
 			elseif($module == 'carousel')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-cog');
+            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-image');
 			elseif(in_array($module, $modules_from_list))
-				$tabs_li[] = new FormFieldMultitabsLinkElement(
-					ModulesManager::get_module($module)->get_configuration()->get_name(),
-					'tabs',
-					'AdminHomeLandingConfigController_admin_' . $module,
-					'',
-					PATH_TO_ROOT . '/' . $module . '/' . $module . '_mini.png', $module
-				);
+			{
+				$img_url = PATH_TO_ROOT . '/' . $module . '/' . $module . '_mini.png';
+				$img = new File($img_url);
+				$fa_icon = ModulesManager::get_module($module)->get_configuration()->get_fa_icon();
+				$hexa_icon = ModulesManager::get_module($module)->get_configuration()->get_hexa_icon();
+				$thumbnail = $img->exists() ? $img_url : '';
+				if ($img->exists())
+					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, '', $thumbnail, $module);
+				elseif (!empty($fa_icon))
+					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, $fa_icon, '', $module);
+				elseif (!empty($hexa_icon))
+					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, $hexa_icon, '', $module);
+				else
+					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, '', '', $module);
+			}
 		}
 		return $tabs_li;
 	}
