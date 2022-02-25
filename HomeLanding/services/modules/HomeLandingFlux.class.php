@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 21
+ * @version     PHPBoost 6.0 - last update: 2022 02 24
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -60,8 +60,7 @@ class HomeLandingFlux
 			{
 				$view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
 
-                $xml_path = substr($item->get_xml_path(), 1);
-				$xml = simplexml_load_file($xml_path);
+				$xml = simplexml_load_file(PATH_TO_ROOT . '/' . $item->get_xml_path());
 				$xml_items = array();
 				$xml_items['title'] = array();
 				$xml_items['link']  = array();
