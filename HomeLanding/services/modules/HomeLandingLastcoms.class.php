@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 02 27
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -54,7 +54,6 @@ class HomeLandingLastcoms
 			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
 			$characters_number_to_cut = $modules[$module_name]->get_characters_number_displayed();
 			$cut_contents = trim(TextHelper::substr($contents, 0, $characters_number_to_cut));
-			$date = new Date($row['timestamp'], Timezone::SERVER_TIMEZONE);
 
 			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
 
@@ -73,7 +72,8 @@ class HomeLandingLastcoms
 				'AUTHOR_DISPLAY_NAME' => $author->get_display_name(),
 				'AUTHOR_LEVEL_CLASS'  => UserService::get_level_class($author->get_level()),
 				'AUTHOR_GROUP_COLOR'  => $user_group_color,
-				'DATE'                => $date->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+				'DATE'                => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+				'SORT_DATE'           => $row['timestamp'],
 				'TOPIC'               => $modules_config->get_module($row['module_id']) ? $modules_config->get_module($row['module_id'])->get_configuration()->get_name() : '',
 				'CONTENT'             => $cut_contents,
 

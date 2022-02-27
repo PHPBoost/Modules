@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 02 27
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -81,7 +81,8 @@ class HomeLandingForum
 				'AUTHOR_DISPLAY_NAME' => $row['last_login'],
 				'AUTHOR_LEVEL_CLASS'  => UserService::get_level_class($row['level']),
 				'AUTHOR_GROUP_COLOR'  => $user_group_color,
-				'DATE'                => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
+				'DATE'                => Date::to_format($row['last_timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+				'SORT_DATE'           => $row['last_timestamp'],
 				'TOPIC'               => stripslashes($row['title']),
 				'CONTENT'             => TextHelper::cut_string(@strip_tags(stripslashes($content), 0), (int)$characters_number_to_cut),
 
