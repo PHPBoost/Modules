@@ -74,7 +74,7 @@
 	});
 </script>
 # INCLUDE MESSAGE_HELPER #
-<form action="{REWRITED_SCRIPT}" method="post" onsubmit="HomeLandingModules.serialize_sortable();" class="fieldset-content">
+<form id="homelanding-module-position" action="{REWRITED_SCRIPT}" method="post" onsubmit="HomeLandingModules.serialize_sortable();" class="fieldset-content">
 	<fieldset id="homelanding_modules_management">
 		<legend>{@homelanding.modules.position}</legend>
 		<ul id="modules_list" class="sortable-block">

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 02 28
  * @since       PHPBoost 5.0 - 2016 01 02
 */
 
@@ -30,12 +30,14 @@ class AdminHomeLandingDisplayResponse extends AdminMenuDisplayResponse
 
 		$sticky_title = HomeLandingConfig::load()->get_sticky_title();
 
-		$this->add_link($lang['form.configuration'], $this->module->get_configuration()->get_admin_main_page());
-		$this->add_link($lang['homelanding.modules.position'], HomeLandingUrlBuilder::positions());
 		if($new_modules)
 			$this->add_link($lang['homelanding.add.modules'], HomeLandingUrlBuilder::add_modules());
-		$this->add_link($lang['homelanding.sticky.manage'] . ': '. $sticky_title, HomeLandingUrlBuilder::sticky_manage());
+
 		$this->add_link($sticky_title, HomeLandingUrlBuilder::sticky());
+		$this->add_link($lang['homelanding.sticky.manage'] . ': '. $sticky_title, HomeLandingUrlBuilder::sticky_manage());
+
+		$this->add_link($lang['homelanding.modules.position'], HomeLandingUrlBuilder::positions());
+		$this->add_link($lang['form.configuration'], $this->module->get_configuration()->get_admin_main_page());
 		$this->add_link($lang['form.documentation'], $this->module->get_configuration()->get_documentation());
 
 		$this->get_graphical_environment()->set_page_title($page_title);
