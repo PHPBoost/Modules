@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 02 28
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -42,6 +42,7 @@ class HomeLandingGallery
 			'user_id' => AppContext::get_current_user()->get_id(),
 		));
 
+
 		$view->put_all(array(
             'C_NO_ITEM'       => $result->get_rows_count() == 0,
             'C_MODULE_LINK'   => true,
@@ -56,7 +57,7 @@ class HomeLandingGallery
 		{
 			$view->assign_block_vars('items', array(
 				'U_PICTURE'    => Url::to_rel('/gallery/pics/' . $row['path']),
-				'TITLE'        => $row['name'],
+				'TITLE'        => !empty($row['name']) ? $row['name'] : $row['path'],
 				'VIEWS_NUMBER' => $row['views'],
 				'U_CATEGORY'   => Url::to_rel('/gallery/gallery' . url('.php?cat=' . $row['id_category'], '-' . $row['id_category'] . '.php'))
 			));

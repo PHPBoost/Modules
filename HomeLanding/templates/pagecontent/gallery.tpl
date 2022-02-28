@@ -27,7 +27,7 @@
 							</div>
 							<div class="cell-list">
 								<ul>
-									<li class="li-stretch">{items.TITLE} # IF C_VIEWS_ENABLED #{items.VIEWS_NUMBER}# ENDIF #</li>
+									<li class="li-stretch">{items.TITLE} # IF C_VIEWS_ENABLED # <span><i class="far fa-eye"></i> {items.VIEWS_NUMBER}# ENDIF #</span></li>
 								</ul>
 							</div>
 						</div>
