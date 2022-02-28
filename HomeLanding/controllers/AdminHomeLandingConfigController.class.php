@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 25
+ * @version     PHPBoost 6.0 - last update: 2022 02 28
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -165,9 +165,9 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
         {
 
 			if($module == 'configuration')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa-cogs');
+            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa fa-cogs');
 			elseif($module == 'carousel')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa-image');
+            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa fa-image');
 			elseif(in_array($module, $modules_from_list))
 			{
 				$img_url = PATH_TO_ROOT . '/' . $module . '/' . $module . '_mini.png';
