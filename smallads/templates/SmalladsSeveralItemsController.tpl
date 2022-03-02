@@ -169,11 +169,11 @@
 		<div class="content-container">
 			# IF C_NO_ITEM #
 				# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-						<div class="content">
-							<div class="message-helper bgc notice align-center">
-								{@common.no.item.now}
-							</div>
+					<div class="content">
+						<div class="message-helper bgc notice align-center">
+							{@common.no.item.now}
 						</div>
+					</div>
 				# ENDIF #
 			# ELSE #
 				# IF C_TABLE_VIEW #

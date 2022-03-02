@@ -18,14 +18,14 @@
 								<h3 class="cell-name"><a class="offload" href="{items.U_ITEM}">{items.TITLE}</a></h3>
 								<i class="fa fa-# IF items.C_AUDIO #music# ELSE #film# ENDIF #" aria-hidden="true"></i>
 							</header>
-							<div class="cell-body">
-								<div class="cell-infos">
-									<div class="more">
-										<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {items.PSEUDO}</span>
-										<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {items.DATE}</span>
-										<span class="pinned item-category"><i class="far fa-fw fa-folder"></i> {items.CATEGORY_NAME}</span>
-									</div>
+							<div class="cell-infos">
+								<div class="more">
+									<span class="pinned item-author"><i class="fa fa-fw fa-user"></i> {items.PSEUDO}</span>
+									<span class="pinned item-creation-date"><i class="far fa-fw fa-calendar-alt"></i> {items.DATE}</span>
+									<span class="pinned item-category"><i class="far fa-fw fa-folder"></i> {items.CATEGORY_NAME}</span>
 								</div>
+							</div>
+							<div class="cell-body">
 								# IF items.C_THUMBNAIL #
 									<div class="cell-thumbnail cell-landscape cell-center">
 										<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}">
