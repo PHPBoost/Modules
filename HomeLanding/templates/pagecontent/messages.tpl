@@ -25,7 +25,7 @@
 									<div class="message-user-container">
 										<h4>
 											# IF items.C_AUTHOR_EXISTS #
-												<a class="{items.AUTHOR_LEVEL_CLASS} offload" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a>
+												<a itemprop="author" class="{items.AUTHOR_LEVEL_CLASS} offload" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a>
 											# ELSE #
 												{items.AUTHOR_DISPLAY_NAME}
 											# ENDIF #

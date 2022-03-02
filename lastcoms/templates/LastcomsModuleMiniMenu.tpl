@@ -13,11 +13,11 @@
 				# START items #
 					<li>
 						<div class="flex-between">
-							<time class="pinned notice small" datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE_DELAY}</time>
-							<span class="pinned notice small">{items.MODULE_NAME}</span>
+							<time class="pinned notice small item-creation-date" datetime="{items.DATE_ISO8601}" itemprop="datePublished">{items.DATE_DELAY}</time>
+							<span class="pinned notice small item-module">{items.MODULE_NAME}</span>
 						</div>
 						<p>
-							# IF items.C_AUTHOR_EXISTS #<a class="{items.AUTHOR_LEVEL_CLASS} offload" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #
+							<span class="item-author"># IF items.C_AUTHOR_EXISTS #<a class="{items.AUTHOR_LEVEL_CLASS} offload" itemprop="author" href="{items.U_AUTHOR_PROFILE}"# IF items.C_AUTHOR_GROUP_COLOR # style="color:{items.AUTHOR_GROUP_COLOR}"# ENDIF #>{items.AUTHOR_DISPLAY_NAME}</a># ELSE #{items.AUTHOR_DISPLAY_NAME}# ENDIF #</span>
 						 	: <a aria-label="{@lastcoms.see.comment}" class="offload" href="{items.PATH}">{items.CONTENT}</a>
 					 	</p>
 					</li>

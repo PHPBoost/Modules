@@ -25,7 +25,7 @@
 							<td><span class="pinned {wiki_items.STATUS_CLASS}">{wiki_items.L_STATUS}</span></td>
 							<td>
 								# IF wiki_items.C_AUTHOR_EXISTS #
-									<a href="{wiki_items.U_AUTHOR_PROFILE}" class="{wiki_items.AUTHOR_LEVEL_CLASS} offload" # IF wiki_items.C_AUTHOR_GROUP_COLOR # style="color:{wiki_items.AUTHOR_GROUP_COLOR}"# ENDIF #>{wiki_items.AUTHOR_DISPLAY_NAME}</a>
+									<a itemprop="author" href="{wiki_items.U_AUTHOR_PROFILE}" class="{wiki_items.AUTHOR_LEVEL_CLASS} offload" # IF wiki_items.C_AUTHOR_GROUP_COLOR # style="color:{wiki_items.AUTHOR_GROUP_COLOR}"# ENDIF #>{wiki_items.AUTHOR_DISPLAY_NAME}</a>
 								# ELSE #
 									<span aria-label="{wiki_items.AUTHOR_IP}">{@user.guest}</span>
 								# ENDIF #
