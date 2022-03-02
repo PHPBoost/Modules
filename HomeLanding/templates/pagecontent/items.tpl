@@ -102,26 +102,26 @@
 										</span>
 									# ENDIF #
 								</div>
-								<div class="cell-body">
-									# IF NOT items.C_FULL_ITEM_DISPLAY #
-										# IF items.C_HAS_THUMBNAIL #
+								# IF NOT items.C_FULL_ITEM_DISPLAY #
+									# IF items.C_HAS_THUMBNAIL #
+										<div class="cell-thumbnail cell-landscape cell-center">
+											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
+											<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
+												{@common.see.details}
+											</a>
+										</div>
+									# ELSE #
+										# IF items.C_HAS_PARTNER_THUMBNAIL #
 											<div class="cell-thumbnail cell-landscape cell-center">
-												<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
+												<img src="{items.U_PARTNER_THUMBNAIL}" alt="{items.TITLE}" />
 												<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
 													{@common.see.details}
 												</a>
 											</div>
-										# ELSE #
-											# IF items.C_HAS_PARTNER_THUMBNAIL #
-												<div class="cell-thumbnail cell-landscape cell-center">
-													<img src="{items.U_PARTNER_THUMBNAIL}" alt="{items.TITLE}" />
-													<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
-														{@common.see.details}
-													</a>
-												</div>
-											# ENDIF #
 										# ENDIF #
 									# ENDIF #
+								# ENDIF #
+								<div class="cell-body">
 									<div class="cell-content">
 										# IF C_DATE #
 											<div class="controls align-right"><i class="far fa-fw fa-calendar-alt"></i><span>{items.START_DATE}</span> - <span>{items.END_DATE}</span></div>

@@ -199,15 +199,15 @@
 										</div>
 									# ENDIF #
 								</div>
+								# IF items.C_HAS_THUMBNAIL #
+									<div class="cell-thumbnail cell-landscape cell-center">
+										<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="image" />
+										<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
+											{@common.see.details}
+										</a>
+									</div>
+								# ENDIF #
 								<div class="cell-body">
-									# IF items.C_HAS_THUMBNAIL #
-										<div class="cell-thumbnail cell-landscape cell-center">
-											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="image" />
-											<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">
-												{@common.see.details}
-											</a>
-										</div>
-									# ENDIF #
 									<div class="cell-content">
 										<div itemprop="text">{items.CONTENT}</div>
 									</div>

@@ -335,13 +335,13 @@
 										</div>
 									# ENDIF #
 								</div>
+								# IF items.C_HAS_THUMBNAIL #
+									<div class="cell-thumbnail cell-landscape cell-center">
+										<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="thumbnailUrl" />
+										# IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">{@common.read.more}</a># ENDIF #
+									</div>
+								# ENDIF #
 								<div class="cell-body">
-									# IF items.C_HAS_THUMBNAIL #
-										<div class="cell-thumbnail cell-landscape cell-center">
-											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" itemprop="thumbnailUrl" />
-											# IF NOT items.C_COMPLETED #<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload">{@common.read.more}</a># ENDIF #
-										</div>
-									# ENDIF #
 									<div class="cell-content">
 										<div itemprop="text">{items.SUMMARY}# IF items.C_READ_MORE #... # IF NOT items.C_COMPLETED #<a class="read-more offload" href="{items.U_ITEM}">[{@common.read.more}]</a># ENDIF ## ENDIF #</div>
 										<div class="smallad-price lo-price"># IF items.C_PRICE #{items.PRICE} {items.CURRENCY}# ENDIF #</div>

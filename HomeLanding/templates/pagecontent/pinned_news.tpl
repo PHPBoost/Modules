@@ -44,13 +44,13 @@
 									</span>
 								# ENDIF #
 							</div>
+							# IF items.C_HAS_THUMBNAIL #
+								<a href="{items.U_ITEM}" class="item-thumbnail">
+									<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
+								</a>
+							# ENDIF #
 							<div class="cell-body">
 								<div class="cell-content">
-									# IF items.C_HAS_THUMBNAIL #
-										<a href="{items.U_ITEM}" class="item-thumbnail">
-											<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" />
-										</a>
-									# ENDIF #
 									{items.CONTENT}
 								</div>
 							</div>

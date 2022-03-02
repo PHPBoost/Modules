@@ -25,13 +25,13 @@
 									<span class="pinned item-category"><i class="far fa-fw fa-folder"></i> {items.CATEGORY_NAME}</span>
 								</div>
 							</div>
+							# IF items.C_THUMBNAIL #
+								<div class="cell-thumbnail cell-landscape cell-center">
+									<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}">
+									<a class="cell-thumbnail-caption offload" href="{items.U_ITEM}"><i class="fa fa-2x fa-play-circle" aria-hidden="true"></i></a>
+								</div>
+							# ENDIF #
 							<div class="cell-body">
-								# IF items.C_THUMBNAIL #
-									<div class="cell-thumbnail cell-landscape cell-center">
-										<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}">
-										<a class="cell-thumbnail-caption offload" href="{items.U_ITEM}"><i class="fa fa-2x fa-play-circle" aria-hidden="true"></i></a>
-									</div>
-								# ENDIF #
 								# IF items.C_SUMMARY #
 									<div class="cell-content">
 										{items.SUMMARY}
