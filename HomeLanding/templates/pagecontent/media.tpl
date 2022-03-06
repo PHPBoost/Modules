@@ -11,7 +11,7 @@
 			</header>
 
 			# IF C_ITEMS #
-				<div class="cell-flex cell-columns-{ITEMS_PER_ROW}" data-type="content" data-listorder-group="media-items">
+				<div class="cell-flex # IF C_GRID_VIEW #cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #" data-type="content" data-listorder-group="media-items">
 					# START items #
 						<div class="cell" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<header class="cell-header">

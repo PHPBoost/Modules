@@ -85,7 +85,6 @@ class SmalladsMemberItemsController extends DefaultModuleController
 				'C_TABLE_VIEW'         => $this->config->get_display_type() == SmalladsConfig::TABLE_VIEW,
 				'C_ITEMS_SORT_FILTERS' => $this->config->are_sort_filters_enabled(),
 				'C_DISPLAY_CAT_ICONS'  => $this->config->are_cat_icons_enabled(),
-				'C_NO_ITEM'            => $result->get_rows_count() == 0,
 				'C_MODERATION'         => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 				'C_USAGE_TERMS'	       => $this->config->are_usage_terms_displayed(),
 				'C_PAGINATION'         => $result->get_rows_count() > $this->config->get_items_per_page(),

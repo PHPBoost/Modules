@@ -8,8 +8,7 @@
 						<a class="offload" href="{PATH_TO_ROOT}/{MODULE_NAME}" aria-label="{@homelanding.see.module}"><i class="fa fa-share-square" aria-hidden="true"></i></a>
 					</div>
 				</header>
-				<div class="cell-row">
-
+				<div class="cell-flex cell-row">
 					# START items #
 						<div class="{MODULE_NAME}-item category-{items.CATEGORY_ID} cell prime-item" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 							<div class="cell-header">

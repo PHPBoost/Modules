@@ -92,7 +92,6 @@ class SmalladsTagController extends DefaultModuleController
 			'C_ENABLED_FILTERS'	 => $this->config->are_sort_filters_enabled(),
 			'C_ITEMS'            => $result->get_rows_count() > 0,
 			'C_SEVERAL_ITEMS'    => $result->get_rows_count() > 1,
-			'C_NO_ITEM'          => $result->get_rows_count() == 0,
 			'C_GRID_VIEW'        => $this->config->get_display_type() == SmalladsConfig::GRID_VIEW,
 			'C_LIST_VIEW'        => $this->config->get_display_type() == SmalladsConfig::LIST_VIEW,
 			'C_TABLE_VIEW'       => $this->config->get_display_type() == SmalladsConfig::TABLE_VIEW,

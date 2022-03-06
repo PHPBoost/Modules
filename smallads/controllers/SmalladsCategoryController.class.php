@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 19
+ * @version     PHPBoost 6.0 - last update: 2022 03 06
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -61,7 +61,7 @@ class SmalladsCategoryController extends DefaultModuleController
 				'SUB_ORDER'  => $row_cat['c_order'],
 				'NAME'       => $row_cat['name'],
 				'U_CATEGORY' => SmalladsUrlBuilder::display_category($row_cat['id'], $row_cat['rewrited_name'])->rel(),
-				'C_NO_ITEM'  => $result_cat->get_rows_count() == 0,
+				'C_ITEMS'    => $result_cat->get_rows_count() > 0,
 			));
 		}
 		$result_cat->dispose();
@@ -111,7 +111,6 @@ class SmalladsCategoryController extends DefaultModuleController
 			'C_LOCATION'			 => $this->config->is_location_displayed(),
 			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
 			'C_DISPLAY_CAT_ICONS'    => $this->config->are_cat_icons_enabled(),
-			'C_NO_ITEM' 			 => $result->get_rows_count() == 0,
 			'C_MODERATION'           => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
 			'C_PAGINATION'           => $result->get_rows_count() > $this->config->get_items_per_page(),

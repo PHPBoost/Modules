@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2022 03 06
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -68,7 +68,6 @@ class SmalladsPendingItemsController extends DefaultModuleController
 			'C_GRID_VIEW'       => $this->config->get_display_type() == SmalladsConfig::GRID_VIEW,
 			'C_LIST_VIEW'       => $this->config->get_display_type() == SmalladsConfig::LIST_VIEW,
 			'C_TABLE_VIEW'      => $this->config->get_display_type() == SmalladsConfig::TABLE_VIEW,
-			'C_NO_ITEM'         => $pending_items_number == 0,
 			'C_PAGINATION'      => $result->get_rows_count() > $this->config->get_items_per_page(),
 			'C_USAGE_TERMS'	    => $this->config->are_usage_terms_displayed(),
 

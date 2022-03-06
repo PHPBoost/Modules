@@ -41,7 +41,7 @@
 			<div class="content-container">
 				<div class="cell-flex cell-tile cell-columns-{CATEGORIES_PER_ROW}">
 					# START sub_categories_list #
-						<div class="cell category-{sub_categories_list.CATEGORY_ID}" itemscope>
+						<div class="cell cell-category category-{sub_categories_list.CATEGORY_ID}" itemscope>
 							<div class="cell-header colored-category marker-container" data-color-surround="{sub_categories_list.CATEGORY_COLOR}">
 								<h5 class="cell-name" itemprop="about">
 									<i class="inner-marker ${sub_categories_list.CATEGORY_INNER_ICON}" aria-hidden="true"></i>

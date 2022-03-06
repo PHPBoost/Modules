@@ -64,7 +64,7 @@
 						</table>
 					</div>
 				# ELSE #
-					<div class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #">
+					<div class="cell-flex # IF C_GRID_VIEW #cell-columns-{ITEMS_PER_ROW}# ELSE #cell-row# ENDIF #">
 
 						# START items #
 							<div class="{MODULE_NAME}-item category-{items.CATEGORY_ID} cell# IF items.C_PRIME_ITEM # prime-item# ENDIF #" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">

@@ -167,15 +167,7 @@
 
 	<div class="sub-section">
 		<div class="content-container">
-			# IF C_NO_ITEM #
-				# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-					<div class="content">
-						<div class="message-helper bgc notice align-center">
-							{@common.no.item.now}
-						</div>
-					</div>
-				# ENDIF #
-			# ELSE #
+			# IF C_ITEMS #
 				# IF C_TABLE_VIEW #
 					<div class="responsive-table">
 						<table class="table">
@@ -264,7 +256,7 @@
 					</div>
 
 				# ELSE #
-					<div data-listorder-group="smallads-items" class="# IF C_GRID_VIEW #cell-flex cell-columns-{ITEMS_PER_ROW}# ENDIF ## IF C_LIST_VIEW # cell-row# ENDIF #">
+					<div data-listorder-group="smallads-items" class="cell-flex # IF C_GRID_VIEW #cell-columns-{ITEMS_PER_ROW}# ELSE # cell-row# ENDIF #">
 						# START items #
 							<article data-listorder-item id="smallads-items-{items.ID}" class="smallads-item category-{items.ID_CATEGORY} cell# IF items.C_COMPLETED# completed-smallad bgc error# ENDIF ## IF items.C_NEW_CONTENT # new-content# ENDIF #" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
 								# IF items.C_COMPLETED #<span class="bigger">{@common.status.finished}</span># ENDIF #
@@ -369,6 +361,14 @@
 						# END items #
 					</div>
 					<div class="no-result hidden message-helper bgc notice"> {@common.no.item.now} </div>
+				# ENDIF #
+			# ELSE #
+				# IF NOT C_HIDE_NO_ITEM_MESSAGE #
+					<div class="content">
+						<div class="message-helper bgc notice align-center">
+							{@common.no.item.now}
+						</div>
+					</div>
 				# ENDIF #
 			# ENDIF #
 		</div>
