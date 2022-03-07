@@ -44,9 +44,9 @@
 			<div class="content-container">
 				# IF C_TYPES_FILTERS #
 					<div class="listorder-panel">
-						<div class="cell-flex cell-tile cell-columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE ## IF C_CATEGORY #3# ELSE #2# ENDIF ## ENDIF ## ENDIF ## ENDIF #">
+						<div class="cell-flex cell-filter cell-tile cell-columns-# IF C_PENDING #2# ELSE ## IF C_MEMBER #2# ELSE ## IF C_TAG #2# ELSE ## IF C_CATEGORY #3# ELSE #2# ENDIF ## ENDIF ## ENDIF ## ENDIF #">
 							# IF C_CATEGORY #
-								<div class="category-select cell">
+								<div class="category-select cell cell-filter">
 									<div class="cell-body">
 										<div class="cell-content">
 											<span>{@smallads.category.select} :</span>
@@ -70,7 +70,7 @@
 							# ENDIF #
 
 							<!-- Types filter -->
-							<div class="listorder-type-filter cell">
+							<div class="listorder-type-filter cell cell-filter">
 								<div class="cell-body">
 									<div class="cell-content">
 										<span>{@smallads.form.smallads.types} :</span>
@@ -108,7 +108,7 @@
 							</div>
 
 							<!-- sort dropdown -->
-							<div class="sort-list cell">
+							<div class="sort-list cell cell-filter">
 								<div class="cell-body">
 									<div class="cell-content">
 										<span>{@common.sort.by} :</span>

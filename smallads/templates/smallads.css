@@ -41,8 +41,19 @@
 .smallads-category-list .field-description {padding: 0 0 0.618em;}
 
 /* --- Table view ----------------------------------------------------------- */
-
 .smallads-title { width: 250px; }
+
+/* listorder */
+.cell-filter { margin-bottom: 0.618em; }
+
+.cell-filter .cell-body { padding: 0; }
+
+.listorder-drop-down ul {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.sort-list ul { min-width: 300px; }
 
 /* --- Category-nav --- */
 .category-selected {
