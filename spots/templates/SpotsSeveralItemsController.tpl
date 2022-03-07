@@ -29,11 +29,15 @@
 	# ENDIF #
 
 	# IF C_CATEGORY #
-		# IF C_GMAP_ENABLED #
-			<div id="map"></div>
-		# ELSE #
-			<div class="message-helper bgc warning">{@spots.no.gmap}</div>
-		# ENDIF #
+		<div class="sub-section">
+			<div class="content-container">
+				# IF C_GMAP_ENABLED #
+					<div id="map" class="spots-map"></div>
+				# ELSE #
+					<div class="message-helper bgc warning spots-map">{@spots.no.gmap}</div>
+				# ENDIF #
+			</div>
+		</div>
 	# ENDIF #
 
 	# IF C_SUB_CATEGORIES #
