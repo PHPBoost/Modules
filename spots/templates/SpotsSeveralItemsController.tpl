@@ -219,8 +219,8 @@
 		var markersData = [
 			# START items #
 				[
-                    '<div class="align-center marker-logo"><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}"><img src="# IF items.C_HAS_THUMBNAIL #{items.U_THUMBNAIL}# ELSE #{PATH_TO_ROOT}/spots/spots.png# ENDIF #" alt="{items.TITLE}" /></a></div>'
-	               	+ '<h4><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}">${items.TITLE}</a></h4>'
+                    # IF items.C_HAS_THUMBNAIL #'<div class="align-center marker-logo"><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}"><img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" /></a></div>'
+	               	+# ENDIF # '<h4><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}">${items.TITLE}</a></h4>'
 	                + '<div class="cell cell-list gm-location-location">'
 	                    + '<ul>'
 	                        + '<li class="li-stretch"><span class="text-strong">{@common.category}:</span> <span class="d-block">{items.CATEGORY_NAME}</span></li>'
