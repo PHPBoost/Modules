@@ -125,4 +125,36 @@ span.marker-container .inner-marker {
     padding: 0.618em 0 0;
 }
 
+/* --- maps --- */
+/* leaflet */
 .leaflet-control-layers-selector { margin: 0 0 0.309em; }
+
+/* googlemap */
+#panel { margin-top: 1.618em; }
+
+.adp,
+.adp-table,
+.adp-placemark,
+.adp-list,
+.adp-listheader,
+.adp-listinfo,
+.adp-text,
+.adp-summary,
+.adp-step,
+.adp-substep,
+.adp-legal {
+	background-color: transparent !important;
+	color: var(--txt-main) !important;
+	border-color: var(--bdr-main) !important;
+}
+
+.adp-list { padding: 0 !important; }
+.adp-list table { margin: 0 !important; }
+.adp-listheader{
+	text-transform: uppercase;
+	font-size: 1.228em
+}
+
+.adp-substep .adp-stepicon .adp-maneuver {
+  background-image: url('https://maps.gstatic.com/mapfiles/api-3/images/maneuvers.png'), linear-gradient(rgba(var(--lighten), 0.5), rgba(var(--lighten), 0.5)) !important;
+}
