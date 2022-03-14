@@ -196,6 +196,9 @@
 			maxZoom: 18,
 			minZoom: 1,
 		});
+		var fr = new L.TileLayer('https://\{s\}.tile.openstreetmap.fr/osmfr/\{z\}/\{x\}/\{y\}.png', {
+            attribution: 'donn&eacute;es &copy; <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>'
+        });
 		var osm = new L.TileLayer('https://\{s\}.tile.openstreetmap.org/\{z\}/\{x\}/\{y\}.png', {
             attribution: '© OpenStreetMap contributors'
         });
@@ -273,6 +276,7 @@
 		//add on the map
 		map.addLayer(osm);
 		map.addControl(new L.Control.Layers( {
+			'Français': fr,
 			'OpenStreetMap': osm,
 			'OpenCycleMap': ocm,
 			'{@spots.osm.satellite}': sat,

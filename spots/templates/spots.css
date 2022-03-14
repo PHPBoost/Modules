@@ -124,3 +124,5 @@ span.marker-container .inner-marker {
 .front-fieldset .fieldset-inset {
     padding: 0.618em 0 0;
 }
+
+.leaflet-control-layers-selector { margin: 0 0 0.309em; }
