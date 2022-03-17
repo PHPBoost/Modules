@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 05
+ * @version     PHPBoost 6.0 - last update: 2022 03 17
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -56,7 +56,7 @@ class AdminHistoryController extends DefaultAdminModuleController
 		$actions_list = array();
 		while ($row = $result->fetch())
 		{
-			$actions_list[$row['action']] = $this->lang['history.action.' . $row['action']];
+			$actions_list[$row['action']] = (isset($modules_specific_hooks[$row['action']]) ? $modules_specific_hooks[$row['action']] : (isset($this->lang['history.action.' . $row['action']]) ? $this->lang['history.action.' . $row['action']] : $row['action']));
 		}
 		$result->dispose();
 		asort($actions_list);
