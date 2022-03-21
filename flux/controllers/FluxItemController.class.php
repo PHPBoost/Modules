@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 03 21
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -84,7 +84,7 @@ class FluxItemController extends DefaultModuleController
 			for($i = 0; $i < $items_number ; $i++)
 			{
 				$date = strtotime($items['date'][$i]);
-				$item_date = strftime('%d/%m/%Y - %Hh%M', $date);
+				$item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
 				$desc = @strip_tags(FormatingHelper::second_parse($items['desc'][$i]));
 				$cut_desc = (trim(TextHelper::substr($desc, 0, $char_number)));
 				$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());

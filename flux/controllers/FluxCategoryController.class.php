@@ -172,7 +172,7 @@ class FluxCategoryController extends DefaultModuleController
 					$item_host = basename(parse_url($xml_items['link'][$i], PHP_URL_HOST));
 
 					$date = strtotime($xml_items['date'][$i]);
-					$item_date = strftime('%d/%m/%Y - %Hh%M', $date);
+					$item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
 					$desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
 					$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
 					$item_img = $xml_items['img'][$i];
