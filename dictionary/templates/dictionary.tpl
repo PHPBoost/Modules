@@ -418,8 +418,8 @@
 							</div>
 							<div class="form-element-textarea">
 								<label for="description">* {@form.content}</label>
-								{KERNEL_EDITOR}
-								<div class="form-field-textarea">
+								<div class="form-field form-field-textarea bbcode-sidebar">
+									{KERNEL_EDITOR}
 									<textarea type="text" rows="15" id="description" name="description">{CONTENT}</textarea>
 								</div>
 							</div>
@@ -452,4 +452,5 @@
 		</div>
 		<footer></footer>
 	</section>
+	<script src="{PATH_TO_ROOT}/bbcode/templates/js/bbcode-sidebar# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 # ENDIF #
