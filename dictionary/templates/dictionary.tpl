@@ -419,8 +419,8 @@
 							<div class="form-element-textarea">
 								<label for="description">* {@form.content}</label>
 								<div class="form-field form-field-textarea bbcode-sidebar">
-									{KERNEL_EDITOR}
 									<textarea type="text" rows="15" id="description" name="description">{CONTENT}</textarea>
+									{KERNEL_EDITOR}
 								</div>
 							</div>
 						</fieldset>
@@ -428,12 +428,12 @@
 							<fieldset>
 								<legend>{@contribution.contribution}</legend>
 								<div class="message-helper bgc warning">{@H|contribution.warning}</div>
-								<div class="form-element-textarea">
+								<div class="form-element form-element-textarea">
 									<label for="contribution_counterpart">{@H|contribution.description}</label>
 									<span class="field-description">{@H|contribution.description.clue}</span>
-									{CONTRIBUTION_EDITOR}
-									<div class="form-field-textarea">
+									<div class="form-field form-field-textarea bbcode-sidebar">
 										<textarea rows="15" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
+										{CONTRIBUTION_EDITOR}
 									</div>
 								</div>
 							</fieldset>
@@ -452,5 +452,4 @@
 		</div>
 		<footer></footer>
 	</section>
-	<script src="{PATH_TO_ROOT}/BBCode/templates/js/bbcode-sidebar# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 # ENDIF #
