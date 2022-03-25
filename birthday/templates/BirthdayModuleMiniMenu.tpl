@@ -12,7 +12,7 @@
 					</li>
 				# END birthday #
 			# ELSE #
-				{@common.nobody}
+				<li>{@common.nobody}</li>
 			# ENDIF #
 		</ul>
 	</div>
@@ -29,7 +29,7 @@
 					</li>
 				# END upcoming_birthdays #
 			# ELSE #
-				{@common.nobody}
+				<li>{@common.nobody}</li>
 			# ENDIF #
 		</ul>
 	</div>
