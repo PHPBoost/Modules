@@ -46,7 +46,7 @@
 							</thead>
 							<tbody>
 								# START items #
-									<tr>
+									<tr class="category-{items.CATEGORY_ID}# IF items.C_PRIME_ITEM # prime-item# ENDIF #">
 										<td# IF C_VISIT # aria-label="{@common.see.details}"# ENDIF #><a class="offload" href="{items.U_ITEM}">{items.TITLE}</a></td>
 										<td>
 											# IF items.HAS_UPDATE_DATE #
