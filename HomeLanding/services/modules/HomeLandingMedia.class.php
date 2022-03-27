@@ -51,15 +51,12 @@ class HomeLandingMedia
 
         while ($row = $result->fetch())
         {
-            $thumbnail = new Url($row['thumbnail']);
-            $thumbnail_url = $thumbnail->rel();
-
             $summary = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($row['content']), '<br><br/>'), $module_config->get_characters_number_to_cut());
 
             $view->assign_block_vars('items', array(
                 'C_SUMMARY'   => !empty($row['content']),
                 'C_AUDIO'     => $row['mime_type'] == 'audio/mpeg',
-                'C_THUMBNAIL' => !empty($row['thumbnail']),
+                'C_HAS_THUMBNAIL' => !empty($row['thumbnail']),
 
                 'PSEUDO'        => $row['display_name'],
                 'TITLE'         => $row['title'],
@@ -69,7 +66,7 @@ class HomeLandingMedia
                 'CATEGORY_NAME' => $row['id_category'] == Category::ROOT_CATEGORY ? $module_lang['common.root'] : CategoriesService::get_categories_manager('media')->get_categories_cache()->get_category($row['id_category'])->get_name(),
                 'SUMMARY'       => FormatingHelper::second_parse($summary),
 
-                'U_THUMBNAIL' => $thumbnail_url,
+                'U_THUMBNAIL' => Url::to_rel($row['thumbnail']),
                 'U_ITEM'      => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
             ));
         }
