@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 10
+ * @version     PHPBoost 6.0 - last update: 2022 03 28
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -169,16 +169,6 @@ class SmalladsItemFormController extends DefaultModuleController
 		);
 		$form->add_fieldset($other_fieldset);
 
-		if($this->config->is_max_weeks_number_displayed())
-		{
-			$other_fieldset->add_field(new FormFieldNumberEditor('max_weeks', $this->lang['smallads.form.max.weeks'], $this->item->get_max_weeks(),
-				array(
-					'min' => 1, 'max' => 52,
-					'description' => $this->lang['smallads.form.max.weeks.clue']
-				)
-			));
-		}
-
 		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', $this->lang['form.display.author'], $this->item->get_displayed_author_name(),
 			array(
 				'events' => array('click' => '
@@ -292,6 +282,16 @@ class SmalladsItemFormController extends DefaultModuleController
 			array('css_class' => 'tabs tabs-animation')
 		);
 		$form->add_fieldset($publication_fieldset);
+
+		if($this->config->is_max_weeks_number_displayed())
+		{
+			$publication_fieldset->add_field(new FormFieldNumberEditor('max_weeks', $this->lang['smallads.form.max.weeks'], $this->item->get_max_weeks(),
+				array(
+					'min' => 1, 'max' => 52,
+					'description' => $this->lang['smallads.form.max.weeks.clue']
+				)
+			));
+		}
 
 		if($this->item->get_id() !== null)
 		{
