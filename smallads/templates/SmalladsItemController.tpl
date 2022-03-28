@@ -17,7 +17,13 @@
 			# ENDIF #
 			<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="smallads-item-{ID}" class="smallads-item# IF C_NEW_CONTENT # new-content# ENDIF #">
 				<div class="flex-between">
-					<div></div>
+					# IF C_HAS_UPDATE_DATE #
+						<span class="pinned notice small text-italic modified-date">
+							{@common.last.update} : <time datetime="{UPDATE_DATE_ISO8601}" itemprop="dateModified">{UPDATE_DATE_FULL}</time>
+						</span>
+					# ELSE #
+						<span></span>
+					# ENDIF #
 					# IF C_CONTROLS #
 						<div class="controls align-right">
 							# IF NOT C_COMPLETED ## IF C_EDIT #<a class="offload" href="{U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-fw fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
@@ -193,24 +199,30 @@
 						# END sources #
 					</aside>
 				# ENDIF #
-				# IF C_HAS_UPDATE_DATE #
-					<span class="pinned notice small text-italic modified-date">
-						{@common.last.update} : <time datetime="{UPDATE_DATE_ISO8601}" itemprop="dateModified">{UPDATE_DATE_FULL}</time>
-					</span>
-				# ENDIF #
 
 				# IF C_SUGGESTED_ITEMS #
 					<aside class="suggested-links">
 						<span><i class="fa fa-fw fa-lightbulb" aria-hidden="true"></i> {@common.suggestions} :</span>
-						<ul>
-							# START suggested_items #
-								<li>
-									<a href="{suggested_items.U_ITEM}# IF suggested_items.C_COMPLETED # error# ENDIF #" class="suggested-item offload">
-										<img src="{suggested_items.U_THUMBNAIL}" alt="{suggested_items.TITLE}" /> {suggested_items.TITLE}
-									</a>
-								</li>
-							# END suggested_items #
-						</ul>
+						<div class="cell-flex cell-row">
+							# START suggested #
+								<div class="flex-between flex-between-large cell">
+									<div class="cell-body">
+										<div class="cell-content">
+											<a href="{suggested.U_ITEM}# IF suggested.C_COMPLETED # error# ENDIF #" class="suggested-item offload">
+												<h6>{suggested.TITLE}</h6>
+											</a>
+											<span class="more">{suggested.DATE}</span>
+										</div>
+									</div>
+									# IF suggested.C_HAS_THUMBNAIL #
+										<div class="cell-thumbnail cell-landscape cell-center">
+											<img src="{suggested.U_THUMBNAIL}" alt="{suggested.TITLE}" />
+										</div>
+									# ENDIF #
+								</div>
+							# END suggested #
+						</div>
+
 					</aside>
 				# ENDIF #
 
