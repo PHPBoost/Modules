@@ -45,8 +45,8 @@ class SmalladsModuleUpdateVersion extends ModuleUpdateVersion
 			'/templates/fields/SmalladsFormFieldSelectSources.tpl',
 			'/templates/js/jplist.core.min.js',
 			'/templates/js/jplist.filter-toggle-bundle.min.js',
-			'/templates/js/jplist.pagination-bundle.min.js ',
-			'/templates/js/jplist.sort-bundle.min.js ',
+			'/templates/js/jplist.pagination-bundle.min.js',
+			'/templates/js/jplist.sort-bundle.min.js',
 			'/smallads.class.php',
 			'/smallads.php',
 			'/smallads_begin.php'
