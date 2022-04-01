@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 18
+ * @version     PHPBoost 6.0 - last update: 2022 04 01
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -39,7 +39,7 @@ class SpotsFeedProvider implements FeedProvider
 			$ids_categories = array_keys($categories);
 
 			$now = new Date();
-			$results = $querier->select('SELECT spots.id, spots.id_category, spots.title, spots.rewrited_title, spots.content, spots.creation_date, cat.rewrited_name AS rewrited_name_cat
+			$results = $querier->select('SELECT spots.id, spots.id_category, spots.title, spots.rewrited_title, spots.content, spots.creation_date, spot.thumbnail, cat.rewrited_name AS rewrited_name_cat
 				FROM ' . SpotsSetup::$spots_table . ' spots
 				LEFT JOIN '. SpotsSetup::$spots_cats_table .' cat ON cat.id = spots.id_category
 				WHERE spots.id_category IN :ids_categories

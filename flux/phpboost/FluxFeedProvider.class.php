@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2022 04 01
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -39,7 +39,7 @@ class FluxFeedProvider implements FeedProvider
 			$ids_categories = array_keys($categories);
 
 			$now = new Date();
-			$results = $querier->select('SELECT flux.id, flux.id_category, flux.title, flux.rewrited_title, flux.content, flux.creation_date, cat.rewrited_name AS rewrited_name_cat
+			$results = $querier->select('SELECT flux.id, flux.id_category, flux.title, flux.rewrited_title, flux.content, flux.creation_date, flux.thumbnail, cat.rewrited_name AS rewrited_name_cat
 				FROM ' . FluxSetup::$flux_table . ' flux
 				LEFT JOIN '. FluxSetup::$flux_cats_table .' cat ON cat.id = flux.id_category
 				WHERE flux.id_category IN :ids_categories
@@ -60,7 +60,7 @@ class FluxFeedProvider implements FeedProvider
 				$item->set_guid($link);
 				$item->set_desc(FormatingHelper::second_parse($row['content']));
 				$item->set_date(new Date($row['creation_date'], Timezone::SERVER_TIMEZONE));
-				$item->set_image_url($row['thumbnail_url']);
+				$item->set_image_url($row['thumbnail']);
 				$item->set_auth(CategoriesService::get_categories_manager($module_id)->get_heritated_authorizations($row['id_category'], Category::READ_AUTHORIZATIONS, Authorizations::AUTH_PARENT_PRIORITY));
 				$data->add_item($item);
 			}

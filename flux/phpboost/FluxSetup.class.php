@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 19
+ * @version     PHPBoost 6.0 - last update: 2022 04 01
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -71,7 +71,7 @@ class FluxSetup extends DefaultModuleSetup
 			'author_user_id' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'views_number' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
 			'visits_number' => array('type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0),
-			'thumbnail_url' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
+			'thumbnail' => array('type' => 'string', 'length' => 255, 'notnull' => 1, 'default' => "''"),
 		);
 		$options = array(
 			'primary' => array('id'),
@@ -125,7 +125,7 @@ class FluxSetup extends DefaultModuleSetup
 			'author_user_id' => 1,
 			'views_number'   => 0,
 			'visits_number'  => 0,
-			'thumbnail_url'  => '/templates/__default__/images/default_item.webp',
+			'thumbnail'  => '/templates/__default__/images/default_item.webp',
 		));
 	}
 }
