@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 19
+ * @version     PHPBoost 6.0 - last update: 2022 04 04
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -96,11 +96,8 @@ class FluxCategoryController extends DefaultModuleController
 			'C_SUB_CATEGORIES'            => $sub_categories_number > 0,
 			'C_SUBCATEGORIES_PAGINATION'  => $subcategories_pagination->has_several_pages(),
 			'C_NEW_WINDOW' 				  => $this->config->get_new_window(),
-			'C_DISPLAY_LAST_FEEDS'		  => $this->config->get_last_feeds_display(),
 
 			'MODULE_NAME'               => $this->config->get_module_name(),
-			'LAST_FEEDS_NUMBER'		    => $this->config->get_last_feeds_number(),
-			'LAST_FEEDS'			    => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
 			'ROOT_CATEGORY_DESCRIPTION' => $this->config->get_root_category_description(),
 			'CATEGORY_NAME'             => $this->get_category()->get_name(),
 			'CATEGORY_DESCRIPTION'      => FormatingHelper::second_parse($this->get_category()->get_description()),
@@ -144,9 +141,16 @@ class FluxCategoryController extends DefaultModuleController
 			$rss_number = $this->config->get_rss_number();
 			$char_number = $this->config->get_characters_number_to_cut();
 
-			if(!empty($item->get_xml_path()))
+			$xml_path = $item->get_xml_path();
+			$xml_file = new File(PATH_TO_ROOT . '/' . $xml_path);
+
+			if(!empty($xml_path) && $xml_file->exists())
 			{
-				$this->view->put('C_LAST_FEEDS', $result->get_rows_count() > 0 && $this->config->get_last_feeds_display());
+				$this->view->put_all(array(
+					'C_LAST_ITEMS' => $result->get_rows_count() > 0 && $this->config->get_last_feeds_display(),
+					'LAST_FEEDS_NUMBER' => $this->config->get_last_feeds_number(),
+					'LAST_FEEDS'        => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
+				));
 
 				$xml = simplexml_load_file(PATH_TO_ROOT . '/' . $item->get_xml_path());
 				$xml_items = array();
@@ -179,17 +183,20 @@ class FluxCategoryController extends DefaultModuleController
 					$words_number = str_word_count($desc) - str_word_count($cut_desc);
 
 					$this->view->assign_block_vars('feed_items',array(
-						'TITLE'           => $xml_items['title'][$i],
-						'U_ITEM'          => $xml_items['link'][$i],
-						'ITEM_HOST'       => $item->get_title(),
-						'U_ITEM_HOST'     => $item->get_item_url(),
-						'DATE'            => $item_date,
-						'SORT_DATE'       => $date,
-						'SUMMARY'         => $cut_desc,
-						'C_READ_MORE'     => strlen($desc) > $char_number,
-						'WORDS_NUMBER'    => $words_number > 0 ? $words_number : '',
+						'C_HAS_FEEDS'     => $xml_items_number > 0,
 						'C_HAS_THUMBNAIL' => !empty($item_img),
-						'U_THUMBNAIL'     => !empty($item_img) ? $item_img->absolute() : '#',
+						'C_READ_MORE'     => strlen($desc) > $char_number,
+
+						'TITLE'        => $xml_items['title'][$i],
+						'ITEM_HOST'    => $item->get_title(),
+						'DATE'         => $item_date,
+						'SORT_DATE'    => $date,
+						'SUMMARY'      => $cut_desc,
+						'WORDS_NUMBER' => $words_number > 0 ? $words_number : '',
+
+						'U_ITEM'      => $xml_items['link'][$i],
+						'U_ITEM_HOST' => $item->get_item_url(),
+						'U_THUMBNAIL' => !empty($item_img) ? $item_img->absolute() : '#',
 					));
 				}
 			}

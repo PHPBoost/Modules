@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 27
+ * @version     PHPBoost 6.0 - last update: 2022 04 04
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -39,7 +39,6 @@ class HomeLandingFlux
 		));
 
         $view->put_all(array(
-            'C_NO_ITEM'       => $result->get_rows_count() == 0,
             'C_NEW_WINDOW'    => $module_config->get_new_window(),
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
 			'MODULE_NAME'     => $module_name,
@@ -54,7 +53,10 @@ class HomeLandingFlux
 			$rss_number = $modules[$module_name]->get_elements_number_displayed();
 			$char_number = $modules[$module_name]->get_characters_number_displayed();
 
-			if(!empty($item->get_xml_path()))
+			$xml_path = $item->get_xml_path();
+			$xml_file = new File(PATH_TO_ROOT . '/' . $xml_path);
+
+			if(!empty($xml_path) && $xml_file->exists())
 			{
 				$view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
 

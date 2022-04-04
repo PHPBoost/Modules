@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		# ENDIF #
-		# IF C_DISPLAY_LAST_FEEDS #
+		# IF C_LAST_ITEMS #
 			<div class="sub-section">
 				<div class="content-container">
 					<article>
@@ -36,7 +36,6 @@
 							<h5>{LAST_FEEDS}</h5>
 						</header>
 						<div class="content">
-							# IF C_LAST_FEEDS #
 								<div
 									class="hidden"
 									data-listorder-control="hidden-sort"
@@ -47,23 +46,25 @@
 								</div>
 								<ul class="last-feeds" data-listorder-group="feed-items">
 									# START feed_items #
-										<li data-listorder-item>
-											<span class="lo-date hidden">{feed_items.SORT_DATE}</span>
-											<span class="feed-title">
-												<h6>
-													<a href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
-														{feed_items.TITLE}
-													</a>
-												</h6>
-												<span class="small align-right"><a href="{feed_items.U_ITEM_HOST}" class="offload text-italic">{feed_items.ITEM_HOST}</a> | {feed_items.DATE}</span>
-											</span>
-											<p>
-												# IF feed_items.C_HAS_THUMBNAIL #
-													<img src="{feed_items.U_THUMBNAIL}" class="align-left" alt="{feed_items.TITLE}" />
-												# ENDIF #
-												{feed_items.SUMMARY} # IF feed_items.C_READ_MORE # <span aria-label="{@flux.words.not.read}" class="small text-italic pinned notice">{feed_items.WORDS_NUMBER}</span># ENDIF #
-											</p>
-										</li>
+										# IF feed_items.C_HAS_FEEDS #
+											<li data-listorder-item>
+												<span class="lo-date hidden">{feed_items.SORT_DATE}</span>
+												<span class="feed-title">
+													<h6>
+														<a href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
+															{feed_items.TITLE}
+														</a>
+													</h6>
+													<span class="small align-right"><a href="{feed_items.U_ITEM_HOST}" class="offload text-italic">{feed_items.ITEM_HOST}</a> | {feed_items.DATE}</span>
+												</span>
+												<p>
+													# IF feed_items.C_HAS_THUMBNAIL #
+														<img src="{feed_items.U_THUMBNAIL}" class="align-left" alt="{feed_items.TITLE}" />
+													# ENDIF #
+													{feed_items.SUMMARY} # IF feed_items.C_READ_MORE # <span aria-label="{@flux.words.not.read}" class="small text-italic pinned notice">{feed_items.WORDS_NUMBER}</span># ENDIF #
+												</p>
+											</li>
+										# ENDIF #
 									# END feed_items #
 								</ul>
 								<nav
@@ -75,9 +76,6 @@
 							        data-name="pagination1"
 									data-id="paging">
 								</nav>
-							# ELSE #
-								<div class="message-helper bgc notice">{@flux.no.last.feeds}</div>
-							# ENDIF #
 						</div>
 					</article>
 				</div>
