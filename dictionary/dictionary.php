@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 13
+ * @version     PHPBoost 6.0 - last update: 2022 04 08
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -53,7 +53,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 	$result_cat->dispose();
 
 	$contents_editor = AppContext::get_content_formatting_service()->get_default_editor();
-	$contents_editor->set_identifier('contents', $config->get_forbidden_tags());
+	$contents_editor->set_identifier('description', $config->get_forbidden_tags());
 
 	$counterpart_editor = AppContext::get_content_formatting_service()->get_default_editor();
 	$counterpart_editor->set_identifier('counterpart');

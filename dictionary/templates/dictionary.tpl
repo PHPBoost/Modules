@@ -379,21 +379,11 @@
 	<section id="module-dictionary">
 		<header class="section-header">
 			<div class="controls align-right">{@dictionary.module.title}</div>
-			<h1># IF C_ADD_ITEM #{@dictionary.add.item}# ELSE #{@dictionary.edit.item}# ENDIF #</h1>
+			# IF C_ITEM_PREVIEW #<h2># ELSE #<h1># ENDIF ## IF C_ADD_ITEM #{@dictionary.add.item}# ELSE #{@dictionary.edit.item}# ENDIF ## IF C_ITEM_PREVIEW #</h2># ELSE #</h1># ENDIF #
 		</header>
 		<div class="sub-section">
 			<div class="content-container">
 				<div class="content">
-					# IF C_ITEM_PREVIEW #
-						<h5>{@form.preview}</h5>
-						<article class="dictionary-word">
-							<header><h2><a href="#">{WORD}</a></h2></header>
-							<div class="dictionary-definition">
-								<div class="controls align-right">&nbsp;</div>
-								{CONTENT_PREVIEW}
-							</div>
-						</article>
-					# ENDIF #
 					<form action="dictionary.php" name="form" method="post" onsubmit="return check_form_or();"  class="fieldset-content">
 						<fieldset>
 							<legend>{@form.parameters}</legend>
@@ -416,12 +406,13 @@
 									</label>
 								</div>
 							</div>
-							<div class="form-element-textarea">
+							<div class="form-element form-element-textarea">
 								<label for="description">* {@form.content}</label>
 								<div class="form-field form-field-textarea bbcode-sidebar">
-									<textarea type="text" rows="15" id="description" name="description">{CONTENT}</textarea>
 									{KERNEL_EDITOR}
+									<textarea type="text" class="auto-resize" id="description" name="description">{CONTENT}</textarea>
 								</div>
+								<button class="button preview-button" type="submit" id="preview" name="preview" value="true">{@form.preview}</button>
 							</div>
 						</fieldset>
 						# IF C_CONTRIBUTION #
@@ -432,19 +423,30 @@
 									<label for="contribution_counterpart">{@H|contribution.description}</label>
 									<span class="field-description">{@H|contribution.description.clue}</span>
 									<div class="form-field form-field-textarea bbcode-sidebar">
-										<textarea rows="15" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
 										{CONTRIBUTION_EDITOR}
+										<textarea class="auto-resize" id="contribution_counterpart" name="contribution_counterpart">{CONTRIBUTION_COUNTERPART}</textarea>
 									</div>
 								</div>
 							</fieldset>
 						# ENDIF #
+						# IF C_ITEM_PREVIEW #
+							<div class="auto-resize xmlhttprequest-preview">
+								<header><h1><a href="#">{WORD}</a></h1></header>
+								<div class="sub-section">
+									<div class="content-container">
+										<div class="content">
+											{CONTENT_PREVIEW}
+										</div>
+									</div>
+								</div>
+							</div>
+						# ENDIF #
 						<fieldset class="fieldset-submit">
 							<legend>{@form.submit}</legend>
-								<input type="hidden" value="{ITEM_ID}" name="dictionary_id" />
 								<button class="button submit" type="submit" id="valid" name="valid" value="true">{@form.submit}</button>
-								<button class="button preview-button" type="submit" id="preview" name="preview" value="true">{@form.preview}</button>
-								<button class="button reset-button" type="reset" value="true">{@form.reset}</button>
+								<input type="hidden" value="{ITEM_ID}" name="dictionary_id" />
 								<input type="hidden" name="token" value="{TOKEN}" />
+								<button class="button reset-button" type="reset" value="true">{@form.reset}</button>
 						</fieldset>
 					</form>
 				</div>
