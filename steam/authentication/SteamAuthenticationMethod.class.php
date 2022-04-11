@@ -8,13 +8,12 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 23
+ * @version     PHPBoost 6.0 - last update: 2022 04 11
  * @since       PHPBoost 5.1 - 2018 04 22
 */
 
-if (session_status() !== PHP_SESSION_ACTIVE) {
-	session_start();
-}
+if (session_status() == PHP_SESSION_NONE)
+    session_start();
 
 require_once PATH_TO_ROOT . '/steam/lib/steam/openid.php';
 
