@@ -455,7 +455,7 @@ class SmalladsItemFormController extends DefaultModuleController
 			{
 				try
 				{
-					$this->item = SmalladsService::get_item('WHERE smallads.id=:id', array('id' => $id));
+					$this->item = SmalladsService::get_item($id);
 				}
 				catch(RowNotFoundException $e)
 				{

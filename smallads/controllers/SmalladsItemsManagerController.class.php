@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 13
+ * @version     PHPBoost 6.0 - last update: 2022 04 14
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -144,8 +144,8 @@ class SmalladsItemsManagerController extends DefaultModuleController
 				{
 					if (isset($this->ids[$i]))
 					{
-						$item = SmalladsService::get_item('WHERE smallads.id=:id', array('id' => $this->ids[$i]));
-                        SmalladsService::delete($this->ids[$i]);
+						$item = SmalladsService::get_item($this->ids[$i]);
+						SmalladsService::delete($item->get_id());
 						HooksService::execute_hook_action('delete', self::$module_id, $item->get_properties());
 					}
 				}

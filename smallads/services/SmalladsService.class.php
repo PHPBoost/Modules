@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2020 12 20
+ * @version     PHPBoost 6.0 - last update: 2022 04 14
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -54,12 +54,14 @@ class SmalladsService
 		CommentsService::delete_comments_topic_module('smallads', $id);
 	}
 
-	public static function get_item($condition, array $parameters)
+	public static function get_item(int $id)
 	{
 		$row = self::$db_querier->select_single_row_query('SELECT smallads.*, member.*
 		FROM ' . SmalladsSetup::$smallads_table . ' smallads
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
-		' . $condition, $parameters);
+		WHERE smallads.id=:id', array(
+			'id' => $id
+		));
 
 		$item = new SmalladsItem();
 		$item->set_properties($row);
