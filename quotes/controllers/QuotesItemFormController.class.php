@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 04
+ * @version     PHPBoost 6.0 - last update: 2022 04 14
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -88,7 +88,7 @@ class QuotesItemFormController extends DefaultModuleController
 				array('description' => $this->lang['contribution.description.clue'])
 			));
 		}
-		elseif ($this->item->is_approved() && $this->item->is_authorized_to_edit() && !AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
+		elseif ($this->item->is_approved() && $this->item->is_authorized_to_edit() && $this->is_contributor_member())
 		{
 			$fieldset = new FormFieldsetHTML('member_edition', $this->lang['contribution.member.edition']);
 			$fieldset->set_description(MessageHelper::display($this->lang['contribution.edition.warning'], MessageHelper::WARNING)->render());
@@ -178,37 +178,37 @@ class QuotesItemFormController extends DefaultModuleController
 		if ($this->item->get_id() === null)
 		{
 			$id = QuotesService::add($this->item);
+			$this->item->set_id($id);
 
 			if (!$this->is_contributor_member())
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($this->item->get_properties(), array('item_url' => $this->item->get_item_url())));
 		}
 		else
 		{
-			$id = $this->item->get_id();
 			QuotesService::update($this->item);
 
 			if (!$this->is_contributor_member())
 				HooksService::execute_hook_action('edit', self::$module_id, array_merge($this->item->get_properties(), array('item_url' => $this->item->get_item_url())));
 		}
 
-		$this->contribution_actions($this->item, $id);
+		$this->contribution_actions($this->item);
 
 		QuotesService::clear_cache();
 	}
 
-	private function contribution_actions(QuotesItem $item, $id)
+	private function contribution_actions(QuotesItem $item)
 	{
 		if ($this->is_contributor_member())
 		{
 			$contribution = new Contribution();
-			$contribution->set_id_in_module($id);
-			if ($item->get_id() === null)
+			$contribution->set_id_in_module($item->get_id());
+			if ($this->is_new_item)
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
 			else
 				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
 
 			$contribution->set_entitled(StringVars::replace_vars($this->lang['quotes.form.contribution.title'], array('name' => $item->get_writer())));
-			$contribution->set_fixing_url(QuotesUrlBuilder::edit($id)->relative());
+			$contribution->set_fixing_url(QuotesUrlBuilder::edit($item->get_id())->relative());
 			$contribution->set_poster_id(AppContext::get_current_user()->get_id());
 			$contribution->set_module('quotes');
 			$contribution->set_auth(
@@ -222,7 +222,7 @@ class QuotesItemFormController extends DefaultModuleController
 		}
 		else
 		{
-			$corresponding_contributions = ContributionService::find_by_criteria('quotes', $id);
+			$corresponding_contributions = ContributionService::find_by_criteria('quotes', $item->get_id());
 			if (!$this->is_contributor_member() && count($corresponding_contributions) > 0)
 			{
 				$item_contribution = $corresponding_contributions[0];
@@ -232,7 +232,6 @@ class QuotesItemFormController extends DefaultModuleController
 				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 			}
 		}
-		$item->set_id($id);
 	}
 
 	private function redirect()

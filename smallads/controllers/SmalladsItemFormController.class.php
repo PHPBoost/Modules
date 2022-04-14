@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 03 28
+ * @version     PHPBoost 6.0 - last update: 2022 04 14
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -429,7 +429,7 @@ class SmalladsItemFormController extends DefaultModuleController
 				array('description' => $this->lang['contribution.description.clue'])
 			));
 		}
-		elseif ($this->item->is_published() && $this->item->is_authorized_to_edit() && !AppContext::get_current_user()->check_level(User::ADMINISTRATOR_LEVEL))
+		elseif ($this->item->is_published() && $this->item->is_authorized_to_edit() && $this->is_contributor_member())
 		{
 			$fieldset = new FormFieldsetHTML('member_edition', $this->lang['contribution.member.edition']);
 			$fieldset->set_description(MessageHelper::display($this->lang['contribution.edition.warning'], MessageHelper::WARNING)->render());
@@ -702,8 +702,8 @@ class SmalladsItemFormController extends DefaultModuleController
 
 		if ($this->item->get_id() === null)
 		{
-			$this->item->set_author_user(AppContext::get_current_user());
-			$item_id = SmalladsService::add($this->item);
+			$id = SmalladsService::add($this->item);
+			$this->item->set_id($id);
 
 			if (!$this->is_contributor_member())
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($this->item->get_properties(), array('item_url' => $this->item->get_item_url())));
@@ -712,33 +712,32 @@ class SmalladsItemFormController extends DefaultModuleController
 		{
 			$now = new Date();
 			$this->item->set_update_date($now);
-			$item_id = $this->item->get_id();
 			SmalladsService::update($this->item);
 
 			if (!$this->is_contributor_member())
 				HooksService::execute_hook_action('edit', self::$module_id, array_merge($this->item->get_properties(), array('item_url' => $this->item->get_item_url())));
 		}
 
-		$this->contribution_actions($this->item, $item_id);
+		$this->contribution_actions($this->item);
 
-		KeywordsService::get_keywords_manager()->put_relations($item_id, $this->form->get_value('keywords'));
+		KeywordsService::get_keywords_manager()->put_relations($this->item->get_id(), $this->form->get_value('keywords'));
 
 		SmalladsService::clear_cache();
 	}
 
-	private function contribution_actions(SmalladsItem $item, $item_id)
+	private function contribution_actions(SmalladsItem $item)
 	{
 		if ($this->is_contributor_member())
 		{
 			$contribution = new Contribution();
-			$contribution->set_id_in_module($item_id);
-			if ($item->get_id() === null)
+			$contribution->set_id_in_module($item->get_id());
+			if ($this->is_new_item)
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
 			else
 				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
 
 			$contribution->set_entitled($item->get_title());
-			$contribution->set_fixing_url(SmalladsUrlBuilder::edit_item($item_id)->relative());
+			$contribution->set_fixing_url(SmalladsUrlBuilder::edit_item($item->get_id())->relative());
 			$contribution->set_poster_id(AppContext::get_current_user()->get_id());
 			$contribution->set_module('smallads');
 			$contribution->set_auth(
@@ -752,7 +751,7 @@ class SmalladsItemFormController extends DefaultModuleController
 		}
 		else
 		{
-			$corresponding_contributions = ContributionService::find_by_criteria('smallads', $item_id);
+			$corresponding_contributions = ContributionService::find_by_criteria('smallads', $item->get_id());
 			if (count($corresponding_contributions) > 0)
 			{
 				foreach ($corresponding_contributions as $contribution)
@@ -763,7 +762,6 @@ class SmalladsItemFormController extends DefaultModuleController
 				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), array('item_url' => $item->get_item_url())));
 			}
 		}
-		$item->set_id($item_id);
 	}
 
 	private function redirect()
