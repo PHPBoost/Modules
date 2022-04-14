@@ -113,7 +113,7 @@ class QuotesItemFormController extends DefaultModuleController
 			if (!empty($id))
 			{
 				try {
-					$this->item = QuotesService::get_item('WHERE id=:id', array('id' => $id));
+					$this->item = QuotesService::get_item($id);
 				} catch (RowNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);

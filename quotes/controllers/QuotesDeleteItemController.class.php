@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 23
+ * @version     PHPBoost 6.0 - last update: 2022 04 14
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -24,7 +24,7 @@ class QuotesDeleteItemController extends ModuleController
 		QuotesService::delete($this->item->get_id());
 
 		QuotesService::clear_cache();
-		HooksService::execute_hook_action('delete', self::$module_id, $item->get_properties());
+		HooksService::execute_hook_action('delete', self::$module_id, $this->item->get_properties());
 
 		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), array('writer' => $this->item->get_writer())));
 	}
@@ -33,14 +33,11 @@ class QuotesDeleteItemController extends ModuleController
 	{
 		$id = $request->get_getint('id', 0);
 
-		if (!empty($id))
-		{
-			try {
-				$this->item = QuotesService::get_item('WHERE quotes.id=:id', array('id' => $id));
-			} catch (RowNotFoundException $e) {
-				$error_controller = PHPBoostErrors::unexisting_page();
-				DispatchManager::redirect($error_controller);
-			}
+		try {
+			$this->item = QuotesService::get_item($id);
+		} catch (RowNotFoundException $e) {
+			$error_controller = PHPBoostErrors::unexisting_page();
+			DispatchManager::redirect($error_controller);
 		}
 	}
 

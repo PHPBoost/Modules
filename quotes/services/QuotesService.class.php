@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2019 12 19
+ * @version     PHPBoost 6.0 - last update: 2022 04 14
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -49,8 +49,7 @@ class QuotesService
 
 	 /**
 	 * @desc Delete an item.
-	 * @param string $condition : Restriction to apply to the list
-	 * @param string[] $parameters : Parameters of the condition
+	 * @param int $id Item identifier
 	 */
 	public static function delete(int $id)
 	{
@@ -67,15 +66,16 @@ class QuotesService
 
 	 /**
 	 * @desc Return the properties of an item.
-	 * @param string $condition : Restriction to apply to the list
-	 * @param string[] $parameters : Parameters of the condition
+	 * @param int $id Item identifier
 	 */
-	public static function get_item($condition, array $parameters)
+	public static function get_item(int $id)
 	{
 		$row = self::$db_querier->select_single_row_query('SELECT quotes.*, member.*
 		FROM ' . QuotesSetup::$quotes_table . ' quotes
 		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = quotes.author_user_id
-		' . $condition, $parameters);
+		WHERE quotes.id=:id', array(
+			'id' => $id
+		));
 
 		$item = new QuotesItem();
 		$item->set_properties($row);
