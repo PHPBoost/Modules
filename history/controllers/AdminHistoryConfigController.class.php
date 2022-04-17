@@ -38,9 +38,9 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 			)
 		));
 		
-		$fieldset->add_field(new FormFieldMultipleSelectChoice('disabled_modules', $this->lang['history.config.disabled.modules'], $this->config->get_disabled_modules(), ModulesManager::get_activated_modules_map(),
+		$fieldset->add_field(new FormFieldMultipleSelectChoice('disabled_modules', $this->lang['history.config.disabled.modules'], $this->config->get_disabled_modules(), $this->generate_disabled_modules_option(),
 			array(
-				'class'       => 'top-field'
+				'class'       => 'top-field',
 				'size'        => 12,
 				'description' => $this->lang['history.config.disabled.modules.clue']
 			)
@@ -99,6 +99,17 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 		}
 
 		return $list;
+	}
+	
+	private function generate_disabled_modules_option()
+	{
+		$options = array();
+
+		foreach (ModulesManager::get_activated_modules_map() as $id => $module)
+		{
+			$options[] = new FormFieldSelectChoiceOption($module->get_configuration()->get_name(), $module->get_id());
+		}
+		return $options;
 	}
 	
 	private function build_log_retention_period_options()
