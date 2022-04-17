@@ -1363,7 +1363,7 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 
 		HomeLandingModulesList::save($this->modules);
 		HomeLandingConfig::save();
-		HooksService::execute_hook_action('edit_config', 'HomeLanding', array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => ModulesManager::get_module('HomeLanding)->get_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
+		HooksService::execute_hook_action('edit_config', 'HomeLanding', array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => ModulesManager::get_module('HomeLanding')->get_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>
