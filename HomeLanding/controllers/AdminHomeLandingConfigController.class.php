@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 28
+ * @version     PHPBoost 6.0 - last update: 2022 04 17
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -1363,7 +1363,7 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 
 		HomeLandingModulesList::save($this->modules);
 		HomeLandingConfig::save();
-		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
+		HooksService::execute_hook_action('edit_config', 'HomeLanding', array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => ModulesManager::get_module('HomeLanding)->get_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
 	}
 }
 ?>
