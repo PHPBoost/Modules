@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 04 17
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -74,7 +74,7 @@ $lang['homelanding.send.another.email']                = 'Envoyer un autre messa
 
 // Configuration
 $lang['homelanding.label.module.title']      = 'Titre du module';
-$lang['homelanding.label.module.title.clue'] = 'Affiche le titre du module sur la page, le breadcrumb et l\'onglet';
+$lang['homelanding.label.module.title.clue'] = 'Affiche le titre du module sur la page, le fil d\'Ariane et l\'onglet';
 
 $lang['homelanding.hide.menu.left']           = 'Cacher le menu gauche';
 $lang['homelanding.hide.menu.right']          = 'Cacher le menu droite';
