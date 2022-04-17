@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 19
+ * @version     PHPBoost 6.0 - last update: 2022 04 17
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -35,6 +35,14 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 		$fieldset->add_field(new FormFieldMultipleCheckbox('history_topics_disabled', $this->lang['history.config.topics.disabled'], $this->get_selected_topics_list(), $this->build_available_topics_options(),
 			array(
 				'class' => 'top-field mini-checkbox'
+			)
+		));
+		
+		$fieldset->add_field(new FormFieldMultipleSelectChoice('disabled_modules', $this->lang['history.config.disabled.modules'], $this->config->get_disabled_modules(), ModulesManager::get_activated_modules_map(),
+			array(
+				'class'       => 'top-field'
+				'size'        => 12,
+				'description' => $this->lang['history.config.disabled.modules.clue']
 			)
 		));
 		
@@ -114,6 +122,7 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 			15778800 => '6 ' . $lang['date.months'],
 			31557600 => '1 ' . $lang['date.year'],
 			63115200 => '2 ' . $lang['date.years'],
+			94672800 => '3 ' . $lang['date.years'],
 			0        => $lang['common.always']
 		);
 	}
@@ -126,6 +135,13 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 			unset($history_topics_disabled[array_search((string)$value->get_id(), $history_topics_disabled)]);
 		}
 		$this->config->set_history_topics_disabled($history_topics_disabled);
+		
+		$disabled_modules = array();
+		foreach ($this->form->get_value('disabled_modules') as $field => $option)
+		{
+			$disabled_modules[] = $option->get_raw_value();
+		}
+		$this->config->set_disabled_modules($disabled_modules);
 		
 		$this->config->set_log_retention_period($this->form->get_value('log_retention_period')->get_raw_value());
 

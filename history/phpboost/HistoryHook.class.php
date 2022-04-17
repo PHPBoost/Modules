@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 18
+ * @version     PHPBoost 6.0 - last update: 2022 04 17
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -224,7 +224,7 @@ class HistoryHook extends Hook
 	
 	private function add_history_entry($action, $module_id, array $properties, $description = '')
 	{
-		if (ModulesManager::is_module_installed('history'))
+		if (ModulesManager::is_module_activated('history') && !in_array($module_id, HistoryConfig::load()->get_disabled_modules()))
 		{
 			$now = new Date();
 			$module = ModulesManager::get_module($module_id);
@@ -263,7 +263,7 @@ class HistoryHook extends Hook
 						$title = $item->get_title();
 					if ($item && !$url && method_exists($item_class, 'get_item_url'))
 						$url = $item->get_item_url();
-				}	
+				}
 			}
 			
 			$parameters = array(

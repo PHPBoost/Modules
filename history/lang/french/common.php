@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 05
+ * @version     PHPBoost 6.0 - last update: 2022 04 17
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -12,6 +12,8 @@
 #####################################################
 
 $lang['history.config.topics.disabled'] = 'Sujets à prendre en compte dans l\'historique';
+$lang['history.config.disabled.modules'] = 'Modules désactivés';
+$lang['history.config.disabled.modules.clue'] = 'Sélectionnez les modules pour lesquels vous ne souhaitez pas conserver l\'historique des actions';
 $lang['history.config.log.retention.period'] = 'Durée de conservation des logs';
 $lang['history.config.topic.items'] = 'Ajout / modification / suppression de contenu';
 $lang['history.config.topic.categories'] = 'Catégories';
@@ -20,7 +22,7 @@ $lang['history.config.topic.moderation'] = 'Modération';
 $lang['history.config.topic.comments'] = 'Commentaires';
 $lang['history.config.topic.notation'] = 'Notation';
 $lang['history.config.topic.config'] = 'Modification de configuration';
-$lang['history.config.topic.module_specific'] = 'Hooks spécifique du module :module_name';
+$lang['history.config.topic.module_specific'] = 'Actions spécifiques du module :module_name';
 
 // Actions
 $lang['history.action'] = 'Action';

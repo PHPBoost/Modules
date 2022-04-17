@@ -3,13 +3,14 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 22
+ * @version     PHPBoost 6.0 - last update: 2022 04 17
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
 class HistoryConfig extends AbstractConfigData
 {
 	const HISTORY_TOPICS_DISABLED = 'history_topics_disabled';
+	const DISABLED_MODULES        = 'disabled_modules';
 	const LOG_RETENTION_PERIOD    = 'log_retention_period';
 
 	public function get_history_topics_disabled()
@@ -20,6 +21,16 @@ class HistoryConfig extends AbstractConfigData
 	public function set_history_topics_disabled(array $topics)
 	{
 		$this->set_property(self::HISTORY_TOPICS_DISABLED, $topics);
+	}
+
+	public function get_disabled_modules()
+	{
+		return $this->get_property(self::DISABLED_MODULES);
+	}
+
+	public function set_disabled_modules(array $modules)
+	{
+		$this->set_property(self::DISABLED_MODULES, $modules);
 	}
 
 	public function get_log_retention_period()
@@ -36,7 +47,8 @@ class HistoryConfig extends AbstractConfigData
 	{
 		return array(
 			self::HISTORY_TOPICS_DISABLED => array(),
-			self::LOG_RETENTION_PERIOD => 31557600
+			self::DISABLED_MODULES        => array(),
+			self::LOG_RETENTION_PERIOD    => 31557600
 		);
 	}
 
