@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2022 04 19
  * @since       PHPBoost 4.0 - 2013 08 09
 */
 
@@ -241,7 +241,7 @@ abstract class AbstractServerStatusServer
 		{
 			$this->Socket = @fsockopen($this->get_protocol() . '://' . $this->get_address(), (int)$this->get_port(), $ErrNo, $ErrStr, $timeout);
 
-			@stream_set_timeout($this->Socket, $timeout);
+			@stream_set_timeout($this->Socket, intval($timeout));
 
 			if ($this->Socket)
 				$this->online();
