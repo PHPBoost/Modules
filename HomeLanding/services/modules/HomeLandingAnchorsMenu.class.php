@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 22
+ * @version     PHPBoost 6.0 - last update: 2022 04 25
  * @since       PHPBoost 5.2 - 2020 03 06
+ * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
 class HomeLandingAnchorsMenu
@@ -19,7 +20,7 @@ class HomeLandingAnchorsMenu
 
         foreach($config->get_modules() as $key => $module)
         {
-            if(!in_array($module['module_id'], array('anchors_menu', 'carousel')) && $module['displayed'] == 1)
+            if(ModulesManager::is_module_installed($module['module_id']) && ModulesManager::is_module_activated($module['module_id']) && !in_array($module['module_id'], array('anchors_menu', 'carousel')) && $module['displayed'] == 1)
             {
                 if(isset($module['id_category'])) {
                     $module_category = $module['id_category'] != Category::ROOT_CATEGORY ? CategoriesService::get_categories_manager($module['phpboost_module_id'])->get_categories_cache()->get_category($modules[$module['module_id']]->get_id_category())->get_name() : '';
