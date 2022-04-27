@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 07 21
+ * @version     PHPBoost 6.0 - last update: 2022 04 27
  * @since       PHPBoost 5.1 - 2018 03 15
 */
 
@@ -18,15 +18,15 @@ $lang['other.country'] = 'Autre Pays';
 $lang['other.country.explain'] = 'Hors de France';
 $lang['county.other'] = 'Autre Pays';
 $lang['county.'] = '';
-$lang['county.1'] = '1 - Ain';
-$lang['county.2'] = '2 - Aisne';
-$lang['county.3'] = '3 - Allier';
-$lang['county.4'] = '4 - Alpes de Hautes-Provence';
-$lang['county.5'] = '5 - Hautes-Alpes';
-$lang['county.6'] = '6 - Alpes-Maritimes';
-$lang['county.7'] = '7 - Ardèche';
-$lang['county.8'] = '8 - Ardennes';
-$lang['county.9'] = '9 - Ariège';
+$lang['county.1'] = '01 - Ain';
+$lang['county.2'] = '02 - Aisne';
+$lang['county.3'] = '03 - Allier';
+$lang['county.4'] = '04 - Alpes de Hautes-Provence';
+$lang['county.5'] = '05 - Hautes-Alpes';
+$lang['county.6'] = '06 - Alpes-Maritimes';
+$lang['county.7'] = '07 - Ardèche';
+$lang['county.8'] = '08 - Ardennes';
+$lang['county.9'] = '09 - Ariège';
 $lang['county.10'] = '10 - Aube';
 $lang['county.11'] = '11 - Aude';
 $lang['county.12'] = '12 - Aveyron';
