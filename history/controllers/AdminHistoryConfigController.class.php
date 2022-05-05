@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 17
+ * @version     PHPBoost 6.0 - last update: 2022 05 05
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -34,21 +34,21 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 
 		$fieldset->add_field(new FormFieldMultipleCheckbox('history_topics_disabled', $this->lang['history.config.topics.disabled'], $this->get_selected_topics_list(), $this->build_available_topics_options(),
 			array(
-				'class' => 'top-field mini-checkbox'
+				'class' => 'top-field third-field mini-checkbox'
 			)
 		));
-		
+
 		$fieldset->add_field(new FormFieldMultipleSelectChoice('disabled_modules', $this->lang['history.config.disabled.modules'], $this->config->get_disabled_modules(), $this->generate_disabled_modules_option(),
 			array(
-				'class'       => 'top-field',
+				'class'       => 'top-field third-field',
 				'size'        => 12,
 				'description' => $this->lang['history.config.disabled.modules.clue']
 			)
 		));
-		
+
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('log_retention_period', $this->lang['history.config.log.retention.period'], $this->config->get_log_retention_period(), $this->build_log_retention_period_options(),
 			array(
-				'class' => 'top-field'
+				'class' => 'top-field third-field'
 			)
 		));
 
@@ -100,7 +100,7 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 
 		return $list;
 	}
-	
+
 	private function generate_disabled_modules_option()
 	{
 		$options = array();
@@ -111,7 +111,7 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 		}
 		return $options;
 	}
-	
+
 	private function build_log_retention_period_options()
 	{
 		$options = array();
@@ -125,7 +125,7 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 	public static function get_log_retention_periods()
 	{
 		$lang = LangLoader::get_all_langs();
-		
+
 		return array(
 			2629800  => '1 ' . $lang['date.month'],
 			5259600  => '2 ' . $lang['date.months'],
@@ -146,14 +146,14 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 			unset($history_topics_disabled[array_search((string)$value->get_id(), $history_topics_disabled)]);
 		}
 		$this->config->set_history_topics_disabled($history_topics_disabled);
-		
+
 		$disabled_modules = array();
 		foreach ($this->form->get_value('disabled_modules') as $field => $option)
 		{
 			$disabled_modules[] = $option->get_raw_value();
 		}
 		$this->config->set_disabled_modules($disabled_modules);
-		
+
 		$this->config->set_log_retention_period($this->form->get_value('log_retention_period')->get_raw_value());
 
 		HistoryConfig::save();
