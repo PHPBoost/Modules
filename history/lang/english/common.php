@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 17
+ * @version     PHPBoost 6.0 - last update: 2022 05 10
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -19,6 +19,7 @@ $lang['history.config.topic.items'] = 'Add / edit / delete content';
 $lang['history.config.topic.categories'] = 'Categories';
 $lang['history.config.topic.contributions'] = 'Contributions';
 $lang['history.config.topic.moderation'] = 'Moderation';
+$lang['history.config.topic.users'] = 'Users';
 $lang['history.config.topic.comments'] = 'Comments';
 $lang['history.config.topic.notation'] = 'Notation';
 $lang['history.config.topic.config'] = 'Configuration changes';
@@ -40,6 +41,9 @@ $lang['history.action.user_warning'] = 'User warning';
 $lang['history.action.user_punishment'] = 'User punishment';
 $lang['history.action.user_ban'] = 'User ban';
 $lang['history.action.user_change_level'] = 'User change level';
+$lang['history.action.user_change_email'] = 'User change email';
+$lang['history.action.user_change_login'] = 'User change login';
+$lang['history.action.user_registration'] = 'User registration';
 $lang['history.action.add_comment'] = 'Comment add';
 $lang['history.action.edit_comment'] = 'Comment edit';
 $lang['history.action.delete_comment'] = 'Comment delete';

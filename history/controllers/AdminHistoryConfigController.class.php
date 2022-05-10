@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 05 05
+ * @version     PHPBoost 6.0 - last update: 2022 05 10
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -81,7 +81,7 @@ class AdminHistoryConfigController extends DefaultAdminModuleController
 
 	private function get_available_topics_list()
 	{
-		return array('items', 'categories', 'contributions', 'moderation', 'comments', 'notation', 'config');
+		return array('items', 'categories', 'contributions', 'moderation', 'users', 'comments', 'notation', 'config');
 	}
 
 	private function build_available_topics_options()
