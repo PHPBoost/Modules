@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 05 10
+ * @version     PHPBoost 6.0 - last update: 2022 05 19
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -160,6 +160,24 @@ class HistoryHook extends Hook
 	{
 		if (!in_array('users', HistoryConfig::load()->get_history_topics_disabled()))
 			return $this->add_history_entry('user_registration', $user_id, $properties, $description);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function on_add_user_action($user_id, array $properties, $description = '')
+	{
+		if (!in_array('users', HistoryConfig::load()->get_history_topics_disabled()))
+			return $this->add_history_entry('add_user', $user_id, $properties, $description);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function on_delete_user_action($user_id, array $properties, $description = '')
+	{
+		if (!in_array('users', HistoryConfig::load()->get_history_topics_disabled()))
+			return $this->add_history_entry('delete_user', $user_id, $properties, $description);
 	}
 
 	/**

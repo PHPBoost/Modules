@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 05 10
+ * @version     PHPBoost 6.0 - last update: 2022 05 19
  * @since       PHPBoost 6.0 - 2021 10 22
 */
 
@@ -44,6 +44,8 @@ $lang['history.action.user_change_level'] = 'Changement de rang d\'un utilisateu
 $lang['history.action.user_change_email'] = 'Changement d\'email d\'un utilisateur';
 $lang['history.action.user_change_display_name'] = 'Changement de nom d\'un utilisateur';
 $lang['history.action.user_registration'] = 'Inscription d\'un utilisateur';
+$lang['history.action.add_user'] = 'Ajout d\'un compte utilisateur';
+$lang['history.action.delete_user'] = 'Suppression d\'un compte utilisateur';
 $lang['history.action.add_comment'] = 'Ajout d\'un commentaire';
 $lang['history.action.edit_comment'] = 'Modification d\'un commentaire';
 $lang['history.action.delete_comment'] = 'Suppression d\'un commentaire';
