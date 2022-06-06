@@ -13,6 +13,16 @@
     padding: 0;
 }
 
+.feed-item-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.feed-item-container img {
+    max-width: 90px;
+    max-height: 90px;
+}
+
 .feed-title {
     display: flex !important;
     justify-content: space-between;
@@ -20,9 +30,15 @@
 }
 
 @media (min-width: 769px) {
+    .feed-item-container,
     .feed-title {
         flex-direction: row;
         align-items: center;
+    }
+
+    .feed-item-content {
+        padding-left: 0.618em;
+        flex: 1 1 auto;
     }
 
     .content.cell-tile .cell.cell-options { max-width: 25%; }

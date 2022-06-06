@@ -49,20 +49,24 @@
 										# IF feed_items.C_HAS_FEEDS #
 											<li data-listorder-item>
 												<span class="lo-date hidden">{feed_items.SORT_DATE}</span>
-												<span class="feed-title">
-													<h6>
-														<a href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
-															{feed_items.TITLE}
-														</a>
-													</h6>
-													<span class="small align-right"><a href="{feed_items.U_ITEM_HOST}" class="offload text-italic">{feed_items.ITEM_HOST}</a> | {feed_items.DATE}</span>
-												</span>
-												<p>
+												<div class="feed-item-container">
 													# IF feed_items.C_HAS_THUMBNAIL #
-														<img src="{feed_items.U_THUMBNAIL}" class="align-left" alt="{feed_items.TITLE}" />
+														<img src="{feed_items.U_THUMBNAIL}" alt="{feed_items.TITLE}" />
 													# ENDIF #
-													{feed_items.SUMMARY} # IF feed_items.C_READ_MORE # <span aria-label="{@flux.words.not.read}" class="small text-italic pinned notice">{feed_items.WORDS_NUMBER}</span># ENDIF #
-												</p>
+													<div class="feed-item-content">
+														<span class="feed-title">
+															<h6>
+																<a href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
+																	{feed_items.TITLE}
+																</a>
+															</h6>
+															<span class="small align-right"><a href="{feed_items.U_ITEM_HOST}" class="offload text-italic">{feed_items.ITEM_HOST}</a> | {feed_items.DATE}</span>
+														</span>
+														<p>
+															{feed_items.SUMMARY} # IF feed_items.C_READ_MORE # <span aria-label="{@flux.words.not.read}" class="small text-italic pinned notice">{feed_items.WORDS_NUMBER}</span># ENDIF #
+														</p>
+													</div>
+												</div>
 											</li>
 										# ENDIF #
 									# END feed_items #

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 04
+ * @version     PHPBoost 6.0 - last update: 2022 06 06
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -83,7 +83,7 @@ class HomeLandingFlux
 				{
 					$item_host = basename(parse_url($xml_items['link'][$i], PHP_URL_HOST));
 
-					$date = strtotime($xml_items['date'][$i]);
+					$date = Date::to_format($xml_items['date'][$i], Date::FORMAT_TIMESTAMP);
 					$item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
 					$desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
 					$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$modules[$module_name]->get_characters_number_displayed());
@@ -91,17 +91,19 @@ class HomeLandingFlux
 					$words_number = str_word_count($desc) - str_word_count($cut_desc);
 
 					$view->assign_block_vars('feed_items',array(
-						'TITLE'           => $xml_items['title'][$i],
-						'U_ITEM'          => $xml_items['link'][$i],
-						'ITEM_HOST'       => $item->get_title(),
-						'U_ITEM_HOST'     => $item->get_item_url(),
-						'DATE'            => $item_date,
-						'SORT_DATE'       => $date,
-						'SUMMARY'         => $cut_desc,
+                        'C_HAS_THUMBNAIL' => !empty($item->get_thumbnail()),
 						'C_READ_MORE'     => strlen($desc) > $char_number,
-						'WORDS_NUMBER'    => $words_number > 0 ? $words_number : '',
-						'C_HAS_THUMBNAIL' => !empty($item_img),
-						'U_THUMBNAIL'     => !empty($item_img) ? $item_img->absolute() : '#',
+
+						'TITLE'        => $xml_items['title'][$i],
+						'ITEM_HOST'    => $item->get_title(),
+						'DATE'         => $item_date,
+						'SORT_DATE'    => $date,
+						'SUMMARY'      => $cut_desc,
+						'WORDS_NUMBER' => $words_number > 0 ? $words_number : '',
+
+						'U_ITEM'      => $xml_items['link'][$i],
+						'U_ITEM_HOST' => $item->get_item_url(),
+						'U_THUMBNAIL' => Url::to_rel($item->get_thumbnail()),
 					));
 				}
 			}
