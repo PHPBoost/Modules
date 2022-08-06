@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 13
+ * @version     PHPBoost 6.0 - last update: 2022 08 06
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -60,7 +60,7 @@ while ($row = $result->fetch())
 		'ITEM_ID'        => $row['dictionary_id'],
 		'NAME'           => Texthelper::ucfirst(TextHelper::strtolower(stripslashes($title))),
 		'CATEGORY_ID'    => $row['cat'],
-		'CATEGORY_NAME'  => TextHelper::strtoupper($row['name']),
+		'CATEGORY_NAME'  => stripslashes($row['name']),
 		'DATE'           => (!empty($date_created)) ? $date_created->format(Date::FORMAT_DAY_MONTH_YEAR) : '',
 		'APPROBATION'    => $aprob,
 		'CATEGORY_IMAGE' => $img,

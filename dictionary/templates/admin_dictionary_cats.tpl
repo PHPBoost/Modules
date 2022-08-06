@@ -1,15 +1,15 @@
 <script>
 	function str_replace2(SRs, SRt, SRu) {
-		  SRRi = SRs.indexOf(SRt);
-		  SRRr = '';
-		  if (SRRi == -1) return SRs;
-		  SRRr += SRs.substring(0,SRRi) + SRu;
-		  if ( SRRi + SRt.length < SRs.length)
-		    SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
-		  return SRRr;
+		SRRi = SRs.indexOf(SRt);
+		SRRr = '';
+		if (SRRi == -1) return SRs;
+		SRRr += SRs.substring(0,SRRi) + SRu;
+		if ( SRRi + SRt.length < SRs.length)
+			SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
+		return SRRr;
 	}
 
-	 function FormatStr(Str){
+	function FormatStr(Str){
 		var replace = new Array("'", '"', ".",",",'\\','/','^',':');
 		Str=str_replace2(Str,replace[0],"");
 		Str=str_replace2(Str,replace[1],"");
@@ -20,25 +20,25 @@
 		Str=str_replace2(Str,replace[6],"");
 		Str=str_replace2(Str,replace[7],"");
 
-	    StrNewStr="";
-		 for(i=0;i<=Str.length;i++){
-			 StrChar=Str.substring(i,i+1);
-			 if(StrChar!=" " || Str.substring(i-1,i)!=" "){
+		StrNewStr="";
+		for(i=0;i<=Str.length;i++){
+			StrChar=Str.substring(i,i+1);
+			if(StrChar!=" " || Str.substring(i-1,i)!=" "){
 				StrNewStr=StrNewStr+StrChar;
-			 }
-		 }
-		 j=1;
-		 for(i=0;i<=Str.length;i++){
+			}
+		}
+		j=1;
+		for(i=0;i<=Str.length;i++){
 			StrChar=Str.substring(i,i+1);
 			if(StrChar == " "){
 				j++;
 			}
-		 }
-		 if(i==j){
+		}
+		if(i==j){
 			StrNewStr='';
-		 }
-		 return StrNewStr;
-	 }
+		}
+		return StrNewStr;
+	}
 
 
 	function trim(stringToTrim) {
@@ -122,7 +122,7 @@
 					<div class="form-element">
 						<label for="name_cat">* {@form.name}</label>
 						<div class="form-field form-field-text">
-							<input type="text" size="25" id="name_cat" name="name_cat" value="{add.CATEGORY_NAME}" onchange="check_onchange(this);" />
+							<input type="text" size="25" id="name_cat" name="name_cat" value="{add.CATEGORY_NAME}" />
 						</div>
 					</div>
 				</div>

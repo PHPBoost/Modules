@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 08
+ * @version     PHPBoost 6.0 - last update: 2022 08 06
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -121,7 +121,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 			PersistenceContext::get_querier()->update(DictionarySetup::$dictionary_table, array(
 				'cat' => addslashes($contents_cat),
 				'description' => addslashes($contents),
-				'word' => addslashes($word),
+				'word' => $word,
 				'approved' => (int)DictionaryAuthorizationsService::check_authorizations()->write(),
 				'timestamp' => $timestamp
 			), 'WHERE id=:id', array('id' => $row['id']));
@@ -152,7 +152,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 		else
 		{
 			$result = PersistenceContext::get_querier()->insert(DictionarySetup::$dictionary_table, array(
-				'word' => addslashes($word),
+				'word' => $word,
 				'cat' => addslashes($contents_cat),
 				'description' => addslashes($contents),
 				'user_id' => $user_id,
@@ -211,7 +211,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 			'WORD'          => stripslashes($row['word']),
 			'APPROVED'      => '',
 			'CATEGORY_ID'   => $row['cat'],
-			'CATEGORY_NAME' => $row['cat_name'],
+			'CATEGORY_NAME' => stripslashes($row['cat_name']),
 		));
 	}
 	DictionaryCache::invalidate(); //Régénération du cache

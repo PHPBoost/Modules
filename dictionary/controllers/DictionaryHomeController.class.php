@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 13
+ * @version     PHPBoost 6.0 - last update: 2022 08 06
  * @since       PHPBoost 4.1 - 2016 02 15
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -100,7 +100,7 @@ class DictionaryHomeController extends DefaultModuleController
 			while ($row = $result1->fetch())
 			{
 				$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';
-				$name = Texthelper::ucfirst(TextHelper::strtolower(str_replace("'", "", stripslashes($row['word']))));
+				$name = Texthelper::ucfirst(TextHelper::strtolower(stripslashes($row['word'])));
 
 				$this->view->assign_block_vars('items', array(
 					'C_CONTROLS' => $edit || $del,
@@ -111,7 +111,7 @@ class DictionaryHomeController extends DefaultModuleController
 					'NAME'          => $name,
 					'ITEM_ID'       => $row['id'],
 					'REWRITED_NAME' => Url::encode_rewrite($name),
-					'WORD'          => Texthelper::ucfirst(TextHelper::strtolower(stripslashes($row['word']))),
+					'WORD'          => Texthelper::ucfirst(stripslashes($row['word'])),
 					'DEFINITION'    => Texthelper::ucfirst(FormatingHelper::second_parse(stripslashes($row['description']))),
 					'CATEGORY_ID'   => TextHelper::strtoupper($row['cat']),
 					'CATEGORY_ICON' => $img,
@@ -138,7 +138,7 @@ class DictionaryHomeController extends DefaultModuleController
 			{
 				$this->view->assign_block_vars('cat', array(
 					'CATEGORY_ID' => $row_cat['id'],
-					'CATEGORY_NAME' => $row_cat['name'],
+					'CATEGORY_NAME' => stripslashes($row_cat['name']),
 				));
 			}
 			$result_cat->dispose();
@@ -150,7 +150,7 @@ class DictionaryHomeController extends DefaultModuleController
 			{
 				$this->view->assign_block_vars('cat_list', array(
 					'CATEGORY_ID' => $row_cat['id'],
-					'CATEGORY_NAME' => $row_cat['name'],
+					'CATEGORY_NAME' => stripslashes($row_cat['name']),
 				));
 			}
 			$result_cat->dispose();

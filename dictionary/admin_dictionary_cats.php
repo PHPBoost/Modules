@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 13
+ * @version     PHPBoost 6.0 - last update: 2022 08 06
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -104,7 +104,7 @@ if (retrieve(GET, 'add', false))
 		'C_IS_PICTURE' => $row && !empty($row['images']),
 		'CATEGORIES_LIST' => false,
 		'CATEGORY_ID' => $id,
-		'CATEGORY_NAME' => $name,
+		'CATEGORY_NAME' => stripslashes($name),
 		'U_CATEGORY_IMAGE' => $img,
 		'CATEGORY_IMAGES_LIST' => $server_img
 	));
@@ -206,8 +206,8 @@ if (retrieve(GET, 'add', false))
 		$name_cat = retrieve(POST,'name_cat','',TSTRING);
 
 		PersistenceContext::get_querier()->insert(DictionarySetup::$dictionary_cat_table, array(
-			'name' => addslashes(TextHelper::strtoupper($name_cat)),
-			'images' => addslashes($cat_img)
+			'name' => $name_cat,
+			'images' => $cat_img
 		));
 
 		AppContext::get_response()->redirect(HOST . SCRIPT);
@@ -261,7 +261,7 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 		$view->put_all(array(
 			'C_DELETE_CATEGORY' => true,
 			'CATEGORY_ID' => $id_del,
-			'CATEGORY_NAME' => $row_name['name'],
+			'CATEGORY_NAME' => stripslashes($row_name['name']),
 		));
 
 		$result = PersistenceContext::get_querier()->select("SELECT id, name
@@ -271,7 +271,7 @@ elseif (retrieve(GET,'del',false) && $id_del = retrieve(GET,'id',false,TINTEGER)
 		while ($row = $result->fetch())
 		{
 			$view->assign_block_vars('cat_list', array(
-				'CATEGORY_NAME' => TextHelper::strtoupper($row['name']),
+				'CATEGORY_NAME' => stripslashes($row['name']),
 				'CATEGORY_ID' => $row['id']
 			));
 		}
@@ -299,7 +299,7 @@ else
 	{
 		$img = empty($row_cat['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row_cat['images'] . '" alt="' . $row_cat['images'] . '" />';
 		$view->assign_block_vars('cat', array(
-			'CATEGORY_NAME' => TextHelper::strtoupper($row_cat['name']),
+			'CATEGORY_NAME' => stripslashes($row_cat['name']),
 			'CATEGORY_IMAGE' => $img,
 			'CATEGORY_ID' => $row_cat['id']
 		));

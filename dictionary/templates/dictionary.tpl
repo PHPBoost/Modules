@@ -25,13 +25,13 @@
 
 	function str_replace2(SRs, SRt, SRu)
 	{
-		  SRRi = SRs.indexOf(SRt);
-		  SRRr = '';
-		  if (SRRi == -1) return SRs;
-		  SRRr += SRs.substring(0,SRRi) + SRu;
-		  if ( SRRi + SRt.length < SRs.length)
+		SRRi = SRs.indexOf(SRt);
+		SRRr = '';
+		if (SRRi == -1) return SRs;
+		SRRr += SRs.substring(0,SRRi) + SRu;
+		if ( SRRi + SRt.length < SRs.length)
 			SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
-		  return SRRr;
+		return SRRr;
 	}
 
 	function FormatStr(Str)
@@ -69,7 +69,7 @@
 		newTab = new Array();
 		var q = 0;
 		var LnChaine = TabInit.length;
-	 	for(x = 0; x < LnChaine; x++)
+		for(x = 0; x < LnChaine; x++)
 		{
 			for(i = 0; i < LnChaine; i++)
 			{
@@ -390,7 +390,7 @@
 							<div class="form-element">
 								<label for="word">* {@dictionary.item}</label>
 								<div class="form-field">
-									<label><input type="text" id="word" name="word" value="{WORD}" onchange="check_onchange(this);" /></label>
+									<label><input type="text" id="word" name="word" value="{WORD}" /></label>
 								</div>
 							</div>
 							<div class="form-element">
