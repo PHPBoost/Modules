@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 08 06
+ * @version     PHPBoost 6.0 - last update: 2022 08 09
  * @since       PHPBoost 4.1 - 2016 02 15
  * @contributor Arnaud GENET <elenwii@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -13,7 +13,7 @@ class DictionaryHomeController extends DefaultModuleController
 {
 	protected function get_template_to_use()
 	{
-	   return new FileTemplate('dictionary/dictionary.tpl');
+		return new FileTemplate('dictionary/dictionary.tpl');
 	}
 
 	public function execute(HTTPRequestCustom $request)
@@ -25,14 +25,11 @@ class DictionaryHomeController extends DefaultModuleController
 
 	private function build_view(HTTPRequestCustom $request)
 	{
-		$current_user = AppContext::get_current_user();
 		$config = DictionaryConfig::load();
 
 		$get_l_error = retrieve(GET, 'erroru', '');
 		if (!empty($get_l_error))
-		{
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang[$get_l_error], MessageHelper::ERROR));
-		}
 
 		if (DictionaryAuthorizationsService::check_authorizations()->read())
 		{
@@ -123,10 +120,10 @@ class DictionaryHomeController extends DefaultModuleController
 			$result1->dispose();
 
 			$letters = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-			foreach ($letters as $key => $value)
+			foreach ($letters as $letter)
 			{
 				$this->view->assign_block_vars('letter', array(
-					'LETTER' => TextHelper::strtoupper($value),
+					'LETTER' => TextHelper::strtoupper($letter),
 				));
 			}
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 08 06
+ * @version     PHPBoost 6.0 - last update: 2022 08 09
  * @since       PHPBoost 2.0 - 2012 11 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -29,7 +29,7 @@ if (!empty($get_l_error))
 	$view->put('MESSAGE_HELPER', MessageHelper::display($lang[$get_l_error], MessageHelper::WARNING));
 }
 
-if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(POST, 'valid', false) || $id_get = retrieve(GET, 'edit', 0, TINTEGER))// ajout, previsualisation,edition.
+if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(POST, 'valid', false) || $id_get = retrieve(GET, 'edit', 0, TINTEGER)) // Add, preview, edition.
 {
 	if(retrieve(GET, 'add', false)) $Bread_crumb->add($lang['dictionary.add.item'], url('dictionary.php?add=1'));
 	$user_id = AppContext::get_current_user()->get_id();
@@ -94,11 +94,11 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 			'ITEM_ID'         => $id,
 			'CONTENT_PREVIEW' => FormatingHelper::second_parse(stripslashes(FormatingHelper::strparse($contents,$config->get_forbidden_tags()))),
 			'CONTENT'         => $contents_preview,
-			'CATEGORY_NAME'   =>$cat_name,
-			'CATEGORY_ID'     =>$category_id,
+			'CATEGORY_NAME'   => $cat_name,
+			'CATEGORY_ID'     => $category_id,
 		));
 	}
-	elseif (retrieve(POST, 'valid', false)) // ajout
+	elseif (retrieve(POST, 'valid', false)) // Add
 	{
 		$timestamp = time();
 		$id = retrieve(POST,'dictionary_id','');
@@ -130,8 +130,8 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 
 			if (count($contributions) > 0)
 			{
-				foreach( $contributions as $contribution) {
-					$contribution->set_status(CONTRIBUTION_STATUS_PROCESSED);
+				foreach($contributions as $contribution) {
+					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
 					ContributionService::save_contribution($contribution);
 				}
 			}
@@ -211,13 +211,13 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 			'WORD'          => stripslashes($row['word']),
 			'APPROVED'      => '',
 			'CATEGORY_ID'   => $row['cat'],
-			'CATEGORY_NAME' => stripslashes($row['cat_name']),
+			'CATEGORY_NAME' => !empty($row['cat_name']) ? stripslashes($row['cat_name']) : '',
 		));
 	}
-	DictionaryCache::invalidate(); //Régénération du cache
+	DictionaryCache::invalidate(); // Refresh cache
 	$view->display();
 }
-elseif ($id_get = retrieve(GET, 'del', 0, TINTEGER))//Supression
+elseif ($id_get = retrieve(GET, 'del', 0, TINTEGER)) // Delete
 {
 	AppContext::get_session()->csrf_get_protect();
 	$words_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE (approved = 1)");
@@ -233,11 +233,11 @@ elseif ($id_get = retrieve(GET, 'del', 0, TINTEGER))//Supression
 			DispatchManager::redirect($error_controller);
 		}
 		PersistenceContext::get_querier()->delete(DictionarySetup::$dictionary_table, 'WHERE id=:id', array('id' => $id_get));
-		DictionaryCache::invalidate(); //Régénération du cache du mini-module.
+		DictionaryCache::invalidate(); // Refresh mini-module cache.
 		AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary.php');
 	}
 }
-else // Affichage
+else // Display
 {
 	$modulesLoader = AppContext::get_extension_provider_service();
 	$module = $modulesLoader->get_provider('dictionary');

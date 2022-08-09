@@ -23,46 +23,46 @@
 		return true;
 	}
 
-	function str_replace2(SRs, SRt, SRu)
-	{
-		SRRi = SRs.indexOf(SRt);
-		SRRr = '';
-		if (SRRi == -1) return SRs;
-		SRRr += SRs.substring(0,SRRi) + SRu;
-		if ( SRRi + SRt.length < SRs.length)
-			SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
-		return SRRr;
-	}
+	// function str_replace2(SRs, SRt, SRu)
+	// {
+	// 	SRRi = SRs.indexOf(SRt);
+	// 	SRRr = '';
+	// 	if (SRRi == -1) return SRs;
+	// 	SRRr += SRs.substring(0,SRRi) + SRu;
+	// 	if ( SRRi + SRt.length < SRs.length)
+	// 		SRRr += str_replace2(SRs.substring(SRRi + SRt.length, SRs.length), SRt, SRu);
+	// 	return SRRr;
+	// }
 
-	function FormatStr(Str)
-	{
-		var replace = new Array("'", '"', ".",",",'\\','/','^',':');
-		Str=str_replace2(Str,replace[0],"");
-		Str=str_replace2(Str,replace[1],"");
-		Str=str_replace2(Str,replace[2],"");
-		Str=str_replace2(Str,replace[3],"");
-		Str=str_replace2(Str,replace[4],"");
-		Str=str_replace2(Str,replace[5],"");
-		Str=str_replace2(Str,replace[6],"");
-		Str=str_replace2(Str,replace[7],"");
+	// function FormatStr(Str)
+	// {
+	// 	var replace = new Array("'", '"', ".",",",'\\','/','^',':');
+	// 	Str=str_replace2(Str,replace[0],"");
+	// 	Str=str_replace2(Str,replace[1],"");
+	// 	Str=str_replace2(Str,replace[2],"");
+	// 	Str=str_replace2(Str,replace[3],"");
+	// 	Str=str_replace2(Str,replace[4],"");
+	// 	Str=str_replace2(Str,replace[5],"");
+	// 	Str=str_replace2(Str,replace[6],"");
+	// 	Str=str_replace2(Str,replace[7],"");
 
-		StrNewStr = "";
-		for(i = 0; i <= Str.length; i++) {
-			StrChar=Str.substring(i,i+1);
-			if(StrChar != " " || Str.substring(i-1,i) != " ")
-				StrNewStr = StrNewStr + StrChar;
-		}
-		j = 1;
-		for(i = 0; i <= Str.length; i++) {
-			StrChar=Str.substring(i,i+1);
-			if(StrChar == " ")
-				j++;
-		}
-		if(i == j)
-			StrNewStr='';
+	// 	StrNewStr = "";
+	// 	for(i = 0; i <= Str.length; i++) {
+	// 		StrChar=Str.substring(i,i+1);
+	// 		if(StrChar != " " || Str.substring(i-1,i) != " ")
+	// 			StrNewStr = StrNewStr + StrChar;
+	// 	}
+	// 	j = 1;
+	// 	for(i = 0; i <= Str.length; i++) {
+	// 		StrChar=Str.substring(i,i+1);
+	// 		if(StrChar == " ")
+	// 			j++;
+	// 	}
+	// 	if(i == j)
+	// 		StrNewStr='';
 
-		return StrNewStr;
-	}
+	// 	return StrNewStr;
+	// }
 
 	function Duplicated(TabInit)
 	{
@@ -112,11 +112,11 @@
 		}
 	}
 
-	function check_onchange(i)
-	{
-		i.value = FormatStr(i.value);
-		return true;
-	}
+	// function check_onchange(i)
+	// {
+	// 	i.value = FormatStr(i.value);
+	// 	return true;
+	// }
 
 	function toggleAll(ii,jj)
 	{
@@ -136,47 +136,47 @@
 		}
 	}
 
-	function toggleItem()
-	{
-		var i = 0;
-		var j = 0;
-		clearTimeout()
+	// function toggleItem()
+	// {
+	// 	var i = 0;
+	// 	var j = 0;
+	// 	clearTimeout()
 
-		# START items #
-			cat = '{items.CATEGORY_ID}';
-			if ('{items.CATEGORY_ID}' !='ALL' )
-			{
-				id = '{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}';
-				jQuery('#' + id).show();
-				document.getElementById("category_list").value = document.getElementById("category_list").value + "-" + {items.CATEGORY_ID};
-			}
-			else if(jQuery('#' + cat).is(':hidden') && jQuery('#ALL').is(':hidden') && '{items.CATEGORY_ID}' != 'ALL')
-			{
-				id = '{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}';
-				jQuery('#' + id).hide();
-				tab_cat_list = document.getElementById("category_list").value.split('-');
-				tab_cat_list = Duplicated(tab_cat_list);
-				list_cat="";
-				for(i = 0; i < tab_cat_list.length; i++)
-				{
-					if(tab_cat_list[i] != {items.CATEGORY_ID})
-					{
-						if(i != 0)
-							list_cat = list_cat + '-';
+	// 	# START items #
+	// 		cat = '{items.CATEGORY_ID}';
+	// 		if ('{items.CATEGORY_ID}' !='ALL' )
+	// 		{
+	// 			id = '{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}';
+	// 			jQuery('#' + id).show();
+	// 			document.getElementById("category_list").value = document.getElementById("category_list").value + "-" + {items.CATEGORY_ID};
+	// 		}
+	// 		else if(jQuery('#' + cat).is(':hidden') && jQuery('#ALL').is(':hidden') && '{items.CATEGORY_ID}' != 'ALL')
+	// 		{
+	// 			id = '{items.CATEGORY_ID}_cat_{items.ITEM_ID}_{items.REWRITED_NAME}';
+	// 			jQuery('#' + id).hide();
+	// 			tab_cat_list = document.getElementById("category_list").value.split('-');
+	// 			tab_cat_list = Duplicated(tab_cat_list);
+	// 			list_cat="";
+	// 			for(i = 0; i < tab_cat_list.length; i++)
+	// 			{
+	// 				if(tab_cat_list[i] != {items.CATEGORY_ID})
+	// 				{
+	// 					if(i != 0)
+	// 						list_cat = list_cat + '-';
 
-						list_cat=list_cat+tab_cat_list[i];
-					}
-				}
-				document.getElementById("category_list").value = list_cat;
-			}
-			j = j + 1;
-			if(jQuery('#' + cat).is(':hidden') && jQuery('#ALL').is(':hidden'))
-				i = i + 1;
+	// 					list_cat=list_cat+tab_cat_list[i];
+	// 				}
+	// 			}
+	// 			document.getElementById("category_list").value = list_cat;
+	// 		}
+	// 		j = j + 1;
+	// 		if(jQuery('#' + cat).is(':hidden') && jQuery('#ALL').is(':hidden'))
+	// 			i = i + 1;
 
-		# END items #
-		var func = "toggleAll(" + i + "," + j + ");";
-		setTimeout (func, 2000);
-	}
+	// 	# END items #
+	// 	var func = "toggleAll(" + i + "," + j + ");";
+	// 	setTimeout (func, 2000);
+	// }
 
 	function toggleCategory(pr5)
 	{
@@ -357,7 +357,7 @@
 					# END items #
 
 				</div>
-			 	<script>
+				<script>
 					cat = getParam('cat');
 					InitCategoriesDisplay(cat);
 				</script>
