@@ -16,9 +16,9 @@ class SmalladsMemberItemsController extends DefaultModuleController
 	private $member;
 
 	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
-   	}
+	{
+		return new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -74,7 +74,7 @@ class SmalladsMemberItemsController extends DefaultModuleController
 
 			$this->view->put_all(array(
 				'C_MEMBER_ITEMS'	   => true,
-				'C_MY_ITEMS'     => $this->is_current_member_displayed(),
+				'C_MY_ITEMS'     	   => $this->is_current_member_displayed(),
 				'C_ITEMS'              => $result->get_rows_count() > 0,
 				'C_SEVERAL_ITEMS'      => $result->get_rows_count() > 1,
 				'C_ROOT_CATEGORY'	   => false,
@@ -142,7 +142,7 @@ class SmalladsMemberItemsController extends DefaultModuleController
 			foreach ($smallad_types as $name)
 			{
 				$this->view->assign_block_vars('types', array(
-					'C_SEPARATOR'      => $i < $type_nbr,
+					'C_SEPARATOR' => $i < $type_nbr,
 					'TYPE_NAME'        => $name,
 					'TYPE_NAME_FILTER' => Url::encode_rewrite(TextHelper::strtolower($name)),
 				));
@@ -164,8 +164,8 @@ class SmalladsMemberItemsController extends DefaultModuleController
 			{
 				$this->view->assign_block_vars('items.sources', array(
 					'C_SEPARATOR' => $i < $nbr_sources,
-					'NAME'        => $name,
-					'URL'         => $url,
+					'NAME' => $name,
+					'URL'  => $url,
 				));
 				$i++;
 			}
@@ -205,8 +205,8 @@ class SmalladsMemberItemsController extends DefaultModuleController
 		{
 			$this->view->assign_block_vars('keywords', array(
 				'C_SEPARATOR' => $i < $nbr_keywords,
-				'NAME'        => $keyword->get_name(),
-				'URL'         => SmalladsUrlBuilder::display_tag($keyword->get_rewrited_name())->rel(),
+				'NAME' => $keyword->get_name(),
+				'URL'  => SmalladsUrlBuilder::display_tag($keyword->get_rewrited_name())->rel(),
 			));
 			$i++;
 		}

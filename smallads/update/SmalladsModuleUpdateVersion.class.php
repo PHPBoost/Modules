@@ -195,7 +195,7 @@ class SmalladsModuleUpdateVersion extends ModuleUpdateVersion
 		} catch (RowNotFoundException $e) {}
 
 		if ($menu_id)
- 		{
+		{
 			$menu = MenuService::load($menu_id);
 			MenuService::delete($menu);
 			MenuService::generate_cache();

@@ -96,7 +96,7 @@
 													# ENDIF #
 													# IF C_DISPLAYED_AUTHOR_PM #
 														<a href="{U_AUTHOR_PM}" class="smallad-pm offload" aria-label="{@smallads.contact.pm}"><i class="fa fa-fw fa-people-arrows" aria-hidden="true"></i></a>
-													 # ENDIF #
+													# ENDIF #
 
 													# IF C_DISPLAYED_AUTHOR_PHONE #
 														<a href="#" data-modal data-target="tel-modal" aria-label="{@smallads.contact.phone} - {@smallads.open.modal}"><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span class="sr-only">{@smallads.contact.phone}</span></a>
@@ -155,7 +155,7 @@
 										# ENDIF #
 										# IF C_KEYWORDS #
 											<li class="li-stretch">
-												 <span aria-label="{@common.keywords}"><i class="fa fa-fw fa-tags" aria-hidden="true"></i></span>
+												<span aria-label="{@common.keywords}"><i class="fa fa-fw fa-tags" aria-hidden="true"></i></span>
 												<span>
 													# START keywords #
 														<a class="offload" itemprop="keywords" href="{keywords.URL}">{keywords.NAME}</a># IF keywords.C_SEPARATOR #, # ENDIF #
@@ -179,14 +179,14 @@
 
 				# IF C_CAROUSEL #
 					<aside class="carousel-container">
-					 	# START carousel #
+						# START carousel #
 							<a href="{carousel.U_PICTURE}" # IF carousel.C_DESCRIPTION #aria-label="{carousel.DESCRIPTION}"# ENDIF # data-lightbox="formatter" data-rel="lightcase:collection">
 								<figure class="carousel-thumbnail">
 									<img src="{carousel.U_PICTURE}" alt="{carousel.DESCRIPTION}" />
 									# IF carousel.C_DESCRIPTION #<figcaption>{carousel.DESCRIPTION}</figcaption># ENDIF #
 								</figure>
 							</a>
-					 	# END carousel #
+						# END carousel #
 					</aside>
 				# ENDIF #
 				# IF C_SOURCES #

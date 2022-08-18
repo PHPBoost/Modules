@@ -118,7 +118,7 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
- 	public static function display_pending_items()
+	public static function display_pending_items()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/pending/');
 	}
@@ -126,7 +126,7 @@ class SmalladsUrlBuilder
 	/**
 	 * @return Url
 	 */
- 	public static function archived_items()
+	public static function archived_items()
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/archives/');
 	}

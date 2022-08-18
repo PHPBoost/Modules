@@ -101,10 +101,10 @@
 
 .nbs-flexisel-nav-left {
     left: 0.309em;
-    background: url(images/button-previous.png) no-repeat;
+    background: url('images/button-previous.png') no-repeat;
 }
 
 .nbs-flexisel-nav-right {
     right: 0.309em;
-    background: url(images/button-next.png) no-repeat;
+    background: url('images/button-next.png') no-repeat;
 }

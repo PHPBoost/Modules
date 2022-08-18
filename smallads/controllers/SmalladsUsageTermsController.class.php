@@ -11,9 +11,9 @@
 class SmalladsUsageTermsController extends DefaultModuleController
 {
 	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('smallads/SmalladsUsageTermsController.tpl');
-   	}
+	{
+		return new FileTemplate('smallads/SmalladsUsageTermsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{

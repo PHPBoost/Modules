@@ -13,7 +13,7 @@
 					{@smallads.pending.items}
 				# ELSE #
 					# IF C_MEMBER_ITEMS #
-				 		# IF C_MY_ITEMS #{@smallads.my.items}# ELSE #{@smallads.member.items} {MEMBER_NAME}# ENDIF #
+						# IF C_MY_ITEMS #{@smallads.my.items}# ELSE #{@smallads.member.items} {MEMBER_NAME}# ENDIF #
 					# ELSE #
 						# IF C_ROOT_CATEGORY #{@smallads.module.title}# ELSE #{CATEGORY_NAME}# ENDIF #
 					# ENDIF #
@@ -85,8 +85,8 @@
 														type="radio"
 														data-listorder-control="radio-buttons-path-filter"
 														data-path="default"
-				            							data-group="smallads-items"
-													    name="smallads-type"
+														data-group="smallads-items"
+														name="smallads-type"
 														checked />	{@smallads.all.types.filters}
 												</label>
 												# START types #
@@ -96,8 +96,8 @@
 															type="radio"
 															data-listorder-control="radio-buttons-path-filter"
 															data-path=".{types.TYPE_NAME_FILTER}"
-					            							data-group="smallads-items"
-														    name="smallads-type"
+															data-group="smallads-items"
+															name="smallads-type"
 															value="{types.TYPE_NAME}"/>	{types.TYPE_NAME}
 													</label>
 												# END types #
@@ -113,10 +113,10 @@
 									<div class="cell-content">
 										<span>{@common.sort.by} :</span>
 										<div
-										    data-listorder-control="dropdown-sort"
-										    class="listorder-drop-down"
-										    data-group="smallads-items"
-										    data-name="sorttitle">
+												data-listorder-control="dropdown-sort"
+												class="listorder-drop-down"
+												data-group="smallads-items"
+												data-name="sorttitle">
 											<div data-type="panel" class="listorder-dd-panel"></div>
 											<ul data-type="content" class="dropdown-container">
 												<li> {@common.sort.by.date}
@@ -132,12 +132,12 @@
 													<em class="sort-type bgc-full logo-color" data-path=".lo-price" data-order="desc" data-type="number"><span class="sr-only">{@common.sort.by.price} &#8595;</span> <i class="fa fa-sort-numeric-down-alt"></i></em>
 												</li>
 												# IF C_LOCATION #
-												  	<li> {@common.sort.by.location}
-													    <em class="sort-type bgc-full link-color" data-path=".lo-location" data-order="asc" data-type="text"><span class="sr-only">{@common.sort.by.location} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
-													   	<em class="sort-type bgc-full logo-color" data-path=".lo-location" data-order="desc" data-type="text"><span class="sr-only">{@common.sort.by.location} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
-											   		</li>
+													<li> {@common.sort.by.location}
+														<em class="sort-type bgc-full link-color" data-path=".lo-location" data-order="asc" data-type="text"><span class="sr-only">{@common.sort.by.location} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
+														<em class="sort-type bgc-full logo-color" data-path=".lo-location" data-order="desc" data-type="text"><span class="sr-only">{@common.sort.by.location} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
+													</li>
 												# ENDIF #
-							 					# IF NOT C_MEMBER #
+												# IF NOT C_MEMBER #
 													<li> {@common.sort.by.author}
 														<em class="sort-type bgc-full link-color" data-path=".lo-author" data-order="asc" data-type="text"><span class="sr-only">{@common.sort.by.author} &#8593;</span> <i class="fa fa-sort-alpha-up-alt"></i></em>
 														<em class="sort-type bgc-full logo-color" data-path=".lo-author" data-order="desc" data-type="text"><span class="sr-only">{@common.sort.by.author} &#8595;</span> <i class="fa fa-sort-alpha-down-alt"></i></em>
@@ -378,34 +378,34 @@
 		<div class="sub-section items-pagination">
 			<div class="content-container">
 				<nav
-				   	class="listorder-pagination pagination"
-				   	data-listorder-control="pagination"
-			        data-group="smallads-items"
-			        data-items-per-page="{ITEMS_PER_PAGE}"
-			        data-current-page="0"
-			        data-name="pagination1"
-					data-id="paging">
+						class="listorder-pagination pagination"
+						data-listorder-control="pagination"
+						data-group="smallads-items"
+						data-items-per-page="{ITEMS_PER_PAGE}"
+						data-current-page="0"
+						data-name="pagination1"
+						data-id="paging">
 					<p data-type="info" class="align-center">
 						{@common.listorder.item.start} - {@common.listorder.item.end} / {@common.listorder.items.number} ${TextHelper::lcfirst(@items)}
 					</p>
 					<ul>
 						<li class="pagination-item" data-type="first" aria-label="{@common.pagination.first}"><a href="#"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a> </li>
-					    <li class="pagination-item" data-type="prev" aria-label="{@common.pagination.previous}"><a href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a> </li>
+						<li class="pagination-item" data-type="prev" aria-label="{@common.pagination.previous}"><a href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a> </li>
 
-					    <ul class="listorder-holder" data-type="pages">
-					        <li class="pagination-item" data-type="page"><a href="#">{@common.listorder.page.number}</a></li>
-					    </ul>
+						<ul class="listorder-holder" data-type="pages">
+							<li class="pagination-item" data-type="page"><a href="#">{@common.listorder.page.number}</a></li>
+						</ul>
 
-					    <li class="pagination-item" data-type="next" aria-label="{@common.pagination.next}"><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a> </li>
-					    <li class="pagination-item" data-type="last" aria-label="{@common.pagination.last}"><a href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a> </li>
+						<li class="pagination-item" data-type="next" aria-label="{@common.pagination.next}"><a href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a> </li>
+						<li class="pagination-item" data-type="last" aria-label="{@common.pagination.last}"><a href="#"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a> </li>
 					</ul>
 					<div class="align-center">
-			            <select data-type="items-per-page">
-			                <option value="{ITEMS_PER_PAGE}"> {ITEMS_PER_PAGE} {@common.pagination.per}</option>
-			                <option value="25"> 25 {@common.pagination.per}</option>
-			                <option value="50"> 50 {@common.pagination.per}</option>
-			                <option value="0"> {@common.all.alt} </option>
-			            </select>
+						<select data-type="items-per-page">
+							<option value="{ITEMS_PER_PAGE}"> {ITEMS_PER_PAGE} {@common.pagination.per}</option>
+							<option value="25"> 25 {@common.pagination.per}</option>
+							<option value="50"> 50 {@common.pagination.per}</option>
+							<option value="0"> {@common.all.alt} </option>
+						</select>
 					</div>
 				</nav>
 			</div>
@@ -441,34 +441,34 @@
 			// toggle sub-menu on click (close on click outside)
 		jQuery('.selected-label').on('click', function(e){
 			jQuery('.label-list').toggleClass('reveal-list');
-    		e.stopPropagation();
+			e.stopPropagation();
 		});
 		jQuery(document).click(function(e) {
-		    if (jQuery(e.target).is('.selected-label') === false) {
-		      jQuery('.label-list').removeClass('reveal-list');
-		    }
+			if (jQuery(e.target).is('.selected-label') === false) {
+				jQuery('.label-list').removeClass('reveal-list');
+			}
 		});
 			// send label text of selected input to title on click
 		jQuery('.label-list input').on('click', function(e) {
-		    var radioText = e.currentTarget.nextSibling.data;
-		    jQuery('.selected-label span').html(radioText);
+			var radioText = e.currentTarget.nextSibling.data;
+			jQuery('.selected-label span').html(radioText);
 		});
 
 		// Categories
 			// build order
 		jQuery('#category-nav').append(CreatChild(0)).find('ul:first').remove();
 		function CreatChild(id){
-		    var $li = jQuery('li[data-sa-parent-id=' + id + ']').sort(function(a, b){
+			var $li = jQuery('li[data-sa-parent-id=' + id + ']').sort(function(a, b){
 				return jQuery(a).attr('data-sa-c-order') - jQuery(b).attr('data-sa-c-order');
 			});
-		    if($li.length > 0){
-		        for(var i = 0; i < $li.length; i++){
-		            var $this = $li.eq(i);
+			if($li.length > 0){
+				for(var i = 0; i < $li.length; i++){
+					var $this = $li.eq(i);
 					$this[0].remove();
-		            $this.append(CreatChild($this.attr('data-sa-cat-id')));
-		        }
-		        return jQuery('<ul>').append($li);
-		    }
+					$this.append(CreatChild($this.attr('data-sa-cat-id')));
+				}
+				return jQuery('<ul>').append($li);
+			}
 		}
 
 			// build cssmenu
@@ -480,12 +480,12 @@
 			// toggle sub-menu (close on click outside)
 		jQuery('.category-selected').on('click', function(e){
 			jQuery('.category-select').toggleClass('reveal-subcat');
-    		e.stopPropagation();
+			e.stopPropagation();
 		});
 		jQuery(document).on('click', function(e) {
-		    if (jQuery(e.target).is('.category-selected') === false) {
-		      jQuery('.category-select').removeClass('reveal-subcat');
-		    }
+			if (jQuery(e.target).is('.category-selected') === false) {
+				jQuery('.category-select').removeClass('reveal-subcat');
+			}
 		});
 	});
 

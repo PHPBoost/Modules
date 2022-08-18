@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 14
+ * @version     PHPBoost 6.0 - last update: 2022 08 18
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -15,9 +15,9 @@ class SmalladsItemController extends DefaultModuleController
 	private $email_form;
 
 	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('smallads/SmalladsItemController.tpl');
-   	}
+	{
+		return new FileTemplate('smallads/SmalladsItemController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -44,7 +44,7 @@ class SmalladsItemController extends DefaultModuleController
 				catch (RowNotFoundException $e)
 				{
 					$error_controller = PHPBoostErrors::unexisting_page();
-   					DispatchManager::redirect($error_controller);
+					DispatchManager::redirect($error_controller);
 				}
 			}
 			else
@@ -304,27 +304,27 @@ class SmalladsItemController extends DefaultModuleController
 		$current_user = AppContext::get_current_user();
 		$not_authorized = !CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation() && !CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->write() && (!CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->contribution() || $item->get_author_user()->get_id() != $current_user->get_id());
 
-		switch ($item->get_publication_state())
+		switch ($item->get_publishing_state())
 		{
 			case SmalladsItem::PUBLISHED_NOW:
 				if (!CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->read())
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
-		   			DispatchManager::redirect($error_controller);
+					DispatchManager::redirect($error_controller);
 				}
 			break;
 			case SmalladsItem::NOT_PUBLISHED:
 				if ($not_authorized || ($current_user->get_id() == User::VISITOR_LEVEL))
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
-		   			DispatchManager::redirect($error_controller);
+					DispatchManager::redirect($error_controller);
 				}
 			break;
-			case SmalladsItem::PUBLICATION_DATE:
+			case SmalladsItem::DEFERRED_PUBLICATION:
 				if (!$item->is_published() && ($not_authorized || ($current_user->get_id() == User::VISITOR_LEVEL)))
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
-		   			DispatchManager::redirect($error_controller);
+					DispatchManager::redirect($error_controller);
 				}
 			break;
 			default:

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 14
+ * @version     PHPBoost 6.0 - last update: 2022 08 18
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -70,8 +70,8 @@ class SmalladsItemFormController extends DefaultModuleController
 			$fieldset->add_field(new FormFieldTextEditor('rewrited_title', $this->lang['form.rewrited.title'], $this->item->get_rewrited_title(),
 				array(
 					'description' => $this->lang['form.rewrited.title.clue'],
-			      	'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_personalize_rewrited_title', false) : !$this->item->rewrited_title_is_personalized())
-			  	),
+					'hidden' => ($request->is_post_method() ? !$request->get_postbool(__CLASS__ . '_personalize_rewrited_title', false) : !$this->item->rewrited_title_is_personalized())
+				),
 				array(new FormFieldConstraintRegex('`^[a-z0-9\-]+$`iu'))
 			));
 		}
@@ -321,11 +321,11 @@ class SmalladsItemFormController extends DefaultModuleController
 				));
 			}
 
-			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publication_state', $this->lang['form.publication'], $this->item->get_publication_state(),
+			$publication_fieldset->add_field(new FormFieldSimpleSelectChoice('publication_state', $this->lang['form.publication'], $this->item->get_publishing_state(),
 				array(
 					new FormFieldSelectChoiceOption($this->lang['form.publication.draft'], SmalladsItem::NOT_PUBLISHED),
 					new FormFieldSelectChoiceOption($this->lang['form.publication.now'], SmalladsItem::PUBLISHED_NOW),
-					new FormFieldSelectChoiceOption($this->lang['form.publication.deffered'], SmalladsItem::PUBLICATION_DATE),
+					new FormFieldSelectChoiceOption($this->lang['form.publication.deffered'], SmalladsItem::DEFERRED_PUBLICATION),
 				),
 				array(
 					'events' => array('change' => '
@@ -345,12 +345,12 @@ class SmalladsItemFormController extends DefaultModuleController
 			));
 
 			$publication_fieldset->add_field($publishing_start_date = new FormFieldDateTime('publishing_start_date', $this->lang['form.start.date'], ($this->item->get_publishing_start_date() === null ? new Date() : $this->item->get_publishing_start_date()),
-				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->item->get_publication_state() != SmalladsItem::PUBLICATION_DATE)))
+				array('hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publishing_state', 0) != SmalladsItem::DEFERRED_PUBLICATION) : ($this->item->get_publishing_state() != SmalladsItem::DEFERRED_PUBLICATION)))
 			));
 
 			$publication_fieldset->add_field(new FormFieldCheckbox('end_date_enable', $this->lang['form.enable.end.date'], $this->item->enabled_end_date(),
 				array(
-					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publication_state', 0) != SmalladsItem::PUBLICATION_DATE) : ($this->item->get_publication_state() != SmalladsItem::PUBLICATION_DATE)),
+					'hidden' => ($request->is_post_method() ? ($request->get_postint(__CLASS__ . '_publishing_state', 0) != SmalladsItem::DEFERRED_PUBLICATION) : ($this->item->get_publishing_state() != SmalladsItem::DEFERRED_PUBLICATION)),
 					'events' => array('click' => '
 						if (HTMLForms.getField("end_date_enable").getValue()) {
 							HTMLForms.getField("publishing_end_date").enable();
@@ -549,7 +549,6 @@ class SmalladsItemFormController extends DefaultModuleController
 			}
 		}
 
-
 		return $options;
 	}
 
@@ -635,7 +634,7 @@ class SmalladsItemFormController extends DefaultModuleController
 			$this->item->clean_publication_start_and_end_date();
 
 			if (CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->contribution() && !CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->write())
-				$this->item->set_publication_state(SmalladsItem::NOT_PUBLISHED);
+				$this->item->set_publishing_state(SmalladsItem::NOT_PUBLISHED);
 		}
 		else
 		{
@@ -652,8 +651,8 @@ class SmalladsItemFormController extends DefaultModuleController
 			$rewrited_title = $this->form->get_value('personalize_rewrited_title') && !empty($rewrited_title) ? $rewrited_title : Url::encode_rewrite($this->item->get_title());
 			$this->item->set_rewrited_title($rewrited_title);
 
-			$this->item->set_publication_state($this->form->get_value('publication_state')->get_raw_value());
-			if ($this->item->get_publication_state() == SmalladsItem::PUBLICATION_DATE)
+			$this->item->set_publishing_state($this->form->get_value('publication_state')->get_raw_value());
+			if ($this->item->get_publishing_state() == SmalladsItem::DEFERRED_PUBLICATION)
 			{
 				$config = SmalladsConfig::load();
 				$deferred_operations = $config->get_deferred_operations();

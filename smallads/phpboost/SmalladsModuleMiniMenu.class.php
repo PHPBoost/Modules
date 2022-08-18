@@ -8,69 +8,69 @@
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
- class SmalladsModuleMiniMenu extends ModuleMiniMenu
- {
- 	public function get_default_block()
- 	{
- 		return self::BLOCK_POSITION__RIGHT;
- 	}
+class SmalladsModuleMiniMenu extends ModuleMiniMenu
+{
+	public function get_default_block()
+	{
+		return self::BLOCK_POSITION__RIGHT;
+	}
 
- 	public function get_menu_id()
- 	{
- 		return 'smallads-mini-module';
- 	}
+	public function get_menu_id()
+	{
+		return 'smallads-mini-module';
+	}
 
- 	public function get_menu_title()
- 	{
- 		return LangLoader::get_message('smallads.mini.last.items', 'common', 'smallads');
- 	}
+	public function get_menu_title()
+	{
+		return LangLoader::get_message('smallads.mini.last.items', 'common', 'smallads');
+	}
 
 	public function get_formated_title()
 	{
 		return LangLoader::get_message('smallads.module.title', 'common', 'smallads');
 	}
 
- 	public function is_displayed()
- 	{
- 		return CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, 'smallads')->read();
- 	}
+	public function is_displayed()
+	{
+		return CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, 'smallads')->read();
+	}
 
- 	public function get_menu_content()
- 	{
- 		$view = new FileTemplate('smallads/SmalladsModuleMiniMenu.tpl');
- 		$view->add_lang(LangLoader::get_all_langs('smallads'));
- 		MenuService::assign_positions_conditions($view, $this->get_block());
+	public function get_menu_content()
+	{
+		$view = new FileTemplate('smallads/SmalladsModuleMiniMenu.tpl');
+		$view->add_lang(LangLoader::get_all_langs('smallads'));
+		MenuService::assign_positions_conditions($view, $this->get_block());
 		Menu::assign_common_template_variables($view);
-        $config = SmalladsConfig::load();
+		$config = SmalladsConfig::load();
 
- 		// Load module caches
- 		$smallads_cache = SmalladsCache::load();
- 		$categories_cache = CategoriesService::get_categories_manager('smallads')->get_categories_cache();
+		// Load module caches
+		$smallads_cache = SmalladsCache::load();
+		$categories_cache = CategoriesService::get_categories_manager('smallads')->get_categories_cache();
 
- 		$items = $smallads_cache->get_items();
-        $items_number = SmalladsService::count('WHERE published != 0');
+		$items = $smallads_cache->get_items();
+		$items_number = SmalladsService::count('WHERE published != 0');
 
- 		$view->put_all(array(
- 			'C_ITEMS'         => !empty($items),
- 			'C_ONE_ITEM'      => $items_number == 1,
+		$view->put_all(array(
+			'C_ITEMS'         => !empty($items),
+			'C_ONE_ITEM'      => $items_number == 1,
 			'ITEMS_TOTAL_NB'  => $items_number,
-            'CURRENCY'        => $config->get_currency(),
+			'CURRENCY'        => $config->get_currency(),
 			'ANIMATION_SPEED' => $config->get_mini_menu_animation_speed(),
 			'AUTOPLAY'        => $config->is_slideshow_autoplayed(),
 			'AUTOPLAY_SPEED'  => $config->get_mini_menu_autoplay_speed(),
 			'AUTOPLAY_HOVER'  => $config->is_slideshow_hover_enabled(),
- 		));
+		));
 
- 		foreach ($items as $smallad)
- 		{
- 			$item = new SmalladsItem();
- 			$item->set_properties($smallad);
+		foreach ($items as $smallad)
+		{
+			$item = new SmalladsItem();
+			$item->set_properties($smallad);
 
- 			$view->assign_block_vars('items', $item->get_template_vars());
- 		}
+			$view->assign_block_vars('items', $item->get_template_vars());
+		}
 
- 		return $view->render();
- 	}
+		return $view->render();
+	}
 
 	public function display()
 	{
@@ -83,8 +83,8 @@
 				$this->assign_common_template_variables($template);
 
 				$template->put_all(array(
-					'ID' => $this->get_menu_id(),
-					'TITLE' => $this->get_menu_title(),
+					'ID' 	   => $this->get_menu_id(),
+					'TITLE'    => $this->get_menu_title(),
 					'CONTENTS' => $this->get_menu_content()
 				));
 
@@ -97,5 +97,5 @@
 		}
 		return '';
 	}
- }
- ?>
+}
+?>

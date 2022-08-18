@@ -3,11 +3,10 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 19
+ * @version     PHPBoost 6.0 - last update: 2022 08 18
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
-
 */
 
 class SmalladsItem
@@ -30,7 +29,6 @@ class SmalladsItem
 	private $author_user;
 	private $location;
 	private $other_location;
-	private $contact_level;
 	private $displayed_author_email;
 	private $enabled_author_email_customization;
 	private $custom_author_email;
@@ -73,7 +71,7 @@ class SmalladsItem
 
 	const NOT_PUBLISHED = 0;
 	const PUBLISHED_NOW = 1;
-	const PUBLICATION_DATE = 2;
+	const DEFERRED_PUBLICATION = 2;
 
 	const NOT_COMPLETED = 0;
 	const COMPLETED = 1;
@@ -285,7 +283,7 @@ class SmalladsItem
 
 	public function get_author_user()
 	{
-	    return $this->author_user;
+		return $this->author_user;
 	}
 
 	public function set_location($location)
@@ -423,12 +421,12 @@ class SmalladsItem
 		$this->author_phone = $author_phone;
 	}
 
-	public function set_publication_state($published)
+	public function set_publishing_state($published)
 	{
 		$this->published = $published;
 	}
 
-	public function get_publication_state()
+	public function get_publishing_state()
 	{
 		return $this->published;
 	}
@@ -436,7 +434,7 @@ class SmalladsItem
 	public function is_published()
 	{
 		$now = new Date();
-		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->read() && ($this->get_publication_state() == self::PUBLISHED_NOW || ($this->get_publication_state() == self::PUBLICATION_DATE && $this->get_publishing_start_date()->is_anterior_to($now) && ($this->enabled_end_date ? $this->get_publishing_end_date()->is_posterior_to($now) : true)));
+		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->read() && ($this->get_publishing_state() == self::PUBLISHED_NOW || ($this->get_publishing_state() == self::DEFERRED_PUBLICATION && $this->get_publishing_start_date()->is_anterior_to($now) && ($this->enabled_end_date ? $this->get_publishing_end_date()->is_posterior_to($now) : true)));
 	}
 
 	public function get_status()
@@ -445,7 +443,7 @@ class SmalladsItem
 			case self::PUBLISHED_NOW:
 				return LangLoader::get_message('common.status.published.alt', 'common-lang');
 			break;
-			case self::PUBLICATION_DATE:
+			case self::DEFERRED_PUBLICATION:
 				return LangLoader::get_message('common.status.deffered.date', 'common-lang');
 			break;
 			case self::NOT_PUBLISHED:
@@ -497,7 +495,7 @@ class SmalladsItem
 
 	public function set_update_date(Date $update_date)
 	{
-	    $this->update_date = $update_date;
+		$this->update_date = $update_date;
 	}
 
 	public function add_source($source)
@@ -586,7 +584,7 @@ class SmalladsItem
 			'custom_author_name' 	 => $this->get_custom_author_name(),
 			'displayed_author_phone' => $this->get_displayed_author_phone(),
 			'author_phone' 			 => $this->get_author_phone(),
-			'published'              => $this->get_publication_state(),
+			'published'              => $this->get_publishing_state(),
 			'publishing_start_date'  => $this->get_publishing_start_date() !== null ? $this->get_publishing_start_date()->get_timestamp() : 0,
 			'publishing_end_date'    => $this->get_publishing_end_date() !== null ? $this->get_publishing_end_date()->get_timestamp() : 0,
 			'creation_date'          => $this->get_creation_date()->get_timestamp(),
@@ -620,7 +618,7 @@ class SmalladsItem
 		$this->set_displayed_author_name($properties['displayed_author_name']);
 		$this->set_displayed_author_phone($properties['displayed_author_phone']);
 		$this->set_author_phone($properties['author_phone']);
-		$this->set_publication_state($properties['published']);
+		$this->set_publishing_state($properties['published']);
 		$this->publishing_start_date = !empty($properties['publishing_start_date']) ? new Date($properties['publishing_start_date'], Timezone::SERVER_TIMEZONE) : null;
 		$this->publishing_end_date = !empty($properties['publishing_end_date']) ? new Date($properties['publishing_end_date'], Timezone::SERVER_TIMEZONE) : null;
 		$this->enabled_end_date = !empty($properties['publishing_end_date']);
@@ -761,14 +759,14 @@ class SmalladsItem
 			'C_READ_MORE'                      => !$this->get_summary_enabled() && TextHelper::strlen($content) > SmalladsConfig::load()->get_characters_number_to_cut() && $summary != @strip_tags($content, '<br><br/>'),
 			'C_SOURCES'                        => $nbr_sources > 0,
 			'C_CAROUSEL'                       => $nbr_pictures > 0,
-			'C_DIFFERED'                       => $this->published == self::PUBLICATION_DATE,
+			'C_DIFFERED'                       => $this->published == self::DEFERRED_PUBLICATION,
 			'C_NEW_CONTENT'                    => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('smallads', $this->publishing_start_date != null ? $this->publishing_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
 			'C_USAGE_TERMS'					   => $this->config->are_usage_terms_displayed(),
 			'IS_LOCATED'					   => !empty($this->get_location()),
 			'C_OTHER_LOCATION'				   => $this->get_location() === 'other',
 			'C_GMAP'					   	   => $this->config->is_googlemaps_available(),
 
-			// Smallads
+			// Item
 			'ID'                 	=> $this->get_id(),
 			'TITLE'              	=> $this->get_title(),
 			'STATUS'             	=> $this->get_status(),

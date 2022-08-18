@@ -11,22 +11,23 @@
 #                      French                       #
 #####################################################
 
-$lang['location'] = 'Localisation';
-$lang['location.clue'] = 'Commencez à taper une adresse puis sélectionnez la dans la liste déroulante.<br />Vous pouvez vous limiter au département/région/ville etc, si vous ne souhaitez pas faire apparaitre une adresse complète.';
-$lang['county'] = 'Département';
-$lang['other.country'] = 'Autre Pays';
+$lang['location']              = 'Localisation';
+$lang['location.clue']         = 'Commencez à taper une adresse puis sélectionnez la dans la liste déroulante.<br />Vous pouvez vous limiter au département/région/ville etc, si vous ne souhaitez pas faire apparaitre une adresse complète.';
+$lang['county']                = 'Département';
+$lang['other.country']         = 'Autre Pays';
 $lang['other.country.explain'] = 'Hors de France';
-$lang['county.other'] = 'Autre Pays';
-$lang['county.'] = '';
-$lang['county.1'] = '01 - Ain';
-$lang['county.2'] = '02 - Aisne';
-$lang['county.3'] = '03 - Allier';
-$lang['county.4'] = '04 - Alpes de Hautes-Provence';
-$lang['county.5'] = '05 - Hautes-Alpes';
-$lang['county.6'] = '06 - Alpes-Maritimes';
-$lang['county.7'] = '07 - Ardèche';
-$lang['county.8'] = '08 - Ardennes';
-$lang['county.9'] = '09 - Ariège';
+$lang['county.other']          = 'Autre Pays';
+
+$lang['county.']   = '';
+$lang['county.1']  = '01 - Ain';
+$lang['county.2']  = '02 - Aisne';
+$lang['county.3']  = '03 - Allier';
+$lang['county.4']  = '04 - Alpes de Hautes-Provence';
+$lang['county.5']  = '05 - Hautes-Alpes';
+$lang['county.6']  = '06 - Alpes-Maritimes';
+$lang['county.7']  = '07 - Ardèche';
+$lang['county.8']  = '08 - Ardennes';
+$lang['county.9']  = '09 - Ariège';
 $lang['county.10'] = '10 - Aube';
 $lang['county.11'] = '11 - Aude';
 $lang['county.12'] = '12 - Aveyron';

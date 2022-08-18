@@ -13,9 +13,9 @@ class SmalladsArchivedItemsController extends DefaultModuleController
 	private $content_management_config;
 
 	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
-   	}
+	{
+		return new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{

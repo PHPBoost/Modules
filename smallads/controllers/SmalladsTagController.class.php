@@ -16,9 +16,9 @@ class SmalladsTagController extends DefaultModuleController
 	private $content_management_config;
 
 	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
-   	}
+	{
+		return new FileTemplate('smallads/SmalladsSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -48,13 +48,13 @@ class SmalladsTagController extends DefaultModuleController
 					$this->keyword = KeywordsService::get_keywords_manager()->get_keyword('WHERE rewrited_name=:rewrited_name', array('rewrited_name' => $rewrited_name));
 				} catch (RowNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
-   					DispatchManager::redirect($error_controller);
+					DispatchManager::redirect($error_controller);
 				}
 			}
 			else
 			{
 				$error_controller = PHPBoostErrors::unexisting_page();
-   				DispatchManager::redirect($error_controller);
+				DispatchManager::redirect($error_controller);
 			}
 		}
 		return $this->keyword;
@@ -98,12 +98,13 @@ class SmalladsTagController extends DefaultModuleController
 			'C_ITEMS_CAT'        => false,
 			'C_COMMENTS_ENABLED' => $this->comments_config->are_comments_enabled(),
 			'C_PAGINATION'       => $result->get_rows_count() > $this->config->get_items_per_page(),
+			'C_USAGE_TERMS' 	 => $this->config->are_usage_terms_displayed(),
 
-			'CATEGORY_NAME'      => $this->get_keyword()->get_name(),
-			'ITEMS_PER_ROW'      => $this->config->get_items_per_row(),
-			'ITEMS_PER_PAGE'     => $this->config->get_items_per_page(),
-			'C_USAGE_TERMS'	     => $this->config->are_usage_terms_displayed(),
-			'U_USAGE_TERMS' 	 => SmalladsUrlBuilder::usage_terms()->rel()
+			'CATEGORY_NAME'  => $this->get_keyword()->get_name(),
+			'ITEMS_PER_ROW'  => $this->config->get_items_per_row(),
+			'ITEMS_PER_PAGE' => $this->config->get_items_per_page(),
+
+			'U_USAGE_TERMS' => SmalladsUrlBuilder::usage_terms()->rel()
 		));
 
 		while ($row = $result->fetch())
@@ -131,7 +132,7 @@ class SmalladsTagController extends DefaultModuleController
 			foreach ($smallad_types as $name)
 			{
 				$this->view->assign_block_vars('types', array(
-					'C_SEPARATOR'      => $i < $type_nbr,
+					'C_SEPARATOR' => $i < $type_nbr,
 					'TYPE_NAME'        => $name,
 					'TYPE_NAME_FILTER' => Url::encode_rewrite(TextHelper::strtolower($name)),
 				));
@@ -153,8 +154,8 @@ class SmalladsTagController extends DefaultModuleController
 			{
 				$this->view->assign_block_vars('items.sources', array(
 					'C_SEPARATOR' => $i < $nbr_sources,
-					'NAME'        => $name,
-					'URL'         => $url,
+					'NAME' => $name,
+					'URL'  => $url,
 				));
 				$i++;
 			}
@@ -172,8 +173,8 @@ class SmalladsTagController extends DefaultModuleController
 		{
 			$this->view->assign_block_vars('keywords', array(
 				'C_SEPARATOR' => $i < $nbr_keywords,
-				'NAME'        => $keyword->get_name(),
-				'URL'         => SmalladsUrlBuilder::display_tag($keyword->get_rewrited_name())->rel(),
+				'NAME' => $keyword->get_name(),
+				'URL'  => SmalladsUrlBuilder::display_tag($keyword->get_rewrited_name())->rel(),
 			));
 			$i++;
 		}
