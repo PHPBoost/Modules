@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 03 30
+ * @version     PHPBoost 6.0 - last update: 2022 08 18
  * @since       PHPBoost 5.1 - 2018 09 20
  * @contributor xela <xela@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -43,6 +43,10 @@ class SmalladsModuleUpdateVersion extends ModuleUpdateVersion
 			'/templates/smallads.tpl',
 			'/templates/SmalladsLastItemsMiniMenu.tpl',
 			'/templates/fields/SmalladsFormFieldSelectSources.tpl',
+			'/templates/images/button-next.png',
+			'/templates/images/button-previous.png',
+			'/templates/images/default.png',
+			'/templates/images/no-thumb.png',
 			'/templates/js/jplist.core.min.js',
 			'/templates/js/jplist.filter-toggle-bundle.min.js',
 			'/templates/js/jplist.pagination-bundle.min.js',
@@ -231,7 +235,7 @@ class SmalladsModuleUpdateVersion extends ModuleUpdateVersion
 					), 'WHERE id = :id', array('id' => $row['id']));
 				} else {
 					PersistenceContext::get_querier()->update(PREFIX . 'smallads', array(
-						'thumbnail_url' => '/smallads/templates/images/no-thumb.png',
+						'thumbnail_url' => '/smallads/templates/images/no-thumb.webp',
 					), 'WHERE id = :id', array('id' => $row['id']));
 				}
 			}
