@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 19
+ * @version     PHPBoost 6.0 - last update: 2022 08 25
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -11,10 +11,10 @@ class SpotsCategoryController extends DefaultModuleController
 {
 	private $category;
 
-   	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('spots/SpotsSeveralItemsController.tpl');
-   	}
+	protected function get_template_to_use()
+	{
+		return new FileTemplate('spots/SpotsSeveralItemsController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -127,6 +127,42 @@ class SpotsCategoryController extends DefaultModuleController
 			$this->view->assign_block_vars('items', array_merge($item->get_template_vars()));
 		}
 		$result->dispose();
+
+		$this->build_category_view($request);
+	}
+
+	private function build_category_view(HTTPRequestCustom $request)
+	{
+		$now = new Date();
+		$page = AppContext::get_request()->get_getint('page', 1);
+		$condition = 'WHERE id_category = :id_category AND published = 1';
+
+		$parameters = array(
+			'id_category' => $this->get_category()->get_id(),
+			'timestamp_now' => $now->get_timestamp()
+		);
+
+		$pagination = $this->get_pagination($condition, $parameters, $page, '');
+
+		$result = PersistenceContext::get_querier()->select('SELECT spots.*, member.*
+		FROM '. SpotsSetup::$spots_table .' spots
+		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = spots.author_user_id
+		' . $condition . '
+		ORDER BY spots.title ASC
+		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, array(
+			'user_id' => AppContext::get_current_user()->get_id(),
+			'number_items_per_page' => $pagination->get_number_items_per_page(),
+			'display_from' => $pagination->get_display_from()
+		)));
+
+		while ($row = $result->fetch())
+		{
+			$item = new SpotsItem();
+			$item->set_properties($row);
+			$this->view->assign_block_vars('self_items', array_merge($item->get_template_vars()));
+		}
+		$result->dispose();
+
 	}
 
 	private function get_pagination($condition, $parameters, $page, $subcategories_page)
