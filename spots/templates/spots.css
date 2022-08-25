@@ -14,8 +14,8 @@
 
 .marker-container .inner-marker {
     position: absolute;
-    top: 25%;
-    left: 46%;
+    top: 28%;
+    left: 48%;
     transform: translate(-50%, -50%);
 }
 

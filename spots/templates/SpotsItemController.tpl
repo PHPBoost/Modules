@@ -76,7 +76,7 @@
 											</div>
 										# ENDIF #
 										# IF C_EMAIL #
-											<a href="mailto:{EMAIL}" aria-label="{@spots.labels.email}"><i class="fa fa-fw fa-envelope fa-lg"></i></a>
+											<a href="mailto:{EMAIL}" aria-label="{@common.email}"><i class="fa fa-fw fa-envelope fa-lg"></i></a>
 										# ENDIF #
 									</div>
 								# ELSE #
