@@ -30,7 +30,7 @@
 						# IF C_HAS_THUMBNAIL #
 							<div class="cell-body">
 								<div class="cell-thumbnail">
-									<img src="{U_THUMBNAIL}" alt="{NAME}" itemprop="image" />
+									<img src="{U_THUMBNAIL}" alt="{TITLE}" itemprop="image" />
 								</div>
 							</div>
 						# ENDIF #
