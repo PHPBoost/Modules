@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 08 25
+ * @version     PHPBoost 6.0 - last update: 2022 09 20
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -37,13 +37,12 @@ class SpotsCategoryController extends DefaultModuleController
 		$subcategories = CategoriesService::get_categories_manager('spots')->get_categories_cache()->get_children($this->get_category()->get_id(), CategoriesService::get_authorized_categories($this->get_category()->get_id(),'', 'spots'));
 		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_per_page(), $page, $subcategories_page);
 
-
-		$nbr_cat_displayed = 0;
+		$categories_number_displayed = 0;
 		foreach ($subcategories as $id => $category)
 		{
-			$nbr_cat_displayed++;
+			$categories_number_displayed++;
 
-			if ($nbr_cat_displayed > $subcategories_pagination->get_display_from() && $nbr_cat_displayed <= ($subcategories_pagination->get_display_from() + $subcategories_pagination->get_number_items_per_page()))
+			if ($categories_number_displayed > $subcategories_pagination->get_display_from() && $categories_number_displayed <= ($subcategories_pagination->get_display_from() + $subcategories_pagination->get_number_items_per_page()))
 			{
 				$this->view->assign_block_vars('sub_categories_list', array(
 					'C_SEVERAL_ITEMS' => $category->get_elements_number() > 1,
@@ -85,8 +84,8 @@ class SpotsCategoryController extends DefaultModuleController
 		if(!$root_category){
 			$category_address_values = TextHelper::deserialize($this->get_category()->get_category_address());
 			$this->view->put_all(array(
-				'CATEGORY_LATITUDE' => (!empty($this->get_category()->get_category_address()) || TextHelper::is_serialized($this->get_category()->get_category_address())) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
-				'CATEGORY_LONGITUDE' => (!empty($this->get_category()->get_category_address()) || TextHelper::is_serialized($this->get_category()->get_category_address())) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
+				'CATEGORY_LATITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
+				'CATEGORY_LONGITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
 			));
 		}
 
@@ -101,8 +100,8 @@ class SpotsCategoryController extends DefaultModuleController
 			'C_CONTROLS'                 => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'C_PAGINATION'               => $pagination->has_several_pages(),
 			'C_ROOT_CATEGORY'            => $root_category,
-			'C_HIDE_NO_ITEM_MESSAGE'     => $root_category && ($nbr_cat_displayed != 0 || !empty($category_description)),
-			'C_SUB_CATEGORIES'           => $nbr_cat_displayed > 0,
+			'C_HIDE_NO_ITEM_MESSAGE'     => $root_category && ($categories_number_displayed != 0 || !empty($category_description)),
+			'C_SUB_CATEGORIES'           => $categories_number_displayed > 0,
 			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
 
 			'MODULE_NAME'              => $this->config->get_module_name(),
