@@ -10,9 +10,9 @@
 class SpotsItemController extends DefaultModuleController
 {
 	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('spots/SpotsItemController.tpl');
-   	}
+	{
+		return new FileTemplate('spots/SpotsItemController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
