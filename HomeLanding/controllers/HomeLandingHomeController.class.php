@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 03 27
+ * @version     PHPBoost 6.0 - last update: 2022 10 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -100,7 +100,7 @@ class HomeLandingHomeController extends DefaultModuleController
 			$this->view->put('DOWNLOAD_CAT', HomeLandingDownload::get_download_cat_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed())
-		 	$this->view->put('FLUX', HomeLandingFlux::get_flux_view());
+			$this->view->put('FLUX', HomeLandingFlux::get_flux_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed() && ForumAuthorizationsService::check_authorizations()->read())
 			$this->view->put('FORUM', HomeLandingForum::get_forum_view());
@@ -123,11 +123,23 @@ class HomeLandingHomeController extends DefaultModuleController
 		if ($this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_NEWS)->read())
 			$this->view->put('PINNED_NEWS', HomeLandingPinnedNews::get_pinned_news_view(HomeLandingConfig::MODULE_PINNED_NEWS));
 
+		if ($this->modules[HomeLandingConfig::MODULE_RECIPE]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_RECIPE)->read())
+			$this->view->put('RECIPE', HomeLandingRecipe::get_recipe_view());
+
+		if ($this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_RECIPE)->read())
+			$this->view->put('RECIPE_CAT', HomeLandingRecipe::get_recipe_cat_view());
+
 		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_SMALLADS)->read())
 			$this->view->put('SMALLADS', HomeLandingSmallads::get_smallads_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_SMALLADS)->read())
 			$this->view->put('SMALLADS_CAT', HomeLandingSmallads::get_smallads_cat_view());
+
+		if ($this->modules[HomeLandingConfig::MODULE_VIDEO]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_VIDEO)->read())
+			$this->view->put('VIDEO', HomeLandingVideo::get_video_view());
+
+		if ($this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed() && CategoriesAuthorizationsService::check_authorizations($this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->get_id_category(), HomeLandingConfig::MODULE_VIDEO)->read())
+			$this->view->put('VIDEO_CAT', HomeLandingVideo::get_video_cat_view());
 
 		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, HomeLandingConfig::MODULE_WEB)->read())
 			$this->view->put('WEB', HomeLandingWeb::get_web_view());
@@ -140,7 +152,7 @@ class HomeLandingHomeController extends DefaultModuleController
 		$home_files = $home_directory->get_files();
 		foreach ($home_files as $home_file)
 		{
-	      	require_once($home_file->get_path());
+			require_once($home_file->get_path());
 		}
 	}
 

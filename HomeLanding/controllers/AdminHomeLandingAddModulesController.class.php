@@ -93,7 +93,7 @@ class AdminHomeLandingAddModulesController extends DefaultAdminModuleController
 		$add_files = $add_directory->get_files();
 		foreach ($add_files as $add_file)
 		{
-	      	require_once($add_file->get_path());
+			require_once($add_file->get_path());
 		}
 
 		foreach ($modules_list as $module)

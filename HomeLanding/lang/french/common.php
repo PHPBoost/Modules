@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 17
+ * @version     PHPBoost 6.0 - last update: 2022 10 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor mipel <mipel@phpboost.com>
@@ -47,13 +47,17 @@ $lang['homelanding.module.articles_category'] = 'Articles - catégorie';
 $lang['homelanding.module.download_category'] = 'Téléchargements - catégorie';
 $lang['homelanding.module.news_category']     = 'Actualités - catégorie';
 $lang['homelanding.module.pinned_news']       = 'Actualités épinglées';
+$lang['homelanding.module.recipe_category']   = 'Recettes - catégorie';
 $lang['homelanding.module.smallads_category'] = 'Petites annonces - catégorie';
+$lang['homelanding.module.video_category']    = 'Vidéos - catégorie';
 $lang['homelanding.module.web_category']      = 'Liens web - catégorie';
     // Anchors tab
 $lang['homelanding.category.articles_category'] = 'Articles';
 $lang['homelanding.category.download_category'] = 'Téléchargements';
 $lang['homelanding.category.news_category']     = 'Actualités';
+$lang['homelanding.category.recipe_category']   = 'Recettes';
 $lang['homelanding.category.smallads_category'] = 'Petites annonces';
+$lang['homelanding.category.video_category']    = 'Vidéos';
 $lang['homelanding.category.web_category']      = 'Liens web';
 
 // Anchors menu

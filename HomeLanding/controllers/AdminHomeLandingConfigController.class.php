@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 17
+ * @version     PHPBoost 6.0 - last update: 2022 10 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -104,6 +104,14 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 				$this->form->get_field_by_id('pinned_news_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->is_displayed());
 			}
 
+			if ($this->modules[HomeLandingConfig::MODULE_RECIPE]->is_active()) {
+				$this->form->get_field_by_id('recipe_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RECIPE]->is_displayed());
+				$this->form->get_field_by_id('recipe_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('recipe_subcategories_content_displayed')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('recipe_cat_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('recipe_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed());
+			}
+
 			if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
 			{
 				$this->form->get_field_by_id('smallads_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed());
@@ -111,6 +119,14 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 				$this->form->get_field_by_id('smallads_subcategories_content_displayed')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
 				$this->form->get_field_by_id('smallads_cat_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
 				$this->form->get_field_by_id('smallads_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed());
+			}
+
+			if ($this->modules[HomeLandingConfig::MODULE_VIDEO]->is_active()) {
+				$this->form->get_field_by_id('video_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_VIDEO]->is_displayed());
+				$this->form->get_field_by_id('video_cat')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('video_subcategories_content_displayed')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('video_cat_limit')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed());
+				$this->form->get_field_by_id('video_cat_char')->set_hidden(!$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed());
 			}
 
 			if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active())
@@ -127,7 +143,7 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 			$submit_files = $submit_directory->get_files();
 			foreach ($submit_files as $submit_file)
 			{
-		      	require_once($submit_file->get_path());
+				require_once($submit_file->get_path());
 			}
 
 			$view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.config'], MessageHelper::SUCCESS, 4));
@@ -165,9 +181,9 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
         {
 
 			if($module == 'configuration')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa fa-cogs');
+				$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa fa-cogs');
 			elseif($module == 'carousel')
-            	$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa fa-image');
+				$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa fa-image');
 			elseif(in_array($module, $modules_from_list))
 			{
 				$img_url = PATH_TO_ROOT . '/' . $module . '/' . $module . '_mini.png';
@@ -888,6 +904,83 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 			));
 		}
 
+		// Recipe
+		if ($this->modules[HomeLandingConfig::MODULE_RECIPE]->is_active()) {
+			$fieldset_recipe = new FormFieldsetMultitabsHTML('admin_recipe', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_RECIPE]->get_module_id())->get_configuration()->get_name(),
+				array('css_class' => 'tabs tabs-animation')
+			);
+			$form->add_fieldset($fieldset_recipe);
+
+			$fieldset_recipe->add_field(new FormFieldCheckbox('recipe_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_RECIPE]->is_displayed(),
+				array(
+					'class' => 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("recipe_enabled").getValue()) {
+							HTMLForms.getField("recipe_limit").enable();
+						} else {
+							HTMLForms.getField("recipe_limit").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_recipe->add_field(new FormFieldNumberEditor('recipe_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_RECIPE]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_RECIPE]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_recipe->add_field(new FormFieldSpacer('recipe_separator', ''));
+
+			$fieldset_recipe->add_field(new FormFieldCheckbox('recipe_cat_enabled', $this->lang['homelanding.display.category'], $this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed(),
+				array(
+					'class' => 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("recipe_cat_enabled").getValue()) {
+							HTMLForms.getField("recipe_cat").enable();
+							HTMLForms.getField("recipe_subcategories_content_displayed").enable();
+							HTMLForms.getField("recipe_cat_limit").enable();
+							HTMLForms.getField("recipe_cat_char").enable();
+						} else {
+							HTMLForms.getField("recipe_cat").disable();
+							HTMLForms.getField("recipe_subcategories_content_displayed").disable();
+							HTMLForms.getField("recipe_cat_limit").disable();
+							HTMLForms.getField("recipe_cat_char").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_recipe->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_RECIPE)->get_select_categories_form_field('recipe_cat', $this->lang['homelanding.choose.category'], $this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed())
+			));
+
+			$fieldset_recipe->add_field(new FormFieldCheckbox('recipe_subcategories_content_displayed', $this->lang['homelanding.display.sub.categories'], $this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_subcategories_content_displayed(),
+				array(
+					'class' => 'custom-checkbox',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed()
+				)
+			));
+
+			$fieldset_recipe->add_field(new FormFieldNumberEditor('recipe_cat_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_recipe->add_field(new FormFieldNumberEditor('recipe_cat_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->get_characters_number_displayed(),
+				array(
+					'min' => 1, 'max' => 512,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 512))
+			));
+		}
+
 		// Smallads
 		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
 		{
@@ -961,6 +1054,83 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 				array(
 					'min' => 1, 'max' => 512,
 					'hidden' => !$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 512))
+			));
+		}
+
+		// Video
+		if ($this->modules[HomeLandingConfig::MODULE_VIDEO]->is_active()) {
+			$fieldset_video = new FormFieldsetMultitabsHTML('admin_video', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_VIDEO]->get_module_id())->get_configuration()->get_name(),
+				array('css_class' => 'tabs tabs-animation')
+			);
+			$form->add_fieldset($fieldset_video);
+
+			$fieldset_video->add_field(new FormFieldCheckbox('video_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_VIDEO]->is_displayed(),
+				array(
+					'class' => 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("video_enabled").getValue()) {
+							HTMLForms.getField("video_limit").enable();
+						} else {
+							HTMLForms.getField("video_limit").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_video->add_field(new FormFieldNumberEditor('video_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_VIDEO]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_VIDEO]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_video->add_field(new FormFieldSpacer('video_separator', ''));
+
+			$fieldset_video->add_field(new FormFieldCheckbox('video_cat_enabled', $this->lang['homelanding.display.category'], $this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed(),
+				array(
+					'class' => 'custom-checkbox',
+					'events' => array('click' => '
+						if (HTMLForms.getField("video_cat_enabled").getValue()) {
+							HTMLForms.getField("video_cat").enable();
+							HTMLForms.getField("video_subcategories_content_displayed").enable();
+							HTMLForms.getField("video_cat_limit").enable();
+							HTMLForms.getField("video_cat_char").enable();
+						} else {
+							HTMLForms.getField("video_cat").disable();
+							HTMLForms.getField("video_subcategories_content_displayed").disable();
+							HTMLForms.getField("video_cat_limit").disable();
+							HTMLForms.getField("video_cat_char").disable();
+						}'
+					)
+				)
+			));
+
+			$fieldset_video->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_VIDEO)->get_select_categories_form_field('video_cat', $this->lang['homelanding.choose.category'], $this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed())
+			));
+
+			$fieldset_video->add_field(new FormFieldCheckbox('video_subcategories_content_displayed', $this->lang['homelanding.display.sub.categories'], $this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_subcategories_content_displayed(),
+				array(
+					'class' => 'custom-checkbox',
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed()
+				)
+			));
+
+			$fieldset_video->add_field(new FormFieldNumberEditor('video_cat_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->get_elements_number_displayed(),
+				array(
+					'min' => 1, 'max' => 100,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed()
+				),
+				array(new FormFieldConstraintIntegerRange(1, 100))
+			));
+
+			$fieldset_video->add_field(new FormFieldNumberEditor('video_cat_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->get_characters_number_displayed(),
+				array(
+					'min' => 1, 'max' => 512,
+					'hidden' => !$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->is_displayed()
 				),
 				array(new FormFieldConstraintIntegerRange(1, 512))
 			));
@@ -1295,6 +1465,35 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 				$this->modules[HomeLandingConfig::MODULE_PINNED_NEWS]->hide();
 		}
 
+		// Recipe
+		if ($this->modules[HomeLandingConfig::MODULE_RECIPE]->is_active())
+		{
+			if ($this->form->get_value('recipe_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_RECIPE]->display();
+				$this->modules[HomeLandingConfig::MODULE_RECIPE]->set_elements_number_displayed($this->form->get_value('recipe_limit'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_RECIPE]->hide();
+
+			if ($this->form->get_value('recipe_cat_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->display();
+				if (!$this->form->field_is_disabled('recipe_cat'))
+					$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->set_id_category($this->form->get_value('recipe_cat')->get_raw_value());
+
+				if ($this->form->get_value('recipe_subcategories_content_displayed'))
+					$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->display_subcategories_content();
+				else
+					$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->hide_subcategories_content();
+
+				$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->set_elements_number_displayed($this->form->get_value('recipe_cat_limit'));
+				$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->set_characters_number_displayed($this->form->get_value('recipe_cat_char'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]->hide();
+		}
+
 		// Smallads
 		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
 		{
@@ -1322,6 +1521,35 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 			}
 			else
 				$this->modules[HomeLandingConfig::MODULE_SMALLADS_CATEGORY]->hide();
+		}
+
+		// Video
+		if ($this->modules[HomeLandingConfig::MODULE_VIDEO]->is_active())
+		{
+			if ($this->form->get_value('video_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_VIDEO]->display();
+				$this->modules[HomeLandingConfig::MODULE_VIDEO]->set_elements_number_displayed($this->form->get_value('video_limit'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_VIDEO]->hide();
+
+			if ($this->form->get_value('video_cat_enabled'))
+			{
+				$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->display();
+				if (!$this->form->field_is_disabled('video_cat'))
+					$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->set_id_category($this->form->get_value('video_cat')->get_raw_value());
+
+				if ($this->form->get_value('video_subcategories_content_displayed'))
+					$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->display_subcategories_content();
+				else
+					$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->hide_subcategories_content();
+
+				$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->set_elements_number_displayed($this->form->get_value('video_cat_limit'));
+				$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->set_characters_number_displayed($this->form->get_value('video_cat_char'));
+			}
+			else
+				$this->modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]->hide();
 		}
 
 		// Web

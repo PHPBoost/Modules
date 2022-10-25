@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 10 25
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -58,8 +58,12 @@ class HomeLandingConfig extends AbstractConfigData
 	const MODULE_NEWS = 'news';
 	const MODULE_NEWS_CATEGORY = 'news_category';
 	const MODULE_PINNED_NEWS = 'pinned_news';
+	const MODULE_RECIPE = 'recipe';
+	const MODULE_RECIPE_CATEGORY = 'recipe_category';
 	const MODULE_SMALLADS = 'smallads';
 	const MODULE_SMALLADS_CATEGORY = 'smallads_category';
+	const MODULE_VIDEO = 'video';
+	const MODULE_VIDEO_CATEGORY = 'video_category';
 	const MODULE_WEB = 'web';
 	const MODULE_WEB_CATEGORY = 'web_category';
 
@@ -282,152 +286,166 @@ class HomeLandingConfig extends AbstractConfigData
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_ANCHORS_MENU);
 		$module->hide();
-
 		$modules[1] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_CAROUSEL);
 		$module->hide();
-
 		$modules[2] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_EDITO);
 		$module->display();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_LASTCOMS);
 		$module->set_characters_number_displayed(30);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_ARTICLES);
 		$module->set_phpboost_module_id(self::MODULE_ARTICLES);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModuleCategory();
 		$module->set_module_id(self::MODULE_ARTICLES_CATEGORY);
 		$module->set_phpboost_module_id(self::MODULE_ARTICLES);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_CALENDAR);
 		$module->set_phpboost_module_id(self::MODULE_CALENDAR);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_CONTACT);
 		$module->set_phpboost_module_id(self::MODULE_CONTACT);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_DOWNLOAD);
 		$module->set_phpboost_module_id(self::MODULE_DOWNLOAD);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModuleCategory();
 		$module->set_module_id(self::MODULE_DOWNLOAD_CATEGORY);
 		$module->set_phpboost_module_id(self::MODULE_DOWNLOAD);
 		$module->hide();
+		$modules[] = $module->get_properties();
 
+		$module = new HomeLandingModule();
+		$module->set_module_id(self::MODULE_RECIPE);
+		$module->set_phpboost_module_id(self::MODULE_RECIPE);
+		$module->hide();
+		$modules[] = $module->get_properties();
+
+		$module = new HomeLandingModuleCategory();
+		$module->set_module_id(self::MODULE_RECIPE_CATEGORY);
+		$module->set_phpboost_module_id(self::MODULE_RECIPE);
+		$module->hide();
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_FLUX);
 		$module->set_phpboost_module_id(self::MODULE_FLUX);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_FORUM);
 		$module->set_phpboost_module_id(self::MODULE_FORUM);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_GALLERY);
 		$module->set_phpboost_module_id(self::MODULE_GALLERY);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_GUESTBOOK);
 		$module->set_phpboost_module_id(self::MODULE_GUESTBOOK);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_MEDIA);
 		$module->set_phpboost_module_id(self::MODULE_MEDIA);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_NEWS);
 		$module->set_phpboost_module_id(self::MODULE_NEWS);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModuleCategory();
 		$module->set_module_id(self::MODULE_NEWS_CATEGORY);
 		$module->set_phpboost_module_id(self::MODULE_NEWS);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_PINNED_NEWS);
 		$module->set_phpboost_module_id(self::MODULE_NEWS);
 		$module->hide();
+		$modules[] = $module->get_properties();
 
+		$module = new HomeLandingModule();
+		$module->set_module_id(self::MODULE_RECIPE);
+		$module->set_phpboost_module_id(self::MODULE_RECIPE);
+		$module->hide();
+		$modules[] = $module->get_properties();
+
+		$module = new HomeLandingModuleCategory();
+		$module->set_module_id(self::MODULE_RECIPE_CATEGORY);
+		$module->set_phpboost_module_id(self::MODULE_RECIPE);
+		$module->hide();
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_SMALLADS);
 		$module->set_phpboost_module_id(self::MODULE_SMALLADS);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModuleCategory();
 		$module->set_module_id(self::MODULE_SMALLADS_CATEGORY);
 		$module->set_phpboost_module_id(self::MODULE_SMALLADS);
 		$module->hide();
+		$modules[] = $module->get_properties();
 
+		$module = new HomeLandingModule();
+		$module->set_module_id(self::MODULE_VIDEO);
+		$module->set_phpboost_module_id(self::MODULE_VIDEO);
+		$module->hide();
+		$modules[] = $module->get_properties();
+
+		$module = new HomeLandingModuleCategory();
+		$module->set_module_id(self::MODULE_VIDEO_CATEGORY);
+		$module->set_phpboost_module_id(self::MODULE_VIDEO);
+		$module->hide();
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModule();
 		$module->set_module_id(self::MODULE_WEB);
 		$module->set_phpboost_module_id(self::MODULE_WEB);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		$module = new HomeLandingModuleCategory();
 		$module->set_module_id(self::MODULE_WEB_CATEGORY);
 		$module->set_phpboost_module_id(self::MODULE_WEB);
 		$module->hide();
-
 		$modules[] = $module->get_properties();
 
 		// Files autoload for adding new modules
@@ -435,7 +453,7 @@ class HomeLandingConfig extends AbstractConfigData
 		$init_files = $init_directory->get_files();
 		foreach ($init_files as $init_file)
 		{
-	      	require_once($init_file->get_path());
+			require_once($init_file->get_path());
 		}
 
 		return $modules;
