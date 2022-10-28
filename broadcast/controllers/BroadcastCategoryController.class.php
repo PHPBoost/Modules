@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 25
+ * @version     PHPBoost 6.0 - last update: 2022 10 28
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
@@ -33,9 +33,11 @@ class BroadcastCategoryController extends DefaultModuleController
 			'C_CALENDAR_VIEW'  => $this->config->get_display_type() == BroadcastConfig::CALENDAR_VIEW,
 			'C_ACCORDION_VIEW' => $this->config->get_display_type() == BroadcastConfig::ACCORDION_VIEW,
 
-			'CATEGORY_ID' 	=> $this->get_category()->get_id(),
-			'CATEGORY_NAME' => $this->get_category()->get_name(),
-			'MODULE_NAME' 	=> BroadcastConfig::load()->get_broadcast_name(),
+			'CATEGORY_ID' 		 => $this->get_category()->get_id(),
+			'CATEGORY_NAME' 	 => $this->get_category()->get_name(),
+			'CATEGORY_PARENT_ID' => $this->get_category()->get_id_parent(),
+			'CATEGORY_SUB_ORDER' => $this->get_category()->get_order(),
+			'MODULE_NAME' 		 => BroadcastConfig::load()->get_broadcast_name(),
 
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? BroadcastUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'broadcast')->rel()
 		));

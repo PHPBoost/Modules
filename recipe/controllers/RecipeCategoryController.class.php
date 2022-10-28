@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2022 10 28
  * @since       PHPBoost 6.0 - 2022 08 26
  */
 
@@ -58,12 +58,16 @@ class RecipeCategoryController extends DefaultModuleController
 
 				$this->view->assign_block_vars('sub_categories_list', array(
 					'C_CATEGORY_THUMBNAIL' => !empty($category_thumbnail),
-					'C_SEVERAL_ITEMS' => $category->get_elements_number() > 1,
-					'CATEGORY_ID' => $category->get_id(),
-					'CATEGORY_NAME' => $category->get_name(),
+					'C_SEVERAL_ITEMS' 	   => $category->get_elements_number() > 1,
+
+					'CATEGORY_ID'        => $category->get_id(),
+					'CATEGORY_NAME'      => $category->get_name(),
+					'CATEGORY_PARENT_ID' => $category->get_id_parent(),
+					'CATEGORY_SUB_ORDER' => $category->get_order(),
+					'ITEMS_NUMBER'       => $category->get_elements_number(),
+
 					'U_CATEGORY_THUMBNAIL' => $category_thumbnail,
-					'ITEMS_NUMBER' => $category->get_elements_number(),
-					'U_CATEGORY' => RecipeUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
+					'U_CATEGORY' 		   => RecipeUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
 				));
 			}
 		}
@@ -126,9 +130,12 @@ class RecipeCategoryController extends DefaultModuleController
 			'TABLE_COLSPAN'            => 4 + (int)$this->comments_config->module_comments_is_enabled('recipe') + (int)$this->content_management_config->module_notation_is_enabled('recipe'),
 			'ID_CAT'                   => $this->get_category()->get_id(),
 			'CATEGORY_NAME'            => $this->get_category()->get_name(),
-			'U_CATEGORY_THUMBNAIL'     => $this->get_category()->get_thumbnail()->rel(),
+			'CATEGORY_PARENT_ID'   	   => $this->get_category()->get_id_parent(),
+			'CATEGORY_SUB_ORDER'   	   => $this->get_category()->get_order(),
 			'CATEGORY_DESCRIPTION'     => $category_description,
-			'U_EDIT_CATEGORY'          => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? RecipeUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'recipe')->rel()
+
+			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel(),
+			'U_EDIT_CATEGORY'      => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? RecipeUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'recipe')->rel()
 		));
 
 		while ($row = $result->fetch())

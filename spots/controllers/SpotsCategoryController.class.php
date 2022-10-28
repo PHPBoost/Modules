@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 09 20
+ * @version     PHPBoost 6.0 - last update: 2022 10 28
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -47,11 +47,13 @@ class SpotsCategoryController extends DefaultModuleController
 				$this->view->assign_block_vars('sub_categories_list', array(
 					'C_SEVERAL_ITEMS' => $category->get_elements_number() > 1,
 
-					'CATEGORY_ID'            => $category->get_id(),
-					'CATEGORY_NAME'          => $category->get_name(),
-					'ITEMS_NUMBER'           => $category->get_elements_number(),
-					'CATEGORY_COLOR' 	 	 => $category->get_color(),
-					'CATEGORY_INNER_ICON' 	 => !empty($category->get_inner_icon()) ? $category->get_inner_icon() : $this->config->get_default_inner_icon(),
+					'CATEGORY_ID'         => $category->get_id(),
+					'CATEGORY_NAME'       => $category->get_name(),
+					'CATEGORY_PARENT_ID'  => $category->get_id_parent(),
+					'CATEGORY_SUB_ORDER'  => $category->get_order(),
+					'ITEMS_NUMBER'        => $category->get_elements_number(),
+					'CATEGORY_COLOR' 	  => $category->get_color(),
+					'CATEGORY_INNER_ICON' => !empty($category->get_inner_icon()) ? $category->get_inner_icon() : $this->config->get_default_inner_icon(),
 
 					'U_CATEGORY' => SpotsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
 				));
@@ -107,6 +109,8 @@ class SpotsCategoryController extends DefaultModuleController
 			'MODULE_NAME'              => $this->config->get_module_name(),
 			'ROOT_CATEGORY_DESC'       => $this->config->get_root_category_description(),
 			'CATEGORY_NAME'            => $this->get_category()->get_name(),
+			'CATEGORY_PARENT_ID'   	   => $this->get_category()->get_id_parent(),
+			'CATEGORY_SUB_ORDER'   	   => $this->get_category()->get_order(),
 			'GMAP_API_KEY'             => GoogleMapsConfig::load()->get_api_key(),
 			'DEFAULT_LAT'              => GoogleMapsConfig::load()->get_default_marker_latitude(),
 			'DEFAULT_LNG'              => GoogleMapsConfig::load()->get_default_marker_longitude(),

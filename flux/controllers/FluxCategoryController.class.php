@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 06 06
+ * @version     PHPBoost 6.0 - last update: 2022 10 28
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -13,7 +13,7 @@ class FluxCategoryController extends DefaultModuleController
 
 	protected function get_template_to_use()
 	{
-	   return new FileTemplate('flux/FluxSeveralItemsController.tpl');
+		return new FileTemplate('flux/FluxSeveralItemsController.tpl');
 	}
 
 	public function execute(HTTPRequestCustom $request)
@@ -48,9 +48,11 @@ class FluxCategoryController extends DefaultModuleController
 					'C_SEVERAL_ITEMS' => $category->get_elements_number() > 1,
 					'C_CATEGORY_THUMBNAIL' => !empty($category->get_thumbnail()->rel()),
 
-					'CATEGORY_ID'            => $category->get_id(),
-					'CATEGORY_NAME'          => $category->get_name(),
-					'ITEMS_NUMBER'           => $category->get_elements_number(),
+					'CATEGORY_ID'        => $category->get_id(),
+					'CATEGORY_NAME'      => $category->get_name(),
+					'CATEGORY_PARENT_ID' => $category->get_id_parent(),
+					'CATEGORY_SUB_ORDER' => $category->get_order(),
+					'ITEMS_NUMBER'       => $category->get_elements_number(),
 
 					'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
 					'U_CATEGORY'           => FluxUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel()
@@ -100,6 +102,8 @@ class FluxCategoryController extends DefaultModuleController
 			'MODULE_NAME'               => $this->config->get_module_name(),
 			'ROOT_CATEGORY_DESCRIPTION' => $this->config->get_root_category_description(),
 			'CATEGORY_NAME'             => $this->get_category()->get_name(),
+			'CATEGORY_PARENT_ID'   	    => $this->get_category()->get_id_parent(),
+			'CATEGORY_SUB_ORDER'   	    => $this->get_category()->get_order(),
 			'CATEGORY_DESCRIPTION'      => FormatingHelper::second_parse($this->get_category()->get_description()),
 			'SUBCATEGORIES_PAGINATION'  => $subcategories_pagination->display(),
 			'PAGINATION'                => $pagination->display(),
