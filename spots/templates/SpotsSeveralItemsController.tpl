@@ -1,7 +1,7 @@
 <section id="module-spots" class="several-items">
 	<header class="section-header">
 		<div class="controls align-right">
-			<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('spots', ID_CAT))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning"></i></a>
+			<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('spots', CATEGORY_ID))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning"></i></a>
 			# IF NOT C_ROOT_CATEGORY #{MODULE_NAME}# ENDIF #
 			# IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a># ENDIF #
 		</div>

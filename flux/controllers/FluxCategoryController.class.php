@@ -109,7 +109,7 @@ class FluxCategoryController extends DefaultModuleController
 			'PAGINATION'                => $pagination->display(),
 			'CATEGORIES_PER_ROW'        => $this->config->get_categories_per_row(),
 			'ITEMS_PER_ROW'             => $this->config->get_items_per_row(),
-			'ID_CAT'                    => $this->get_category()->get_id(),
+			'CATEGORY_ID'               => $this->get_category()->get_id(),
 
 			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? FluxUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'flux')->rel()
 		));

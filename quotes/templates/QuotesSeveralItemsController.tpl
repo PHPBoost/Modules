@@ -9,7 +9,7 @@
 				{@quotes.pending.items}
 			# ELSE #
 				# IF C_MEMBER_ITEMS #
-			 		# IF C_MY_ITEMS #{@quotes.my.items}# ELSE #{@quotes.member.items} {MEMBER_NAME}# ENDIF #
+					# IF C_MY_ITEMS #{@quotes.my.items}# ELSE #{@quotes.member.items} {MEMBER_NAME}# ENDIF #
 				# ELSE #
 					# IF C_ROOT_CATEGORY #{@quotes.module.title}# ELSE ## IF C_WRITER_ITEMS #{WRITER_NAME}# ELSE #{CATEGORY_NAME}# ENDIF ## ENDIF #
 				# ENDIF #
@@ -85,7 +85,7 @@
 										<a class="offload" href="{items.U_CATEGORY}"><i class="far fa-folder"></i> {items.CATEGORY_NAME}</a>
 									</div>
 								</div>
-				            </blockquote>
+							</blockquote>
 						</div>
 						<footer></footer>
 					</article>
