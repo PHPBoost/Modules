@@ -88,7 +88,11 @@
 					</div>
 				# ELSE #
 					<div class="message-helper bgc warning">
+					# IF C_EMPTY_FILE #
+						{@flux.empty.xml.file}
+					# ELSE #
 						{@flux.rss.init}
+					# ENDIF #
 					</div>
 				# ENDIF #
 				# IF C_CONTROLS #

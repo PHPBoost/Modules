@@ -142,21 +142,21 @@ class FluxCategoryController extends DefaultModuleController
 			$item = new FluxItem();
 			$item->set_properties($row);
 
-			$rss_number = $this->config->get_rss_number();
+			$rss_number  = $this->config->get_rss_number();
 			$char_number = $this->config->get_characters_number_to_cut();
 
 			$xml_path = $item->get_xml_path();
-			$xml_file = new File(PATH_TO_ROOT . '/' . $xml_path);
+			$xml_file = new File(PATH_TO_ROOT . $xml_path);
 
-			if(!empty($xml_path) && $xml_file->exists())
+			if(!empty($xml_path) && $xml_file->exists() && !empty(file_get_contents(PATH_TO_ROOT . $xml_path)))
 			{
 				$this->view->put_all(array(
 					'C_LAST_ITEMS' => $result->get_rows_count() > 0 && $this->config->get_last_feeds_display(),
 					'LAST_FEEDS_NUMBER' => $this->config->get_last_feeds_number(),
-					'LAST_FEEDS'        => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
+					'L_LAST_FEEDS'      => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
 				));
 
-				$xml = simplexml_load_file(PATH_TO_ROOT . '/' . $item->get_xml_path());
+				$xml = simplexml_load_file(PATH_TO_ROOT . $xml_path);
 				$xml_items = array();
 				$xml_items['title'] = array();
 				$xml_items['link']  = array();

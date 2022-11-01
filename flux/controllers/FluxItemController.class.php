@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 03 21
+ * @version     PHPBoost 6.0 - last update: 2022 10 31
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -11,7 +11,7 @@ class FluxItemController extends DefaultModuleController
 {
 	protected function get_template_to_use()
 	{
-	   return new FileTemplate('flux/FluxItemController.tpl');
+		return new FileTemplate('flux/FluxItemController.tpl');
 	}
 
 	public function execute(HTTPRequestCustom $request)
@@ -56,7 +56,7 @@ class FluxItemController extends DefaultModuleController
 		}
 
 		// Read cache file
-		if(file_exists(PATH_TO_ROOT . $filename))
+		if(file_exists(PATH_TO_ROOT . $filename) && !empty(file_get_contents(PATH_TO_ROOT . $filename)))
 		{
 			$xml = simplexml_load_file(PATH_TO_ROOT . $filename);
 			$items = array();
@@ -101,9 +101,9 @@ class FluxItemController extends DefaultModuleController
 				));
 			}
 		}
-		else {
+		elseif (empty(file_get_contents(PATH_TO_ROOT . $filename))) {
 			$this->view->put_all(array(
-				'C_FEED_ITEMS' => false
+				'C_EMPTY_FILE' => true
 			));
 		}
 

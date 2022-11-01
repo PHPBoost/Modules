@@ -33,7 +33,7 @@
 				<div class="content-container">
 					<article>
 						<header>
-							<h5>{LAST_FEEDS}</h5>
+							<h5>{L_LAST_FEEDS}</h5>
 						</header>
 						<div class="content">
 								<div
@@ -72,12 +72,12 @@
 									# END feed_items #
 								</ul>
 								<nav
-								   	class="listorder-pagination pagination"
-								   	data-listorder-control="pagination"
-							        data-group="feed-items"
-							        data-items-per-page="{LAST_FEEDS_NUMBER}"
-							        data-current-page="0"
-							        data-name="pagination1"
+									class="listorder-pagination pagination"
+									data-listorder-control="pagination"
+									data-group="feed-items"
+									data-items-per-page="{LAST_FEEDS_NUMBER}"
+									data-current-page="0"
+									data-name="pagination1"
 									data-id="paging">
 								</nav>
 						</div>

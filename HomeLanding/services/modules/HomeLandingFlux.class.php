@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 06 06
+ * @version     PHPBoost 6.0 - last update: 2022 10 31
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -42,7 +42,7 @@ class HomeLandingFlux
             'C_NEW_WINDOW'    => $module_config->get_new_window(),
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
 			'MODULE_NAME'     => $module_name,
-		    'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
+			'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
         ));
 
 		while ($row = $result->fetch())
@@ -56,11 +56,11 @@ class HomeLandingFlux
 			$xml_path = $item->get_xml_path();
 			$xml_file = new File(PATH_TO_ROOT . '/' . $xml_path);
 
-			if(!empty($xml_path) && $xml_file->exists())
+			if(!empty($xml_path) && $xml_file->exists() && !empty(file_get_contents(PATH_TO_ROOT . $xml_path)))
 			{
 				$view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
 
-				$xml = simplexml_load_file(PATH_TO_ROOT . '/' . $item->get_xml_path());
+				$xml = simplexml_load_file(PATH_TO_ROOT . $xml_path);
 				$xml_items = array();
 				$xml_items['title'] = array();
 				$xml_items['link']  = array();

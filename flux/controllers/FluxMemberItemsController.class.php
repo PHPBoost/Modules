@@ -13,7 +13,7 @@ class FluxMemberItemsController extends DefaultModuleController
 
 	protected function get_template_to_use()
 	{
-	   return new FileTemplate('flux/FluxSeveralItemsController.tpl');
+		return new FileTemplate('flux/FluxSeveralItemsController.tpl');
 	}
 
 	public function execute(HTTPRequestCustom $request)
