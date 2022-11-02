@@ -672,7 +672,7 @@ class Smallad
 		$nbr_pictures		= count($carousel);
 
 		if($this->config->is_googlemaps_available()) {
-			$unserialized_value = @unserialize($this->get_location());
+			$unserialized_value = TextHelper::deserialize($this->get_location());
 			$location_value = $unserialized_value !== false ? $unserialized_value : $this->get_location();
 			$location = '';
 			if (is_array($location_value) && isset($location_value['address']))

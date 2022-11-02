@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2018 12 10
+ * @version   	PHPBoost 5.2 - last update: 2022 11 02
  * @since   	PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -136,7 +136,7 @@ class SmalladsItemFormController extends ModuleController
 		// County
 		if($this->config->is_location_displayed()) {
 			if($this->config->is_googlemaps_available()) {
-				$unserialized_value = @unserialize($this->get_smallad()->get_location());
+				$unserialized_value = TextHelper::deserialize($this->get_smallad()->get_location());
 				$location_value = $unserialized_value !== false ? $unserialized_value : $this->get_smallad()->get_location();
 
 				$location = '';

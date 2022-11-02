@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2019 01 17
+ * @version   	PHPBoost 5.2 - last update: 2022 11 02
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -538,8 +538,8 @@ class HomeLandingHomeController extends ModuleController
 
 			$tpl->assign_block_vars('item', $article->get_array_tpl_vars());
 			$tpl->put_all(array(
-				'DATE_DAY' => strftime('%d', $article->get_date_created()->get_timestamp()),
-				'DATE_MONTH_A' => strftime('%b', $article->get_date_created()->get_timestamp()),
+				'DATE_DAY' => Date::to_format($article->get_date_created()->get_timestamp(), Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
+				'DATE_MONTH_A' => Date::to_format($article->get_date_created()->get_timestamp(), Date::FORMAT_DAY_MONTH),
 				'ARTICLES_POSITION' => $this->config->get_module_position_by_id(HomeLandingConfig::MODULE_ARTICLES),
 				'C_DISPLAY_BLOCK' => $articles_config->get_display_type() == ArticlesConfig::DISPLAY_MOSAIC,
 				'COL_NBR' => $articles_config->get_number_cols_display_per_line()
@@ -885,7 +885,7 @@ class HomeLandingHomeController extends ModuleController
 				'U_AVATAR' => $user_avatar,
 				'CONTENTS' => TextHelper::cut_string(@strip_tags(stripslashes($contents), 0), (int)$nb_char),
 				'PSEUDO' => $row['last_login'],
-				'DATE' => strftime('%d/%m/%Y - %Hh%M', $row['last_timestamp']),
+				'DATE' => Date::to_format($row['last_timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
 				'MESSAGE' => stripslashes($row['title']),
 				'U_LINK' => $link->rel(),
 				'U_MESSAGE' => $link_message->rel()
@@ -1080,7 +1080,7 @@ class HomeLandingHomeController extends ModuleController
 					'PSEUDO' => $row['display_name'],
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
-					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
