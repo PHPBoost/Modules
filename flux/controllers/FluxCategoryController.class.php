@@ -85,6 +85,7 @@ class FluxCategoryController extends DefaultModuleController
 
 		$this->view->put_all(array(
 			'C_CATEGORY'                  => true,
+			'C_CATEGORY_THUMBNAIL' 		  => !$this->get_category()->get_id() == Category::ROOT_CATEGORY && !empty($this->get_category()->get_thumbnail()->rel()),
 			'C_ITEMS'                     => $result->get_rows_count() > 0,
             'C_SEVERAL_ITEMS'             => $result->get_rows_count() > 1,
 			'C_GRID_VIEW'                 => $this->config->get_display_type() == FluxConfig::GRID_VIEW,
@@ -111,7 +112,8 @@ class FluxCategoryController extends DefaultModuleController
 			'ITEMS_PER_ROW'             => $this->config->get_items_per_row(),
 			'CATEGORY_ID'               => $this->get_category()->get_id(),
 
-			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? FluxUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'flux')->rel()
+			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? FluxUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'flux')->rel(),
+			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel()
 		));
 
 		while ($row = $result->fetch())

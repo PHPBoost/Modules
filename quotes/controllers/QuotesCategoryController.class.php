@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 28
+ * @version     PHPBoost 6.0 - last update: 2022 11 08
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -15,7 +15,7 @@ class QuotesCategoryController extends DefaultModuleController
 
 	protected function get_template_to_use()
 	{
-	   return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
+		return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
 	}
 
 	public function execute(HTTPRequestCustom $request)
@@ -86,6 +86,7 @@ class QuotesCategoryController extends DefaultModuleController
 			'C_ITEMS'                    => $result->get_rows_count() > 0,
 			'C_CATEGORY_DESCRIPTION'     => !empty($category_description),
 			'C_CATEGORY'                 => true,
+			'C_CATEGORY_THUMBNAIL'       => !$this->get_category()->get_id() == Category::ROOT_CATEGORY && !empty($this->get_category()->get_thumbnail()->rel()),
 			'C_ROOT_CATEGORY'            => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
 			'C_HIDE_NO_ITEM_MESSAGE'     => $this->get_category()->get_id() == Category::ROOT_CATEGORY && ($nbr_cat_displayed != 0 || !empty($category_description)),
 			'C_SUB_CATEGORIES'           => $nbr_cat_displayed > 0,

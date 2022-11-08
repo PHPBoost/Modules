@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 28
+ * @version     PHPBoost 6.0 - last update: 2022 11 08
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
@@ -28,10 +28,11 @@ class BroadcastCategoryController extends DefaultModuleController
 	private function build_view()
 	{
 		$this->view->put_all(array(
-			'C_CATEGORY' 	   => true,
-			'C_ROOT_CATEGORY'  => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
-			'C_CALENDAR_VIEW'  => $this->config->get_display_type() == BroadcastConfig::CALENDAR_VIEW,
-			'C_ACCORDION_VIEW' => $this->config->get_display_type() == BroadcastConfig::ACCORDION_VIEW,
+			'C_CATEGORY' 	   	   => true,
+			'C_CATEGORY_THUMBNAIL' => !$this->get_category()->get_id() == Category::ROOT_CATEGORY && !empty($this->get_category()->get_thumbnail()->rel()),
+			'C_ROOT_CATEGORY'  	   => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
+			'C_CALENDAR_VIEW'  	   => $this->config->get_display_type() == BroadcastConfig::CALENDAR_VIEW,
+			'C_ACCORDION_VIEW' 	   => $this->config->get_display_type() == BroadcastConfig::ACCORDION_VIEW,
 
 			'CATEGORY_ID' 		 => $this->get_category()->get_id(),
 			'CATEGORY_NAME' 	 => $this->get_category()->get_name(),
@@ -39,7 +40,8 @@ class BroadcastCategoryController extends DefaultModuleController
 			'CATEGORY_SUB_ORDER' => $this->get_category()->get_order(),
 			'MODULE_NAME' 		 => BroadcastConfig::load()->get_broadcast_name(),
 
-			'U_EDIT_CATEGORY' => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? BroadcastUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'broadcast')->rel()
+			'U_EDIT_CATEGORY' 	   => $this->get_category()->get_id() == Category::ROOT_CATEGORY ? BroadcastUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'broadcast')->rel(),
+			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel()
 		));
 
 		$this->build_day_view('monday');

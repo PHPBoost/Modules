@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 28
+ * @version     PHPBoost 6.0 - last update: 2022 11 08
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -93,6 +93,7 @@ class SpotsCategoryController extends DefaultModuleController
 
 		$this->view->put_all(array(
 			'C_CATEGORY'                 => true,
+			'C_CATEGORY_THUMBNAIL' 		 => !$this->get_category()->get_id() == Category::ROOT_CATEGORY && !empty($this->get_category()->get_thumbnail()->rel()),
 			'C_ITEMS'                    => $result->get_rows_count() > 0,
             'C_GMAP_ENABLED'             => SpotsService::is_gmap_enabled(),
             'C_SEVERAL_ITEMS'            => $result->get_rows_count() > 1,
@@ -120,8 +121,9 @@ class SpotsCategoryController extends DefaultModuleController
 			'ITEMS_PER_ROW'            => $this->config->get_items_per_row(),
 			'CATEGORY_ID'              => $this->get_category()->get_id(),
 
-			'U_EDIT_CATEGORY' => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'spots')->rel()
-		));
+			'U_EDIT_CATEGORY' => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'spots')->rel(),			
+			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel()
+			));
 
 		while ($row = $result->fetch())
 		{
