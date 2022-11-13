@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 28
+ * @version     PHPBoost 6.0 - last update: 2022 11 13
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -138,6 +138,13 @@ class FluxCategoryController extends DefaultModuleController
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'authorised_categories' => $authorized_categories
 		));
+		
+		$this->view->put_all(array(
+			'C_LAST_ITEMS' => $result->get_rows_count() > 0 && $this->config->get_last_feeds_display(),
+
+			'LAST_FEEDS_NUMBER' => $this->config->get_last_feeds_number(),
+			'L_LAST_FEEDS'      => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
+		));
 
 		while ($row = $result->fetch())
 		{
@@ -152,12 +159,6 @@ class FluxCategoryController extends DefaultModuleController
 
 			if(!empty($xml_path) && $xml_file->exists() && !empty(file_get_contents(PATH_TO_ROOT . $xml_path)))
 			{
-				$this->view->put_all(array(
-					'C_LAST_ITEMS' => $result->get_rows_count() > 0 && $this->config->get_last_feeds_display(),
-					'LAST_FEEDS_NUMBER' => $this->config->get_last_feeds_number(),
-					'L_LAST_FEEDS'      => StringVars::replace_vars($this->lang['flux.last.feeds.title'], array('feeds_number' => $this->config->get_rss_number())),
-				));
-
 				$xml = simplexml_load_file(PATH_TO_ROOT . $xml_path);
 				$xml_items = array();
 				$xml_items['title'] = array();
@@ -179,13 +180,10 @@ class FluxCategoryController extends DefaultModuleController
 
 				for($i = 0; $i < $xml_items_number ; $i++)
 				{
-					$item_host = basename(parse_url($xml_items['link'][$i], PHP_URL_HOST));
-
 					$date = Date::to_format($xml_items['date'][$i], Date::FORMAT_TIMESTAMP);
 					$item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
 					$desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
 					$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
-					$item_img = $xml_items['img'][$i];
 					$words_number = str_word_count($desc) - str_word_count($cut_desc);
 
 					$this->view->assign_block_vars('feed_items',array(
@@ -251,7 +249,7 @@ class FluxCategoryController extends DefaultModuleController
 					$this->category = CategoriesService::get_categories_manager('flux')->get_categories_cache()->get_category($id);
 				} catch (CategoryNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
-   					DispatchManager::redirect($error_controller);
+					DispatchManager::redirect($error_controller);
 				}
 			}
 			else

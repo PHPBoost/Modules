@@ -3,15 +3,23 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2022 11 13
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
 class AdminFluxConfigController extends DefaultAdminModuleController
 {
+	private $update_button;
+
+	protected function get_template_to_use()
+	{
+		return new FileTemplate('flux/AdminFluxConfigController.tpl');
+	}
+
 	public function execute(HTTPRequestCustom $request)
 	{
 		$this->build_form();
+		$this->build_update_form();
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -21,7 +29,67 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.config'], MessageHelper::SUCCESS, 5));
 		}
 
-		$this->view->put('CONTENT', $this->form->display());
+		if ($this->update_button->has_been_submited())
+		{
+			// Delete unsed files from cache folder
+			$result = PersistenceContext::get_querier()->select('SELECT flux.*
+			FROM ' . FluxSetup::$flux_table . ' flux
+			WHERE published = 1
+			OR published = 0'
+			);
+
+			$cache_list = new Folder(PATH_TO_ROOT . '/flux/xml');
+			foreach($cache_list->get_files() as $file)
+			{
+				if($file->get_name() !== '.empty')
+				{
+					$is_in_content = array();
+					foreach($result as $row)
+					{
+						if($row['xml_path'])
+						{
+							$filepath = $file->get_path();
+							$xmlpath = PATH_TO_ROOT . $row['xml_path'];
+							
+							if(strcmp($filepath, $xmlpath) !== 0)
+								$is_in_content[] = 'none';						
+							else
+								$is_in_content[] = 'ok';							
+						}
+					}
+					if (!in_array('ok', $is_in_content))
+						$file->delete();
+				}	
+			}
+
+			// Update all items
+			$result = PersistenceContext::get_querier()->select('SELECT flux.*
+			FROM ' . FluxSetup::$flux_table . ' flux
+			WHERE published = 1'
+			);
+
+			while ($row = $result->fetch())
+			{
+				// get xml path
+				$file = new File(PATH_TO_ROOT . $row['xml_path']);
+				if($file->get_path() != '..' && $file->exists()) // && !empty(PATH_TO_ROOT . $filename
+				{
+					// get file from target website
+					$xml_url = Url::to_absolute($row['website_xml']);
+					// load target feed items
+					$content = file_get_contents($xml_url);
+					// write target feed items in server file
+					file_put_contents($file->get_path(), $content);
+				}
+				
+			}
+			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['flux.success.update'], MessageHelper::SUCCESS, 5));
+		}
+
+		$this->view->put_all(array(
+			'CONTENT' 	   => $this->form->display(),
+			'UPDATE_CACHE' => $this->update_form->display()
+		));
 
 		return new DefaultAdminDisplayResponse($this->view);
 	}
@@ -37,9 +105,9 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 
 		$fieldset->add_field(new FormFieldCheckbox('new_window', $this->lang['form.new.window'], $this->config->get_new_window(),
 			array(
-	            'description' => $this->lang['form.new.window.clue'],
+				'description' => $this->lang['form.new.window.clue'],
 				'class' => 'custom-checkbox'
-        	)
+			)
 		));
 
         $fieldset->add_field(new FormFieldNumberEditor('rss_number', $this->lang['flux.rss.number'], $this->config->get_rss_number(),
@@ -146,6 +214,21 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 		$form->add_button(new FormButtonReset());
 
 		$this->form = $form;
+	}
+
+	private function build_update_form()
+	{
+		$update_form = new HTMLForm(__CLASS__ . 'Update');
+
+		$fieldset = new FormFieldsetHTML('update_all', $this->lang['flux.update.all']);
+		$update_form->add_fieldset($fieldset);
+
+		$fieldset->set_description($this->lang['flux.update.clue']);
+
+		$this->update_button = new FormButtonDefaultSubmit($this->lang['flux.update']);
+		$update_form->add_button($this->update_button);
+
+		$this->update_form = $update_form;
 	}
 
 	private function save()

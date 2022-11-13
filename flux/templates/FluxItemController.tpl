@@ -23,80 +23,78 @@
 							<a class="offload" href="{U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a>
 						# ENDIF #
 					</div>
-				# ENDIF #
-				<div class="content cell-tile">
-					<div class="cell cell-options">
-						<div class="cell-header">{@flux.website.infos}</div>
-						# IF C_HAS_THUMBNAIL #
-							<div class="cell-body">
-								<div class="cell-thumbnail">
-									<img src="{U_THUMBNAIL}" alt="{NAME}" itemprop="image" />
+				# ENDIF #				
+				# IF C_EMPTY_FILE #
+					<div class="message-helper bgc error">{@flux.empty.xml.file}</div>
+				# ELSE #
+					<div class="content cell-tile">
+						<div class="cell cell-options">
+							<div class="cell-header">{@flux.website.infos}</div>
+							# IF C_HAS_THUMBNAIL #
+								<div class="cell-body">
+									<div class="cell-thumbnail">
+										<img src="{U_THUMBNAIL}" alt="{NAME}" itemprop="image" />
+									</div>
 								</div>
-							</div>
-						# ENDIF #
-						<div class="cell-list small">
-							<ul>
-								# IF C_IS_PUBLISHED #
-									# IF C_VISIT #
-										<li class="li-stretch">
-											<a href="{U_VISIT}" # IF C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # class="button submit offload">
-												<i class="fa fa-globe" aria-hidden="true"></i> {@common.visit}
-											</a>
-											# IF IS_USER_CONNECTED #
-												<a href="{U_DEADLINK}" data-confirmation="{@contribution.dead.link.confirmation}" class="button offload bgc-full warning" aria-label="{@contribution.report.dead.link}">
-													<i class="fa fa-unlink" aria-hidden="true"></i>
+							# ENDIF #
+							<div class="cell-list small">
+								<ul>
+									# IF C_IS_PUBLISHED #
+										# IF C_VISIT #
+											<li class="li-stretch">
+												<a href="{U_VISIT}" # IF C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # class="button submit offload">
+													<i class="fa fa-globe" aria-hidden="true"></i> {@common.visit}
 												</a>
-											# ENDIF #
-										</li>
-									# ELSE #
-										<li>{@flux.no.website}</li>
+												# IF IS_USER_CONNECTED #
+													<a href="{U_DEADLINK}" data-confirmation="{@contribution.dead.link.confirmation}" class="button offload bgc-full warning" aria-label="{@contribution.report.dead.link}">
+														<i class="fa fa-unlink" aria-hidden="true"></i>
+													</a>
+												# ENDIF #
+											</li>
+										# ELSE #
+											<li>{@flux.no.website}</li>
+										# ENDIF #
 									# ENDIF #
-								# ENDIF #
-								<li class="li-stretch"><span class="text-strong">{@common.views.number} : </span><span>{VIEWS_NUMBER}</span></li>
-								# IF C_VISIT #<li class="li-stretch"><span class="text-strong">{@common.visits.number} : </span><span>{VISITS_NUMBER}</span></li># ENDIF #
+									<li class="li-stretch"><span class="text-strong">{@common.views.number} : </span><span>{VIEWS_NUMBER}</span></li>
+									# IF C_VISIT #<li class="li-stretch"><span class="text-strong">{@common.visits.number} : </span><span>{VISITS_NUMBER}</span></li># ENDIF #
+								</ul>
+							</div>
+						</div>
+
+						# IF C_CONTENT #
+							<div itemprop="text">
+								{CONTENT}
+							</div>
+						# ENDIF #	
+
+					</div>
+					# IF C_FEED_ITEMS #
+						<div class="content">
+							<ul>
+								# START feed_items #
+									<li>
+										<span class="flex-between">
+											<a class="big" href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
+												{feed_items.TITLE}
+											</a>
+											<span class="small align-right">{feed_items.DATE}</span>
+										</span>
+										<p>
+											# IF feed_items.C_HAS_THUMBNAIL #
+												<img src="{feed_items.U_THUMBNAIL}" class="align-left" alt="{feed_items.TITLE}" />
+											# ENDIF #
+											{feed_items.SUMMARY}# IF feed_items.C_READ_MORE #...# ENDIF #
+										</p>
+									</li>
+								# END feed_items #
 							</ul>
 						</div>
-					</div>
-
-					# IF C_CONTENT #
-						<div itemprop="text">
-							{CONTENT}
-						</div>
-					# ENDIF #
-
-				</div>
-				# IF C_FEED_ITEMS #
-					<div class="content">
-						<ul>
-							# START feed_items #
-								<li>
-									<span class="flex-between">
-										<a class="big" href="{feed_items.U_ITEM}"# IF C_NEW_WINDOW # target="_blank" rel="noopener noreferrer"# ENDIF #>
-											{feed_items.TITLE}
-										</a>
-										<span class="small align-right">{feed_items.DATE}</span>
-									</span>
-									<p>
-										# IF feed_items.C_HAS_THUMBNAIL #
-											<img src="{feed_items.U_THUMBNAIL}" class="align-left" alt="{feed_items.TITLE}" />
-										# ENDIF #
-										{feed_items.SUMMARY}# IF feed_items.C_READ_MORE #...# ENDIF #
-									</p>
-								</li>
-							# END feed_items #
-						</ul>
-					</div>
-				# ELSE #
-					<div class="message-helper bgc warning">
-					# IF C_EMPTY_FILE #
-						{@flux.empty.xml.file}
 					# ELSE #
-						{@flux.rss.init}
+						<div class="message-helper bgc warning">{@flux.rss.init}</div>
 					# ENDIF #
-					</div>
-				# ENDIF #
-				# IF C_CONTROLS #
-					# INCLUDE FORM #
+					# IF C_CONTROLS #
+						# INCLUDE FORM #
+					# ENDIF #
 				# ENDIF #
 
 				<aside class="sharing-container">

@@ -101,7 +101,7 @@ class FluxItemController extends DefaultModuleController
 				));
 			}
 		}
-		elseif (empty(file_get_contents(PATH_TO_ROOT . $filename))) {
+		elseif (file_exists(PATH_TO_ROOT . $filename) && empty(file_get_contents(PATH_TO_ROOT . $filename))) {
 			$this->view->put_all(array(
 				'C_EMPTY_FILE' => true
 			));
