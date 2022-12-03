@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 11 08
+ * @version     PHPBoost 6.0 - last update: 2022 12 03
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -85,15 +85,15 @@ class SpotsCategoryController extends DefaultModuleController
 
 		if(!$root_category){
 			$category_address_values = TextHelper::deserialize($this->get_category()->get_category_address());
+			
 			$this->view->put_all(array(
-				'CATEGORY_LATITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
-				'CATEGORY_LONGITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
+				'CATEGORY_LATITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
+				'CATEGORY_LONGITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
 			));
 		}
 
 		$this->view->put_all(array(
 			'C_CATEGORY'                 => true,
-			'C_CATEGORY_THUMBNAIL' 		 => !$this->get_category()->get_id() == Category::ROOT_CATEGORY && !empty($this->get_category()->get_thumbnail()->rel()),
 			'C_ITEMS'                    => $result->get_rows_count() > 0,
             'C_GMAP_ENABLED'             => SpotsService::is_gmap_enabled(),
             'C_SEVERAL_ITEMS'            => $result->get_rows_count() > 1,
@@ -122,14 +122,13 @@ class SpotsCategoryController extends DefaultModuleController
 			'CATEGORY_ID'              => $this->get_category()->get_id(),
 
 			'U_EDIT_CATEGORY' => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'spots')->rel(),			
-			'U_CATEGORY_THUMBNAIL' => $this->get_category()->get_thumbnail()->rel()
 			));
 
 		while ($row = $result->fetch())
 		{
 			$item = new SpotsItem();
 			$item->set_properties($row);
-			$this->view->assign_block_vars('items', array_merge($item->get_template_vars()));
+			$this->view->assign_block_vars('items', $item->get_template_vars());
 		}
 		$result->dispose();
 
@@ -164,7 +163,7 @@ class SpotsCategoryController extends DefaultModuleController
 		{
 			$item = new SpotsItem();
 			$item->set_properties($row);
-			$this->view->assign_block_vars('self_items', array_merge($item->get_template_vars()));
+			$this->view->assign_block_vars('self_items', $item->get_template_vars());
 		}
 		$result->dispose();
 

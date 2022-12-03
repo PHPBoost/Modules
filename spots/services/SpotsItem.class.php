@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 09 20
+ * @version     PHPBoost 6.0 - last update: 2022 12 03
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -480,9 +480,10 @@ class SpotsItem
         $loca_lng_min = ($loca_lng - $loca_lng_deg)*60;
         $loca_lng_sec = ($loca_lng_min - intval($loca_lng))*60;
 
-		$category_address_values = TextHelper::deserialize(!$this->get_category()->get_id() == Category::ROOT_CATEGORY ? $category->get_category_address() : GoogleMapsConfig::load()->get_default_marker_address());
+		$category_address_values = TextHelper::deserialize($category->get_category_address());
 
 		$root_category = $category->get_id() == Category::ROOT_CATEGORY;
+
 		return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
 			array(
@@ -509,22 +510,22 @@ class SpotsItem
 			'C_DEFAULT_ADDRESS'    => !empty(GoogleMapsConfig::load()->get_default_marker_address()),
 			'C_CONTACT'			   => !empty($this->phone) || !empty($this->spot_email) || !empty($this->facebook->absolute()) || !empty($this->twitter->absolute()) || !empty($this->instagram->absolute()) || !empty($this->youtube->absolute()),
 
-            // Deafult values
+            // // Deafult values
             'GMAP_API_KEY' => GoogleMapsConfig::load()->get_api_key(),
             'C_GMAP_API'   => ModulesManager::is_module_installed('GoogleMaps') && ModulesManager::is_module_activated('GoogleMaps'),
 
-			// Category
+			// // Category
 			'C_ROOT_CATEGORY'      => $root_category,
 			'CATEGORY_ID'          => $category->get_id(),
 			'CATEGORY_NAME'        => $category->get_name(),
 			'CATEGORY_COLOR'   	   => !$root_category ? $category->get_color() : $config->get_default_color(),
 			'CATEGORY_INNER_ICON'  => !$root_category ? (!empty($category->get_inner_icon()) ? $category->get_inner_icon() : $config->get_default_inner_icon()) : $config->get_default_inner_icon(),
-			'CATEGORY_LATITUDE'    => !$root_category ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
-			'CATEGORY_LONGITUDE'   => !$root_category ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
+			'CATEGORY_LATITUDE'    => TextHelper::is_serialized($category->get_category_address()) && !empty($category->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
+			'CATEGORY_LONGITUDE'   => TextHelper::is_serialized($category->get_category_address()) && !empty($category->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
 
 			'U_EDIT_CATEGORY'      => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'spots')->rel(),
 
-			// Item
+			// // Item
 			'ID'                  => $this->id,
 			'TITLE'               => $this->title,
 			'REWRITED_TITLE'      => $this->rewrited_title,

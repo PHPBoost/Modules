@@ -57,8 +57,8 @@ class SpotsItemFormController extends DefaultModuleController
 
         if(SpotsService::is_gmap_enabled()) {
             $fieldset->add_field(new GoogleMapsFormFieldMapAddress('gps', $this->lang['spots.location'], new GoogleMapsMarker($this->get_item()->get_location(), $this->get_item()->get_location_latitude(), $this->get_item()->get_location_longitude()),
-    			array('description' => $this->lang['spots.location.clue'], 'always_display_marker' => true)
-    		));
+				array('description' => $this->lang['spots.location.clue'], 'always_display_marker' => true)
+			));
 
 			$fieldset->add_field(new FormFieldCheckbox('route', $this->lang['spots.display.route'], $this->get_item()->is_route_enabled(),
 				array(
