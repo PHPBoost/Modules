@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 25
+ * @version     PHPBoost 6.0 - last update: 2022 12 03
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
@@ -32,7 +32,7 @@ class BroadcastItemsManagerController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['common.category'], 'id_category'),
 			new HTMLTableColumn($this->lang['broadcast.announcer'], 'display_name'),
 			// new HTMLTableColumn($this->lang['date.day'], 'release_days'),
-			new HTMLTableColumn($this->lang['common.status.publication'], 'published'),
+			new HTMLTableColumn($this->lang['common.status'], 'published'),
 			new HTMLTableColumn($this->lang['common.moderation'], '', array('sr-only' => true))
 		);
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 14
+ * @version     PHPBoost 6.0 - last update: 2022 12 03
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -33,8 +33,8 @@ class SmalladsItemsManagerController extends DefaultModuleController
 			new HTMLTableColumn($this->lang['common.category'], 'id_category'),
 			new HTMLTableColumn($this->lang['common.author'], 'display_name'),
 			new HTMLTableColumn($this->lang['common.creation.date'], 'creation_date'),
-			new HTMLTableColumn($this->lang['common.status.publication'], 'published'),
-			new HTMLTableColumn($this->lang['common.status'], 'completed'),
+			new HTMLTableColumn($this->lang['common.status'], 'published'),
+			new HTMLTableColumn($this->lang['common.archives'], 'completed'),
 			new HTMLTableColumn($this->lang['common.moderation'], '', array('sr-only' => true))
 		);
 
