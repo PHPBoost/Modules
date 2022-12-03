@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Xela <xela@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 19
+ * @version     PHPBoost 6.0 - last update: 2022 12 03
  * @since       PHPBoost 5.1 - 2017 09 11
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -46,10 +46,11 @@ class WikitreeModuleMiniMenu extends ModuleMiniMenu
 
 		// root items
 		$root_results = $querier->select('SELECT
-				id, title, encoded_title, id_cat, is_cat
+				id, title, encoded_title, id_cat, is_cat, redirect
 			FROM ' . PREFIX . 'wiki_articles a
 			WHERE id_cat = 0
 			AND is_cat = 0
+			AND redirect = 0
 			ORDER BY title ASC'
 		);
 
@@ -74,11 +75,12 @@ class WikitreeModuleMiniMenu extends ModuleMiniMenu
 		// Categories & category's items
 		foreach (WikiCategoriesCache::load()->get_categories() as $category)
 		{
-	        $results = $querier->select('SELECT
-					id, title, encoded_title, id_cat, is_cat
+			$results = $querier->select('SELECT
+					id, title, encoded_title, id_cat, is_cat, redirect
 				FROM ' . PREFIX . 'wiki_articles a
 				WHERE a.id_cat = :cat_id
 				AND a.is_cat = 0
+				AND a.redirect = 0
 				ORDER BY a.title ASC', array(
 					'cat_id' => $category['id']
 				)
@@ -88,20 +90,20 @@ class WikitreeModuleMiniMenu extends ModuleMiniMenu
 				'C_ITEMS' => $results->get_rows_count() > 0,
 
 				'CATEGORY_ID'         => $category['id'],
-	            'CATEGORY_PARENT_ID'  => $category['id_parent'],
-	            'CATEGORY_ARTICLE_ID' => $category['article_id'],
-	            'CATEGORY_NAME'       => $category['title'] ,
+				'CATEGORY_PARENT_ID'  => $category['id_parent'],
+				'CATEGORY_ARTICLE_ID' => $category['article_id'],
+				'CATEGORY_NAME'       => $category['title'] ,
 
-	            'U_CATEGORY' => url('wiki.php?title=' . $category['encoded_title'], $category['encoded_title']),
+				'U_CATEGORY' => url('wiki.php?title=' . $category['encoded_title'], $category['encoded_title']),
 			));
 
 			while($row = $results->fetch())
 			{
 				$view->assign_block_vars('categories.items', array(
-	            	'ITEM_ID'         => $row['id'],
-	                'ITEM_TITLE'      => stripslashes($row['title']),
+					'ITEM_ID'         => $row['id'],
+					'ITEM_TITLE'      => stripslashes($row['title']),
 
-                	'U_ITEM'       	  => url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']),
+					'U_ITEM'       	  => url('wiki.php?title=' . $row['encoded_title'], $row['encoded_title']),
 				));
 			}
 		}
