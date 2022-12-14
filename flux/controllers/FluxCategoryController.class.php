@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 11 13
+ * @version     PHPBoost 6.0 - last update: 2022 12 14
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -309,8 +309,7 @@ class FluxCategoryController extends DefaultModuleController
 
 	public static function get_view()
 	{
-		$object = new self();
-		$object->init();
+		$object = new self('flux');
 		$object->check_authorizations();
 		$object->build_view(AppContext::get_request());
 		return $object->view;

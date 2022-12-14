@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 05 29
+ * @version     PHPBoost 6.0 - last update: 2022 12 14
  * @since       PHPBoost 4.1 - 2014 09 24
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -11,9 +11,9 @@
 class TeamspeakHomeController extends DefaultModuleController
 {
 	protected function get_template_to_use()
-   	{
-	   	return new FileTemplate('teamspeak/TeamspeakHomeController.tpl');
-   	}
+	{
+		return new FileTemplate('teamspeak/TeamspeakHomeController.tpl');
+	}
 
 	public function execute(HTTPRequestCustom $request)
 	{
@@ -71,7 +71,7 @@ class TeamspeakHomeController extends DefaultModuleController
 
 	public static function get_view()
 	{
-		$object = new self();
+		$object = new self('teamspeak');
 		$object->check_authorizations();
 		$object->build_view();
 		return $object->view;
