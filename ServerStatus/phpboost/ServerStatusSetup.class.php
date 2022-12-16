@@ -11,7 +11,7 @@ class ServerStatusSetup extends DefaultModuleSetup
 {
 	public function upgrade($installed_version)
 	{
-		return '5.2.0';
+		return '6.0.0';
 	}
 
 	public function uninstall()
