@@ -5,7 +5,7 @@
 				<div class="cell-thumbnail">
 					# IF items.C_HAS_THUMBNAIL #<img src="{items.U_THUMBNAIL}" alt="{items.TITLE}"># ENDIF #
 					<a href="{items.U_ITEM}" class="cell-thumbnail-caption offload" aria-label="{@video.watch}">
-						<i class="fa fa-play" aria-hidden></i>
+						<i class="fa fa-play" aria-hidden="true"></i>
 					</a>
 				</div>
 				<div class="cell-header">
@@ -15,7 +15,7 @@
 				</div>
 				<div class="cell-infos small">						
 					<time datetime="{items.DATE_ISO8601}">{items.DATE_AGO}</time>
-					# IF C_ENABLED_VIEWS_NUMBER #<span aria-label="{@common.views.number}"><i class="fa fa-eye" aria-hidden></i> {items.VIEWS_NUMBER}</span># ENDIF #
+					# IF C_ENABLED_VIEWS_NUMBER #<span aria-label="{@common.views.number}"><i class="fa fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 					# IF C_ENABLED_NOTATION #{items.STATIC_NOTATION}# ENDIF #
 				</div>
 			</div>

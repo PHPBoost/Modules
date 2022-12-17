@@ -32,7 +32,7 @@
 						<div class="cell-list">
 							<ul>
 								<li class="li-stretch">
-									<span><i class="fa fa-people-group" aria-hidden></i></span>
+									<span><i class="fa fa-people-group" aria-hidden="true"></i></span>
 									<span>{PERSONS_NUMBER}# IF C_SEVERAL_PERSONS # {@recipe.persons}# ELSE # {@recipe.person}# ENDIF #</span>
 								</li>
 								# IF C_INGREDIENTS #
