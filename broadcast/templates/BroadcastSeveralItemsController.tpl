@@ -25,24 +25,7 @@
 					<div class="broadcast-flex">
 				# ENDIF #
 				# IF C_ACCORDION_VIEW #
-					<div class="accordion-container basic">
-						<div class="accordion-controls">
-							<span class="open-all-accordions" aria-label="{@common.open.panels}"><i
-									class="fa fa-fw fa-chevron-down"></i></span>
-							<span class="close-all-accordions" aria-label="{@common.close.panels}"><i
-									class="fa fa-fw fa-chevron-up"></i></span>
-						</div>
-						<nav id="lorem" class="accordion-nav">
-							<ul>
-								<li><a href="#" data-accordion data-target="monday">{@date.monday}</a></li>
-								<li><a href="#" data-accordion data-target="tuesday">{@date.tuesday}</a></li>
-								<li><a href="#" data-accordion data-target="wednesday">{@date.wednesday}</a></li>
-								<li><a href="#" data-accordion data-target="thursday">{@date.thursday}</a></li>
-								<li><a href="#" data-accordion data-target="friday">{@date.friday}</a></li>
-								<li><a href="#" data-accordion data-target="saturday">{@date.saturday}</a></li>
-								<li><a href="#" data-accordion data-target="sunday">{@date.sunday}</a></li>
-							</ul>
-						</nav>
+					<div class="accordion-container">
 				# ENDIF #
 
 				# INCLUDE MONDAY_PRG #
@@ -55,21 +38,6 @@
 
 				# IF C_ACCORDION_VIEW #
 					</div>
-					<script>
-						jQuery(document).ready(function(){
-							var today = new Date();
-							var weekdays = new Array(7);
-							weekdays[0] = "sunday";
-							weekdays[1] = "monday";
-							weekdays[2] = "tuesday";
-							weekdays[3] = "wednesday";
-							weekdays[4] = "thursday";
-							weekdays[5] = "friday";
-							weekdays[6] = "saturday";
-							var openedDay = weekdays[today.getDay()];
-							jQuery('[data-target="' + openedDay + '"').addClass('active-tab')
-						})
-					</script>
 				# ENDIF #
 
 				# IF C_CALENDAR_VIEW #

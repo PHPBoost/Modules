@@ -1,47 +1,45 @@
 # IF C_ACCORDION_VIEW #
-	<div id="{DAY_ID}" class="accordion accordion-animation">
-		<div class="content-panel">
+	<div id="{DAY_ID}" class="multiple-accordion">
+		<span class="accordion-trigger">{DAY}</span>
+		<div class="accordion-content">
 			# IF C_ITEMS #
 				<div class="broadcast-item several-items">
 					# START items #
 						# IF items.C_SELECTED_DAY #
 							<div
 									id="article-broadcast-{items.ID}"
-									class="flex-between broadcast-item several-items# IF items.C_EXTRA_LIST # extra-list# ENDIF #"
+									class="broadcast-item several-items# IF items.C_EXTRA_LIST # extra-list# ENDIF #"
 									itemscope="itemscope"
 									itemtype="http://schema.org/CreativeWork">
-								<div class="accordion-thumbnail">
-									<img src="# IF items.C_HAS_THUMBNAIL #{items.U_THUMBNAIL}# ELSE #{PATH_TO_ROOT}/broadcast/templates/images/default.jpg# ENDIF #" alt="{items.TITLE}">
-								</div>
-								<div class="accordion-content">
-									<header>
-										<h3>
-											<a href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
-										</h3>
-
+								<header class="flex-between ">
+									<h3>
+										<a href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
 										<meta itemprop="url" content="{items.U_ITEM}">
 										<meta itemprop="description" content="${escape(items.CONTENT)}"/>
 										# IF items.C_HAS_THUMBNAIL #<meta itemprop="thumbnailUrl" content="{items.U_THUMBNAIL}"># ENDIF #
-									</header>
-									<div class="flex-between">
-										<div class="more">
-											<span class="pinned"><i class="fa fa-microphone-lines"></i> {items.AUTHOR_CUSTOM_NAME}</span>
-											<span class="pinned"><i class="far fa-clock"></i> {items.START_HOURS}h{items.START_MINUTES} - {items.END_HOURS}h{items.END_MINUTES}</span>
-											<span class="pinned"><i class="far fa-folder"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
-										</div>
-										# IF items.C_CONTROLS #
-											<div class="align-right controls">
-												# IF items.C_EDIT #
-													<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a>
-												# ENDIF #
-												# IF items.C_DELETE #
-													<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="fa fa-trash-alt"></i></a>
-												# ENDIF #
-											</div>
-										# ENDIF #
+									</h3>
+									<div class="accordion-thumbnail">
+										<img src="# IF items.C_HAS_THUMBNAIL #{items.U_THUMBNAIL}# ELSE #{PATH_TO_ROOT}/broadcast/templates/images/default.jpg# ENDIF #" alt="{items.TITLE}">
 									</div>
-									<div class="content">{items.CONTENT}</div>
+								</header>
+								<div class="flex-between">
+									<div class="more">
+										<span class="pinned"><i class="fa fa-microphone-lines"></i> {items.AUTHOR_CUSTOM_NAME}</span>
+										<span class="pinned"><i class="far fa-clock"></i> {items.START_HOURS}h{items.START_MINUTES} - {items.END_HOURS}h{items.END_MINUTES}</span>
+										<span class="pinned"><i class="far fa-folder"></i> <a itemprop="about" href="{items.U_CATEGORY}">{items.CATEGORY_NAME}</a></span>
+									</div>
+									# IF items.C_CONTROLS #
+										<div class="align-right controls">
+											# IF items.C_EDIT #
+												<a href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a>
+											# ENDIF #
+											# IF items.C_DELETE #
+												<a href="{items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="fa fa-trash-alt"></i></a>
+											# ENDIF #
+										</div>
+									# ENDIF #
 								</div>
+								<div class="content">{items.CONTENT}</div>
 							</div>
 						# ENDIF #
 					# END items #
@@ -58,7 +56,14 @@
 						weekdays[5] = "friday";
 						weekdays[6] = "saturday";
 						var openedDay = weekdays[today.getDay()];
-						jQuery('#' + openedDay).addClass('active-panel').css('height', 'auto');
+						jQuery('#' + openedDay)
+								.addClass('is-open')
+								.children('.accordion-trigger button')
+								.attr('aria-expanded', true);
+						jQuery('#' + openedDay)
+								.children('.accordion-content')
+								.css('display', 'block')
+								.removeAttr('hidden');
 					})
 				</script>
 			# ENDIF #
