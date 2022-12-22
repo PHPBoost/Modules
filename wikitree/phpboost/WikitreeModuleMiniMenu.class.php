@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Xela <xela@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 03
+ * @version     PHPBoost 6.0 - last update: 2022 12 22
  * @since       PHPBoost 5.1 - 2017 09 11
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -92,7 +92,7 @@ class WikitreeModuleMiniMenu extends ModuleMiniMenu
 				'CATEGORY_ID'         => $category['id'],
 				'CATEGORY_PARENT_ID'  => $category['id_parent'],
 				'CATEGORY_ARTICLE_ID' => $category['article_id'],
-				'CATEGORY_NAME'       => $category['title'] ,
+				'CATEGORY_NAME'       => stripslashes($category['title']),
 
 				'U_CATEGORY' => url('wiki.php?title=' . $category['encoded_title'], $category['encoded_title']),
 			));
