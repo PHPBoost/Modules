@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2022 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 03
+ * @version     PHPBoost 6.0 - last update: 2022 12 23
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
@@ -39,7 +39,7 @@ class BroadcastItemsManagerController extends DefaultModuleController
 		if (!$display_categories)
 			unset($columns[1]);
 
-		$table_model = new SQLHTMLTableModel(BroadcastSetup::$broadcast_table, 'broadcast-manager', $columns, new HTMLTableSortingRule('release_days', HTMLTableSortingRule::ASC));
+		$table_model = new SQLHTMLTableModel(BroadcastSetup::$broadcast_table, 'broadcast-manager', $columns, new HTMLTableSortingRule('title', HTMLTableSortingRule::ASC));
 
 		$table_model->set_layout_title($this->lang['broadcast.management']);
 
@@ -67,7 +67,7 @@ class BroadcastItemsManagerController extends DefaultModuleController
 
 			$this->elements_number++;
 			$this->ids[$this->elements_number] = $item->get_id();
-			
+
 			$edit_item = new LinkHTMLElement(BroadcastUrlBuilder::edit($item->get_id()), '', array('aria-label' => $this->lang['common.edit']), 'fa fa-edit');
 			$delete_item = new LinkHTMLElement(BroadcastUrlBuilder::delete($item->get_id()), '', array('aria-label' => $this->lang['common.delete'], 'data-confirmation' => 'delete-element'), 'fa fa-trash-alt');
 
@@ -75,13 +75,13 @@ class BroadcastItemsManagerController extends DefaultModuleController
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? array('style' => 'color: ' . $user_group_color) : array()), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
 			// $release_days_list = array();
-			// // Debug::stop(TextHelper::unserialize($item->get_release_days()));
-			// foreach (TextHelper::unserialize($item->get_release_days()) as $id => $value) {
+			// Debug::stop($item->get_release_days());
+			// foreach ((array)TextHelper::unserialize($item->get_release_days()) as $value) {
 			// 	$release_days_list[] = LangLoader::get_message('date.' . $value['id'] . '.short', 'date-lang') . ', ';
 			// }
-			
+
 			$row = array(
-				new HTMLTableRowCell(new LinkHTMLElement(BroadcastUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'left'),
+				new HTMLTableRowCell(new LinkHTMLElement(BroadcastUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), $item->get_title()), 'align-left'),
 				new HTMLTableRowCell(new LinkHTMLElement(BroadcastUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()), $category->get_name())),
 				new HTMLTableRowCell($author),
 				// new HTMLTableRowCell(''),
