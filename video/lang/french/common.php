@@ -38,6 +38,7 @@ $lang['video.ranking']    = 'Position';
 $lang['video.watch']    = 'Voir la vidéo';
 
 // Configuration
+$lang['video.config.display.subcategories'] = 'Afficher les sous-catégories';
 $lang['video.config.mini.module']    = 'Mini module';
 $lang['video.config.sort.type.clue'] = 'Sens décroissant';
 $lang['video.config.items.number']   = 'Nombre maximum d\'éléments affichés';

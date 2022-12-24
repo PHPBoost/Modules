@@ -31,6 +31,8 @@ class VideoConfig extends AbstractConfigData
 	const LIST_VIEW    = 'list_view';
 	const TABLE_VIEW   = 'table_view';
 
+	const SUBCATEGORIES_DISPLAY = 'subcategories_display';
+
 	CONST MIME_TYPE_LIST  = 'MIME_TYPE_LIST';
 	const PLAYERS  = 'players';
 
@@ -253,6 +255,16 @@ class VideoConfig extends AbstractConfigData
 		$this->set_property(self::AUTO_CUT_CHARACTERS_NUMBER, $number);
 	}
 
+	public function get_subcategories_display()
+	{
+		return $this->get_property(self::SUBCATEGORIES_DISPLAY);
+	}
+
+	public function set_subcategories_display($subcategories_display)
+	{
+		$this->set_property(self::SUBCATEGORIES_DISPLAY, $subcategories_display);
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -263,6 +275,7 @@ class VideoConfig extends AbstractConfigData
 			self::CATEGORIES_PER_ROW 		  => 3,
 			self::ITEMS_PER_PAGE 			  => 15,
 			self::ITEMS_PER_ROW 			  => 2,
+			self::SUBCATEGORIES_DISPLAY 				  => true,
 			self::DISPLAY_TYPE 				  => self::GRID_VIEW,
 			self::ITEMS_DEFAULT_SORT_FIELD 	  => VideoItem::SORT_UPDATE_DATE,
 			self::ITEMS_DEFAULT_SORT_MODE  	  => VideoItem::DESC,

@@ -34,6 +34,7 @@ $lang['video.last.items'] = 'Last videos';
 $lang['video.ranking']    = 'Ranking';
 
 // Configuration
+$lang['video.config.display.subcategories'] = 'Display subcategories';
 $lang['video.config.mini.module']     = 'Mini module';
 $lang['video.config.sort.type.clue']  = 'Decreasing direction';
 $lang['video.config.items.number']    = 'Maximum number of items displayed';

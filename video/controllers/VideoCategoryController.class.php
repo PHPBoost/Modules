@@ -42,8 +42,8 @@ class VideoCategoryController extends DefaultModuleController
 		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$field = $request->get_getstring('field', VideoItem::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
 		$page = $request->get_getint('page', 1);
-		$subcategories_page = $request->get_getint('subcategories_page', 1);
 
+		$subcategories_page = $request->get_getint('subcategories_page', 1);
 		$subcategories = CategoriesService::get_categories_manager('video')->get_categories_cache()->get_children($this->get_category()->get_id(), CategoriesService::get_authorized_categories($this->get_category()->get_id(), $this->config->is_summary_displayed_to_guests(), 'video'));
 		$subcategories_pagination = $this->get_subcategories_pagination(count($subcategories), $this->config->get_categories_per_page(), $field, $mode, $page, $subcategories_page);
 
@@ -72,12 +72,24 @@ class VideoCategoryController extends DefaultModuleController
 			}
 		}
 
-		$condition = 'WHERE id_category = :id_category
-		AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
-		$parameters = array(
-			'id_category' => $this->get_category()->get_id(),
-			'timestamp_now' => $now->get_timestamp()
-		);
+		if ($this->config->get_subcategories_display())
+		{
+			$condition = 'WHERE id_category = :id_category
+			AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
+			$parameters = array(
+				'id_category' => $this->get_category()->get_id(),
+				'timestamp_now' => $now->get_timestamp()
+			);
+		}
+		else 
+		{
+			$condition = 'WHERE id_category IN :id_category
+			AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
+			$parameters = array(
+				'id_category' => CategoriesService::get_authorized_categories($this->get_category()->get_id()),
+				'timestamp_now' => $now->get_timestamp()
+			);
+		}
 
 		$pagination = $this->get_pagination($condition, $parameters, $field, TextHelper::strtolower($mode), $page, $subcategories_page);
 
@@ -106,6 +118,7 @@ class VideoCategoryController extends DefaultModuleController
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 
 		$this->view->put_all(array(
+			'C_SUBCATEGORIES_DISPLAY'    => $this->config->get_subcategories_display(),
 			'C_ITEMS'                    => $result->get_rows_count() > 0,
 			'C_SEVERAL_ITEMS'            => $result->get_rows_count() > 1,
 			'C_GRID_VIEW'                => $this->config->get_display_type() == VideoConfig::GRID_VIEW,

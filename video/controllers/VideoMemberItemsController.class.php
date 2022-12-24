@@ -58,23 +58,24 @@ class VideoMemberItemsController extends DefaultModuleController
 		)));
 
 		$this->view->put_all(array(
-			'C_MEMBER_ITEMS'         => true,
-			'C_MY_ITEMS'             => $this->is_current_member_displayed(),
-			'C_ITEMS'                => $result->get_rows_count() > 0,
-			'C_SEVERAL_ITEMS'        => $result->get_rows_count() > 1,
-			'C_GRID_VIEW'            => $this->config->get_display_type() == VideoConfig::GRID_VIEW,
-			'C_LIST_VIEW'            => $this->config->get_display_type() == VideoConfig::LIST_VIEW,
-			'C_TABLE_VIEW'           => $this->config->get_display_type() == VideoConfig::TABLE_VIEW,
-			'C_CATEGORY_DESCRIPTION' => !empty($category_description),
-			'CATEGORIES_PER_ROW'     => $this->config->get_categories_per_row(),
-			'ITEMS_PER_ROW'          => $this->config->get_items_per_row(),
-			'C_ENABLED_COMMENTS'     => $comments_config->module_comments_is_enabled('video'),
-			'C_ENABLED_NOTATION'     => $content_management_config->module_notation_is_enabled('video'),
-			'C_AUTHOR_DISPLAYED'     => $this->config->is_author_displayed(),
-			'C_PAGINATION'           => $pagination->has_several_pages(),
-			'PAGINATION'             => $pagination->display(),
-			'TABLE_COLSPAN'          => 4 + (int)$comments_config->module_comments_is_enabled('video') + (int)$content_management_config->module_notation_is_enabled('video'),
-			'MEMBER_NAME'            => $this->get_member()->get_display_name()
+			'C_SUBCATEGORIES_DISPLAY' => $this->config->get_subcategories_display(),
+			'C_MEMBER_ITEMS'          => true,
+			'C_MY_ITEMS'              => $this->is_current_member_displayed(),
+			'C_ITEMS'                 => $result->get_rows_count() > 0,
+			'C_SEVERAL_ITEMS'         => $result->get_rows_count() > 1,
+			'C_GRID_VIEW'             => $this->config->get_display_type() == VideoConfig::GRID_VIEW,
+			'C_LIST_VIEW'             => $this->config->get_display_type() == VideoConfig::LIST_VIEW,
+			'C_TABLE_VIEW'            => $this->config->get_display_type() == VideoConfig::TABLE_VIEW,
+			'C_CATEGORY_DESCRIPTION'  => !empty($category_description),
+			'CATEGORIES_PER_ROW'      => $this->config->get_categories_per_row(),
+			'C_ENABLED_COMMENTS'      => $comments_config->module_comments_is_enabled('video'),
+			'C_ENABLED_NOTATION'      => $content_management_config->module_notation_is_enabled('video'),
+			'C_AUTHOR_DISPLAYED'      => $this->config->is_author_displayed(),
+			'C_PAGINATION'            => $pagination->has_several_pages(),
+			'ITEMS_PER_ROW' => $this->config->get_items_per_row(),
+			'PAGINATION' 	=> $pagination->display(),
+			'TABLE_COLSPAN' => 4 + (int)$comments_config->module_comments_is_enabled('video') + (int)$content_management_config->module_notation_is_enabled('video'),
+			'MEMBER_NAME' 	=> $this->get_member()->get_display_name()
 		));
 
 		while ($row = $result->fetch())

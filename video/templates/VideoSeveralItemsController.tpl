@@ -28,34 +28,36 @@
 		</div>
 	# ENDIF #
 
-	# IF C_SUB_CATEGORIES #
-		<div class="sub-section">
-			<div class="content-container">
-				<div class="cell-flex cell-tile cell-columns-{CATEGORIES_PER_ROW}">
-					# START sub_categories_list #
-						<div class="cell cell-category category-{sub_categories_list.CATEGORY_ID}">
-							<div class="cell-header">
-								<div class="cell-name"><a class="subcat-title offload" itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a></div>
-								<span class="small pinned notice" role="contentinfo" aria-label="{sub_categories_list.ITEMS_NUMBER} # IF sub_categories_list.C_SEVERAL_ITEMS #${TextHelper::lcfirst(@items)}# ELSE #${TextHelper::lcfirst(@item)}# ENDIF #">
-									{sub_categories_list.ITEMS_NUMBER}
-								</span>
-							</div>
-							# IF sub_categories_list.C_CATEGORY_THUMBNAIL #
-								<div class="cell-body" itemprop="about">
-									<div class="cell-thumbnail cell-landscape cell-center">
-										<img itemprop="thumbnailUrl" src="{sub_categories_list.U_CATEGORY_THUMBNAIL}" alt="{sub_categories_list.CATEGORY_NAME}" />
-										<a class="cell-thumbnail-caption offload" href="{sub_categories_list.U_CATEGORY}">
-											{@category.see.category}
-										</a>
-									</div>
+	# IF C_SUBCATEGORIES_DISPLAY #
+		# IF C_SUB_CATEGORIES #
+			<div class="sub-section">
+				<div class="content-container">
+					<div class="cell-flex cell-tile cell-columns-{CATEGORIES_PER_ROW}">
+						# START sub_categories_list #
+							<div class="cell cell-category category-{sub_categories_list.CATEGORY_ID}">
+								<div class="cell-header">
+									<div class="cell-name"><a class="subcat-title offload" itemprop="about" href="{sub_categories_list.U_CATEGORY}">{sub_categories_list.CATEGORY_NAME}</a></div>
+									<span class="small pinned notice" role="contentinfo" aria-label="{sub_categories_list.ITEMS_NUMBER} # IF sub_categories_list.C_SEVERAL_ITEMS #${TextHelper::lcfirst(@items)}# ELSE #${TextHelper::lcfirst(@item)}# ENDIF #">
+										{sub_categories_list.ITEMS_NUMBER}
+									</span>
 								</div>
-							# ENDIF #
-						</div>
-					# END sub_categories_list #
+								# IF sub_categories_list.C_CATEGORY_THUMBNAIL #
+									<div class="cell-body" itemprop="about">
+										<div class="cell-thumbnail cell-landscape cell-center">
+											<img itemprop="thumbnailUrl" src="{sub_categories_list.U_CATEGORY_THUMBNAIL}" alt="{sub_categories_list.CATEGORY_NAME}" />
+											<a class="cell-thumbnail-caption offload" href="{sub_categories_list.U_CATEGORY}">
+												{@category.see.category}
+											</a>
+										</div>
+									</div>
+								# ENDIF #
+							</div>
+						# END sub_categories_list #
+					</div>
+					# IF C_SUBCATEGORIES_PAGINATION #<div class="content align-center"># INCLUDE SUBCATEGORIES_PAGINATION #</div># ENDIF #
 				</div>
-				# IF C_SUBCATEGORIES_PAGINATION #<div class="content align-center"># INCLUDE SUBCATEGORIES_PAGINATION #</div># ENDIF #
 			</div>
-		</div>
+		# ENDIF #
 	# ENDIF #
 
 	# IF C_ITEMS #
@@ -75,13 +77,10 @@
 							<thead>
 								<tr>
 									<th>{@common.title}</th>
+									# IF NOT C_SUBCATEGORIES_DISPLAY #<th>{@category.category}</th># ENDIF #
 									<th class="col-small" aria-label="{@common.creation.date}">
 										<i class="far fa-fw fa-calendar-plus hidden-small-screens" aria-hidden="true"></i>
 										<span class="hidden-large-screens">{@common.creation.date}</span>
-									</th>
-									<th class="col-small" aria-label="{@video.videos.number}">
-										<i class="fa fa-fw fa-video hidden-small-screens" aria-hidden="true"></i>
-										<span class="hidden-large-screens">{@video.videos.number}</span>
 									</th>
 									# IF C_ENABLED_VIEWS_NUMBER #
 										<th class="col-small" aria-label="{@common.views.number}">
@@ -115,6 +114,11 @@
 										<td>
 											<a href="{items.U_ITEM}" itemprop="name" class="offload# IF items.C_NEW_CONTENT # new-content# ENDIF #">{items.TITLE}</a>
 										</td>
+										# IF NOT C_SUBCATEGORIES_DISPLAY #
+											<td>
+												<a href="{items.U_CATEGORY}" class="offload">{items.CATEGORY_NAME}</a>
+											</td>
+										# ENDIF #
 										<td>
 											<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.DIFFERED_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished">
 												# IF NOT items.C_DIFFERED #{items.DATE}# ELSE #{items.DIFFERED_START_DATE}# ENDIF #
@@ -122,9 +126,6 @@
 											# IF items.C_HAS_UPDATE_DATE #
 												<time class="pinned notice small text-italic" aria-label="{@common.last.update}" datetime="{items.UPDATE_DATE_ISO8601}" itemprop="datePublished">{items.UPDATE_DATE}</time>
 											# ENDIF #
-										</td>
-										<td>
-											{items.VIDEOS_NUMBER}
 										</td>
 										# IF C_ENABLED_VIEWS_NUMBER #
 											<td>
@@ -189,6 +190,7 @@
 												</time>
 											</span>
 										# ENDIF #
+										# IF NOT C_SUBCATEGORIES_DISPLAY #<a href="{items.U_CATEGORY}" class="pinned item-category offload" aria-label="{@category.category}">{items.CATEGORY_NAME}</a># ENDIF #
 										# IF C_ENABLED_VIEWS_NUMBER #<span class="pinned item-views-number" role="contentinfo" aria-label="{items.VIEWS_NUMBER} {@common.views.number}"><i class="fa fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 										# IF C_ENABLED_COMMENTS #
 											<span class="pinned item-comments">
