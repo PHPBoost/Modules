@@ -1,6 +1,6 @@
 /**
  * Responsive carousel jQuery plugin - Version: 1.0.2
- * @copyright   &copy; 2005-2022 PHPBoost - 9bit Studios
+ * @copyright   &copy; 2005-2023 PHPBoost - 9bit Studios
  * @license     https://www.opensource.org/licenses/mit-license.php
  * @author      9bit Studios
  * @link        http://www.9bitstudios.com
