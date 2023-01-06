@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2023 01 06
  * @since       PHPBoost 6.0 - 2022 08 26
  */
 
@@ -529,6 +529,7 @@ class RecipeItem
 				// Links
 				'U_SYNDICATION'    => SyndicationUrlBuilder::rss('recipe', $this->id_category)->rel(),
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+				'U_AUTHOR_CONTRIB' => RecipeUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
 				'U_ITEM'           => $this->get_item_url(),
 				'U_EDIT'           => RecipeUrlBuilder::edit($this->id)->rel(),
 				'U_DELETE'         => RecipeUrlBuilder::delete($this->id)->rel(),

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 03
+ * @version     PHPBoost 6.0 - last update: 2023 01 06
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -552,6 +552,7 @@ class SpotsItem
 
 			'U_SYNDICATION'    => SyndicationUrlBuilder::rss('spots', $this->id_category)->rel(),
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+			'U_AUTHOR_CONTRIB' => SpotsUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
 			'U_ITEM'           => SpotsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel(),
 			'U_VISIT'          => SpotsUrlBuilder::visit($this->id)->rel(),
 			'U_DEADLINK'       => SpotsUrlBuilder::dead_link($this->id)->rel(),

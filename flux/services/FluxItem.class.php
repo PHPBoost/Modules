@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 01
+ * @version     PHPBoost 6.0 - last update: 2023 01 06
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -352,6 +352,7 @@ class FluxItem
 
 			'U_SYNDICATION'    => SyndicationUrlBuilder::rss('flux', $this->id_category)->rel(),
 			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+			'U_AUTHOR_CONTRIB' => FluxUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
 			'U_ITEM'           => $this->get_item_url(),
 			'U_VISIT'          => FluxUrlBuilder::visit($this->id)->rel(),
 			'U_DEADLINK'       => FluxUrlBuilder::dead_link($this->id)->rel(),

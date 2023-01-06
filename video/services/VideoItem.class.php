@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2023 01 06
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -526,6 +526,7 @@ class VideoItem
 				// Links
 				'U_SYNDICATION'    => SyndicationUrlBuilder::rss('video', $this->id_category)->rel(),
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+				'U_AUTHOR_CONTRIB' => VideoUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
 				'U_ITEM'           => $this->get_item_url(),
 				'U_DEADLINK'       => VideoUrlBuilder::dead_link($this->id)->rel(),
 				'U_EDIT'           => VideoUrlBuilder::edit($this->id)->rel(),

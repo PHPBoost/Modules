@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 19
+ * @version     PHPBoost 6.0 - last update: 2023 01 06
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -215,6 +215,7 @@ class QuotesItem
 
 				// Item links
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+				'U_AUTHOR_CONTRIB' => QuotesUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
 				'U_WRITER'         => QuotesUrlBuilder::display_writer_items($this->rewrited_writer)->rel(),
 				'U_ITEM'           => $this->get_item_url(),
 				'U_EDIT'           => QuotesUrlBuilder::edit($this->id)->rel(),
