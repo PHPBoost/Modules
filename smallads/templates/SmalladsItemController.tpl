@@ -78,6 +78,7 @@
 														<div id="email-modal" class="modal modal-animation">
 															<div class="close-modal" role="button" aria-label="{@smallads.close.modal}"></div>
 															<div class="content-panel cell">
+																<div class="align-right"><a href="#" class="error big hide-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></a></div>
 																<div class="cell-body">
 																	# IF C_CONTACT_LEVEL #
 																		# INCLUDE MESSAGE_HELPER #
@@ -103,6 +104,7 @@
 														<div id="tel-modal" class="modal modal-animation">
 															<div class="close-modal" role="button" aria-label="{@smallads.close.modal}"></div>
 															<div class="content-panel cell">
+																<div class="align-right"><a href="#" class="error big hide-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></a></div>
 																<div class="cell-body">
 																	<div class="cell-content align-center">
 																		# IF C_CONTACT_LEVEL #
