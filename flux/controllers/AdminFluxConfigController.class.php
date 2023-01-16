@@ -9,6 +9,7 @@
 
 class AdminFluxConfigController extends DefaultAdminModuleController
 {
+	private $update_form;
 	private $update_button;
 
 	protected function get_template_to_use()
@@ -50,11 +51,11 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 						{
 							$filepath = $file->get_path();
 							$xmlpath = PATH_TO_ROOT . $row['xml_path'];
-							
+
 							if(strcmp($filepath, $xmlpath) !== 0)
-								$is_in_content[] = 'none';						
+								$is_in_content[] = 'none';
 							else
-								$is_in_content[] = 'ok';							
+								$is_in_content[] = 'ok';
 						}
 					}
 					if (!in_array('ok', $is_in_content))
@@ -81,7 +82,6 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 					// write target feed items in server file
 					file_put_contents($file->get_path(), $content);
 				}
-				
 			}
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['flux.success.update'], MessageHelper::SUCCESS, 5));
 		}
