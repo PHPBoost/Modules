@@ -78,7 +78,7 @@
 					<div itemprop="text">{CONTENT}</div>
 				</div>
 
-				<aside>${ContentSharingActionsMenuService::display()}</aside>
+				<aside class="sharing-container">${ContentSharingActionsMenuService::display()}</aside>
 
 				# IF C_ENABLED_COMMENTS #
 					<aside>

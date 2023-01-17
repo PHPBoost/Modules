@@ -89,7 +89,7 @@
 					# ENDIF #
 				</div>
 
-				<aside>${ContentSharingActionsMenuService::display()}</aside>
+				<aside class="sharing-container">${ContentSharingActionsMenuService::display()}</aside>
 
 				# IF C_SOURCES #
 					<aside class="ingredients-container">
