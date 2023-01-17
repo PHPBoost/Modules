@@ -104,7 +104,7 @@
 									</td>
 									<td>
 										# IF self_items.C_VISIT #
-											<a class="basic-button" aria-label="{@spots.visit.website}" # IF self_items.C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # href="{self_items.U_VISIT}">{@common.visit}</a>
+											<a class="basic-button" # IF self_items.C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # href="{self_items.U_VISIT}">{@spots.visit.website}</a>
 										# ELSE #
 											{@spots.no.website}
 										# ENDIF #
@@ -282,7 +282,7 @@
 		//add on the map
 		map.addLayer(osm);
 		map.addControl(new L.Control.Layers( {
-			'Français': fr,
+			'{@spots.osm.french}': fr,
 			'OpenStreetMap': osm,
 			'OpenCycleMap': ocm,
 			'{@spots.osm.satellite}': sat,

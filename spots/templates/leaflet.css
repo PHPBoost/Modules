@@ -1,4 +1,10 @@
-/* required styles - hack : font-size for popup text L481 .leaflet-popup-content */
+/* hack phpboost */
+.leaflet-control-layers-base label {
+	padding: 0 0.228em;
+	font-size: 1.228rem !important;
+}
+
+/* required styles - hack : font-size for popup text L-491 .leaflet-popup-content */
 
 .leaflet-pane,
 .leaflet-tile,

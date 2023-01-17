@@ -3,13 +3,13 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 01 20
+ * @version     PHPBoost 6.0 - last update: 2023 01 17
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
- ####################################################
- #						English						#
- ####################################################
+####################################################
+#						English						#
+####################################################
 
 $lang['spots.module.title'] = 'Locations';
 
@@ -30,7 +30,7 @@ $lang['spots.visit.website']     = 'Visit the location website';
 $lang['spots.no.website']        = 'No website listed';
 $lang['spots.link.infos']        = 'Informations about the location';
 $lang['spots.contact']           = 'Contact';
-$lang['spots.location']           = 'GPS coordinates of the location ';
+$lang['spots.location']          = 'GPS coordinates of the location ';
 $lang['spots.location.lat']      = 'Latitude';
 $lang['spots.location.lng']      = 'Longitude';
 $lang['spots.travel.type']       = 'Travel type';
@@ -38,6 +38,7 @@ $lang['spots.travel.type.car']   = 'driving';
 $lang['spots.travel.type.walk']  = 'walking';
 $lang['spots.travel.type.bike']  = 'bicycling';
 $lang['spots.travel.type.train'] = 'transit';
+$lang['spots.osm.french']        = 'French';
 $lang['spots.osm.satellite']     = 'Satellite';
 $lang['spots.osm.topo']          = 'Topography';
 $lang['spots.google.hybrid']     = 'Google hybrid';
