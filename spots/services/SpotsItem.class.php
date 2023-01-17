@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 06
+ * @version     PHPBoost 6.0 - last update: 2023 01 17
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -451,6 +451,7 @@ class SpotsItem
 		$rich_content = HooksService::execute_hook_display_action('spots', $content, $this->get_properties());
 		$user = $this->get_author_user();
 		$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
+		$comments_number = CommentsService::get_comments_number('spots', $this->id);
         $config = SpotsConfig::load();
 
         // Convertisseur degres decimaux -> derges, minutes, secondes
@@ -525,6 +526,10 @@ class SpotsItem
 
 			'U_EDIT_CATEGORY'      => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'spots')->rel(),
 
+			'C_COMMENTS'      => !empty($comments_number),
+			'L_COMMENTS'      => CommentsService::get_lang_comments('spots', $this->id),
+			'COMMENTS_NUMBER' => $comments_number,
+
 			// // Item
 			'ID'                  => $this->id,
 			'TITLE'               => $this->title,
@@ -563,7 +568,8 @@ class SpotsItem
 			'U_FACEBOOK'       => $this->facebook->absolute(),
 			'U_TWITTER'        => $this->twitter->absolute(),
 			'U_INSTAGRAM'      => $this->instagram->absolute(),
-			'U_YOUTUBE'        => $this->youtube->absolute()
+			'U_YOUTUBE'        => $this->youtube->absolute(),
+			'U_COMMENTS'       => SpotsUrlBuilder::display_comments($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel()
 			)
 		);
 

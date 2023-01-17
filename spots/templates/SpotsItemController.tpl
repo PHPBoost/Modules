@@ -143,12 +143,21 @@
 				<aside class="sharing-container">
 					${ContentSharingActionsMenuService::display()}
 				</aside>
+				# IF C_ENABLED_COMMENTS #
+					<aside>
+						# INCLUDE COMMENTS #
+					</aside>
+				# ENDIF #
 			</article>
 		</div>
 	</div>
 	<footer>
 		<meta itemprop="url" content="{U_ITEM}">
 		<meta itemprop="description" content="${escape(DESCRIPTION)}" />
+		# IF C_ENABLED_COMMENTS #
+			<meta itemprop="discussionUrl" content="{U_COMMENTS}">
+			<meta itemprop="interactionCount" content="{COMMENTS_NUMBER} UserComments">
+		# ENDIF #
 	</footer>
 </section>
 

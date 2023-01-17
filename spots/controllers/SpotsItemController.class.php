@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 14
+ * @version     PHPBoost 6.0 - last update: 2023 01 17
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -39,15 +39,26 @@ class SpotsItemController extends DefaultModuleController
 	{
 		$item = $this->get_item();
 		$category = $item->get_category();
+		$comments_config = CommentsConfig::load();
 
 		$this->build_new_address_form($request);
 
 		$this->view->put_all(array_merge($item->get_template_vars(), array(
+			'C_ENABLED_COMMENTS' => $comments_config->module_comments_is_enabled('download'),
 			'FORM' => $this->form->display(),
 			'NOT_VISIBLE_MESSAGE' => MessageHelper::display(LangLoader::get_message('warning.element.not.visible', 'warning-lang'), MessageHelper::WARNING),
 			'MODULE_NAME' => $this->config->get_module_name(),
 			'DEFAULT_ADDRESS' => GoogleMapsConfig::load()->get_default_marker_address()
 		)));
+
+		if ($comments_config->module_comments_is_enabled('spots'))
+		{
+			$comments_topic = new SpotsCommentsTopic($item);
+			$comments_topic->set_id_in_module($item->get_id());
+			$comments_topic->set_url(SpotsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()));
+
+			$this->view->put('COMMENTS', $comments_topic->display());
+		}
 	}
 
 	private function count_views_number(HTTPRequestCustom $request)
