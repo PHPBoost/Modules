@@ -19,14 +19,13 @@ $lang['an.item'] = 'Une vidéo';
 $lang['items'] = 'Vidéos';
 
 // Titles
-$lang['video.my.items']      = 'Mes vidéos';
-$lang['video.member.items']  = 'Vidéos publiées par';
-$lang['video.pending.items'] = 'Vidéos en attente';
-$lang['video.filter.items']  = 'Filtrer les vidéos';
-
-$lang['video.items.management'] = 'Gestion des vidéos';
 $lang['video.add.item']         = 'Ajouter une vidéo';
 $lang['video.edit.item']        = 'Modifier une vidéo';
+$lang['video.my.items']         = 'Mes vidéos';
+$lang['video.member.items']     = 'Vidéos publiées par';
+$lang['video.pending.items']    = 'Vidéos en attente';
+$lang['video.filter.items']     = 'Filtrer les vidéos';
+$lang['video.items.management'] = 'Gestion des vidéos';
 
 $lang['video.width']  = 'Largeur de la vidéo';
 $lang['video.height'] = 'Hauteur de la vidéo';
@@ -35,7 +34,7 @@ $lang['video.height'] = 'Hauteur de la vidéo';
 $lang['video.last.items'] = 'Dernières vidéos';
 $lang['video.last.items'] = 'Vidéos populaires';
 $lang['video.ranking']    = 'Position';
-$lang['video.watch']    = 'Voir la vidéo';
+$lang['video.watch']      = 'Voir la vidéo';
 
 // Configuration
 $lang['video.config.display.subcategories'] = 'Afficher les sous-catégories';
