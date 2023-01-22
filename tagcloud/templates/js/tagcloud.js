@@ -10,7 +10,7 @@ var randomColor = function() {
 };
 jQuery('.tag-name').each(function() {
     jQuery(this)
-        .css('text-shadow', '1px 1px 0 rgba(var(--bgc-rgb-a), 1)')
+        .css('text-shadow', '1px 1px 0 rgba(var(--bgc-rgb-a), 0.5)')
         .parent()
         .css('color', randomColor());
 });
