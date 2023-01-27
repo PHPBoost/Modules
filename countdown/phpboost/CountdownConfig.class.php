@@ -138,7 +138,7 @@ class CountdownConfig extends AbstractConfigData
 			self::STOP_COUNTER   => false,
 			self::HIDDEN_COUNTER => false,
 			self::NO_JS          => LangLoader::get_message('countdown.no.js', 'install', 'countdown'),
-			self::EVENT_DATE     => new Date(1672527600, Timezone::SERVER_TIMEZONE), //le 1/1/2023 à 0:00:00
+			self::EVENT_DATE     => new Date(1704063600, Timezone::SERVER_TIMEZONE), // 2024/1/1 at 0:00:00
 			self::NEXT_EVENT     => LangLoader::get_message('countdown.next.event', 'install', 'countdown'),
 			self::LAST_EVENT     => LangLoader::get_message('countdown.last.event', 'install', 'countdown'),
 			self::STOPPED_EVENT  => LangLoader::get_message('countdown.stoped.event', 'install', 'countdown'),
