@@ -13,7 +13,7 @@ require_once PATH_TO_ROOT . '/kernel/init.php';
 
 $url_controller_mappers = array(
 //Admin
-    new UrlControllerMapper('AdminEasyCssThemeController', '`^/theme/?$`'),
-    new UrlControllerMapper('AdminEasyCssEditController', '`^/edit/(.+)/(.+)/?$`', array('theme', 'file')),
+    new UrlControllerMapper('AdminEasyCssThemeController', '`^/admin/theme/?$`'),
+    new UrlControllerMapper('AdminEasyCssEditController', '`^/admin/edit/(.+)/(.+)/?$`', array('theme', 'file')),
 );
 DispatchManager::dispatch($url_controller_mappers);

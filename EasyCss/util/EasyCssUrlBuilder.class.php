@@ -20,7 +20,7 @@ class EasyCssUrlBuilder
      */
     public static function theme_choice()
     {
-        return DispatchManager::get_url(self::$dispatcher, '/theme/');
+        return DispatchManager::get_url(self::$dispatcher, '/admin/theme/');
     }
 
     /**
@@ -30,7 +30,7 @@ class EasyCssUrlBuilder
      */
     public static function edit($theme, $file)
     {
-        return DispatchManager::get_url(self::$dispatcher, '/edit/' . $theme .'/' . $file . '/');
+        return DispatchManager::get_url(self::$dispatcher, '/admin/edit/' . $theme .'/' . $file . '/');
     }
 
 
