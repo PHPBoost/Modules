@@ -28,7 +28,6 @@ class FluxItemController extends DefaultModuleController
 	private function build_view(HTTPRequestCustom $request)
 	{
 		$item = $this->get_item();
-		$category = $item->get_category();
 
 		$this->build_refresh_form($request);
 
@@ -49,6 +48,8 @@ class FluxItemController extends DefaultModuleController
 			{
 				// load feed items in file
 				$content = file_get_contents($xml_url);
+                $content = substr($content, 0, strpos($content, '</rss>'));
+                $content .= '</rss>';
 				file_put_contents(PATH_TO_ROOT . $filename, $content);
 				$item->set_xml_path($filename);
 				FluxService::update($item);
@@ -58,48 +59,58 @@ class FluxItemController extends DefaultModuleController
 		// Read cache file
 		if(file_exists(PATH_TO_ROOT . $filename) && !empty(file_get_contents(PATH_TO_ROOT . $filename)))
 		{
-			$xml = simplexml_load_file(PATH_TO_ROOT . $filename);
-			$items = array();
-			$items['title'] = array();
-			$items['link']  = array();
-			$items['desc']  = array();
-			$items['img']   = array();
-			$items['date']  = array();
 
-			foreach($xml->channel->item as $i)
-			{
-				$items['title'][] = $i->title;
-				$items['link'][]  = $i->link;
-				$items['desc'][]  = $i->description;
-				$items['img'][]   = $i->image;
-				$items['date'][]  = $i->pubDate;
-			}
+            if (FluxService::is_valid_xml(PATH_TO_ROOT . $filename))
+            {
+                $xml = simplexml_load_file(PATH_TO_ROOT . $filename);
+                $items = array();
+                $items['title'] = array();
+                $items['link']  = array();
+                $items['desc']  = array();
+                $items['img']   = array();
+                $items['date']  = array();
 
-			$items_number = $rss_number <= count($items['title']) ? $rss_number : count($items['title']);
+                foreach($xml->channel->item as $i)
+                {
+                    $items['title'][] = $i->title;
+                    $items['link'][]  = $i->link;
+                    $items['desc'][]  = $i->description;
+                    $items['img'][]   = $i->image;
+                    $items['date'][]  = $i->pubDate;
+                }
 
-			$this->view->put_all(array(
-				'C_FEED_ITEMS' => true
-			));
+                $items_number = $rss_number <= count($items['title']) ? $rss_number : count($items['title']);
 
-			for($i = 0; $i < $items_number ; $i++)
-			{
-				$date = strtotime($items['date'][$i]);
-				$item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
-				$desc = @strip_tags(FormatingHelper::second_parse($items['desc'][$i]));
-				$cut_desc = (trim(TextHelper::substr($desc, 0, $char_number)));
-				$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
-				$item_img = $items['img'][$i];
-				$this->view->assign_block_vars('feed_items',array(
-					'TITLE'           => $items['title'][$i],
-					'U_ITEM'          => $items['link'][$i],
-					'DATE'            => $item_date,
-					'SUMMARY'         => $cut_desc,
-					'C_READ_MORE'     => strlen($desc) > $char_number,
-					'WORDS_NUMBER'    => str_word_count($desc) - str_word_count($cut_desc),
-					'C_HAS_THUMBNAIL' => !empty($item_img),
-					'U_THUMBNAIL'     => $item_img,
-				));
-			}
+                $this->view->put_all(array(
+                    'C_FEED_ITEMS' => true
+                ));
+
+                for($i = 0; $i < $items_number ; $i++)
+                {
+                    $date = strtotime($items['date'][$i]);
+                    $item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
+                    $desc = @strip_tags(FormatingHelper::second_parse($items['desc'][$i]));
+                    $cut_desc = (trim(TextHelper::substr($desc, 0, $char_number)));
+                    $cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
+                    $item_img = $items['img'][$i];
+                    $this->view->assign_block_vars('feed_items',array(
+                        'TITLE'           => $items['title'][$i],
+                        'U_ITEM'          => $items['link'][$i],
+                        'DATE'            => $item_date,
+                        'SUMMARY'         => $cut_desc,
+                        'C_READ_MORE'     => strlen($desc) > $char_number,
+                        'WORDS_NUMBER'    => str_word_count($desc) - str_word_count($cut_desc),
+                        'C_HAS_THUMBNAIL' => !empty($item_img),
+                        'U_THUMBNAIL'     => $item_img,
+                    ));
+                }
+            }
+            else
+            {
+                $this->view->put_all(array(
+                    'C_WRONG_RSS_XML' => true
+                ));
+            }
 		}
 		elseif (file_exists(PATH_TO_ROOT . $filename) && empty(file_get_contents(PATH_TO_ROOT . $filename))) {
 			$this->view->put_all(array(

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 11 13
+ * @version     PHPBoost 6.0 - last update: 2023 02 02
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -35,6 +35,7 @@ $lang['flux.empty.xml.file']        = 'Le fichier xml a été mis en cache mais 
 $lang['flux.rss.init']              = 'Des flux Rss ont été trouvés. Il doivent être mis en cache pour être accessibles, en cliquant sur le bouton de mise à jour ci-dessous.';
 $lang['flux.rss.init.admin']        = 'L\'affichage des nouveaux éléments issus des flux du site est mis à jour en cliquant sur le bouton.';
 $lang['flux.rss.init.contribution'] = 'L\'affichage des nouveaux éléments sera accessible quand la contribution sera validée.';
+$lang['flux.wrong.rss.init']        = 'Le fichier trouvé est un fichier xml mais pas un fichier rss. Vérifiez l\'adresse des rss du site';
 $lang['flux.check.updates']         = 'Vérifier les nouveaux sujets sur le site';
 $lang['flux.update']                = 'Mettre à jour';
 

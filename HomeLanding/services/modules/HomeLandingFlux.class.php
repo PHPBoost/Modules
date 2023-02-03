@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 11 15
+ * @version     PHPBoost 6.0 - last update: 2023 02 03
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -60,7 +60,6 @@ class HomeLandingFlux
 			{
 				$view->put('C_LAST_FEEDS', $result->get_rows_count() > 0);
 
-				$xml = simplexml_load_file(PATH_TO_ROOT . $xml_path);
 				$xml_items = array();
 				$xml_items['title'] = array();
 				$xml_items['link']  = array();
@@ -68,14 +67,18 @@ class HomeLandingFlux
 				$xml_items['img']   = array();
 				$xml_items['date']  = array();
 
-				foreach($xml->channel->item as $i)
-				{
-					$xml_items['title'][] = $i->title;
-					$xml_items['link'][]  = $i->link;
-					$xml_items['desc'][]  = $i->description;
-					$xml_items['img'][]   = $i->enclosure->url;
-					$xml_items['date'][]  = $i->pubDate;
-				}
+                if (FluxService::is_valid_xml(PATH_TO_ROOT . $xml_path))
+                {
+                    $xml = simplexml_load_file(PATH_TO_ROOT . $xml_path);
+                    foreach($xml->channel->item as $i)
+                    {
+                        $xml_items['title'][] = $i->title;
+                        $xml_items['link'][]  = $i->link;
+                        $xml_items['desc'][]  = $i->description;
+                        $xml_items['img'][]   = $i->enclosure->url;
+                        $xml_items['date'][]  = $i->pubDate;
+                    }
+                }
 
 				$xml_items_number = $rss_number <= count($xml_items['title']) ? $rss_number : count($xml_items['title']);
 

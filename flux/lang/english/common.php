@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 11 13
+ * @version     PHPBoost 6.0 - last update: 2023 02 02
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -34,6 +34,7 @@ $lang['flux.empty.xml.file']        = 'The xml file is created but no feeds have
 $lang['flux.rss.init']              = 'The site feed has not been initialized.';
 $lang['flux.rss.init.admin']        = 'The display of new feed items from the site feeds is updated by clicking on the button.';
 $lang['flux.rss.init.contribution'] = 'The display of new feed items is available when the contribution is validated.';
+$lang['flux.wrong.rss.init']        = 'The file is xml but not a rss file.Check the rss address of the website';
 $lang['flux.check.updates']         = 'Check new site feed topics.';
 $lang['flux.update']                = 'Update';
 

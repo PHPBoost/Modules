@@ -19,15 +19,20 @@ class FluxScheduledJobs extends AbstractScheduledJobExtensionPoint
 		while ($row = $result->fetch())
 		{
 			$xml_url = Url::to_absolute($row['website_xml']);
-			$host = parse_url($xml_url, PHP_URL_HOST);
-			$lastname = str_replace(".", "-", $host);
-			$path = parse_url($xml_url, PHP_URL_PATH);
-			$firstname = preg_replace("~[/.#=?]~", "-", $path);
+            if (FluxService::is_valid_xml($xml_url))
+            {
+                $host = parse_url($xml_url, PHP_URL_HOST);
+                $lastname = str_replace(".", "-", $host);
+                $path = parse_url($xml_url, PHP_URL_PATH);
+                $firstname = preg_replace("~[/.#=?]~", "-", $path);
 
-			$filename = '/flux/xml/' . $lastname . $firstname . '.xml';
+                $filename = '/flux/xml/' . $lastname . $firstname . '.xml';
 
-			$content = file_get_contents($xml_url);
-			file_put_contents(PATH_TO_ROOT . $filename, $content);
+                $content = file_get_contents($xml_url);
+                $content = substr($content, 0, strpos($content, '</rss>'));
+                $content .= '</rss>';
+                file_put_contents(PATH_TO_ROOT . $filename, $content);
+            }
 		}
 	}
 }

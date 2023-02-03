@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 14
+ * @version     PHPBoost 6.0 - last update: 2023 02 02
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -138,7 +138,7 @@ class FluxCategoryController extends DefaultModuleController
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'authorised_categories' => $authorized_categories
 		));
-		
+
 		$this->view->put_all(array(
 			'C_LAST_ITEMS' => $result->get_rows_count() > 0 && $this->config->get_last_feeds_display(),
 
@@ -159,50 +159,54 @@ class FluxCategoryController extends DefaultModuleController
 
 			if(!empty($xml_path) && $xml_file->exists() && !empty(file_get_contents(PATH_TO_ROOT . $xml_path)))
 			{
-				$xml = simplexml_load_file(PATH_TO_ROOT . $xml_path);
-				$xml_items = array();
-				$xml_items['title'] = array();
-				$xml_items['link']  = array();
-				$xml_items['desc']  = array();
-				$xml_items['img']   = array();
-				$xml_items['date']  = array();
+                $xml_items = array();
+                $xml_items['title'] = array();
+                $xml_items['link']  = array();
+                $xml_items['desc']  = array();
+                $xml_items['img']   = array();
+                $xml_items['date']  = array();
+                
+                if (FluxService::is_valid_xml(PATH_TO_ROOT . $xml_path))
+                {
+                    $xml = simplexml_load_file(PATH_TO_ROOT . $xml_path);
 
-				foreach($xml->channel->item as $i)
-				{
-					$xml_items['title'][] = $i->title;
-					$xml_items['link'][]  = $i->link;
-					$xml_items['desc'][]  = $i->description;
-					$xml_items['img'][]   = $i->enclosure->url;
-					$xml_items['date'][]  = $i->pubDate;
-				}
+                    foreach($xml->channel->item as $i)
+                    {
+                        $xml_items['title'][] = $i->title;
+                        $xml_items['link'][]  = $i->link;
+                        $xml_items['desc'][]  = $i->description;
+                        $xml_items['img'][]   = $i->enclosure->url;
+                        $xml_items['date'][]  = $i->pubDate;
+                    }
+                }
 
-				$xml_items_number = $rss_number <= count($xml_items['title']) ? $rss_number : count($xml_items['title']);
+                $xml_items_number = $rss_number <= count($xml_items['title']) ? $rss_number : count($xml_items['title']);
 
-				for($i = 0; $i < $xml_items_number ; $i++)
-				{
-					$date = Date::to_format($xml_items['date'][$i], Date::FORMAT_TIMESTAMP);
-					$item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
-					$desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
-					$cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
-					$words_number = str_word_count($desc) - str_word_count($cut_desc);
+                for($i = 0; $i < $xml_items_number ; $i++)
+                {
+                    $date = Date::to_format($xml_items['date'][$i], Date::FORMAT_TIMESTAMP);
+                    $item_date = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
+                    $desc = @strip_tags(FormatingHelper::second_parse($xml_items['desc'][$i]));
+                    $cut_desc = TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($desc), '<br><br/>'), (int)$this->config->get_characters_number_to_cut());
+                    $words_number = str_word_count($desc) - str_word_count($cut_desc);
 
-					$this->view->assign_block_vars('feed_items',array(
-						'C_HAS_FEEDS'     => $xml_items_number > 0,
-						'C_HAS_THUMBNAIL' => !empty($item->get_thumbnail()),
-						'C_READ_MORE'     => strlen($desc) > $char_number,
+                    $this->view->assign_block_vars('feed_items',array(
+                        'C_HAS_FEEDS'     => $xml_items_number > 0,
+                        'C_HAS_THUMBNAIL' => !empty($item->get_thumbnail()),
+                        'C_READ_MORE'     => strlen($desc) > $char_number,
 
-						'TITLE'        => $xml_items['title'][$i],
-						'ITEM_HOST'    => $item->get_title(),
-						'DATE'         => $item_date,
-						'SORT_DATE'    => $date,
-						'SUMMARY'      => $cut_desc,
-						'WORDS_NUMBER' => $words_number > 0 ? $words_number : '',
+                        'TITLE'        => $xml_items['title'][$i],
+                        'ITEM_HOST'    => $item->get_title(),
+                        'DATE'         => $item_date,
+                        'SORT_DATE'    => $date,
+                        'SUMMARY'      => $cut_desc,
+                        'WORDS_NUMBER' => $words_number > 0 ? $words_number : '',
 
-						'U_ITEM'      => $xml_items['link'][$i],
-						'U_ITEM_HOST' => $item->get_item_url(),
-						'U_THUMBNAIL' => Url::to_rel($item->get_thumbnail()),
-					));
-				}
+                        'U_ITEM'      => $xml_items['link'][$i],
+                        'U_ITEM_HOST' => $item->get_item_url(),
+                        'U_THUMBNAIL' => Url::to_rel($item->get_thumbnail()),
+                    ));
+                }
 			}
 		}
 		$result->dispose();

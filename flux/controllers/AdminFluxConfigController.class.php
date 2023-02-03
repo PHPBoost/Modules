@@ -79,6 +79,8 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 					$xml_url = Url::to_absolute($row['website_xml']);
 					// load target feed items
 					$content = file_get_contents($xml_url);
+                    $content = substr($content, 0, strpos($content, '</rss>'));
+                    $content .= '</rss>';
 					// write target feed items in server file
 					file_put_contents($file->get_path(), $content);
 				}

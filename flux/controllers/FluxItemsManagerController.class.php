@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 23
+ * @version     PHPBoost 6.0 - last update: 2023 02 02
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -35,8 +35,8 @@ class FluxItemsManagerController extends DefaultAdminModuleController
 		$table_model->add_filter(new HTMLTableDateGreaterThanOrEqualsToSQLFilter('creation_date', 'filter1', $this->lang['common.creation.date'] . ' ' . TextHelper::lcfirst($this->lang['common.minimum'])));
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('creation_date', 'filter2', $this->lang['common.creation.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
 		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $this->lang['common.author']));
-		// if ($display_categories)
-		// 	$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+		if ($display_categories)
+			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
 
 		$status_list = array(Item::PUBLISHED => $this->lang['common.status.published.alt'], Item::NOT_PUBLISHED => $this->lang['common.status.draft'], Item::DEFERRED_PUBLICATION => $this->lang['common.status.deffered.date']);
 		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('published', 'filter5', $this->lang['common.status'], $status_list));
@@ -71,7 +71,7 @@ class FluxItemsManagerController extends DefaultAdminModuleController
 				new HTMLTableRowCell($author),
 				new HTMLTableRowCell($item->get_creation_date()->format(Date::FORMAT_DAY_MONTH_YEAR)),
 				new HTMLTableRowCell($item->get_status()),
-				new HTMLTableRowCell($edit_item->display() . $delete_item->display())
+				new HTMLTableRowCell($edit_item->display() . $delete_item->display(), 'controls')
 			);
 
 			if (!$display_categories)

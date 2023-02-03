@@ -166,7 +166,7 @@
 										{items.VISITS_NUMBER}
 									</td>
 									# IF C_CONTROLS #
-										<td>
+										<td class="controls">
 											# IF items.C_EDIT #
 												<a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a>
 											# ENDIF #
