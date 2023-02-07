@@ -180,12 +180,12 @@
 			var map;
 			function initMap() {
 				map = new google.maps.Map(document.getElementById('gmap'), {
-				  	zoom: 10,
-				  	center: spot,
-					mapTypeId: 'roadmap',
-				    mapTypeControlOptions: {
-				      // position: google.maps.ControlPosition.LEFT_BOTTOM,
-				    },
+                    zoom: 10,
+                    center: spot,
+                    mapTypeId: 'roadmap',
+                    mapTypeControlOptions: {
+                        // position: google.maps.ControlPosition.LEFT_BOTTOM,
+                    },
 				});
 			}
 			initMap();

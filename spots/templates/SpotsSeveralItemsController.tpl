@@ -188,7 +188,7 @@
 </section>
 # IF C_GMAP_ENABLED #
 	<script src="{PATH_TO_ROOT}/spots/templates/js/leaflet.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key={GMAP_API_KEY}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key={GMAP_API_KEY}&callback=Function.prototype"></script>
 	<script src="{PATH_TO_ROOT}/spots/templates/js/leaflet.google# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 
 	<script>
@@ -228,12 +228,12 @@
 		var markersData = [
 			# START items #
 				[
-                    # IF items.C_HAS_THUMBNAIL #'<div class="align-center marker-logo"><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}"><img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" /></a></div>'
-					+# ENDIF # '<h4><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}">${items.TITLE}</a></h4>'
+                    # IF items.C_HAS_THUMBNAIL #'<div class="align-center marker-logo"><a class="offload" href="' + ${escapejs(items.U_ITEM)} + '" aria-label="{@common.see.details}"><img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" /></a></div>'
+					+# ENDIF # '<h4><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}">' + ${escapejs(items.TITLE)} + '</a></h4>'
 					+ '<div class="cell cell-list gm-location-location">'
 						+ '<ul>'
-							+ '<li class="li-stretch"><span class="text-strong">{@common.category}:</span> <span class="d-block">{items.CATEGORY_NAME}</span></li>'
-							+ '<li class="spacer"><span class="text-strong">{@spots.address}:</span> <span class="d-block align-right">${items.V_LOCATION}</span></li>'
+							+ '<li class="li-stretch"><span class="text-strong">{@common.category}:</span> <span class="d-block">' + ${escapejs(items.CATEGORY_NAME)} + '</span></li>'
+							+ '<li class="spacer"><span class="text-strong">{@spots.address}:</span> <span class="d-block align-right">' + ${escapejs(items.V_LOCATION)} + '</span></li>'
 						+ '</ul>'
 					+ '</div>',
 					{items.LATITUDE},
