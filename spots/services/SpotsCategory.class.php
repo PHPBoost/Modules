@@ -3,12 +3,20 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 04
+ * @version     PHPBoost 6.0 - last update: 2023 02 07
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
 class SpotsCategory extends Category
 {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->set_additional_property('color', '');
+		$this->set_additional_property('inner_icon', '');
+		$this->set_additional_property('category_address', '');
+	}
+
 	protected function set_additional_attributes_list()
 	{
 		$lang = LangLoader::get_all_langs('spots');
@@ -28,7 +36,6 @@ class SpotsCategory extends Category
 			)
 			)
 		));
-		// if(ModulesManager::is_module_installed('GoogleMaps') && ModulesManager::is_module_activated('GoogleMaps') && GoogleMapsConfig::load()->get_api_key())
 		$this->add_additional_attribute('category_address', array('type' => 'string', 'length' => 65000, 'default' => "''", 'attribute_field_parameters' => array(
 			'field_class'   => 'GoogleMapsFormFieldMapAddress',
 			'label'         => $lang['spots.category.address'],
@@ -53,6 +60,11 @@ class SpotsCategory extends Category
 	public function get_category_address()
 	{
 		return $this->get_additional_property('category_address');
+	}
+
+	protected function set_additional_properties(array $properties)
+	{
+		parent::set_additional_properties($properties);
 	}
 }
 ?>

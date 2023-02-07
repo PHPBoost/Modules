@@ -83,9 +83,10 @@ class SpotsCategoryController extends DefaultModuleController
 
 		$root_category = $this->get_category()->get_id() == Category::ROOT_CATEGORY;
 
-		if(!$root_category){
+		if(!$root_category)
+        {
 			$category_address_values = TextHelper::deserialize($this->get_category()->get_category_address());
-			
+
 			$this->view->put_all(array(
 				'CATEGORY_LATITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
 				'CATEGORY_LONGITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
