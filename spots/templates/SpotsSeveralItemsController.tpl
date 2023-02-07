@@ -228,7 +228,7 @@
 		var markersData = [
 			# START items #
 				[
-                    # IF items.C_HAS_THUMBNAIL #'<div class="align-center marker-logo"><a class="offload" href="' + ${escapejs(items.U_ITEM)} + '" aria-label="{@common.see.details}"><img src="{items.U_THUMBNAIL}" alt="{items.TITLE}" /></a></div>'
+                    # IF items.C_HAS_THUMBNAIL #'<div class="align-center marker-logo"><a class="offload" href="' + ${escapejs(items.U_ITEM)} + '" aria-label="{@common.see.details}"><img src="{items.U_THUMBNAIL}" alt="' + ${escapejs(items.TITLE)} + '" /></a></div>'
 					+# ENDIF # '<h4><a class="offload" href="${items.U_ITEM}" aria-label="{@common.see.details}">' + ${escapejs(items.TITLE)} + '</a></h4>'
 					+ '<div class="cell cell-list gm-location-location">'
 						+ '<ul>'
