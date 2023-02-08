@@ -65,7 +65,7 @@
 		</div>
 	# ENDIF #
 
-	# IF C_ITEMS #
+	# IF C_SELF_ITEMS #
 		# IF C_SEVERAL_ITEMS #
 			<div class="spacer"></div>
 		# ENDIF #

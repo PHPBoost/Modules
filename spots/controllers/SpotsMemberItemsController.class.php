@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 09 20
+ * @version     PHPBoost 6.0 - last update: 2023 02 08
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -56,7 +56,7 @@ class SpotsMemberItemsController extends DefaultModuleController
 		$this->view->put_all(array(
 			'C_MEMBER_ITEMS'     => true,
 			'C_MY_ITEMS'         => $this->is_current_member_displayed(),
-			'C_ITEMS'            => $result->get_rows_count() > 0,
+			'C_SELF_ITEMS'       => $result->get_rows_count() > 0,
 			'C_CONTROLS'         => CategoriesAuthorizationsService::check_authorizations()->moderation(),
 			'C_SEVERAL_ITEMS'    => $result->get_rows_count() > 1,
 			'C_GRID_VIEW'        => $config->get_display_type() == SpotsConfig::GRID_VIEW,

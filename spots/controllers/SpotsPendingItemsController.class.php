@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 09 20
+ * @version     PHPBoost 6.0 - last update: 2023 02 08
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -55,7 +55,7 @@ class SpotsPendingItemsController extends DefaultModuleController
 		$number_columns_display_per_line = $config->get_items_per_row();
 
 		$this->view->put_all(array(
-			'C_ITEMS'         => $result->get_rows_count() > 0,
+			'C_SELF_ITEMS'    => $result->get_rows_count() > 0,
 			'C_SEVERAL_ITEMS' => $result->get_rows_count() > 1,
 			'C_PENDING'       => true,
 			'C_CONTROLS'      => CategoriesAuthorizationsService::check_authorizations()->moderation(),

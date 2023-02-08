@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 14
+ * @version     PHPBoost 6.0 - last update: 2023 02 08
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -159,6 +159,10 @@ class SpotsCategoryController extends DefaultModuleController
 			'number_items_per_page' => $pagination->get_number_items_per_page(),
 			'display_from' => $pagination->get_display_from()
 		)));
+
+		$this->view->put_all(array(
+			'C_SELF_ITEMS' => $result->get_rows_count() > 0
+        ));
 
 		while ($row = $result->fetch())
 		{
