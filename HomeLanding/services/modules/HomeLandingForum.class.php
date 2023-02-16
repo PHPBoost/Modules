@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 27
+ * @version     PHPBoost 6.0 - last update: 2023 02 16
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -84,7 +84,7 @@ class HomeLandingForum
 				'DATE'                => Date::to_format($row['last_timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
 				'SORT_DATE'           => $row['last_timestamp'],
 				'TOPIC'               => stripslashes($row['title']),
-				'CONTENT'             => TextHelper::cut_string(@strip_tags(stripslashes($content), 0), (int)$characters_number_to_cut),
+				'CONTENT'             => TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($content), '<br><br/>'), (int)$characters_number_to_cut),
 
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['last_user_id'])->rel(),
 				'U_AVATAR_IMG'     => $user_avatar,

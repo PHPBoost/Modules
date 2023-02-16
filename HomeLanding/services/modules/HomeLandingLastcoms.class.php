@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 27
+ * @version     PHPBoost 6.0 - last update: 2023 02 16
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -51,9 +51,9 @@ class HomeLandingLastcoms
 
 		while ($row = $result->fetch())
 		{
-			$contents = @strip_tags(FormatingHelper::second_parse($row['message']));
+			$contents = @strip_tags(FormatingHelper::second_parse($row['message']), '<br><br/>');
 			$characters_number_to_cut = $modules[$module_name]->get_characters_number_displayed();
-			$cut_contents = trim(TextHelper::substr($contents, 0, $characters_number_to_cut));
+			$cut_contents = TextHelper::cut_string($contents, (int)$characters_number_to_cut);
 
 			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
 

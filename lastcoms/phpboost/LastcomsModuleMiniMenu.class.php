@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2023 02 16
  * @since       PHPBoost 3.0 - 2009 07 26
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -68,8 +68,8 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		while($row = $results->fetch())
 		{
 			$comments_number++;
-			$content = @strip_tags(FormatingHelper::second_parse($row['message']));
-			$limited_content = trim(TextHelper::substr($content, 0, (int)$coms_char));
+			$content = @strip_tags(FormatingHelper::second_parse($row['message']), '<br><br/>');
+			$limited_content = TextHelper::cut_string($content, (int)$coms_char);
 			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
 			$modules_config = ModulesConfig::load();
 
