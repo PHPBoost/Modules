@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 28
+ * @version     PHPBoost 6.0 - last update: 2023 02 20
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -19,7 +19,7 @@ class HomeLandingMedia
 
         $home_lang = LangLoader::get_all_langs('HomeLanding');
         $module_lang = LangLoader::get_all_langs($module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $view->add_lang(array_merge(LangLoader::get_all_langs(), $home_lang, $module_lang));
 
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_name, 'id_category');
 

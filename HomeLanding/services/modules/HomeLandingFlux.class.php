@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 03
+ * @version     PHPBoost 6.0 - last update: 2023 02 20
  * @since       PHPBoost 6.0 - 2021 11 14
 */
 
@@ -22,9 +22,9 @@ class HomeLandingFlux
         elseif (file_exists(PATH_TO_ROOT . '/HomeLanding/templates/pagecontent/' . $module_name . '.tpl'))
 			$view = new FileTemplate('/HomeLanding/templates/pagecontent/' . $module_name . '.tpl');
 
-        $home_lang = LangLoader::get_all_langs('HomeLanding');
-        $module_lang = LangLoader::get_all_langs($module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $home_lang = LangLoader::get_module_langs('HomeLanding');
+        $module_lang = LangLoader::get_module_langs($module_name);
+        $view->add_lang(array_merge(LangLoader::get_all_langs(), $home_lang, $module_lang));
 
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_name);
 

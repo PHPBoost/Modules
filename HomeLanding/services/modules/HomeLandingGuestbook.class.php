@@ -25,9 +25,9 @@ class HomeLandingGuestbook
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/messages.tpl');
 
-		$home_lang = LangLoader::get_all_langs('HomeLanding');
-		$module_lang = LangLoader::get_all_langs($module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+		$home_lang = LangLoader::get_module_langs('HomeLanding');
+		$module_lang = LangLoader::get_module_langs($module_name);
+        $view->add_lang(array_merge(LangLoader::get_all_langs(), $home_lang, $module_lang));
 
 
 		$result = PersistenceContext::get_querier()->select('SELECT member.*, guestbook.*, guestbook.login as glogin, ext_field.user_avatar

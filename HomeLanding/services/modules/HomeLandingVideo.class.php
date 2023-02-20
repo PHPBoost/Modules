@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 25
+ * @version     PHPBoost 6.0 - last update: 2023 02 20
  * @since       PHPBoost 6.0 - 2020 10 25
 */
 
@@ -27,9 +27,9 @@ class HomeLandingVideo
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
-        $home_lang = LangLoader::get_all_langs('HomeLanding');
-        $module_lang = LangLoader::get_all_langs($module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $home_lang = LangLoader::get_module_langs('HomeLanding');
+        $module_lang = LangLoader::get_module_langs($module_name);
+        $view->add_lang(array_merge(LangLoader::get_all_langs(), $home_lang, $module_lang));
 
 		$categories_id = $modules[$module_cat]->is_subcategories_content_displayed() ? CategoriesService::get_authorized_categories($modules[$module_cat]->get_id_category(), $module_config->is_summary_displayed_to_guests(), $module_name) : array($modules[$module_cat]->get_id_category());
 
@@ -95,9 +95,9 @@ class HomeLandingVideo
 		else
             $view = new FileTemplate('HomeLanding/pagecontent/items.tpl');
 
-        $home_lang = LangLoader::get_all_langs('HomeLanding');
-        $module_lang = LangLoader::get_all_langs($module_name);
-        $view->add_lang(array_merge($home_lang, $module_lang));
+        $home_lang = LangLoader::get_module_langs('HomeLanding');
+        $module_lang = LangLoader::get_module_langs($module_name);
+        $view->add_lang(array_merge(LangLoader::get_all_langs(), $home_lang, $module_lang));
 
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $module_config->is_summary_displayed_to_guests(), $module_name);
 
