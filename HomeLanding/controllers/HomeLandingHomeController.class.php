@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2022 11 02
+ * @version   	PHPBoost 5.2 - last update: 2023 02 22
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -1011,7 +1011,7 @@ class HomeLandingHomeController extends ModuleController
 					'PSEUDO' => $row['display_name'],
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
-					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 					'POSTER' => $poster->rel(),
 
 					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
@@ -1027,7 +1027,7 @@ class HomeLandingHomeController extends ModuleController
 					'PSEUDO' => $row['display_name'],
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
-					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 					'POSTER' => $poster->rel(),
 
 					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
@@ -1044,7 +1044,7 @@ class HomeLandingHomeController extends ModuleController
 					'PSEUDO' => $row['display_name'],
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
-					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
@@ -1062,7 +1062,7 @@ class HomeLandingHomeController extends ModuleController
 					'PSEUDO' => $row['display_name'],
 					'TITLE' => $row['name'],
 					'ID' => $row['id'],
-					'DATE' => strftime('%d/%m/%Y', $row['timestamp']),
+					'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
@@ -1218,7 +1218,7 @@ class HomeLandingHomeController extends ModuleController
 	// 		for($i = 0; $i < $nbr_item ; $i++)
 	// 		{
 	// 			$date = strtotime($items['date'][$i]);
-	// 			$date_feed = strftime('%d/%m/%Y %Hh%M', $date);
+	// 			$date_feed = Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR);
 	// 			$desc = $items['desc'][$i];
 	// 			$cut_desc = strip_tags(trim(substr($desc, 0, $nb_char)));
 	// 			$img_feed = $items['img'][$i];
