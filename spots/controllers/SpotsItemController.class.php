@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 17
+ * @version     PHPBoost 6.0 - last update: 2023 03 01
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -26,7 +26,9 @@ class SpotsItemController extends DefaultModuleController
 		{
 			$new_location = new GoogleMapsMarker(TextHelper::unserialize($this->form->get_value('new_gps')));
 			$this->view->put_all(array(
+                'C_ROUTE'       => true,
 				'C_NEW_ADDRESS' => !empty($this->form->get_value('new_gps')),
+
 				'NEW_LAT' => $new_location->get_properties()['address']['latitude'],
 				'NEW_LNG' => $new_location->get_properties()['address']['longitude'],
 			));
@@ -43,12 +45,13 @@ class SpotsItemController extends DefaultModuleController
 
 		$this->build_new_address_form($request);
 
-		$this->view->put_all(array_merge($item->get_template_vars(), array(
+        $this->view->put_all(array_merge($item->get_template_vars(), array(
 			'C_ENABLED_COMMENTS' => $comments_config->module_comments_is_enabled('download'),
-			'FORM' => $this->form->display(),
-			'NOT_VISIBLE_MESSAGE' => MessageHelper::display(LangLoader::get_message('warning.element.not.visible', 'warning-lang'), MessageHelper::WARNING),
-			'MODULE_NAME' => $this->config->get_module_name(),
-			'DEFAULT_ADDRESS' => GoogleMapsConfig::load()->get_default_marker_address()
+			'FORM'                => $this->form->display(),
+
+            'NOT_VISIBLE_MESSAGE' => MessageHelper::display(LangLoader::get_message('warning.element.not.visible', 'warning-lang'), MessageHelper::WARNING),
+			'MODULE_NAME'         => $this->config->get_module_name(),
+			'DEFAULT_ADDRESS'     => GoogleMapsConfig::load()->get_default_marker_address()
 		)));
 
 		if ($comments_config->module_comments_is_enabled('spots'))
