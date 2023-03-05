@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 20
+ * @version     PHPBoost 6.0 - last update: 2023 03 05
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -62,7 +62,6 @@ class HomeLandingForum
 
 		while ($row = $result->fetch())
 		{
-			$content = FormatingHelper::second_parse($row['content']);
 			$user_avatar = !empty($row['user_avatar']) ? Url::to_rel($row['user_avatar']) : $user_accounts_config->get_default_avatar();
 
 			$last_page = ceil($row['t_nbr_msg'] / $module_config->get_number_messages_per_page());
@@ -84,7 +83,7 @@ class HomeLandingForum
 				'DATE'                => Date::to_format($row['last_timestamp'], Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
 				'SORT_DATE'           => $row['last_timestamp'],
 				'TOPIC'               => stripslashes($row['title']),
-				'CONTENT'             => TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse($content), '<br><br/>'), (int)$characters_number_to_cut),
+				'CONTENT'             => TextHelper::cut_string(@strip_tags(FormatingHelper::second_parse(stripslashes($row['content'])), '<br><br/>'), (int)$characters_number_to_cut),
 
 				'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($row['last_user_id'])->rel(),
 				'U_AVATAR_IMG'     => $user_avatar,
