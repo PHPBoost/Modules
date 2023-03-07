@@ -1,4 +1,4 @@
-<div id="module-mini-discord" class="cell-mini cell-tile# IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
+<div id="module-mini-discord" class="cell-mini cell-tile# IF C_VERTICAL_BLOCK # cell-mini-vertical# ENDIF ## IF C_HIDDEN_WITH_SMALL_SCREENS # hidden-small-screens# ENDIF #">
     <div class="cell">
         <div class="cell-header">
             <h6 class="cell-name">
