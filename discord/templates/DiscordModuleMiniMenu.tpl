@@ -17,7 +17,7 @@
                 <div id="channels-body" class="cell-list"></div>
             </div>
             <div class="cell-body">
-                <div class="cell-content bgc moderator">
+                <div class="cell-content bgc-sub">
                     <div id="server-name" class="bigger"></div>
                     <div id="users-number" class="align-right small"></div>
                 </div>
