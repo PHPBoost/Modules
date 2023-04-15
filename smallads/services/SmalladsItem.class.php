@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 06
+ * @version     PHPBoost 6.0 - last update: 2023 04 15
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -115,7 +115,7 @@ class SmalladsItem
 
 	public function get_category()
 	{
-		return CategoriesService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+		return CategoriesService::get_categories_manager('smallads')->get_categories_cache()->get_category($this->id_category);
 	}
 
 	public function set_title($title)
