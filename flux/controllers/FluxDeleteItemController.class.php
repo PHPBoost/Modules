@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 26
+ * @version     PHPBoost 6.0 - last update: 2022 11 13
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -21,11 +21,8 @@ class FluxDeleteItemController extends ModuleController
 			DispatchManager::redirect($error_controller);
 		}
 
-        if($item->get_xml_path() !== null)
-        {
-            $xml_file = new File(PATH_TO_ROOT . $item->get_xml_path());
-            $xml_file->delete();
-        }
+		$xml_file = new File(PATH_TO_ROOT . $item->get_xml_path());
+		$xml_file->delete();
 
 		FluxService::delete($item->get_id());
 

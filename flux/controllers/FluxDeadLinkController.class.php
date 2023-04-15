@@ -18,14 +18,14 @@ class FluxDeadLinkController extends AbstractController
 		if (!empty($id) && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL))
 		{
 			try {
-				$this->item = FluxService::get_item('WHERE flux.id = :id', array('id' => $id));
+				$this->item = FluxService::get_item($id);
 			} catch (RowNotFoundException $e) {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
 			}
 		}
 
-		if ($this->item !== null && (!FluxAuthorizationsService::check_authorizations($this->item->get_id_category())->read() || !FluxAuthorizationsService::check_authorizations()->display_download_link()))
+		if ($this->item !== null && !CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->read())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
@@ -36,15 +36,15 @@ class FluxDeadLinkController extends AbstractController
 			{
 				$contribution = new Contribution();
 				$contribution->set_id_in_module($this->item->get_id());
-				$contribution->set_entitled(StringVars::replace_vars(LangLoader::get_message('contribution.deadlink', 'common'), array('link_name' => $this->item->get_title())));
+				$contribution->set_entitled(StringVars::replace_vars(LangLoader::get_message('contribution.dead.link.name', 'contribution-lang'), array('link_name' => $this->item->get_title())));
 				$contribution->set_fixing_url(FluxUrlBuilder::edit($this->item->get_id())->relative());
-				$contribution->set_description(LangLoader::get_message('contribution.deadlink_explain', 'common'));
+				$contribution->set_description(LangLoader::get_message('contribution.dead.link.clue', 'contribution-lang'));
 				$contribution->set_poster_id(AppContext::get_current_user()->get_id());
 				$contribution->set_module('flux');
 				$contribution->set_type('alert');
 				$contribution->set_auth(
 					Authorizations::capture_and_shift_bit_auth(
-						CategoriesService::get_categories_manager()->get_heritated_authorizations($this->item->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
+						CategoriesService::get_categories_manager('flux')->get_heritated_authorizations($this->item->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
 						Category::MODERATION_AUTHORIZATIONS, Contribution::CONTRIBUTION_AUTH_BIT
 					)
 				);

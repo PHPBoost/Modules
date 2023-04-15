@@ -51,7 +51,7 @@
 												<span class="lo-date hidden">{feed_items.SORT_DATE}</span>
 												<div class="feed-item-container">
 													# IF feed_items.C_HAS_THUMBNAIL #
-														<img src="{feed_items.U_THUMBNAIL}" alt="{feed_items.ITEM_HOST}" />
+														<img src="{feed_items.U_THUMBNAIL}" alt="{feed_items.TITLE}" />
 													# ENDIF #
 													<div class="feed-item-content">
 														<span class="feed-title">

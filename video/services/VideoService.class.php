@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2023 04 15
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -99,7 +99,7 @@ class VideoService
 		Feed::clear_cache('video');
 		KeywordsCache::invalidate();
 		VideoCache::invalidate();
-        CategoriesService::get_categories_manager()->regenerate_cache();
+        CategoriesService::get_categories_manager('video')->regenerate_cache();
 	}
 }
 ?>

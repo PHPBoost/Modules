@@ -106,21 +106,22 @@
 				# IF C_GMAP_ENABLED #
 					# IF C_DEFAULT_ADDRESS #
 						# IF C_LOCATION #
-                            <div class="cell">
-                                <div class="cell-body">
-                                    <div class="cell-content">
-                                        <i class="fab fa-waze fa-2x" aria-hidden="true"></i>
-                                        {@H|spots.waze.description}
-                                    </div>
-                                </div>
-                                <div class="cell-body">
-                                    <div class="cell-content align-center">
-                                        <a class="button bgc-full moderator" href="https://www.waze.com/ul?ll={LATITUDE}%2C{LONGITUDE}&navigate=yes&navigate=yes">
-                                            <i class="fab fa-waze" aria-hidden="true"></i> {@spots.send.to.waze}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+							<div class="cell">
+								<div class="cell-body">
+									<div class="cell-content">
+										<i class="fab fa-waze fa-2x" aria-hidden="true"></i>
+										{@H|spots.waze.description}
+									</div>
+								</div>
+								<div class="cell-body">
+									<div class="cell-content align-center">
+										<a class="button bgc-full moderator" href="https://www.waze.com/ul?ll={LATITUDE}%2C{LONGITUDE}&navigate=yes&navigate=yes">
+											<i class="fab fa-waze" aria-hidden="true"></i> {@spots.send.to.waze}
+										</a>
+									</div>
+								</div>
+
+							</div>
 							<div class="fixed-top">
 								<div id="gmap"></div>
 							</div>
@@ -162,6 +163,14 @@
 
 # IF C_GMAP_ENABLED #
 	# IF C_DEFAULT_ADDRESS #
+		<script src="{PATH_TO_ROOT}/spots/templates/js/sticky# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
+
+		<script>
+			jQuery(function(){
+				jQuery('.fixed-top').sticky();
+			});
+		</script>
+
 		<script>
 			# IF C_LOCATION #
 				var spot = {lat: {LATITUDE}, lng: {LONGITUDE}};

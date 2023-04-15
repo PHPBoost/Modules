@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2023 04 15
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -25,7 +25,7 @@ class VideoDeadLinkController extends AbstractController
 			}
 		}
 
-		if ($this->item !== null && (!CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->read()))
+		if ($this->item !== null && !CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->read())
 		{
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
@@ -44,7 +44,7 @@ class VideoDeadLinkController extends AbstractController
 				$contribution->set_type('alert');
 				$contribution->set_auth(
 					Authorizations::capture_and_shift_bit_auth(
-						CategoriesService::get_categories_manager()->get_heritated_authorizations($this->item->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
+						CategoriesService::get_categories_manager('video')->get_heritated_authorizations($this->item->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
 						Category::MODERATION_AUTHORIZATIONS, Contribution::CONTRIBUTION_AUTH_BIT
 					)
 				);

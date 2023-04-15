@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 02
+ * @version     PHPBoost 6.0 - last update: 2023 04 15
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -123,7 +123,7 @@ class FluxService
 	public static function clear_cache()
 	{
 		Feed::clear_cache('flux');
-		CategoriesService::get_categories_manager()->regenerate_cache();
+		CategoriesService::get_categories_manager('flux')->regenerate_cache();
 	}
 }
 ?>
