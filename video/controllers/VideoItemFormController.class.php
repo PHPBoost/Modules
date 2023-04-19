@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2023 04 20
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -29,7 +29,7 @@ class VideoItemFormController extends DefaultModuleController
 	public function get_extensions_list() 
 	{
 		$extensions = array();
-		foreach(VideoConfig::load()->get_mime_type_list() as $extension)
+		foreach($this->config->get_mime_type_list() as $extension)
 		{
 			$extensions[] = TextHelper::substr($extension, 6);
 		}
@@ -39,7 +39,7 @@ class VideoItemFormController extends DefaultModuleController
 	public function get_platforms_list()
 	{
 		$platform = array();
-		foreach (VideoConfig::load()->get_players() as $id => $options) {
+		foreach ($this->config->get_players() as $id => $options) {
 			if (strpos($options['platform'], 'peertube') !== false)
 				$platform[] = $options['domain'];
 			else 
@@ -92,7 +92,7 @@ class VideoItemFormController extends DefaultModuleController
 
 		$fieldset->add_field(new FormFieldCheckbox('summary_enabled', $this->lang['form.enable.summary'], $this->get_item()->is_summary_enabled(),
 			array(
-				'description' => StringVars::replace_vars($this->lang['form.summary.clue'], array('number' => VideoConfig::load()->get_auto_cut_characters_number())),
+				'description' => StringVars::replace_vars($this->lang['form.summary.clue'], array('number' => $this->config->get_auto_cut_characters_number())),
 				'events' => array('click' => '
 					if (HTMLForms.getField("summary_enabled").getValue()) {
 						HTMLForms.getField("summary").enable();
@@ -292,13 +292,12 @@ class VideoItemFormController extends DefaultModuleController
 	private function save()
 	{
 		$item = $this->get_item();
-		$config = VideoConfig::load();
 
 		$pathinfo = pathinfo(preg_replace('`\?.*`u', '', $this->form->get_value('file_url')));
 		$url_parsed = parse_url($this->form->get_value('file_url'));
 
 		$hosts_ok = array();
-		foreach ($config->get_players() as $id => $options) {
+		foreach ($this->config->get_players() as $id => $options) {
 			$host = $options['domain'];
 			$parse_host = parse_url($host);
 			$host = $parse_host['host'];
@@ -320,7 +319,7 @@ class VideoItemFormController extends DefaultModuleController
 
 		if (!empty($pathinfo['extension'])) 
 		{
-			if (in_array('video/' . $pathinfo['extension'], $config->get_mime_type_list()))
+			if (in_array('video/' . $pathinfo['extension'], $this->config->get_mime_type_list()))
 			{
 				$item->set_mime_type('video/' . $pathinfo['extension']);
 			}				
@@ -395,28 +394,19 @@ class VideoItemFormController extends DefaultModuleController
 				$item->clean_publishing_start_and_end_date();
 		}
 
-		// if (in_array('video/' . $pathinfo['extension'], $config->get_mime_type_list()) || in_array($url_parsed['host'], $hosts_ok))
-		// {
-			if ($this->is_new_item) {
-				$id = VideoService::add($item);
-				$item->set_id($id);
+        if ($this->is_new_item) {
+            $id = VideoService::add($item);
+            $item->set_id($id);
 
-				if (!$this->is_contributor_member())
-					HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
-			} else {
-				$item->set_update_date(new Date());
-				VideoService::update($item);
+            if (!$this->is_contributor_member())
+                HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+        } else {
+            $item->set_update_date(new Date());
+            VideoService::update($item);
 
-				if (!$this->is_contributor_member())
-					HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
-			}
-		// } 
-		// else
-		// {
-		// 	$controller = new UserErrorController(LangLoader::get_message('warning.error', 'warning-lang'), $this->lang['e_link_invalid_video']);
-		// 	DispatchManager::redirect($controller);
-		// }
-		
+            if (!$this->is_contributor_member())
+                HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), array('item_url' => $item->get_item_url())));
+        }
 
 		$this->contribution_actions($item);
 

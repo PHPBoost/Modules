@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2023 04 20
  * @since       PHPBoost 6.0 - 2022 08 26
  */
 
@@ -58,7 +58,7 @@ class RecipeItemFormController extends DefaultModuleController
 
 		$fieldset->add_field(new FormFieldCheckbox('summary_enabled', $this->lang['form.enable.summary'], $this->get_item()->is_summary_enabled(),
 			array(
-				'description' => StringVars::replace_vars($this->lang['form.summary.clue'], array('number' => RecipeConfig::load()->get_auto_cut_characters_number())),
+				'description' => StringVars::replace_vars($this->lang['form.summary.clue'], array('number' => $this->config->get_auto_cut_characters_number())),
 				'events' => array('click' => '
 					if (HTMLForms.getField("summary_enabled").getValue()) {
 						HTMLForms.getField("summary").enable();
