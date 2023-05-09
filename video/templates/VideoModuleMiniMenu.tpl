@@ -1,5 +1,5 @@
 # IF C_ITEMS #
-	<div id="video-slide" class="cell">
+	<div id="video-slide">
 		# START items #
 			<div class="cell no-style">
 				<div class="cell-thumbnail">
@@ -13,7 +13,7 @@
 						<a href="{items.U_ITEM}" class="offload">{items.TITLE}</a>
 					</h6>
 				</div>
-				<div class="cell-infos small">						
+				<div class="cell-infos small">
 					<time datetime="{items.DATE_ISO8601}">{items.DATE_AGO}</time>
 					# IF C_ENABLED_VIEWS_NUMBER #<span aria-label="{@common.views.number}"><i class="fa fa-eye" aria-hidden="true"></i> {items.VIEWS_NUMBER}</span># ENDIF #
 					# IF C_ENABLED_NOTATION #{items.STATIC_NOTATION}# ENDIF #
@@ -21,6 +21,9 @@
 			</div>
 		# END items #
 	</div>
+    <div class="cell-body">
+        <div class="cell-content align-center"><a href="${relative_url(VideoUrlBuilder::home())}" class="offload button small">{@video.more.videos}</a></div>
+    </div>
 	<script>
 		jQuery('#video-slide')
 			.addClass('owl-carousel')

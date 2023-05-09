@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2023 05 09
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -30,7 +30,8 @@ $lang['video.items.management'] = 'Videos management';
 $lang['video.width']  = 'Width of the video';
 $lang['video.height'] = 'Height of the video';
 
-// Mini module sorting
+// Mini module
+$lang['video.more.videos'] = 'More videos';
 $lang['video.last.items'] = 'Last videos';
 $lang['video.last.items'] = 'Popular videos';
 $lang['video.ranking']    = 'Ranking';
