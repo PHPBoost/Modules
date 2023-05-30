@@ -18,7 +18,7 @@
 				jQuery('<input/> ', {type : 'text', id : 'field_amount_' + id, class : 'grouped-element', name : 'field_amount_' + id, placeholder : ${escapejs(@recipe.amount)}}).appendTo('#' + id);
 				jQuery('#' + id).append(' ');
 
-				jQuery('<a/> ', {href : 'javascript:RecipeFormFieldIngredient.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(@common.delete)}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i>').appendTo('#' + id);
+				jQuery('<a/> ', {href : 'javascript:RecipeFormFieldIngredient.delete_field('+ this.integer +');', class : 'grouped-element bgc-full error', 'aria-label' : ${escapejs(@common.delete)}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i>').appendTo('#' + id);
 
 				this.integer++;
 			}
@@ -42,7 +42,7 @@
 		<div id="${escape(ID)}_{fieldelements.ID}" class="grouped-inputs">
 			<input id="field_ingredient_${escape(ID)}_{fieldelements.ID}" class="grouped-element" type="text" name="field_ingredient_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.INGREDIENT}" placeholder="{@recipe.ingredient}"/>
 			<input id="field_amount_${escape(ID)}_{fieldelements.ID}" class="grouped-element" type="text" name="field_amount_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.AMOUNT}" placeholder="{@recipe.amount}" class="slider-url"/>
-			<a class="grouped-element" href="javascript:RecipeFormFieldIngredient.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+			<a class="grouped-element bgc-full error" href="javascript:RecipeFormFieldIngredient.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 		</div>
 	# END fieldelements #
 </div>
