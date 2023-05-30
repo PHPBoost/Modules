@@ -20,7 +20,7 @@
 				jQuery('<input /> ', {type : 'number', min : '1', id : 'field_step_number_' + id, class : 'grouped-element', name : 'field_step_number_' + id, placeholder : '{@recipe.step}'}).appendTo('#inline_inputs_' + id);
 				jQuery('#' + id).append(' ');
 
-				jQuery('<a /> ', {href : 'javascript:RecipeFormFieldStep.delete_field('+ this.integer +');', class : 'grouped-element', 'aria-label' : ${escapejs(@common.delete)}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i>').appendTo('#inline_inputs_' + id);
+				jQuery('<a /> ', {href : 'javascript:RecipeFormFieldStep.delete_field('+ this.integer +');', class : 'grouped-element bgc-full error', 'aria-label' : ${escapejs(@common.delete)}}).html('<i class="fa fa-trash-alt" aria-hidden="true"></i>').appendTo('#inline_inputs_' + id);
 				jQuery('#' + id).append(' ');
 
 				this.integer++;
@@ -46,7 +46,7 @@
 			<textarea id="field_step_content_${escape(ID)}_{fieldelements.ID}" class="grouped-area" name="field_step_content_${escape(ID)}_{fieldelements.ID}" placeholder="{@recipe.step.content}">{fieldelements.STEP_CONTENT}</textarea>
 			<div class="grouped-inputs">		
 				<input id="field_step_number_${escape(ID)}_{fieldelements.ID}" class="grouped-element" type="number" min="1" name="field_step_number_${escape(ID)}_{fieldelements.ID}" value="{fieldelements.STEP_NUMBER}" placeholder="{@recipe.step}"/>
-				<a class="grouped-element" href="javascript:RecipeFormFieldStep.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
+				<a class="grouped-element bgc-full error" href="javascript:RecipeFormFieldStep.delete_field({fieldelements.ID});" data-confirmation="delete-element" aria-label="{@common.delete}"><i class="fa fa-trash-alt" aria-hidden="true"></i></a>
 			</div>
 		</div>
 	# END fieldelements #
