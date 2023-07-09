@@ -3,27 +3,24 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 25
+ * @version     PHPBoost 6.0 - last update: 2023 07 09
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastCache implements CacheData
 {
-	private $item = array();
+	private $items = [];
 
 	/**
 	 * {@inheritdoc}
 		*/
 	public function synchronize()
 	{
-		$this->items = array();
-		$now = new Date();
-
 		$result = PersistenceContext::get_querier()->select('
 			SELECT broadcast.*
 			FROM ' . BroadcastSetup::$broadcast_table . ' broadcast
 			WHERE published = 1
-			ORDER BY creation_date DESC', array());
+			ORDER BY creation_date DESC', []);
 
 		while ($row = $result->fetch())
 		{
