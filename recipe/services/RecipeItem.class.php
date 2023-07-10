@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 04 15
+ * @version     PHPBoost 6.0 - last update: 2023 07 10
  * @since       PHPBoost 6.0 - 2022 08 26
  */
 
@@ -431,7 +431,6 @@ class RecipeItem
 		$this->creation_date = new Date();
 		$this->views_number = 0;
 		$this->thumbnail_url = FormFieldThumbnail::DEFAULT_VALUE;
-		$this->version_number = '';
 		$this->ingredients = array();
 		$this->steps = array();
 		$this->end_date_enabled = false;
@@ -486,7 +485,6 @@ class RecipeItem
 				'C_DELETE'               => $this->is_authorized_to_delete(),
 				'C_READ_MORE'            => !$this->is_summary_enabled() && TextHelper::strlen($content) > $config->get_auto_cut_characters_number() && $real_summary != @strip_tags($content, '<br><br/>'),
 				'C_HAS_THUMBNAIL'        => $this->has_thumbnail(),
-				'C_VERSION_NUMBER'       => !empty($this->version_number),
 				'C_AUTHOR_CUSTOM_NAME'   => $this->is_author_custom_name_enabled(),
 				'C_ENABLED_VIEWS_NUMBER' => $config->get_enabled_views_number(),
 				'C_AUTHOR_GROUP_COLOR'   => !empty($user_group_color),
