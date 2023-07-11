@@ -85,25 +85,6 @@ span.marker-container .inner-marker {
 
 .gm-style img { max-width: 280px !important; }
 
-.fixed-top.sticky {
-	top: 0;
-	margin: 0 auto;
-	position: fixed;
-	z-index: 10;
-}
-
-@media (min-width: 769px) {
-	.fixed-top.sticky {
-		left: 10%;
-		right: 10%;
-	}
-
-	.fixed-top.sticky #map,
-	.fixed-top.sticky #gmap {
-		padding-bottom: 35%;
-	}
-}
-
 .gmap-autocomplete {
 	margin-bottom: 10px;
 }
