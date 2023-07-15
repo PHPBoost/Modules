@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 17
+ * @version     PHPBoost 6.0 - last update: 2023 07 15
  * @since       PHPBoost 6.0 - 2023 01 17
 */
 
@@ -27,11 +27,6 @@ class TagcloudModuleMiniMenu extends ModuleMiniMenu
 	public function get_formated_title()
 	{
 		return LangLoader::get_message('tagcloud.module.title', 'common', 'tagcloud');
-	}
-
-	public function is_displayed()
-	{
-		return TagcloudAuthorizationsService::check_authorizations()->read();
 	}
 
 	public function get_menu_content()
