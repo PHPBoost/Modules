@@ -15,25 +15,25 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 		return self::BLOCK_POSITION__NOT_ENABLED;
 	}
 
- 	public function get_menu_id()
- 	{
- 		return 'birthday-mini-module';
- 	}
+    public function get_menu_id()
+    {
+        return 'birthday-mini-module';
+    }
 
- 	public function get_menu_title()
- 	{
- 		return LangLoader::get_message('birthday.happy.birthday', 'common', 'birthday');
- 	}
+    public function get_menu_title()
+    {
+        return LangLoader::get_message('birthday.happy.birthday', 'common', 'birthday');
+    }
 
 	public function get_formated_title()
 	{
 		return LangLoader::get_message('birthday.module.title', 'common', 'birthday');
 	}
 
- 	public function is_displayed()
- 	{
- 		return BirthdayAuthorizationsService::check_authorizations()->read() && !empty($user_born_field) && $user_born_field['display'] || AppContext::get_current_user()->is_admin();
- 	}
+    public function is_displayed()
+    {
+        return BirthdayAuthorizationsService::check_authorizations()->read() && !empty($user_born_field) && $user_born_field['display'] || AppContext::get_current_user()->is_admin();
+    }
 
 	public function get_menu_content()
 	{
