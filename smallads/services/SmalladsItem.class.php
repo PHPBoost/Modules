@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 04 15
+ * @version     PHPBoost 6.0 - last update: 2023 07 09
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -693,7 +693,7 @@ class SmalladsItem
 
 	public function get_template_vars()
 	{
-		$this->config = SmalladsConfig::load();
+		$config = SmalladsConfig::load();
 
 		$category         = $this->get_category();
 		$content	 	  = FormatingHelper::second_parse($this->content);
@@ -706,7 +706,7 @@ class SmalladsItem
 		$carousel         = $this->get_carousel();
 		$nbr_pictures	  = count($carousel);
 
-		if($this->config->is_googlemaps_available())
+		if($config->is_googlemaps_available())
 		{
 			$location_value = TextHelper::deserialize($this->get_location());
 			$location = '';
@@ -723,7 +723,7 @@ class SmalladsItem
 				$location = $this->get_location();
 		}
 
-		if($this->config->is_user_allowed())
+		if($config->is_user_allowed())
 			$contact_level = AppContext::get_current_user()->check_level(User::VISITOR_LEVEL);
 		else
 			$contact_level = AppContext::get_current_user()->check_level(User::MEMBER_LEVEL);
@@ -761,10 +761,10 @@ class SmalladsItem
 			'C_CAROUSEL'                       => $nbr_pictures > 0,
 			'C_DIFFERED'                       => $this->published == self::DEFERRED_PUBLICATION,
 			'C_NEW_CONTENT'                    => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('smallads', $this->publishing_start_date != null ? $this->publishing_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
-			'C_USAGE_TERMS'					   => $this->config->are_usage_terms_displayed(),
+			'C_USAGE_TERMS'					   => $config->are_usage_terms_displayed(),
 			'IS_LOCATED'					   => !empty($this->get_location()),
 			'C_OTHER_LOCATION'				   => $this->get_location() === 'other',
-			'C_GMAP'					   	   => $this->config->is_googlemaps_available(),
+			'C_GMAP'					   	   => $config->is_googlemaps_available(),
 
 			// Item
 			'ID'                 	=> $this->get_id(),
@@ -781,7 +781,7 @@ class SmalladsItem
 			'AUTHOR_PHONE'       	=> $this->get_author_phone(),
 			'SUMMARY'        		=> $summary,
 			'PRICE'          	 	=> $this->get_price(),
-			'CURRENCY'          	=> $this->config->get_currency(),
+			'CURRENCY'          	=> $config->get_currency(),
 			'SMALLAD_TYPE'   		=> str_replace('-',' ', $this->get_smallad_type()),
 			'SMALLAD_TYPE_FILTER'   => Url::encode_rewrite(TextHelper::strtolower($this->get_smallad_type())),
 			'BRAND'          	 	=> $this->get_brand(),
