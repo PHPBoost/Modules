@@ -26,7 +26,7 @@
             </div> -->
             <div class="slider_container">
                 <i class="fa fa-volume-down"></i>
-                <input type="range" min="1" max="100" value="100" onchange="setVolume()">
+                <input class="volume_slider" type="range" min="1" max="100" value="100" onchange="setVolume()">
                 <i class="fa fa-volume-up"></i>
             </div>
         </div>
