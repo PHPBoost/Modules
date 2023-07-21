@@ -3,13 +3,15 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 22
+ * @version     PHPBoost 6.0 - last update: 2023 07 17
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
+ * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesSetup extends DefaultModuleSetup
 {
+	private $messages;
 	public static $quotes_table;
 	public static $quotes_cats_table;
 
