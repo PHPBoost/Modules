@@ -17,7 +17,10 @@
 		</ul>
 	</div>
 	<div class="cell-list cell-list-inline">
-		<span class="text-italic small pinned">{L_COMING_NEXT}</span>
+        <div class="flex-between">
+            <span class="text-italic small pinned">{L_COMING_NEXT}</span>
+            <span class="text-italic small pinned">({UPCOMING_BIRTHDAYS_NB})</span>
+        </div>
 		<ul>
 			# IF C_UPCOMING_BIRTHDAYS #
 				# START upcoming_birthdays #
