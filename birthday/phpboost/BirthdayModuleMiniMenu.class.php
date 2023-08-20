@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 08 19
+ * @version     PHPBoost 6.0 - last update: 2023 08 20
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -84,6 +84,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
                         'USER_LEVEL_CLASS' => UserService::get_level_class($user['level']),
                         'USER_GROUP_COLOR' => $user_group_color,
                         'BIRTHDATE'        => Date::to_format($user['user_born'], Date::FORMAT_DAY_MONTH),
+                        'AGE'              => $user['age'],
 
                         'U_USER_PROFILE' => UserUrlBuilder::profile($user['user_id'])->absolute()
                     )
@@ -96,10 +97,10 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 			'C_HAS_BIRTHDAY'        => count($users_birthday),
 			'C_COMING_NEXT'         => $config->get_coming_next() > 1,
 			'C_UPCOMING_BIRTHDAYS'  => count($upcoming_birthdays) > 0,
-			'UPCOMING_BIRTHDAYS_NB' => count($upcoming_birthdays),
 			'C_DISPLAY_MEMBERS_AGE' => BirthdayConfig::load()->is_members_age_displayed(),
 
-			'L_COMING_NEXT' => $config->get_coming_next() > 1 ? StringVars::replace_vars($lang['birthday.next.days'], array('coming_next' => $config->get_coming_next())) : $lang['date.tomorrow']
+			'UPCOMING_BIRTHDAYS_NB' => count($upcoming_birthdays),
+			'L_COMING_NEXT'         => $config->get_coming_next() > 1 ? StringVars::replace_vars($lang['birthday.next.days'], array('coming_next' => $config->get_coming_next())) : $lang['date.tomorrow']
 		));
 
 		return $view->render();

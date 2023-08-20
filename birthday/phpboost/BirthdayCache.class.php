@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 08 19
+ * @version     PHPBoost 6.0 - last update: 2023 08 20
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -15,9 +15,6 @@ class BirthdayCache implements CacheData
 
 	public function synchronize()
 	{
-		$this->users_birthday = array();
-		$this->upcoming_birthdays = array();
-
 		$result = PersistenceContext::get_querier()->select("SELECT
 			member.user_id, display_name, level, member_extended_fields.user_born, user_groups,
 			IF(
@@ -47,7 +44,12 @@ class BirthdayCache implements CacheData
 		}
 
 		$result_next = PersistenceContext::get_querier()->select(
-            "   SELECT member.user_id, display_name, member_extended_fields.user_born, user_groups, level
+            "   SELECT member.user_id, display_name, member_extended_fields.user_born, user_groups, level,
+                IF(
+                    member_extended_fields.user_born < 0,
+                    DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(DATE_ADD(FROM_UNIXTIME(0), INTERVAL member_extended_fields.user_born second))), '%Y')+0,
+                    CAST((PERIOD_DIFF(DATE_FORMAT(CURRENT_DATE(), '%Y%m'),DATE_FORMAT(FROM_UNIXTIME(member_extended_fields.user_born), '%Y%m')) / 12) as UNSIGNED)
+                ) AS age
                 FROM " . DB_TABLE_MEMBER . " member
                 LEFT JOIN " . DB_TABLE_MEMBER_EXTENDED_FIELDS . " member_extended_fields ON member_extended_fields.user_id = member.user_id
                 ORDER BY IF(
@@ -58,24 +60,28 @@ class BirthdayCache implements CacheData
 			"
 		);
 
+        $now = new Date();
+        $delay = new Date($now->get_timestamp() + (BirthdayConfig::load()->get_coming_next() * 86400));
+
 		while ($row_next = $result_next->fetch())
 		{
-            $now = new Date();
-            $delay = new Date($now->get_timestamp() + (BirthdayConfig::load()->get_coming_next() * 86400));
-
             $birthdate = new Date($row_next['user_born']);
             $b_day = $birthdate->get_day();
             $b_month = $birthdate->get_month();
 
             if ($now->get_year() !== $delay->get_year())
+            {
                 if ($b_month < $now->get_month())
                     $next_anniversary = new Date($now->get_year() + 1 . '-' . $b_month . '-' . $b_day);
                 else
                     $next_anniversary = new Date($now->get_year() . '-' . $b_month . '-' . $b_day);
+            }
             else
+            {
                 $next_anniversary = new Date($now->get_year() . '-' . $b_month . '-' . $b_day);
+            }
 
-            if ($next_anniversary >= $now && $next_anniversary <= $delay)
+            if ($next_anniversary > $now && $next_anniversary <= $delay)
             {
                 $this->upcoming_birthdays[] = $row_next;
             }

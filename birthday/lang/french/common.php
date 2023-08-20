@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 03
+ * @version     PHPBoost 6.0 - last update: 2023 08 20
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -16,7 +16,8 @@
 // Titles
 $lang['birthday.module.title']   = 'Anniversaires';
 $lang['birthday.happy.birthday'] = 'Joyeux anniversaire !';
-$lang['birthday.next.days'] = 'Dans les :coming_next prochains jours';
+$lang['birthday.next.days']      = 'Dans les :coming_next prochains jours';
+$lang['birthday.years.old']      = 'ans';
 
 // Configuration
 $lang['birthday.coming.next.number']                   = 'Nombre de jours pour afficher les prochains anniversaires';
