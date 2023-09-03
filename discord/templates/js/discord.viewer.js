@@ -109,7 +109,7 @@
                                         if (users[n].game !== undefined)
                                         {
                                             userGame.setAttribute('aria-label', users[n].game.name)
-                                            userGame.innerText = '<i class="fa fa-fw fa-play success" aria-hidden="true"></i>';
+                                            userGame.innerHTML = '<i class="fa fa-fw fa-play success" aria-hidden="true"></i>';
                                         }
 
                                         userImage.setAttribute('src', data.members[n].avatar_url);
@@ -180,7 +180,7 @@
                                 if (users[n].game !== undefined)
                                 {
                                     userGame.setAttribute('aria-label', users[n].game.name);
-                                    userGame.innerText = '<i class="fa fa-fw fa-play" aria-hidden="true"></i>';
+                                    userGame.innerHTML = '<i class="fa fa-fw fa-play" aria-hidden="true"></i>';
                                 }
 
                                 userImage.setAttribute('src', data.members[n].avatar_url);
