@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 08 20
+ * @version     PHPBoost 6.0 - last update: 2023 09 07
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -65,25 +65,28 @@ class BirthdayCache implements CacheData
 
 		while ($row_next = $result_next->fetch())
 		{
-            $birthdate = new Date($row_next['user_born']);
-            $b_day = $birthdate->get_day();
-            $b_month = $birthdate->get_month();
-
-            if ($now->get_year() !== $delay->get_year())
+            if ($row_next['user_born'])
             {
-                if ($b_month < $now->get_month())
-                    $next_anniversary = new Date($now->get_year() + 1 . '-' . $b_month . '-' . $b_day);
+                $birthdate = new Date($row_next['user_born']);
+                $b_day = $birthdate->get_day();
+                $b_month = $birthdate->get_month();
+
+                if ($now->get_year() !== $delay->get_year())
+                {
+                    if ($b_month < $now->get_month())
+                        $next_anniversary = new Date($now->get_year() + 1 . '-' . $b_month . '-' . $b_day);
+                    else
+                        $next_anniversary = new Date($now->get_year() . '-' . $b_month . '-' . $b_day);
+                }
                 else
+                {
                     $next_anniversary = new Date($now->get_year() . '-' . $b_month . '-' . $b_day);
-            }
-            else
-            {
-                $next_anniversary = new Date($now->get_year() . '-' . $b_month . '-' . $b_day);
-            }
+                }
 
-            if ($next_anniversary > $now && $next_anniversary <= $delay)
-            {
-                $this->upcoming_birthdays[] = $row_next;
+                if ($next_anniversary > $now && $next_anniversary <= $delay)
+                {
+                    $this->upcoming_birthdays[] = $row_next;
+                }
             }
 		}
 	}
