@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 07
+ * @version     PHPBoost 6.0 - last update: 2023 09 17
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -232,8 +232,8 @@ class AdminVideoConfigController extends DefaultAdminModuleController
 	{
 		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
 
-		if($this->form->get_value('display_type') == VideoConfig::GRID_VIEW)
-			$this->config->set_items_number_per_row($this->form->get_value('items_per_row'));
+		if($this->form->get_value('display_type')->get_raw_value() == VideoConfig::GRID_VIEW)
+			$this->config->set_items_per_row($this->form->get_value('items_per_row'));
 
 		$this->config->set_subcategories_display($this->form->get_value('subcategories_display'));
 		if ($this->config->get_subcategories_display())
