@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 07
+ * @version     PHPBoost 6.0 - last update: 2023 09 17
  * @since       PHPBoost 6.0 - 2022 08 26
  */
 
@@ -172,8 +172,8 @@ class AdminRecipeConfigController extends DefaultAdminModuleController
 	{
 		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
 
-		if($this->form->get_value('display_type') == RecipeConfig::GRID_VIEW)
-			$this->config->set_items_number_per_row($this->form->get_value('items_per_row'));
+		if($this->form->get_value('display_type')->get_raw_value() == RecipeConfig::GRID_VIEW)
+			$this->config->set_items_per_row($this->form->get_value('items_per_row'));
 
 		$this->config->set_categories_per_page($this->form->get_value('categories_per_page'));
 		$this->config->set_categories_per_row($this->form->get_value('categories_per_row'));
