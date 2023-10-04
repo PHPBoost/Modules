@@ -20,8 +20,7 @@ class BroadcastCache implements CacheData
 			SELECT broadcast.*
 			FROM ' . BroadcastSetup::$broadcast_table . ' broadcast
 			WHERE published = 1
-			ORDER BY creation_date DESC'
-        );
+			ORDER BY creation_date DESC', []);
 
 		while ($row = $result->fetch())
 		{
