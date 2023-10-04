@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 20
+ * @version     PHPBoost 6.0 - last update: 2023 10 04
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -67,7 +67,7 @@ class HomeLandingMedia
                 'SUMMARY'       => FormatingHelper::second_parse($summary),
 
                 'U_THUMBNAIL' => Url::to_rel($row['thumbnail']),
-                'U_ITEM'      => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '+' . Url::encode_rewrite($row['title']) . '.php')),
+                'U_ITEM'      => Url::to_rel('/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['id_category'] . '-' . Url::encode_rewrite($row['title']) . '.php')),
             ));
         }
         $result->dispose();

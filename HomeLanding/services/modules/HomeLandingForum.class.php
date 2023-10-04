@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 03 05
+ * @version     PHPBoost 6.0 - last update: 2023 10 04
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -67,8 +67,8 @@ class HomeLandingForum
 			$last_page = ceil($row['t_nbr_msg'] / $module_config->get_number_messages_per_page());
 			$last_page_rewrite = ($last_page > 1) ? '-' . $last_page : '';
 			$last_page = ($last_page > 1) ? 'pt=' . $last_page . '&amp;' : '';
-			$link = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '+' . Url::encode_rewrite($row['title'])  . '.php') . '#m' .  $row['last_msg_id']);
-			$link_message = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '+' . Url::encode_rewrite($row['title'])  . '.php'));
+			$link = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '-' . Url::encode_rewrite($row['title'])  . '.php') . '#m' .  $row['last_msg_id']);
+			$link_message = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '-' . Url::encode_rewrite($row['title'])  . '.php'));
 			$user_group_color = User::get_group_color($row['user_groups'], $row['level']);
 
 			$characters_number_to_cut = $modules[$module_name]->get_characters_number_displayed();
