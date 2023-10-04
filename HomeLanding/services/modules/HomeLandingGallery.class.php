@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 20
+ * @version     PHPBoost 6.0 - last update: 2023 10 04
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -50,7 +50,7 @@ class HomeLandingGallery
             'MODULE_POSITION' => $home_config->get_module_position_by_id($module_name),
             'MODULE_NAME'     => $module_name,
             'ITEMS_PER_ROW'   => $module_config->get_columns_number(),
-		    'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
+            'L_MODULE_TITLE'  => ModulesManager::get_module($module_name)->get_configuration()->get_name(),
         ));
 
 		while ($row = $result->fetch())
