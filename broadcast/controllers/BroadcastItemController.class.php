@@ -3,12 +3,14 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 25
+ * @version     PHPBoost 6.0 - last update: 2023 10 02
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastItemController extends DefaultModuleController
 {
+    private $category;
+
 	protected function get_template_to_use()
 	{
 		return new FileTemplate('broadcast/BroadcastItemController.tpl');
