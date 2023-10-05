@@ -3,7 +3,7 @@
  * @copyright 	&copy; 2005-2019 PHPBoost
  * @license 	https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version   	PHPBoost 5.2 - last update: 2023 02 22
+ * @version   	PHPBoost 5.2 - last update: 2023 10 05
  * @since   	PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
  * @contributor Arnaud GENET <elenwii@phpboost.com>
@@ -876,8 +876,8 @@ class HomeLandingHomeController extends ModuleController
 			$last_page = ceil($row['t_nbr_msg'] / $config->get_number_messages_per_page());
 			$last_page_rewrite = ($last_page > 1) ? '-' . $last_page : '';
 			$last_page = ($last_page > 1) ? 'pt=' . $last_page . '&amp;' : '';
-			$link = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '+' . Url::encode_rewrite($row['title'])  . '.php') . '#m' .  $row['last_msg_id']);
-			$link_message = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '+' . Url::encode_rewrite($row['title'])  . '.php'));
+			$link = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '-' . Url::encode_rewrite($row['title'])  . '.php') . '#m' .  $row['last_msg_id']);
+			$link_message = new Url('/forum/topic' . url('.php?' . $last_page .  'id=' . $row['id'], '-' . $row['id'] . $last_page_rewrite . '-' . Url::encode_rewrite($row['title'])  . '.php'));
 
 			$nb_char = $this->modules[HomeLandingConfig::MODULE_FORUM]->get_characters_number_displayed();
 
@@ -1014,7 +1014,7 @@ class HomeLandingHomeController extends ModuleController
 					'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '-' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'URL_EMBED' => str_replace("v", "embed", $row['url']),
 					'MIME' => $row['mime_type']
@@ -1030,7 +1030,7 @@ class HomeLandingHomeController extends ModuleController
 					'DATE' => Date::to_format($row['timestamp'], Date::FORMAT_DAY_MONTH_YEAR),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '-' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
@@ -1048,7 +1048,7 @@ class HomeLandingHomeController extends ModuleController
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '-' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
@@ -1066,7 +1066,7 @@ class HomeLandingHomeController extends ModuleController
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '-' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
@@ -1084,7 +1084,7 @@ class HomeLandingHomeController extends ModuleController
 					'C_POSTER' => !empty($poster),
 					'POSTER' => $poster->rel(),
 
-					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '+' . Url::encode_rewrite($row['name']) . '.php'),
+					'U_MEDIA_LINK' => PATH_TO_ROOT . '/media/' . url('media.php?id=' . $row['id'], 'media-' . $row['id'] . '-' . $row['idcat'] . '-' . Url::encode_rewrite($row['name']) . '.php'),
 					'URL' => $row['url'],
 					'MIME' => $row['mime_type'],
 					'WIDTH' => $row['width'],
