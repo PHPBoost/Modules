@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 19
+ * @version     PHPBoost 6.0 - last update: 2023 11 21
  * @since       PHPBoost 5.2 - 2020 03 06
 */
 
@@ -15,7 +15,7 @@ class HomeLandingGuestbook
 		$user_accounts_config = UserAccountsConfig::load();
 		$home_config = HomeLandingConfig::load();
 		$modules = HomeLandingModulesList::load();
-		$module_name   = HomeLandingConfig::MODULE_GUESTBOOK;
+		$module_name = HomeLandingConfig::MODULE_GUESTBOOK;
 
         $theme_id = AppContext::get_current_user()->get_theme();
 		if (file_exists(PATH_TO_ROOT . '/templates/' . $theme_id . '/modules/HomeLanding/pagecontent/' . $module_name . '.tpl'))
@@ -50,7 +50,7 @@ class HomeLandingGuestbook
 
 		while ($row = $result->fetch())
 		{
-			$item = new GuestbookMessage();
+			$item = new GuestbookItem();
 			$item->set_properties($row);
 
 			$view->assign_block_vars('items', array_merge($item->get_template_vars(), array(
