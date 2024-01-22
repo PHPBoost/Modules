@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 22
  * @since       PHPBoost 6.0 - 2020 07 29
 */
 
@@ -65,6 +65,24 @@ class HomeLandingConfigUpdateVersion extends ConfigUpdateVersion
 				$new_modules_list[22] = $module->get_properties();
 			}
 
+			if (!isset($modules[HomeLandingConfig::MODULE_RECIPE]))
+			{
+				$module = new HomeLandingModule();
+				$module->set_module_id(HomeLandingConfig::MODULE_RECIPE);
+				$module->set_phpboost_module_id(HomeLandingConfig::MODULE_RECIPE);
+				$module->hide();
+				$new_modules_list[20] = $module->get_properties();
+			}
+
+			if (!isset($modules[HomeLandingConfig::MODULE_RECIPE_CATEGORY]))
+			{
+				$module = new HomeLandingModuleCategory();
+				$module->set_module_id(HomeLandingConfig::MODULE_RECIPE_CATEGORY);
+				$module->set_phpboost_module_id(HomeLandingConfig::MODULE_RECIPE);
+				$module->hide();
+				$new_modules_list[21] = $module->get_properties();
+			}
+
 			if (!isset($modules[HomeLandingConfig::MODULE_SMALLADS]))
 			{
 				$module = new HomeLandingModule();
@@ -80,8 +98,44 @@ class HomeLandingConfigUpdateVersion extends ConfigUpdateVersion
 				$module->set_module_id(HomeLandingConfig::MODULE_SMALLADS_CATEGORY);
 				$module->set_phpboost_module_id(HomeLandingConfig::MODULE_SMALLADS);
 				$module->hide();
-				$new_modules_list[21] = $module->get_properties();
+				$new_modules_list[22] = $module->get_properties();
 			}
+
+			if (!isset($modules[HomeLandingConfig::MODULE_VIDEO]))
+			{
+				$module = new HomeLandingModule();
+				$module->set_module_id(HomeLandingConfig::MODULE_VIDEO);
+				$module->set_phpboost_module_id(HomeLandingConfig::MODULE_VIDEO);
+				$module->hide();
+				$new_modules_list[23] = $module->get_properties();
+			}
+
+			if (!isset($modules[HomeLandingConfig::MODULE_VIDEO_CATEGORY]))
+			{
+				$module = new HomeLandingModuleCategory();
+				$module->set_module_id(HomeLandingConfig::MODULE_VIDEO_CATEGORY);
+				$module->set_phpboost_module_id(HomeLandingConfig::MODULE_VIDEO);
+				$module->hide();
+				$new_modules_list[24] = $module->get_properties();
+			}
+
+			// if (!isset($modules[HomeLandingConfig::MODULE_PODCAST]))
+			// {
+			// 	$module = new HomeLandingModule();
+			// 	$module->set_module_id(HomeLandingConfig::MODULE_PODCAST);
+			// 	$module->set_phpboost_module_id(HomeLandingConfig::MODULE_PODCAST);
+			// 	$module->hide();
+			// 	$new_modules_list[25] = $module->get_properties();
+			// }
+
+			// if (!isset($modules[HomeLandingConfig::MODULE_PODCAST_CATEGORY]))
+			// {
+			// 	$module = new HomeLandingModuleCategory();
+			// 	$module->set_module_id(HomeLandingConfig::MODULE_PODCAST_CATEGORY);
+			// 	$module->set_phpboost_module_id(HomeLandingConfig::MODULE_PODCAST);
+			// 	$module->hide();
+			// 	$new_modules_list[26] = $module->get_properties();
+			// }
 
 			if (!isset($modules[HomeLandingConfig::MODULE_WEB_CATEGORY]))
 			{
@@ -89,7 +143,7 @@ class HomeLandingConfigUpdateVersion extends ConfigUpdateVersion
 				$module->set_module_id(HomeLandingConfig::MODULE_WEB_CATEGORY);
 				$module->set_phpboost_module_id(HomeLandingConfig::MODULE_WEB);
 				$module->hide();
-				$new_modules_list[19] = $module->get_properties();
+				$new_modules_list[27] = $module->get_properties();
 			}
 
 			foreach ($modules as $module)
