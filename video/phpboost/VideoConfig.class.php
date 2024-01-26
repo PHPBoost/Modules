@@ -234,7 +234,12 @@ class VideoConfig extends AbstractConfigData
 	{
 		$this->set_property(self::AUTHORIZATIONS, $authorizations);
 	}
-
+	
+	/**
+	 * get_deferred_operations
+	 *
+	 * @return array
+	 */
 	public function get_deferred_operations()
 	{
 		return $this->get_property(self::DEFERRED_OPERATIONS);
