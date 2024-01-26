@@ -31,7 +31,6 @@ class VideoModuleMiniMenu extends ModuleMiniMenu
 
 	public function is_displayed()
 	{
-		// return CategoriesAuthorizationsService::check_authorizations()->read();
 		return true;
 	}
 

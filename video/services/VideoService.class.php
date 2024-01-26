@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 04 15
+ * @version     PHPBoost 6.0 - last update: 2024 01 26
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -28,7 +28,7 @@ class VideoService
 
 	/**
 	 * @desc Create a new entry in the database table.
-	 * @param string[] $item : new VideoItem
+	 * @param VideoItem string[] $item : new VideoItem
 	 */
 	public static function add(VideoItem $item)
 	{
@@ -39,7 +39,7 @@ class VideoService
 
 	/**
 	 * @desc Update an entry.
-	 * @param string[] $item : VideoItem to update
+	 * @param VideoItem string[] $item : VideoItem to update
 	 */
 	public static function update(VideoItem $item)
 	{
