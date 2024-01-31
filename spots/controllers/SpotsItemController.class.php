@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 17
+ * @version     PHPBoost 6.0 - last update: 2024 01 31
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -80,7 +80,7 @@ class SpotsItemController extends DefaultModuleController
 	private function build_new_address_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
-		$form->set_css_class('fieldset-content front-fieldset');
+		$form->set_css_class('front-fieldset');
 
 		$fieldset = new FormFieldsetHTML('spots', $this->lang['spots.change.orign.address']);
 		$form->add_fieldset($fieldset);

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 31
+ * @version     PHPBoost 6.0 - last update: 2024 01 31
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -129,7 +129,7 @@ class FluxItemController extends DefaultModuleController
 	{
 		$item = $this->get_item();
 		$form = new HTMLForm(__CLASS__);
-		$form->set_css_class('fieldset-content front-fieldset');
+		$form->set_css_class('front-fieldset');
 
 		$fieldset = new FormFieldsetHTML('flux', $this->lang['flux.check.updates']);
 		$form->add_fieldset($fieldset);

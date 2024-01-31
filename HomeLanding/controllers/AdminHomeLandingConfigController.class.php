@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 07 10
+ * @version     PHPBoost 6.0 - last update: 2024 01 31
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -208,7 +208,7 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 	private function build_form()
 	{
 		$form = new HTMLForm(__CLASS__);
-		$form->set_css_class('tabs-container fieldset-content');
+		$form->set_css_class('tabs-container');
 
 		// New modules warning
 		$compatible_list = $config_list = $new_modules_list = array();
