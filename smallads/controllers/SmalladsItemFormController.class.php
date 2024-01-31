@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 08 18
+ * @version     PHPBoost 6.0 - last update: 2024 01 31
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -30,7 +30,7 @@ class SmalladsItemFormController extends DefaultModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 		$form->set_layout_title($this->item->get_id() === null ? $this->lang['smallads.form.add'] : ($this->lang['smallads.form.edit'] . ': ' . $this->item->get_title()));
-		$form->set_css_class('tabs-container fieldset-content');
+		$form->set_css_class('tabs-container');
 
 		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
 		$form->add_fieldset($fieldset_tabs_menu);
