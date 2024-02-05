@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 08 18
+ * @version     PHPBoost 6.0 - last update: 2024 02 05
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -88,7 +88,7 @@ class SmalladsItemController extends DefaultModuleController
 		$this->build_navigation_links($this->item);
 
 		$this->view->put_all(array_merge($this->item->get_template_vars(), array(
-			'C_COMMENTS_ENABLED' => $comments_config->module_comments_is_enabled('smallads')
+			'C_ENABLED_COMMENTS' => $comments_config->module_comments_is_enabled('smallads')
 		)));
 
 		// Comments

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 12 14
+ * @version     PHPBoost 6.0 - last update: 2024 02 05
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -112,7 +112,7 @@ class SmalladsCategoryController extends DefaultModuleController
 			'C_LIST_VIEW'            => $this->config->get_display_type() == SmalladsConfig::LIST_VIEW,
 			'C_TABLE_VIEW'           => $this->config->get_display_type() == SmalladsConfig::TABLE_VIEW,
 			'C_LOCATION'			 => $this->config->is_location_displayed(),
-			'C_COMMENTS_ENABLED'     => $this->comments_config->are_comments_enabled(),
+			'C_ENABLED_COMMENTS'     => $this->comments_config->module_comments_is_enabled('smallads'),
 			'C_DISPLAY_CAT_ICONS'    => $this->config->are_cat_icons_enabled(),
 			'C_MODERATION'           => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'C_USAGE_TERMS'	         => $this->config->are_usage_terms_displayed(),
@@ -274,6 +274,7 @@ class SmalladsCategoryController extends DefaultModuleController
 	public static function get_view()
 	{
 		$object = new self('smallads');
+		$object->init();
 		$object->check_authorizations();
 		$object->build_view(AppContext::get_request());
 		return $object->view;

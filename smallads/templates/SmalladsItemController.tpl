@@ -149,7 +149,7 @@
 											<span role="contentinfo" aria-label="{@common.views.number}"><i class="fa fa-fw fa-eye" aria-hidden="true"></i> </span>
 											{VIEWS_NUMBER}
 										</li>
-										# IF C_COMMENTS_ENABLED #
+										# IF C_ENABLED_COMMENTS #
 											<li class="li-stretch">
 												<span aria-label="{@common.comments.number}"><i class="fa fa-fw fa-comment" aria-hidden="true"></i></span>
 												<a itemprop="discussionUrl" class="small" href="{U_COMMENTS}"> {L_COMMENTS}</a>
@@ -256,7 +256,7 @@
 				</aside>
 
 				<aside>
-					# IF C_COMMENTS_ENABLED #
+					# IF C_ENABLED_COMMENTS #
 						# INCLUDE COMMENTS #
 					# ENDIF #
 				</aside>
@@ -269,7 +269,7 @@
 		<meta itemprop="description" content="${escape(SUMMARY)}">
 		<meta itemprop="datePublished" content="# IF NOT C_DIFFERED #{DATE_ISO8601}# ELSE #{PUBLISHING_START_DATE_ISO8601}# ENDIF #">
 		# IF C_HAS_THUMBNAIL #<meta itemprop="thumbnailUrl" content="{U_THUMBNAIL}"># ENDIF #
-		# IF C_COMMENTS_ENABLED #
+		# IF C_ENABLED_COMMENTS #
 			<meta itemprop="discussionUrl" content="{U_COMMENTS}">
 			<meta itemprop="interactionCount" content="{COMMENTS_NUMBER} UserComments">
 		# ENDIF #
