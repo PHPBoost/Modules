@@ -248,7 +248,7 @@ class SmalladsItemController extends DefaultModuleController
 		if(!empty($this->item->get_custom_author_name()))
 			$author_name = $this->item->get_custom_author_name();
 		else
-			$author_name = $user->get_display_name();
+			$author_name = $this->item->get_author_user()->get_display_name();
 
 		$email_form = new HTMLForm(__CLASS__);
 
