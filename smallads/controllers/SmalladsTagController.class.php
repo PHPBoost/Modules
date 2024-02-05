@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2024 02 05
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -96,7 +96,7 @@ class SmalladsTagController extends DefaultModuleController
 			'C_LIST_VIEW'        => $this->config->get_display_type() == SmalladsConfig::LIST_VIEW,
 			'C_TABLE_VIEW'       => $this->config->get_display_type() == SmalladsConfig::TABLE_VIEW,
 			'C_ITEMS_CAT'        => false,
-			'C_COMMENTS_ENABLED' => $this->comments_config->are_comments_enabled(),
+			'C_ENABLED_COMMENTS' => $this->comments_config->module_comments_is_enabled('smallads'),
 			'C_PAGINATION'       => $result->get_rows_count() > $this->config->get_items_per_page(),
 			'C_USAGE_TERMS' 	 => $this->config->are_usage_terms_displayed(),
 
