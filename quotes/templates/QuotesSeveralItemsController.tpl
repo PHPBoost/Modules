@@ -60,7 +60,7 @@
 		<div class="sub-section">
 			<div class="content-container">
 				# START items #
-					<article id="quotes-item-{items.ID}" class="quotes-item several-items category-{items.CATEGORY_ID}" itemscope="itemscope" itemtype="http://schema.org/CreativeWork">
+					<article id="quotes-item-{items.ID}" class="quotes-item several-items category-{items.CATEGORY_ID}" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
 						<div class="content">
 							<blockquote class="formatter-container formatter-blockquote# IF C_WRITER_ITEMS # writer-items# ENDIF #">
 								<h2 class="title-perso">

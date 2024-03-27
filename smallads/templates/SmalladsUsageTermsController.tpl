@@ -5,7 +5,7 @@
 	</header>
 	<div class="cub-section">
 		<div class="content-container">
-			<div itemscope="itemscope" itemtype="http://schema.org/Article" class="content">
+			<div itemscope="itemscope" itemtype="https://schema.org/Article" class="content">
 				{USAGE_TERMS_CONTENT}
 			</div>
 		</div>

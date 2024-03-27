@@ -16,7 +16,7 @@
 					# INCLUDE NOT_VISIBLE_MESSAGE #
 				</div>
 			# ENDIF #
-			<article itemscope="itemscope" itemtype="http://schema.org/CreativeWork" id="article-broadcast-{ID}" class="broadcast-item">
+			<article itemscope="itemscope" itemtype="https://schema.org/CreativeWork" id="article-broadcast-{ID}" class="broadcast-item">
 				# IF C_CONTROLS #
 					<div class="controls align-right">
 						# IF C_EDIT #<a href="{U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a># ENDIF #

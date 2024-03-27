@@ -1,5 +1,5 @@
 /**
- * @copyright   &copy; 2005-2023 PHPBoost
+ * @copyright   &copy; 2005-2024 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @link        http://hilios.github.io/jQuery.countdown/
  * @author      Edson Hilios <>
