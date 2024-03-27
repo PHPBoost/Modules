@@ -15,7 +15,7 @@
 					# INCLUDE NOT_VISIBLE_MESSAGE #
 				</div>
 			# ENDIF #
-			<article itemscope="itemscope" itemtype="http://schema.org/Smallad" id="smallads-item-{ID}" class="smallads-item# IF C_NEW_CONTENT # new-content# ENDIF #">
+			<article itemscope="itemscope" itemtype="https://schema.org/Smallad" id="smallads-item-{ID}" class="smallads-item# IF C_NEW_CONTENT # new-content# ENDIF #">
 				<div class="flex-between">
 					# IF C_HAS_UPDATE_DATE #
 						<span class="pinned notice small text-italic modified-date">

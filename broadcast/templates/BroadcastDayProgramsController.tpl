@@ -10,7 +10,7 @@
 									id="article-broadcast-{items.ID}"
 									class="broadcast-item several-items# IF items.C_EXTRA_LIST # extra-list# ENDIF #"
 									itemscope="itemscope"
-									itemtype="http://schema.org/CreativeWork">
+									itemtype="https://schema.org/CreativeWork">
 								<header class="flex-between ">
 									<h3>
 										<a href="{items.U_ITEM}"><span itemprop="name">{items.TITLE}</span></a>
