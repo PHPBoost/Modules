@@ -224,7 +224,6 @@
 								</div>
 							# END suggested #
 						</div>
-
 					</aside>
 				# ENDIF #
 
@@ -234,7 +233,7 @@
 							# IF C_PREVIOUS_ITEM #
 								<a class="related-item previous-item offload# IF C_PREVIOUS_COMPLETED # error# ENDIF #" href="{U_PREVIOUS_ITEM}">
 									<i class="fa fa-chevron-left"></i>
-									<img src="{U_PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM}">
+									# IF C_PREVIOUS_HAS_THUMBNAIL #<img src="{U_PREVIOUS_THUMBNAIL}" alt="{PREVIOUS_ITEM}"># ENDIF #
 									{PREVIOUS_ITEM}
 								</a>
 							# ELSE #
@@ -243,7 +242,7 @@
 							# IF C_NEXT_ITEM #
 								<a class="related-item next-item offload# IF C_NEXT_COMPLETED # error# ENDIF #" href="{U_NEXT_ITEM}">
 									{NEXT_ITEM}
-									<img src="{U_NEXT_THUMBNAIL}" alt="{NEXT_ITEM}">
+									# IF C_NEXT_HAS_THUMBNAIL #<img src="{U_NEXT_THUMBNAIL}" alt="{NEXT_ITEM}"># ENDIF #
 									<i class="fa fa-chevron-right"></i>
 								</a>
 							# ENDIF #
