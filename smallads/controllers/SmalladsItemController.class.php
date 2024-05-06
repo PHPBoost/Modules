@@ -199,7 +199,7 @@ class SmalladsItemController extends DefaultModuleController
 				'C_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				'TITLE'           => $row['title'],
 				'DATE'            => Date::to_format($date, Date::FORMAT_DAY_MONTH_YEAR),
-				'U_THUMBNAIL'     => !empty($row['thumbnail_url']) ? Url::to_rel($row['thumbnail_url']) : $this->item->get_default_thumbnail()->rel(),
+				'U_THUMBNAIL'     => Url::to_rel($row['thumbnail_url']),
 				'U_ITEM'          => SmalladsUrlBuilder::display($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel()
 			));
 		}
@@ -236,7 +236,7 @@ class SmalladsItemController extends DefaultModuleController
 				'C_'. $row['type'] .'_ITEM' => true,
 				'C_' . $row['type'] . '_HAS_THUMBNAIL' => !empty($row['thumbnail_url']),
 				$row['type'] . '_ITEM' => $row['title'],
-				'U_'. $row['type'] . '_THUMBNAIL' => !empty($row['thumbnail_url']) ? Url::to_rel($row['thumbnail_url']) : $this->item->get_default_thumbnail()->rel(),
+				'U_'. $row['type'] . '_THUMBNAIL' => Url::to_rel($row['thumbnail_url']),
 				'U_'. $row['type'] .'_ITEM' => SmalladsUrlBuilder::display($row['id_category'], CategoriesService::get_categories_manager()->get_categories_cache()->get_category($row['id_category'])->get_rewrited_name(), $row['id'], $row['rewrited_title'])->rel(),
 			));
 		}
