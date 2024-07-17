@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2024 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 07 15
+ * @version     PHPBoost 6.0 - last update: 2024 07 17
  * @since       PHPBoost 6.0 - 2023 01 17
 */
 
@@ -38,18 +38,18 @@ class TagcloudModuleMiniMenu extends ModuleMiniMenu
 		Menu::assign_common_template_variables($view);
 
 		$result = PersistenceContext::get_querier()->select('SELECT tag.*, tag_rel.*, COUNT(*) AS tags_number
-		FROM '. DB_TABLE_KEYWORDS .' tag
-		LEFT JOIN '. DB_TABLE_KEYWORDS_RELATIONS .' tag_rel ON tag_rel.id_keyword = tag.id
-		WHERE tag.id = tag_rel.id_keyword
-		GROUP BY tag_rel.module_id, tag_rel.id_keyword
-		ORDER BY tag.name');
+            FROM '. DB_TABLE_KEYWORDS .' tag
+            LEFT JOIN '. DB_TABLE_KEYWORDS_RELATIONS .' tag_rel ON tag_rel.id_keyword = tag.id
+            WHERE tag.id = tag_rel.id_keyword
+            GROUP BY tag_rel.module_id, tag_rel.id_keyword
+            ORDER BY tag.name'
+        );
 
 		$view->put('C_ITEMS', $result->get_rows_count() > 0);
 
 		while ($row = $result->fetch())
 		{
-			$module_id = $row['module_id'];
-			if (in_array($module_id, array('articles', 'news', 'pages', 'poll')))
+			if (in_array($row['module_id'], ['articles', 'news', 'pages', 'poll']))
 			{
 				$tag_url = ItemsUrlBuilder::display_tag($row['rewrited_name'], $row['module_id'])->rel();
 			}
@@ -61,7 +61,7 @@ class TagcloudModuleMiniMenu extends ModuleMiniMenu
 
 			$module_config = ModulesManager::get_module($row['module_id'])->get_configuration();
 
-			$view->assign_block_vars('items', array(
+			$view->assign_block_vars('items', [
 				'ID'           => $row['id'],
 				'ID_IN_MODULE' => $row['id_in_module'],
 				'NAME'         => $row['name'],
@@ -70,7 +70,7 @@ class TagcloudModuleMiniMenu extends ModuleMiniMenu
 				'MODULE_ICON'  => $module_config->get_fa_icon(),
 
 				'U_TAG' => $tag_url
-			));
+			]);
 		}
 		$result->dispose();
 

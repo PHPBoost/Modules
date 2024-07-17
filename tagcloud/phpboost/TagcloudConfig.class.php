@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 17
+ * @version     PHPBoost 6.0 - last update: 2024 07 17
  * @since       PHPBoost 6.0 - 2023 01 17
 */
 
@@ -33,9 +33,9 @@ class TagcloudConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
-			self::AUTHORIZATIONS => array('r-1' => 3, 'r0' => 3, 'r1' => 7)
-		);
+		return [
+			self::AUTHORIZATIONS => ['r-1' => 3, 'r0' => 3, 'r1' => 7]
+        ];
 	}
 
 	/**

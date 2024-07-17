@@ -14,7 +14,6 @@
 			# END items #
 		</ul>
 	</div>
-	<script src="{PATH_TO_ROOT}/tagcloud/templates/js/tagcloud# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
 # ELSE #
 	<div class="cell-alert">
 		<div class="message-helper bgc notice">{@common.no.item.now}</div>
