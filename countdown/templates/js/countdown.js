@@ -3,21 +3,14 @@
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @link        http://hilios.github.io/jQuery.countdown/
  * @author      Edson Hilios <>
- * @version     PHPBoost 6.0 - last update: 2016 11 11
+ * @version     PHPBoost 6.0 - last update: 2024 07 19
  * @since       PHPBoost 4.1 - 2014 12 12
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
-(function(factory) {
+(($) => {
     "use strict";
-    if (typeof define === "function" && define.amd) {
-        define([ "jquery" ], factory);
-    } else {
-        factory(jQuery);
-    }
-})(function($) {
-    "use strict";
-    var instances = [], matchers = [], defaultOptions = {
+    let instances = [], matchers = [], defaultOptions = {
         precision: 100,
         elapse: false,
         defer: false
@@ -26,7 +19,7 @@
     matchers.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source);
     matchers.push(/[0-9]{4}([\/\-][0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source);
     matchers = new RegExp(matchers.join("|"));
-    function parseDateString(dateString) {
+    const parseDateString = (dateString) => {
         if (dateString instanceof Date) {
             return dateString;
         }
@@ -42,7 +35,7 @@
             throw new Error("Couldn't cast `" + dateString + "` to a date object.");
         }
     }
-    var DIRECTIVE_KEY_MAP = {
+    const DIRECTIVE_KEY_MAP = {
         Y: "years",
         m: "months",
         n: "daysToMonth",
@@ -57,40 +50,43 @@
         N: "totalMinutes",
         T: "totalSeconds"
     };
-    function escapedRegExp(str) {
-        var sanitize = str.toString().replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+    const escapedRegExp = (str) => {
+        let sanitize = str.toString().replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
         return new RegExp(sanitize);
     }
-    function strftime(offsetObject) {
-        return function(format) {
-            var directives = format.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);
-            if (directives) {
-                for (var i = 0, len = directives.length; i < len; ++i) {
-                    var directive = directives[i].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/), regexp = escapedRegExp(directive[0]), modifier = directive[1] || "", plural = directive[3] || "", value = null;
-                    directive = directive[2];
-                    if (DIRECTIVE_KEY_MAP.hasOwnProperty(directive)) {
-                        value = DIRECTIVE_KEY_MAP[directive];
-                        value = Number(offsetObject[value]);
+    const strftime = (offsetObject) => (format) => {
+        let directives = format.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);
+        if (directives) {
+            for (let i = 0, len = directives.length; i < len; ++i) {
+                let directive = directives[i].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/),
+                    regexp = escapedRegExp(directive[0]),
+                    modifier = directive[1] || "",
+                    plural = directive[3] || "",
+                    value = null;
+                directive = directive[2];
+                if (DIRECTIVE_KEY_MAP.hasOwnProperty(directive)) {
+                    value = DIRECTIVE_KEY_MAP[directive];
+                    value = Number(offsetObject[value]);
+                }
+                if (value !== null) {
+                    if (modifier === "!") {
+                        value = pluralize(plural, value);
                     }
-                    if (value !== null) {
-                        if (modifier === "!") {
-                            value = pluralize(plural, value);
+                    if (modifier === "") {
+                        if (value < 10) {
+                            value = "0" + value.toString();
                         }
-                        if (modifier === "") {
-                            if (value < 10) {
-                                value = "0" + value.toString();
-                            }
-                        }
-                        format = format.replace(regexp, value.toString());
                     }
+                    format = format.replace(regexp, value.toString());
                 }
             }
-            format = format.replace(/%%/, "%");
-            return format;
-        };
-    }
-    function pluralize(format, count) {
-        var plural = "s", singular = "";
+        }
+        format = format.replace(/%%/, "%");
+        return format;
+    };
+    const pluralize = (format, count) => {
+        let plural = "s",
+            singular = "";
         if (format) {
             format = format.replace(/(:|;|\s)/gi, "").split(/\,/);
             if (format.length === 1) {
@@ -106,72 +102,74 @@
             return singular;
         }
     }
-    var Countdown = function(el, finalDate, options) {
-        this.el = el;
-        this.$el = $(el);
-        this.interval = null;
-        this.offset = {};
-        this.options = $.extend({}, defaultOptions);
-        this.instanceNumber = instances.length;
-        instances.push(this);
-        this.$el.data("countdown-instance", this.instanceNumber);
-        if (options) {
-            if (typeof options === "function") {
-                this.$el.on("update.countdown", options);
-                this.$el.on("stoped.countdown", options);
-                this.$el.on("finish.countdown", options);
-            } else {
-                this.options = $.extend({}, defaultOptions, options);
+    class Countdown {
+        constructor(el, finalDate, options) {
+            this.el = el;
+            this.$el = $(el);
+            this.interval = null;
+            this.offset = {};
+            this.options = $.extend({}, defaultOptions);
+            this.instanceNumber = instances.length;
+            instances.push(this);
+            this.$el.data("countdown-instance", this.instanceNumber);
+            if (options) {
+                if (typeof options === "function") {
+                    this.$el.on("update.countdown", options);
+                    this.$el.on("stoped.countdown", options);
+                    this.$el.on("finish.countdown", options);
+                } else {
+                    this.options = $.extend({}, defaultOptions, options);
+                }
+            }
+            this.setFinalDate(finalDate);
+            if (this.options.defer === false) {
+                this.start();
             }
         }
-        this.setFinalDate(finalDate);
-        if (this.options.defer === false) {
-            this.start();
-        }
-    };
-    $.extend(Countdown.prototype, {
-        start: function() {
+        start() {
             if (this.interval !== null) {
                 clearInterval(this.interval);
             }
-            var self = this;
+            let self = this;
             this.update();
-            this.interval = setInterval(function() {
+            this.interval = setInterval(() => {
                 self.update.call(self);
             }, this.options.precision);
-        },
-        stop: function() {
+        }
+        stop() {
             clearInterval(this.interval);
             this.interval = null;
             this.dispatchEvent("stoped");
-        },
-        toggle: function() {
+        }
+        toggle() {
             if (this.interval) {
                 this.stop();
             } else {
                 this.start();
             }
-        },
-        pause: function() {
+        }
+        pause() {
             this.stop();
-        },
-        resume: function() {
+        }
+        resume() {
             this.start();
-        },
-        remove: function() {
+        }
+        remove() {
             this.stop.call(this);
             instances[this.instanceNumber] = null;
             delete this.$el.data().countdownInstance;
-        },
-        setFinalDate: function(value) {
+        }
+        setFinalDate(value) {
             this.finalDate = parseDateString(value);
-        },
-        update: function() {
+        }
+        update() {
             if (this.$el.closest("html").length === 0) {
                 this.remove();
                 return;
             }
-            var hasEventsAttached = $._data(this.el, "events") !== undefined, now = new Date(), newTotalSecsLeft;
+            let hasEventsAttached = $._data(this.el, "events") !== undefined,
+                now = new Date(),
+                newTotalSecsLeft;
             newTotalSecsLeft = this.finalDate.getTime() - now.getTime();
             newTotalSecsLeft = Math.ceil(newTotalSecsLeft / 1e3);
             newTotalSecsLeft = !this.options.elapse && newTotalSecsLeft < 0 ? 0 : Math.abs(newTotalSecsLeft);
@@ -203,22 +201,23 @@
             } else {
                 this.dispatchEvent("update");
             }
-        },
-        dispatchEvent: function(eventName) {
-            var event = $.Event(eventName + ".countdown");
+        }
+        dispatchEvent(eventName) {
+            let event = $.Event(eventName + ".countdown");
             event.finalDate = this.finalDate;
             event.elapsed = this.elapsed;
             event.offset = $.extend({}, this.offset);
             event.strftime = strftime(this.offset);
             this.$el.trigger(event);
         }
-    });
+    }
     $.fn.countdown = function() {
-        var argumentsArray = Array.prototype.slice.call(arguments, 0);
+        let argumentsArray = Array.prototype.slice.call(arguments, 0);
         return this.each(function() {
-            var instanceNumber = $(this).data("countdown-instance");
+            let instanceNumber = $(this).data("countdown-instance");
             if (instanceNumber !== undefined) {
-                var instance = instances[instanceNumber], method = argumentsArray[0];
+                let instance = instances[instanceNumber],
+                    method = argumentsArray[0];
                 if (Countdown.prototype.hasOwnProperty(method)) {
                     instance[method].apply(instance, argumentsArray.slice(1));
                 } else if (String(method).match(/^[$A-Z_][0-9A-Z_$]*$/i) === null) {
@@ -232,4 +231,4 @@
             }
         });
     };
-});
+})(jQuery);
