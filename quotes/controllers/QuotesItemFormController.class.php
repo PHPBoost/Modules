@@ -1,9 +1,9 @@
 <?php
 /**
- * @copyright   &copy; 2005-2024 PHPBoost
+ * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 04 14
+ * @version     PHPBoost 6.0 - last update: 2025 01 07
  * @since       PHPBoost 5.0 - 2016 02 18
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -238,7 +238,7 @@ class QuotesItemFormController extends DefaultModuleController
 	{
 		$category = $this->item->get_category();
 
-		if ($this->is_new_item && $this->is_contributor_member() && !$this->item->is_approved())
+		if ($this->is_contributor_member())
 		{
 			DispatchManager::redirect(new UserContributionSuccessController());
 		}

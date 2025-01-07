@@ -1,9 +1,9 @@
 <?php
 /**
- * @copyright   &copy; 2005-2024 PHPBoost
+ * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 31
+ * @version     PHPBoost 6.0 - last update: 2025 01 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -767,7 +767,7 @@ class SmalladsItemFormController extends DefaultModuleController
 	{
 		$category = $this->item->get_category();
 
-		if ($this->is_new_item && $this->is_contributor_member() && !$this->item->is_published())
+		if ($this->is_contributor_member())
 		{
 			DispatchManager::redirect(new UserContributionSuccessController());
 		}
