@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 03 06
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 6.0 - 2023 03 05
 */
 
@@ -44,10 +44,10 @@ class DiscordConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
 			self::DISCORD_ID => '',
-			self::AUTHORIZATIONS => array('r-1' => 3, 'r0' => 3, 'r1' => 7)
-		);
+			self::AUTHORIZATIONS => ['r-1' => 3, 'r0' => 3, 'r1' => 7]
+		];
 	}
 
 	/**

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 09
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -174,7 +174,7 @@ class FluxConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
             self::MODULE_NAME               => LangLoader::get_message('flux.module.title', 'common', 'flux'),
             self::NEW_WINDOW                => false,
             self::DISPLAY_LAST_FEEDS        => true,
@@ -188,8 +188,8 @@ class FluxConfig extends AbstractConfigData
 			self::CATEGORIES_PER_ROW        => 2,
 			self::DISPLAY_TYPE              => self::TABLE_VIEW,
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('flux.root.category.description', 'common', 'flux'),
-			self::AUTHORIZATIONS            => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
-		);
+			self::AUTHORIZATIONS            => ['r-1' => 1, 'r0' => 5, 'r1' => 21],
+		];
 	}
 
 	/**

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 27
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -135,7 +135,7 @@ class CountdownConfig extends AbstractConfigData
 	{
 		$now = new Date();
 		$new_year = $now->get_year() + 1 . '-01-01';
-		return array(
+		return [
 			self::TIMER_DISABLED => false,
 			self::STOP_COUNTER   => false,
 			self::HIDDEN_COUNTER => false,
@@ -145,8 +145,8 @@ class CountdownConfig extends AbstractConfigData
 			self::LAST_EVENT     => LangLoader::get_message('countdown.last.event', 'install', 'countdown'),
 			self::STOPPED_EVENT  => LangLoader::get_message('countdown.stoped.event', 'install', 'countdown'),
 			self::NO_EVENT       => LangLoader::get_message('countdown.no.event', 'install', 'countdown'),
-			self::AUTHORIZATIONS => array('r-1' => 3, 'r0' => 3, 'r1' => 7)
-		);
+			self::AUTHORIZATIONS => ['r-1' => 3, 'r0' => 3, 'r1' => 7]
+		];
 	}
 
 	/**

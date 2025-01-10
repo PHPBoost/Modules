@@ -1,10 +1,10 @@
 <?php
 /**
  * Configuration of the Server Status module
- * @copyright   &copy; 2005-2025 PHPBoost
+ * @copyright   &copy; 2005-2023 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2016 02 11
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 4.0 - 2013 08 04
 */
 
@@ -87,14 +87,14 @@ class ServerStatusConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
 			self::REFRESH_DELAY => 15,
 			self::TIMEOUT => 800,
 			self::ADDRESS_DISPLAYED => false,
-			self::SERVERS_LIST => array(),
-			self::CHECKED_MAPS_PICTURES => array(),
-			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 1, 'r1' => 1)
-		);
+			self::SERVERS_LIST => [],
+			self::CHECKED_MAPS_PICTURES => [],
+			self::AUTHORIZATIONS => ['r-1' => 1, 'r0' => 1, 'r1' => 1]
+        ];
 	}
 
 	/**

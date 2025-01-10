@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -444,7 +444,7 @@ class SmalladsConfig extends AbstractConfigData
 	public function get_default_values()
 	{
 		$lang = LangLoader::get_all_langs('smallads');
-		return array(
+		return [
 			// Categories
 			self::ENABLED_SORT_FILTERS => true,
 			self::ENABLED_CATS_ICON => false,
@@ -455,11 +455,11 @@ class SmalladsConfig extends AbstractConfigData
 			self::SUMMARIES_DISPLAYED_TO_GUESTS => false,
 			self::ROOT_CATEGORY_DESCRIPTION => $lang['smallads.root.category.description'],
             self::DEFAULT_CONTENTS => '',
-			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
+			self::AUTHORIZATIONS => ['r-1' => 1, 'r0' => 5, 'r1' => 21],
 
 			// Items
 			self::CURRENCY => '€',
-			self::SMALLAD_TYPES => array($lang['smallads.default.type']),
+			self::SMALLAD_TYPES => [$lang['smallads.default.type']],
 			self::MAX_WEEKS_NUMBER_DISPLAYED => true,
 			self::MAX_WEEKS_NUMBER => 12,
 			self::DISPLAY_DELAY_BEFORE_DELETE => 2,
@@ -470,9 +470,9 @@ class SmalladsConfig extends AbstractConfigData
 			self::ENABLED_ITEMS_SUGGESTIONS => false,
 			self::SUGGESTED_ITEMS_NB => 4,
 			self::ENABLED_NAVIGATION_LINKS => false,
-			self::BRANDS => array(),
+			self::BRANDS => [],
 			self::LOCATION => true,
-			self::DEFERRED_OPERATIONS => array(),
+			self::DEFERRED_OPERATIONS => [],
 
 			// Mini Menu
 			self::MINI_MENU_ITEMS_NB => 5,
@@ -484,7 +484,7 @@ class SmalladsConfig extends AbstractConfigData
 			// Usage Terms
 			self::USAGE_TERMS_ENABLED => false,
 			self::USAGE_TERMS => LangLoader::get_message('smallads.default.usage.terms', 'install', 'smallads'),
-		);
+        ];
 	}
 
 	/**

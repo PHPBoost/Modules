@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 03
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 4.0 - 2013 08 27
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -101,14 +101,14 @@ class BirthdayConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
 			self::COMING_NEXT => 7,
 			self::MEMBERS_AGE_DISPLAYED => true,
 			self::PM_FOR_MEMBERS_BIRTHDAY_ENABLED => false,
 			self::PM_FOR_MEMBERS_BIRTHDAY_TITLE => LangLoader::get_message('birthday.config.pm.for.members.birthday.default.title', 'common', 'birthday'),
 			self::PM_FOR_MEMBERS_BIRTHDAY_CONTENT => LangLoader::get_message('birthday.config.pm.for.members.birthday.default.content', 'common', 'birthday'),
-			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 1, 'r1' => 1)
-		);
+			self::AUTHORIZATIONS => ['r-1' => 1, 'r0' => 1, 'r1' => 1]
+		];
 	}
 
 	/**

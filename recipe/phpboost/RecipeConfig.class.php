@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 6.0 - 2022 08 26
  */
 
@@ -223,7 +223,7 @@ class RecipeConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
 			self::CATEGORIES_PER_PAGE 		  => 10,
 			self::CATEGORIES_PER_ROW  		  => 3,
 			self::ITEMS_PER_PAGE 			  => 15,
@@ -238,9 +238,9 @@ class RecipeConfig extends AbstractConfigData
 			self::ROOT_CATEGORY_DESCRIPTION   => CategoriesService::get_default_root_category_description('recipe'),
 			self::SORT_TYPE 				  => RecipeItem::SORT_VIEWS_NUMBER,
 			self::AUTO_CUT_CHARACTERS_NUMBER  => 128,
-			self::AUTHORIZATIONS 			  => array('r-1' => 33, 'r0' => 37, 'r1' => 61),
-			self::DEFERRED_OPERATIONS 		  => array()
-		);
+			self::AUTHORIZATIONS 			  => ['r-1' => 1, 'r0' => 5, 'r1' => 21],
+			self::DEFERRED_OPERATIONS 		  => []
+        ];
 	}
 
 	/**

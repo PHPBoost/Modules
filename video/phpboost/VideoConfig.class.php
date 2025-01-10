@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -275,12 +275,12 @@ class VideoConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
 			self::CATEGORIES_PER_PAGE 		  => 10,
 			self::CATEGORIES_PER_ROW 		  => 3,
 			self::ITEMS_PER_PAGE 			  => 15,
 			self::ITEMS_PER_ROW 			  => 2,
-			self::SUBCATEGORIES_DISPLAY 				  => true,
+			self::SUBCATEGORIES_DISPLAY 	  => true,
 			self::DISPLAY_TYPE 				  => self::GRID_VIEW,
 			self::ITEMS_DEFAULT_SORT_FIELD 	  => VideoItem::SORT_UPDATE_DATE,
 			self::ITEMS_DEFAULT_SORT_MODE  	  => VideoItem::DESC,
@@ -292,23 +292,23 @@ class VideoConfig extends AbstractConfigData
 			self::SORT_TYPE 				  => VideoItem::SORT_DATE,
 			self::FILES_NUMBER_IN_MENU 		  => 5,
 			self::AUTO_CUT_CHARACTERS_NUMBER  => 128,
-			self::AUTHORIZATIONS 			  => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
-			self::DEFERRED_OPERATIONS 		  => array(),
-			self::MIME_TYPE_LIST 		  	  => array('video/mp4', 'video/ogg', 'video/webm'),
-			self::PLAYERS => array(
-				array('platform' => 'youtube', 	   'domain' => 'https://www.youtube.com', 	  'player' => 'https://www.youtube.com/embed/'),
-				array('platform' => 'youtube', 	   'domain' => 'https://youtu.be', 			  'player' => 'https://www.youtube.com/embed/'),
-				array('platform' => 'vimeo', 	   'domain' => 'https://vimeo.com', 		  'player' => 'https://player.vimeo.com/video/'),
-				array('platform' => 'vimeo', 	   'domain' => 'https://player.vimeo.com',    'player' => 'https://player.vimeo.com/video/'),
-				array('platform' => 'twitch', 	   'domain' => 'https://www.twitch.tv', 	  'player' => 'https://player.twitch.tv/?video='),
-				array('platform' => 'twitch', 	   'domain' => 'https://player.twitch.tv', 	  'player' => 'https://player.twitch.tv/?video='),
-				array('platform' => 'dailymotion', 'domain' => 'https://www.dailymotion.com', 'player' => 'https://www.dailymotion.com/embed/video/'),
-				array('platform' => 'dailymotion', 'domain' => 'https://www.dai.ly', 		  'player' => 'https://www.dailymotion.com/embed/video/'),
-				array('platform' => 'odysee', 	   'domain' => 'https://odysee.com', 		  'player' => 'https://odysee.com/$/embed/'),
-				array('platform' => 'peertube',    'domain' => 'https://peertube.fr', 		  'player' => 'https://peertube.fr/videos/embed/'),
-				array('platform' => 'peertube',    'domain' => 'https://framatube.org', 	  'player' => 'https://framatube.org/videos/embed/')
-			)
-		);
+			self::AUTHORIZATIONS 			  => ['r-1' => 1, 'r0' => 5, 'r1' => 21],
+			self::DEFERRED_OPERATIONS 		  => [],
+			self::MIME_TYPE_LIST 		  	  => ['video/mp4', 'video/ogg', 'video/webm'],
+			self::PLAYERS => [
+				['platform' => 'youtube', 	   'domain' => 'https://www.youtube.com', 	  'player' => 'https://www.youtube.com/embed/'],
+				['platform' => 'youtube', 	   'domain' => 'https://youtu.be', 			  'player' => 'https://www.youtube.com/embed/'],
+				['platform' => 'vimeo', 	   'domain' => 'https://vimeo.com', 		  'player' => 'https://player.vimeo.com/video/'],
+				['platform' => 'vimeo', 	   'domain' => 'https://player.vimeo.com',    'player' => 'https://player.vimeo.com/video/'],
+				['platform' => 'twitch', 	   'domain' => 'https://www.twitch.tv', 	  'player' => 'https://player.twitch.tv/?video='],
+				['platform' => 'twitch', 	   'domain' => 'https://player.twitch.tv', 	  'player' => 'https://player.twitch.tv/?video='],
+				['platform' => 'dailymotion', 'domain' => 'https://www.dailymotion.com', 'player' => 'https://www.dailymotion.com/embed/video/'],
+				['platform' => 'dailymotion', 'domain' => 'https://www.dai.ly', 		  'player' => 'https://www.dailymotion.com/embed/video/'],
+				['platform' => 'odysee', 	   'domain' => 'https://odysee.com', 		  'player' => 'https://odysee.com/$/embed/'],
+				['platform' => 'peertube',    'domain' => 'https://peertube.fr', 		  'player' => 'https://peertube.fr/videos/embed/'],
+				['platform' => 'peertube',    'domain' => 'https://framatube.org', 	  'player' => 'https://framatube.org/videos/embed/']
+            ]
+        ];
 	}
 
 	/**

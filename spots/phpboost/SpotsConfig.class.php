@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 09 16
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -151,7 +151,7 @@ class SpotsConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
             self::MODULE_NAME               => LangLoader::get_message('spots.module.title', 'common', 'spots'),
             self::NEW_WINDOW                => false,
 			self::ITEMS_PER_PAGE            => 16,
@@ -163,8 +163,8 @@ class SpotsConfig extends AbstractConfigData
 			self::DEFAULT_COLOR             => '#366493',
 			self::DEFAULT_INNER_ICON        => 'fa fa-circle',
 			self::ROOT_CATEGORY_DESCRIPTION => LangLoader::get_message('spots.root.category.description', 'common', 'spots'),
-			self::AUTHORIZATIONS            => array('r-1' => 1, 'r0' => 5, 'r1' => 13),
-		);
+			self::AUTHORIZATIONS            => ['r-1' => 1, 'r0' => 5, 'r1' => 21],
+        ];
 	}
 
 	/**

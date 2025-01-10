@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 04 06
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 4.1 - 2016 02 15
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -49,11 +49,11 @@ class DictionaryConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
 			self::ITEMS_PER_PAGE => 15,
-			self::FORBIDDEN_TAGS => array('swf', 'movie', 'sound', 'code', 'math', 'mail', 'html', 'feed', 'youtube'),
-			self::AUTHORIZATIONS => array('r-1' => 1, 'r0' => 5, 'r1' => 13)
-		);
+			self::FORBIDDEN_TAGS => ['swf', 'movie', 'sound', 'code', 'math', 'mail', 'html', 'feed', 'youtube'],
+			self::AUTHORIZATIONS => ['r-1' => 1, 'r0' => 5, 'r1' => 13]
+		];
 	}
 
 	/**

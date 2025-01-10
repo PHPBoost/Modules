@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 25
+ * @version     PHPBoost 6.0 - last update: 2025 01 10
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
@@ -130,7 +130,7 @@ class BroadcastConfig extends AbstractConfigData
 	 */
 	public function get_default_values()
 	{
-		return array(
+		return [
 			self::RADIO_NAME 	 => 'RadioBoost',
 			self::RADIO_IMG 	 => '/broadcast/templates/images/default_item.webp',
 			self::PLAYER_TYPE 	 => BroadcastConfig::BROADCAST_URL,
@@ -139,8 +139,8 @@ class BroadcastConfig extends AbstractConfigData
 			self::PLAYER_WIDTH 	 => 300,
 			self::PLAYER_HEIGHT 	 => 400,
 			self::DISPLAY_TYPE 	 => self::ACCORDION_VIEW,
-			self::AUTHORIZATIONS => array('r-1' => 3, 'r0' => 5, 'r1' => 13)
-		);
+			self::AUTHORIZATIONS => ['r-1' => 1, 'r0' => 1, 'r1' => 17]
+		];
 	}
 
 	/**
