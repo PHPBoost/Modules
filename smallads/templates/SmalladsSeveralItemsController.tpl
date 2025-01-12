@@ -1,7 +1,7 @@
 <section id="module-smallads" class="several-items">
 	<header class="section-header">
 		<div class="controls align-right">
-			<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning" aria-hidden="true"></i></a>
+			# IF C_CATEGORY #<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('smallads', id_category))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning" aria-hidden="true"></i></a># ENDIF #
 			# IF NOT C_ROOT_CATEGORY #{@smallads.module.title}# ENDIF #
 			# IF C_CATEGORY ## IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a># ENDIF ## ENDIF #
 		</div>
@@ -13,7 +13,11 @@
 					{@smallads.pending.items}
 				# ELSE #
 					# IF C_MEMBER_ITEMS #
-						# IF C_MY_ITEMS #{@smallads.my.items}# ELSE #{@smallads.member.items} {MEMBER_NAME}# ENDIF #
+                        # IF C_MEMBERS_LIST #
+                            {@contribution.members.list}
+                        # ELSE #
+                            # IF C_MY_ITEMS #{@smallads.my.items}# ELSE #{@smallads.member.items} {MEMBER_NAME}# ENDIF #
+                        # ENDIF #
 					# ELSE #
 						# IF C_ROOT_CATEGORY #{@smallads.module.title}# ELSE #{CATEGORY_NAME}# ENDIF #
 					# ENDIF #
@@ -363,13 +367,25 @@
 					<div class="no-result hidden message-helper bgc notice"> {@common.no.item.now} </div>
 				# ENDIF #
 			# ELSE #
-				# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-					<div class="content">
-						<div class="message-helper bgc notice align-center">
-							{@common.no.item.now}
-						</div>
-					</div>
-				# ENDIF #
+                # IF C_MEMBERS_LIST #
+                    # IF C_MEMBERS #
+                        <div class="content">
+                            # START users #
+                                <a href="{users.U_USER}" class="offload pinned bgc-sub align-center"><img class="message-user-avatar" src="{users.U_AVATAR}" alt="{users.USER_NAME}"><span class="d-block">{users.USER_NAME}<span></a>
+                            # END users #
+                        </div>
+                    # ELSE #
+                        <div class="content">
+                            <div class="message-helper bgc notice align-center">{@contribution.no.member}</div>
+                        </div>
+                    # ENDIF #
+                # ELSE #
+                    # IF NOT C_HIDE_NO_ITEM_MESSAGE #
+                        <div class="content">
+                            <div class="message-helper bgc notice align-center">{@common.no.item.now}</div>
+                        </div>
+                    # ENDIF #
+                # ENDIF #
 			# ENDIF #
 		</div>
 	</div>

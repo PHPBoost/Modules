@@ -1,16 +1,20 @@
 <section id="module-spots" class="several-items">
 	<header class="section-header">
 		<div class="controls align-right">
-			<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('spots', CATEGORY_ID))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning"></i></a>
+			# IF C_CATEGORY #<a class="offload" href="${relative_url(SyndicationUrlBuilder::rss('spots', CATEGORY_ID))}" aria-label="{@common.syndication}"><i class="fa fa-rss warning"></i></a># ENDIF #
 			# IF NOT C_ROOT_CATEGORY #{MODULE_NAME}# ENDIF #
-			# IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a># ENDIF #
+			# IF C_CATEGORY ## IF IS_ADMIN #<a class="offload" href="{U_EDIT_CATEGORY}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a># ENDIF ## ENDIF #
 		</div>
 		<h1>
 			# IF C_PENDING #
 				{@spots.pending.items}
 			# ELSE #
 				# IF C_MEMBER_ITEMS #
-					# IF C_MY_ITEMS #{@spots.my.items}# ELSE #{@spots.member.items} {MEMBER_NAME}# ENDIF #
+                    # IF C_MEMBERS_LIST #
+                        {@contribution.members.list}
+                    # ELSE #
+                        # IF C_MY_ITEMS #{@spots.my.items}# ELSE #{@spots.member.items} {MEMBER_NAME}# ENDIF #
+                    # ENDIF #
 				# ELSE #
 					# IF C_ROOT_CATEGORY #{MODULE_NAME}# ELSE #{CATEGORY_NAME}# ENDIF #
 				# ENDIF #
@@ -65,12 +69,9 @@
 		</div>
 	# ENDIF #
 
-	# IF C_SELF_ITEMS #
-		# IF C_SEVERAL_ITEMS #
-			<div class="spacer"></div>
-		# ENDIF #
-		<div class="sub-section">
-			<div class="content-container">
+    <div class="sub-section">
+        <div class="content-container">
+            # IF C_SELF_ITEMS #
 				# IF C_TABLE_VIEW #
 					<table class="table">
 						<thead>
@@ -168,21 +169,29 @@
 						# END self_items #
 					</div>
 				# ENDIF #
-			</div>
-		</div>		
-	# ELSE #
-		<div class="sub-section">
-			<div class="content-container">
-				<div class="content">
-					# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-						<div class="message-helper bgc notice">
-							{@common.no.item.now}
-						</div>
-					# ENDIF #
-				</div>
-			</div>
-		</div>
-	# ENDIF #
+            # ELSE #
+                # IF C_MEMBERS_LIST #
+                    # IF C_MEMBERS #
+                        <div class="content">
+                            # START users #
+                                <a href="{users.U_USER}" class="offload pinned bgc-sub align-center"><img class="message-user-avatar" src="{users.U_AVATAR}" alt="{users.USER_NAME}"><span class="d-block">{users.USER_NAME}<span></a>
+                            # END users #
+                        </div>
+                    # ELSE #
+                        <div class="content">
+                            <div class="message-helper bgc notice align-center">{@contribution.no.member}</div>
+                        </div>
+                    # ENDIF #
+                # ELSE #
+                    # IF NOT C_HIDE_NO_ITEM_MESSAGE #
+                        <div class="content">
+                            <div class="message-helper bgc notice">{@common.no.item.now}</div>
+                        </div>
+                    # ENDIF #
+                # ENDIF #
+            # ENDIF #
+        </div>
+    </div>
 
 	<footer># IF C_PAGINATION # # INCLUDE PAGINATION # # ENDIF #</footer>
 </section>
