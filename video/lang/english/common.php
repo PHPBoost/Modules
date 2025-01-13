@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 05 09
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -19,8 +19,9 @@ $lang['item']  = 'video';
 $lang['items'] = 'videos';
 
 // Titles
-$lang['video.add.item']         = 'Add new video';
-$lang['video.edit.item']        = 'Edit video';
+$lang['video.add.item']         = 'Add a new video';
+$lang['video.edit.item']        = 'Edit a video';
+$lang['video.duplicate.item']   = 'Duplicate a video';
 $lang['video.my.items']         = 'My videos';
 $lang['video.member.items']     = 'Videos published by';
 $lang['video.pending.items']    = 'Pending videos';

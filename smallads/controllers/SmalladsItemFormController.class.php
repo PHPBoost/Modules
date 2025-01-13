@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2025 01 07
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -29,7 +29,7 @@ class SmalladsItemFormController extends DefaultModuleController
 	private function build_form(HTTPRequestCustom $request)
 	{
 		$form = new HTMLForm(__CLASS__);
-		$form->set_layout_title($this->item->get_id() === null ? $this->lang['smallads.form.add'] : ($this->lang['smallads.form.edit'] . ': ' . $this->item->get_title()));
+		$form->set_layout_title($this->is_new_item ? $this->lang['smallads.form.add'] : ($this->is_duplication ? $this->lang['smallads.form.duplicate'] : $this->lang['smallads.form.edit']));
 		$form->set_css_class('tabs-container');
 
 		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
@@ -379,6 +379,13 @@ class SmalladsItemFormController extends DefaultModuleController
 		$this->form = $form;
 	}
 
+    private function get_duplication_source()
+    {
+        $url = GeneralConfig::load()->get_site_url() . SmalladsService::get_item($this->request->get_value('id'))->get_item_url();
+        $title = SmalladsService::get_item($this->request->get_value('id'))->get_title();
+        return StringVars::replace_vars($this->lang['common.duplication.source'], ['url' => $url, 'title' => $title]);
+    }
+
 	private function smallad_type_list()
 	{
 		$options = array();
@@ -419,7 +426,7 @@ class SmalladsItemFormController extends DefaultModuleController
 
 	private function build_contribution_fieldset($form)
 	{
-		if ($this->item->get_id() === null && $this->is_contributor_member())
+		if (($this->is_new_item || $this->is_duplication) && $this->is_contributor_member())
 		{
 			$fieldset = new FormFieldsetHTML('contribution', $this->lang['contribution.contribution']);
 			$fieldset->set_description(MessageHelper::display($this->lang['contribution.extended.warning'], MessageHelper::WARNING)->render());
@@ -477,21 +484,14 @@ class SmalladsItemFormController extends DefaultModuleController
 	{
 		$item = $this->get_item();
 
-		if ($item->get_id() === null)
+		if (
+            ($this->is_new_item && !$item->is_authorized_to_add())
+            || ($this->is_duplication && !$item->is_authorized_to_duplicate())
+            || (!$this->is_duplication && !$item->is_authorized_to_edit())
+        )
 		{
-			if (!$item->is_authorized_to_add())
-			{
-				$error_controller = PHPBoostErrors::user_not_authorized();
-				DispatchManager::redirect($error_controller);
-			}
-		}
-		else
-		{
-			if (!$item->is_authorized_to_edit())
-			{
-				$error_controller = PHPBoostErrors::user_not_authorized();
-				DispatchManager::redirect($error_controller);
-			}
+            $error_controller = PHPBoostErrors::user_not_authorized();
+            DispatchManager::redirect($error_controller);
 		}
 		if (AppContext::get_current_user()->is_readonly())
 		{
@@ -560,7 +560,11 @@ class SmalladsItemFormController extends DefaultModuleController
 			$this->item->set_id_category($this->form->get_value('id_category')->get_raw_value());
 
 		$this->item->set_summary(($this->form->get_value('enable_summary') ? $this->form->get_value('summary') : ''));
-		$this->item->set_content($this->form->get_value('content'));
+
+        if ($this->is_duplication)
+            $this->item->set_content($this->form->get_value('content') . $this->get_duplication_source());
+        else
+            $this->item->set_content($this->form->get_value('content'));
 
 		if(empty($this->form->get_value('price')))
 			$this->item->set_price('0');
@@ -699,9 +703,21 @@ class SmalladsItemFormController extends DefaultModuleController
 			}
 		}
 
-		if ($this->item->get_id() === null)
+		if ($this->is_new_item)
 		{
 			$id = SmalladsService::add($this->item);
+			$this->item->set_id($id);
+
+			if (!$this->is_contributor_member())
+				HooksService::execute_hook_action('add', self::$module_id, array_merge($this->item->get_properties(), array('item_url' => $this->item->get_item_url())));
+		}
+		elseif ($this->is_duplication)
+		{
+            $this->item->set_id(0);
+            $this->item->set_views_number(0);
+            $this->item->set_author_user(AppContext::get_current_user());
+			$this->item->set_creation_date($this->is_contributor_member() ? new Date() : $this->form->get_value('creation_date'));
+            $id = SmalladsService::add($this->item);
 			$this->item->set_id($id);
 
 			if (!$this->is_contributor_member())
@@ -789,7 +805,8 @@ class SmalladsItemFormController extends DefaultModuleController
 
 	private function generate_response(View $view)
 	{
-		$location_id = $this->item->get_id() ? 'item-edit-'. $this->item->get_id() : '';
+		$location_name = $this->is_duplication ? 'smallads-duplicate-' : 'smallads-edit-';
+		$location_id = $this->item->get_id() ? $location_name . $this->item->get_id() : '';
 
 		$response = new SiteDisplayResponse($view, $location_id);
 		$graphical_environment = $response->get_graphical_environment();
@@ -806,22 +823,25 @@ class SmalladsItemFormController extends DefaultModuleController
 		}
 		else
 		{
-			$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->item->get_id_category(), true));
+			$page_title = $this->is_duplication ? $this->lang['smallads.duplicate.item'] : $this->lang['smallads.edit.item'];
+            $page_url = $this->is_duplication ? SmalladsUrlBuilder::duplicate_item($this->item->get_id()) : SmalladsUrlBuilder::edit_item($this->item->get_id());
+			if (!AppContext::get_session()->location_id_already_exists($location_id))
+				$graphical_environment->set_location_id($location_id);
+
+			$graphical_environment->set_page_title($page_title . ': ' . $this->item->get_title(), $this->lang['smallads.module.title']);
+			$graphical_environment->get_seo_meta_data()->set_description($page_title);
+			$graphical_environment->get_seo_meta_data()->set_canonical_url($page_url);
+
+            $categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->item->get_id_category(), true));
 			foreach ($categories as $id => $category)
 			{
 				if ($category->get_id() != Category::ROOT_CATEGORY)
 					$breadcrumb->add($category->get_name(), SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
 			}
+			$category = $this->item->get_category();
 			$breadcrumb->add($this->item->get_title(), SmalladsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->item->get_id(), $this->item->get_rewrited_title()));
 
-			$breadcrumb->add($this->lang['smallads.edit.item'], SmalladsUrlBuilder::edit_item($this->item->get_id()));
-
-			if (!AppContext::get_session()->location_id_already_exists($location_id))
-				$graphical_environment->set_location_id($location_id);
-
-			$graphical_environment->set_page_title($this->lang['smallads.edit.item'], $this->lang['smallads.module.title']);
-			$graphical_environment->get_seo_meta_data()->set_description($this->lang['smallads.edit.item']);
-			$graphical_environment->get_seo_meta_data()->set_canonical_url(SmalladsUrlBuilder::edit_item($this->item->get_id()));
+			$breadcrumb->add($page_title, $page_url);
 		}
 
 		return $response;

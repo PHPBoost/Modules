@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 26
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -355,6 +355,11 @@ class VideoItem
 		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
+	public function is_authorized_to_duplicate()
+	{
+		return ModulesManager::get_module('download')->get_configuration()->has_duplication() && (CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution() && CategoriesAuthorizationsService::check_authorizations($this->id_category)->duplication()));
+	}
+
 	public function is_authorized_to_delete()
 	{
 		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
@@ -482,8 +487,9 @@ class VideoItem
 			array(
 				// Conditions
 				'C_VISIBLE'              => $this->is_published(),
-				'C_CONTROLS'			 => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
+				'C_CONTROLS'			 => $this->is_authorized_to_edit() || $this->is_authorized_to_delete() || $this->is_authorized_to_duplicate(),
 				'C_EDIT'                 => $this->is_authorized_to_edit(),
+				'C_DUPLICATE'            => $this->is_authorized_to_duplicate(),
 				'C_DELETE'               => $this->is_authorized_to_delete(),
 				'C_READ_MORE'            => !$this->is_summary_enabled() && TextHelper::strlen($content) > $config->get_auto_cut_characters_number() && $real_summary != @strip_tags($content, '<br><br/>'),
 				'C_HAS_THUMBNAIL'        => $this->has_thumbnail(),
@@ -529,6 +535,7 @@ class VideoItem
 				'U_ITEM'           => $this->get_item_url(),
 				'U_DEADLINK'       => VideoUrlBuilder::dead_link($this->id)->rel(),
 				'U_EDIT'           => VideoUrlBuilder::edit($this->id)->rel(),
+				'U_DUPLICATE'      => VideoUrlBuilder::duplicate($this->id)->rel(),
 				'U_DELETE'         => VideoUrlBuilder::delete($this->id)->rel(),
 				'U_THUMBNAIL'      => $this->get_thumbnail()->rel(),
 				'U_COMMENTS'       => VideoUrlBuilder::display_comments($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel()

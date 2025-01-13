@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 02 06
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -22,7 +22,8 @@ $lang['spots.items.number']  = 'Locations number';
 $lang['spots.filter.items']  = 'Filter locations';
 
 $lang['spots.add']        = 'Add a location';
-$lang['spots.edit']       = 'Location edition';
+$lang['spots.edit']       = 'Edit a location';
+$lang['spots.duplicate']  = 'Duplicate a location';
 $lang['spots.management'] = 'Locations management';
 
 $lang['spots.address']           = 'Address';

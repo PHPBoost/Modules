@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2025 01 12
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -89,6 +89,14 @@ class VideoUrlBuilder
 	public static function edit($id)
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/edit/');
+	}
+
+	/**
+	 * @return Url
+	 */
+	public static function duplicate($id)
+	{
+		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/duplicate/');
 	}
 
 	/**

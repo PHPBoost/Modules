@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 02 19
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 4.0 - 2013 01 30
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -28,7 +28,8 @@ $url_controller_mappers = array(
 	// Manage items
 	new UrlControllerMapper('SmalladsItemsManagerController', '`^/manage/?$`'),
 	new UrlControllerMapper('SmalladsItemFormController', '`^/add/?([0-9]+)?/?$`', array('id_category')),
-	new UrlControllerMapper('SmalladsItemFormController', '`^(?:/([0-9]+))/edit/?([0-9]+)?/?$`', array('id')),
+	new UrlControllerMapper('SmalladsItemFormController', '`^(?:/([0-9]+))/edit/?$`', array('id')),
+	new UrlControllerMapper('SmalladsItemFormController', '`^(?:/([0-9]+))/duplicate/?$`', array('id')),
 	new UrlControllerMapper('SmalladsDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
 
 	// Usage Terms Conditions

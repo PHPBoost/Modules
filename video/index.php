@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 10 17
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -25,6 +25,7 @@ $url_controller_mappers = array(
 	new UrlControllerMapper('VideoItemsManagerController', '`^/manage/?$`'),
 	new UrlControllerMapper('VideoItemFormController', '`^/add/?([0-9]+)?/?$`', array('id_category')),
 	new UrlControllerMapper('VideoItemFormController', '`^/([0-9]+)/edit/?$`', array('id')),
+	new UrlControllerMapper('VideoItemFormController', '`^/([0-9]+)/duplicate/?$`', array('id')),
 	new UrlControllerMapper('VideoDeleteItemController', '`^/([0-9]+)/delete/?$`', array('id')),
 	new UrlControllerMapper('VideoItemController', '`^/([0-9]+)-([a-z0-9-_]+)/([0-9]+)-([a-z0-9-_]+)?/?$`', array('id_category', 'rewrited_name_category', 'id', 'rewrited_name')),
 

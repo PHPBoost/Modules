@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 07 09
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
@@ -552,6 +552,11 @@ class SmalladsItem
 		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->write() || (CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL))));
 	}
 
+	public function is_authorized_to_duplicate()
+	{
+		return ModulesManager::get_module('smallads')->get_configuration()->has_duplication() && (CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution() && CategoriesAuthorizationsService::check_authorizations($this->id_category)->duplication()));
+	}
+
 	public function is_authorized_to_delete()
 	{
 		return CategoriesAuthorizationsService::check_authorizations($this->id_category)->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->write() || (CategoriesAuthorizationsService::check_authorizations($this->get_id_category())->contribution() && !$this->is_published())) && $this->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
@@ -734,84 +739,86 @@ class SmalladsItem
 			Date::get_array_tpl_vars($this->publishing_start_date, 'publishing_start_date'),
 			Date::get_array_tpl_vars($this->publishing_end_date, 'publishing_end_date'),
 			array(
-			// Conditions
-			'C_CONTROLS'					   => $this->is_authorized_to_edit() || $this->is_authorized_to_delete(),
-			'C_EDIT'                           => $this->is_authorized_to_edit(),
-			'C_DELETE'                         => $this->is_authorized_to_delete(),
-			'C_PRICE'                  		   => $this->get_price() != 0,
-			'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(),
-			'C_AUTHOR_GROUP_COLOR'               => !empty($user_group_color),
-			'C_VISIBLE'                        => $this->is_published(),
-			'C_PUBLISHING_START_AND_END_DATE'  => $this->publishing_start_date != null && $this->publishing_end_date != null,
-			'C_PUBLISHING_START_DATE'          => $this->publishing_start_date != null,
-			'C_PUBLISHING_END_DATE'            => $this->publishing_end_date != null,
-			'C_HAS_UPDATE_DATE'                => $this->update_date != null,
-			'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
-			'C_CONTACT_LEVEL'				   => $contact_level,
-			'C_COMPLETED'         			   => $this->is_completed(),
-			'C_ARCHIVED'         			   => $this->is_archived(),
-			'C_DISPLAYED_AUTHOR_EMAIL'         => $this->is_displayed_author_email(),
-			'C_CUSTOM_AUTHOR_EMAIL'            => $this->is_enabled_author_email_customization(),
-			'C_DISPLAYED_AUTHOR_PM'            => $this->is_displayed_author_pm(),
-			'C_DISPLAYED_AUTHOR_PHONE'         => $this->is_displayed_author_phone() && !empty($this->get_author_phone()),
-			'C_DISPLAYED_AUTHOR'               => $this->is_displayed_author_name(),
-			'C_CUSTOM_AUTHOR_NAME' 			   => $this->is_enabled_author_name_customization(),
-			'C_READ_MORE'                      => !$this->get_summary_enabled() && TextHelper::strlen($content) > SmalladsConfig::load()->get_characters_number_to_cut() && $summary != @strip_tags($content, '<br><br/>'),
-			'C_SOURCES'                        => $nbr_sources > 0,
-			'C_CAROUSEL'                       => $nbr_pictures > 0,
-			'C_DIFFERED'                       => $this->published == self::DEFERRED_PUBLICATION,
-			'C_NEW_CONTENT'                    => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('smallads', $this->publishing_start_date != null ? $this->publishing_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
-			'C_USAGE_TERMS'					   => $config->are_usage_terms_displayed(),
-			'IS_LOCATED'					   => !empty($this->get_location()),
-			'C_OTHER_LOCATION'				   => $this->get_location() === 'other',
-			'C_GMAP'					   	   => $config->is_googlemaps_available(),
+                // Conditions
+                'C_CONTROLS'					   => $this->is_authorized_to_edit() || $this->is_authorized_to_delete() || $this->is_authorized_to_duplicate(),
+                'C_EDIT'                           => $this->is_authorized_to_edit(),
+                'C_DUPLICATE'                      => $this->is_authorized_to_duplicate(),
+                'C_DELETE'                         => $this->is_authorized_to_delete(),
+                'C_PRICE'                  		   => $this->get_price() != 0,
+                'C_HAS_THUMBNAIL'                  => $this->has_thumbnail(),
+                'C_AUTHOR_GROUP_COLOR'             => !empty($user_group_color),
+                'C_VISIBLE'                        => $this->is_published(),
+                'C_PUBLISHING_START_AND_END_DATE'  => $this->publishing_start_date != null && $this->publishing_end_date != null,
+                'C_PUBLISHING_START_DATE'          => $this->publishing_start_date != null,
+                'C_PUBLISHING_END_DATE'            => $this->publishing_end_date != null,
+                'C_HAS_UPDATE_DATE'                => $this->update_date != null,
+                'C_CONTACT'						   => $this->is_displayed_author_email() || $this->is_displayed_author_pm() || $this->is_displayed_author_phone(),
+                'C_CONTACT_LEVEL'				   => $contact_level,
+                'C_COMPLETED'         			   => $this->is_completed(),
+                'C_ARCHIVED'         			   => $this->is_archived(),
+                'C_DISPLAYED_AUTHOR_EMAIL'         => $this->is_displayed_author_email(),
+                'C_CUSTOM_AUTHOR_EMAIL'            => $this->is_enabled_author_email_customization(),
+                'C_DISPLAYED_AUTHOR_PM'            => $this->is_displayed_author_pm(),
+                'C_DISPLAYED_AUTHOR_PHONE'         => $this->is_displayed_author_phone() && !empty($this->get_author_phone()),
+                'C_DISPLAYED_AUTHOR'               => $this->is_displayed_author_name(),
+                'C_CUSTOM_AUTHOR_NAME' 			   => $this->is_enabled_author_name_customization(),
+                'C_READ_MORE'                      => !$this->get_summary_enabled() && TextHelper::strlen($content) > SmalladsConfig::load()->get_characters_number_to_cut() && $summary != @strip_tags($content, '<br><br/>'),
+                'C_SOURCES'                        => $nbr_sources > 0,
+                'C_CAROUSEL'                       => $nbr_pictures > 0,
+                'C_DIFFERED'                       => $this->published == self::DEFERRED_PUBLICATION,
+                'C_NEW_CONTENT'                    => ContentManagementConfig::load()->module_new_content_is_enabled_and_check_date('smallads', $this->publishing_start_date != null ? $this->publishing_start_date->get_timestamp() : $this->get_creation_date()->get_timestamp()) && $this->is_published(),
+                'C_USAGE_TERMS'					   => $config->are_usage_terms_displayed(),
+                'IS_LOCATED'					   => !empty($this->get_location()),
+                'C_OTHER_LOCATION'				   => $this->get_location() === 'other',
+                'C_GMAP'					   	   => $config->is_googlemaps_available(),
 
-			// Item
-			'ID'                 	=> $this->get_id(),
-			'TITLE'              	=> $this->get_title(),
-			'STATUS'             	=> $this->get_status(),
-			'L_COMMENTS'         	=> CommentsService::get_number_and_lang_comments('smallads', $this->get_id()),
-			'COMMENTS_NUMBER'    	=> CommentsService::get_comments_number('smallads', $this->get_id()),
-			'VIEWS_NUMBER'       	=> $this->get_views_number(),
-			'C_AUTHOR_EXISTS'     	=> $user->get_id() !== User::VISITOR_LEVEL,
-			'AUTHOR_EMAIL'       	=> $user->get_email(),
-			'CUSTOM_AUTHOR_EMAIL'	=> $this->custom_author_email,
-			'AUTHOR_DISPLAY_NAME'   => $user->get_display_name(),
-			'CUSTOM_AUTHOR_NAME' 	=> $this->custom_author_name,
-			'AUTHOR_PHONE'       	=> $this->get_author_phone(),
-			'SUMMARY'        		=> $summary,
-			'PRICE'          	 	=> $this->get_price(),
-			'CURRENCY'          	=> $config->get_currency(),
-			'SMALLAD_TYPE'   		=> str_replace('-',' ', $this->get_smallad_type()),
-			'SMALLAD_TYPE_FILTER'   => Url::encode_rewrite(TextHelper::strtolower($this->get_smallad_type())),
-			'BRAND'          	 	=> $this->get_brand(),
-			'AUTHOR_LEVEL_CLASS'   	=> UserService::get_level_class($user->get_level()),
-			'AUTHOR_GROUP_COLOR'   	=> $user_group_color,
-			'LOCATION'				=> $location,
-			'OTHER_LOCATION'		=> $this->get_other_location(),
-			'CONTENT'           	=> $rich_content,
+                // Item
+                'ID'                 	=> $this->get_id(),
+                'TITLE'              	=> $this->get_title(),
+                'STATUS'             	=> $this->get_status(),
+                'L_COMMENTS'         	=> CommentsService::get_number_and_lang_comments('smallads', $this->get_id()),
+                'COMMENTS_NUMBER'    	=> CommentsService::get_comments_number('smallads', $this->get_id()),
+                'VIEWS_NUMBER'       	=> $this->get_views_number(),
+                'C_AUTHOR_EXISTS'     	=> $user->get_id() !== User::VISITOR_LEVEL,
+                'AUTHOR_EMAIL'       	=> $user->get_email(),
+                'CUSTOM_AUTHOR_EMAIL'	=> $this->custom_author_email,
+                'AUTHOR_DISPLAY_NAME'   => $user->get_display_name(),
+                'CUSTOM_AUTHOR_NAME' 	=> $this->custom_author_name,
+                'AUTHOR_PHONE'       	=> $this->get_author_phone(),
+                'SUMMARY'        		=> $summary,
+                'PRICE'          	 	=> $this->get_price(),
+                'CURRENCY'          	=> $config->get_currency(),
+                'SMALLAD_TYPE'   		=> str_replace('-',' ', $this->get_smallad_type()),
+                'SMALLAD_TYPE_FILTER'   => Url::encode_rewrite(TextHelper::strtolower($this->get_smallad_type())),
+                'BRAND'          	 	=> $this->get_brand(),
+                'AUTHOR_LEVEL_CLASS'   	=> UserService::get_level_class($user->get_level()),
+                'AUTHOR_GROUP_COLOR'   	=> $user_group_color,
+                'LOCATION'				=> $location,
+                'OTHER_LOCATION'		=> $this->get_other_location(),
+                'CONTENT'           	=> $rich_content,
 
-			// Category
-			'C_ROOT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY,
-			'ID_CATEGORY'          => $category->get_id(),
-			'CATEGORY_NAME'        => $category->get_name(),
-			'CATEGORY_DESCRIPTION' => $category->get_description(),
-			'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
-			'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'smallads')->rel(),
+                // Category
+                'C_ROOT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY,
+                'ID_CATEGORY'          => $category->get_id(),
+                'CATEGORY_NAME'        => $category->get_name(),
+                'CATEGORY_DESCRIPTION' => $category->get_description(),
+                'U_CATEGORY_THUMBNAIL' => $category->get_thumbnail()->rel(),
+                'U_EDIT_CATEGORY'      => $category->get_id() == Category::ROOT_CATEGORY ? SmalladsUrlBuilder::categories_configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'smallads')->rel(),
 
-			// Links
-			'U_COMMENTS'       => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_AUTHOR_CONTRIB' => SmalladsUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
-			'U_AUTHOR_PM'      => UserUrlBuilder::personnal_message($this->get_author_user()->get_id())->rel(),
-			'U_CATEGORY'       => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-			'U_ITEM'           => $this->get_item_url(),
-			'U_THUMBNAIL' 	   => $this->get_thumbnail()->rel(),
-			'U_EDIT'   		   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
-			'U_DELETE' 		   => SmalladsUrlBuilder::delete_item($this->id)->rel(),
-			'U_SYNDICATION'    => SyndicationUrlBuilder::rss('smallads', $category->get_id())->rel(),
-			'U_PRINT_ITEM'     => SmalladsUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel(),
-			'U_USAGE_TERMS'    => SmalladsUrlBuilder::usage_terms()->rel()
+                // Links
+                'U_COMMENTS'       => SmalladsUrlBuilder::display_items_comments($category->get_id(), $category->get_rewrited_name(), $this->get_id(), $this->get_rewrited_title())->rel(),
+                'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+                'U_AUTHOR_CONTRIB' => SmalladsUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
+                'U_AUTHOR_PM'      => UserUrlBuilder::personnal_message($this->get_author_user()->get_id())->rel(),
+                'U_CATEGORY'       => SmalladsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
+                'U_ITEM'           => $this->get_item_url(),
+                'U_THUMBNAIL' 	   => $this->get_thumbnail()->rel(),
+                'U_EDIT'   		   => SmalladsUrlBuilder::edit_item($this->id)->rel(),
+                'U_DUPLICATE'      => SmalladsUrlBuilder::duplicate_item($this->id)->rel(),
+                'U_DELETE' 		   => SmalladsUrlBuilder::delete_item($this->id)->rel(),
+                'U_SYNDICATION'    => SyndicationUrlBuilder::rss('smallads', $category->get_id())->rel(),
+                'U_PRINT_ITEM'     => SmalladsUrlBuilder::print_item($this->get_id(), $this->get_rewrited_title())->rel(),
+                'U_USAGE_TERMS'    => SmalladsUrlBuilder::usage_terms()->rel()
 			)
 		);
 	}

@@ -60,10 +60,11 @@
 							# ENDIF #
 						# ENDIF #
 						# IF C_CONTROLS #
+							# IF C_DUPLICATE #<a class="offload" href="{U_DUPLICATE}" aria-label="{@common.duplicate}"><i class="far fa-fw fa-clone" aria-hidden="true"></i></a># ENDIF #
 							# IF C_EDIT #<a class="offload" href="{U_EDIT}" aria-label="{@common.edit}"><i class="far fa-fw fa-edit" aria-hidden="true"></i></a># ENDIF #
 							# IF C_DELETE #<a href="{U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-fw fa-trash-alt" aria-hidden="true"></i></a># ENDIF #
 						# ENDIF #
-					</div>					
+					</div>
 				</div>
 				# IF C_KEYWORDS #
 					<div class="more">

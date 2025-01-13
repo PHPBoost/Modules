@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 10 19
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
  * @contributor Mipel <mipel@phpboost.com>
@@ -28,7 +28,8 @@ $lang['smallads.filter.items']   = 'Filter ads';
 
 $lang['smallads.items.management'] = 'Smallads management';
 $lang['smallads.add.item']         = 'Add an ad';
-$lang['smallads.edit.item']        = 'Item edition';
+$lang['smallads.edit.item']        = 'Edit an ad';
+$lang['smallads.duplicate.item']   = 'Duplicate an ad';
 $lang['smallads.feed.name']        = 'Last ads';
 
 $lang['smallads.category.list']   = 'Categories';
@@ -109,6 +110,7 @@ $lang['smallads.usage.terms.clue']       = 'Usage terms description.';
 $lang['smallads.form.warning']                         = 'Validation is available on each tab. Be sure to fill all wanted fields on every page before validate the item.';
 $lang['smallads.form.add']                             = 'Add an ad';
 $lang['smallads.form.edit']                            = 'Modify an ad';
+$lang['smallads.form.duplicate']                       = 'Duplicate an ad';
 $lang['smallads.form.summary']                         = 'Description (maximum :number characters)';
 $lang['smallads.form.enable.summary']                  = 'Enable ad summary';
 $lang['smallads.form.enable.summary.clue']             = 'or let PHPBoost cut the content at :number characters';

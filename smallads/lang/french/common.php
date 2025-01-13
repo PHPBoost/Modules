@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 05 14
+ * @version     PHPBoost 6.0 - last update: 2025 01 13
  * @since       PHPBoost 5.0 - 2016 02 02
  * @contributor Mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -30,6 +30,7 @@ $lang['smallads.filter.items']   = 'Filtrer les annonces';
 $lang['smallads.items.management'] = 'Gestion des annonces';
 $lang['smallads.add.item']         = 'Ajouter une annonce';
 $lang['smallads.edit.item']        = 'Modification d\'une annonce';
+$lang['smallads.duplicate.item']   = 'Duplication d\'une annonce';
 $lang['smallads.feed.name']        = 'Dernières annonces';
 
 $lang['smallads.category.list']   = 'Catégories';
@@ -110,6 +111,7 @@ $lang['smallads.usage.terms.clue']       = 'Description des CGU';
 $lang['smallads.form.warning']                         = 'La validation est accessible sur chaque onglet. Assurez-vous de remplir tous les champs souhaités sur chaque page avant de valider l\'annonce.';
 $lang['smallads.form.add']                             = 'Ajouter une annonce';
 $lang['smallads.form.edit']                            = 'Modifier une annonce';
+$lang['smallads.form.duplicate']                       = 'Dupliquer une annonce';
 $lang['smallads.form.summary']                         = 'Description (maximum :number caractères)';
 $lang['smallads.form.enable.summary']                  = 'Activer le condensé de l\'annonce';
 $lang['smallads.form.enable.summary.clue']             = 'ou laissez PHPBoost couper le contenu à :number caractères.';
