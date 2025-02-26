@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 02 03
+ * @version     PHPBoost 6.0 - last update: 2025 02 26
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -64,6 +64,14 @@ class CountdownModuleMiniMenu extends ModuleMiniMenu
 		));
 
 		return $view->render();
+	}
+
+	public function display()
+	{
+		if ($this->is_displayed())
+		{
+            return $this->get_menu_content();
+		}
 	}
 }
 ?>
