@@ -74,7 +74,7 @@
                                 </h2>
                                 <div class="formatter-content">
                                     <div class="controls align-right">
-                                        <a class="offload copy-link-to-clipboard" href="{U_SITE}{items.U_ITEM}" aria-label="{@common.copy.link.to.clipboard}"><i class="fa fa-hashtag" aria-hidden="true"></i></a>
+                                        <a href="#" onclick="copy_to_clipboard('{U_SITE}{items.U_ITEM}');return false;" aria-label="{@common.copy.link.to.clipboard}"><i class="fa fa-hashtag" aria-hidden="true"></i></a>
                                         # IF items.C_CONTROLS #
                                             # IF items.C_EDIT #
                                                 <a class="offload" href="{items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit" aria-hidden="true"></i></a>
