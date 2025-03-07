@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2025 01 13
+ * @version     PHPBoost 6.0 - last update: 2025 03 07
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -32,23 +32,27 @@ class SmalladsItemFormController extends DefaultModuleController
 		$form->set_layout_title($this->is_new_item ? $this->lang['smallads.form.add'] : ($this->is_duplication ? $this->lang['smallads.form.duplicate'] : $this->lang['smallads.form.edit']));
 		$form->set_css_class('tabs-container');
 
+		$fieldset_warning = new FormFieldMenuFieldset('warning', '');
+		$form->add_fieldset($fieldset_warning);
+		$fieldset_warning->add_field(new FormFieldFree('warning', '', $this->lang['smallads.form.warning'], array('class' => 'message-helper bgc notice')));
+
 		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
 		$form->add_fieldset($fieldset_tabs_menu);
 		$fieldset_tabs_menu->set_css_class('tabs-nav');
 
-        $fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',
+        $fieldset_tabs_menu->add_field(new TabsNavList('tabs_menu_list',
 			array(
-				new FormFieldMultitabsLinkElement($this->lang['form.parameters'], 'tabs', 'SmalladsItemFormController_smallads'),
-				new FormFieldMultitabsLinkElement($this->lang['form.options'], 'tabs', 'SmalladsItemFormController_other'),
-				new FormFieldMultitabsLinkElement($this->lang['form.publication'], 'tabs', 'SmalladsItemFormController_publication'),
+				new TabsNavElement($this->lang['form.parameters'], self::class . '_smallads'),
+				new TabsNavElement($this->lang['form.options'], self::class . '_other'),
+				new TabsNavElement($this->lang['form.publication'], self::class . '_publication'),
 			)
 		));
 
-		$fieldset_tabs_menu->add_field(new FormFieldFree('warning', '', $this->lang['smallads.form.warning'], array('class' => 'message-helper bgc notice')));
+        // Tabs content
+        $caps_top = new FormFieldsetCapsTop('content_start');
+        $form->add_fieldset($caps_top);
 
-		$fieldset = new FormFieldsetMultitabsHTML('smallads', $this->lang['form.parameters'],
-			array('css_class' => 'tabs tabs-animation first-tab')
-		);
+		$fieldset = new TabsContentFieldset('smallads', $this->lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
 		$fieldset->add_field(new FormFieldTextEditor('title', $this->lang['form.title'], $this->item->get_title(),
@@ -164,9 +168,7 @@ class SmalladsItemFormController extends DefaultModuleController
 			}
 		}
 
-		$other_fieldset = new FormFieldsetMultitabsHTML('other', $this->lang['form.options'],
-			array('css_class' => 'tabs tabs-animation')
-		);
+		$other_fieldset = new TabsContentFieldset('other', $this->lang['form.options']);
 		$form->add_fieldset($other_fieldset);
 
 		$other_fieldset->add_field(new FormFieldCheckbox('displayed_author_name', $this->lang['form.display.author'], $this->item->get_displayed_author_name(),
@@ -278,9 +280,7 @@ class SmalladsItemFormController extends DefaultModuleController
 			}
 		}
 
-		$publication_fieldset = new FormFieldsetMultitabsHTML('publication', $this->lang['form.publication'],
-			array('css_class' => 'tabs tabs-animation')
-		);
+		$publication_fieldset = new TabsContentFieldset('publication', $this->lang['form.publication']);
 		$form->add_fieldset($publication_fieldset);
 
 		if($this->config->is_max_weeks_number_displayed())
@@ -371,6 +371,9 @@ class SmalladsItemFormController extends DefaultModuleController
 		$this->build_contribution_fieldset($form);
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
+
+        $caps_bottom = new FormFieldsetCapsBottom('content_end');
+        $form->add_fieldset($caps_bottom);
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);

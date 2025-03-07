@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2024 01 31
+ * @version     PHPBoost 6.0 - last update: 2025 03 07
  * @since       PHPBoost 5.0 - 2016 01 02
  * @contributor Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -180,11 +180,10 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 
         foreach($home_modules as $module)
         {
-
 			if($module == 'configuration')
-				$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['form.configuration'], 'tabs', 'AdminHomeLandingConfigController_configuration', 'fa fa-cogs');
+				$tabs_li[] = new TabsNavElement($this->lang['form.configuration'], self::class . '_configuration', 'fa fa-cogs');
 			elseif($module == 'carousel')
-				$tabs_li[] = new FormFieldMultitabsLinkElement($this->lang['homelanding.module.carousel'], 'tabs', 'AdminHomeLandingConfigController_admin_carousel', 'fa fa-image');
+				$tabs_li[] = new TabsNavElement($this->lang['homelanding.module.carousel'], self::class . '_admin_carousel', 'fa fa-image');
 			elseif(in_array($module, $modules_from_list))
 			{
 				$img_url = PATH_TO_ROOT . '/' . $module . '/' . $module . '_mini.png';
@@ -193,13 +192,13 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 				$hexa_icon = ModulesManager::get_module($module)->get_configuration()->get_hexa_icon();
 				$thumbnail = $img->exists() ? $img_url : '';
 				if ($img->exists())
-					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, '', $thumbnail, $module);
+					$tabs_li[] = new TabsNavElement(ModulesManager::get_module($module)->get_configuration()->get_name(), self::class . '_admin_' . $module, '', $thumbnail, $module);
 				elseif (!empty($fa_icon))
-					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, $fa_icon, '', $module);
+					$tabs_li[] = new TabsNavElement(ModulesManager::get_module($module)->get_configuration()->get_name(), self::class . '_admin_' . $module, $fa_icon, '', $module);
 				elseif (!empty($hexa_icon))
-					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, $hexa_icon, '', $module);
+					$tabs_li[] = new TabsNavElement(ModulesManager::get_module($module)->get_configuration()->get_name(), self::class . '_admin_' . $module, $hexa_icon, '', $module);
 				else
-					$tabs_li[] = new FormFieldMultitabsLinkElement(ModulesManager::get_module($module)->get_configuration()->get_name(), 'tabs', 'AdminHomeLandingConfigController_admin_' . $module, '', '', $module);
+					$tabs_li[] = new TabsNavElement(ModulesManager::get_module($module)->get_configuration()->get_name(), self::class . '_admin_' . $module, '', '', $module);
 			}
 		}
 		return $tabs_li;
@@ -207,8 +206,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 
 	private function build_form()
 	{
-		$form = new HTMLForm(__CLASS__);
-		$form->set_css_class('tabs-container');
+		$form = new HTMLForm(self::class);
+        $form->set_css_class('tabs-container tabs-left');
 
 		// New modules warning
 		$compatible_list = $config_list = $new_modules_list = array();
@@ -240,17 +239,18 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// Tabs menu
-		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
+		$fieldset_tabs_menu = new TabsNavFieldset('tabs_menu', '');
 		$form->add_fieldset($fieldset_tabs_menu);
-		$fieldset_tabs_menu->set_css_class('tabs-nav');
 
-        $fieldset_tabs_menu->add_field(new FormFieldMultitabsLinkList('tabs_menu_list',$this->tabs_menu_list()));
+        $fieldset_tabs_menu->add_field(new TabsNavList('tabs_menu_module',$this->tabs_menu_list()));
+
+        // Tabs content
+        $caps_top = new FormFieldsetCapsTop('content_start');
+        $form->add_fieldset($caps_top);
 
 		// Configuration
-		$fieldset_config = new FormFieldsetMultitabsHTML('configuration', $this->lang['homelanding.config.module.title'],
-				array('css_class' => 'tabs tabs-animation first-tab')
-			);
-			$form->add_fieldset($fieldset_config);
+		$fieldset_config = new TabsContentFieldset('configuration', $this->lang['homelanding.config.module.title']);
+            $form->add_fieldset($fieldset_config);
 
 			$fieldset_config->add_field(new FormFieldTextEditor('module_title', $this->lang['homelanding.label.module.title'], $this->config->get_module_title(),
 				array('description' => $this->lang['homelanding.label.module.title.clue'])
@@ -338,10 +338,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 			));
 
 		//  Carousel
-		$fieldset_carousel = new FormFieldsetMultitabsHTML('admin_carousel', $this->lang['homelanding.config.carousel'],
-				array('css_class' => 'tabs tabs-animation')
-			);
-			$form->add_fieldset($fieldset_carousel);
+		$fieldset_carousel = new TabsContentFieldset('admin_carousel', $this->lang['homelanding.config.carousel']);
+            $form->add_fieldset($fieldset_carousel);
 
 			$fieldset_carousel->add_field(new FormFieldCheckbox('carousel_enabled', $this->lang['homelanding.display.carousel'], $this->modules[HomeLandingConfig::MODULE_CAROUSEL]->is_displayed(),
 				array(
@@ -411,219 +409,204 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 			));
 
 		// Articles
-		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_active())
-		{
-			$fieldset_articles = new FormFieldsetMultitabsHTML('admin_articles', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_ARTICLES]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
-			$form->add_fieldset($fieldset_articles);
+		if ($this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_active()) {
+			$fieldset_articles = new TabsContentFieldset('admin_articles', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_ARTICLES]->get_module_id())->get_configuration()->get_name());
+            $form->add_fieldset($fieldset_articles);
 
-			$fieldset_articles->add_field(new FormFieldCheckbox('articles_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed(),
-				array(
-					'class'=> 'custom-checkbox',
-					'events' => array('click' => '
-						if (HTMLForms.getField("articles_enabled").getValue()) {
-							HTMLForms.getField("articles_limit").enable();
-						} else {
-							HTMLForms.getField("articles_limit").disable();
-						}'
-					)
-				)
-			));
+            $fieldset_articles->add_field(new FormFieldCheckbox('articles_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed(),
+                array(
+                    'class'=> 'custom-checkbox',
+                    'events' => array('click' => '
+                        if (HTMLForms.getField("articles_enabled").getValue()) {
+                            HTMLForms.getField("articles_limit").enable();
+                        } else {
+                            HTMLForms.getField("articles_limit").disable();
+                        }'
+                    )
+                )
+            ));
 
-			$fieldset_articles->add_field(new FormFieldNumberEditor('articles_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->get_elements_number_displayed(),
-				array(
-					'min' => 1, 'max' => 100,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 100))
-			));
+            $fieldset_articles->add_field(new FormFieldNumberEditor('articles_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_ARTICLES]->get_elements_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 100,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 100))
+            ));
 
-			$fieldset_articles->add_field(new FormFieldSpacer('articles_separator', ''));
+            $fieldset_articles->add_field(new FormFieldSpacer('articles_separator', ''));
 
-			$fieldset_articles->add_field(new FormFieldCheckbox('articles_cat_enabled', $this->lang['homelanding.display.category'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed(),
-				array(
-					'class'=> 'custom-checkbox',
-					'events' => array('click' => '
-						if (HTMLForms.getField("articles_cat_enabled").getValue()) {
-							HTMLForms.getField("articles_cat").enable();
-							HTMLForms.getField("articles_subcategories_content_displayed").enable();
-							HTMLForms.getField("articles_cat_limit").enable();
-							HTMLForms.getField("articles_cat_char").enable();
-						} else {
-							HTMLForms.getField("articles_cat").disable();
-							HTMLForms.getField("articles_subcategories_content_displayed").disable();
-							HTMLForms.getField("articles_cat_limit").disable();
-							HTMLForms.getField("articles_cat_char").disable();
-						}'
-					)
-				)
-			));
+            $fieldset_articles->add_field(new FormFieldCheckbox('articles_cat_enabled', $this->lang['homelanding.display.category'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed(),
+                array(
+                    'class'=> 'custom-checkbox',
+                    'events' => array('click' => '
+                        if (HTMLForms.getField("articles_cat_enabled").getValue()) {
+                            HTMLForms.getField("articles_cat").enable();
+                            HTMLForms.getField("articles_subcategories_content_displayed").enable();
+                            HTMLForms.getField("articles_cat_limit").enable();
+                            HTMLForms.getField("articles_cat_char").enable();
+                        } else {
+                            HTMLForms.getField("articles_cat").disable();
+                            HTMLForms.getField("articles_subcategories_content_displayed").disable();
+                            HTMLForms.getField("articles_cat_limit").disable();
+                            HTMLForms.getField("articles_cat_char").disable();
+                        }'
+                    )
+                )
+            ));
 
-			$fieldset_articles->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_ARTICLES)->get_select_categories_form_field('articles_cat', $this->lang['homelanding.choose.category'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
-			));
+            $fieldset_articles->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_ARTICLES)->get_select_categories_form_field('articles_cat', $this->lang['homelanding.choose.category'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+                array('hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
+            ));
 
-			$fieldset_articles->add_field(new FormFieldCheckbox('articles_subcategories_content_displayed', $this->lang['homelanding.display.sub.categories'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed(),
-				array(
-					'class'=> 'custom-checkbox',
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
-			));
+            $fieldset_articles->add_field(new FormFieldCheckbox('articles_subcategories_content_displayed', $this->lang['homelanding.display.sub.categories'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_subcategories_content_displayed(),
+                array(
+                    'class'=> 'custom-checkbox',
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed())
+            ));
 
-			$fieldset_articles->add_field(new FormFieldNumberEditor('articles_cat_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_elements_number_displayed(),
-				array(
-					'min' => 1, 'max' => 100,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 100))
-			));
+            $fieldset_articles->add_field(new FormFieldNumberEditor('articles_cat_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_elements_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 100,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 100))
+            ));
 
-			$fieldset_articles->add_field(new FormFieldNumberEditor('articles_cat_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_characters_number_displayed(),
-				array(
-					'min' => 1, 'max' => 512,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 512))
-			));
+            $fieldset_articles->add_field(new FormFieldNumberEditor('articles_cat_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->get_characters_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 512,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_ARTICLES_CATEGORY]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 512))
+            ));
 		}
 
 		// Calendar
-		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_active())
-		{
-			$fieldset_calendar = new FormFieldsetMultitabsHTML('admin_calendar', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
-			$form->add_fieldset($fieldset_calendar);
+		if ($this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_active()) {
+			$fieldset_calendar = new TabsContentFieldset('admin_calendar', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_module_id())->get_configuration()->get_name());
+            $form->add_fieldset($fieldset_calendar);
 
-			$fieldset_calendar->add_field(new FormFieldCheckbox('calendar_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed(),
-				array(
-					'class'=> 'custom-checkbox',
-					'description' => $this->lang['homelanding.calendar.clue'],
-					'events' => array('click' => '
-						if (HTMLForms.getField("calendar_enabled").getValue()) {
-							HTMLForms.getField("calendar_limit").enable();
-							HTMLForms.getField("calendar_char").enable();
-						} else {
-							HTMLForms.getField("calendar_limit").disable();
-							HTMLForms.getField("calendar_char").disable();
-						}'
-					)
-				)
-			));
+            $fieldset_calendar->add_field(new FormFieldCheckbox('calendar_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed(),
+                array(
+                    'class'=> 'custom-checkbox',
+                    'description' => $this->lang['homelanding.calendar.clue'],
+                    'events' => array('click' => '
+                        if (HTMLForms.getField("calendar_enabled").getValue()) {
+                            HTMLForms.getField("calendar_limit").enable();
+                            HTMLForms.getField("calendar_char").enable();
+                        } else {
+                            HTMLForms.getField("calendar_limit").disable();
+                            HTMLForms.getField("calendar_char").disable();
+                        }'
+                    )
+                )
+            ));
 
-			$fieldset_calendar->add_field(new FormFieldNumberEditor('calendar_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_elements_number_displayed(),
-				array(
-					'min' => 1, 'max' => 100,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 100))
-			));
+            $fieldset_calendar->add_field(new FormFieldNumberEditor('calendar_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_elements_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 100,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 100))
+            ));
 
-			$fieldset_calendar->add_field(new FormFieldNumberEditor('calendar_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed(),
-				array(
-					'min' => 1, 'max' => 512,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 512))
-			));
+            $fieldset_calendar->add_field(new FormFieldNumberEditor('calendar_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_CALENDAR]->get_characters_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 512,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_CALENDAR]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 512))
+            ));
 		}
 
 		// Contact
-		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_active())
-		{
-			$fieldset_contact = new FormFieldsetMultitabsHTML('admin_contact', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_CONTACT]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
-			$form->add_fieldset($fieldset_contact);
+		if ($this->modules[HomeLandingConfig::MODULE_CONTACT]->is_active()) {
+			$fieldset_contact = new TabsContentFieldset('admin_contact', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_CONTACT]->get_module_id())->get_configuration()->get_name());
+            $form->add_fieldset($fieldset_contact);
 
-			$fieldset_contact->add_field(new FormFieldCheckbox('contact_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed(),
-				array('class'=> 'custom-checkbox')
-			));
+            $fieldset_contact->add_field(new FormFieldCheckbox('contact_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_CONTACT]->is_displayed(),
+                array('class'=> 'custom-checkbox')
+            ));
 		}
 
 		// Download
-		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_active())
-		{
-			$fieldset_download = new FormFieldsetMultitabsHTML('admin_download', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
-			$form->add_fieldset($fieldset_download);
+		if ($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_active()) {
+			$fieldset_download = new TabsContentFieldset('admin_download', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->get_module_id())->get_configuration()->get_name());
+            $form->add_fieldset($fieldset_download);
 
-			$fieldset_download->add_field(new FormFieldCheckbox('download_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed(),
-				array(
-					'class'=> 'custom-checkbox',
-					'events' => array('click' => '
-						if (HTMLForms.getField("download_enabled").getValue()) {
-							HTMLForms.getField("download_limit").enable();
-						} else {
-							HTMLForms.getField("download_limit").disable();
-						}'
-					)
-				)
-			));
+            $fieldset_download->add_field(new FormFieldCheckbox('download_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed(),
+                array(
+                    'class'=> 'custom-checkbox',
+                    'events' => array('click' => '
+                        if (HTMLForms.getField("download_enabled").getValue()) {
+                            HTMLForms.getField("download_limit").enable();
+                        } else {
+                            HTMLForms.getField("download_limit").disable();
+                        }'
+                    )
+                )
+            ));
 
-			$fieldset_download->add_field(new FormFieldNumberEditor('download_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->get_elements_number_displayed(),
-				array(
-					'min' => 1, 'max' => 100,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 100))
-			));
+            $fieldset_download->add_field(new FormFieldNumberEditor('download_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->get_elements_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 100,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 100))
+            ));
 
-			$fieldset_download->add_field(new FormFieldSpacer('download_separator', ''));
+            $fieldset_download->add_field(new FormFieldSpacer('download_separator', ''));
 
-			$fieldset_download->add_field(new FormFieldCheckbox('download_cat_enabled', $this->lang['homelanding.display.category'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed(),
-				array(
-					'class'=> 'custom-checkbox',
-					'events' => array('click' => '
-						if (HTMLForms.getField("download_cat_enabled").getValue()) {
-							HTMLForms.getField("download_cat").enable();
-							HTMLForms.getField("download_subcategories_content_displayed").enable();
-							HTMLForms.getField("download_cat_limit").enable();
-							HTMLForms.getField("download_cat_char").enable();
-						} else {
-							HTMLForms.getField("download_cat").disable();
-							HTMLForms.getField("download_subcategories_content_displayed").disable();
-							HTMLForms.getField("download_cat_limit").disable();
-							HTMLForms.getField("download_cat_char").disable();
-						}'
-					)
-				)
-			));
+            $fieldset_download->add_field(new FormFieldCheckbox('download_cat_enabled', $this->lang['homelanding.display.category'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed(),
+                array(
+                    'class'=> 'custom-checkbox',
+                    'events' => array('click' => '
+                        if (HTMLForms.getField("download_cat_enabled").getValue()) {
+                            HTMLForms.getField("download_cat").enable();
+                            HTMLForms.getField("download_subcategories_content_displayed").enable();
+                            HTMLForms.getField("download_cat_limit").enable();
+                            HTMLForms.getField("download_cat_char").enable();
+                        } else {
+                            HTMLForms.getField("download_cat").disable();
+                            HTMLForms.getField("download_subcategories_content_displayed").disable();
+                            HTMLForms.getField("download_cat_limit").disable();
+                            HTMLForms.getField("download_cat_char").disable();
+                        }'
+                    )
+                )
+            ));
 
-			$fieldset_download->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_DOWNLOAD)->get_select_categories_form_field('download_cat', $this->lang['homelanding.choose.category'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
-				array('hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
-			));
+            $fieldset_download->add_field(CategoriesService::get_categories_manager(HomeLandingConfig::MODULE_DOWNLOAD)->get_select_categories_form_field('download_cat', $this->lang['homelanding.choose.category'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_id_category(), new SearchCategoryChildrensOptions(),
+                array('hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
+            ));
 
-			$fieldset_download->add_field(new FormFieldCheckbox('download_subcategories_content_displayed', $this->lang['homelanding.display.sub.categories'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed(),
-				array(
-					'class'=> 'custom-checkbox',
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
-			));
+            $fieldset_download->add_field(new FormFieldCheckbox('download_subcategories_content_displayed', $this->lang['homelanding.display.sub.categories'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_subcategories_content_displayed(),
+                array(
+                    'class'=> 'custom-checkbox',
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed())
+            ));
 
-			$fieldset_download->add_field(new FormFieldNumberEditor('download_cat_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_elements_number_displayed(),
-				array(
-					'min' => 1, 'max' => 100,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 100))
-			));
+            $fieldset_download->add_field(new FormFieldNumberEditor('download_cat_limit', $this->lang['homelanding.items.number'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_elements_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 100,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 100))
+            ));
 
-			$fieldset_download->add_field(new FormFieldNumberEditor('download_cat_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_characters_number_displayed(),
-				array(
-					'min' => 1, 'max' => 512,
-					'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed()
-				),
-				array(new FormFieldConstraintIntegerRange(1, 512))
-			));
+            $fieldset_download->add_field(new FormFieldNumberEditor('download_cat_char', $this->lang['homelanding.characters.limit'], $this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->get_characters_number_displayed(),
+                array(
+                    'min' => 1, 'max' => 512,
+                    'hidden' => !$this->modules[HomeLandingConfig::MODULE_DOWNLOAD_CATEGORY]->is_displayed()
+                ),
+                array(new FormFieldConstraintIntegerRange(1, 512))
+            ));
 		}
 
 		// Flux
-		if ($this->modules[HomeLandingConfig::MODULE_FLUX]->is_active())
-		{
-			$fieldset_flux = new FormFieldsetMultitabsHTML('admin_flux', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_FLUX]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_FLUX]->is_active()) {
+			$fieldset_flux = new TabsContentFieldset('admin_flux', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_FLUX]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_flux);
 
 			$fieldset_flux->add_field(new FormFieldCheckbox('flux_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_FLUX]->is_displayed(),
@@ -659,11 +642,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// Forum
-		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active())
-		{
-			$fieldset_forum = new FormFieldsetMultitabsHTML('admin_forum', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_FORUM]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_FORUM]->is_active()) {
+			$fieldset_forum = new TabsContentFieldset('admin_forum', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_FORUM]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_forum);
 
 			$fieldset_forum->add_field(new FormFieldCheckbox('forum_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_FORUM]->is_displayed(),
@@ -699,11 +679,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// Gallery
-		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_active())
-		{
-			$fieldset_gallery = new FormFieldsetMultitabsHTML('admin_gallery', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_GALLERY]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_GALLERY]->is_active()) {
+			$fieldset_gallery = new TabsContentFieldset('admin_gallery', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_GALLERY]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_gallery);
 
 			$fieldset_gallery->add_field(new FormFieldCheckbox('gallery_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_GALLERY]->is_displayed(),
@@ -729,11 +706,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// Guestbook
-		if ($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_active())
-		{
-			$fieldset_guestbook = new FormFieldsetMultitabsHTML('admin_guestbook', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_active()) {
+			$fieldset_guestbook = new TabsContentFieldset('admin_guestbook', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_guestbook);
 
 			$fieldset_guestbook->add_field(new FormFieldCheckbox('guestbook_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_GUESTBOOK]->is_displayed(),
@@ -769,11 +743,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// Media
-		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_active())
-		{
-			$fieldset_media = new FormFieldsetMultitabsHTML('admin_media', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_MEDIA]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_MEDIA]->is_active()) {
+			$fieldset_media = new TabsContentFieldset('admin_media', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_MEDIA]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_media);
 
 			$fieldset_media->add_field(new FormFieldCheckbox('media_enabled', $this->lang['homelanding.show.module'], $this->modules[HomeLandingConfig::MODULE_MEDIA]->is_displayed(),
@@ -799,11 +770,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// News
-		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_active())
-		{
-			$fieldset_news = new FormFieldsetMultitabsHTML('admin_news', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_NEWS]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_NEWS]->is_active()) {
+			$fieldset_news = new TabsContentFieldset('admin_news', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_NEWS]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_news);
 
 			$fieldset_news->add_field(new FormFieldCheckbox('news_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_NEWS]->is_displayed(),
@@ -907,9 +875,7 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 
 		// Recipe
 		if ($this->modules[HomeLandingConfig::MODULE_RECIPE]->is_active()) {
-			$fieldset_recipe = new FormFieldsetMultitabsHTML('admin_recipe', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_RECIPE]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+			$fieldset_recipe = new TabsContentFieldset('admin_recipe', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_RECIPE]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_recipe);
 
 			$fieldset_recipe->add_field(new FormFieldCheckbox('recipe_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_RECIPE]->is_displayed(),
@@ -983,11 +949,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// Smallads
-		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active())
-		{
-			$fieldset_smallads = new FormFieldsetMultitabsHTML('admin_smallads', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_SMALLADS]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_active()) {
+			$fieldset_smallads = new TabsContentFieldset('admin_smallads', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_SMALLADS]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_smallads);
 
 			$fieldset_smallads->add_field(new FormFieldCheckbox('smallads_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_SMALLADS]->is_displayed(),
@@ -1062,9 +1025,7 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 
 		// Video
 		if ($this->modules[HomeLandingConfig::MODULE_VIDEO]->is_active()) {
-			$fieldset_video = new FormFieldsetMultitabsHTML('admin_video', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_VIDEO]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+			$fieldset_video = new TabsContentFieldset('admin_video', $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_VIDEO]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_video);
 
 			$fieldset_video->add_field(new FormFieldCheckbox('video_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_VIDEO]->is_displayed(),
@@ -1138,11 +1099,8 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		}
 
 		// Web
-		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active())
-		{
-			$fieldset_web = new FormFieldsetMultitabsHTML('admin_web',  $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_WEB]->get_module_id())->get_configuration()->get_name(),
-				array('css_class' => 'tabs tabs-animation')
-			);
+		if ($this->modules[HomeLandingConfig::MODULE_WEB]->is_active()) {
+			$fieldset_web = new TabsContentFieldset('admin_web',  $this->lang['homelanding.module.display'] . ModulesManager::get_module($this->modules[HomeLandingConfig::MODULE_WEB]->get_module_id())->get_configuration()->get_name());
 			$form->add_fieldset($fieldset_web);
 
 			$fieldset_web->add_field(new FormFieldCheckbox('web_enabled', $this->lang['homelanding.show.full.module'], $this->modules[HomeLandingConfig::MODULE_WEB]->is_displayed(),
@@ -1224,6 +1182,9 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 		{
             require_once($form_file->get_path());
 		}
+
+        $caps_bottom = new FormFieldsetCapsBottom('content_end');
+        $form->add_fieldset($caps_bottom);
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$this->init_button = new FormButtonDefaultSubmit('add module');
