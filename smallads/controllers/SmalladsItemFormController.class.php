@@ -32,9 +32,10 @@ class SmalladsItemFormController extends DefaultModuleController
 		$form->set_layout_title($this->is_new_item ? $this->lang['smallads.form.add'] : ($this->is_duplication ? $this->lang['smallads.form.duplicate'] : $this->lang['smallads.form.edit']));
 		$form->set_css_class('tabs-container');
 
-		$fieldset_warning = new FormFieldMenuFieldset('warning', '');
+		$fieldset_warning = new FormFieldsetHTML('warning', '');
 		$form->add_fieldset($fieldset_warning);
-		$fieldset_warning->add_field(new FormFieldFree('warning', '', $this->lang['smallads.form.warning'], array('class' => 'message-helper bgc notice')));
+		$fieldset_warning->set_description($this->lang['smallads.form.warning']);
+		$fieldset_warning->set_css_class('message-helper bgc notice');
 
 		$fieldset_tabs_menu = new FormFieldMenuFieldset('tabs_menu', '');
 		$form->add_fieldset($fieldset_tabs_menu);
