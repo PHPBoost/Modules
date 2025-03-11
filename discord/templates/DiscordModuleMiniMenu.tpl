@@ -37,7 +37,7 @@
 
 
 # IF C_DISCORD_ID #
-    <script src="{PATH_TO_ROOT}/discord/templates/js/discord.viewer# IF C_CSS_CACHE_ENABLED #.min# ENDIF #.js"></script>
+    <script src="{PATH_TO_ROOT}/discord/templates/js/discord.viewer.js"></script>
     <script>
         jQuery('#module-mini-discord').discordviewer({
             server_id: '{DISCORD_ID}',
