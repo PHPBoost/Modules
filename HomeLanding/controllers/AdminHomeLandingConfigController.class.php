@@ -207,7 +207,6 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 	private function build_form()
 	{
 		$form = new HTMLForm(self::class);
-        $form->set_css_class('tabs-container tabs-left');
 
 		// New modules warning
 		$compatible_list = $config_list = $new_modules_list = array();
@@ -238,15 +237,21 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
 			));
 		}
 
-		// Tabs menu
+        // Tabs start
+        $tabs_start = new FormFieldsetCapsTop('tabs_start');
+        $tabs_start->set_css_class('tabs-container tabs-left');
+        $form->add_fieldset($tabs_start);
+
+        // Tabs menu
 		$fieldset_tabs_menu = new TabsNavFieldset('tabs_menu', '');
 		$form->add_fieldset($fieldset_tabs_menu);
 
         $fieldset_tabs_menu->add_field(new TabsNavList('tabs_menu_module',$this->tabs_menu_list()));
 
         // Tabs content
-        $caps_top = new FormFieldsetCapsTop('content_start');
-        $form->add_fieldset($caps_top);
+        $caps_wrapper_top = new FormFieldsetCapsTop('content_start');
+        $caps_wrapper_top->set_css_class('tabs-wrapper');
+        $form->add_fieldset($caps_wrapper_top);
 
 		// Configuration
 		$fieldset_config = new TabsContentFieldset('configuration', $this->lang['homelanding.config.module.title']);
@@ -1183,8 +1188,11 @@ class AdminHomeLandingConfigController extends DefaultAdminModuleController
             require_once($form_file->get_path());
 		}
 
-        $caps_bottom = new FormFieldsetCapsBottom('content_end');
-        $form->add_fieldset($caps_bottom);
+        $tabs_wrapper_bottom = new FormFieldsetCapsBottom('content_end');
+        $form->add_fieldset($tabs_wrapper_bottom);
+
+        $tabs_end = new FormFieldsetCapsBottom('tabs_end');
+        $form->add_fieldset($tabs_end);
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$this->init_button = new FormButtonDefaultSubmit('add module');

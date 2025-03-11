@@ -30,7 +30,11 @@ class SmalladsItemFormController extends DefaultModuleController
 	{
 		$form = new HTMLForm(__CLASS__);
 		$form->set_layout_title($this->is_new_item ? $this->lang['smallads.form.add'] : ($this->is_duplication ? $this->lang['smallads.form.duplicate'] : $this->lang['smallads.form.edit']));
-		$form->set_css_class('tabs-container');
+
+        // Tabs container
+        $tabs_top = new FormFieldsetCapsTop('tabs_start');
+        $tabs_top->set_css_class('tabs-container');
+        $form->add_fieldset($tabs_top);
 
 		$fieldset_warning = new FormFieldsetHTML('warning', '');
 		$form->add_fieldset($fieldset_warning);
@@ -50,8 +54,9 @@ class SmalladsItemFormController extends DefaultModuleController
 		));
 
         // Tabs content
-        $caps_top = new FormFieldsetCapsTop('content_start');
-        $form->add_fieldset($caps_top);
+        $tabs_wrapper_top = new FormFieldsetCapsTop('content_start');
+        $tabs_wrapper_top->set_css_class('tabs-wrapper');
+        $form->add_fieldset($tabs_wrapper_top);
 
 		$fieldset = new TabsContentFieldset('smallads', $this->lang['form.parameters']);
 		$form->add_fieldset($fieldset);
@@ -373,8 +378,11 @@ class SmalladsItemFormController extends DefaultModuleController
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
 
-        $caps_bottom = new FormFieldsetCapsBottom('content_end');
-        $form->add_fieldset($caps_bottom);
+        $tabs_wrapper_bottom = new FormFieldsetCapsBottom('content_end');
+        $form->add_fieldset($tabs_wrapper_bottom);
+
+        $tabs_bottom = new FormFieldsetCapsBottom('tabs_end');
+        $form->add_fieldset($tabs_bottom);
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
