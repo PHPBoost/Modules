@@ -37,7 +37,7 @@ class SpotsService
 
     /**
 	 * @desc Create a new entry in the database table.
-	 * @param string[] $item : new SpotsItem
+	 * @param array $item : new SpotsItem
 	 */
 	public static function add(SpotsItem $item)
 	{
@@ -48,7 +48,7 @@ class SpotsService
 
     /**
 	 * @desc Update an entry.
-	 * @param string[] $item : Item to update
+	 * @param array $item : Item to update
 	 */
 	public static function update(SpotsItem $item)
 	{
@@ -57,7 +57,7 @@ class SpotsService
 
     /**
 	 * @desc Update the number of views of an item.
-	 * @param string[] $item : SpotsItem to update
+	 * @param array $item : SpotsItem to update
 	 */
 	public static function update_views_number(SpotsItem $item)
 	{
@@ -66,7 +66,7 @@ class SpotsService
 
     /**
 	 * @desc Update the number of visits of an website.
-	 * @param string[] $item : SpotsItem to update
+	 * @param array $item : SpotsItem to update
 	 */
 	public static function update_visits_number(SpotsItem $item)
 	{
@@ -76,7 +76,7 @@ class SpotsService
     /**
 	 * @desc Delete an entry.
 	 * @param string $condition : Restriction to apply to the list
-	 * @param string[] $parameters : Parameters of the condition
+	 * @param array $parameters : Parameters of the condition
 	 */
 	public static function delete(int $id)
 	{
@@ -93,7 +93,7 @@ class SpotsService
     /**
 	 * @desc Return the properties of an item.
 	 * @param string $condition : Restriction to apply to the list
-	 * @param string[] $parameters : Parameters of the condition
+	 * @param array $parameters : Parameters of the condition
 	 */
 	public static function get_item(int $id)
 	{
