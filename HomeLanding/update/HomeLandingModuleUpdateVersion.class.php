@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 11 14
+ * @version     PHPBoost 6.0 - last update: 2025 03 24
  * @since       PHPBoost 5.2 - 2020 03 09
 */
 
@@ -31,6 +31,7 @@ class HomeLandingModuleUpdateVersion extends ModuleUpdateVersion
 			'/templates/pagecontent/rssreader.tpl',
 			'/templates/pagecontent/web.tpl',
 			'/templates/pagecontent/web-cat.tpl',
+			'/templates/HomeSlider.css',
 		);
 
 		self::$delete_old_folders_list = array(
