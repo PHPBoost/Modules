@@ -79,8 +79,8 @@
 														<div id="email-modal" class="modal">
 															<div class="modal-overlay close-modal" role="button" aria-label="{@smallads.close.modal}"></div>
 															<div class="modal-content cell">
-																<div class="align-right"><a href="#" class="error big hide-modal close-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></a></div>
-																<div class="cell-body">
+                                                                <span class="error big hide-modal close-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></span>
+                                                                <div class="cell-body">
 																	# IF C_CONTACT_LEVEL #
 																		# INCLUDE MESSAGE_HELPER #
 																		# IF NOT C_SMALLAD_EMAIL_SENT #
@@ -105,8 +105,8 @@
 														<div id="tel-modal" class="modal modal-quarter">
 															<div class="modal-overlay close-modal" role="button" aria-label="{@smallads.close.modal}"></div>
 															<div class="modal-content cell">
-																<div class="align-right"><a href="#" class="error big hide-modal close-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></a></div>
-																<div class="cell-body">
+                                                                <span class="error big hide-modal close-modal" aria-label="{@common.close}"><i class="far fa-circle-xmark" aria-hidden="true"></i></span>
+                                                                <div class="cell-body">
 																	<div class="cell-content align-center">
 																		# IF C_CONTACT_LEVEL #
 																			<div class="tel-form is-connected">
