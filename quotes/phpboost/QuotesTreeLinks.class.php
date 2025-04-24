@@ -18,7 +18,6 @@ class QuotesTreeLinks extends DefaultTreeLinks
 
 		$tree->add_link(new ModuleLink(LangLoader::get_message('contribution.members.list', 'contribution-lang'), QuotesUrlBuilder::display_member_items(), $this->get_authorizations()->read()));
 		$tree->add_link(new ModuleLink(LangLoader::get_message('quotes.my.items', 'common', $module_id), $this->check_write_authorization() || $this->get_authorizations()->moderation()));
-
 	}
 }
 ?>

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2025 01 13
+ * @version     PHPBoost 6.0 - last update: 2025 04 24
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
@@ -242,7 +242,8 @@ class VideoItemFormController extends DefaultModuleController
 
 	private function is_contributor_member()
 	{
-		return (!CategoriesAuthorizationsService::check_authorizations()->write() && CategoriesAuthorizationsService::check_authorizations()->contribution());
+        $id_category = AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY);
+		return !CategoriesAuthorizationsService::check_authorizations($id_category)->write() && CategoriesAuthorizationsService::check_authorizations($id_category)->contribution();
 	}
 
 	private function get_item()
