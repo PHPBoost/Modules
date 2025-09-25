@@ -352,7 +352,7 @@ class SpotsItem
 
 	public function is_authorized_to_duplicate()
 	{
-		return ModulesManager::get_module('download')->get_configuration()->has_duplication() && (CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution() && CategoriesAuthorizationsService::check_authorizations($this->id_category)->duplication()));
+		return ModulesManager::get_module('spots')->get_configuration()->has_duplication() && (CategoriesAuthorizationsService::check_authorizations($this->id_category)->write() || (CategoriesAuthorizationsService::check_authorizations($this->id_category)->contribution() && CategoriesAuthorizationsService::check_authorizations($this->id_category)->duplication()));
 	}
 
 	public function is_authorized_to_delete()
