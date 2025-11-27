@@ -3,13 +3,13 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2023 01 17
+ * @version     PHPBoost 6.1 - last update: 2025 11 27
  * @since       PHPBoost 6.0 - 2023 01 17
 */
 
 class SpotsCommentsTopic extends DefaultCommentsTopic
 {
-	public function __construct(SpotsItem $item = null)
+	public function __construct(?SpotsItem $item = null)
 	{
 		parent::__construct('spots');
 		$this->item = $item;
