@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2025 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2021 12 16
+ * @version     PHPBoost 6.1 - last update: 2025 12 10
  * @since       PHPBoost 4.0 - 2013 08 04
  * @contributor mipel <mipel@phpboost.com>
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -12,6 +12,7 @@
 class AdminServerStatusServerFormController extends DefaultAdminModuleController
 {
 	private $server;
+	private $id;
 
 	public function execute(HTTPRequestCustom $request)
 	{
