@@ -1,9 +1,9 @@
 <?php
 /**
- * @copyright   &copy; 2005-2025 PHPBoost
+ * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2022 11 13
+ * @version     PHPBoost 6.1 - last update: 2022 11 13
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -44,7 +44,7 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 			{
 				if($file->get_name() !== '.empty')
 				{
-					$is_in_content = array();
+					$is_in_content = [];
 					foreach($result as $row)
 					{
 						if($row['xml_path'])
@@ -88,17 +88,17 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['flux.success.update'], MessageHelper::SUCCESS, 5));
 		}
 
-		$this->view->put_all(array(
+		$this->view->put_all([
 			'CONTENT' 	   => $this->form->display(),
 			'UPDATE_CACHE' => $this->update_form->display()
-		));
+		]);
 
 		return new DefaultAdminDisplayResponse($this->view);
 	}
 
 	private function build_form()
 	{
-		$form = new HTMLForm(__CLASS__);
+		$form = new HTMLForm(self::class);
 
 		$fieldset = new FormFieldsetHTML('config', $this->lang['form.configuration']);
 		$form->add_fieldset($fieldset);
@@ -106,107 +106,107 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 		$fieldset->add_field(new FormFieldTextEditor('module_name', $this->lang['flux.module.name'], $this->config->get_module_name()));
 
 		$fieldset->add_field(new FormFieldCheckbox('new_window', $this->lang['form.new.window'], $this->config->get_new_window(),
-			array(
+			[
 				'description' => $this->lang['form.new.window.clue'],
 				'class' => 'custom-checkbox'
-			)
+            ]
 		));
 
         $fieldset->add_field(new FormFieldNumberEditor('rss_number', $this->lang['flux.rss.number'], $this->config->get_rss_number(),
-			array('min' => 1, 'max' => 10, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 10))
+			['min' => 1, 'max' => 10, 'required' => true],
+			[new FormFieldConstraintIntegerRange(1, 10)]
 		));
 
         $fieldset->add_field(new FormFieldNumberEditor('characters_number_to_cut', $this->lang['flux.characters.number.to.cut'], $this->config->get_characters_number_to_cut(),
-			array('min' => 32, 'max' => 512, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(32, 512))
+			['min' => 32, 'max' => 512, 'required' => true],
+			[new FormFieldConstraintIntegerRange(32, 512)]
 		));
 
 		$fieldset->add_field(new FormFieldSpacer('default_config', ''));
 
         $fieldset->add_field(new FormFieldNumberEditor('items_per_page', $this->lang['form.items.per.page'], $this->config->get_items_per_page(),
-			array('min' => 1, 'max' => 50, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 50))
+			['min' => 1, 'max' => 50, 'required' => true],
+			[new FormFieldConstraintIntegerRange(1, 50)]
 		));
 
         $fieldset->add_field(new FormFieldSimpleSelectChoice('display_type', $this->lang['form.display.type'], $this->config->get_display_type(),
-			array(
-				new FormFieldSelectChoiceOption($this->lang['form.display.type.grid'], FluxConfig::GRID_VIEW, array('data_option_icon' => 'fa fa-th-large')),
-				new FormFieldSelectChoiceOption($this->lang['form.display.type.table'], FluxConfig::TABLE_VIEW, array('data_option_icon' => 'fa fa-table'))
-			),
-			array(
+			[
+				new FormFieldSelectChoiceOption($this->lang['form.display.type.grid'], FluxConfig::GRID_VIEW, ['data_option_icon' => 'fa fa-th-large']),
+				new FormFieldSelectChoiceOption($this->lang['form.display.type.table'], FluxConfig::TABLE_VIEW, ['data_option_icon' => 'fa fa-table'])
+            ],
+			[
 				'select_to_list' => true,
-				'events' => array('change' => '
+				'events' => ['change' => '
 					if (HTMLForms.getField("display_type").getValue() == \'' . FluxConfig::GRID_VIEW . '\') {
 						HTMLForms.getField("items_per_row").enable();
 					} else {
 						HTMLForms.getField("items_per_row").disable();
 					}'
-				)
-			)
+                ]
+            ]
 		));
 
         $fieldset->add_field(new FormFieldNumberEditor('items_per_row', $this->lang['form.items.per.row'], $this->config->get_items_per_row(),
-			array(
+			[
 				'min' => 1, 'max' => 4, 'required' => true,
 				'hidden' => $this->config->get_display_type() !== FluxConfig::GRID_VIEW
-			),
-			array(new FormFieldConstraintIntegerRange(1, 4))
+            ],
+			[new FormFieldConstraintIntegerRange(1, 4)]
 		));
 
 		$fieldset->add_field(new FormFieldSpacer('last_feeds', ''));
 
 		$fieldset->add_field(new FormFieldCheckbox('display_last_feeds', $this->lang['flux.display.last.feeds'], $this->config->get_last_feeds_display(),
-			array(
+			[
 				'class' => 'custom-checkbox',
-				'events' => array('change' => '
+				'events' => ['change' => '
 					if (HTMLForms.getField("display_last_feeds").getValue()) {
 						HTMLForms.getField("last_feeds_number").enable();
 					} else {
 						HTMLForms.getField("last_feeds_number").disable();
 					}'
-				)
-			)
+                ]
+            ]
 		));
 
         $fieldset->add_field(new FormFieldNumberEditor('last_feeds_number', $this->lang['flux.last.feeds.number'], $this->config->get_last_feeds_number(),
-			array(
+			[
 				'min' => 1, 'max' => 32, 'required' => true,
 				'hidden' => !$this->config->get_last_feeds_display()
-			),
-			array(new FormFieldConstraintIntegerRange(1, 32))
+            ],
+			[new FormFieldConstraintIntegerRange(1, 32)]
 		));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('default_content', $this->lang['form.item.default.content'], $this->config->get_default_content(),
-			array('rows' => 8, 'cols' => 47)
+			['rows' => 8, 'cols' => 47]
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('categories_per_page', $this->lang['form.categories.per.page'], $this->config->get_categories_per_page(),
-			array('min' => 1, 'max' => 50, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 50))
+			['min' => 1, 'max' => 50, 'required' => true],
+			[new FormFieldConstraintIntegerRange(1, 50)]
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('categories_per_row', $this->lang['form.categories.per.row'], $this->config->get_categories_per_row(),
-			array('min' => 1, 'max' => 4, 'required' => true),
-			array(new FormFieldConstraintIntegerRange(1, 4))
+			['min' => 1, 'max' => 4, 'required' => true],
+			[new FormFieldConstraintIntegerRange(1, 4)]
 		));
 
 		$fieldset->add_field(new FormFieldRichTextEditor('root_category_description', $this->lang['form.root.category.description'], $this->config->get_root_category_description(),
-			array('rows' => 8, 'cols' => 47)
+			['rows' => 8, 'cols' => 47]
 		));
 
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', $this->lang['form.authorizations'],
-			array('description' => $this->lang['form.authorizations.clue'])
+			['description' => $this->lang['form.authorizations.clue']]
 		);
 		$form->add_fieldset($fieldset_authorizations);
 
-		$auth_settings = new AuthorizationsSettings(array(
+		$auth_settings = new AuthorizationsSettings([
 			new ActionAuthorization($this->lang['form.authorizations.read'], Category::READ_AUTHORIZATIONS),
 			new ActionAuthorization($this->lang['form.authorizations.write'], Category::WRITE_AUTHORIZATIONS),
 			new ActionAuthorization($this->lang['form.authorizations.contribution'], Category::CONTRIBUTION_AUTHORIZATIONS),
 			new ActionAuthorization($this->lang['form.authorizations.moderation'], Category::MODERATION_AUTHORIZATIONS),
 			new ActionAuthorization($this->lang['form.authorizations.categories'], Category::CATEGORIES_MANAGEMENT_AUTHORIZATIONS)
-		));
+		]);
 		$auth_setter = new FormFieldAuthorizationsSetter('authorizations', $auth_settings);
 		$auth_settings->build_from_auth_array($this->config->get_authorizations());
 		$fieldset_authorizations->add_field($auth_setter);
@@ -220,7 +220,7 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 
 	private function build_update_form()
 	{
-		$update_form = new HTMLForm(__CLASS__ . 'Update');
+		$update_form = new HTMLForm(self::class . 'Update');
 
 		$fieldset = new FormFieldsetHTML('update_all', $this->lang['flux.update.all']);
 		$update_form->add_fieldset($fieldset);
@@ -259,7 +259,7 @@ class AdminFluxConfigController extends DefaultAdminModuleController
 		FluxConfig::save();
 		CategoriesService::get_categories_manager()->regenerate_cache();
 
-		HooksService::execute_hook_action('edit_config', self::$module_id, array('title' => StringVars::replace_vars($this->lang['form.module.title'], array('module_name' => self::get_module_configuration()->get_name())), 'url' => ModulesUrlBuilder::configuration()->rel()));
+		HooksService::execute_hook_action('edit_config', self::$module_id, ['title' => StringVars::replace_vars($this->lang['form.module.title'], ['module_name' => self::get_module_configuration()->get_name()]), 'url' => ModulesUrlBuilder::configuration()->rel()]);
 	}
 }
 ?>

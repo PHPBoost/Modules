@@ -1,10 +1,10 @@
 /**
  * Responsive carousel jQuery plugin - Version: 1.0.2
- * @copyright   &copy; 2005-2025 PHPBoost - 9bit Studios
+ * @copyright   &copy; 2005-2026 PHPBoost - 9bit Studios
  * @license     https://www.opensource.org/licenses/mit-license.php
  * @author      9bit Studios
  * @link        https://9bitstudios.github.io/flexisel/
- * @version     PHPBoost 6.0 - last update: 2018 08 09
+ * @version     PHPBoost 6.1 - last update: 2018 08 09
  * @since       PHPBoost 5.1 - 2018 03 15
  * @contributor Sebastien LARTIGUE <babsolune@phpboost.com>
 */

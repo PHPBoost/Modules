@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    @media (min-width: 769px) { flex-direction: row; }
 }
 
 .broadcast-calendar {
@@ -24,39 +25,36 @@
 	margin: 0 0 20px;
 	padding: 0;
 	width: 100%;
+    @media (min-width: 769px) {
+		width: calc(100% / 7);
+		margin: 0 0.228em 1.618em 0;
+
+        &:last-child { margin: 0 0 20px; }
+	}
+
+    li {
+        border-width: 0 1px 1px 1px;
+        border-style: solid;
+        border-color: var(--bdr-main);
+        padding: 0 0.618em;
+
+        &:first-child { border-width: 1px; }
+    }
+
+    .no-program { padding: 0; }
 }
-
-.broadcast-calendar li {
-	border-width: 0 1px 1px 1px;
-	border-style: solid;
-	border-color: var(--bdr-main);
-	padding: 0 0.618em;
-}
-
-.broadcast-calendar li:first-child { border-width: 1px; }
-
-.broadcast-calendar .no-program { padding: 0; }
 
 .no-program .message-helper {
 	margin: 0;
 	border-width: 0;
 }
 
-@media (min-width: 769px) {
-	.broadcast-flex { flex-direction: row; }
-
-	.broadcast-calendar {
-		width: calc(100% / 7);
-		margin: 0 0.228em 1.618em 0;
-	}
-
-	.broadcast-calendar:last-child { margin: 0 0 20px; }
-}
-
 /* --- Table display --- */
-.table-thumbnail { padding: 0; }
+.table-thumbnail {
+    padding: 0;
 
-.table-thumbnail img { max-height: 40px; }
+    img { max-height: 40px; }
+}
 
 /* --- Accordion display --- */
 .accordion-thumbnail { max-width: calc(100% / 4); }
@@ -68,7 +66,7 @@
 
 /* --- player --- */
 .playpause-track {
-  display: table;
-  margin: 0.618em auto;
-  cursor: pointer;
+    display: table;
+    margin: 0.618em auto;
+    cursor: pointer;
 }
