@@ -1,6 +1,6 @@
 /**
  * based on GoogleMutant GoogleMaps tileLayers for leaflet - Version: 0.13.4
- * @copyright   &copy; 2005-2025 PHPBoost - 2021 Iván Sánchez Ortega
+ * @copyright   &copy; 2005-2026 PHPBoost - 2021 Iván Sánchez Ortega
  * @license     https://www.opensource.org/licenses/mit-license.php
  * @author      Iván Sánchez Ortega <ivan@sanchezortega.es>
  * @link        https://gitlab.com/IvanSanchez/Leaflet.GridLayer.GoogleMutant/

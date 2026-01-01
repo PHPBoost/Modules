@@ -13,7 +13,12 @@
 					{@smallads.pending.items}
 				# ELSE #
 					# IF C_MEMBER_ITEMS #
-						# IF C_MY_ITEMS #{@smallads.my.items}# ELSE #{@smallads.member.items} {MEMBER_NAME}# ENDIF #
+						# IF C_MY_ITEMS #
+                            {@smallads.my.items}
+                        # ELSE #
+                            {@smallads.member.items} 
+                            # IF C_MEMBERS_LIST #${TextHelper::lcfirst(@contribution.contributors)}# ELSE #<span class="text-strong">{MEMBER_NAME}</span># ENDIF #
+                        # ENDIF #
 					# ELSE #
 						# IF C_ROOT_CATEGORY #{@smallads.module.title}# ELSE #{CATEGORY_NAME}# ENDIF #
 					# ENDIF #
@@ -234,7 +239,7 @@
 												<time datetime="# IF NOT items.C_DIFFERED #{items.DATE_ISO8601}# ELSE #{items.PUBLISHING_START_DATE_ISO8601}# ENDIF #" itemprop="datePublished"># IF NOT items.C_DIFFERED #{items.DATE_RELATIVE}# ELSE #{items.PUBLISHING_START_DATE_RELATIVE}# ENDIF #</time>
 											# ENDIF #
 										</td>
-										# IF C_MODERATION #
+										# IF items.C_CONTROLS #
 											<td class="controls">
 												# IF NOT items.C_COMPLETED #
 													# IF items.C_EDIT #
@@ -363,14 +368,20 @@
 					<div class="no-result hidden message-helper bgc notice"> {@common.no.item.now} </div>
 				# ENDIF #
 			# ELSE #
-				# IF NOT C_HIDE_NO_ITEM_MESSAGE #
-					<div class="content">
-						<div class="message-helper bgc notice align-center">
-							{@common.no.item.now}
-						</div>
-					</div>
-				# ENDIF #
-			# ENDIF #
+                # IF C_MEMBERS_LIST #
+                    # START users #
+                        <a href="{users.U_USER}" class="offload pinned bgc-sub align-center"><img class="message-user-avatar" src="{users.U_AVATAR}" alt="{users.USER_NAME}"><span class="d-block">{users.USER_NAME}<span></a>
+                    # END users #
+                # ELSE #
+                    # IF NOT C_HIDE_NO_ITEM_MESSAGE #
+                        <div class="content">
+                            <div class="message-helper bgc notice align-center">
+                                {@common.no.item.now}
+                            </div>
+                        </div>
+                    # ENDIF #
+                # ENDIF #
+            # ENDIF #
 		</div>
 	</div>
 
