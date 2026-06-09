@@ -53,7 +53,7 @@ class FluxItemController extends DefaultModuleController
                 curl_setopt($ch, CURLOPT_TIMEOUT, 10);
                 $content = curl_exec($ch);
                 if (\PHP_VERSION_ID < 80100)
-                        curl_close($ch);
+                    curl_close($ch);
 
                 if ($content !== false) {
                     $content = substr($content, 0, strpos($content, '</rss>'));
