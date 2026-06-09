@@ -1,7 +1,6 @@
 /nbproject/private/
-
-# HomeLanding
-HomeLanding/templates/rsscache/*
+.vscode
+.empty
 
 # Flux
 flux/xml/*
