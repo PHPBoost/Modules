@@ -1,0 +1,1514 @@
+[
+    {
+        "id": "articles",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/03/07",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-file-lines",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Articles",
+            "french": "Articles"
+        },
+        "description": {
+            "english": "This module allows you to write articles on multiple pages, with categories management (and access level). Users can submit articles (configurable auth level). Complete management of publication date.",
+            "french": "Ce module vous permettra de rédiger des articles sur plusieurs pages, avec gestion des catégories (et niveau d'accès). Les utilisateurs peuvent proposer des articles (niveau d'autorisation configurable). Gestion complète de la date de parution."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "BasicSimple",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "j1.seth",
+        "author_mail": "j1.seth@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2020/05/14",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-cube",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Basic module",
+            "french": "Module basique"
+        },
+        "description": {
+            "english": "This module allows you to test the implementation of the most basic module possible, which is based on the elements implemented in the kernel.",
+            "french": "Ce module vous permet de tester la mise en place d'un module le plus basique possible, qui s'appuie sur les éléments mis en place dans le noyau."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "birthday",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/08/27",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-cake-candles",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Birthdays",
+            "french": "Anniversaires"
+        },
+        "description": {
+            "english": "This module lets you display the day birthdays in a menu. It is possible to send a private message to members on their birthday.",
+            "french": "Ce module vous permet d'afficher les anniversaires du jour dans un menu. Il est possible d'envoyer un message privé aux membres le jour de leur anniversaire."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "broadcast",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2017/02/21",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-radio",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Broadcast",
+            "french": "Radiodiffusion"
+        },
+        "description": {
+            "english": "This module provides you a broadcast system, with an exportable audio player and the management of a calendar of programming.",
+            "french": "Ce module vous procure un système de diffusion de radio, avec un lecteur audio exportable et la gestion d'un calendrier de programmation."
+        },
+        "genre": {
+            "english": "Communication",
+            "french": "Communication"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "bugtracker",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/01/30",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-bug",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Bugtracker",
+            "french": "Rapport de bugs"
+        },
+        "description": {
+            "english": "This module allows you to manage anomalies and evolution requests (but also what you want) on your site, with category management and configurable level access. Complete management of each demand history.",
+            "french": "Ce module vous permettra de gérer les anomalies et les demandes d'évolution (voir d'autres choses) sur votre site, avec gestion des catégories et niveau d'accès configurables. Gestion complète de l'historique des demandes."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "calendar",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/02/25",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-calendar-days",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Calendar",
+            "french": "Calendrier"
+        },
+        "description": {
+            "english": "This module is a fully featured event calendar. Users can post events (configurable auth access)",
+            "french": "Ce module est un calendrier avec ajout d'événements possible. Les utilisateurs peuvent ajouter des événements (gestion du niveau d'accès)."
+        },
+        "genre": {
+            "english": "Communication",
+            "french": "Communication"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "CategoriesMenus",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2021/03/03",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-folder-open",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Categories Menus",
+            "french": "Menus Catégories"
+        },
+        "description": {
+            "english": "This module allows you to display the list of categories in a menu for each module. Possibility to filter the display of the menu on the module page only in the configuration of each menu for example.",
+            "french": "Ce module vous permet d'afficher la liste des catégories dans un menu pour chaque module. Possibilité de filtrer l'affichage du menu sur la page du module uniquement dans la configuration de chaque menu par exemple."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "connect",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2005/07/29",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-arrow-right-to-bracket",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Connect",
+            "french": "Connexion"
+        },
+        "description": {
+            "english": "This module displays the login form.",
+            "french": "Ce module affiche une formulaire de connexion au site."
+        },
+        "genre": {
+            "english": "Management",
+            "french": "Gestion"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "contact",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/03/01",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-at",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Contact",
+            "french": "Contact"
+        },
+        "description": {
+            "english": "This module allows your members to contact you with a simple form. The form fields are manageable.",
+            "french": "Ce module permet à vos membres de vous contacter. Les champs à afficher dans le formulaire sont configurables."
+        },
+        "genre": {
+            "english": "Communication",
+            "french": "Communication"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "countdown",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/12/12",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-clock",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Countdown",
+            "french": "Compte à rebours"
+        },
+        "description": {
+            "english": "This mini module allows to display a countdown on your site.",
+            "french": "Ce mini module permet d'afficher un compte à rebours."
+        },
+        "genre": {
+            "english": "Communication",
+            "french": "Communication"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "customization",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2011/11/10",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-paintbrush",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Customization",
+            "french": "Personnalisation"
+        },
+        "description": {
+            "english": "This module allows you to customize the interface of your site, the favicon and edit CSS files online",
+            "french": "Ce module vous permet de personnaliser l'interface de votre site, le favicon et modifier les fichiers CSS en ligne"
+        },
+        "genre": {
+            "english": "Design",
+            "french": "Design"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "database",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2008/08/06",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-database",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Database manager",
+            "french": "Base de données"
+        },
+        "description": {
+            "english": "This module provides you a complete database manager",
+            "french": "Ce module vous procure un système complet de gestion de base de données."
+        },
+        "genre": {
+            "english": "Management",
+            "french": "Gestion"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "devtools",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "1.0.0",
+        "author": "LamPDL",
+        "author_mail": "",
+        "author_website": "https://github.com/LamPDL",
+        "creation_date": "2026/03/01",
+        "last_update": "2026/05/19",
+        "fa_icon": "fas fa-fw fa-cubes",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Dev Tools",
+            "french": "Dev Tools"
+        },
+        "description": {
+            "english": "Gestion des modules PHPBoost : état local, dépôts GitHub configurables, installation/activation/désinstallation.",
+            "french": "Gestion des modules PHPBoost : état local, dépôts GitHub configurables, installation/activation/désinstallation."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "dictionary",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2009/08/08",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-book",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Dictionary",
+            "french": "Dictionnaire"
+        },
+        "description": {
+            "english": "This module allows you to display word definitions with letter and / or category filtering",
+            "french": "Ce module vous permet d'afficher des définitions de mots avec un filtrage par lettres et/ou par catégories"
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "discord",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2023/03/05",
+        "last_update": "2026/05/19",
+        "fa_icon": "fab fa-fw fa-discord",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Discord viewer",
+            "french": "Discord - En ligne"
+        },
+        "description": {
+            "english": "This module lets you provided in the administration, a menu to display the online users from a Discord server.",
+            "french": "Ce module vous laisse à disposition dans l'administration, un menu permettant d'afficher la liste des utilisateurs connectés à un serveur discord."
+        },
+        "genre": {
+            "english": "Communication",
+            "french": "Communication"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "download",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/08/24",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-download",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Downloads",
+            "french": "Téléchargements"
+        },
+        "description": {
+            "english": "This module allows your members to download files from your website, with category management (and access level). Users can submit files links (configurable authorization level). Complete management of publication date.",
+            "french": "Ce module permet à vos membres de télécharger toute sorte de fichiers, avec gestion des catégories (et niveau d'accès). Les utilisateurs peuvent proposer des fichiers (niveau d'autorisation configurable). Gestion complète de la date de parution."
+        },
+        "genre": {
+            "english": "Media",
+            "french": "Media"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "EasyCss",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://phpboost.com",
+        "creation_date": "2016/06/06",
+        "last_update": "2026/05/19",
+        "fa_icon": "fab fa-fw fa-css3",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "EasyCss",
+            "french": "Personnalisation CSS"
+        },
+        "description": {
+            "english": "Make easy customize CSS files",
+            "french": "Module facilitant la personnalisation des CSS du thème"
+        },
+        "genre": {
+            "english": "Design",
+            "french": "Design"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "faq",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/09/02",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-circle-question",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "F.A.Q",
+            "french": "F.A.Q"
+        },
+        "description": {
+            "english": "This module creates a Frequently Asked Questions page.",
+            "french": "Ce module vous permet de créer une Foire Aux Questions dans laquelle vous pourrez apporter une réponse aux questions fréquemment posées."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "flux",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2021/10/30",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-rss",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "RSS Feed",
+            "french": "Flux RSS"
+        },
+        "description": {
+            "english": "This module allows you to offer rss feed from other websites, with category management (and access level). Members can propose flux (configurable authorization level) .",
+            "french": "Ce module vous permet de proposer des flux rss issus d'autres sites internet, avec gestion des catégories (et niveau d'accès). Les membres peuvent proposer des flux (niveau d'autorisation configurable)."
+        },
+        "genre": {
+            "english": "Communication",
+            "french": "Communication"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "forum",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2005/25/10",
+        "last_update": "2026/05/20",
+        "fa_icon": "fa fa-fw fa-earth-europe",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Forum",
+            "french": "Forum"
+        },
+        "description": {
+            "english": "This module provides to your website a fully customizable forum, with lots of moderation options and members functionalities.",
+            "french": "Ce module intègre un forum très complet sur votre site, nombreuses options de modération et fonctions pour les membres."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "gallery",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2005/12/08",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-image",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Gallery",
+            "french": "Galerie"
+        },
+        "description": {
+            "english": "This provides you a fully customizable gallery, thumbnails, massive upload, etc.",
+            "french": "Ce module vous procure une galerie très complète, génération de miniatures, incrustation de logo, upload de masse, etc..."
+        },
+        "genre": {
+            "english": "Media",
+            "french": "Media"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "GoogleAnalytics",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2012/10/12",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-chart-pie",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Google Analytics",
+            "french": "Google Analytics"
+        },
+        "description": {
+            "english": "This module allows you to easily integrate Google Analytics statistics service.",
+            "french": "Module permettant d'intégrer facilement le service de statistiques Google Analytics."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "GoogleMaps",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2017/03/26",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-location-dot",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "GoogleMaps",
+            "french": "GoogleMaps"
+        },
+        "description": {
+            "english": "This module allows you display address fields and GoogleMap maps in certain modules.",
+            "french": "Ce module vous permet d'afficher des champs adresse et des cartes Google Map dans certains modules."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "guestbook",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/06/29",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-signature",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Guestbook",
+            "french": "Livre d'or"
+        },
+        "description": {
+            "english": "This module allows visitors and members to give their opinion about the website.",
+            "french": "Ce module permet aux visiteurs et aux membres de donner leur avis sur le site."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "history",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2021/10/22",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-clock-rotate-left",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "History",
+            "french": "Historique"
+        },
+        "description": {
+            "english": "This module allows you to record the various actions carried out by the users and administrators of the site.",
+            "french": "Ce module vous permet d'enregistrer les différentes actions effectuées par les utilisateurs et administrateurs du site."
+        },
+        "genre": {
+            "english": "Management",
+            "french": "Gestion"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "HomeCustom",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2012/08/25",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-house-laptop",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Custom Home page",
+            "french": "Page d'accueil personnalisée"
+        },
+        "description": {
+            "english": "This module allows you to build a custom home page (HTML/CSS/PHP) and set it as home page site",
+            "french": "Ce module vous permet de créer une page d'accueil personnalisée (HTML/CSS/PHP) et de la définir en tant que page d'accueil du site"
+        },
+        "genre": {
+            "english": "Arrangement",
+            "french": "Agencement"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "LangsSwitcher",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2012/02/22",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-language",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Menu language choice",
+            "french": "Menu choix de langue"
+        },
+        "description": {
+            "english": "This module lets you provided in the administration, a menu to switch between your langs.",
+            "french": "Ce module vous laisse à disposition dans l'administration, un menu permettant de switcher entre vos langues."
+        },
+        "genre": {
+            "english": "Administration",
+            "french": "Administration"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "lastcoms",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2009/06/14",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-comment-dots",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Latest Comments",
+            "french": "Derniers commentaires"
+        },
+        "description": {
+            "english": "This module lets you provided in the administration, a menu to display the latest comments on your site.",
+            "french": "Ce module vous laisse à disposition dans l'administration, un menu permettant d'afficher un lecteur rss."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "lobby",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2026/03/21",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-house-chimney-window",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Homepage",
+            "french": "Page d'accueil"
+        },
+        "description": {
+            "english": "Module that allows you to build a custom home page displaying the latest content from installed modules, configurable from the administration panel.",
+            "french": "Ce module vous permet de personnaliser l'accueil du site en affichant les derniers contenus des modules installés, avec configuration dans l'administration."
+        },
+        "genre": {
+            "english": "Arrangement",
+            "french": "Agencement"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "media",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2008/10/20",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-film",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Multimedia",
+            "french": "Multimédia"
+        },
+        "description": {
+            "english": "This module provides you a movie and music gallery on your website!",
+            "french": "Ce module vous permettra d'afficher des vidéos et de la musique sur votre site PHPBoost !"
+        },
+        "genre": {
+            "english": "Media",
+            "french": "Media"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "news",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/08/19",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-newspaper",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "News",
+            "french": "Actualités"
+        },
+        "description": {
+            "english": "This module allows you to manage the news of your site. Possibility to classify them in categories and to define the date of publication.",
+            "french": "Ce module vous permet de gérer les actualités de votre site. Possibilité de les classer dans des catégories et de définir la date de parution."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "newsletter",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2011/03/12",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-envelope-open-text",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Newsletter",
+            "french": "Newsletter"
+        },
+        "description": {
+            "english": "This module provides you a newsletter system, with 3 sending methods. Report to the documentation for further informations.",
+            "french": "Ce module vous procure un système de newsletter avec 3 types d'envois différents."
+        },
+        "genre": {
+            "english": "Communication",
+            "french": "Communication"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "online",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2005/07/20",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-plug",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Online",
+            "french": "En ligne"
+        },
+        "description": {
+            "english": "This module provides you an online mini module which shows who is actually online and where they are. You may also limit the number of members shown.",
+            "french": "Ce module affiche la liste des membres connectés sur votre site et leur localisation, ce nombre peut être limité dans la configuration."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "pages",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2007/08/07",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-file",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Pages",
+            "french": "Pages"
+        },
+        "description": {
+            "english": "This module is to create uniq pages, with category management (and access level). Users can submit page (configurable authorization level). Complete management of publication date.",
+            "french": "Ce module permet de créer des pages uniques, avec gestion des catégories (et niveau d'accès). Les utilisateurs peuvent proposer des pages (niveau d'autorisation configurable). Gestion complète de la date de parution."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "poll",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2020/12/30",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-square-poll-horizontal",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Poll",
+            "french": "Sondages"
+        },
+        "description": {
+            "english": "This module allows you to create polls with categories and authorization level management. Mini poll manage in mini module",
+            "french": "Ce module vous permettra de créer des sondages avec catégories et gestion des autorisations. Gestion de mini sondages en mini module."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "quotes",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2016/02/18",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-quote-right",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Quotes",
+            "french": "Citations"
+        },
+        "description": {
+            "english": "This module allows to offer quotes. Contribution possibility for member and possibility of classifying the citations by category.",
+            "french": "Ce module permet de proposer des citations. Possibilité de contribution pour les membres et possibilité de classer les citations par catégorie."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "ReCaptcha",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/02/27",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-lock-open",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "ReCaptcha",
+            "french": "ReCaptcha"
+        },
+        "description": {
+            "english": "This module allows you to use the system ReCaptcha for visual verification",
+            "french": "Ce module vous permet d'utiliser le système ReCaptcha pour la vérification visuelle"
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "recipe",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2022/08/26",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-utensils",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Recipes",
+            "french": "Recettes"
+        },
+        "description": {
+            "english": "This module allows to show recipes, with category management (and access level). Users can submit recipes (configurable authorization level). Complete management of publication date.",
+            "french": "Ce module permet d'afficher des recettes, avec gestion des catégories (et niveau d'accès). Les utilisateurs peuvent proposer des recettes (niveau d'autorisation configurable). Gestion complète de la date de parution."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "sandbox",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2009/12/20",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-screwdriver-wrench",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Sandbox",
+            "french": "Bac à sable"
+        },
+        "description": {
+            "english": "This module is aimed at containing some code you want to test while you are developing new elements.",
+            "french": "Ce module est un dépôt de code de test pour l'aide au développement de nouveaux éléments."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "search",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2008/01/27",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-search",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Search",
+            "french": "Recherche"
+        },
+        "description": {
+            "english": "Your members will be able to search contents easily into the whole site",
+            "french": "Ce module vous procure un système de recherche complet à travers tout le site auquel les membres peuvent très facilement accéder"
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "ServerStatus",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2013/08/04",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-server",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Servers status",
+            "french": "Statut des serveurs"
+        },
+        "description": {
+            "english": "This module allows to check the availability of your servers.",
+            "french": "Ce module permet de vérifier la disponibilité de vos serveurs."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "shoutbox",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/10/15",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-comments",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Shoutbox",
+            "french": "Discussion"
+        },
+        "description": {
+            "english": "This module provides you a shoutbox system.",
+            "french": "Ce module vous procure une boite de discussion entre les membres."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "sitemap",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2009/12/09",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-sitemap",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Sitemap",
+            "french": "Plan du site"
+        },
+        "description": {
+            "english": "This modules enables you to construct a map of your site as well as the search engines sitemap.xml",
+            "french": "Ce module vous permet de construire le plan de votre site ainsi que de générer le fichier sitemap.xml permettant aux moteurs de recherche de mieux référencer votre site."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "smallads",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2018/03/15",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-basket-shopping",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Smallads",
+            "french": "Petites Annonces"
+        },
+        "description": {
+            "english": "This module allows you to write items, with categories management (and access level). Users can submit items (configurable auth level). Complete management of publication date.",
+            "french": "Ce module vous permettra de rédiger des annonces, avec gestion des catégories (et niveau d'accès). Les utilisateurs peuvent proposer des annonces (niveau d'autorisation configurable). Gestion complète de la date de parution."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "SocialNetworks",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2018/01/05",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-share-nodes",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Social Networks",
+            "french": "Réseaux sociaux"
+        },
+        "description": {
+            "english": "This module allows you to add features related to social networks like connecting social networks credentials and link sharing buttons",
+            "french": "Ce module vous permet d'ajouter des fonctionnalités liés aux réseaux sociaux comme la connexion avec les identifiants des réseaux sociaux et des boutons de partage de lien"
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "spots",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2021/09/12",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-map-location-dot",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Spots",
+            "french": "Localisations"
+        },
+        "description": {
+            "english": "This module allows you to offer spots (the GoogleMaps module is necessary), with category management (and access level). Members can propose spots (configurable authorization level) .",
+            "french": "Ce module vous permet de proposer des localisations (le module GoogleMaps est nécessaire), avec gestion des catégories (et niveau d'accès). Les membres peuvent proposer des endroits (niveau d'autorisation configurable)."
+        },
+        "genre": {
+            "english": "Content",
+            "french": "Contenu"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "stats",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2005/07/14",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-chart-column",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Statistics",
+            "french": "Statistiques"
+        },
+        "description": {
+            "english": "This module provides you a fully featured statistics system.",
+            "french": "Ce module vous procure un système de statistiques très complet, de nombreux outils sont à votre disposition."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "steam",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2018/04/22",
+        "last_update": "2026/05/19",
+        "fa_icon": "fab fa-fw fa-steam-symbole",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Steam",
+            "french": ""
+        },
+        "description": {
+            "english": "This module allows you to add Steam connection to Social Networks module",
+            "french": "Ce module vous permet d'ajouter la connexion avec identifiants Steam au module Réseaux Sociaux"
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "tagcloud",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2023/01/17",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-tags",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Tag cloud",
+            "french": "Nuage de tag"
+        },
+        "description": {
+            "english": "This mini module allows to display a tag cloud on your site.",
+            "french": "Ce mini module permet d'afficher un nuage de tag."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "teamspeak",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/09/30",
+        "last_update": "2026/05/19",
+        "fa_icon": "fab fa-fw fa-teamspeak",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Teamspeak",
+            "french": "Teamspeak"
+        },
+        "description": {
+            "english": "Menu for TS3 server viewer",
+            "french": "Menu pour afficher les informations d'un serveur TS3"
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "ThemesSwitcher",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "ReidLos",
+        "author_mail": "kevin.massy@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2012/02/22",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-panorama",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Change theme menu",
+            "french": "Menu choix de thème"
+        },
+        "description": {
+            "english": "This module lets you provided in the administration, a menu to switch between your themes.",
+            "french": "Ce module vous laisse à disposition dans l'administration, un menu permettant de switcher entre vos thèmes."
+        },
+        "genre": {
+            "english": "Administration",
+            "french": "Administration"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "TinyMCE",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2011/11/10",
+        "last_update": "2026/05/19",
+        "fa_icon": "far fa-fw fa-file-code",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "TinyMCE Editor",
+            "french": "Editeur TinyMCE"
+        },
+        "description": {
+            "english": "This is a WYSIWYG editor",
+            "french": "Ce module est un éditeur de texte de type WYSIWYG"
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "UrlUpdater",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/07/15",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-link",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "UrlUpdater",
+            "french": "UrlUpdater"
+        },
+        "description": {
+            "english": "This module permits to put automatic redirections when upgrading PHPBoost to a new major version.",
+            "french": "Ce module permet de mettre en place les redirections nécessaires automatiquement en cas de mise à jour majeure de PHPBoost."
+        },
+        "genre": {
+            "english": "Tools",
+            "french": "Outils"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "video",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/08/24",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-video",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Videos",
+            "french": "Vidéos"
+        },
+        "description": {
+            "english": "This module allows to add videos on your website, from files or platform links with category management (and access level). Users can submit files/platform links (configurable authorization level). Complete management of publication date.",
+            "french": "Ce module permet d'ajouter des vidéos depuis des liens de fichiers ou de plateforme, avec gestion des catégories (et niveau d'accès). Les utilisateurs peuvent proposer des fichiers (niveau d'autorisation configurable). Gestion complète de la date de parution."
+        },
+        "genre": {
+            "english": "Media",
+            "french": "Media"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "web",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.0",
+        "author": "PHPBoost",
+        "author_mail": "contact@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2014/08/21",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-external-link",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Web Links",
+            "french": "Liens Web"
+        },
+        "description": {
+            "english": "This module provides you a weblink system, with category management (and access level). Member can submit weblink (configurable authorization level).",
+            "french": "Ce module vous procure un système de liens web (liens en dur), avec gestion des catégories (et niveau d'accès). Les membres peuvent proposer des liens (niveau d'autorisation configurable)."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    },
+    {
+        "id": "wiki",
+        "addon_type": "module",
+        "compatibility": "6.1",
+        "version": "6.1.1",
+        "author": "ben.popeye",
+        "author_mail": "ben.popeye@phpboost.com",
+        "author_website": "https://www.phpboost.com",
+        "creation_date": "2007/05/05",
+        "last_update": "2026/05/19",
+        "fa_icon": "fa fa-fw fa-graduation-cap",
+        "hexa_icon": "",
+        "php_version": "",
+        "name": {
+            "english": "Wiki",
+            "french": "Wiki"
+        },
+        "description": {
+            "english": "This module allows to set a wiki , with category management (and access level). Users can submit documents (configurable authorization level). Complete management of publication date.",
+            "french": "Ce module permet de créer un wiki, avec gestion des catégories (et niveau d'accès). Les utilisateurs peuvent proposer des documents (niveau d'autorisation configurable). Gestion complète de la date de parution."
+        },
+        "genre": {
+            "english": "Community",
+            "french": "Communauté"
+        },
+        "thumbnail": ""
+    }
+]
