@@ -1,0 +1,18 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2026 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Kevin MASSY <reidlos@phpboost.com>
+ * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @since       PHPBoost 3.0 - 2012 08 28
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @author      Mipel <mipel@phpboost.com>
+*/
+
+####################################################
+#                      French                      #
+####################################################
+
+$lang['homecustom.module.title'] = 'Votre page d\'accueil personnalisée';
+$lang['homecustom.documentation'] = 'Accéder au didacticiel d\'utilisation de ce module dans la documentation de PHPBoost';
+?>

@@ -1,0 +1,93 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+#module-smallads .formatter-content { display: table; }
+
+#module-smallads .carousel-thumbnail { max-width: 10em; }
+
+/* --- Sold item --- */
+.completed-smallad {
+	position: relative;
+	opacity: 0.5;
+}
+
+.completed-item { z-index: 9; }
+
+.completed-item span {
+	display: block;
+	position: absolute;
+	top:30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2.618em;
+}
+
+/* --- Price --- */
+.smallad-price {
+	text-align: right;
+	font-size: 2.618em;
+}
+
+/* --- Categories ----------------------------------------------------------- */
+.smallads-category-list,
+.smallads-category-list .field-description {
+    text-align: right;
+	z-index: 5;
+}
+
+.smallads-category-list label,
+.smallads-category-list .field-description {padding: 0 0 0.618em;}
+
+/* --- Table view ----------------------------------------------------------- */
+.smallads-title { width: 250px; }
+
+/* listorder */
+.cell-filter { margin-bottom: 0.618em; }
+
+.cell-filter .cell-body { padding: 0; }
+
+.listorder-drop-down ul {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.sort-list ul { min-width: 300px; }
+
+/* --- Category-nav --- */
+.category-selected {
+	cursor: pointer;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.category-selected i.fa { float: right; }
+
+.category-select #category-nav.cssmenu.small-screen .menu-button { display: none; }
+
+.category-select #category-nav.cssmenu.small-screen .close {
+	left: 0 !important;
+	height: auto;
+}
+
+.category-select #category-nav {
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+	top: 150%;
+	left: 0;
+	right: -205.5%;
+	transition: all 0.5s ease;
+	padding-bottom: 10px;
+}
+
+.category-select.reveal-subcat #category-nav {
+	opacity: 1;
+	visibility: visible;
+	top: 100%;
+	transition: top 0.5s ease;
+}
+
+/* --- Form --- */
+#SmalladsItemFormController_warning_field .form-field { width: 100%; }

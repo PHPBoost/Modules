@@ -1,0 +1,55 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+/* --- Admin --- */
+.admin-cat-list {
+	margin-bottom: 0.456em;
+	overflow: hidden;
+}
+
+/* --- Home --- */
+
+.dictionary-definition {
+	padding-bottom: 0.618em;
+	margin-bottom: 0.618em;
+	border-bottom: 1px solid var(--bdr-main);
+	overflow-y: auto;
+}
+
+.dictionary-letter a {
+	font-weight: bold;
+	padding: 0 0.618em;
+	border: 1px solid var(--main-tone);
+	margin: 0.618em 0;
+	display: inline-block;
+}
+
+.filter-selector {
+	padding-top: 0.618em;
+	text-align: left;
+}
+
+.no-script {
+	text-align: center;
+	color: var(--error-tone);
+}
+
+.cat-selector { padding: 0.309em 0; }
+
+.dictionary-selected-cat {
+	border: 1px solid  var(--main-tone);
+	padding: 0.309em 1.618em 0.309em 0.309em;
+	font-size: 0.809em;
+	position: relative;
+}
+
+.dictionary-selected-cat:after {
+	font: var(--fa-font-regular);
+	content:'\f057';
+	position: absolute;
+	top: 50%;
+	transform: translateY(-45%);
+	right: 0.309em;
+}
