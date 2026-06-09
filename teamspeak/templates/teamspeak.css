@@ -1,0 +1,104 @@
+#ts3 .server {
+	text-align: center;
+	vertical-align: bottom;
+}
+
+#ts3 .channel {
+	text-align: left;
+	vertical-align: bottom;
+}
+
+#ts3 .client { text-align: left; }
+
+#ts3 tr.row1 > td.prefix, #ts3 tr.row1 > td.suffix  { display: none; }
+
+.cl { clear: both; }
+
+#ts3 h1 {
+	color: #ffffff;
+	font-size: 2em;
+	margin-bottom: 1em;
+	font-weight: normal;
+}
+
+#ts3 img { border: 0px; }
+
+#ts3 a {
+	color: #0088B5;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#ts3 a:hover {
+	color: #FE6400;
+	text-decoration: none;
+}
+
+#ts3 div.footer {
+	font-size: 8pt;
+	color: #ffffff;
+}
+
+#ts3 table.ts3_viewer {
+	width: 100%;
+	border: 0px;
+	border-collapse: collapse;
+}
+
+#ts3 table.ts3_viewer tr.row1 {
+	background: #626262;
+	border: 0;
+}
+
+#ts3 table.ts3_viewer tr.row2 {
+	background: #313131;
+	border: 0;
+}
+
+#ts3 table.ts3_viewer td {
+	padding: 0px 0px 1px 0px;
+	border: 0px;
+}
+
+#ts3 table.ts3_viewer td.corpus { width: 100%; }
+
+#ts3 table.ts3_viewer td.query {
+	font-style: italic;
+	color: #ffffff;
+}
+
+#ts3 table.ts3_viewer td.spacer { overflow: hidden; }
+
+#ts3 table.ts3_viewer td.left { text-align: left; }
+
+#ts3 table.ts3_viewer td.right { text-align: right; }
+
+#ts3 table.ts3_viewer td.center { text-align: center; }
+
+#ts3 table.ts3_viewer td.suffix {
+	vertical-align: top;
+	min-width: 21px;
+}
+
+table.ts3_viewer td.suffix img {
+	padding-left: 2px;
+	vertical-align: top;
+}
+
+#ts3 table.ts3_viewer td.spacer.solidline { background: url('images/viewer/spacer_solidline.gif') repeat-x; }
+
+#ts3 table.ts3_viewer td.spacer.dashline { background: url('images/viewer/spacer_dashline.gif') repeat-x; }
+
+#ts3 table.ts3_viewer td.spacer.dashdotline { background: url('images/viewer/spacer_dashdotline.gif') repeat-x; }
+
+#ts3 table.ts3_viewer td.spacer.dashdotdotline { background: url('images/viewer/spacer_dashdotdotline.gif') repeat-x; }
+
+#ts3 table.ts3_viewer td.spacer.dotline { background: url('images/viewer/spacer_dotline.gif') repeat-x; }
+
+#ts3 span.success { color: #648434; }
+
+#ts3 span.error {
+	font-size: 10px;
+	text-shadow: 2px 2px 2px #000000;
+	color: #fff;
+}

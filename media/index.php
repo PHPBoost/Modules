@@ -1,0 +1,27 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2026 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @since       PHPBoost 4.0 - 2015 02 02
+ */
+
+define('PATH_TO_ROOT', '../..');
+
+require_once PATH_TO_ROOT . '/kernel/init.php';
+
+$url_controller_mappers = [
+    // Configuration
+    new UrlControllerMapper('AdminMediaConfigController', '`^/admin(?:/config)?/?$`'),
+
+    // Categories
+    new UrlControllerMapper('DefaultCategoriesManagementController', '`^/categories/?$`'),
+    new UrlControllerMapper('DefaultCategoriesFormController', '`^/categories/add/?$`'),
+    new UrlControllerMapper('DefaultCategoriesFormController', '`^/categories/([0-9]+)/edit/?$`', ['id']),
+    new UrlControllerMapper('DefaultDeleteCategoryController', '`^/categories/([0-9]+)/delete/?$`', ['id']),
+
+    new UrlControllerMapper('MediaDisplayCategoryController', '`^/([0-9]+)-([a-z0-9-_]+)/?$`', ['id', 'rewrited_name']),
+    new UrlControllerMapper('MediaDisplayCategoryController', '`^/?$`'),
+];
+DispatchManager::dispatch($url_controller_mappers);

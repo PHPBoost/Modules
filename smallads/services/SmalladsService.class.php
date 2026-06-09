@@ -1,0 +1,84 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2026 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+ * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @since       PHPBoost 5.1 - 2018 03 15
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+*/
+
+class SmalladsService
+{
+	private static $db_querier;
+
+	public static function __static()
+	{
+		self::$db_querier = PersistenceContext::get_querier();
+	}
+
+	/**
+	 * Count items number.
+	 * @param string $condition (optional) : Restriction to apply to the list of items
+	 */
+	public static function count($condition = '', $parameters = [])
+	{
+		return self::$db_querier->count(SmalladsSetup::$smallads_table, $condition, $parameters);
+	}
+
+	public static function add(SmalladsItem $item)
+	{
+		$result = self::$db_querier->insert(SmalladsSetup::$smallads_table, $item->get_properties());
+		return $result->get_last_inserted_id();
+	}
+
+	public static function update(SmalladsItem $item)
+	{
+		self::$db_querier->update(SmalladsSetup::$smallads_table, $item->get_properties(), 'WHERE id=:id', ['id', $item->get_id()]);
+	}
+
+	public static function delete(int $id)
+	{
+		if (AppContext::get_current_user()->is_readonly())
+		{
+			$controller = PHPBoostErrors::user_in_read_only();
+			DispatchManager::redirect($controller);
+		}
+
+		self::$db_querier->delete(SmalladsSetup::$smallads_table, 'WHERE id=:id', ['id' => $id]);
+
+		KeywordsService::get_keywords_manager()->delete_relations($id);
+
+		self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', ['module' => 'smallads', 'id' => $id]);
+
+		CommentsService::delete_comments_topic_module('smallads', $id);
+	}
+
+	public static function get_item(int $id)
+	{
+		$row = self::$db_querier->select_single_row_query('SELECT smallads.*, member.*
+		FROM ' . SmalladsSetup::$smallads_table . ' smallads
+		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = smallads.author_user_id
+		WHERE smallads.id=:id', [
+			'id' => $id
+		]);
+
+		$item = new SmalladsItem();
+		$item->set_properties($row);
+		return $item;
+	}
+
+	public static function clear_cache()
+	{
+		Feed::clear_cache('smallads');
+		SmalladsCache::invalidate();
+		SmalladsCategoriesCache::invalidate();
+		KeywordsCache::invalidate();
+	}
+
+	public static function update_views_number(SmalladsItem $item)
+	{
+		self::$db_querier->update(SmalladsSetup::$smallads_table, ['views_number' => $item->get_views_number()], 'WHERE id=:id', ['id' => $item->get_id()]);
+	}
+}
+?>

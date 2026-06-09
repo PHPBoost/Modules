@@ -1,0 +1,20 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+.steps {
+	display: flex;
+	flex-direction: column;
+}
+
+.steps > * { margin-bottom: 0.618em; }
+
+
+.input-number {
+    width: 3.309em !important;
+    flex: 0 0 auto !important;
+}
+.grouped-inputs { margin: 0; }
+.grouped-area { margin-bottom: 0.456em; }
+

@@ -1,0 +1,14 @@
+/*
+* Copy this file into your theme to customize the module.
+* https://www.phpboost.com/wiki/structure-d-un-theme#paragraph-le-repertoire-modules
+*/
+
+#table-mini-video {
+	margin: 0;
+	padding: 0.456em 0;
+}
+
+#module-mini-video .category-folder {
+	text-align: right;
+	font-size: 0.809em;
+}

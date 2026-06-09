@@ -1,0 +1,83 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2026 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Geoffrey ROGUELON <liaght@gmail.com>
+ * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @since       PHPBoost 3.0 - 2009 07 26
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+*/
+
+class LastcomsConfig extends AbstractConfigData
+{
+	const LASTCOMS_NUMBER = 'lastcoms_number';
+	const LASTCOMS_CHAR   = 'lastcoms_char';
+	const AUTHORIZATIONS  = 'authorizations';
+
+	public function get_lastcoms_number()
+	{
+		return $this->get_property(self::LASTCOMS_NUMBER);
+	}
+
+	public function set_lastcoms_number($lastcoms_number)
+	{
+		$this->set_property(self::LASTCOMS_NUMBER, $lastcoms_number);
+	}
+
+	public function get_lastcoms_char()
+	{
+		return $this->get_property(self::LASTCOMS_CHAR);
+	}
+
+	public function set_lastcoms_char($lastcoms_char)
+	{
+		$this->set_property(self::LASTCOMS_CHAR, $lastcoms_char);
+	}
+
+	/**
+	 * @method Get authorizations
+	 */
+	public function get_authorizations()
+	{
+		return $this->get_property(self::AUTHORIZATIONS);
+	}
+
+	/**
+	 * @method Set authorizations
+	 * @params string[] $array Array of authorizations
+	 */
+	public function set_authorizations(Array $array)
+	{
+		$this->set_property(self::AUTHORIZATIONS, $array);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function get_default_values()
+	{
+		return [
+			self::LASTCOMS_NUMBER => '10',
+			self::LASTCOMS_CHAR => '25',
+			self::AUTHORIZATIONS => ['r-1' => 1, 'r0' => 1, 'r1' => 1]
+		];
+	}
+
+	/**
+	 * Returns the configuration.
+	 * @return LastcomsConfig
+	 */
+	public static function load()
+	{
+		return ConfigManager::load(self::class, 'lastcoms', 'config');
+	}
+
+	/**
+	 * Saving the configuration in database.
+	 */
+	public static function save()
+	{
+		ConfigManager::save('lastcoms', self::load(), 'config');
+	}
+}
+?>
