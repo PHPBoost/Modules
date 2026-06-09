@@ -1,6 +1,9 @@
 /nbproject/private/
 .vscode
-.empty
 
 # Flux
 flux/xml/*
+
+# Stats
+stats/cache/*
+!stats/cache/.empty
