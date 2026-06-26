@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 06 26
  * @since       PHPBoost 1.5 - 2006 08 06
  * @author      Regis VIARRE <crowkait@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
@@ -50,7 +50,6 @@ function check_backup_file(File $file): string|bool
     $reader = new BufferedFileReader($file);
     $general_config = GeneralConfig::load();
     $file_content = $reader->read_all();
-
     if (preg_match("`'kernel-general-config',`u", $file_content))
     {
         if (!preg_match('`s:8:"site_url";s:' . strlen($general_config->get_site_url()) . ':"' . $general_config->get_site_url() . '";s:9:"site_path";s:' . strlen($general_config->get_site_path()) . ':"' . $general_config->get_site_path() . '";`u', $file_content))
@@ -247,11 +246,11 @@ elseif ($action == 'restore')
             Environment::try_to_increase_max_execution_time();
             $file = new File($file_path);
             $status = check_backup_file($file);
-            if ($status == 'wrong_site')
+            if ($status === 'wrong_site')
             {
                 AppContext::get_response()->redirect(HOST . DIR . url('/database/admin_database.php?action=restore&error=backup_not_from_this_site', '', '&'));
             }
-            elseif ($status == 'wrong_version')
+            elseif ($status === 'wrong_version')
             {
                 AppContext::get_response()->redirect(HOST . DIR . url('/database/admin_database.php?action=restore&error=wrong_version_in_backup', '', '&'));
             }
