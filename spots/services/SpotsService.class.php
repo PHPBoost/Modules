@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 01
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -17,13 +17,17 @@ class SpotsService
 		self::$db_querier = PersistenceContext::get_querier();
 	}
 
-    /**
-	 * Count items number.
-	 * @param string $condition (optional) : Restriction to apply to the list of items
-	 */
+    /** Check if gmap is activated and configured */
 	public static function is_gmap_enabled()
 	{
-		return ModulesManager::is_module_installed('GoogleMaps') && ModulesManager::is_module_activated('GoogleMaps') && !empty(GoogleMapsConfig::load()->get_api_key()) && !empty(GoogleMapsConfig::load()->get_default_marker_latitude()) && !empty(GoogleMapsConfig::load()->get_default_marker_longitude());
+		return
+            ModulesManager::is_module_activated('GoogleMaps')
+            && (
+                !empty(GoogleMapsConfig::load()->get_api_key())
+                && !empty(GoogleMapsConfig::load()->get_default_marker_latitude())
+                && !empty(GoogleMapsConfig::load()->get_default_marker_longitude())
+            )
+        ;
 	}
 
     /**

@@ -118,7 +118,7 @@
 								</div>
 								<div class="cell-body">
 									<div class="cell-content align-center">
-										<a class="button bgc-full moderator" href="https://www.waze.com/ul?ll={LATITUDE}%2C{LONGITUDE}&navigate=yes&navigate=yes">
+										<a class="button bgc-full moderator" target="_blank" rel="noopener" href="https://www.waze.com/ul?ll={LATITUDE}%2C{LONGITUDE}&navigate=yes&navigate=yes">
 											<i class="fab fa-waze" aria-hidden="true"></i> {@spots.send.to.waze}
 										</a>
 									</div>

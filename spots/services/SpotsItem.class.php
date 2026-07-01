@@ -488,95 +488,109 @@ class SpotsItem
 
 		$root_category = $category->get_id() == Category::ROOT_CATEGORY;
 
-        $category_address_values = TextHelper::deserialize($root_category ? GoogleMapsConfig::load()->get_default_marker_address() : $category->get_category_address());
+        $category_address_values = (ModulesManager::is_module_activated('GoogleMaps') && TextHelper::deserialize($root_category)) ? GoogleMapsConfig::load()->get_default_marker_address() : $category->get_category_address();
 
-		return array_merge(
+        return array_merge(
 			Date::get_array_tpl_vars($this->creation_date, 'date'),
 			[
-            'C_NEW_WINDOW'         => $config->get_new_window(true),
-            'C_GMAP_ENABLED'       => SpotsService::is_gmap_enabled(),
-            'C_ROUTE'              => $this->is_route_enabled(),
-            'C_LOCATION'           => ($this->location_latitude) && ($this->location_longitude),
-            'C_CONTENT'            => !empty($content),
-			'C_VISIBLE'            => $this->is_published(),
-			'C_CONTROLS'           => $this->is_authorized_to_edit() || $this->is_authorized_to_delete() || $this->is_authorized_to_duplicate(),
-			'C_EDIT'               => $this->is_authorized_to_edit(),
-			'C_DUPLICATE'          => $this->is_authorized_to_duplicate(),
-			'C_DELETE'             => $this->is_authorized_to_delete(),
-			'C_AUTHOR_GROUP_COLOR' => !empty($user_group_color),
-            'C_VISIT'              => !empty($this->website_url->absolute()),
-			'C_HAS_THUMBNAIL'      => $this->has_thumbnail(),
-			'C_DIRECT_CONTACT'	   => !empty($this->phone) || !empty($this->spot_email),
-            'C_PHONE'              => !empty($this->phone),
-            'C_EMAIL'              => !empty($this->spot_email),
-            'C_NETWORK'            => !empty($this->facebook->absolute()) || !empty($this->twitter->absolute()) || !empty($this->instagram->absolute()) || !empty($this->youtube->absolute()),
-			'C_FACEBOOK'           => !empty($this->facebook->absolute()),
-			'C_TWITTER'            => !empty($this->twitter->absolute()),
-			'C_INSTAGRAM'          => !empty($this->instagram->absolute()),
-			'C_YOUTUBE'            => !empty($this->youtube->absolute()),
-			'C_DEFAULT_ADDRESS'    => !empty(GoogleMapsConfig::load()->get_default_marker_address()),
-			'C_CONTACT'			   => !empty($this->phone) || !empty($this->spot_email) || !empty($this->facebook->absolute()) || !empty($this->twitter->absolute()) || !empty($this->instagram->absolute()) || !empty($this->youtube->absolute()),
+                'C_NEW_WINDOW'         => $config->get_new_window(true),
+                'C_GMAP_ENABLED'       => SpotsService::is_gmap_enabled(),
+                'C_ROUTE'              => $this->is_route_enabled(),
+                'C_LOCATION'           => ($this->location_latitude) && ($this->location_longitude),
+                'C_CONTENT'            => !empty($content),
+                'C_VISIBLE'            => $this->is_published(),
+                'C_CONTROLS'           => $this->is_authorized_to_edit() || $this->is_authorized_to_delete() || $this->is_authorized_to_duplicate(),
+                'C_EDIT'               => $this->is_authorized_to_edit(),
+                'C_DUPLICATE'          => $this->is_authorized_to_duplicate(),
+                'C_DELETE'             => $this->is_authorized_to_delete(),
+                'C_AUTHOR_GROUP_COLOR' => !empty($user_group_color),
+                'C_VISIT'              => !empty($this->website_url->absolute()),
+                'C_HAS_THUMBNAIL'      => $this->has_thumbnail(),
+                'C_DIRECT_CONTACT'	   => !empty($this->phone) || !empty($this->spot_email),
+                'C_PHONE'              => !empty($this->phone),
+                'C_EMAIL'              => !empty($this->spot_email),
+                'C_NETWORK'            => !empty($this->facebook->absolute()) || !empty($this->twitter->absolute()) || !empty($this->instagram->absolute()) || !empty($this->youtube->absolute()),
+                'C_FACEBOOK'           => !empty($this->facebook->absolute()),
+                'C_TWITTER'            => !empty($this->twitter->absolute()),
+                'C_INSTAGRAM'          => !empty($this->instagram->absolute()),
+                'C_YOUTUBE'            => !empty($this->youtube->absolute()),
+                'C_DEFAULT_ADDRESS'    => ModulesManager::is_module_activated('GoogleMaps') && !empty(GoogleMapsConfig::load()->get_default_marker_address()),
+                'C_CONTACT'			   => !empty($this->phone) || !empty($this->spot_email) || !empty($this->facebook->absolute()) || !empty($this->twitter->absolute()) || !empty($this->instagram->absolute()) || !empty($this->youtube->absolute()),
 
-            // // Deafult values
-            'GMAP_API_KEY' => GoogleMapsConfig::load()->get_api_key(),
-            'C_GMAP_API'   => ModulesManager::is_module_installed('GoogleMaps') && ModulesManager::is_module_activated('GoogleMaps'),
+                // // Deafult values
+                'GMAP_API_KEY' => ModulesManager::is_module_activated('GoogleMaps') ? GoogleMapsConfig::load()->get_api_key() : 0,
+                'C_GMAP_API'   => ModulesManager::is_module_activated('GoogleMaps'),
 
-			// // Category
-			'C_ROOT_CATEGORY'      => $root_category,
-			'CATEGORY_ID'          => $category->get_id(),
-			'CATEGORY_NAME'        => $category->get_name(),
-			'CATEGORY_COLOR'   	   => !$root_category ? $category->get_color() : $config->get_default_color(),
-			'CATEGORY_INNER_ICON'  => !$root_category ? (!empty($category->get_inner_icon()) ? $category->get_inner_icon() : $config->get_default_inner_icon()) : $config->get_default_inner_icon(),
-			'CATEGORY_LATITUDE'    => TextHelper::is_serialized($root_category ? GoogleMapsConfig::load()->get_default_marker_latitude() : $category->get_category_address()) && !empty($category->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
-			'CATEGORY_LONGITUDE'   => TextHelper::is_serialized($root_category ? GoogleMapsConfig::load()->get_default_marker_longitude() : $category->get_category_address()) && !empty($category->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
+                // // Category
+                'C_ROOT_CATEGORY'      => $root_category,
+                'CATEGORY_ID'          => $category->get_id(),
+                'CATEGORY_NAME'        => $category->get_name(),
+                'CATEGORY_COLOR'   	   => !$root_category ? $category->get_color() : $config->get_default_color(),
+                'CATEGORY_INNER_ICON'  => !$root_category ? (!empty($category->get_inner_icon()) ? $category->get_inner_icon() : $config->get_default_inner_icon()) : $config->get_default_inner_icon(),
+                'CATEGORY_LATITUDE'    => 
+                    ModulesManager::is_module_activated('GoogleMaps') && TextHelper::is_serialized($root_category)
+                        ? GoogleMapsConfig::load()->get_default_marker_latitude()
+                        : (
+                            $category->get_category_address() && !empty($category->get_category_address())
+                                ? TextHelper::deserialize($category_address_values)['latitude']
+                                : 0
+                        ),
+                'CATEGORY_LONGITUDE'   => 
+                    ModulesManager::is_module_activated('GoogleMaps') && TextHelper::is_serialized($root_category)
+                        ? GoogleMapsConfig::load()->get_default_marker_longitude()
+                        : (
+                            $category->get_category_address() && !empty($category->get_category_address())
+                            ? TextHelper::deserialize($category_address_values)['longitude']
+                            : 0
+                        ),
 
-			'U_EDIT_CATEGORY'      => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'spots')->rel(),
+                'U_EDIT_CATEGORY'      => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'spots')->rel(),
 
-			'C_COMMENTS'      => !empty($comments_number),
-			'L_COMMENTS'      => CommentsService::get_lang_comments('spots', $this->id),
-			'COMMENTS_NUMBER' => $comments_number,
+                'C_COMMENTS'      => !empty($comments_number),
+                'L_COMMENTS'      => CommentsService::get_lang_comments('spots', $this->id),
+                'COMMENTS_NUMBER' => $comments_number,
 
-			// // Item
-			'ID'                  => $this->id,
-			'TITLE'               => $this->title,
-			'REWRITED_TITLE'      => $this->rewrited_title,
-			'WEBSITE_URL'         => $this->website_url->absolute(),
-			'CONTENT'             => $rich_content,
-			'STATUS'              => $this->get_status(),
-			'C_AUTHOR_EXIST'      => $user->get_id() !== User::VISITOR_LEVEL,
-			'AUTHOR_DISPLAY_NAME' => $user->get_display_name(),
-			'AUTHOR_LEVEL_CLASS'  => UserService::get_level_class($user->get_level()),
-			'AUTHOR_GROUP_COLOR'  => $user_group_color,
-			'VIEWS_NUMBER'        => $this->views_number,
-			'VISITS_NUMBER'       => $this->visits_number,
-            'PHONE'               => $this->phone,
-            'EMAIL'               => $this->spot_email,
-            'TRAVEL_TYPE'         => $this->travel_type,
-			'DEFAULT_LAT'         => GoogleMapsConfig::load()->get_default_marker_latitude(),
-			'DEFAULT_LNG'         => GoogleMapsConfig::load()->get_default_marker_longitude(),
-            'LOCATION'     		  => $this->location,
-            'V_LOCATION'     	  => str_replace(',', '<br />', $this->location),
-            'LATITUDE'            => $this->location_latitude,
-            'LONGITUDE'           => $this->location_longitude,
-            'LOCA_LAT'            => str_pad($loca_lat_deg, 2, '0', STR_PAD_LEFT) . 'deg ' . intval($loca_lat_min) . "min " . number_format($loca_lat_sec, 2) . 'sec ' . $card_lat,
-            'LOCA_LNG'            => str_pad($loca_lng_deg, 2, '0', STR_PAD_LEFT) . 'deg ' . intval($loca_lng_min) . "min " . number_format($loca_lng_sec, 2) . 'sec ' . $card_lng,
+                // // Item
+                'ID'                  => $this->id,
+                'TITLE'               => $this->title,
+                'REWRITED_TITLE'      => $this->rewrited_title,
+                'WEBSITE_URL'         => $this->website_url->absolute(),
+                'CONTENT'             => $rich_content,
+                'STATUS'              => $this->get_status(),
+                'C_AUTHOR_EXIST'      => $user->get_id() !== User::VISITOR_LEVEL,
+                'AUTHOR_DISPLAY_NAME' => $user->get_display_name(),
+                'AUTHOR_LEVEL_CLASS'  => UserService::get_level_class($user->get_level()),
+                'AUTHOR_GROUP_COLOR'  => $user_group_color,
+                'VIEWS_NUMBER'        => $this->views_number,
+                'VISITS_NUMBER'       => $this->visits_number,
+                'PHONE'               => $this->phone,
+                'EMAIL'               => $this->spot_email,
+                'TRAVEL_TYPE'         => $this->travel_type,
+                'DEFAULT_LAT'         => ModulesManager::is_module_activated('GoogleMaps') ? GoogleMapsConfig::load()->get_default_marker_latitude() : 0,
+                'DEFAULT_LNG'         => ModulesManager::is_module_activated('GoogleMaps') ? GoogleMapsConfig::load()->get_default_marker_longitude() : 0,
+                'LOCATION'     		  => $this->location,
+                'V_LOCATION'     	  => str_replace(',', '<br />', $this->location),
+                'LATITUDE'            => $this->location_latitude,
+                'LONGITUDE'           => $this->location_longitude,
+                'LOCA_LAT'            => str_pad($loca_lat_deg, 2, '0', STR_PAD_LEFT) . 'deg ' . intval($loca_lat_min) . "min " . number_format($loca_lat_sec, 2) . 'sec ' . $card_lat,
+                'LOCA_LNG'            => str_pad($loca_lng_deg, 2, '0', STR_PAD_LEFT) . 'deg ' . intval($loca_lng_min) . "min " . number_format($loca_lng_sec, 2) . 'sec ' . $card_lng,
 
-			'U_SYNDICATION'    => SyndicationUrlBuilder::rss('spots', $this->id_category)->rel(),
-			'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
-			'U_AUTHOR_CONTRIB' => SpotsUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
-			'U_ITEM'           => SpotsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel(),
-			'U_VISIT'          => SpotsUrlBuilder::visit($this->id)->rel(),
-			'U_DEADLINK'       => SpotsUrlBuilder::dead_link($this->id)->rel(),
-			'U_CATEGORY'       => SpotsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
-			'U_EDIT'           => SpotsUrlBuilder::edit($this->id)->rel(),
-			'U_DUPLICATE'      => SpotsUrlBuilder::duplicate($this->id)->rel(),
-			'U_DELETE'         => SpotsUrlBuilder::delete($this->id)->rel(),
-			'U_THUMBNAIL'      => $this->get_thumbnail()->rel(),
-			'U_FACEBOOK'       => $this->facebook->absolute(),
-			'U_TWITTER'        => $this->twitter->absolute(),
-			'U_INSTAGRAM'      => $this->instagram->absolute(),
-			'U_YOUTUBE'        => $this->youtube->absolute(),
-			'U_COMMENTS'       => SpotsUrlBuilder::display_comments($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel()
+                'U_SYNDICATION'    => SyndicationUrlBuilder::rss('spots', $this->id_category)->rel(),
+                'U_AUTHOR_PROFILE' => UserUrlBuilder::profile($this->get_author_user()->get_id())->rel(),
+                'U_AUTHOR_CONTRIB' => SpotsUrlBuilder::display_member_items($this->get_author_user()->get_id())->rel(),
+                'U_ITEM'           => SpotsUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel(),
+                'U_VISIT'          => SpotsUrlBuilder::visit($this->id)->rel(),
+                'U_DEADLINK'       => SpotsUrlBuilder::dead_link($this->id)->rel(),
+                'U_CATEGORY'       => SpotsUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())->rel(),
+                'U_EDIT'           => SpotsUrlBuilder::edit($this->id)->rel(),
+                'U_DUPLICATE'      => SpotsUrlBuilder::duplicate($this->id)->rel(),
+                'U_DELETE'         => SpotsUrlBuilder::delete($this->id)->rel(),
+                'U_THUMBNAIL'      => $this->get_thumbnail()->rel(),
+                'U_FACEBOOK'       => $this->facebook->absolute(),
+                'U_TWITTER'        => $this->twitter->absolute(),
+                'U_INSTAGRAM'      => $this->instagram->absolute(),
+                'U_YOUTUBE'        => $this->youtube->absolute(),
+                'U_COMMENTS'       => SpotsUrlBuilder::display_comments($category->get_id(), $category->get_rewrited_name(), $this->id, $this->rewrited_title)->rel()
 			]
 		);
 

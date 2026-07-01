@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 01
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -20,7 +20,7 @@ class SpotsCategoryController extends DefaultModuleController
 	{
 		$this->check_authorizations();
 
-		$this->build_view($request);
+        $this->build_view($request);
 
 		return $this->generate_response();
 	}
@@ -28,6 +28,27 @@ class SpotsCategoryController extends DefaultModuleController
 	private function build_view(HTTPRequestCustom $request)
 	{
 		$now = new Date();
+
+		$this->view->put_all([
+			'C_CATEGORY' => true,
+            'C_NO_GMAP' => !ModulesManager::is_module_activated('GoogleMaps'),
+            'C_GMAP_ENABLED' => SpotsService::is_gmap_enabled(),
+
+			'C_GRID_VIEW' => $this->config->get_display_type() == SpotsConfig::GRID_VIEW,
+			'C_TABLE_VIEW' => $this->config->get_display_type() == SpotsConfig::TABLE_VIEW,
+			'MODULE_NAME' => $this->config->get_module_name(),
+			'ROOT_CATEGORY_DESC' => $this->config->get_root_category_description(),
+			'CATEGORIES_PER_ROW' => $this->config->get_categories_per_row(),
+			'ITEMS_PER_ROW' => $this->config->get_items_per_row(),
+        ]);
+
+        if (ModulesManager::is_module_activated('GoogleMaps')) {
+            $this->view->put_all([
+                'GMAP_API_KEY' => GoogleMapsConfig::load()->get_api_key(),
+                'DEFAULT_LAT' => GoogleMapsConfig::load()->get_default_marker_latitude(),
+                'DEFAULT_LNG' => GoogleMapsConfig::load()->get_default_marker_longitude(),
+            ]);
+        }
 
 		$authorized_categories = CategoriesService::get_authorized_categories($this->get_category()->get_id(), '', 'spots');
 
@@ -87,43 +108,32 @@ class SpotsCategoryController extends DefaultModuleController
         {
 			$category_address_values = TextHelper::deserialize($this->get_category()->get_category_address());
 
-			$this->view->put_all([
-				'CATEGORY_LATITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
-				'CATEGORY_LONGITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
-			]);
+            if (ModulesManager::is_module_activated('GoogleMaps')) {
+                $this->view->put_all([
+                    'CATEGORY_LATITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['latitude'] : GoogleMapsConfig::load()->get_default_marker_latitude(),
+                    'CATEGORY_LONGITUDE' => TextHelper::is_serialized($this->get_category()->get_category_address()) && !empty($this->get_category()->get_category_address()) ? $category_address_values['longitude'] : GoogleMapsConfig::load()->get_default_marker_longitude(),
+                ]);
+            }
 		}
 
 		$this->view->put_all([
-			'C_CATEGORY'                 => true,
 			'C_ITEMS'                    => $result->get_rows_count() > 0,
-            'C_GMAP_ENABLED'             => SpotsService::is_gmap_enabled(),
             'C_SEVERAL_ITEMS'            => $result->get_rows_count() > 1,
-			'C_GRID_VIEW'                => $this->config->get_display_type() == SpotsConfig::GRID_VIEW,
-			'C_TABLE_VIEW'               => $this->config->get_display_type() == SpotsConfig::TABLE_VIEW,
-			'C_CATEGORY_DESCRIPTION'     => !empty($category_description),
 			'C_CONTROLS'                 => CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->moderation(),
 			'C_PAGINATION'               => $pagination->has_several_pages(),
 			'C_ROOT_CATEGORY'            => $root_category,
-			'C_HIDE_NO_ITEM_MESSAGE'     => $root_category && ($categories_number_displayed != 0 || !empty($category_description)),
 			'C_SUB_CATEGORIES'           => $categories_number_displayed > 0,
 			'C_SUBCATEGORIES_PAGINATION' => $subcategories_pagination->has_several_pages(),
 
-			'MODULE_NAME'              => $this->config->get_module_name(),
-			'ROOT_CATEGORY_DESC'       => $this->config->get_root_category_description(),
 			'CATEGORY_NAME'            => $this->get_category()->get_name(),
 			'CATEGORY_PARENT_ID'   	   => $this->get_category()->get_id_parent(),
 			'CATEGORY_SUB_ORDER'   	   => $this->get_category()->get_order(),
-			'GMAP_API_KEY'             => GoogleMapsConfig::load()->get_api_key(),
-			'DEFAULT_LAT'              => GoogleMapsConfig::load()->get_default_marker_latitude(),
-			'DEFAULT_LNG'              => GoogleMapsConfig::load()->get_default_marker_longitude(),
 			'SUBCATEGORIES_PAGINATION' => $subcategories_pagination->display(),
 			'PAGINATION'               => $pagination->display(),
-			'CATEGORIES_PER_ROW'       => $this->config->get_categories_per_row(),
-			'ITEMS_PER_ROW'            => $this->config->get_items_per_row(),
 			'CATEGORY_ID'              => $this->get_category()->get_id(),
 
 			'U_EDIT_CATEGORY' => $root_category ? SpotsUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($this->get_category()->get_id(), 'spots')->rel(),			
-			]);
+        ]);
 
 		while ($row = $result->fetch())
 		{
@@ -215,7 +225,7 @@ class SpotsCategoryController extends DefaultModuleController
 					$this->category = CategoriesService::get_categories_manager('spots')->get_categories_cache()->get_category($id);
 				} catch (CategoryNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
-   					DispatchManager::redirect($error_controller);
+                    DispatchManager::redirect($error_controller);
 				}
 			}
 			else

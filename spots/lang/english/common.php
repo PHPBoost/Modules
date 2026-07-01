@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 01
  * @since       PHPBoost 6.0 - 2021 08 22
 */
 
@@ -121,6 +121,7 @@ $lang['spots.placeholder.youtube']   = 'https://www.youtube.com/...';
 
 // Warnings
 $lang['spots.no.gmap']            = 'You must install and activate the GoogleMaps module and configure it (key + default location).';
+$lang['spots.no.default.gmap']    = 'The module GoogleMaps is activated. You must configure it (key + default location).';
 $lang['spots.no.default.address'] = 'The default location has not been declared in the GoogleMaps module configuration.';
 $lang['spots.no.gps']             = 'GPS coordinates of the location have not been entered.';
 ?>

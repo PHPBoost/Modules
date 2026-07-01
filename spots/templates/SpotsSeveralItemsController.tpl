@@ -8,190 +8,189 @@
 		<h1>
 			# IF C_PENDING #
 				{@spots.pending.items}
-			# ELSE #
-				# IF C_MEMBER_ITEMS #
-                    # IF C_MEMBERS_LIST #
-                        {@contribution.members.list}
-                    # ELSE #
-                        # IF C_MY_ITEMS #{@spots.my.items}# ELSE #{@spots.member.items} {MEMBER_NAME}# ENDIF #
-                    # ENDIF #
-				# ELSE #
-					# IF C_ROOT_CATEGORY #{MODULE_NAME}# ELSE #{CATEGORY_NAME}# ENDIF #
-				# ENDIF #
-			# ENDIF #
+			# ELSEIF C_MEMBER_ITEMS #
+                # IF C_MEMBERS_LIST #
+                    {@contribution.members.list}
+                # ELSEIF C_MY_ITEMS #
+                    {@spots.my.items}
+                # ELSE #
+                    {@spots.member.items} {MEMBER_NAME}
+                # ENDIF #
+            # ELSEIF C_ROOT_CATEGORY #
+                {MODULE_NAME}
+            # ELSE #
+                {CATEGORY_NAME}
+            # ENDIF #
 		</h1>
 	</header>
 
-	# IF C_ROOT_CATEGORY #
-		<div class="sub-section">
-			<div class="content-container">
-				<div class="cat-description">
-					{ROOT_CATEGORY_DESC}
-				</div>
-			</div>
-		</div>
-	# ENDIF #
+    # IF C_NO_GMAP # 
+        <div class="message-helper bgc-full error">{@spots.no.gmap}</div>
+    # ELSE #
 
-	# IF C_CATEGORY #
-		<div class="sub-section">
-			<div class="content-container">
-				# IF C_GMAP_ENABLED #
-					<div id="map" class="spots-map"></div>
-				# ELSE #
-					<div class="message-helper bgc warning spots-map">{@spots.no.gmap}</div>
-				# ENDIF #
-			</div>
-		</div>
-	# ENDIF #
+        # IF C_ROOT_CATEGORY #
+            <div class="sub-section">
+                <div class="content-container">
+                    <div class="cat-description">
+                        {ROOT_CATEGORY_DESC}
+                    </div>
+                </div>
+            </div>
+        # ENDIF #
 
-	# IF C_SUB_CATEGORIES #
-		<div class="sub-section">
-			<div class="content-container">
-				<div class="cell-flex cell-tile cell-columns-{CATEGORIES_PER_ROW}">
-					# START sub_categories_list #
-						<div class="cell cell-category category-{sub_categories_list.CATEGORY_ID}" itemscope>
-							<div class="cell-header colored-category marker-container" data-color-surround="{sub_categories_list.CATEGORY_COLOR}">
-								<h5 class="cell-name" itemprop="about">
-									<i class="inner-marker ${sub_categories_list.CATEGORY_INNER_ICON}" aria-hidden="true"></i>
-									<a class="offload" href="{sub_categories_list.U_CATEGORY}">
-										{sub_categories_list.CATEGORY_NAME}
-									</a>
-								</h5>
-								<span class="small pinned notice" role="contentinfo" aria-label="{@spots.items.number}">
-									{sub_categories_list.ITEMS_NUMBER}
-								</span>
-							</div>
-						</div>
-					# END sub_categories_list #
-				</div>
-				# IF C_SUBCATEGORIES_PAGINATION #<div class="align-center"># INCLUDE SUBCATEGORIES_PAGINATION #</div># ENDIF #
-			</div>
-		</div>
-	# ENDIF #
-
-    <div class="sub-section">
-        <div class="content-container">
-            # IF C_SELF_ITEMS #
-				# IF C_TABLE_VIEW #
-					<table class="table">
-						<thead>
-							<tr>
-								<th class="col-small" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i><span class="hidden-large-screens">{@common.category}</span></th>
-								<th>{@common.name}</th>
-								<th class="coll-small" aria-label="{@common.website}"><i class="fa fa-link" aria-hidden="true"></i><span class="hidden-large-screens">{@common.website}</span></th>
-								<th class="col-small" aria-label="{@common.views.number}"><i class="fa fa-eye" aria-hidden="true"></i><span class="hidden-large-screens">{@common.views.number}</span></th>
-								<th class="col-small" aria-label="{@common.visits.number}"><i class="fa fa-external-link-alt" aria-hidden="true"></i><span class="hidden-large-screens">{@common.visits.number}</span></th>
-								# IF C_CONTROLS #<th class="col-small" aria-label="{@common.moderation}"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-large-screens">{@common.moderation}</span></th># ENDIF #
-							</tr>
-						</thead>
-						<tbody>
-							# START self_items #
-								<tr>
-									<td>
-										<a class="offload" href="{self_items.U_CATEGORY}">
-											<span class="marker-container marker-category hidden-small-screens" id="marker-{self_items.ID}" aria-label="{self_items.CATEGORY_NAME}">
-												<svg width="24px" height="38px">
-													<path
-														fill="${self_items.CATEGORY_COLOR}"
-														d="M-0.000,11.790 C-0.000,5.273 5.373,-0.008 12.000,-0.008 C18.627,-0.008 24.000,5.273 24.000,11.790 C24.000,18.305 12.000,38.008 12.000,38.008 C12.000,38.008 -0.000,18.305 -0.000,11.790 Z"/>
-												</svg>
-												<i class="inner-marker ${self_items.CATEGORY_INNER_ICON}" aria-hidden="true"></i>
-											</span>
-											<span class="hidden-large-screens">{self_items.CATEGORY_NAME}</span>
-										</a>
-									</td>
-									<td>
-										<a class="offload" href="{self_items.U_ITEM}"><span itemprop="name" aria-label="{@common.see.details}">{self_items.TITLE}</span></a>
-									</td>
-									<td>
-										# IF self_items.C_VISIT #
-											<a class="basic-button" # IF self_items.C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # href="{self_items.U_VISIT}">{@spots.visit.website}</a>
-										# ELSE #
-											{@spots.no.website}
-										# ENDIF #
-									</td>
-									<td>
-										{self_items.VIEWS_NUMBER}
-									</td>
-									<td>
-										{self_items.VISITS_NUMBER}
-									</td>
-									# IF C_CONTROLS #
-										<td>
-											# IF self_items.C_EDIT #
-												<a class="offload" href="{self_items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a>
-											# ENDIF #
-											# IF self_items.C_DELETE #
-												<a href="{self_items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a>
-											# ENDIF #
-										</td>
-									# ENDIF #
-								</tr>
-							# END self_items #
-						</tbody>
-					</table>
-				# ELSE #
-					<div class="cell-flex cell-columns-{ITEMS_PER_ROW}">
-						# START self_items #
-							<article id="article-spots-{self_items.ID}" class="spots-item cell# IF self_items.C_IS_PARTNER # content-friends# ENDIF ## IF self_items.C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF self_items.C_NEW_CONTENT # new-content# ENDIF#" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
-								<header class="cell-header">
-									<h2>
-										<a class="offload" href="{self_items.U_ITEM}" itemprop="name">{self_items.TITLE}</a>
-									</h2>
-								</header>
-								<div class="cell-infos">
-									<div class="more">
-										<span class="pinned item-views-number" aria-label="{@common.views.number}"> <i class="fa fa-eye" aria-hidden="true"></i> {self_items.VIEWS_NUMBER}</span>
-										# IF self_items.C_VISIT #<span class="pinned item-visits-number" aria-label="{@common.visits.number}"> <i class="fa fa-external-link-alt" aria-hidden="true"></i> {self_items.VISITS_NUMBER}</span># ENDIF #
-										<span class="pinned-category item-category" data-color-surround="{self_items.CATEGORY_COLOR}" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{self_items.U_CATEGORY}">{self_items.CATEGORY_NAME}</a></span>
-									</div>
-									# IF self_items.C_CONTROLS #
-										<div class="controls align-right">
-											# IF self_items.C_EDIT #<a class="offload item-edit" href="{self_items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit"></i></a># ENDIF #
-											# IF self_items.C_DELETE #<a class="item-delete" href="{self_items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a># ENDIF #
-										</div>
-									# ENDIF #
-								</div>
-								# IF self_items.C_HAS_THUMBNAIL #
-									<div class="cell-thumbnail cell-landscape cell-center">
-										<img src="{self_items.U_THUMBNAIL}" alt="{self_items.TITLE}" itemprop="image" />
-										<a href="{self_items.U_ITEM}" class="cell-thumbnail-caption offload">
-											{@common.see.details}
-										</a>
-									</div>
-								# ENDIF #
-								<div class="cell-body">
-									<div class="cell-content">
-										<div itemprop="text">{self_items.CONTENT}</div>
-									</div>
-								</div>
-							</article>
-						# END self_items #
-					</div>
-				# ENDIF #
-            # ELSE #
-                # IF C_MEMBERS_LIST #
-                    # IF C_MEMBERS #
-                        <div class="content">
-                            # START users #
-                                <a href="{users.U_USER}" class="offload pinned bgc-sub align-center"><img class="message-user-avatar" src="{users.U_AVATAR}" alt="{users.USER_NAME}"><span class="d-block">{users.USER_NAME}<span></a>
-                            # END users #
-                        </div>
+        # IF C_CATEGORY #
+            <div class="sub-section">
+                <div class="content-container">
+                    # IF C_GMAP_ENABLED #
+                        <div id="map" class="spots-map"></div>
                     # ELSE #
-                        <div class="content">
-                            <div class="message-helper bgc notice align-center">{@contribution.no.member}</div>
+                        <div class="message-helper bgc warning spots-map">{@spots.no.default.gmap}</div>
+                    # ENDIF #
+                </div>
+            </div>
+        # ENDIF #
+
+        # IF C_SUB_CATEGORIES #
+            <div class="sub-section">
+                <div class="content-container">
+                    <div class="cell-flex cell-tile cell-columns-{CATEGORIES_PER_ROW}">
+                        # START sub_categories_list #
+                            <div class="cell cell-category category-{sub_categories_list.CATEGORY_ID}" itemscope>
+                                <div class="cell-header colored-category marker-container" data-color-surround="{sub_categories_list.CATEGORY_COLOR}">
+                                    <h5 class="cell-name" itemprop="about">
+                                        <i class="inner-marker ${sub_categories_list.CATEGORY_INNER_ICON}" aria-hidden="true"></i>
+                                        <a class="offload" href="{sub_categories_list.U_CATEGORY}">
+                                            {sub_categories_list.CATEGORY_NAME}
+                                        </a>
+                                    </h5>
+                                    <span class="small pinned notice" role="contentinfo" aria-label="{@spots.items.number}">
+                                        {sub_categories_list.ITEMS_NUMBER}
+                                    </span>
+                                </div>
+                            </div>
+                        # END sub_categories_list #
+                    </div>
+                    # IF C_SUBCATEGORIES_PAGINATION #<div class="align-center"># INCLUDE SUBCATEGORIES_PAGINATION #</div># ENDIF #
+                </div>
+            </div>
+        # ENDIF #
+
+        <div class="sub-section">
+            <div class="content-container">
+                # IF C_SELF_ITEMS #
+                    # IF C_TABLE_VIEW #
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-small" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i><span class="hidden-large-screens">{@common.category}</span></th>
+                                    <th>{@common.name}</th>
+                                    <th class="coll-small" aria-label="{@common.website}"><i class="fa fa-link" aria-hidden="true"></i><span class="hidden-large-screens">{@common.website}</span></th>
+                                    <th class="col-small" aria-label="{@common.views.number}"><i class="fa fa-eye" aria-hidden="true"></i><span class="hidden-large-screens">{@common.views.number}</span></th>
+                                    <th class="col-small" aria-label="{@common.visits.number}"><i class="fa fa-external-link-alt" aria-hidden="true"></i><span class="hidden-large-screens">{@common.visits.number}</span></th>
+                                    # IF C_CONTROLS #<th class="col-small" aria-label="{@common.moderation}"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-large-screens">{@common.moderation}</span></th># ENDIF #
+                                </tr>
+                            </thead>
+                            <tbody>
+                                # START self_items #
+                                    <tr>
+                                        <td>
+                                            <a class="offload" href="{self_items.U_CATEGORY}">
+                                                <span class="marker-container marker-category hidden-small-screens" id="marker-{self_items.ID}" aria-label="{self_items.CATEGORY_NAME}">
+                                                    <svg width="24px" height="38px">
+                                                        <path
+                                                            fill="${self_items.CATEGORY_COLOR}"
+                                                            d="M-0.000,11.790 C-0.000,5.273 5.373,-0.008 12.000,-0.008 C18.627,-0.008 24.000,5.273 24.000,11.790 C24.000,18.305 12.000,38.008 12.000,38.008 C12.000,38.008 -0.000,18.305 -0.000,11.790 Z"/>
+                                                    </svg>
+                                                    <i class="inner-marker ${self_items.CATEGORY_INNER_ICON}" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="hidden-large-screens">{self_items.CATEGORY_NAME}</span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="offload" href="{self_items.U_ITEM}"><span itemprop="name" aria-label="{@common.see.details}">{self_items.TITLE}</span></a>
+                                        </td>
+                                        <td>
+                                            # IF self_items.C_VISIT #
+                                                <a class="basic-button" # IF self_items.C_NEW_WINDOW #target="_blank" rel="noopener noreferrer"# ENDIF # href="{self_items.U_VISIT}">{@spots.visit.website}</a>
+                                            # ELSE #
+                                                {@spots.no.website}
+                                            # ENDIF #
+                                        </td>
+                                        <td>
+                                            {self_items.VIEWS_NUMBER}
+                                        </td>
+                                        <td>
+                                            {self_items.VISITS_NUMBER}
+                                        </td>
+                                        # IF C_CONTROLS #
+                                            <td>
+                                                # IF self_items.C_EDIT #
+                                                    <a class="offload" href="{self_items.U_EDIT}" aria-label="{@common.edit}"><i class="fa fa-edit"></i></a>
+                                                # ENDIF #
+                                                # IF self_items.C_DELETE #
+                                                    <a href="{self_items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a>
+                                                # ENDIF #
+                                            </td>
+                                        # ENDIF #
+                                    </tr>
+                                # END self_items #
+                            </tbody>
+                        </table>
+                    # ELSE #
+                        <div class="cell-flex cell-columns-{ITEMS_PER_ROW}">
+                            # START self_items #
+                                <article id="article-spots-{self_items.ID}" class="spots-item cell# IF self_items.C_IS_PARTNER # content-friends# ENDIF ## IF self_items.C_IS_PRIVILEGED_PARTNER # content-privileged-friends# ENDIF ## IF self_items.C_NEW_CONTENT # new-content# ENDIF#" itemscope="itemscope" itemtype="https://schema.org/CreativeWork">
+                                    <header class="cell-header">
+                                        <h2>
+                                            <a class="offload" href="{self_items.U_ITEM}" itemprop="name">{self_items.TITLE}</a>
+                                        </h2>
+                                    </header>
+                                    <div class="cell-infos">
+                                        <div class="more">
+                                            <span class="pinned item-views-number" aria-label="{@common.views.number}"> <i class="fa fa-eye" aria-hidden="true"></i> {self_items.VIEWS_NUMBER}</span>
+                                            # IF self_items.C_VISIT #<span class="pinned item-visits-number" aria-label="{@common.visits.number}"> <i class="fa fa-external-link-alt" aria-hidden="true"></i> {self_items.VISITS_NUMBER}</span># ENDIF #
+                                            <span class="pinned-category item-category" data-color-surround="{self_items.CATEGORY_COLOR}" aria-label="{@common.category}"><i class="far fa-folder" aria-hidden="true"></i> <a class="offload" itemprop="about" href="{self_items.U_CATEGORY}">{self_items.CATEGORY_NAME}</a></span>
+                                        </div>
+                                        # IF self_items.C_CONTROLS #
+                                            <div class="controls align-right">
+                                                # IF self_items.C_EDIT #<a class="offload item-edit" href="{self_items.U_EDIT}" aria-label="{@common.edit}"><i class="far fa-edit"></i></a># ENDIF #
+                                                # IF self_items.C_DELETE #<a class="item-delete" href="{self_items.U_DELETE}" aria-label="{@common.delete}" data-confirmation="delete-element"><i class="far fa-trash-alt"></i></a># ENDIF #
+                                            </div>
+                                        # ENDIF #
+                                    </div>
+                                    # IF self_items.C_HAS_THUMBNAIL #
+                                        <div class="cell-thumbnail cell-landscape cell-center">
+                                            <img src="{self_items.U_THUMBNAIL}" alt="{self_items.TITLE}" itemprop="image" />
+                                            <a href="{self_items.U_ITEM}" class="cell-thumbnail-caption offload">
+                                                {@common.see.details}
+                                            </a>
+                                        </div>
+                                    # ENDIF #
+                                    <div class="cell-body">
+                                        <div class="cell-content">
+                                            <div itemprop="text">{self_items.CONTENT}</div>
+                                        </div>
+                                    </div>
+                                </article>
+                            # END self_items #
                         </div>
                     # ENDIF #
-                # ELSE #
-                    # IF NOT C_HIDE_NO_ITEM_MESSAGE #
-                        <div class="content">
-                            <div class="message-helper bgc notice">{@common.no.item.now}</div>
-                        </div>
-                    # ENDIF #
+                # ELSEIF C_MEMBERS_LIST #
+                        # IF C_MEMBERS #
+                            <div class="content">
+                                # START users #
+                                    <a href="{users.U_USER}" class="offload pinned bgc-sub align-center"><img class="message-user-avatar" src="{users.U_AVATAR}" alt="{users.USER_NAME}"><span class="d-block">{users.USER_NAME}<span></a>
+                                # END users #
+                            </div>
+                        # ELSE #
+                            <div class="content">
+                                <div class="message-helper bgc notice align-center">{@contribution.no.member}</div>
+                            </div>
+                        # ENDIF #
                 # ENDIF #
-            # ENDIF #
+            </div>
         </div>
-    </div>
+    # ENDIF #
 
 	<footer># IF C_PAGINATION # # INCLUDE PAGINATION # # ENDIF #</footer>
 </section>
