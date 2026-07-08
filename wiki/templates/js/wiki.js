@@ -73,7 +73,15 @@ title.each(function () {
     if (jQuery(this).is('h6')) { padding = '4.618em'; }
     jQuery('#summary-list').append(jQuery('<li><a class="summary-title" href="#' + rewrited + '" style="padding-left: ' + padding + '">' + hyphen + '<span class="inner-title">' + innerhtml + '</span></a></li>'));
 
-    var anchor = jQuery('<a href="' + window.location.href + '#' + rewrited + '" class="smaller copy-anchor" aria-label="' + L_COPY_TO_CLIPBOARD + '"><i class="fa fa-fw fa-hashtag" aria-hidden="true"></i></a>');
+    var url = new URL(window.location.href);
+    url.hash = rewrited;
+
+    var anchor = jQuery('<a>')
+        .attr('href', url.toString())
+        .attr('aria-label', L_COPY_TO_CLIPBOARD)
+        .addClass('smaller copy-anchor')
+        .html('<i class="fa fa-fw fa-hashtag" aria-hidden="true"></i>');
+
     jQuery(this).prepend(anchor);
 });
 
