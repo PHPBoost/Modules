@@ -71,7 +71,7 @@
 
 				jQuery('<div/> ', {id : 'calendar' + id + '_container', class : 'calendar-container cell-modal cell-tile grouped-element'}).appendTo('#td3_' + id + '_bt .grouped-inputs');
 
-				jQuery('<a/> ', {id : 'release_date' + id + '_link', class : 'bgc-full link-color modal-button --calendar-' + id, onclick : "xmlhttprequest_calendar('release_date" + id + "_date', 'release_date" + id + "', '', '', '', '" + id + "', 1);return false;", style : 'cursor:pointer;', 'aria-label' : ${escapejs(@titles.calendar)}}).html('<i class="fa fa-calendar-alt" aria-hidden="true"></i>').appendTo('#calendar' + id + '_container');
+				jQuery('<a/> ', {id : 'release_date' + id + '_link', class : 'bgc-sub modal-button --calendar-' + id, onclick : "xmlhttprequest_calendar('release_date" + id + "_date', 'release_date" + id + "', '', '', '', '" + id + "', 1);return false;", style : 'cursor:pointer;', 'aria-label' : ${escapejs(@titles.calendar)}}).html('<i class="fa fa-calendar-alt" aria-hidden="true"></i>').appendTo('#calendar' + id + '_container');
 
 				jQuery('<div/> ', {id : 'calendar-' + id, class : 'modal modal-calendar'}).appendTo('#calendar' + id + '_container');
 
@@ -172,7 +172,7 @@
 					<div class="grouped-inputs">
 						<input type="text" size="11" maxlength="10" id="release_date{versions.ID}" class="grouped-element input-date" name="release_date{versions.ID}" value="{versions.RELEASE_DATE}" onclick="xmlhttprequest_calendar('release_date{versions.ID}_date', 'release_date{versions.ID}', ${escapejs(versions.YEAR)}, ${escapejs(versions.MONTH)}, ${escapejs(versions.DAY)}, ${escapejs(versions.ID)});return false;" placeholder="{@date.format}">
 						<div class="calendar-container cell-modal cell-tile grouped-element">
-							<a class="bgc-full link-color modal-button --calendar-{versions.ID}" id="release_date{versions.ID}_link" href="#" onclick="xmlhttprequest_calendar('release_date{versions.ID}_date', 'release_date{versions.ID}', ${escapejs(versions.YEAR)}, ${escapejs(versions.MONTH)}, ${escapejs(versions.DAY)}, ${escapejs(versions.ID)}, 1);return false;" aria-label="{@titles.calendar}"><i class="fa fa-calendar-alt" aria-hidden="true"></i></a>
+							<a class="bgc-sub modal-button --calendar-{versions.ID}" id="release_date{versions.ID}_link" href="#" onclick="xmlhttprequest_calendar('release_date{versions.ID}_date', 'release_date{versions.ID}', ${escapejs(versions.YEAR)}, ${escapejs(versions.MONTH)}, ${escapejs(versions.DAY)}, ${escapejs(versions.ID)}, 1);return false;" aria-label="{@titles.calendar}"><i class="fa fa-calendar-alt" aria-hidden="true"></i></a>
 							<div id="calendar-{versions.ID}" class="modal modal-calendar">
 								<div class="modal-overlay close-modal"></div>
 								<div id="release_date{versions.ID}_date" class="modal-content cell calendar-block"></div>
