@@ -274,7 +274,7 @@ class SandboxBuilderController extends DefaultModuleController
 					new FormFieldSelectChoiceOption($this->lang['sandbox.builder.choice'].'2', '2', ['data_option_class' => 'bgc error', 'disable' => true]),
 					new FormFieldSelectChoiceOption($this->lang['sandbox.builder.choice'].'3', '3', ['data_option_class' => 'indent']),
 					new FormFieldSelectChoiceOption($this->lang['sandbox.builder.choice'].'4', '4', ['data_option_class' => 'bgc-full question', 'selected' => true, 'data_option_icon' => 'far fa-id-card']),
-					new FormFieldSelectChoiceOption($this->lang['sandbox.builder.choice'].'5', '5', ['data_option_class' => 'sandbox-svg-icon', 'data_option_img' => '../templates/__default__/theme/images/logo.svg']),
+					new FormFieldSelectChoiceOption($this->lang['sandbox.builder.choice'].'5', '5', ['data_option_class' => 'sandbox-svg-icon', 'data_option_img' => '/templates/__default__/theme/images/logo.svg']),
 					new FormFieldSelectChoiceOption($this->lang['sandbox.builder.choice'].'6', '6')
 				],
 				['class' => 'css-class', 'multiple_select_to_list' => true]
