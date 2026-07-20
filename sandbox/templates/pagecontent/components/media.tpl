@@ -6,10 +6,10 @@
 		</header>
 		<div class="content">
             <figure style="max-width:300px">
-                <img src="{PATH_TO_ROOT}/sandbox/templates/images/paysage.png" alt="{@sandbox.component.image}" />
+                <img src="{PATH_TO_ROOT}/modules/sandbox/templates/images/paysage.png" alt="{@sandbox.component.image}" />
             </figure>
             <figure style="max-width:300px">
-                <img src="{PATH_TO_ROOT}/sandbox/templates/images/square.png" alt="{@sandbox.component.image}" />
+                <img src="{PATH_TO_ROOT}/modules/sandbox/templates/images/square.png" alt="{@sandbox.component.image}" />
                 <figcaption>{@sandbox.component.caption.image}</figcaption>
             </figure>
 		</div>
@@ -19,10 +19,10 @@
 			<h5>{@sandbox.component.lightbox} {@H|sandbox.pinned.bbcode}</h5>
 		</header>
 		<div class="content">
-			<a href="{PATH_TO_ROOT}/sandbox/templates/images/paysage.png" data-lightbox="formatter" data-rel="lightcase:collection">
+			<a href="{PATH_TO_ROOT}/modules/sandbox/templates/images/paysage.png" data-lightbox="formatter" data-rel="lightcase:collection">
 				<img style="max-width: 150px" src="{PATH_TO_ROOT}/sandbox/templates/images/paysage.png" alt="Lorem ipsum" />
 			</a>
-			<a href="{PATH_TO_ROOT}/sandbox/templates/images/square.png" data-lightbox="formatter" data-rel="lightcase:collection">
+			<a href="{PATH_TO_ROOT}/modules/sandbox/templates/images/square.png" data-lightbox="formatter" data-rel="lightcase:collection">
 				<img style="max-width: 150px" src="{PATH_TO_ROOT}/sandbox/templates/images/square.png" alt="Sit dolor amet" />
 			</a>
 		</div>
@@ -41,8 +41,8 @@
 			<h5>{@sandbox.component.movie} {@H|sandbox.pinned.bbcode}</h5>
 		</header>
 		<div class="media-content" style="width: 800px; height: 450px">
-			<video class="video-player" poster="{PATH_TO_ROOT}/sandbox/templates/images/paysage.png" controls="">
-				<source src="https://dl.phpboost.com/videos/intro.mp4" type="video/mp4" />
+			<video class="video-player" poster="{PATH_TO_ROOT}/modules/sandbox/templates/images/paysage.png" controls="">
+				<source src="https://dl.phpboost.com/media/intro.mp4" type="video/mp4" />
 			</video>
 		</div>
 	</article>
@@ -53,7 +53,7 @@
 		</header>
 		<div class="content">
 			<audio class="audio-player" controls>
-				<source src="http://data.babsoweb.com/babsodata/tom/herbiestyle.mp3" />
+				<source src="https://dl.phpboost.com/media/herbiestyle.mp3" />
 			</audio>
 		</div>
 	</article>
