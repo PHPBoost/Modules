@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 23
  * @since       PHPBoost 1.2 - 2005 08 17
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -236,7 +236,7 @@ if ($nbr_pics > 0)
 			while ($row = $result->fetch())
 			{
 				//Si la miniature n'existe pas (cache vidé) on regénère la miniature à partir de l'image en taille réelle.
-				if (!file_exists('pics/thumbnails/' . $row['path']))
+				if (!file_exists('modules/gallery/pics/thumbnails/' . $row['path']))
 					$Gallery->Resize_pics('pics/' . $row['path']); //Redimensionnement + création miniature
 
 				//Affichage de la liste des miniatures sous l'image.
@@ -385,11 +385,11 @@ if ($nbr_pics > 0)
 
 			//Affichage de l'image en grand.
 			if ($config->get_pics_enlargement_mode() == GalleryConfig::FULL_SCREEN) //Ouverture en popup plein écran.
-				$display_link = HOST . DIR . '/gallery/show_pics' . url('.php?id=' . $row['id'] . '&amp;cat=' . $row['id_category']);
+				$display_link = HOST . DIR . '/modules/gallery/show_pics' . url('.php?id=' . $row['id'] . '&amp;cat=' . $row['id_category']);
 			elseif ($config->get_pics_enlargement_mode() == GalleryConfig::POPUP) //Ouverture en popup simple.
-				$display_link = 'javascript:display_pics_popup(\'' . HOST . DIR . '/gallery/show_pics' . url('.php?id=' . $row['id'] . '&amp;cat=' . $row['id_category']) . '\', \'' . $row['width'] . '\', \'' . $row['height'] . '\')';
+				$display_link = 'javascript:display_pics_popup(\'' . HOST . DIR . '/modules/gallery/show_pics' . url('.php?id=' . $row['id'] . '&amp;cat=' . $row['id_category']) . '\', \'' . $row['width'] . '\', \'' . $row['height'] . '\')';
 			elseif ($config->get_pics_enlargement_mode() == GalleryConfig::RESIZE) //Ouverture en agrandissement simple.
-				$display_link = 'javascript:display_pics(' . $row['id'] . ', \'' . HOST . DIR . '/gallery/show_pics' . url('.php?id=' . $row['id'] . '&amp;cat=' . $row['id_category']) . '\', 0)';
+				$display_link = 'javascript:display_pics(' . $row['id'] . ', \'' . HOST . DIR . '/modules/gallery/show_pics' . url('.php?id=' . $row['id'] . '&amp;cat=' . $row['id_category']) . '\', 0)';
 			else //Ouverture nouvelle page.
 				$display_link = 'admin_gallery.php?cat=' . $row['id_category'] . '&amp;id=' . $row['id'] . '#pics_max';
 

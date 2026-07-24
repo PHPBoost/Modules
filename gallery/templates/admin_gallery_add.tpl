@@ -60,7 +60,7 @@
 							<div class="spacer"></div>
 							<strong>{image_up.NAME}</strong>
 							<div class="spacer"></div>
-							<a href="{image_up.U_ITEM}"><img src="pics/{image_up.PATH}" alt="{image_up.NAME}" /></a>
+							<a href="{image_up.U_ITEM}"><img src="{PATH_TO_ROOT}/modules/gallery/pics/{image_up.PATH}" alt="{image_up.NAME}" /></a>
 							<div class="spacer"></div>
 						</div>
 					# END image_up #
@@ -136,7 +136,7 @@
 							</div>
 							<div class="cell-body">
 								<div class="cell-thumbnail cell-landscape">
-									<img src="pics/{list.NAME}" alt="{list.NAME}" />
+									<img src="{PATH_TO_ROOT}/modules/gallery/pics/{list.NAME}" alt="{list.NAME}" />
 								</div>
 							</div>
 							<div class="cell-list">

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Alain091 <alain091@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 23
  * @since       PHPBoost 3.0 - 2011 08 07
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -57,7 +57,7 @@ class GalleryFeedProvider implements FeedProvider
 				$item->set_link($link);
 				$item->set_guid($link);
 				$item->set_date(new Date($row['timestamp'], Timezone::SERVER_TIMEZONE));
-				$item->set_image_url(Url::to_rel('/gallery/pics/' . $row['path']));
+				$item->set_image_url(Url::to_rel('/modules/gallery/pics/' . $row['path']));
 				$item->set_auth(CategoriesService::get_categories_manager('gallery')->get_heritated_authorizations($row['id_category'], Category::READ_AUTHORIZATIONS, Authorizations::AUTH_PARENT_PRIORITY));
 
 				$data->add_item($item);

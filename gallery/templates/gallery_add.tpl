@@ -14,7 +14,7 @@
 							<div class="spacer"></div>
 							<strong>{image_up.NAME}</strong>
 							<div class="spacer"></div>
-							<a class="offload" href="gallery.php?cat={image_up.ID_CATEGORY}&amp;id={image_up.ID}#pics_max"><img src="pics/{image_up.PATH}" alt="{image_up.NAME}" /></a>
+							<a class="offload" href="gallery.php?cat={image_up.ID_CATEGORY}&amp;id={image_up.ID}#pics_max"><img src="{PATH_TO_ROOT}/modules/gallery/pics/{image_up.PATH}" alt="{image_up.NAME}" /></a>
 							<div class="spacer"></div>
 							<a class="offload" href="gallery.php?cat={image_up.ID_CATEGORY}">{image_up.CATEGORY_NAME}</a>
 						# END image_up #

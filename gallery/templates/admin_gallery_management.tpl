@@ -5,7 +5,7 @@
 		document.getElementById('pics_max').innerHTML = '';
 		if( previous_path_pics != path )
 		{
-			document.getElementById('pics_max').innerHTML = '<img src="' + path + '" alt="' + path + '" /></a>';
+			document.getElementById('pics_max').innerHTML = '<img src="{PATH_TO_ROOT}/modules/gallery/pics/' + path + '" alt="' + path + '" /></a>';
 			previous_path_pics = path;
 		}
 	}
@@ -184,12 +184,12 @@
 				var key_right = start_thumb + j;
 				if( direction == 'left' && array_pics[key_left] )
 				{
-					document.getElementById('thumb' + i).innerHTML = '<a href="admin_gallery' + array_pics[key_left]['link'] + '"><img src="pics/thumbnails/' + array_pics[key_left]['path'] + '" alt="' + array_pics[key_left]['path'] + '" /></a>';
+					document.getElementById('thumb' + i).innerHTML = '<a href="admin_gallery' + array_pics[key_left]['link'] + '"><img src="{PATH_TO_ROOT}/modules/gallery/pics/thumbnails/' + array_pics[key_left]['path'] + '" alt="' + array_pics[key_left]['path'] + '" /></a>';
 					j++;
 				}
 				else if( direction == 'right' && array_pics[key_right] )
 				{
-					document.getElementById('thumb' + i).innerHTML = '<a href="admin_gallery' + array_pics[key_right]['link'] + '"><img src="pics/thumbnails/' + array_pics[key_right]['path'] + '" alt="' + array_pics[key_right]['path'] + '" /></a>';
+					document.getElementById('thumb' + i).innerHTML = '<a href="admin_gallery' + array_pics[key_right]['link'] + '"><img src="{PATH_TO_ROOT}/modules/gallery/pics/thumbnails/' + array_pics[key_right]['path'] + '" alt="' + array_pics[key_right]['path'] + '" /></a>';
 					j++;
 				}
 			}
@@ -277,13 +277,13 @@
 					<tbody>
 						<tr>
 							<td id="pics_max" colspan="{pics.pics_max.COLSPAN_THUMBNAIL}">
-								<img src="show_pics.php?id={pics.ID}&amp;cat={pics.ID_CATEGORY}" alt="{pics.CATEGORY_NAME}" />
+								<img src="{PATH_TO_ROOT}/modules/gallery/show_pics.php?id={pics.ID}&amp;cat={pics.ID_CATEGORY}" alt="{pics.CATEGORY_NAME}" />
 							</td>
 						</tr>
 						<tr>
 							# IF pics.pics_max.C_PREVIOUS #
 								<td class="align-left">
-									<a href="admin_gallery.php?cat={pics.pics_max.ID_CATEGORY}&amp;id={pics.pics_max.ID_PREVIOUS}#pics_max" class="fa fa-arrow-left"></a> <a href="admin_gallery.php?cat={pics.pics_max.ID_CATEGORY}&amp;id={pics.pics_max.ID_PREVIOUS}#pics_max">{@common.previous}</a>
+									<a href="/admin_gallery.php?cat={pics.pics_max.ID_CATEGORY}&amp;id={pics.pics_max.ID_PREVIOUS}#pics_max" class="fa fa-arrow-left"></a> <a href="admin_gallery.php?cat={pics.pics_max.ID_CATEGORY}&amp;id={pics.pics_max.ID_PREVIOUS}#pics_max">{@common.previous}</a>
 								</td>
 							# ENDIF #
 							# IF pics.pics_max.C_NEXT #
@@ -373,7 +373,7 @@
 							</td>
 
 							# START pics.pics_max.list_preview_pics #
-								<td class="align-center# IF pics.pics_max.list_preview_pics.C_CURRENT_ITEM # current# ENDIF #" style="height:{pics.pics_max.list_preview_pics.HEIGHT}px"><span id="thumb{pics.pics_max.list_preview_pics.ID}"><a href="{pics.pics_max.list_preview_pics.URL}"><img src="pics/thumbnails/{pics.pics_max.list_preview_pics.PATH}" alt="{pics.pics_max.list_preview_pics.NAME}" /></a></span></td>
+								<td class="align-center# IF pics.pics_max.list_preview_pics.C_CURRENT_ITEM # current# ENDIF #" style="height:{pics.pics_max.list_preview_pics.HEIGHT}px"><span id="thumb{pics.pics_max.list_preview_pics.ID}"><a href="{pics.pics_max.list_preview_pics.URL}"><img src="{PATH_TO_ROOT}/modules/gallery/pics/thumbnails/{pics.pics_max.list_preview_pics.PATH}" alt="{pics.pics_max.list_preview_pics.NAME}" /></a></span></td>
 							# END pics.pics_max.list_preview_pics #
 
 
@@ -406,9 +406,9 @@
 									<div class="cell-body">
 										<div class="cell-thumbnail cell-landscape">
 											<div id="pics{pics.list.ID}" class="pics-list-element">
-												<img src="pics/{pics.list.PATH}" alt="{pics.list.ALT_NAME}" />
+												<img src="{PATH_TO_ROOT}/modules/gallery/pics/{pics.list.PATH}" alt="{pics.list.ALT_NAME}" />
 											</div>
-											<a class="cell-thumbnail-caption" href="pics/{pics.list.PATH}" data-lightbox="formatter" aria-label="{pics.list.NAME}">{@form.picture.preview}</a>
+											<a class="cell-thumbnail-caption" href="{PATH_TO_ROOT}/modules/gallery/pics/{pics.list.PATH}" data-lightbox="formatter" aria-label="{pics.list.NAME}">{@form.picture.preview}</a>
 										</div>
 									</div>
 									<div class="cell-list">
