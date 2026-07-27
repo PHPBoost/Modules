@@ -14,7 +14,7 @@ class SmalladsSetup extends DefaultModuleSetup
 	public static $smallads_table;
 	public static $smallads_cats_table;
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $messages;
 

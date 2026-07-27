@@ -27,7 +27,7 @@ class ForumSetup extends DefaultModuleSetup
 	private $querier;
 
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $install_lang;
 

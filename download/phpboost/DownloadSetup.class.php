@@ -14,7 +14,7 @@ class DownloadSetup extends DefaultModuleSetup
 	public static $download_cats_table;
 
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $messages;
 

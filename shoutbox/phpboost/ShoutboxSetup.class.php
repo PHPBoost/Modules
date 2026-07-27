@@ -13,7 +13,7 @@ class ShoutboxSetup extends DefaultModuleSetup
 {
 	public static $shoutbox_table;
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $messages;
 

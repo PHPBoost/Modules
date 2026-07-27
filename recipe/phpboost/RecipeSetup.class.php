@@ -13,7 +13,7 @@ class RecipeSetup extends DefaultModuleSetup
 	public static $recipe_cats_table;
 
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $messages;
 

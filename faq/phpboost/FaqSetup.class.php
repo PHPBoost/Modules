@@ -14,7 +14,7 @@ class FaqSetup extends DefaultModuleSetup
 	public static $faq_cats_table;
 
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $messages;
 

@@ -14,7 +14,7 @@ class WebSetup extends DefaultModuleSetup
 	public static $web_cats_table;
 
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $messages;
 

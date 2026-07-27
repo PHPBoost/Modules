@@ -16,7 +16,7 @@ class MediaSetup extends DefaultModuleSetup
 	public static $media_cats_table;
 
 	/**
-	 * @var string[string] localized messages
+	 * @var string[] localized messages
 	 */
 	private $messages;
 
