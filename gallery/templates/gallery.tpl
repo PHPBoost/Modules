@@ -448,8 +448,8 @@
 						# IF C_ITEMS #
 							<div class="cell-flex cell-columns-{COLUMNS_NUMBER} cell-tile">
 								# START pics_list #
-									<div class="cell small# IF pics_list.C_NEW_CONTENT # new-content# ENDIF #">
-										<div class="cell-header">
+									<div class="cell# IF pics_list.C_NEW_CONTENT # new-content# ENDIF #">
+										<div class="cell-header small">
 											# IF C_NAME_DISPLAYED #
 												<div class="cell-name">
 													<a id="fi_{pics_list.ID}" class="ellipsis offload" href="{pics_list.U_ITEM}">
@@ -470,7 +470,7 @@
 												</a>
 											</div>
 										</div>
-										<div class="cell-list">
+										<div class="cell-list small">
 											<ul>
 												# IF C_AUTHOR_DISPLAYED #
 													<li>
