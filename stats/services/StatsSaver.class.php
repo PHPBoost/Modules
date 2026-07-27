@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 27
  * @since       PHPBoost 2.0 - 2008 08 23
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -239,7 +239,10 @@ class StatsSaver
         {
             $file_content = $file->read();
             if ($file_content)
-                $stats_array = TextHelper::deserialize($file_content);
+            {
+                $decoded_stats = TextHelper::deserialize($file_content);
+                $stats_array = is_array($decoded_stats) ? $decoded_stats : [];
+            }
         }
         return $stats_array;
     }
