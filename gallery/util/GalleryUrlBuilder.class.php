@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Alain091 <alain091@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 27
  * @since       PHPBoost 3.0 - 2011 08 13
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      xela <xela@phpboost.com>
@@ -13,63 +13,45 @@ class GalleryUrlBuilder
 {
 	private static $dispatcher = '/gallery';
 
-	/**
-	 * @return Url
-	 */
-	public static function configuration()
+	public static function configuration(): Url
 	{
 		return new Url('/gallery/admin_gallery_config.php');
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function manage()
+	public static function manage(): Url
 	{
 		return new Url('/gallery/admin_gallery.php');
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function display_category($id, $rewrited_name, $page = 1)
+	public static function display_category($id, $rewrited_name, $page = 1): Url
 	{
 		return new Url('/gallery/gallery' . url('.php?cat=' . $id . ($page !== 1 ? '&p=' . $page : ''), '-' . $id . '-' . $rewrited_name . ($page !== 1 ? '-' . $page : '') . '.php'));
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function admin_add($id_category = null)
+	public static function admin_add($id_category = null): Url
 	{
 		return new Url('/gallery/admin_gallery_add.php' . (!empty($id_category) ? '?cat=' . $id_category : ''));
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function add($id_category = null)
+	public static function add($id_category = null): Url
 	{
 		return new Url('/gallery/gallery.php?add=1' . (!empty($id_category) ? '&cat=' . $id_category : ''));
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function home()
+	public static function home(): Url
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/');
 	}
 
 
 	// TODO : supprimer ce qui est en dessous si possible
-	public static function get_link_item($id_category, $id, $com = null, $sort = null)
+	public static function get_link_item($id_category, $id, $com = null, $sort = null): string
 	{
 		return Url::to_rel('/gallery/gallery' . url('.php?cat=' . $id_category . '&id=' . $id . (!empty($com) ? '&com=' . $com : '') . (!empty($sort) ? '&sort=' . $sort : ''),
 			'-' . $id_category . '-' . $id . '.php' . (!empty($com) ? '?com=' . $com : '') . (!empty($sort) ? '&sort=' . $sort : '')));
 	}
 
-	public static function get_link_cat($id, $name = null)
+	public static function get_link_cat($id, $name = null): string
 	{
 		if (!empty($name))
 			$name = '-' . Url::encode_rewrite($name);
@@ -77,7 +59,7 @@ class GalleryUrlBuilder
 		return Url::to_rel('/gallery/gallery'.url('.php?cat='.$id, '-'.$id.$name.'.php'));
 	}
 
-	public static function get_link_cat_add($id, $error = null, $token = null)
+	public static function get_link_cat_add($id, $error = null, $token = null): string
 	{
 		if (!empty($error))
 			$error = '&error='. $error;
@@ -89,10 +71,7 @@ class GalleryUrlBuilder
 			'&'));
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function documentation()
+	public static function documentation(): Url
 	{
 		return new Url (ModulesManager::get_module('gallery')->get_configuration()->get_documentation());
 	}
