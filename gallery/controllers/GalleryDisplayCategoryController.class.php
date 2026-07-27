@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 27
  * @since       PHPBoost 4.1 - 2015 02 04
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -178,15 +178,15 @@ class GalleryDisplayCategoryController extends ModuleController
 			'ITEMS_NUMBER'             => $nbr_pics,
 
 			'U_EDIT_CATEGORY'    => $category->get_id() == Category::ROOT_CATEGORY ? GalleryUrlBuilder::configuration()->rel() : CategoriesUrlBuilder::edit($category->get_id(), 'gallery')->rel(),
-			'U_BEST_VIEWS'       => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?views=1&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '.php?views=1'),
-			'U_BEST_NOTES'       => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?notes=1&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '.php?notes=1'),
-			'U_ASC'              => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?cat=' . $category->get_id() . '&amp;sort=' . $g_type . '_' . 'asc', '-' . $category->get_id() . '.php?sort=' . $g_type . '_' . 'asc'),
-			'U_DESC'             => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?cat=' . $category->get_id() . '&amp;sort=' . $g_type . '_' . 'desc', '-' . $category->get_id() . '.php?sort=' . $g_type . '_' . 'desc'),
-			'U_SORT_BY_NAME'     => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?sort=name_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=name_desc'),
-			'U_SORT_BY_DATE'     => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?sort=date_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=date_desc'),
-			'U_SORT_BY_VIEWS'    => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?sort=views_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=views_desc'),
-			'U_SORT_BY_NOTES'    => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?sort=notes_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=notes_desc'),
-			'U_SORT_BY_COMMENTS' => PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?sort=com_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=com_desc'),
+			'U_BEST_VIEWS'       => Url::to_rel('/gallery/gallery' . url('.php?views=1&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '.php?views=1')),
+			'U_BEST_NOTES'       => Url::to_rel('/gallery/gallery' . url('.php?notes=1&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '.php?notes=1')),
+			'U_ASC'              => Url::to_rel('/gallery/gallery' . url('.php?cat=' . $category->get_id() . '&amp;sort=' . $g_type . '_' . 'asc', '-' . $category->get_id() . '.php?sort=' . $g_type . '_' . 'asc')),
+			'U_DESC'             => Url::to_rel('/gallery/gallery' . url('.php?cat=' . $category->get_id() . '&amp;sort=' . $g_type . '_' . 'desc', '-' . $category->get_id() . '.php?sort=' . $g_type . '_' . 'desc')),
+			'U_SORT_BY_NAME'     => Url::to_rel('/gallery/gallery' . url('.php?sort=name_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=name_desc')),
+			'U_SORT_BY_DATE'     => Url::to_rel('/gallery/gallery' . url('.php?sort=date_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=date_desc')),
+			'U_SORT_BY_VIEWS'    => Url::to_rel('/gallery/gallery' . url('.php?sort=views_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=views_desc')),
+			'U_SORT_BY_NOTES'    => Url::to_rel('/gallery/gallery' . url('.php?sort=notes_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=notes_desc')),
+			'U_SORT_BY_COMMENTS' => Url::to_rel('/gallery/gallery' . url('.php?sort=com_desc&amp;cat=' . $category->get_id(), '-' . $category->get_id() . '-' . $rewrite_title . '.php?sort=com_desc')),
 		]);
 
 		##### Affichage des photos #####
@@ -252,7 +252,7 @@ class GalleryDisplayCategoryController extends ModuleController
 
 				if ($info_pics && !empty($info_pics['id']))
 				{
-					$Bread_crumb->add(stripslashes($info_pics['name']), PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?cat=' . $info_pics['id_category'] . '&amp;id=' . $info_pics['id'], '-' . $info_pics['id_category'] . '-' . $info_pics['id'] . '.php'));
+					$Bread_crumb->add(stripslashes($info_pics['name']), PATH_TO_ROOT . '/gallery/gallery' . url('.php?cat=' . $info_pics['id_category'] . '&amp;id=' . $info_pics['id'], '-' . $info_pics['id_category'] . '-' . $info_pics['id'] . '.php'));
 
 					//Affichage miniatures.
 					$id_previous = 0;
