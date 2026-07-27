@@ -400,7 +400,7 @@
 								<div class="cell">
 									<div class="cell-header">
 										<div class="cell-name">
-											<a class="com" href="{pics.list.U_ITEM}"><span id="fi_{pics.list.ID}">{pics.list.NAME}</span></a> <span id="fi{pics.list.ID}"></span>
+											<a# IF pics.list.C_FULLSCREEN # data-lightbox="formatter"# ELSE # class="offload"# ENDIF # href="{pics.list.U_ITEM}"><span id="fi_{pics.list.ID}">{pics.list.NAME}</span></a> <span id="fi{pics.list.ID}"></span>
 										</div>
 									</div>
 									<div class="cell-body">
