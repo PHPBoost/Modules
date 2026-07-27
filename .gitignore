@@ -4,6 +4,14 @@
 # Flux
 flux/xml/*
 
+# Gallery
+gallery/pics/*
+!gallery/pics/thumbnails
+!gallery/pics/phpboost-logo.png
+gallery/pics/thumbnails/*
+!gallery/pics/thumbnails/phpboost-logo.png
+
 # Stats
 stats/cache/*
 !stats/cache/.empty
+
