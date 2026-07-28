@@ -52,10 +52,4 @@ $lang['sandbox.bbcode.table']             = 'Table';
 $lang['sandbox.bbcode.table.header']      = 'Header';
 $lang['sandbox.bbcode.table.name']        = 'Name';
 $lang['sandbox.bbcode.table.description'] = 'Description';
-
-// Wiki
-$lang['sandbox.bbcode.wiki.disabled']          = 'The Wiki module is not installed and/or activated.';
-$lang['sandbox.bbcode.wiki.conditions']        = 'You must overload the wiki into your template to see changes.';
-$lang['sandbox.bbcode.wiki.module']            = 'Wiki Module';
-$lang['sandbox.bbcode.wiki.table.of.contents'] = 'Contents summary';
 ?>

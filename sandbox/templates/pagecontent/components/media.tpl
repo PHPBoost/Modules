@@ -20,10 +20,10 @@
 		</header>
 		<div class="content">
 			<a href="{PATH_TO_ROOT}/modules/sandbox/templates/images/paysage.png" data-lightbox="formatter" data-rel="lightcase:collection">
-				<img style="max-width: 150px" src="{PATH_TO_ROOT}/sandbox/templates/images/paysage.png" alt="Lorem ipsum" />
+				<img style="max-width: 150px" src="{PATH_TO_ROOT}/modules/sandbox/templates/images/paysage.png" alt="Lorem ipsum" />
 			</a>
 			<a href="{PATH_TO_ROOT}/modules/sandbox/templates/images/square.png" data-lightbox="formatter" data-rel="lightcase:collection">
-				<img style="max-width: 150px" src="{PATH_TO_ROOT}/sandbox/templates/images/square.png" alt="Sit dolor amet" />
+				<img style="max-width: 150px" src="{PATH_TO_ROOT}/modules/sandbox/templates/images/square.png" alt="Sit dolor amet" />
 			</a>
 		</div>
 	</article>

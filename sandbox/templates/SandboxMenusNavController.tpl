@@ -31,14 +31,14 @@
 
 <script>
 	jQuery(document).ready(function() {
-		jQuery('#top-header-content').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/header.tpl');
-		jQuery('#inner-header-content').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/header.tpl');
-		jQuery('#sub-header-content').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/sub-header.tpl');
-		jQuery('#top-content').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/top-content.tpl');
-		jQuery('aside#menu-left').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/vertical-left.tpl');
-		jQuery('aside#menu-right').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/vertical-right.tpl');
-		jQuery('#bottom-content').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/bottom-content.tpl');
-		jQuery('#top-footer').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/top-footer.tpl');
-		jQuery('#footer-content').load('{PATH_TO_ROOT}/sandbox/templates/pagecontent/menus/footer.tpl');
+		jQuery('#top-header-content').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/header.tpl');
+		jQuery('#inner-header-content').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/header.tpl');
+		jQuery('#sub-header-content').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/sub-header.tpl');
+		jQuery('#top-content').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/top-content.tpl');
+		jQuery('aside#menu-left').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/vertical-left.tpl');
+		jQuery('aside#menu-right').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/vertical-right.tpl');
+		jQuery('#bottom-content').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/bottom-content.tpl');
+		jQuery('#top-footer').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/top-footer.tpl');
+		jQuery('#footer-content').load('{PATH_TO_ROOT}/modules/sandbox/templates/pagecontent/menus/footer.tpl');
 	});
 </script>

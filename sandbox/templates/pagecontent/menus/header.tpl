@@ -2,7 +2,7 @@
     <ul class="level-0">
         <li>
             <a class="cssmenu-title" href="#">
-                <img src="../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
+                <img src="../../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
                 <span>Element</span>
             </a>
         </li>
@@ -11,19 +11,19 @@
             <ul class="level-1">
                 <li>
                     <a class="cssmenu-title" href="#">
-                        <img src="../../sandbox/templates/images/square.png" alt="Element" width="64" height="64" />
+                        <img src="../../../modules/sandbox/templates/images/square.png" alt="Element" width="64" height="64" />
                         <span>Lorem ipsum dolor sit amet</span>
                     </a>
                 </li>
                 <li class="has-sub">
                     <span class="cssmenu-title" href="#">
-                        <img src="../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
+                        <img src="../../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
                         <span>SubMenu Element</span>
                     </span>
                     <ul class="level-2">
                         <li>
                             <a class="cssmenu-title" href="#">
-                                <img src="../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
+                                <img src="../../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
                                 <span>Element</span>
                             </a>
                         </li>
@@ -32,19 +32,19 @@
                             <ul class="level-3">
                                 <li>
                                     <a class="cssmenu-title" href="#">
-                                        <img src="../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
+                                        <img src="../../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
                                         <span>Element</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="cssmenu-title" href="#">
-                                        <img src="../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
+                                        <img src="../../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
                                         <span>Element</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="cssmenu-title" href="#">
-                                        <img src="../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
+                                        <img src="../../../templates/__default__/theme/images/logo.svg" alt="Element" width="16" height="18" />
                                         <span>Element</span>
                                     </a>
                                 </li>

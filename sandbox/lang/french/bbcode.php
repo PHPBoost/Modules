@@ -52,10 +52,4 @@ $lang['sandbox.bbcode.table']             = 'Tableaux';
 $lang['sandbox.bbcode.table.header']      = 'Entête';
 $lang['sandbox.bbcode.table.name']        = 'Nom';
 $lang['sandbox.bbcode.table.description'] = 'Description';
-
-// Wiki
-$lang['sandbox.bbcode.wiki.disabled']          = 'Le module Wiki n\'est pas installé et/ou activé.';
-$lang['sandbox.bbcode.wiki.conditions']        = 'Vous devez porter le module wiki dans votre thème pour que vos modifications soient actives.';
-$lang['sandbox.bbcode.wiki.module']            = 'Module Wiki';
-$lang['sandbox.bbcode.wiki.table.of.contents'] = 'Table des matières';
 ?>

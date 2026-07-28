@@ -49,7 +49,7 @@ $lang['sandbox.icons.icomoon.howto.clue'] = '
     <p>L\'application Icomoon permet d\'ajouter des icônes personnalisées sous forme d\'icon font à l\'instar de Font-Awesome.</p>
     <p>Ainsi, moyennant une petite astuce à la création des icônes, il sera possible de les utiliser autant en html que dans le contenu des articles via le bbcode.</p>
 ';
-$lang['sandbox.icons.icomoon.howto.update'] = 'Cette méthode est implémentable quelque soit la version de PHPBoost et une occurence appelée <span class="text-strong">ICOBoost</span> est implémentée depuis la version 6.0. Cette dernière est nécessaire pour afficher certaines icônes dans phpboost qui n\'existent pas dans Font-Awesome.';
+$lang['sandbox.icons.icomoon.howto.update'] = 'Cette méthode est implémentable quelque soit la version de PHPBoost et une occurrence appelée <span class="text-strong">ICOBoost</span> est implémentée depuis la version 6.0. Cette dernière est nécessaire pour afficher certaines icônes dans phpboost qui n\'existent pas dans Font-Awesome.';
 $lang['sandbox.icons.icomoon.howto.guide.title'] = 'L\'application';
 $lang['sandbox.icons.icomoon.howto.guide'] = '
     <p>

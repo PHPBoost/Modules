@@ -14,15 +14,10 @@ class SandboxExtensionPointProvider extends ModuleExtensionPointProvider
     public function css_files()
     {
         $module_css_files = parent::css_files();
-
         if ($module_css_files)
         {
             $module_css_files->adding_always_displayed_file('/templates/__default__/theme/icoboost/icoboost.css');
-
-            if (ModulesManager::is_module_installed('wiki') && ModulesManager::is_module_activated('wiki'))
-                $module_css_files->adding_running_module_displayed_file('wiki.css', 'wiki');
         }
-
         return $module_css_files;
     }
 

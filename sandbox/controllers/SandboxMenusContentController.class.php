@@ -71,8 +71,7 @@ class SandboxMenusContentController extends DefaultModuleController
 					new FormFieldActionLinkElement($this->lang['sandbox.menu.link.img'], '#', 'sandbox-svg-icon', '/templates/__default__/theme/images/logo.svg'),
 					new FormFieldActionLinkElement($this->lang['sandbox.menu.link'].' 3', '#', ''),
 					new FormFieldActionLinkElement($this->lang['sandbox.menu.link'].' 4', '#', '')
-				],
-				['class' => 'css-class']
+				]
 			));
 
 		return $basic_form;

@@ -72,7 +72,6 @@ $lang['sandbox.hashtag.sortable'] = '# Sortables';
 // Bbcode
 $lang['sandbox.hashtag.blocks'] = '# Blocs';
 $lang['sandbox.hashtag.code']   = '# Code';
-$lang['sandbox.hashtag.wiki']   = '# Wiki';
 
 // Menus
 $lang['sandbox.hashtag.links']     = '# Liens';

@@ -37,7 +37,7 @@
                             <ul>
                                 <li class="li-stretch">
                                     <span>{@sandbox.layout.messages.level}</span>
-                                    <img src="{PATH_TO_ROOT}/forum/templates/images/ranks/rank_admin.png" />
+                                    <img src="${Url::to_rel('/modules/forum/templates/images/ranks/rank_admin.png')}" />
                                 </li>
                                 <li class="li-stretch">
                                     <span>{@common.see.profile}</span>
@@ -117,7 +117,7 @@
                 &lt;ul>
                     &lt;li class="li-stretch">
                         &lt;span>{@sandbox.layout.messages.level}&lt;/span>
-                        &lt;img src="/images/group/link" alt="alt name" />
+                        &lt;img src="/path/to/image" alt="alt name" />
                     &lt;/li>
                     &lt;li class="li-stretch">
                         &lt;span>{@common.see.profile}&lt;/span>
@@ -134,7 +134,7 @@
                     &lt;li>{@user.groups} :&lt;/li>
                     &lt;li class="li-stretch">
                         &lt;a href="#">Com&lt;/a>
-                        &lt;img src="http://data.babsoweb.com/babsodata/phpboost/graph/group-icon/com.png" alt="group picture" />
+                        &lt;img src="/path/to/image" alt="group picture" />
                     &lt;/li>
                     &lt;li>
                         &lt;span>{@sandbox.layout.user.sign}&lt;/span>

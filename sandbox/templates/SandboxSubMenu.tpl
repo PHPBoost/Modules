@@ -72,7 +72,6 @@
                     <li><a href="{U_BBCODE}/#bbcode-code" class="cssmenu-title offload"><span>{@sandbox.hashtag.code}</span></a></li>
                     <li><a href="{U_BBCODE}/#bbcode-lists" class="cssmenu-title offload"><span>{@sandbox.hashtag.lists}</span></a></li>
                     <li><a href="{U_BBCODE}/#bbcode-table" class="cssmenu-title offload"><span>{@sandbox.hashtag.table}</span></a></li>
-                    <li><a href="{U_BBCODE}/#bbcode-wiki" class="cssmenu-title offload"><span>{@sandbox.hashtag.wiki}</span></a></li>
                 </ul>
             </li>
             <li class="has-sub">

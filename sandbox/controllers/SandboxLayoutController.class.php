@@ -45,7 +45,7 @@ class SandboxLayoutController extends DefaultModuleController
 			'TODAY' => $date->format(Date::FORMAT_DAY_MONTH_YEAR),
 			'TODAY_TIME' => $date->format(Date::FORMAT_DAY_MONTH_YEAR_HOUR_MINUTE),
 			'NO_AVATAR_URL' => Url::to_rel(FormFieldThumbnail::get_default_thumbnail_url(UserAccountsConfig::NO_AVATAR_URL)),
-			'U_PICTURE' => Url::to_rel('/sandbox/templates/images/default.png'),
+			'U_PICTURE' => Url::to_rel('/modules/sandbox/templates/images/default.png'),
 		]);
 
 		return $view;
