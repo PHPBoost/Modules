@@ -17,7 +17,7 @@
 
 .cell-grid-demo {
 	height: 80px;
-	background-color: rgba(var(--main-rgb-l), 0.5);
+	background-color: rgba(var(--main-tone-rgb), 0.5);
 	display: flex;
 	justify-content: center;
 	align-items: center;

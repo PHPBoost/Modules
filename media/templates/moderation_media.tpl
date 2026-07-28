@@ -121,13 +121,13 @@
 									<tr>
 										<td colspan="7">
 											<div class="align-center">
-												<span class="pinned small" data-color-surround="rgba(var(--error-rgb-t), 0.4)">
+												<span class="pinned small" data-color-surround="rgba(var(--error-tone-rgb), 0.4)">
 													{@media.disapproved.description}
 												</span>
-												<span class="pinned small" data-color-surround="rgba(var(--warning-rgb-t), 0.4)">
+												<span class="pinned small" data-color-surround="rgba(var(--warning-tone-rgb), 0.4)">
 													{@media.invisible.description}
 												</span>
-												<span class="pinned small" data-color-surround="rgba(var(--success-rgb-t), 0.4)">
+												<span class="pinned small" data-color-surround="rgba(var(--success-tone-rgb), 0.4)">
 													{@media.visible.description}
 												</span>
 											</div>

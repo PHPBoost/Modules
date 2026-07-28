@@ -86,4 +86,4 @@
 
 .mr5 { margin-right: 0.309em; }
 
-td.current { background-color: rgba(var(--main-rgb-t), 0.1); }
+td.current { background-color: rgba(var(--main-tone-rgb), 0.1); }

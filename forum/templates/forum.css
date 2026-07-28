@@ -46,7 +46,7 @@ article header ul.pagination,
 article footer ul.pagination { display: inline; }
 
 /*--- Topic details --- */
-.selected-message { background-color: rgba(var(--success-rgb-t), 0.2);}
+.selected-message { background-color: rgba(var(--success-tone-rgb), 0.2);}
 
 .user-group { display: block; }
 

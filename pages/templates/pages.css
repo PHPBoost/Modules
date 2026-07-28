@@ -14,7 +14,7 @@
 #category-nav ul ul,
 #module-pages .root-ul { padding-left: 1.618em; }
 
-#category-nav .categories-item:hover { background-color: rgba(var(--main-rgb-d), 0.2); }
+#category-nav .categories-item:hover { background-color: rgba(var(--main-dark-rgb), 0.2); }
 
 .categories-item {
 	position: relative;
