@@ -28,8 +28,8 @@ class SandboxIconsController extends DefaultModuleController
 	private function build_view()
 	{
 		$this->view->put_all([
-			'FAS'              => self::get_fa_list(PATH_TO_ROOT . '/templates/__default__/theme/font-awesome/css/solid.css', 'fas'),
-			'FAB'              => self::get_fa_list(PATH_TO_ROOT . '/templates/__default__/theme/font-awesome/css/brands.css', 'fab'),
+			'FAS'             => self::get_fa_list(PATH_TO_ROOT . '/kernel/lib/css/font-awesome/css/solid.css', 'fas'),
+			'FAB'             => self::get_fa_list(PATH_TO_ROOT . '/kernel/lib/css/font-awesome/css/brands.css', 'fab'),
 			'ICOMOON'         => self::build_markup('sandbox/pagecontent/icons/icomoon.tpl'),
 			'SANDBOX_SUBMENU' => SandboxSubMenu::get_submenu()
 		]);
