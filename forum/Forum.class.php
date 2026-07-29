@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 29
  * @since       PHPBoost 2.0 - 2007 12 10
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -238,7 +238,7 @@ class Forum
         //Insertion de l'action dans l'historique.
         if (AppContext::get_current_user()->get_id() != $user_id_msg)
         forum_history_collector(H_EDIT_TOPIC, $user_id_msg, 'topic' . url('.php?id=' . $idtopic, '-' . $idtopic . '.php', '&'));
-
+        $topic = [];
         try {
             $topic = PersistenceContext::get_querier()->select_single_row(PREFIX . 'forum_topics', ['id', 'user_id', 'id_category', 'title', 'subtitle', 'nbr_msg', 'last_msg_id', 'first_msg_id', 'last_timestamp', 'status', 'display_msg'], 'WHERE id=:id', ['id' => $idtopic]);
         } catch (RowNotFoundException $e) {}

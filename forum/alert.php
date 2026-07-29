@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 07 29
  * @since       PHPBoost 1.5 - 2006 08 07
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
@@ -11,13 +11,13 @@
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
+/** @var ForumConfig $config */
+/** @var array $lang */
 define('PATH_TO_ROOT', '../..');
 
 require_once(PATH_TO_ROOT . '/kernel/begin.php');
 require_once(ModulesManager::get_module_path('forum') . '/forum_begin.php');
 require_once(ModulesManager::get_module_path('forum') . '/forum_tools.php');
-
-$lang = LangLoader::get_all_langs('forum');
 
 $request = AppContext::get_request();
 
@@ -35,9 +35,11 @@ try {
 $category = CategoriesService::get_categories_manager('forum')->get_categories_cache()->get_category($topic['id_category']);
 
 $topic_name = !empty($topic['title']) ? stripslashes($topic['title']) : '';
+
 $Bread_crumb->add($config->get_forum_name(), 'index.php');
 $Bread_crumb->add($category->get_name(), 'forum' . url('.php?id=' . $topic['id_category'], '-' . $topic['id_category'] . '-' . $category->get_rewrited_name() . '.php'));
 $Bread_crumb->add($topic['title'], 'topic' . url('.php?id=' . $alert, '-' . $alert . '-' . Url::encode_rewrite($topic_name) . '.php'));
+
 $Bread_crumb->add($lang['forum.report.topic.title'], '');
 
 define('TITLE', $lang['forum.report.topic.title']);

@@ -310,11 +310,11 @@ class GalleryDisplayCategoryController extends ModuleController
 					}
 					$result->dispose();
 
+                    $notation = new Notation();
 					$activ_note = ($content_management_config->module_notation_is_enabled('gallery') && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL) );
 					if ($activ_note)
 					{
 						//Affichage notation.
-						$notation = new Notation();
 						$notation->set_module_name('gallery');
 						$notation->set_id_in_module($info_pics['id']);
 						$notation->set_notes_number($info_pics['notes_number']);

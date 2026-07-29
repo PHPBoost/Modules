@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 20
+ * @version     PHPBoost 6.1 - last update: 2026 07 29
  * @since       PHPBoost 1.2 - 2005 10 26
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
@@ -11,14 +11,14 @@
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
+/** @var ForumConfig $config */
+    /** @var array $lang */
 define('PATH_TO_ROOT', '../..');
 
 require_once(PATH_TO_ROOT . '/kernel/begin.php');
 require_once(ModulesManager::get_module_path('forum') . '/forum_begin.php');
 require_once(ModulesManager::get_module_path('forum') . '/forum_tools.php');
 $request = AppContext::get_request();
-
-$lang = LangLoader::get_all_langs('forum');
 
 $id_get = $request->get_getint('id', 0);
 $categories_cache = CategoriesService::get_categories_manager('forum')->get_categories_cache();
@@ -54,6 +54,7 @@ if ($category->get_url())
 }
 
 //Récupération de la barre d'arborescence.
+
 $Bread_crumb->add($config->get_forum_name(), 'index.php');
 $categories = array_reverse(CategoriesService::get_categories_manager('forum')->get_parents($id_get, true));
 foreach ($categories as $id => $cat)
@@ -67,14 +68,17 @@ foreach ($categories as $id => $cat)
 	}
 }
 
-if (!empty($id_get))
+if (!empty($id_get)) {
 	define('TITLE', $category->get_name());
-else
+}
+else {
 	define('TITLE', $lang['forum.module.title']);
+}
 
 $description = $category->get_description();
-if (empty($description))
+if (empty($description)) {
 	$description = StringVars::replace_vars($lang['forum.root.description.seo'], ['site' => GeneralConfig::load()->get_site_name()]) . ($category->get_id() != Category::ROOT_CATEGORY ? ' ' . LangLoader::get_message('category.category', 'category-lang') . ' ' . $category->get_name() : '');
+}
 define('DESCRIPTION', $description);
 
 require_once(PATH_TO_ROOT . '/kernel/header.php');
@@ -144,6 +148,8 @@ if (!empty($id_get))
 		$is_sub_forum = [];
 		foreach ($categories as $row)
 		{
+            $last_topic_title = $last_page_rewrite ='';
+            $last_page = 1;
 			if (in_array($row['id_parent'], $is_sub_forum))
 				$is_sub_forum[] = $row['cid'];
 
