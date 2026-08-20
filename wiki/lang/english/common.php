@@ -21,7 +21,7 @@ $lang['wiki.menu.title']   = 'Wiki tree';
 $lang['wiki.explorer']     = 'Explorer';
 $lang['wiki.overview']     = 'Summary';
 
-// TreeLinks
+// Kernel overload
 $lang['item']              = 'sheet';
 $lang['items']             = 'sheets';
 $lang['items.reorder']     = 'Reorder sheets';

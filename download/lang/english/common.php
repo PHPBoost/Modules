@@ -16,7 +16,7 @@
 // Module titles
 $lang['download.module.title'] = 'Downloads';
 
-// TreeLinks
+// Kernel overload
 $lang['items'] = 'files';
 $lang['item']  = 'file';
 

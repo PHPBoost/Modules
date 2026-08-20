@@ -13,9 +13,10 @@
 #                       French                     #
 ####################################################
 
+// Module titles
 $lang['download.module.title'] = 'Téléchargements';
 
-// TreeLinks
+// Kernel overload
 $lang['items'] = 'fichiers';
 $lang['item']  = 'fichier';
 

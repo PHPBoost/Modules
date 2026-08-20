@@ -12,9 +12,10 @@
 #                    French                        #
 ####################################################
 
+// Module titles
 $lang['guestbook.module.title'] = 'Livre d\'or';
 
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'message';
 
 $lang['guestbook.items']     = 'Messages';

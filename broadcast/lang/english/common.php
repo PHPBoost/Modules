@@ -11,11 +11,14 @@
 #                     English                      #
 ####################################################
 
+// Module titles
 $lang['broadcast.module.title'] = 'Broadcast';
 $lang['broadcast.live']         = 'Listen live';
 
+// Kernel overload
 $lang['item'] = 'Program';
 
+// Treelinks
 $lang['broadcast.filter.items'] = 'Filter programs';
 $lang['broadcast.management']   = 'Programs management';
 $lang['broadcast.items.manage'] = 'Manage programs';

@@ -15,12 +15,13 @@
 #                       French                     #
 ####################################################
 
+// Module titles
 $lang['wiki.module.title'] = 'Wiki';
 $lang['wiki.menu.title']   = 'Arborescence du wiki';
 $lang['wiki.explorer']     = 'Explorateur';
 $lang['wiki.overview']     = 'Sommaire';
 
-// TreeLinks
+// Kernel overload
 $lang['item']             = 'fiche';
 $lang['items']            = 'fiches';
 $lang['an.item']          = 'une fiche';

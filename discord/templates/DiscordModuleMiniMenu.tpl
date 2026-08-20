@@ -5,7 +5,7 @@
                 {@discord.module.title}
             </h6>
             <span>
-                <a id="instant-invite" class="stacked" aria-label="{@discord.join.tooltip}">
+                <a id="instant-invite" class="stacked" aria-label="{@discord.join}">
                     <i class="fa fa-headset fa-fw fa-lg moderator" arria-hidden="true"></i>
                     <span class="stack-event stack-top-right"><i class="fa fa-plug"></i></span>
                 </a>
@@ -34,7 +34,6 @@
 
     </div>
 </div>
-
 
 # IF C_DISCORD_ID #
     <script src="{PATH_TO_ROOT}/modules/discord/templates/js/discord.viewer.js"></script>

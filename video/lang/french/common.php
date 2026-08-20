@@ -11,9 +11,10 @@
 #                       French                     #
 ####################################################
 
+// Module titles
 $lang['video.module.title'] = 'Vidéos';
 
-// TreeLinks
+// Kernel overload
 $lang['item'] = 'Vidéo';
 $lang['an.item'] = 'Une vidéo';
 $lang['items'] = 'Vidéos';

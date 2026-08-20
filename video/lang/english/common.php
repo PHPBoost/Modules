@@ -14,7 +14,7 @@
 // Module titles
 $lang['video.module.title'] = 'Videos';
 
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'video';
 $lang['items'] = 'videos';
 

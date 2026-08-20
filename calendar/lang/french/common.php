@@ -15,13 +15,11 @@
 #                    French                        #
 ####################################################
 
+// Module titles
 $lang['calendar.module.title'] = 'Calendrier';
+$lang['calendar.no.category']  = 'Sans catégorie';
 
-$lang['calendar.item']  = 'événement';
-$lang['calendar.items'] = 'événements';
-$lang['calendar.no.category'] = 'Sans catégorie';
-
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'événement';
 $lang['items'] = 'événements';
 
@@ -90,9 +88,9 @@ $lang['calendar.config.display.birthdays'] = 'Afficher les anniversaires des mem
 $lang['calendar.config.birthday.color']    = 'Couleur des anniversaires';
 
 // SEO
-$lang['calendar.seo.description.root']        = 'Tous les événements du site  :site.';
+$lang['calendar.seo.description.root']        = 'Tous les événements du site :site.';
 $lang['calendar.seo.description.pending']     = 'Tous les événements en attente.';
-$lang['calendar.seo.description.member']      = 'Tous les événements de       :author.';
+$lang['calendar.seo.description.member']      = 'Tous les événements de :author.';
 $lang['calendar.seo.description.events.list'] = 'Liste des événements du site :site.';
 
 // Feed name

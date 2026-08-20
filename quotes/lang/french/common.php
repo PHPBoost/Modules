@@ -13,12 +13,14 @@
 #                       French                     #
 ####################################################
 
+// Module titles
 $lang['quotes.module.title'] = 'Citations';
 
-// Tree links automatic vars
+// Kernel overload
 $lang['items'] = 'citations';
 $lang['item']  = 'citation';
 $lang['an.item'] = 'une citation';
+$lang['the.item'] = 'la citation';
 
 // Labels
 $lang['quotes.my.items']     = 'Mes citations';

@@ -11,11 +11,13 @@
 #                       French                     #
 ####################################################
 
+// Module titles
 $lang['recipe.module.title'] = 'Recette';
 
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'recette';
 $lang['an.item']  = 'une recette';
+$lang['the.item']  = 'la recette';
 
 // Titles
 $lang['recipe.add.item']         = 'Ajouter une recette';

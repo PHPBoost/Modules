@@ -11,11 +11,13 @@
 #						French					   #
 ####################################################
 
+// Module titles
 $lang['flux.module.title']     = 'Flux RSS';
 $lang['flux.last.feeds.title'] = 'Les :feeds_number éléments de flux les plus récents';
 $lang['flux.no.last.feeds']    = 'Aucun flux n\'a été initialisé.';
 $lang['flux.words.not.read']   = 'Mots restant à lire';
 
+// Kernel overload
 $lang['item']  = 'flux';
 $lang['items'] = 'flux';
 

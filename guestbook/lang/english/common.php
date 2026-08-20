@@ -12,9 +12,10 @@
 #                    English                       #
 ####################################################
 
+// Module titles
 $lang['guestbook.module.title'] = 'Guest Book';
 
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'message';
 
 $lang['guestbook.items']     = 'Messages';

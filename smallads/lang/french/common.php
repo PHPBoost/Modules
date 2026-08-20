@@ -13,12 +13,14 @@
 #                      French                       #
 #####################################################
 
+// Module titles
 $lang['smallads.module.title'] = 'Petites Annonces';
 
-// Tree links automatic vars
+// Kernel overload
 $lang['item']  = 'Annonce';
 $lang['items'] = 'Annonces';
 $lang['an.item'] = 'une annonce';
+$lang['the.item'] = 'l\'annonce';
 
 // Labels
 $lang['smallads.my.items']       = 'Mes annonces';

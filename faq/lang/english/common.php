@@ -13,12 +13,13 @@
 #                    English                       #
 ####################################################
 
+// Module titles
 $lang['faq.module.title'] = 'FAQ';
 
 $lang['faq.items'] = 'questions';
 $lang['faq.item']  = 'question';
 
-// Tree links
+// Kernel overload
 $lang['items'] = 'questions';
 $lang['item']  = 'question';
 

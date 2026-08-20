@@ -15,13 +15,11 @@
 #                    English                       #
 ####################################################
 
+// Module titles
 $lang['calendar.module.title'] = 'Calendar';
+$lang['calendar.no.category']  = 'No category';
 
-$lang['calendar.item']  = 'event';
-$lang['calendar.items'] = 'events';
-$lang['calendar.no.category'] = 'No category';
-
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'event';
 $lang['items'] = 'events';
 

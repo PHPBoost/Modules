@@ -13,9 +13,10 @@
 #                      English                      #
 #####################################################
 
+// Module titles
 $lang['smallads.module.title'] = 'Smallads';
 
-// Tree links automatic vars
+// Kernel overload
 $lang['item']  = 'Ad';
 $lang['items'] = 'Ads';
 

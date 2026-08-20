@@ -13,9 +13,10 @@
 #                      French                      #
 ####################################################
 
+// Module titles
 $lang['web.module.title'] = 'Liens Web';
 
-// Tree links
+// Kernel overload
 $lang['items'] = 'liens';
 $lang['item']  = 'lien';
 

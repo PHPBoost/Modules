@@ -11,8 +11,10 @@
 #						French						#
 ####################################################
 
+// Module titles
 $lang['spots.module.title'] = 'Localisations';
 
+// Kernel overload
 $lang['item'] = 'localisation';
 $lang['an.item'] = 'une localisation';
 

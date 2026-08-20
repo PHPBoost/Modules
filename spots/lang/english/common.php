@@ -11,8 +11,10 @@
 #						English						#
 ####################################################
 
+// Module titles
 $lang['spots.module.title'] = 'Locations';
 
+// Kernel overload
 $lang['item']  = 'location';
 
 $lang['spots.member.items']  = 'Locations published by';

@@ -13,9 +13,10 @@
 #                       English                    #
 ####################################################
 
+// Module titles
 $lang['quotes.module.title'] = 'Quotes';
 
-// Tree links automatic vars
+// Kernel overload
 $lang['items'] = 'quotes';
 $lang['item']  = 'quote';
 

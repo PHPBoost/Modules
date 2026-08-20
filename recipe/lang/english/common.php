@@ -11,9 +11,10 @@
 #                       English                    #
 ####################################################
 
+// Module titles
 $lang['recipe.module.title'] = 'Recipes';
 
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'recipe';
 
 // Titles

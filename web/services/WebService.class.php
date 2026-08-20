@@ -84,16 +84,18 @@ class WebService
 	 */
 	public static function get_item(int $id)
 	{
-		$row = self::$db_querier->select_single_row_query('SELECT ' . self::$module_id . '.*, member.*, notes.average_notes, notes.notes_number, note.note
-		FROM ' . WebSetup::$web_table . ' ' . self::$module_id . '
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = ' . self::$module_id . '.author_user_id
-		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = ' . self::$module_id . '.id AND notes.module_name = :module_id
-		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = ' . self::$module_id . '.id AND note.module_name = :module_id AND note.user_id = :current_user_id
-		WHERE ' . self::$module_id . '.id=:id', [
-			'module_id'       => self::$module_id,
-			'id'              => $id,
-			'current_user_id' => AppContext::get_current_user()->get_id()
-		]);
+		$row = self::$db_querier->select_single_row_query('
+            SELECT ' . self::$module_id . '.*, member.*, notes.average_notes, notes.notes_number, note.note
+            FROM ' . WebSetup::$web_table . ' ' . self::$module_id . '
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = ' . self::$module_id . '.author_user_id
+            LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = ' . self::$module_id . '.id AND notes.module_name = :module_id
+            LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = ' . self::$module_id . '.id AND note.module_name = :module_id AND note.user_id = :current_user_id
+            WHERE ' . self::$module_id . '.id=:id', [
+                'module_id'       => self::$module_id,
+                'id'              => $id,
+                'current_user_id' => AppContext::get_current_user()->get_id()
+            ]
+        );
 
 		$item = new WebItem();
 		$item->set_properties($row);

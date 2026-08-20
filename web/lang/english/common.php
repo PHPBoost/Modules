@@ -16,7 +16,7 @@
 // Module titles
 $lang['web.module.title'] = 'Web Links';
 
-// Tree links
+// Kernel overload
 $lang['items'] = 'links';
 $lang['item']  = 'link';
 

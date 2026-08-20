@@ -14,9 +14,10 @@
 #                      French                      #
 ####################################################
 
+// Module titles
 $lang['shoutbox.module.title'] = 'Discussion';
 
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'message';
 
 $lang['shoutbox.archives']  = 'Archives';

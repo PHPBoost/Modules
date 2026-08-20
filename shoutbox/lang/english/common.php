@@ -13,9 +13,10 @@
 #                      English                     #
 ####################################################
 
+// Module titles
 $lang['shoutbox.module.title'] = 'Shoutbox';
 
-// TreeLinks
+// Kernel overload
 $lang['item']  = 'message';
 
 $lang['shoutbox.archives']  = 'Archives';

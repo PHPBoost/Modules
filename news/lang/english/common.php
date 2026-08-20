@@ -15,7 +15,10 @@
 #                     English                      #
 ####################################################
 
+// Module titles
 $lang['news.lobby.pinned.news'] = 'Pinned News';
+
+// Kernel overload
 $lang['item'] = 'news';
 
 // Form

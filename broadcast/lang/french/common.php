@@ -11,11 +11,14 @@
 #                     French                       #
 ####################################################
 
+// Module titles
 $lang['broadcast.module.title'] = 'Radiodiffusion';
 $lang['broadcast.live']         = 'Écouter le direct';
 
+// Kernel overload
 $lang['item'] = 'Programme';
 
+// Treelinks
 $lang['broadcast.filter.items'] = 'Filtrer les programmes';
 $lang['broadcast.management']   = 'Gestion des programmes';
 $lang['broadcast.items.manage'] = 'Gérer les programmes';
