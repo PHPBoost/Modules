@@ -98,7 +98,7 @@
 
 #category-nav .has-children>[class*="toggle-menu-button-"] { cursor: pointer; }
 
-#category-nav .has-children>[class*="toggle-menu-button-"] > .list-item:before {
+#category-nav .has-children>[class*="toggle-menu-button-"] > .list-item::before {
 	font: var(--fa-font-regular);
 	content: '\f0fe';
 	position: absolute;
