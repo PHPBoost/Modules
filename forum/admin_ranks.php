@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 07 29
+ * @version     PHPBoost 6.1 - last update: 2026 08 23
  * @since       PHPBoost 1.2 - 2005 10 30
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -60,7 +60,7 @@ if ($valid)
     }
     else
     {
-        $view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.invalid.csrf.token', 'warning-lang'), MessageHelper::ERROR, 4));
+        $view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.csrf.invalid.token', 'warning-lang'), MessageHelper::ERROR, 4));
     }
 }
 // 2. Rank deletion (GET) — Requires CSRF token verification
@@ -80,7 +80,7 @@ elseif (!empty($del) && !empty($get_id))
     }
     else
     {
-        $view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.invalid.csrf.token', 'warning-lang'), MessageHelper::ERROR, 4));
+        $view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.csrf.invalid.token', 'warning-lang'), MessageHelper::ERROR, 4));
     }
 }
 
