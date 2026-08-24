@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 08 24
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -42,7 +42,7 @@ class QuotesItem
 
 	public function get_category()
 	{
-		return CategoriesService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+		return CategoriesService::get_categories_manager('quotes')->get_categories_cache()->get_category($this->id_category);
 	}
 
 	public function get_creation_date()

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 08 24
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
@@ -62,7 +62,7 @@ class BroadcastItem
 
 	public function get_category()
 	{
-		return CategoriesService::get_categories_manager()->get_categories_cache()->get_category($this->id_category);
+		return CategoriesService::get_categories_manager('broadcast')->get_categories_cache()->get_category($this->id_category);
 	}
 
 	public function set_title($title)
