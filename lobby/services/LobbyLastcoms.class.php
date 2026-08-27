@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 08 27
  * @since       PHPBoost 6.1 - 2026 03 21
 */
 
@@ -23,7 +23,7 @@ class LobbyLastcoms
 		$module_name          = LobbyConfig::MODULE_LASTCOMS;
 
 		// FileTemplate handles theme overrides automatically
-		$view = new FileTemplate('/lobby/templates/pagecontent/MessagesLobbyProvider.tpl');
+		$view = new FileTemplate('/modules/lobby/templates/pagecontent/MessagesLobbyProvider.tpl');
 
 		$view->add_lang(LangLoader::get_all_langs('lobby'));
 
