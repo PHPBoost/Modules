@@ -16,8 +16,9 @@
 			{
 				if( document.getElementById(id) && url != '' )
 				{
+                    const img = document.querySelector('#' + id + ' img');
 					document.getElementById(id).style.display = 'inline';
-					document.getElementById(id).src = url;
+					img.src = url;
 				}
 				else
 					document.getElementById(id).style.display = 'none';
@@ -114,7 +115,7 @@
 							<div class="form-element">
 								<label for="icon">{@forum.rank.thumbnail}</label>
 								<div class="form-field form-field-select">
-									<select name="icon" id="icon" onchange="img_change('img_icon', '{PATH_TO_ROOT}/forum/templates/images/ranks/' + this.options[selectedIndex].value)">
+									<select name="icon" id="icon" onchange="img_change('img_icon', '{PATH_TO_ROOT}/modules/forum/templates/images/ranks/' + this.options[selectedIndex].value)">
 										{RANK_OPTIONS}
 									</select>
 								</div>
@@ -122,7 +123,7 @@
 							<div id="img_icon" class="form-element" style="display: none;">
 								<label for="icon">{@form.preview}</label>
 								<div class="form-field form-field-select">
-									<img src="{PATH_TO_ROOT}/forum/templates/images/ranks/rank_0.png" alt="rank_0.png" />
+									<img src="{PATH_TO_ROOT}/modules/forum/templates/images/ranks/rank_0.png" alt="rank_0.png" />
 								</div>
 							</div>
 						</div>
