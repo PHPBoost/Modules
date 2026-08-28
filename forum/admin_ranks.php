@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 08 23
+ * @version     PHPBoost 6.1 - last update: 2026 08 28
  * @since       PHPBoost 1.2 - 2005 10 30
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -94,10 +94,11 @@ if (!is_dir($rank_folder)) {
 
 $image_folder_path = new Folder($rank_folder);
 
-foreach ($image_folder_path->get_files('`\.(png|jpg|bmp|gif)$`i') as $image)
+foreach ($image_folder_path->get_files('`\.(png|jpg|bmp|gif|webp)$`i') as $image)
 {
     $rank_options_array[] = $image->get_name();
 }
+asort($rank_options_array);
 
 $ranks_cache = ForumRanksCache::load()->get_ranks();
 
