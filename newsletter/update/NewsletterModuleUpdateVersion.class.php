@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 09 07
  * @since       PHPBoost 5.0 - 2017 03 09
  * @author      xela <xela@phpboost.com>
  * @author      Mipel <mipel@phpboost.com>
@@ -40,7 +40,12 @@ class NewsletterModuleUpdateVersion extends ModuleUpdateVersion
 				'table_name' => PREFIX . 'newsletter_streams',
 				'columns' => [
 					'image' => 'thumbnail VARCHAR(255) NOT NULL DEFAULT ""',
-					'contents'    => 'content MEDIUMTEXT'
+				]
+			],
+			[
+				'table_name' => PREFIX . 'newsletter_archives',
+				'columns' => [
+					'contents' => 'content MEDIUMTEXT'
 				]
 			]
 		];
