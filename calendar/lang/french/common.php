@@ -24,6 +24,8 @@ $lang['item']  = 'événement';
 $lang['items'] = 'événements';
 
 // Titles
+$lang['calendar.item']             = 'événement';
+$lang['calendar.items']            = 'événements';
 $lang['calendar.item.add']         = 'Ajouter un événement';
 $lang['calendar.item.edit']        = 'Modifier un événement';
 $lang['calendar.item.duplicate']   = 'Dupliquer un événement';
