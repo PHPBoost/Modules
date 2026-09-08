@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 09 08
  * @since       PHPBoost 4.0 - 2013 10 29
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @author      Mipel <mipel@phpboost.com>
@@ -392,7 +392,7 @@ class CalendarItemContent
 		$this->max_registered_members = $properties['max_registered_members'];
 		$this->last_registration_date_enabled = !empty($properties['last_registration_date']);
 		$this->last_registration_date = !empty($properties['last_registration_date']) ? new Date($properties['last_registration_date'], Timezone::SERVER_TIMEZONE) : null;
-		$this->register_authorizations = TextHelper::unserialize($properties['register_authorizations']);
+		$this->register_authorizations = !empty($properties['register_authorizations']) ? TextHelper::unserialize($properties['register_authorizations']) : ['r0' => 3, 'r1' => 3];
 
 		$this->creation_date = new Date($properties['creation_date'], Timezone::SERVER_TIMEZONE);
 		$this->update_date = new Date($properties['update_date'], Timezone::SERVER_TIMEZONE);
