@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      xela <xela@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 09 09
  * @since       PHPBoost 6.0 - 2020 05 14
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  */
@@ -30,4 +30,4 @@ $url_controller_mappers = [
     new UrlControllerMapper('AjaxPollMiniController', '`^/ajax_send/$`'),
 ];
 
-ModuleDispatchManager::dispatch($url_controller_mappers);
+ModuleDispatchManager::dispatch($url_controller_mappers, 'poll');

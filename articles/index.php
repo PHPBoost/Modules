@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Patrick DUBEAU <daaxwizeman@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 09 09
  * @since       PHPBoost 4.0 - 2013 03 04
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 define('PATH_TO_ROOT', '../..');
@@ -24,6 +25,6 @@ $url_controller_mappers = [
 	new UrlControllerMapper('ArticlesPrintItemController', '`^/print/([0-9]+)-([a-z0-9-_]+)/?$`', ['id', 'rewrited_title'])
 ];
 
-ModuleDispatchManager::dispatch($url_controller_mappers);
+ModuleDispatchManager::dispatch($url_controller_mappers, 'articles');
 
 ?>
