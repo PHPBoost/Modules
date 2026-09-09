@@ -3,6 +3,7 @@
 
 # Flux
 flux/xml/*
+!flux/xml/.empty
 
 # Gallery
 gallery/pics/*
