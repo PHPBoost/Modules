@@ -5,3 +5,4 @@ HomeLanding/templates/rsscache/*
 
 # Flux
 flux/xml/*
+!flux/xml/.empty
