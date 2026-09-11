@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 07 27
+ * @version     PHPBoost 6.1 - last update: 2026 09 11
  * @since       PHPBoost 2.0 - 2008 08 23
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -255,13 +255,22 @@ class StatsSaver
         $file = new File(ModulesManager::get_module_path('stats') . '/cache/' . $stat_name . '.txt');
         if (!$file->exists() || $file->is_writable())
         {
-            $stats_array = self::retrieve_stats($stat_name);
+            $handle = fopen($file->get_path(), 'c+b');
+            flock($handle, LOCK_EX);
+            $content = stream_get_contents($handle);
+            $decoded = $content ? TextHelper::deserialize($content) : null;
+            $stats_array = is_array($decoded) ? $decoded : [];
+
             if (isset($stats_array[TextHelper::strtolower($stats_item)]))
                 $stats_array[TextHelper::strtolower($stats_item)]++;
             else
                 $stats_array[TextHelper::strtolower($stats_item)] = 1;
 
-            $file->write(TextHelper::serialize($stats_array));
+            ftruncate($handle, 0);
+            rewind($handle);
+            fwrite($handle, TextHelper::serialize($stats_array));
+            flock($handle, LOCK_UN);
+            fclose($handle);
         }
     }
 
@@ -273,7 +282,11 @@ class StatsSaver
         $file = new File(ModulesManager::get_module_path('stats') . '/cache/robots.txt');
         if (!$file->exists() || $file->is_writable())
         {
-            $stats_array = self::retrieve_stats('robots');
+            $handle = fopen($file->get_path(), 'c+b');
+            flock($handle, LOCK_EX);
+            $content = stream_get_contents($handle);
+            $decoded = $content ? TextHelper::deserialize($content) : null;
+            $stats_array = is_array($decoded) ? $decoded : [];
 
             // Build possible names for the same robot
             $list = [
@@ -294,8 +307,6 @@ class StatsSaver
                 $list[] = TextHelper::strtolower($bot_name);
                 $list[] = TextHelper::ucfirst(TextHelper::strtolower($bot_name));
             }
-
-            $delete_cache_file = false;
 
             // Merge old keys into $current_robot
             foreach ($list as $name)
@@ -328,7 +339,6 @@ class StatsSaver
                 }
 
                 unset($stats_array[$name]);
-                $delete_cache_file = true;
             }
 
             // Normalize current robot entry to array form and increment
@@ -355,12 +365,11 @@ class StatsSaver
                 ];
             }
 
-            if ($delete_cache_file)
-            {
-                $file->delete();
-            }
-
-            $file->write(TextHelper::serialize($stats_array));
+            ftruncate($handle, 0);
+            rewind($handle);
+            fwrite($handle, TextHelper::serialize($stats_array));
+            flock($handle, LOCK_UN);
+            fclose($handle);
         }
     }
 }
