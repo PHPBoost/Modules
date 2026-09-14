@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 09 14
  * @since       PHPBoost 3.0 - 2011 09 26
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -23,7 +23,7 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 
 		$this->build_form($theme);
 
-		if ($this->submit_button->has_been_submited() && $this->form->validate())
+		if ($request->is_post_method() && $this->form->validate())
 		{
 			$header_logo = $this->form->get_value('header_logo', null);
 
@@ -58,7 +58,7 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 		return new AdminCustomizationDisplayResponse($this->view, $this->lang['customization.interface.title']);
 	}
 
-	private function build_form($theme_selected)
+	private function build_form(string $theme_selected)
 	{
 		$form = new HTMLForm(self::class);
 

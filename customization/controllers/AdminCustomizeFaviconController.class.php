@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 09 14
  * @since       PHPBoost 3.0 - 2011 08 30
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -16,7 +16,7 @@ class AdminCustomizeFaviconController extends DefaultAdminModuleController
 	{
 		$this->build_form();
 
-		if ($this->submit_button->has_been_submited() && $this->form->validate())
+		if ($request->is_post_method() && $this->form->validate())
 		{
 			$favicon = $this->form->get_value('favicon', null);
 
