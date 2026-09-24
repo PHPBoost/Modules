@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 09 24
  * @since       PHPBoost 6.0 - 2022 11 18
  */
 
@@ -36,6 +36,8 @@ class WikiMemberItemsController extends DefaultModuleController
     {
         $this->member = AppContext::get_request()->get_getint('user_id', 0) ? UserService::get_user(AppContext::get_request()->get_getint('user_id', 0)) : null;
         $this->authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->is_summary_displayed_to_guests());
+        if (count($this->authorized_categories) == 0)
+            $this->authorized_categories = [0];
     }
 
     private function build_members_listing_view()
