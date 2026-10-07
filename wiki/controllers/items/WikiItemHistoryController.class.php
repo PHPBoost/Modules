@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 6.0 - 2022 11 18
  */
 
@@ -25,14 +25,15 @@ class WikiItemHistoryController extends DefaultModuleController
 
     public function build_view(HTTPRequestCustom $request)
     {
-        $now = new Date();
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->is_summary_displayed_to_guests());
 
-        $condition = 'WHERE id_category IN :authorized_categories';
-        $parameters = [
-            'authorized_categories' => $authorized_categories,
-            'timestamp_now' => $now->get_timestamp()
-        ];
+        $condition = 'WHERE 1 = 0';
+        $parameters = [];
+        if (!empty($authorized_categories))
+        {
+            $condition = 'WHERE id_category IN :authorized_categories';
+            $parameters['authorized_categories'] = $authorized_categories;
+        }
 
         $result = PersistenceContext::get_querier()->select('SELECT i.*, c.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
             FROM ' . WikiSetup::$wiki_articles_table . ' i
