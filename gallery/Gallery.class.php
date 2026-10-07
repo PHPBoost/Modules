@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 1.2 - 2005 08 16
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -24,6 +24,7 @@ class Gallery
 	public function Resize_pics($path, $width_max = 0, $height_max = 0)
 	{
 		$lang = LangLoader::get_all_langs('gallery');
+		$thumbnail = false;
 
 		if (file_exists($path))
 		{
@@ -74,21 +75,24 @@ class Gallery
 						$this->error = 'e_unabled_create_pics';
 				}
 
-				// Make the background transparent
-				imagecolortransparent($thumbnail, imagecolorallocate($thumbnail, 0, 0, 0));
-				imagealphablending($thumbnail, false);
-				imagesavealpha($thumbnail, true);
+				if ($thumbnail !== false)
+				{
+					// Make the background transparent
+					imagecolortransparent($thumbnail, imagecolorallocate($thumbnail, 0, 0, 0));
+					imagealphablending($thumbnail, false);
+					imagesavealpha($thumbnail, true);
 
-				//Redimensionnement.
-				if (!function_exists('imagecopyresampled'))
-				{
-					if (@imagecopyresized($thumbnail, $source, 0, 0, 0, 0, $width, $height, $width_s, $height_s) === false)
-						$this->error = 'e_error_resize';
-				}
-				else
-				{
-					if (@imagecopyresampled($thumbnail, $source, 0, 0, 0, 0, $width, $height, $width_s, $height_s) === false)
-						$this->error = 'e_error_resize';
+					//Redimensionnement.
+					if (!function_exists('imagecopyresampled'))
+					{
+						if (@imagecopyresized($thumbnail, $source, 0, 0, 0, 0, $width, $height, $width_s, $height_s) === false)
+							$this->error = 'e_error_resize';
+					}
+					else
+					{
+						if (@imagecopyresampled($thumbnail, $source, 0, 0, 0, 0, $width, $height, $width_s, $height_s) === false)
+							$this->error = 'e_error_resize';
+					}
 				}
 			}
 
@@ -185,6 +189,7 @@ class Gallery
 				}
 				else
 				{
+					$destination = false;
 					switch ($ext) //Création de l'image suivant l'extension.
 					{
 						case 'jpg':
@@ -204,57 +209,64 @@ class Gallery
 							$this->error = 'e_unsupported_format';
 					}
 
-					// On veut placer le logo en bas à droite, on calcule les coordonnées où on doit placer le logo sur la photo
-					$destination_x = $width - $width_s - $config->get_logo_horizontal_distance();
-					$destination_y =  $height - $height_s - $config->get_logo_vertical_distance();
-
-					// Création d'une nouvelle image
-					$image_with_logo = imagecreatetruecolor($width, $height);
-
-					//Sauvegarde des informations de transparences
-					imagesavealpha($image_with_logo, true);
-
-					//Création d'un background transparent
-					$trans_background = imagecolorallocatealpha($image_with_logo, 0, 0, 0, 127);
-
-					//On ajoute le background sur l'image final
-					imagefill($image_with_logo, 0, 0, $trans_background);
-
-					//On ajoute l'image souhaité sur l'image final
-					imagecopy($image_with_logo, $destination, 0, 0, 0, 0, $width, $height);
-
-					//On ajoute le logo sur l'image final
-					//Si le logo est au format png, webp ou gif, la gestion de transparence est faite dans le logo lui meme. Sinon elle est fait selon la configuration du module.
-					if ($ext_s == 'png' || $ext_s == 'gif' || $ext_s == 'webp')
+					if ($destination === false)
 					{
-						if (@imagecopy($image_with_logo, $source, $destination_x, $destination_y, 0, 0, $width_s, $height_s) === false)
-							$this->error = 'e_unabled_incrust_logo';
+						$this->error = 'e_unabled_create_pics';
 					}
 					else
 					{
-						if (@imagecopymerge($image_with_logo, $source, $destination_x, $destination_y, 0, 0, $width_s, $height_s, (100 - $config->get_logo_transparency())) === false)
-							$this->error = 'e_unabled_incrust_logo';
-					}
+						// On veut placer le logo en bas à droite, on calcule les coordonnées où on doit placer le logo sur la photo
+						$destination_x = $width - $width_s - $config->get_logo_horizontal_distance();
+						$destination_y =  $height - $height_s - $config->get_logo_vertical_distance();
 
-					switch ($ext) //Création de l'image suivant l'extension.
-					{
-						case 'jpg':
-						case 'jpeg':
-							imagejpeg($image_with_logo);
-							break;
-						case 'gif':
-							imagegif ($image_with_logo);
-							break;
-						case 'png':
-							imagepng($image_with_logo);
-							break;
-						case 'webp':
-							imagewebp($image_with_logo);
-							break;
-						default:
-							$this->error = 'e_unabled_create_pics';
-					}
+						// Création d'une nouvelle image
+						$image_with_logo = imagecreatetruecolor($width, $height);
 
+						//Sauvegarde des informations de transparences
+						imagesavealpha($image_with_logo, true);
+
+						//Création d'un background transparent
+						$trans_background = imagecolorallocatealpha($image_with_logo, 0, 0, 0, 127);
+
+						//On ajoute le background sur l'image final
+						imagefill($image_with_logo, 0, 0, $trans_background);
+
+						//On ajoute l'image souhaité sur l'image final
+						imagecopy($image_with_logo, $destination, 0, 0, 0, 0, $width, $height);
+
+						//On ajoute le logo sur l'image final
+						//Si le logo est au format png, webp ou gif, la gestion de transparence est faite dans le logo lui meme. Sinon elle est fait selon la configuration du module.
+						if ($ext_s == 'png' || $ext_s == 'gif' || $ext_s == 'webp')
+						{
+							if (@imagecopy($image_with_logo, $source, $destination_x, $destination_y, 0, 0, $width_s, $height_s) === false)
+								$this->error = 'e_unabled_incrust_logo';
+						}
+						else
+						{
+							if (@imagecopymerge($image_with_logo, $source, $destination_x, $destination_y, 0, 0, $width_s, $height_s, (100 - $config->get_logo_transparency())) === false)
+								$this->error = 'e_unabled_incrust_logo';
+						}
+
+						switch ($ext) //Création de l'image suivant l'extension.
+						{
+							case 'jpg':
+							case 'jpeg':
+								imagejpeg($image_with_logo);
+								break;
+							case 'gif':
+								imagegif ($image_with_logo);
+								break;
+							case 'png':
+								imagepng($image_with_logo);
+								break;
+							case 'webp':
+								imagewebp($image_with_logo);
+								break;
+							default:
+								$this->error = 'e_unabled_create_pics';
+						}
+
+					}
 				}
 			}
 			else

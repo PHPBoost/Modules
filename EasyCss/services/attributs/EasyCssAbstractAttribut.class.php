@@ -4,10 +4,11 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 5.0 - 2016 05 20
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 abstract class EasyCssAbstractAttribut
@@ -86,7 +87,7 @@ abstract class EasyCssAbstractAttribut
      * Ajoute une erreur à l'attribut
      * Met cet attribut en erreur et donc ne sera pas affiché
      *
-     * @param type $msg
+     * @param string $msg
      */
     public function add_error($msg)
     {

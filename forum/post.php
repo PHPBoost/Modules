@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 07 29
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 1.2 - 2005 10 27
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -272,6 +272,7 @@ if (ForumAuthorizationsService::check_authorizations($id_get)->read())
                     $last_msg_id = $Forumfct->Add_msg($idt_get, $topic['id_category'], $content, $topic['title'], $last_page, $last_page_rewrite);
                 else
                 {
+                    $last_msg_id = $topic['last_msg_id'];
                     $last_page = ceil( $topic['nbr_msg'] / $config->get_number_messages_per_page() );
                     $last_page_rewrite = ($last_page > 1) ? '-' . $last_page : '';
                     $last_page = ($last_page > 1) ? '&pt=' . $last_page : '';
@@ -634,6 +635,7 @@ if (ForumAuthorizationsService::check_authorizations($id_get)->read())
             $view->add_lang($lang);
 
             //Gestion erreur.
+            $type = MessageHelper::NOTICE;
             switch ($error_get)
             {
                 case 'flood':
@@ -684,6 +686,7 @@ if (ForumAuthorizationsService::check_authorizations($id_get)->read())
             }
 
             //Gestion erreur.
+            $type = MessageHelper::NOTICE;
             switch ($error_get)
             {
                 case 'flood_t':

@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 06
  * @since       PHPBoost 4.0 - 2014 01 22
  * @author      Arnaud GENET <elenwii@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BugtrackerSitemapExtensionPoint implements SitemapExtensionPoint
@@ -25,6 +26,7 @@ class BugtrackerSitemapExtensionPoint implements SitemapExtensionPoint
 		$lang = LangLoader::get_all_langs('bugtracker');
 		$config = BugtrackerConfig::load();
 		$current_user = AppContext::get_current_user();
+		$this_auth = false;
 
 		$link = new SitemapLink($lang['bugtracker.module.title'], BugtrackerUrlBuilder::home(), Sitemap::FREQ_DEFAULT, Sitemap::PRIORITY_MAX);
 		$module_map = new ModuleMap($link, 'bugtracker');

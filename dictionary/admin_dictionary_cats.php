@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 2.0 - 2012 11 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -130,9 +130,10 @@ if ($request->get_getvalue('add', false))
 			if ($_FILES['images']['size'] > 0)
 			{
 				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|webp|bmp|svg)+$`iu', Upload::UNIQ_NAME, 20*1024);
-				if (!empty($Upload->error)) //Erreur, on arrête ici
+				$upload_error = $Upload->get_error();
+				if (!empty($upload_error)) //Erreur, on arrête ici
 				{
-					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&id_cat='.$id_cat.'&erroru=' . $Upload->error) . '#message_helper');
+					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&id_cat='.$id_cat.'&erroru=' . $upload_error) . '#message_helper');
 				}
 				else
 				{
@@ -178,9 +179,10 @@ if ($request->get_getvalue('add', false))
 			if ($_FILES['images']['size'] > 0)
 			{
 				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|webp|bmp)+$`iu',Upload::UNIQ_NAME, 20*1024);
-				if ($Upload->get_error() != '') //Erreur, on arrête ici
+				$upload_error = $Upload->get_error();
+				if ($upload_error != '') //Erreur, on arrête ici
 				{
-					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $Upload->error) . '#message_helper');
+					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $upload_error) . '#message_helper');
 				}
 				else
 				{

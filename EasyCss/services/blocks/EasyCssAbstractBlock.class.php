@@ -4,7 +4,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 5.0 - 2016 05 06
  * @author      mipel <mipel@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -39,7 +39,7 @@ abstract class EasyCssAbstractBlock
     /**
      * Récupération des templates des blocs enfants
      *
-     * @return \FileTemplate array      Tableau de templates des enfants du bloc
+     * @return Template[]|false Tableau de templates des enfants du bloc, ou false si le bloc est masqué
      */
     public function get_templates()
     {
@@ -81,16 +81,16 @@ abstract class EasyCssAbstractBlock
         {
             if (preg_match('`###(\d+)\/###`isuU', $line, $matches))
             {
-                /** @var \EasyCssAbstractBlock $block */
+                /** @var \EasyCssAbstractBlock|\EasyCssAbstractAttribut $block */
                 $block = $this->children[$matches[1]];
-                if (get_parent_class($block) === self::class)
+                if ($block instanceof EasyCssAbstractBlock)
                 {
                     // Enfant de type EasyCssAbstractBlock
                     $css.= $this->get_spaces() . '    ' . $block->get_css_to_save();
                 }
                 else
                 {
-                    // Enfant de type EasyCssAbstractElement
+                    // Enfant de type EasyCssAbstractAttribut
                     $css.= $this->get_spaces() . '    ' .$block->get_text_to_file() . "\n";
                 }
             }

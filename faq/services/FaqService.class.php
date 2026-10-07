@@ -28,7 +28,7 @@ class FaqService
 
 	/**
 	 * Create a new entry in the database table.
-	 * @param string[] $item : new FaqItem
+	 * @param FaqItem $item : new FaqItem
 	 */
 	public static function add(FaqItem $item)
 	{
@@ -39,7 +39,7 @@ class FaqService
 
 	/**
 	 * Update an entry.
-	 * @param string[] $item : FaqItem to update
+	 * @param FaqItem $item : FaqItem to update
 	 */
 	public static function update(FaqItem $item)
 	{

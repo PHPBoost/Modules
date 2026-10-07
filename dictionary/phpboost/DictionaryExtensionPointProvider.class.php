@@ -16,7 +16,7 @@ class DictionaryExtensionPointProvider extends ExtensionPointProvider
 		parent::__construct('dictionary');
 	}
 
-	 /**
+	/**
 	 * @method Get css files
 	 */
 	public function css_files()

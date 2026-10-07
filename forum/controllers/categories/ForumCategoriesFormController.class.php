@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 4.1 - 2015 05 15
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -13,6 +13,8 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 {
 	protected function build_form(HTTPRequestCustom $request)
 	{
+		/** @var ForumCategory $category */
+		$category = $this->get_category();
 		self::$lang = LangLoader::get_all_langs('forum');
 		$form = new HTMLForm(self::class);
 		$form->set_layout_title($this->get_title());
@@ -20,7 +22,7 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 		$fieldset = new FormFieldsetHTML('category', self::$lang['form.parameters']);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldSimpleSelectChoice('type', self::$lang['common.type'], $this->get_category()->get_type(),
+		$fieldset->add_field(new FormFieldSimpleSelectChoice('type', self::$lang['common.type'], $category->get_type(),
 			[
 				new FormFieldSelectChoiceOption(self::$lang['category.category'], ForumCategory::TYPE_CATEGORY),
 				new FormFieldSelectChoiceOption(self::$lang['forum.module.title'], ForumCategory::TYPE_FORUM),
@@ -61,19 +63,19 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 		$search_category_children_options = new SearchCategoryChildrensOptions();
 		$search_category_children_options->add_category_in_excluded_categories(Category::ROOT_CATEGORY);
 
-		if ($this->get_category()->get_id())
-			$search_category_children_options->add_category_in_excluded_categories($this->get_category()->get_id());
+		if ($category->get_id())
+			$search_category_children_options->add_category_in_excluded_categories($category->get_id());
 
-		$fieldset->add_field(self::get_categories_manager()->get_select_categories_form_field('id_parent', self::$lang['form.category'], $this->get_category()->get_id_parent(), $search_category_children_options,
+		$fieldset->add_field(self::get_categories_manager()->get_select_categories_form_field('id_parent', self::$lang['form.category'], $category->get_id_parent(), $search_category_children_options,
 			[
 				'required' => true,
-				'hidden' => $this->get_category()->get_type() == ForumCategory::TYPE_CATEGORY
+				'hidden' => $category->get_type() == ForumCategory::TYPE_CATEGORY
 			]
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('name', self::$lang['form.name'], $this->get_category()->get_name(), ['required' => true]));
+		$fieldset->add_field(new FormFieldTextEditor('name', self::$lang['form.name'], $category->get_name(), ['required' => true]));
 
-		$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_name', self::$lang['form.rewrited.title.personalize'], $this->get_category()->rewrited_name_is_personalized(),
+		$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_name', self::$lang['form.rewrited.title.personalize'], $category->rewrited_name_is_personalized(),
 			[
 				'events' => ['click' => '
 					if (HTMLForms.getField("personalize_rewrited_name").getValue()) {
@@ -85,15 +87,15 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 			]
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('rewrited_name', self::$lang['form.rewrited.title'], $this->get_category()->get_rewrited_name(),
+		$fieldset->add_field(new FormFieldTextEditor('rewrited_name', self::$lang['form.rewrited.title'], $category->get_rewrited_name(),
 			[
 				'description' => self::$lang['form.rewrited.title.clue'],
-				'hidden' => !$this->get_category()->rewrited_name_is_personalized()
+				'hidden' => !$category->rewrited_name_is_personalized()
 			],
 			[new FormFieldConstraintRegex('`^[a-z0-9\-]+$`iu')]
 		));
 
-		$fieldset->add_field(new FormFieldThumbnail('thumbnail', self::$lang['form.thumbnail'], $this->get_category()->get_thumbnail()->relative(), ForumCategory::THUMBNAIL_URL,
+		$fieldset->add_field(new FormFieldThumbnail('thumbnail', self::$lang['form.thumbnail'], $category->get_thumbnail()->relative(), ForumCategory::THUMBNAIL_URL,
 			[
 				// 'events' => ['click' => '
 				// 	if (HTMLForms.getField("thumbnail").getValue() == ' . FormFieldThumbnail::NONE . ') {
@@ -105,26 +107,26 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 			]
 		));
 
-		$fieldset->add_field(new FormFieldTextEditor('icon', self::$lang['forum.category.icon'], $this->get_category()->get_icon(),
+		$fieldset->add_field(new FormFieldTextEditor('icon', self::$lang['forum.category.icon'], $category->get_icon(),
 			[
 				'description' => self::$lang['forum.category.icon.clue'],
 				'placeholder' => self::$lang['forum.category.icon.placeholder'],
-				// 'hidden' => !$this->get_category()->get_thumbnail()->relative() == FormFieldThumbnail::NONE
+				// 'hidden' => !$category->get_thumbnail()->relative() == FormFieldThumbnail::NONE
 			]
 		));
 
-		$fieldset->add_field(new FormFieldColorPicker('color', self::$lang['common.color'], $this->get_category()->get_color()));
+		$fieldset->add_field(new FormFieldColorPicker('color', self::$lang['common.color'], $category->get_color()));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('description', self::$lang['form.description'], $this->get_category()->get_description(),
-			['hidden' => $this->get_category()->get_type() == ForumCategory::TYPE_CATEGORY]
+		$fieldset->add_field(new FormFieldRichTextEditor('description', self::$lang['form.description'], $category->get_description(),
+			['hidden' => $category->get_type() == ForumCategory::TYPE_CATEGORY]
 		));
 
-		$fieldset->add_field(new FormFieldCheckbox('status', self::$lang['forum.category.status.locked'], $this->get_category()->get_status(),
-			['hidden' => $this->get_category()->get_type() != ForumCategory::TYPE_FORUM]
+		$fieldset->add_field(new FormFieldCheckbox('status', self::$lang['forum.category.status.locked'], $category->get_status(),
+			['hidden' => $category->get_type() != ForumCategory::TYPE_FORUM]
 		));
 
-		$fieldset->add_field(new FormFieldUrlEditor('url', self::$lang['form.url'], $this->get_category()->get_url(),
-			['required' => true, 'hidden' => $this->get_category()->get_type() != ForumCategory::TYPE_URL]
+		$fieldset->add_field(new FormFieldUrlEditor('url', self::$lang['form.url'], $category->get_url(),
+			['required' => true, 'hidden' => $category->get_type() != ForumCategory::TYPE_URL]
 		));
 
 		$fieldset_authorizations = new FormFieldsetHTML('authorizations_fieldset', self::$lang['form.authorizations']);
@@ -132,7 +134,7 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 
 		$root_auth = self::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY)->get_authorizations();
 
-		$fieldset_authorizations->add_field(new FormFieldCheckbox('special_authorizations', self::$lang['form.authorizations'], !$this->get_category()->auth_is_equals($root_auth),
+		$fieldset_authorizations->add_field(new FormFieldCheckbox('special_authorizations', self::$lang['form.authorizations'], !$category->auth_is_equals($root_auth),
 			[
 				'description' => self::$lang['category.form.authorizations.clue'],
 				'events' => ['click' => '
@@ -164,12 +166,12 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 		));
 
 		$auth_settings = new AuthorizationsSettings($this->get_authorizations_settings());
-		$auth_setter = new FormFieldAuthorizationsSetter('authorizations', $auth_settings, ['hidden' => $this->get_category()->auth_is_equals($root_auth)]);
-		$auth_settings->build_from_auth_array($this->get_category()->get_authorizations());
+		$auth_setter = new FormFieldAuthorizationsSetter('authorizations', $auth_settings, ['hidden' => $category->auth_is_equals($root_auth)]);
+		$auth_settings->build_from_auth_array($category->get_authorizations());
 		$fieldset_authorizations->add_field($auth_setter);
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
-		$fieldset->add_field(new FormFieldHidden('last_topic_id', $this->is_new_category ? 0 : $this->get_category()->get_last_topic_id()));
+		$fieldset->add_field(new FormFieldHidden('last_topic_id', $this->is_new_category ? 0 : $category->get_last_topic_id()));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
@@ -181,30 +183,32 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 	protected function set_properties()
 	{
 		parent::set_properties();
-		$this->get_category()->set_type($this->form->get_value('type')->get_raw_value());
-		$this->get_category()->set_additional_property('description', $this->form->get_value('description'));
-		$this->get_category()->set_additional_property('icon', $this->form->get_value('icon'));
-		$this->get_category()->set_additional_property('thumbnail', $this->form->get_value('thumbnail'));
-		$this->get_category()->set_additional_property('color', $this->form->get_value('color'));
+		/** @var ForumCategory $category */
+		$category = $this->get_category();
+		$category->set_type($this->form->get_value('type')->get_raw_value());
+		$category->set_additional_property('description', $this->form->get_value('description'));
+		$category->set_additional_property('icon', $this->form->get_value('icon'));
+		$category->set_additional_property('thumbnail', $this->form->get_value('thumbnail'));
+		$category->set_additional_property('color', $this->form->get_value('color'));
 
-		if ($this->get_category()->get_type() == ForumCategory::TYPE_URL)
-			$this->get_category()->set_additional_property('url', $this->form->get_value('url'));
+		if ($category->get_type() == ForumCategory::TYPE_URL)
+			$category->set_additional_property('url', $this->form->get_value('url'));
 		else
-			$this->get_category()->set_additional_property('url', '');
+			$category->set_additional_property('url', '');
 
-		if ($this->get_category()->get_type() == ForumCategory::TYPE_FORUM)
+		if ($category->get_type() == ForumCategory::TYPE_FORUM)
 			$status = $this->form->get_value('status');
 		else
 			$status = ForumCategory::STATUS_UNLOCKED;
 
-		$this->get_category()->set_additional_property('status', $status);
-		$this->get_category()->set_additional_property('last_topic_id', (int)$this->form->get_value('last_topic_id'));
+		$category->set_additional_property('status', $status);
+		$category->set_additional_property('last_topic_id', (int)$this->form->get_value('last_topic_id'));
 
 		if ($this->form->get_value('special_authorizations'))
 		{
-			$this->get_category()->set_special_authorizations(true);
+			$category->set_special_authorizations(true);
 			$autorizations = $this->form->get_value('authorizations')->build_auth_array();
-			if ($this->get_category()->get_type() != ForumCategory::TYPE_FORUM)
+			if ($category->get_type() != ForumCategory::TYPE_FORUM)
 			{
 				foreach ($autorizations as $id => $auth)
 				{
@@ -220,11 +224,11 @@ class ForumCategoriesFormController extends DefaultCategoriesFormController
 		}
 		else
 		{
-			$this->get_category()->set_special_authorizations(false);
+			$category->set_special_authorizations(false);
 			$autorizations = [];
 		}
 
-		$this->get_category()->set_authorizations($autorizations);
+		$category->set_authorizations($autorizations);
 	}
 
 	protected function check_authorizations()

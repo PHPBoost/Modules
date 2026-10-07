@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 06
  * @since       PHPBoost 3.0 - 2012 10 19
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -37,7 +37,7 @@ class BugtrackerService
 
 	/**
 	 * Create a new bug.
-	 * @param string[] $bug new Bug
+	 * @param BugtrackerItem $bug new Bug
 	 */
 	public static function add(BugtrackerItem $bug)
 	{
@@ -90,7 +90,7 @@ class BugtrackerService
 
 	/**
 	 * Update a bug.
-	 * @param string[] $bug Bug to update
+	 * @param BugtrackerItem $bug Bug to update
 	 */
 	public static function update(BugtrackerItem $bug)
 	{

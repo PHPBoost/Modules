@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -50,11 +50,13 @@ class DownloadCategoriesFormController extends DefaultCategoriesFormController
 			$fieldset->add_field(self::$categories_manager->get_select_categories_form_field('id_parent', self::$lang['category.location'], $this->get_category()->get_id_parent(), $search_category_children_options));
 		}
 
-		$fieldset->add_field(new FormFieldThumbnail('thumbnail', self::$lang['form.thumbnail'], $this->get_category()->get_thumbnail()->relative(), DownloadCategory::THUMBNAIL_URL,
+		/** @var DownloadCategory $category */
+		$category = $this->get_category();
+		$fieldset->add_field(new FormFieldThumbnail('thumbnail', self::$lang['form.thumbnail'], $category->get_thumbnail()->relative(), DownloadCategory::THUMBNAIL_URL,
 			[]
 		));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('description', self::$lang['form.description'], $this->get_category()->get_description(),
+		$fieldset->add_field(new FormFieldRichTextEditor('description', self::$lang['form.description'], $category->get_description(),
 			[]
 		));
 

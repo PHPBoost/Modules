@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 4.1 - 2016 02 15
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -17,7 +17,9 @@ class AdminDictionaryConfigController extends DefaultAdminModuleController
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
 			$this->save();
-			$this->form->get_field_by_id('forbidden_tags')->set_selected_options($this->config->get_forbidden_tags());
+			/** @var FormFieldMultipleSelectChoice $forbidden_tags_field */
+			$forbidden_tags_field = $this->form->get_field_by_id('forbidden_tags');
+			$forbidden_tags_field->set_selected_options($this->config->get_forbidden_tags());
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.success.config'], MessageHelper::SUCCESS, 5));
 		}
 

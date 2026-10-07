@@ -60,7 +60,7 @@ class CalendarItemsManagerController extends DefaultModuleController
 
 		$results = [];
 		$result = $table_model->get_sql_results('event
-			LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+			INNER JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id'
 		);
 		foreach ($result as $row)

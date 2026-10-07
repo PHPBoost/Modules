@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 07
  * @since       PHPBoost 1.2 - 2005 08 12
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -20,6 +20,7 @@ require_once(PATH_TO_ROOT . '/kernel/header.php');
 $config = GalleryConfig::load();
 
 $request = AppContext::get_request();
+$id_category = $request->get_getint('cat', Category::ROOT_CATEGORY);
 
 $g_idpics = $request->get_getint('id', 0);
 $g_del    = $request->get_getint('del', 0);
@@ -102,14 +103,13 @@ elseif (isset($_FILES['gallery'])) //Upload
 
 	$authorized_pictures_extensions = FileUploadConfig::load()->get_authorized_picture_extensions();
 	$error = '';
+	$idpic = 0;
+	$id_category_post = $request->get_postint('_cat', 0);
+	$name_post = $request->get_postvalue('name', '', TSTRING_AS_RECEIVED);
 
 	if (!empty($authorized_pictures_extensions))
 	{
 		$Upload = new Upload($dir);
-
-		$idpic = 0;
-		$id_category_post = $request->get_postint('_cat', 0);
-		$name_post        = $request->get_postvalue('name', '', TSTRING_AS_RECEIVED);
 
 		if (!$Upload->file('gallery', '`\.(' . implode('|', array_map('preg_quote', $authorized_pictures_extensions)) . ')+$`iu', Upload::UNIQ_NAME, $config->get_max_weight()))
 			$error = $Upload->get_error();

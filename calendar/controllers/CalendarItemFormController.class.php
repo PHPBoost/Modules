@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 06
  * @since       PHPBoost 4.0 - 2013 02 25
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      mipel <mipel@phpboost.com>
@@ -586,10 +586,11 @@ class CalendarItemFormController extends DefaultModuleController
 			$corresponding_contributions = ContributionService::find_by_criteria('calendar', $item->get_id());
 			if (count($corresponding_contributions) > 0)
 			{
-				foreach ($corresponding_contributions as $contribution)
+				$contribution = $corresponding_contributions[count($corresponding_contributions) - 1];
+				foreach ($corresponding_contributions as $current_contribution)
 				{
-					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
-					ContributionService::save_contribution($contribution);
+					$current_contribution->set_status(Event::EVENT_STATUS_PROCESSED);
+					ContributionService::save_contribution($current_contribution);
 				}
 				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_content()->get_properties(), $item->get_properties(), ['item_url' => $item->get_item_url()]));
 			}
@@ -599,7 +600,6 @@ class CalendarItemFormController extends DefaultModuleController
 	private function redirect()
 	{
 		$item = $this->get_item();
-		$category = $item->get_content()->get_category();
 
 		if ($this->is_contributor_member())
 		{
