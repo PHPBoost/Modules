@@ -54,7 +54,7 @@ class BroadcastItemFormController extends DefaultModuleController
 			['required' => true]
 		));
 
-		$fieldset->add_field(new FormFieldMultipleCheckbox('release_days', $this->lang['broadcast.release.day'], TextHelper::unserialize($this->get_item()->get_release_days()),
+		$fieldset->add_field(new FormFieldMultipleCheckbox('release_days', $this->lang['broadcast.release.day'], TextHelper::deserialize($this->get_item()->get_release_days()),
 			[
 				new FormFieldMultipleCheckboxOption(BroadcastItem::MONDAY, $this->lang['date.monday']),
 				new FormFieldMultipleCheckboxOption(BroadcastItem::TUESDAY, $this->lang['date.tuesday']),
@@ -290,12 +290,13 @@ class BroadcastItemFormController extends DefaultModuleController
 			$corresponding_contributions = ContributionService::find_by_criteria('broadcast', $item->get_id());
 			if (count($corresponding_contributions) > 0)
 			{
-				foreach ($corresponding_contributions as $contribution)
+				$contribution = $corresponding_contributions[count($corresponding_contributions) - 1];
+				foreach ($corresponding_contributions as $current_contribution)
 				{
-					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
-					ContributionService::save_contribution($contribution);
+					$current_contribution->set_status(Event::EVENT_STATUS_PROCESSED);
+					ContributionService::save_contribution($current_contribution);
 				}
-				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($item->get_properties(), ['item_url' => $item->get_item_url()]));
+				HooksService::execute_hook_action('process_contribution', self::$module_id, array_merge($contribution->get_properties(), $item->get_properties(), ['item_url' => $item->get_item_url()]));
 			}
 		}
 	}

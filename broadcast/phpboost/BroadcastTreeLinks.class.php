@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 06
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
@@ -19,6 +19,7 @@ class BroadcastTreeLinks implements ModuleTreeLinksExtensionPoint
 
 		$tree->add_link(new ModuleLink($lang['broadcast.items.manage'], BroadcastUrlBuilder::manage(), CategoriesAuthorizationsService::check_authorizations()->moderation()));
 		$tree->add_link(new ModuleLink($lang['broadcast.item.add'], BroadcastUrlBuilder::add(AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY)), CategoriesAuthorizationsService::check_authorizations()->moderation()));
+		$tree->add_link(new ModuleLink($lang['broadcast.pending.items'], BroadcastUrlBuilder::display_pending()));
 
 		$tree->add_link(new AdminModuleLink($lang['form.configuration'], BroadcastUrlBuilder::configuration()));
 
