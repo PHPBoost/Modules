@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 07 27
+ * @version     PHPBoost 6.1 - last update: 2026 10 08
  * @since       PHPBoost 4.1 - 2015 02 04
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -52,8 +52,9 @@ class GalleryDisplayCategoryController extends ModuleController
 		$g_idpics = $request->get_getint('id', 0);
 		$g_views  = $request->get_getbool('views', false);
 		$g_notes  = $request->get_getbool('notes', false);
-		$g_sort   = $request->get_getvalue('sort', '');
-		$g_sort   = !empty($g_sort) ? 'sort=' . $g_sort : '';
+		$sort = $request->get_getvalue('sort', '');
+		$sort = preg_match('`^(name|date|views|notes|com)_(asc|desc)$`', $sort) ? $sort : '';
+		$g_sort = !empty($sort) ? 'sort=' . $sort : '';
 
 		//Récupération du mode d'ordonnement.
 		if (preg_match('`([a-z]+)_([a-z]+)`u', $g_sort, $array_match))
@@ -424,12 +425,10 @@ class GalleryDisplayCategoryController extends ModuleController
 			}
 			else
 			{
-				$sort = $request->get_getvalue('sort', '');
-
 				//On crée une pagination si le nombre de photos est trop important.
 				$page = AppContext::get_request()->get_getint('pp', 1);
 				$pagination = new ModulePagination($page, GalleryService::count('WHERE id_category = :id_category AND aprob = 1', ['id_category' => $category->get_id()]), $config->get_pics_number_per_page());
-				$pagination->set_url(new Url('/gallery/gallery.php?pp=%d' . (!empty($sort) ? '&amp;sort=' . $sort : '') . '&amp;cat=' . $category->get_id()));
+				$pagination->set_url(new Url('/gallery/gallery.php?pp=%d' . (!empty($g_sort) ? '&amp;' . $g_sort : '') . '&amp;cat=' . $category->get_id()));
 
 				if ($pagination->current_page_is_empty() && $page > 1)
 				{

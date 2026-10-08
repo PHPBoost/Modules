@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 07
+ * @version     PHPBoost 6.1 - last update: 2026 10 08
  * @since       PHPBoost 1.2 - 2005 08 12
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -29,8 +29,9 @@ $g_add    = $request->get_getbool('add', false);
 $g_page   = $request->get_getint('p', 1);
 $g_views  = $request->get_getbool('views', false);
 $g_notes  = $request->get_getbool('notes', false);
-$g_sort   = $request->get_getvalue('sort', '');
-$g_sort   = !empty($g_sort) ? 'sort=' . $g_sort : '';
+$sort = $request->get_getvalue('sort', '');
+$sort = preg_match('`^(name|date|views|notes|com)_(asc|desc)$`', $sort) ? $sort : '';
+$g_sort = !empty($sort) ? 'sort=' . $sort : '';
 
 //Récupération du mode d'ordonnement.
 if (preg_match('`([a-z]+)_([a-z]+)`u', $g_sort, $array_match))
