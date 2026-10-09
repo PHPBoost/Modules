@@ -1,7 +1,7 @@
 /** @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 09
  * @since       PHPBoost 6.0 - 2022 11 18
 */
 
@@ -61,6 +61,11 @@ if (title.length == 0)
     jQuery('#sheet-summary').remove();
 }
 title.each(function () {
+    if (jQuery(this).data('summary-constructed')) {
+        return;
+    }
+    jQuery(this).data('summary-constructed', true);
+
     var rewrited = jQuery(this).text().replace(/[^a-zA-Z0-9]/ig, "-").toLowerCase();
     jQuery(this).attr('id', rewrited);
     var innerhtml = jQuery(this).html();
