@@ -29,5 +29,3 @@ span.content + hr {
 }
 
 .form-field-action-link i { font-size: 1.618em; }
-
-.fa-pagebreak:before { content: "\f477"; }

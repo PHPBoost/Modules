@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Patrick DUBEAU <daaxwizeman@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 12
  * @since       PHPBoost 4.0 - 2013 02 27
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -15,7 +15,7 @@ class ArticlesItemFormController extends DefaultItemFormController
 {
 	protected function build_post_content_fields(FormFieldset $fieldset)
 	{
-		$fieldset->add_field(new FormFieldActionLink('add_page', $this->lang['articles.add.page'] , 'javascript:bbcode_page();', '', '', '', 'fa fa-pagebreak'));
+		$fieldset->add_field(new FormFieldActionLink('add_page', $this->lang['articles.add.page'] , 'javascript:bbcode_page();', '', '', '', 'fa fa-file-circle-plus'));
 
 		// Put the cursor on the good page when we edit an article with several pages
 		if (!$this->is_new_item)
