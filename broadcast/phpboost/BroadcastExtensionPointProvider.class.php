@@ -3,11 +3,11 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 12
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
-class BroadcastExtensionPointProvider extends ItemsModuleExtensionPointProvider
+class BroadcastExtensionPointProvider extends ModuleExtensionPointProvider
 {
 	public function home_page()
 	{
