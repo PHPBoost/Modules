@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 08
  * @since       PHPBoost 6.0 - 2021 02 26
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -21,7 +21,7 @@ class NewsManager extends ItemsManager
 
 	/**
 	 * Return a list of suggested news, related to the consulted one.
-	 * @param string[] $item Item to compare with
+	 * @param Item $item Item to compare with
 	 */
 	public function get_suggested_news(Item $item)
 	{
@@ -50,7 +50,7 @@ class NewsManager extends ItemsManager
 
 	/**	
 	 * Return the previous and the next news from the consulted one.
-	 * @param string[] $item Item the current news
+	 * @param Item $item Item the current news
 	 */
 	public function get_navigation_links(Item $item)
 	{

@@ -27,7 +27,9 @@ class NewsletterDeleteStreamController extends AbstractDeleteCategoryController
 
 	protected function get_delete_category_url(Category $category)
 	{
-		return NewsletterUrlBuilder::delete_stream($category->get_id());
+		/** @var NewsletterStream $stream */
+		$stream = $category;
+		return NewsletterUrlBuilder::delete_stream($stream->get_id());
 	}
 
 	protected function get_module_home_page_url()

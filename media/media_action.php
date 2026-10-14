@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 08
  * @since       PHPBoost 2.0 - 2008 10 20
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      mipel <mipel@phpboost.com>
@@ -15,6 +15,8 @@ define('PATH_TO_ROOT', '../..');
 require_once(PATH_TO_ROOT . '/kernel/begin.php');
 require_once(ModulesManager::get_module_path('media') . '/media_begin.php');
 
+/** @var array $mime_type */
+/** @var array $host_ok */
 if (AppContext::get_current_user()->is_readonly())
 {
 	$controller = PHPBoostErrors::user_in_read_only();

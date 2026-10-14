@@ -17,17 +17,23 @@ class NewsletterStreamsManagementController extends AbstractCategoriesManagement
 
 	protected function get_display_category_url(Category $category)
 	{
-		return NewsletterUrlBuilder::archives($category->get_id(), $category->get_rewrited_name());
+		/** @var NewsletterStream $stream */
+		$stream = $category;
+		return NewsletterUrlBuilder::archives($stream->get_id(), $stream->get_rewrited_name());
 	}
 
 	protected function get_edit_category_url(Category $category)
 	{
-		return NewsletterUrlBuilder::edit_stream($category->get_id());
+		/** @var NewsletterStream $stream */
+		$stream = $category;
+		return NewsletterUrlBuilder::edit_stream($stream->get_id());
 	}
 
 	protected function get_delete_category_url(Category $category)
 	{
-		return NewsletterUrlBuilder::delete_stream($category->get_id());
+		/** @var NewsletterStream $stream */
+		$stream = $category;
+		return NewsletterUrlBuilder::delete_stream($stream->get_id());
 	}
 
 	protected function get_categories_management_url()
