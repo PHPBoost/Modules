@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 14
  * @since       PHPBoost 3.0 - 2011 10 08
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -77,12 +77,14 @@ class GalleryModuleMiniMenu extends ModuleMiniMenu
 			if (count($gallery_mini) == 0)
 			{
 				$array_random_pics = [];
-				$result = PersistenceContext::get_querier()->select("SELECT g.id, g.name, g.path, g.width, g.height, g.id_category, gc.auth
-				FROM " . GallerySetup::$gallery_table . " g
-				LEFT JOIN " . GallerySetup::$gallery_cats_table . " gc on gc.id = g.id_category
-				WHERE g.aprob = 1
-				ORDER BY RAND()
-				LIMIT " . $config->get_pics_number_in_mini());
+				$result = PersistenceContext::get_querier()->select("
+                    SELECT g.id, g.name, g.path, g.width, g.height, g.id_category, gc.auth
+                    FROM " . GallerySetup::$gallery_table . " g
+                    LEFT JOIN " . GallerySetup::$gallery_cats_table . " gc on gc.id = g.id_category
+                    WHERE g.aprob = 1
+                    ORDER BY RAND()
+                    LIMIT " . $config->get_pics_number_in_mini()
+                );
 				while($row = $result->fetch())
 				{
 					$array_random_pics[] = $row;
@@ -130,22 +132,24 @@ class GalleryModuleMiniMenu extends ModuleMiniMenu
 			foreach ($gallery_mini as $key => $row)
 			{
 				//Si la miniature n'existe pas (cache vidé) on regénère la miniature à partir de l'image en taille réelle.
-			if (!is_file(ModulesManager::get_module_path('gallery') . '/pics/thumbnails/' . $row['path']))
-				$Gallery->Resize_pics(ModulesManager::get_module_path('gallery') . '/pics/' . $row['path']); //Redimensionnement + création miniature
+                if (!is_file(ModulesManager::get_module_path('gallery') . '/pics/thumbnails/' . $row['path']))
+                    $Gallery->Resize_pics(ModulesManager::get_module_path('gallery') . '/pics/' . $row['path']); //Redimensionnement + création miniature
 
-			// On recupère la hauteur et la largeur de l'image.
-			if ($row['width'] == 0 || $row['height'] == 0)
-				list($row['width'], $row['height']) = @getimagesize(ModulesManager::get_module_path('gallery') . '/pics/thumbnails/' . $row['path']);
-			if ($row['width'] == 0 || $row['height'] == 0)
-				list($row['width'], $row['height']) = [142, 142];
+                // On recupère la hauteur et la largeur de l'image.
+                if ($row['width'] == 0 || $row['height'] == 0) {
+                    list($row['width'], $row['height']) = @getimagesize(ModulesManager::get_module_path('gallery') . '/pics/thumbnails/' . $row['path']);
+                }
+                if ($row['width'] == 0 || $row['height'] == 0) {
+                    list($row['width'], $row['height']) = [142, 142];
+                }
 
-			$view->assign_block_vars('pics_mini', [
-				'ID'          => $row['id'],
-				'U_THUMBNAIL' => TPL_PATH_TO_ROOT . '/modules/gallery/pics/thumbnails/' . $row['path'],
+                $view->assign_block_vars('pics_mini', [
+                    'ID'          => $row['id'],
+                    'U_THUMBNAIL' => TPL_PATH_TO_ROOT . '/modules/gallery/pics/thumbnails/' . $row['path'],
 					'NAME'        => $row['name'],
 					'HEIGHT'      => $row['height'],
 					'WIDTH'       => $row['width'],
-					'U_ITEM'      => TPL_PATH_TO_ROOT . '/modules/gallery/gallery' . url('.php?cat=' . $row['id_category'] . '&amp;id=' . $row['id'], '-' . $row['id_category'] . '-' . $row['id'] . '.php')
+					'U_ITEM'      => TPL_PATH_TO_ROOT . '/gallery/gallery' . url('.php?cat=' . $row['id_category'] . '&amp;id=' . $row['id'], '-' . $row['id_category'] . '-' . $row['id'] . '.php')
 				]);
 
 				$sum_height += $row['height'] + 5;
@@ -153,8 +157,9 @@ class GalleryModuleMiniMenu extends ModuleMiniMenu
 
 				$i++;
 
-				if ($config->get_scroll_type() == GalleryConfig::NO_SCROLL)
+				if ($config->get_scroll_type() == GalleryConfig::NO_SCROLL) {
 					break;
+                }
 			}
 		}
 
