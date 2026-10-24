@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 24
  * @since       PHPBoost 4.1 - 2015 02 25
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
 */
 
@@ -103,6 +104,11 @@ class ForumCategoriesCache extends CategoriesCache
 	public function get_root_category()
 	{
 		$root = new ForumCategory();
+		$root->set_id(Category::ROOT_CATEGORY);
+		$root->set_id_parent(Category::ROOT_CATEGORY);
+		$root->set_name(LangLoader::get_message('common.root', 'common-lang'));
+		$root->set_rewrited_name('root');
+		$root->set_order(0);
 		$root->set_authorizations(ForumConfig::load()->get_authorizations());
 
 		return $root;

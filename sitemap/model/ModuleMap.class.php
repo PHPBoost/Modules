@@ -6,8 +6,9 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 24
  * @since       PHPBoost 2.0 - 2008 06 16
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
 */
 
@@ -16,7 +17,7 @@ class ModuleMap extends SitemapSection
 	/**
 	 * @var string Description of the module
 	 */
-	private $description;
+	private $description = '';
 	/**
 	 * @var string id of the corresponding module
 	 */
@@ -84,7 +85,7 @@ class ModuleMap extends SitemapSection
 			'MODULE_ID' => $this->get_module_id(),
 			'C_MODULE_ID' => $this->get_module_id() != '',
 			'MODULE_NAME' => TextHelper::htmlspecialchars($this->get_name(), ENT_QUOTES),
-			'MODULE_DESCRIPTION' => FormatingHelper::second_parse($this->description),
+			'MODULE_DESCRIPTION' => FormatingHelper::second_parse($this->description ?? ''),
             'MODULE_URL' => !empty($this->link) ? $this->link->get_url() : '',
 			'FA_ICON' => $this->get_module_id() != '' ? ModulesManager::get_module($this->get_module_id())->get_configuration()->get_fa_icon() : 'fa fa-cube',
 			'DEPTH' => $this->depth,
