@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 31
  * @since       PHPBoost 5.0 - 2017 04 03
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,29 +11,23 @@
 
 class GoogleMapsFormFieldSimpleMarker extends AbstractFormField
 {
-	/**
-	 * @var Usefull to know if we have to include all the necessary JS includes
-	 */
-	private $include_api = true;
+	private bool $include_api = true;
 
 	/**
 	 * Constructs a GoogleMapsFormFieldSimpleAddress.
 	 * @param string $id Field identifier
 	 * @param string $label Field label
-	 * @param string $value Default value
-	 * @param string[] $field_options Map containing the options
+	 * @param mixed $value Default value
+	 * @param array $field_options Map containing the options
 	 * @param FormFieldConstraint[] $constraints The constraints checked during the validation
 	 */
-	public function __construct($id, $label, $value, array $field_options = [], array $constraints = [])
+	public function __construct(string $id, string $label, mixed $value, array $field_options = [], array $constraints = [])
 	{
 		parent::__construct($id, $label, $value, $field_options, $constraints);
 		$this->set_css_form_field_class('form-field-map simple-marker');
 	}
 
-	/**
-	 * @return string The html code for the input.
-	 */
-	public function display()
+	public function display(): Template
 	{
 		$template = $this->get_template_to_use();
 		$config   = GoogleMapsConfig::load();
@@ -57,9 +51,11 @@ class GoogleMapsFormFieldSimpleMarker extends AbstractFormField
 			]);
 		}
 		else
+        {
 			$marker = $value;
+        }
 
-		$field_tpl->put_all(array_merge($marker->get_array_tpl_vars(), [
+		$field_tpl->put_all(array_merge($marker->get_array_tpl_vars(),[
 			'C_INCLUDE_API' => $this->include_api,
 			'C_CLASS' => !empty($this->get_css_class()),
 			'API_KEY' => $config->get_api_key(),
@@ -80,7 +76,7 @@ class GoogleMapsFormFieldSimpleMarker extends AbstractFormField
 		return $template;
 	}
 
-	public function retrieve_value()
+	public function retrieve_value(): void
 	{
 		$request = AppContext::get_request();
 		$marker = new GoogleMapsMarker();
@@ -104,7 +100,7 @@ class GoogleMapsFormFieldSimpleMarker extends AbstractFormField
 		$this->set_value(TextHelper::serialize($marker->get_properties()));
 	}
 
-	protected function compute_options(array &$field_options)
+	protected function compute_options(array &$field_options): void
 	{
 		foreach($field_options as $attribute => $value)
 		{
@@ -120,7 +116,7 @@ class GoogleMapsFormFieldSimpleMarker extends AbstractFormField
 		parent::compute_options($field_options);
 	}
 
-	protected function get_default_template()
+	protected function get_default_template(): FileTemplate
 	{
 		return new FileTemplate('framework/builder/form/FormField.tpl');
 	}

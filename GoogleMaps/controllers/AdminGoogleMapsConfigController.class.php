@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 31
  * @since       PHPBoost 5.0 - 2017 03 26
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @author      xela <xela@phpboost.com>
@@ -11,7 +11,7 @@
 
 class AdminGoogleMapsConfigController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminMenuDisplayResponse
 	{
 		$this->build_form();
 
@@ -35,7 +35,7 @@ class AdminGoogleMapsConfigController extends DefaultAdminModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -57,7 +57,7 @@ class AdminGoogleMapsConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$this->config->set_api_key($this->form->get_value('api_key'));
 
@@ -81,7 +81,7 @@ class AdminGoogleMapsConfigController extends DefaultAdminModuleController
 		HooksService::execute_hook_action('edit_config', self::$module_id, ['title' => StringVars::replace_vars($this->lang['form.module.title'], ['module_name' => self::get_module_configuration()->get_name()]), 'url' => ModulesUrlBuilder::configuration()->rel()]);
 	}
 
-	private function build_response(View $view)
+	private function build_response(View $view): AdminMenuDisplayResponse
 	{
 		$title = $this->lang['form.configuration'];
 

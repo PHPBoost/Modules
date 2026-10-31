@@ -3,25 +3,21 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 31
  * @since       PHPBoost 5.0 - 2017 04 03
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class GoogleMapsDisplayMap
 {
-	private $markers = [];
-	private $map_id;
-	private $default_marker_label;
-	private $hide_address_on_label;
-	private $address_displayed_on_label;
+	private array $markers = [];
+	private mixed $map_id = null;
+	private mixed $default_marker_label = null;
+	private bool $hide_address_on_label = false;
+	private bool $address_displayed_on_label = false;
+    private bool $include_api = true;
 
-	/**
-	 * @var Usefull to know if we have to include all the necessary JS includes
-	 */
-	private $include_api = true;
-
-	public function __construct($markers = '', $map_id = '', $default_marker_label = '', $address_displayed_on_label = true)
+	public function __construct(string $markers = '', string $map_id = '', string $default_marker_label = '', bool $address_displayed_on_label = true)
 	{
 		$markers = TextHelper::deserialize($markers);
 
@@ -45,7 +41,9 @@ class GoogleMapsDisplayMap
 						]);
 					}
 					else
+                    {
 						$marker = $m;
+                    }
 
 					$this->markers[] = $marker;
 				}
@@ -66,7 +64,9 @@ class GoogleMapsDisplayMap
 					]);
 				}
 				else
+                {
 					$marker = $markers;
+                }
 
 				$this->markers[] = $marker;
 			}
@@ -79,7 +79,9 @@ class GoogleMapsDisplayMap
 				$marker->set_address($markers);
 			}
 			else
+            {
 				$marker = $markers;
+            }
 
 			$this->markers[] = $marker;
 		}
@@ -89,10 +91,7 @@ class GoogleMapsDisplayMap
 		$this->address_displayed_on_label = $address_displayed_on_label;
 	}
 
-	/**
-	 * @return string The html code for the input.
-	 */
-	public function display()
+	public function display(): string
 	{
 		$config       = GoogleMapsConfig::load();
 		$default_zoom = $config->get_default_zoom();

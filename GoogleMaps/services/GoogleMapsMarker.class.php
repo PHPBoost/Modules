@@ -3,18 +3,18 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 31
  * @since       PHPBoost 5.0 - 2017 04 03
 */
 
 class GoogleMapsMarker
 {
-	private $name;
-	private $address;
-	private $latitude;
-	private $longitude;
-	private $zoom;
-	private $address_displayed_on_label;
+	private string $name = '';
+	private string $address = '';
+	private string $latitude = '';
+	private string $longitude = '';
+	private int $zoom = 0;
+	private bool $address_displayed_on_label = true;
 
 	/**
 	 * Constructs a GoogleMapsMarker.
@@ -24,7 +24,7 @@ class GoogleMapsMarker
 	 * @param string $name Marker name
 	 * @param int $zoom Map zoom
 	 */
-	public function __construct($address = '', $latitude = '', $longitude = '', $name = '', $zoom = 0, $address_displayed_on_label = true)
+	public function __construct(string $address = '', string $latitude = '', string $longitude = '', string $name = '', int $zoom = 0, bool $address_displayed_on_label = true)
 	{
 		$this->address = $address;
 		$this->latitude = $latitude;
@@ -34,52 +34,52 @@ class GoogleMapsMarker
 		$this->address_displayed_on_label = $address_displayed_on_label;
 	}
 
-	public function set_name($name)
+	public function set_name(string $name): void
 	{
 		$this->name = $name;
 	}
 
-	public function get_name()
+	public function get_name(): string
 	{
 		return $this->name;
 	}
 
-	public function set_address($address)
+	public function set_address(string $address)
 	{
 		$this->address = $address;
 	}
 
-	public function get_address()
+	public function get_address(): string
 	{
 		return $this->address;
 	}
 
-	public function set_latitude($latitude)
+	public function set_latitude(string $latitude)
 	{
 		$this->latitude = $latitude;
 	}
 
-	public function get_latitude()
+	public function get_latitude(): string
 	{
 		return $this->latitude;
 	}
 
-	public function set_longitude($longitude)
+	public function set_longitude(string $longitude)
 	{
 		$this->longitude = $longitude;
 	}
 
-	public function get_longitude()
+	public function get_longitude(): string
 	{
 		return $this->longitude;
 	}
 
-	public function set_zoom($zoom)
+	public function set_zoom(int $zoom)
 	{
 		$this->zoom = $zoom;
 	}
 
-	public function get_zoom()
+	public function get_zoom(): int
 	{
 		return $this->zoom;
 	}
