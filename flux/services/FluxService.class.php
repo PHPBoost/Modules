@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 10 31
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
@@ -19,8 +19,48 @@ class FluxService
 
     public static function is_valid_xml($xml)
     {
-        $content = file_get_contents($xml);
-        return strpos($content, '<channel>');
+        if (filter_var($xml, FILTER_VALIDATE_URL))
+        {
+            if (!function_exists('curl_init'))
+            {
+                error_log('Unable to validate remote RSS XML: cURL is not available.');
+                return false;
+            }
+
+            $ch = curl_init($xml);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+            $content = curl_exec($ch);
+            $http_code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+            if ($content === false)
+            {
+                error_log('Unable to fetch remote RSS XML: ' . curl_error($ch));
+            }
+            elseif ($http_code < 200 || $http_code >= 300)
+            {
+                error_log('Unable to fetch remote RSS XML: HTTP status ' . $http_code . '.');
+                $content = false;
+            }
+
+            if (\PHP_VERSION_ID < 80100)
+            {
+                curl_close($ch);
+            }
+        }
+        else
+        {
+            $content = @file_get_contents($xml);
+            if ($content === false)
+            {
+                error_log('Unable to read RSS XML file: ' . $xml);
+            }
+        }
+
+        return $content !== false && strpos($content, '<channel>') !== false;
     }
 
 	/**
