@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 01
  * @since       PHPBoost 4.0 - 2013 02 25
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -166,7 +166,8 @@ class CalendarItem
 
 		$registration_days_left = $this->content->get_last_registration_date() && time() < $this->content->get_last_registration_date()->get_timestamp() ? (int)(($this->content->get_last_registration_date()->get_timestamp() - time()) /3600 /24) : 0;
 
-		$location_value = TextHelper::deserialize($this->content->get_location());
+		$location_data = $this->content->get_location() ?? '';
+		$location_value = TextHelper::deserialize($location_data);
 
 		$location = '';
 		if (is_array($location_value) && isset($location_value['address']))
@@ -178,7 +179,7 @@ class CalendarItem
 		$has_location_map = false;
 		if (CalendarConfig::load()->is_googlemaps_available())
 		{
-			$map = new GoogleMapsDisplayMap($this->content->get_location(), 'location', $this->content->get_title());
+			$map = new GoogleMapsDisplayMap($location_data, 'location', $this->content->get_title());
 			$location_map = $map->display();
 			$has_location_map = $this->content->is_map_displayed();
 		}
