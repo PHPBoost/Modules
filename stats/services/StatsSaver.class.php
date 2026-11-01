@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 09 11
+ * @version     PHPBoost 6.1 - last update: 2026 11 01
  * @since       PHPBoost 2.0 - 2008 08 23
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -111,7 +111,7 @@ class StatsSaver
         foreach ($array_stats_img as $key => $value)
         {
             if (file_exists(PATH_TO_ROOT . '/cache/' . $value))
-                unlink(PATH_TO_ROOT . '/cache/' . $value);
+                @unlink(PATH_TO_ROOT . '/cache/' . $value);
         }
 
         // Browser detection
