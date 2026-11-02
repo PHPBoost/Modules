@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 02
  * @since       PHPBoost 4.0 - 2013 02 27
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
 */
 
@@ -21,27 +22,27 @@ class ReCaptcha extends Captcha
 		$this->config = ReCaptchaConfig::load();
 	}
 
-	public function get_name()
+	public function get_name(): mixed
 	{
 		return 'ReCaptcha';
 	}
 
-	public static function display_config_form_fields(FormFieldset $fieldset, $locale = '')
+	public static function display_config_form_fields(FormFieldset $fieldset, $locale = ''): mixed
 	{
 		return AdminReCaptchaConfig::get_form_fields($fieldset, $locale);
 	}
 
-	public static function save_config(HTMLForm $form)
+	public static function save_config(HTMLForm $form): void
 	{
 		AdminReCaptchaConfig::save_config($form);
 	}
 
-	public function is_available()
+	public function is_available(): mixed
 	{
 		return Url::check_url_validity('www.google.com') && $this->config->get_site_key() && $this->config->get_secret_key();
 	}
 
-	public function is_valid()
+	public function is_valid(): mixed
 	{
 		$request = AppContext::get_request();
 
@@ -74,7 +75,7 @@ class ReCaptcha extends Captcha
 		return false;
 	}
 
-	public function display()
+	public function display(): mixed
 	{
 		$view = new FileTemplate('ReCaptcha/ReCaptcha.tpl');
 		$view->add_lang(LangLoader::get_all_langs('ReCaptcha'));
@@ -87,7 +88,7 @@ class ReCaptcha extends Captcha
 		return $view->render();
 	}
 
-	public function is_visible()
+	public function is_visible(): bool
 	{
 		return !$this->config->is_invisible_mode_enabled();
 	}
