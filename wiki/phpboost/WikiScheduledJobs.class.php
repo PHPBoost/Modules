@@ -3,13 +3,13 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 02
  * @since       PHPBoost 6.0 - 2022 11 18
  */
 
 class WikiScheduledJobs extends AbstractScheduledJobExtensionPoint
 {
-    public function on_changepage()
+    public function on_changepage(): void
     {
         $config = WikiConfig::load();
         $deferred_operations = $config->get_deferred_operations();

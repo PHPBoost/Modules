@@ -9,7 +9,7 @@
 
 class RecipeScheduledJobs extends AbstractScheduledJobExtensionPoint
 {
-	public function on_changepage()
+	public function on_changepage(): void
 	{
 		$config = RecipeConfig::load();
 		$deferred_operations = $config->get_deferred_operations();

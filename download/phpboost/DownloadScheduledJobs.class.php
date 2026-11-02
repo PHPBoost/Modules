@@ -10,7 +10,7 @@
 
 class DownloadScheduledJobs extends AbstractScheduledJobExtensionPoint
 {
-	public function on_changepage()
+	public function on_changepage(): void
 	{
 		$config = DownloadConfig::load();
 		$deferred_operations = $config->get_deferred_operations();

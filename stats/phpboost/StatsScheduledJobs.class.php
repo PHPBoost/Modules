@@ -3,16 +3,18 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 02
  * @since       PHPBoost 3.0 - 2013 01 06
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class StatsScheduledJobs extends AbstractScheduledJobExtensionPoint
 {
-	public function on_changeday(Date $yesterday, Date $today)
+	public function on_changeday(Date $yesterday, Date $today): void
 	{
-		try {
+		try
+        {
 			$result = PersistenceContext::get_querier()->insert(StatsSetup::$stats_table, [
 				'stats_year' => $yesterday->get_year(Timezone::SERVER_TIMEZONE),
 				'stats_month' => $yesterday->get_month(Timezone::SERVER_TIMEZONE),
@@ -24,7 +26,9 @@ class StatsScheduledJobs extends AbstractScheduledJobExtensionPoint
 
 			// We retrieve the id we just created
 			$last_stats = $result->get_last_inserted_id();
-		} catch (MySQLQuerierException $e) {
+		}
+        catch (MySQLQuerierException $e)
+        {
 			$last_stats = PersistenceContext::get_querier()->get_column_value(StatsSetup::$stats_table, 'id', 'WHERE stats_year = :stats_year AND stats_month = :stats_month AND stats_day = :stats_day', [
 				'stats_year' => $yesterday->get_year(Timezone::SERVER_TIMEZONE),
 				'stats_month' => $yesterday->get_month(Timezone::SERVER_TIMEZONE),
@@ -53,19 +57,23 @@ class StatsScheduledJobs extends AbstractScheduledJobExtensionPoint
 		'WHERE id=:id', ['id' => $last_stats]);
 	}
 
-	public function on_changepage()
+	public function on_changepage(): void
 	{
 		StatsSaver::update_pages_displayed();
 		StatsSaver::compute_referer();
 	}
 
-	public function on_new_session($new_visitor, $is_robot)
+	public function on_new_session(mixed $new_visitor, mixed $is_robot): void
 	{
 		if ($new_visitor && !$is_robot)
+        {
 			StatsSaver::compute_users();
+        }
 
 		if ($is_robot)
+        {
 			StatsSaver::register_bot();
+        }
 	}
 }
 ?>
