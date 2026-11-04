@@ -3,18 +3,18 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 04
  * @since       PHPBoost 6.0 - 2022 11 18
  */
 
 class WikiPendingItemsController extends DefaultModuleController
 {
-    protected function get_template_to_use()
+    protected function get_template_to_use(): FileTemplate
     {
         return new FileTemplate('wiki/WikiSeveralItemsController.tpl');
     }
 
-    public function execute(HTTPRequestCustom $request)
+    public function execute(HTTPRequestCustom $request): SiteDisplayResponse
     {
         $this->check_authorizations();
 
@@ -29,6 +29,11 @@ class WikiPendingItemsController extends DefaultModuleController
         $comments_config = CommentsConfig::load();
         $content_management_config = ContentManagementConfig::load();
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->is_summary_displayed_to_guests());
+        if (count($authorized_categories) == 0)
+        {
+            $authorized_categories = [Category::ROOT_CATEGORY];
+        }
+
         $condition = 'WHERE id_category IN :authorized_categories
         AND (published = 0 OR (published = 2 AND (publishing_start_date > :timestamp_now OR (publishing_end_date != 0 AND publishing_end_date < :timestamp_now))))';
         $parameters = [
@@ -40,7 +45,14 @@ class WikiPendingItemsController extends DefaultModuleController
         $page = $request->get_getint('page', 1);
         $pagination = $this->get_pagination($condition, $parameters, $page);
 
-        $result = PersistenceContext::get_querier()->select('SELECT i.*, c.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
+        $result = PersistenceContext::get_querier()->select('
+            SELECT
+                i.*,
+                c.*,
+                member.*,
+                com.comments_number,
+                notes.average_notes, notes.notes_number,
+                note.note
             FROM ' . WikiSetup::$wiki_articles_table . ' i
             LEFT JOIN ' . WikiSetup::$wiki_contents_table . ' c ON c.item_id = i.id
             LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = c.author_user_id
