@@ -77,7 +77,7 @@
 					<span><i class="fa fa-fw fa-cogs moderator"></i> <span>{@sandbox.mini.personalization}</span></span>
 					<ul>
 						<li>
-							<a href="{PATH_TO_ROOT}/admin/menus/menus.php">
+							<a href="{PATH_TO_ROOT}/admin/content/menus/menus.php">
 								<span class="stacked">
 									<i class="fa fa-fw fa-bars" aria-hidden="true"></i>
 									<i class="fa fa-cog stack-event stack-top-right notice" aria-hidden="true"></i>

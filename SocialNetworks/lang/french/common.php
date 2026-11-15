@@ -40,8 +40,8 @@ $lang['sn.hide.share.link']         = 'Cacher le lien de partage';
 $lang['sn.no.sharing.content.url']  = 'Ce réseau social n\'a pas de lien de partage, il n\'apparaîtra pas dans la liste des liens de partage mais uniquement dans la liste des modes de connexion si celle-ci est activée.';
 
 $lang['sn.menu.position']            = 'Positionnement du menu';
-$lang['sn.menu.mini.module.message'] = 'Pour afficher les liens de partage dans un mini-module sur toutes les pages, activez le mini-module dédié dans la <a href="' . TPL_PATH_TO_ROOT . '/admin/menus/menus.php">gestion des Menus</a>.';
-$lang['sn.menu.content.message']     = 'Pour afficher les liens de partage sur les pages de contenu uniquement, activez l\'option <b>Afficher les liens de partage sur les pages de contenu</b> dans la <a href="' . AdminContentUrlBuilder::content_configuration()->rel() . '#AdminContentConfigController_sharing_config">gestion du Contenu</a>.';
+$lang['sn.menu.mini.module.message'] = 'Pour afficher les liens de partage dans un mini-module sur toutes les pages, activez le mini-module dédié dans la <a href="' . TPL_PATH_TO_ROOT . '/admin/content/menus/menus.php">gestion des Menus</a>.';
+$lang['sn.menu.content.message']     = 'Pour afficher les liens de partage sur les pages de contenu uniquement, activez l\'option <b>Afficher les liens de partage sur les pages de contenu</b> dans la <a href="' . AdminContentUrlBuilder::configuration()->rel() . '#AdminContentConfigController_sharing_config">gestion du Contenu</a>.';
 
 // Sign in label
 $lang['sn.sign.in.label'] = 'Connexion :name';

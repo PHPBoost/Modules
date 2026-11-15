@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 06
  * @since       PHPBoost 5.2 - 2020 06 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -44,12 +44,14 @@ class PagesHomeController extends DefaultSeveralItemsController
      *
      * {@inheritdoc}
      */
-    protected function init()
+    protected function init(): void
     {
         parent::init();
 
         if (!$this->is_frontend_request() || !self::get_module_configuration()->has_categories())
+        {
             return;
+        }
 
         $requested_sort_field = $this->request->get_getstring('field', '');
         $requested_sort_mode  = $this->request->get_getstring('sort', '');
@@ -83,7 +85,7 @@ class PagesHomeController extends DefaultSeveralItemsController
      *
      * {@inheritdoc}
      */
-    protected function build_view()
+    protected function build_view(): void
     {
         // For a specific sub-category, the parent handles item filtering correctly.
         // We only override U_CATEGORY and U_REORDER_ITEMS via post-processing in the
@@ -131,10 +133,7 @@ class PagesHomeController extends DefaultSeveralItemsController
         // Build the JS file URL using the module's real physical path.
         // ModulesManager::get_module_path() handles modules located either in
         // /modules/<id>/ or directly at the site root /<id>/ (e.g. pages/).
-        $js_path = new Url(
-            str_replace(PATH_TO_ROOT, '', ModulesManager::get_module_path(self::$module_id))
-            . '/templates/js/pages.js'
-        );
+        $js_path = new Url(str_replace(PATH_TO_ROOT, '', ModulesManager::get_module_path(self::$module_id)) . '/templates/js/pages.js');
 
         $this->view->put_all([
             'C_ROOT_SEVERAL_ITEMS'   => $categories_elements_number[Category::ROOT_CATEGORY] > 1,
@@ -190,7 +189,7 @@ class PagesHomeController extends DefaultSeveralItemsController
      *
      * {@inheritdoc}
      */
-    protected function get_pagination()
+    protected function get_pagination(): ModulePagination
     {
         if (!$this->is_frontend_request() || !self::get_module_configuration()->has_categories())
             return parent::get_pagination();
@@ -217,7 +216,7 @@ class PagesHomeController extends DefaultSeveralItemsController
      *
      * {@inheritdoc}
      */
-    protected function get_subcategories_pagination($subcategories_number)
+    protected function get_subcategories_pagination(int $subcategories_number): ModulePagination
     {
         if (!$this->is_frontend_request() || !self::get_module_configuration()->has_categories())
             return parent::get_subcategories_pagination($subcategories_number);
@@ -244,10 +243,12 @@ class PagesHomeController extends DefaultSeveralItemsController
      *
      * {@inheritdoc}
      */
-    protected function generate_response()
+    protected function generate_response(): SiteDisplayResponse
     {
         if (!$this->is_frontend_request())
+        {
             return parent::generate_response();
+        }
 
         $response              = new SiteDisplayResponse($this->view);
         $graphical_environment = $response->get_graphical_environment();
@@ -306,13 +307,15 @@ class PagesHomeController extends DefaultSeveralItemsController
         return $response;
     }
 
-    protected function get_template_to_use()
+    protected function get_template_to_use(): FileTemplate
     {
         // Root category: use the custom home template (tree with all categories).
         // Sub-category: use the standard framework template (items list with pagination)
         // which matches the blocks produced by parent::build_view().
         if ($this->get_category() === null || $this->get_category()->get_id() == Category::ROOT_CATEGORY)
+        {
             return new FileTemplate('pages/PagesHomeController.tpl');
+        }
 
         return new FileTemplate('framework/content/items/ModuleSeveralItemsController.tpl');
     }

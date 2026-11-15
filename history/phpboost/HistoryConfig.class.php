@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 07
+ * @version     PHPBoost 6.1 - last update: 2026 11 11
  * @since       PHPBoost 6.0 - 2021 10 22
+* @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class HistoryConfig extends AbstractConfigData
@@ -43,7 +44,7 @@ class HistoryConfig extends AbstractConfigData
 		$this->set_property(self::LOG_RETENTION_PERIOD, $value);
 	}
 
-	public function get_default_values()
+	public function get_default_values(): array
 	{
 		return [
 			self::HISTORY_TOPICS_DISABLED => [],

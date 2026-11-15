@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 06
  * @since       PHPBoost 4.1 - 2014 12 02
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -12,13 +12,13 @@ class ShoutboxAjaxRefreshMessagesController extends AbstractController
 {
 	private $view;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): JSONResponse
 	{
 		$this->build_view();
 		return new JSONResponse(['messages' => $this->view->render()]);
 	}
 
-	private function build_view()
+	private function build_view(): void
 	{
 		$this->view = new FileTemplate('shoutbox/ShoutboxAjaxMessagesBoxController.tpl');
 		$this->view->add_lang(LangLoader::get_all_langs());
@@ -27,11 +27,13 @@ class ShoutboxAjaxRefreshMessagesController extends AbstractController
 
 		$this->view->put('C_DISPLAY_DATE', $config->is_date_displayed());
 
-		$result = PersistenceContext::get_querier()->select('SELECT *
-		FROM ' . ShoutboxSetup::$shoutbox_table . ' s
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' m ON m.user_id = s.user_id
-		ORDER BY s.timestamp DESC
-		' . ($config->is_shout_max_messages_number_enabled() ? 'LIMIT ' . $config->get_shout_max_messages_number() : ''));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT *
+            FROM ' . ShoutboxSetup::$shoutbox_table . ' s
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' m ON m.user_id = s.user_id
+            ORDER BY s.timestamp DESC
+            ' . ($config->is_shout_max_messages_number_enabled() ? 'LIMIT ' . $config->get_shout_max_messages_number() : '')
+        );
 
 		while ($row = $result->fetch())
 		{
@@ -43,7 +45,7 @@ class ShoutboxAjaxRefreshMessagesController extends AbstractController
 		$result->dispose();
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self();
 		$object->build_view();

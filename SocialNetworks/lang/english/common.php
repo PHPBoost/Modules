@@ -39,8 +39,8 @@ $lang['sn.hide.share.link']         = 'Hide share link';
 $lang['sn.no.sharing.content.url']  = 'This social network does not have share content link, it will not be displayed in content sharing list but only in authentication methods list if it is enabled.';
 
 $lang['sn.menu.position']            = 'Menu positionning';
-$lang['sn.menu.mini.module.message'] = 'To show share media links in mini-module on every page, enable the dedicated mini-module in <a href="' . TPL_PATH_TO_ROOT . '/admin/menus/menus.php">Menus configuration</a>.';
-$lang['sn.menu.content.message']     = 'To show share media links in the content page only, enable this option <b>Display sharing links on content pages</b> in <a href="' . AdminContentUrlBuilder::content_configuration()->rel() . '#AdminContentConfigController_sharing_config">Content configuration</a>.';
+$lang['sn.menu.mini.module.message'] = 'To show share media links in mini-module on every page, enable the dedicated mini-module in <a href="' . TPL_PATH_TO_ROOT . '/admin/content/menus/menus.php">Menus configuration</a>.';
+$lang['sn.menu.content.message']     = 'To show share media links in the content page only, enable this option <b>Display sharing links on content pages</b> in <a href="' . AdminContentUrlBuilder::configuration()->rel() . '#AdminContentConfigController_sharing_config">Content configuration</a>.';
 
 // Sign in label
 $lang['sn.sign.in.label'] = 'Sign in with :name';

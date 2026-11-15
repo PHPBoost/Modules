@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 11
  * @since       PHPBoost 4.0 - 2013 07 11
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -14,8 +14,7 @@ class BugtrackerStatsCache implements CacheData
 	private $bugs_number_per_version = [];
 	private $top_posters = [];
 
-	public function synchronize()
-	{
+	public function synchronize(): void {
 		$this->bugs_number = ['total' => 0];
 		$db_querier = PersistenceContext::get_querier();
 

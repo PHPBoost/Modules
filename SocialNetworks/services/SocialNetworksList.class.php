@@ -3,14 +3,15 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 11
  * @since       PHPBoost 5.1 - 2018 04 10
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class SocialNetworksList
 {
 	/**
-	 * @return string[] List of the classes implementing interface
+	 * @return array List of the classes implementing interface
 	 */
 	public function get_implementing_classes(string $interface_name): array
 	{
@@ -21,7 +22,9 @@ class SocialNetworksList
 		{
 			$name = str_replace('.class.php', '', $class->get_name());
 			if (ClassLoader::is_class_registered_and_valid($name) && in_array($interface_name, class_implements($name)))
+            {
 				$classes[] = $name;
+            }
 		}
 
 		$additional_social_networks = SocialNetworksConfig::load()->get_additional_social_networks();
@@ -30,7 +33,9 @@ class SocialNetworksList
 			foreach (SocialNetworksConfig::load()->get_additional_social_networks() as $class)
 			{
 				if (ClassLoader::is_class_registered_and_valid($class) && in_array($interface_name, class_implements($class)))
+                {
 					$classes[] = $class;
+                }
 			}
 		}
 
@@ -38,7 +43,7 @@ class SocialNetworksList
 	}
 
 	/**
-	 * @return string[] List of social networks
+	 * @return array List of social networks
 	 */
 	public function get_social_networks_list(): array
 	{
@@ -53,7 +58,7 @@ class SocialNetworksList
 	}
 
 	/**
-	 * @return string[] List of social networks ids
+	 * @return array List of social networks ids
 	 */
 	public function get_social_networks_ids(): array
 	{
@@ -61,7 +66,7 @@ class SocialNetworksList
 	}
 
 	/**
-	 * @return string[] Sorted list of social networks
+	 * @return array Sorted list of social networks
 	 */
 	public function get_sorted_social_networks_list(): array
 	{
@@ -81,7 +86,7 @@ class SocialNetworksList
 	}
 
 	/**
-	 * @return string[] List of social networks authentifications
+	 * @return array List of social networks authentifications
 	 */
 	public function get_external_authentications_list(): array
 	{
@@ -92,14 +97,16 @@ class SocialNetworksList
 		{
 			$sn = new $social_network();
 			if ($sn->has_authentication() && in_array($id, $get_enabled_authentications))
+            {
 				$external_authentications[] = $sn->get_external_authentication();
+            }
 		}
 
 		return $external_authentications;
 	}
 
 	/**
-	 * @return string[] List of social networks sharing links
+	 * @return array List of social networks sharing links
 	 */
 	public function get_sharing_links_list(): array
 	{
@@ -119,23 +126,29 @@ class SocialNetworksList
 					$content_sharing_url = $sn->get_content_sharing_url();
 					$display = true;
 				}
-				else if ($sn->is_mobile_only() && $request->is_mobile_device())
+				elseif ($sn->is_mobile_only() && $request->is_mobile_device())
 				{
 					$content_sharing_url = $sn->has_mobile_content_sharing_url() ? $sn->get_mobile_content_sharing_url() : $sn->get_content_sharing_url();
 					$display = true;
 				}
-				else if (!$sn->is_desktop_only() && !$sn->is_mobile_only())
+				elseif (!$sn->is_desktop_only() && !$sn->is_mobile_only())
 				{
 					if ($request->is_mobile_device() && $sn->has_mobile_content_sharing_url())
+                    {
 						$content_sharing_url = $sn->get_mobile_content_sharing_url();
+                    }
 					else
+                    {
 						$content_sharing_url = $sn->get_content_sharing_url();
+                    }
 
 					$display = true;
 				}
 
 				if ($display && $content_sharing_url)
+                {
 					$sharing_links[] = new ContentSharingActionsMenuLink($sn->get_css_class(), $sn->get_name(), new Url($content_sharing_url), $sn->get_share_image_renderer_html());
+                }
 			}
 		}
 

@@ -9,12 +9,12 @@
 
 class WikiPendingItemsController extends DefaultModuleController
 {
-    protected function get_template_to_use(): FileTemplate
+    protected function get_template_to_use()
     {
         return new FileTemplate('wiki/WikiSeveralItemsController.tpl');
     }
 
-    public function execute(HTTPRequestCustom $request): SiteDisplayResponse
+    public function execute(HTTPRequestCustom $request)
     {
         $this->check_authorizations();
 

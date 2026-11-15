@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 11
  * @since       PHPBoost 4.1 - 2014 12 12
 */
 
@@ -131,7 +131,7 @@ class CountdownConfig extends AbstractConfigData
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_default_values()
+	public function get_default_values(): array
 	{
 		$now = new Date();
 		$new_year = $now->get_year() + 1 . '-01-01';

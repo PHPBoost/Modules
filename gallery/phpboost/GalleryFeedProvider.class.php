@@ -11,12 +11,12 @@
 
 class GalleryFeedProvider implements FeedProvider
 {
-	function get_feeds_list()
+	function get_feeds_list(): mixed
 	{
 		return CategoriesService::get_categories_manager('gallery')->get_feeds_categories_module()->get_feed_list();
 	}
 
-	function get_feed_data_struct($id_category = 0, $name = '')
+	function get_feed_data_struct(int $id_category = 0, string $name = ''): mixed
 	{
 		if (CategoriesService::get_categories_manager('gallery')->get_categories_cache()->category_exists($id_category))
 		{
@@ -39,7 +39,8 @@ class GalleryFeedProvider implements FeedProvider
 			$categories = CategoriesService::get_categories_manager('gallery')->get_children($id_category, new SearchCategoryChildrensOptions(), true);
 			$ids_categories = array_keys($categories);
 
-			$results = PersistenceContext::get_querier()->select('SELECT *
+			$results = PersistenceContext::get_querier()->select('
+                SELECT *
 				FROM ' . GallerySetup::$gallery_table . '
 				WHERE id_category IN :ids_categories
 				ORDER BY timestamp DESC
@@ -66,6 +67,7 @@ class GalleryFeedProvider implements FeedProvider
 
 			return $data;
 		}
+        return null;
 	}
 }
 ?>

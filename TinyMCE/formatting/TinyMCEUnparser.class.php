@@ -8,7 +8,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 09
  * @since       PHPBoost 2.0 - 2008 08 10
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -42,7 +42,7 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 	 * Unparses the content of the parser. It goes from the PHPBoost reference formatting syntax
 	 * to the TinyMCE one.
 	 */
-	public function parse()
+	public function parse(): void
 	{
 		//Extracting HTML and code tags
 		$this->unparse_html(self::PICK_UP);
@@ -113,7 +113,7 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 	/**
 	 * Replaces the image code for smilies by the text code
 	 */
-	private function unparse_smilies()
+	private function unparse_smilies(): void
 	{
 		$smiley_img_url = $smiley_code = [];
 		foreach (SmileysCache::load()->get_smileys() as $code => $infos)
@@ -122,13 +122,15 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 			$smiley_code[] = $code;
 		}
 		if (!empty($smiley_img_url))
+        {
 			$this->content = preg_replace($smiley_img_url, $smiley_code, $this->content);
+        }
 	}
 
 	/**
 	 * Function which unparses only the tags supported by TinyMCE
 	 */
-	private function unparse_tinymce_formatting()
+	private function unparse_tinymce_formatting(): void
 	{
 		//Preg_replace.
 		$array_preg = [
@@ -146,8 +148,8 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 			'`<p style="text-align: ?(left|center|right|justify);?">(.*)</p>`isuU',
 			'`<td(?: class="([^"]+)?")?></td>`isuU',
 			'`<th(?: class="([^"]+)?")?></th>`isuU'
-			];
-			$array_preg_replace = [
+        ];
+        $array_preg_replace = [
 			"<a class=\"offload\" id=\"$1\"></a>",
 			"<a class=\"offload\" id=\"$1\"></a>",
 			"<a class=\"offload\" aria-label=\"$1\" name=\"$1\">$2</a>",
@@ -162,62 +164,62 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 			"<p style=\"text-align: $1;\">$2</p>",
 			'<td> </td>',
 			'<th> </th>'
-			];
+        ];
 
-			$this->content = preg_replace($array_preg, $array_preg_replace, $this->content);
+        $this->content = preg_replace($array_preg, $array_preg_replace, $this->content);
 
-			//Tableaux
-			while (preg_match('`<table class="table formatter-table"( style="([^"]+)")?>`iu', $this->content))
-			{
-				$this->content = preg_replace('`<table class="table formatter-table"( style="([^"]+)")?>`iu', "<table border=\"0\"$1><tbody>", $this->content);
-				$this->content = preg_replace('`</table>`iu', "</tbody></table>", $this->content);
-				$this->content = preg_replace('`<td class="formatter-table-col"( colspan="[^"]+")?( rowspan="[^"]+")?( style="[^"]+")?>`iu', "<td$1$2$3>", $this->content);
-				$this->content = preg_replace('`<tr class="formatter-table-row"( style="[^"]+")?>`iu', "<tr$1>", $this->content);
-				$this->content = preg_replace('`<td class="formatter-table-head"( colspan="[^"]+")?( rowspan="[^"]+")?( style="[^"]+")?>`iu', "<td$1$2$3>", $this->content);
-			}
+        //Tableaux
+        while (preg_match('`<table class="table formatter-table"( style="([^"]+)")?>`iu', $this->content))
+        {
+            $this->content = preg_replace('`<table class="table formatter-table"( style="([^"]+)")?>`iu', "<table border=\"0\"$1><tbody>", $this->content);
+            $this->content = preg_replace('`</table>`iu', "</tbody></table>", $this->content);
+            $this->content = preg_replace('`<td class="formatter-table-col"( colspan="[^"]+")?( rowspan="[^"]+")?( style="[^"]+")?>`iu', "<td$1$2$3>", $this->content);
+            $this->content = preg_replace('`<tr class="formatter-table-row"( style="[^"]+")?>`iu', "<tr$1>", $this->content);
+            $this->content = preg_replace('`<td class="formatter-table-head"( colspan="[^"]+")?( rowspan="[^"]+")?( style="[^"]+")?>`iu', "<td$1$2$3>", $this->content);
+        }
 
-			//Listes
-			while (preg_match('`<ul( style="[^"]+")? class="formatter-ul">`iu', $this->content))
-			{
-				$this->content = preg_replace('`<ul( style="[^"]+")? class="formatter-ul">`iu', "<ul$1>", $this->content);
-			}
-			while (preg_match('`<ol( style="[^"]+")? class="formatter-ol">`iu', $this->content))
-			{
-				$this->content = preg_replace('`<ol( style="[^"]+")? class="formatter-ol">`iu', "<ol$1>", $this->content);
-			}
-			while (preg_match('`<li( style="[^"]+")? class="formatter-li">`iu', $this->content))
-			{
-				$this->content = preg_replace('`<li( style="[^"]+")? class="formatter-li">`iu', "<li$1>", $this->content);
-			}
+        //Listes
+        while (preg_match('`<ul( style="[^"]+")? class="formatter-ul">`iu', $this->content))
+        {
+            $this->content = preg_replace('`<ul( style="[^"]+")? class="formatter-ul">`iu', "<ul$1>", $this->content);
+        }
+        while (preg_match('`<ol( style="[^"]+")? class="formatter-ol">`iu', $this->content))
+        {
+            $this->content = preg_replace('`<ol( style="[^"]+")? class="formatter-ol">`iu', "<ol$1>", $this->content);
+        }
+        while (preg_match('`<li( style="[^"]+")? class="formatter-li">`iu', $this->content))
+        {
+            $this->content = preg_replace('`<li( style="[^"]+")? class="formatter-li">`iu', "<li$1>", $this->content);
+        }
 
-			//Trait horizontal
-			$this->content = preg_replace('`<hr(?: class="([^"]+)?")? />`iu', '<hr />', $this->content);
+        //Trait horizontal
+        $this->content = preg_replace('`<hr(?: class="([^"]+)?")? />`iu', '<hr />', $this->content);
 
-			//Balise size
-			$this->content = preg_replace_callback('`<span style="font-size: ([0-9-]+)px;">(.+)</span>`isuU', [$this, 'unparse_size_tag'], $this->content);
+        //Balise size
+        $this->content = preg_replace_callback('`<span style="font-size: ([0-9-]+)px;">(.+)</span>`isuU', [$this, 'unparse_size_tag'], $this->content);
 
-			//Citations
-			$this->content = preg_replace('`<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">(.*)</span><div class="formatter-content">(.*)</div></blockquote>`isuU', "\n" . '<blockquote><p>$2</p></blockquote>', $this->content);
-			$this->_parse_imbricated('<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">', '`<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">(.*)</span><div class="formatter-content">(.*)</div></blockquote>`isuU', '<blockquote><p>$2</p></blockquote>', $this->content);
-			$this->_parse_imbricated('<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title title-perso">', '`<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title title-perso">(.*) :</span><div class="formatter-content">(.*)</div></blockquote>`isuU', '[quote=$1]$2[/quote]', $this->content);
-			
-			//Balise indentation
-			$this->content = preg_replace('`(?:<p>\s*</p>)?\s*<p>\s*<div class="indent">(.+)</div>\s*</p>`isuU', "\n" . '<p style="padding-left: 30px;">$1</p>', $this->content);
+        //Citations
+        $this->content = preg_replace('`<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">(.*)</span><div class="formatter-content">(.*)</div></blockquote>`isuU', "\n" . '<blockquote><p>$2</p></blockquote>', $this->content);
+        $this->_parse_imbricated('<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">', '`<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">(.*)</span><div class="formatter-content">(.*)</div></blockquote>`isuU', '<blockquote><p>$2</p></blockquote>');
+        $this->_parse_imbricated('<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title title-perso">', '`<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title title-perso">(.*) :</span><div class="formatter-content">(.*)</div></blockquote>`isuU', '[quote=$1]$2[/quote]');
 
-			//Police
-			$this->content = preg_replace_callback('`<span style="font-family: ([ a-z0-9,_-]+);">(.*)</span>`isuU', [$this, 'unparse_font'], $this->content );
+        //Balise indentation
+        $this->content = preg_replace('`(?:<p>\s*</p>)?\s*<p>\s*<div class="indent">(.+)</div>\s*</p>`isuU', "\n" . '<p style="padding-left: 30px;">$1</p>', $this->content);
 
-			//Image
-			$this->content = preg_replace_callback('`<img src="([^"]+)"(?: alt="([^"]+)?")?(?: style="([^"]+)?")?(?: class="([^"]+)?")? />`isuU', [$this, 'unparse_img'], $this->content );
+        //Police
+        $this->content = preg_replace_callback('`<span style="font-family: ([ a-z0-9,_-]+);">(.*)</span>`isuU', [$this, 'unparse_font'], $this->content );
 
-			// Feed
-			$this->content = preg_replace('`\[\[FEED([^\]]*)\]\](.+)\[\[/FEED\]\]`uU', '[feed$1]$2[/feed]', $this->content);
+        //Image
+        $this->content = preg_replace_callback('`<img src="([^"]+)"(?: alt="([^"]+)?")?(?: style="([^"]+)?")?(?: class="([^"]+)?")? />`isuU', [$this, 'unparse_img'], $this->content );
+
+        // Feed
+        $this->content = preg_replace('`\[\[FEED([^\]]*)\]\](.+)\[\[/FEED\]\]`uU', '[feed$1]$2[/feed]', $this->content);
 	}
 
 	/**
 	 * Manages the whole tags which doesn't not exist in TinyMCE
 	 */
-	private function unparse_bbcode_tags()
+	private function unparse_bbcode_tags(): void
 	{
 		$array_preg = [
 			'`<acronym class="formatter-acronym">(.*)</acronym>`isuU',
@@ -298,12 +300,12 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 		##Remplacement des balises imbriquées
 
 		//Texte caché
-		$this->_parse_imbricated('<div class="formatter-container formatter-hide no-js"><span class="formatter-title">', '`<div class="formatter-container formatter-hide no-js"><span class="formatter-title">(.*) :</span><div class="formatter-content">(.*)</div></div>`suU', '[hide]$2[/hide]', $this->content);
-		$this->_parse_imbricated('<div class="formatter-container formatter-hide no-js"><span class="formatter-title title-perso">', '`<div class="formatter-container formatter-hide" onclick="bb_hide\(this\)"><span class="formatter-title title-perso">(.*) :</span><div class="formatter-content">(.*)</div></div>`suU', '[hide=$1]$2[/hide]', $this->content);
+		$this->_parse_imbricated('<div class="formatter-container formatter-hide no-js"><span class="formatter-title">', '`<div class="formatter-container formatter-hide no-js"><span class="formatter-title">(.*) :</span><div class="formatter-content">(.*)</div></div>`suU', '[hide]$2[/hide]');
+		$this->_parse_imbricated('<div class="formatter-container formatter-hide no-js"><span class="formatter-title title-perso">', '`<div class="formatter-container formatter-hide" onclick="bb_hide\(this\)"><span class="formatter-title title-perso">(.*) :</span><div class="formatter-content">(.*)</div></div>`suU', '[hide=$1]$2[/hide]');
 
 		//Bloc HTML
-		$this->_parse_imbricated('<div class="formatter-container formatter-block"', '`<div class="formatter-container formatter-block">(.+)</div>`suU', '[block]$1[/block]', $this->content);
-		$this->_parse_imbricated('<div class="formatter-container formatter-block style=', '`<div class="formatter-container formatter-block style="([^"]+)">(.+)</div>`suU', '[block style="$1"]$2[/block]', $this->content);
+		$this->_parse_imbricated('<div class="formatter-container formatter-block"', '`<div class="formatter-container formatter-block">(.+)</div>`suU', '[block]$1[/block]');
+		$this->_parse_imbricated('<div class="formatter-container formatter-block style=', '`<div class="formatter-container formatter-block style="([^"]+)">(.+)</div>`suU', '[block style="$1"]$2[/block]');
 
 		//Bloc de formulaire
 		while (preg_match('`<fieldset class="formatter-container formatter-fieldset" style="([^"]*)"><legend>(.*)</legend><div class="formatter-content">(.+)</div></fieldset>`suU', $this->content))
@@ -324,9 +326,9 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 	/**
 	 * Handler which clears the HTML code which is in the code and HTML tags
 	 * @param string $var variable to clear
-	 * @return the clean content
+	 * @return string the clean content
 	 */
-	private static function clear_html_and_code_tag($var)
+	private static function clear_html_and_code_tag(string $var): string
 	{
 		$var = str_replace("\n", '<br />', $var);
 		return TextHelper::htmlspecialchars($var, ENT_NOQUOTES);
@@ -338,7 +340,7 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 	 * @param string[] $matches The matched elements
 	 * @return string The corresponding Bbcode syntax
 	 */
-	private function unparse_fieldset($matches)
+	private function unparse_fieldset(array $matches): string
 	{
 		$style = '';
 		$legend = '';
@@ -363,7 +365,7 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 		}
 	}
 
-	private function unparse_img($matches)
+	private function unparse_img(array $matches): string
 	{
 		$img_pathinfo = pathinfo($matches[1]);
 		$file_array = explode('.', $img_pathinfo['filename']);
@@ -371,7 +373,8 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 		$alt = !empty($matches[2]) ? $matches[2] : $img_name;
 		$style = '';
 		$params = '';
-		if (isset($matches[3])) {
+		if (isset($matches[3]))
+        {
 			foreach (explode(';', $matches[3]) as $style_att)
 			{
 				$exp = explode(':', $style_att);
@@ -406,7 +409,7 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 	 * @param string[] $matches The matched elements
 	 * @return string The correct TinyMCE formatting
 	 */
-	private function unparse_font($matches)
+	private function unparse_font(array $matches): string
 	{
 		if (!empty(self::$fonts_array[$matches[1]]))
 		{
@@ -426,7 +429,7 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 	 * @param string[] $matches The matched elements.
 	 * @return string The good PHPBoost syntax.
 	 */
-	private function unparse_size_tag($matches)
+	private function unparse_size_tag(array $matches): string
 	{
 		$size = 0;
 		//We retrieve the size (in pt)
@@ -464,9 +467,13 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 		}
 		//If the size is known, we put the HTML code and convert the size into pixels
 		if (!empty($size))
-		return '<span style="font-size: ' . $size . ';">' . $matches[2] . '</span>';
+        {
+            return '<span style="font-size: ' . $size . ';">' . $matches[2] . '</span>';
+        }
 		else
-		return $matches[2];
+        {
+            return $matches[2];
+        }
 	}
 
 	/**
@@ -475,11 +482,9 @@ class TinyMCEUnparser extends ContentFormattingUnparser
 	 * @param string[] $matches The matched elements
 	 * @return string The corresponding Bbcode syntax
 	 */
-	private function unparse_container($matches)
+	private function unparse_container(array $matches): string
 	{
-		$id = '';
-		$class = '';
-		$style = '';
+		$id = $class = $style = '';
 
 		if (!empty($matches[1]))
 		{

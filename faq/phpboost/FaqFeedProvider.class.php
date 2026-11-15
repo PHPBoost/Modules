@@ -3,19 +3,19 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 06
  * @since       PHPBoost 4.0 - 2014 09 02
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class FaqFeedProvider implements FeedProvider
 {
-	public function get_feeds_list()
+	public function get_feeds_list(): mixed
 	{
 		return CategoriesService::get_categories_manager('faq')->get_feeds_categories_module()->get_feed_list();
 	}
 
-	public function get_feed_data_struct($idcat = 0, $name = '')
+	public function get_feed_data_struct(int $idcat = 0, string $name = ''): mixed
 	{
 		$module_id = 'faq';
 		if (CategoriesService::get_categories_manager($module_id)->get_categories_cache()->category_exists($idcat))
@@ -39,13 +39,16 @@ class FaqFeedProvider implements FeedProvider
 			$categories = CategoriesService::get_categories_manager($module_id)->get_children($idcat, new SearchCategoryChildrensOptions(), true);
 			$ids_categories = array_keys($categories);
 
-			$results = $querier->select('SELECT faq.id, faq.id_category, faq.title, faq.content, faq.creation_date, cat.rewrited_name AS rewrited_name_cat
+			$results = $querier->select('
+                SELECT
+                    faq.id, faq.id_category, faq.title, faq.content, faq.creation_date,
+                    cat.rewrited_name AS rewrited_name_cat
 				FROM ' . FaqSetup::$faq_table . ' faq
 				LEFT JOIN '. FaqSetup::$faq_cats_table .' cat ON cat.id = faq.id_category
 				WHERE approved = 1
 				AND faq.id_category IN :ids_categories
 				ORDER BY faq.creation_date DESC', [
-				'ids_categories' => $ids_categories
+                    'ids_categories' => $ids_categories
 			]);
 
 			foreach ($results as $row)
@@ -66,6 +69,7 @@ class FaqFeedProvider implements FeedProvider
 
 			return $data;
 		}
+        return null;
 	}
 }
 ?>

@@ -3,29 +3,29 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 11
  * @since       PHPBoost 6.0 - 2022 11 18
  */
 
 class WikiExplorerController extends DefaultModuleController
 {
-    private $category;
+    private ?Category $category = null;
 
-    protected function get_template_to_use()
+    protected function get_template_to_use(): FileTemplate
     {
         return new FileTemplate('wiki/WikiExplorerController.tpl');
     }
 
-    public function execute(HTTPRequestCustom $request)
+    public function execute(HTTPRequestCustom $request): SiteDisplayResponse
     {
         $this->check_authorizations();
 
         $this->build_view();
 
-        return $this->generate_response($request);
+        return $this->generate_response();
     }
 
-    private function build_view()
+    private function build_view(): void
     {
         $categories = CategoriesService::get_categories_manager(self::$module_id)->get_categories_cache()->get_categories();
         $authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, self::$module_id);
@@ -85,26 +85,31 @@ class WikiExplorerController extends DefaultModuleController
                 foreach($cache->get_items() as $item)
                 {
                     if ($item['id_category'] == $id)
-                    $this->view->assign_block_vars('categories.items', [
-                        'TITLE' => $item['title'],
+                    {
+                        $this->view->assign_block_vars('categories.items', [
+                            'TITLE' => $item['title'],
 
-                        'U_ITEM'   => WikiUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item['id'], $item['rewrited_title'])->rel(),
-                    ]);
+                            'U_ITEM'   => WikiUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item['id'], $item['rewrited_title'])->rel(),
+                        ]);
+                    }
                 }
             }
         }
     }
 
-    private function get_category()
+    private function get_category(): Category
     {
         if ($this->category === null)
         {
             $id = AppContext::get_request()->get_getint('id_category', 0);
             if (!empty($id))
             {
-                try {
+                try
+                {
                     $this->category = CategoriesService::get_categories_manager('wiki')->get_categories_cache()->get_category($id);
-                } catch (CategoryNotFoundException $e) {
+                }
+                catch (CategoryNotFoundException $e)
+                {
                     $error_controller = PHPBoostErrors::unexisting_page();
                     DispatchManager::redirect($error_controller);
                 }
@@ -117,7 +122,7 @@ class WikiExplorerController extends DefaultModuleController
         return $this->category;
     }
 
-    private function check_authorizations()
+    private function check_authorizations(): void
     {
         if (!WikiAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
         {
@@ -126,7 +131,7 @@ class WikiExplorerController extends DefaultModuleController
         }
     }
 
-    private function generate_response()
+    private function generate_response(): SiteDisplayResponse
     {
         $response = new SiteDisplayResponse($this->view);
 
@@ -143,7 +148,7 @@ class WikiExplorerController extends DefaultModuleController
         return $response;
     }
 
-    public static function get_view()
+    public static function get_view(): mixed
     {
         $object = new self('wiki');
         $object->check_authorizations();

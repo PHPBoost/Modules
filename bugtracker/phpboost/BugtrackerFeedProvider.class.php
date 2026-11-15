@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 06
  * @since       PHPBoost 4.0 - 2014 01 21
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BugtrackerFeedProvider implements FeedProvider
 {
-	public function get_feeds_list()
+	public function get_feeds_list(): mixed
 	{
 		$list = new FeedsList();
 
@@ -25,7 +25,7 @@ class BugtrackerFeedProvider implements FeedProvider
 		return $list;
 	}
 
-	public function get_feed_data_struct($idcat = 0, $name = '')
+	public function get_feed_data_struct(int $idcat = 0, string $name = ''): mixed
 	{
 		$querier = PersistenceContext::get_querier();
 		$lang = LangLoader::get_all_langs('bugtracker');
@@ -50,11 +50,13 @@ class BugtrackerFeedProvider implements FeedProvider
 		$data->set_lang($lang['common.xml.lang']);
 		$data->set_auth_bit(BugtrackerAuthorizationsService::READ_AUTHORIZATIONS);
 
-		$results = $querier->select("SELECT bugtracker.*, author.*
-		FROM " . BugtrackerSetup::$bugtracker_table . " bugtracker
-		LEFT JOIN " . DB_TABLE_MEMBER . " author ON author.user_id = bugtracker.author_id
-		WHERE " . ($idcat == 1 ? "(status = '" . BugtrackerItem::FIXED . "' OR status = '" . BugtrackerItem::REJECTED . "')" : "status <> '" . BugtrackerItem::FIXED . "' AND status <> '" . BugtrackerItem::REJECTED . "'") . "
-		ORDER BY " . ($idcat == 1 ? "fix_date" : "submit_date") . " DESC");
+		$results = $querier->select("
+            SELECT bugtracker.*, author.*
+            FROM " . BugtrackerSetup::$bugtracker_table . " bugtracker
+            LEFT JOIN " . DB_TABLE_MEMBER . " author ON author.user_id = bugtracker.author_id
+            WHERE " . ($idcat == 1 ? "(status = '" . BugtrackerItem::FIXED . "' OR status = '" . BugtrackerItem::REJECTED . "')" : "status <> '" . BugtrackerItem::FIXED . "' AND status <> '" . BugtrackerItem::REJECTED . "'") . "
+            ORDER BY " . ($idcat == 1 ? "fix_date" : "submit_date") . " DESC"
+        );
 
 		foreach ($results as $row)
 		{
@@ -67,18 +69,30 @@ class BugtrackerFeedProvider implements FeedProvider
 			$description .= '<br /><br />' . $lang['labels.fields.reproductible'] . ' : ' . ($bug->is_reproductible() ? $lang['common.yes'] : $lang['common.no']);
 
 			if ($bug->is_reproductible())
+            {
 				$description .= '<br />' . FormatingHelper::second_parse($bug->get_reproduction_method()) . '<br />';
+            }
 
 			if ($types)
+            {
 				$description .= '<br />' . $lang['labels.fields.type'] . ' : ' . (isset($types[$bug->get_type()]) ? stripslashes($types[$bug->get_type()]) : $lang['notice.none']);
+            }
 			if ($categories)
+            {
 				$description .= '<br />' . $lang['labels.fields.category'] . ' : ' . (isset($categories[$bug->get_category()]) ? stripslashes($categories[$bug->get_category()]) : $lang['notice.none_e']);
+            }
 			if ($severities)
+            {
 				$description .= '<br />' . $lang['labels.fields.severity'] . ' : ' . (isset($severities[$bug->get_severity()]) ? stripslashes($severities[$bug->get_severity()]['name']) : $lang['notice.none']);
+            }
 			if ($priorities)
+            {
 				$description .= '<br />' . $lang['labels.fields.priority'] . ' : ' . (isset($priorities[$bug->get_priority()]) ? stripslashes($priorities[$bug->get_priority()]) : $lang['notice.none_e']);
+            }
 			if ($versions)
+            {
 				$description .= '<br />' . $lang['labels.fields.version'] . ' : ' . (isset($versions[$bug->get_detected_in()]) ? stripslashes($versions[$bug->get_detected_in()]['name']) : $lang['notice.not_defined']);
+            }
 
 			$item = new FeedItem();
 			$item->set_title($bug->get_title());

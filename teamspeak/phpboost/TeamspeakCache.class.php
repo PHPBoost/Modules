@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 11
  * @since       PHPBoost 4.1 - 2014 08 27
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -14,8 +14,7 @@ class TeamspeakCache implements CacheData
 	private $view = '';
 	private $last_update = 0;
 
-	public function synchronize()
-	{
+	public function synchronize(): void {
 		$now = new Date();
 
 		$this->view = new FileTemplate('modules/teamspeak/TeamspeakAjaxViewerController.tpl');

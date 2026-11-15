@@ -4,7 +4,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 09
  * @since       PHPBoost 2.0 - 2008 07 05
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -14,14 +14,16 @@
 
 class TinyMCEEditor extends ContentEditor
 {
-	private static $js_included = false;
-	private $array_tags = ['undo' => 'undo', 'redo' => 'redo', '|1' => '|', 'b' => 'bold', 'i' => 'italic', 'u' => 'underline', 's' => 'strikethrough', '|2' => '|', 'color1' => 'forecolor', 'color2' => 'backcolor', '|3' => '|',
-	'align1' => 'alignleft', 'align2' => 'aligncenter', 'align3' => 'alignright', 'align4' => 'alignjustify', '|4' => '|', 'size' => 'fontsizeselect', 'font' => 'fontselect', '|5' => '|', 'list1' => 'bullist', 'list2' => 'numlist', '|6' => '|',
-	'indent1' => 'outdent', 'indent2' => 'indent', 'quote' => 'blockquote', '|7' => '|', 'cut' => 'cut', 'copy' => 'copy', 'paste' => 'paste', '_search' => 'searchreplace', 
-	'|8' => '|', 'url1' => 'link', 'url2' => 'unlink', 'img' => 'image', 'movie' => 'media', 'insertfile' => 'insertfile', '|9' => '|', 'emotions' => 'emoticons', 'table' => 'table', '|10' => '|', 'title' => 'formatselect', 'style' => 'styleselect', '|11' => '|', 'sub' => 'subscript', 'sup' => 'superscript', 'line' => 'hr',
-	'|12' => '|', 'anchor' => 'anchor', 'charmap' => 'charmap', 'removeformat' => 'removeformat', 'visualchars' => 'visualchars', 'visualblocks' => 'visualblocks'];
+	private static bool $js_included = false;
+	private array $array_tags = [
+        'undo' => 'undo', 'redo' => 'redo', '|1' => '|', 'b' => 'bold', 'i' => 'italic', 'u' => 'underline', 's' => 'strikethrough', '|2' => '|', 'color1' => 'forecolor', 'color2' => 'backcolor', '|3' => '|',
+        'align1' => 'alignleft', 'align2' => 'aligncenter', 'align3' => 'alignright', 'align4' => 'alignjustify', '|4' => '|', 'size' => 'fontsizeselect', 'font' => 'fontselect', '|5' => '|', 'list1' => 'bullist', 'list2' => 'numlist', '|6' => '|',
+        'indent1' => 'outdent', 'indent2' => 'indent', 'quote' => 'blockquote', '|7' => '|', 'cut' => 'cut', 'copy' => 'copy', 'paste' => 'paste', '_search' => 'searchreplace', 
+        '|8' => '|', 'url1' => 'link', 'url2' => 'unlink', 'img' => 'image', 'movie' => 'media', 'insertfile' => 'insertfile', '|9' => '|', 'emotions' => 'emoticons', 'table' => 'table', '|10' => '|', 'title' => 'formatselect', 'style' => 'styleselect', '|11' => '|', 'sub' => 'subscript', 'sup' => 'superscript', 'line' => 'hr',
+        '|12' => '|', 'anchor' => 'anchor', 'charmap' => 'charmap', 'removeformat' => 'removeformat', 'visualchars' => 'visualchars', 'visualblocks' => 'visualblocks'
+    ];
 
-	public function get_template()
+	public function get_template(): Template
 	{
 		if (!is_object($this->template) || !($this->template instanceof Template))
 		{
@@ -35,7 +37,7 @@ class TinyMCEEditor extends ContentEditor
 	 * Display the editor
 	 * @return string Formated editor.
 	 */
-	public function display()
+	public function display(): string
 	{
 		$template = $this->get_template();
 
@@ -57,14 +59,16 @@ class TinyMCEEditor extends ContentEditor
 		$toolbar = implode(' ', $toolbar);
 
 		$language = TextHelper::substr(AppContext::get_current_user()->get_locale(), 0, 2);
-		switch ($language) {
-			case 'fr' : $language = 'fr_FR';
-						break;
-
-			case 'en' : $language = 'en_GB';
-						break;
-
-			default :	break;
+		switch ($language)
+        {
+			case 'fr' : 
+                $language = 'fr_FR';
+                break;
+			case 'en' : 
+                $language = 'en_GB';
+                break;
+			default :
+                break;
 		}
 
 		$form_field_infos = explode('_', $this->identifier);

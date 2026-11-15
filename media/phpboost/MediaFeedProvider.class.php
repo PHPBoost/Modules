@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Loic ROUCHON <horn@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 06
  * @since       PHPBoost 3.0 - 2010 02 07
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,12 +11,12 @@
 
 class MediaFeedProvider implements FeedProvider
 {
-	function get_feeds_list()
+	function get_feeds_list(): mixed
 	{
 		return CategoriesService::get_categories_manager('media')->get_feeds_categories_module()->get_feed_list();
 	}
 
-	function get_feed_data_struct($id_category = 0, $title = '')
+	function get_feed_data_struct(int $id_category = 0, string $title = ''): mixed
 	{
 		if (CategoriesService::get_categories_manager('media')->get_categories_cache()->category_exists($id_category))
 		{
@@ -40,7 +40,8 @@ class MediaFeedProvider implements FeedProvider
 			$categories = CategoriesService::get_categories_manager('media')->get_children($id_category, new SearchCategoryChildrensOptions(), true);
 			$ids_categories = array_keys($categories);
 
-			$results = PersistenceContext::get_querier()->select('SELECT media.*, cat.thumbnail
+			$results = PersistenceContext::get_querier()->select('
+                SELECT media.*, cat.thumbnail
 				FROM ' . MediaSetup::$media_table . ' media
 				LEFT JOIN '. MediaSetup::$media_cats_table .' cat ON cat.id = media.id_category
 				WHERE media.id_category IN :ids_categories
@@ -65,10 +66,14 @@ class MediaFeedProvider implements FeedProvider
 				$item->set_auth(CategoriesService::get_categories_manager('media')->get_heritated_authorizations($row['id_category'], Category::READ_AUTHORIZATIONS, Authorizations::AUTH_PARENT_PRIORITY));
 
 				$enclosure = new FeedItemEnclosure();
-				if (strpos($row['file_url'], 'http://') === 0 || strpos($row['file_url'], 'https://') === 0) {
-					$enclosure->set_lenght(0); } 
-				else {
-        				$enclosure->set_lenght(@filesize($row['file_url'])); }
+				if (strpos($row['file_url'], 'http://') === 0 || strpos($row['file_url'], 'https://') === 0)
+                {
+					$enclosure->set_lenght(0);
+                }
+				else
+                {
+                    $enclosure->set_lenght(@filesize($row['file_url']));
+                }
 				$enclosure->set_type($row['mime_type']);
 				$enclosure->set_url($row['file_url']);
 				$item->set_enclosure($enclosure);
@@ -79,6 +84,7 @@ class MediaFeedProvider implements FeedProvider
 
 			return $data;
 		}
+        return null;
 	}
 }
 ?>

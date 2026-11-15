@@ -66,8 +66,8 @@ $lang['default.root.category.description'] = '
             <div class="cell-header"><h4 class="formatter-title">4. Editor</h4></div>
             <div class="cell-body">
                 <div class="cell-content">
-                    <p style="text-align: center;"><a class="offload" href="' . AdminContentUrlBuilder::content_configuration()->relative() . '"><i class="far fa-pen-to-square fa-2x" aria-hidden="true"></i></a></p>
-                    <a class="offload" href="' . AdminContentUrlBuilder::content_configuration()->relative() . '">Choose a text editor</a> indispensable tool for adding content.
+                    <p style="text-align: center;"><a class="offload" href="' . AdminContentUrlBuilder::configuration()->relative() . '"><i class="far fa-pen-to-square fa-2x" aria-hidden="true"></i></a></p>
+                    <a class="offload" href="' . AdminContentUrlBuilder::configuration()->relative() . '">Choose a text editor</a> indispensable tool for adding content.
                 </div>
             </div>
         </div>
@@ -75,8 +75,8 @@ $lang['default.root.category.description'] = '
             <div class="cell-header"><h4 class="formatter-title">5. Menus</h4></div>
             <div class="cell-body">
                 <div class="cell-content">
-                    <p style="text-align: center;"><a class="offload" href="/admin/menus/menus.php"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a></p>
-                    <a class="offload" href="/admin/menus/menus.php">Edit the link menu or create other menus</a> then configure their access rights.
+                    <p style="text-align: center;"><a class="offload" href="/admin/content/menus/menus.php"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a></p>
+                    <a class="offload" href="/admin/content/menus/menus.php">Edit the link menu or create other menus</a> then configure their access rights.
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@ $lang['default.root.category.description'] = '
             <div class="cell-body">
                 <div class="cell-content">
                     <p style="text-align: center;"><i class="fa fa-file-signature fa-2x" aria-hidden="true"></i></p>
-                    Before giving back access to your members, take time to add content to your website and then restore access to your site to your visitors <a class="offload" href="/phpboost/dev/pbtnext/admin/maintain/">maintenance</a>
+                    Before giving back access to your members, take time to add content to your website and then restore access to your site to your visitors <a class="offload" href="' . AdminMaintainUrlBuilder::maintain()->rel() . '">maintenance</a>
                 </div>
             </div>
         </div>

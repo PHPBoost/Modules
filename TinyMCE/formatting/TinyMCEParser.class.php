@@ -7,7 +7,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 09
  * @since       PHPBoost 2.0 - 2008 07 03
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -18,7 +18,7 @@
 
 class TinyMCEParser extends ContentFormattingParser
 {
-	private static $fonts_array = [
+	private static array $fonts_array = [
 	'\'andale mono\', monospace'           => 'andale mono',
 	'andale mono,monospace'                => 'andale mono',
 	'arial, helvetica, sans-serif'         => 'arial',
@@ -56,7 +56,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * Parses the content of the parser.
 	 * Translates the whole content from the TinyMCE syntax to the PHPBoost one.
 	 */
-	public function parse()
+	public function parse(): void
 	{
 		//On supprime d'abord toutes les occurences de balises CODE que nous réinjecterons à la fin pour ne pas y toucher
 		if (!in_array('code', $this->forbidden_tags))
@@ -609,6 +609,7 @@ class TinyMCEParser extends ContentFormattingParser
 		if (!empty($smileys_cache))
 		{
 			//Création du tableau de remplacement.
+            $smiley_code = $smiley_img_url = [];
 			foreach ($smileys_cache as $code => $infos)
 			{
 				$smiley_code[] = '`(?:(?![a-z0-9]))(?<!&[a-z]{4}|&[a-z]{5}|&[a-z]{6}|")(' . str_replace('\'', '\\\\\\\'', preg_quote($code)) . ')(?:(?![a-z0-9]))`';
@@ -621,7 +622,7 @@ class TinyMCEParser extends ContentFormattingParser
 	/**
 	 * Parses the formatting which is not supported by TinyMCE and is made in Bbcode.
 	 */
-	private function parse_bbcode_tags()
+	private function parse_bbcode_tags(): void
 	{
 		$array_preg = [
 			'b'         => '`\[b\](.+)\[/b\]`isuU',
@@ -739,27 +740,27 @@ class TinyMCEParser extends ContentFormattingParser
 		//Hide tag
 		if (!in_array('hide', $this->forbidden_tags))
 		{
-			$this->_parse_imbricated('[hide]', '`\[hide\](.+)\[/hide\]`suU', '<div class="formatter-container formatter-hide no-js"><span class="formatter-title">' . LangLoader::get_message('common.hidden', 'common-lang') . ' :</span><div class="formatter-content">$1</div></div>', $this->content);
-			$this->_parse_imbricated('[hide=', '`\[hide=([^\]]+)\](.+)\[/hide\]`suU', '<div class="formatter-container formatter-hide no-js"><span class="formatter-title title-perso">$1 :</span><div class="formatter-content">$2</div></div>', $this->content);
+			$this->_parse_imbricated('[hide]', '`\[hide\](.+)\[/hide\]`suU', '<div class="formatter-container formatter-hide no-js"><span class="formatter-title">' . LangLoader::get_message('common.hidden', 'common-lang') . ' :</span><div class="formatter-content">$1</div></div>');
+			$this->_parse_imbricated('[hide=', '`\[hide=([^\]]+)\](.+)\[/hide\]`suU', '<div class="formatter-container formatter-hide no-js"><span class="formatter-title title-perso">$1 :</span><div class="formatter-content">$2</div></div>');
 		}
 
 		//Block tag
 		if (!in_array('block', $this->forbidden_tags))
 		{
-			$this->_parse_imbricated('[block]', '`\[block\](.+)\[/block\]`suU', '<div class="formatter-container formatter-block">$1</div>', $this->content);
-			$this->_parse_imbricated('[block style=', '`\[block style="([^"]+)"\](.+)\[/block\]`suU', '<div class="formatter-container formatter-block" style="$1">$2</div>', $this->content);
+			$this->_parse_imbricated('[block]', '`\[block\](.+)\[/block\]`suU', '<div class="formatter-container formatter-block">$1</div>');
+			$this->_parse_imbricated('[block style=', '`\[block style="([^"]+)"\](.+)\[/block\]`suU', '<div class="formatter-container formatter-block" style="$1">$2</div>');
 		}
 
 		//Fieldset tag
 		if (!in_array('fieldset', $this->forbidden_tags))
 		{
-			$this->_parse_imbricated('[fieldset', '`\[fieldset(?: legend="(.*)")?(?: style="([^"]*)")?\](.+)\[/fieldset\]`suU', '<fieldset class="formatter-container formatter-fieldset" style="$2"><legend>$1</legend><div class="formatter-content">$3</div></fieldset>', $this->content);
+			$this->_parse_imbricated('[fieldset', '`\[fieldset(?: legend="(.*)")?(?: style="([^"]*)")?\](.+)\[/fieldset\]`suU', '<fieldset class="formatter-container formatter-fieldset" style="$2"><legend>$1</legend><div class="formatter-content">$3</div></fieldset>');
 		}
 
 		//Div tag
 		if (!in_array('container', $this->forbidden_tags))
 		{
-			$this->_parse_imbricated('[box', '`\[box(?: id="(.*)")?(?: class="(.*)")?(?: style="([^"]*)")?\](.+)\[/box\]`suU', '<div id="$1" class="$2" style="$3">$4</div>', $this->content);
+			$this->_parse_imbricated('[box', '`\[box(?: id="(.*)")?(?: class="(.*)")?(?: style="([^"]*)")?\](.+)\[/box\]`suU', '<div id="$1" class="$2" style="$3">$4</div>');
 		}
 
 		//Wikipedia tag
@@ -771,8 +772,8 @@ class TinyMCEParser extends ContentFormattingParser
 		//Quote tag (this tag is managed by TinyMCE but it can also be used in Bbcode syntax)
 		if (!in_array('quote', $this->forbidden_tags))
 		{
-			$this->_parse_imbricated('[quote]', '`\[quote\](.+)\[/quote\]`suU', '<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">' . LangLoader::get_message('editor.quote', 'editor-lang') . ' :</span><div class="formatter-content">$1</div></blockquote>', $this->content);
-			$this->_parse_imbricated('[quote=', '`\[quote=([^\]]+)\](.+)\[/quote\]`suU', '<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title title-perso">$1 :</span><div class="formatter-content">$2</div></blockquote>', $this->content);
+			$this->_parse_imbricated('[quote]', '`\[quote\](.+)\[/quote\]`suU', '<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title">' . LangLoader::get_message('editor.quote', 'editor-lang') . ' :</span><div class="formatter-content">$1</div></blockquote>');
+			$this->_parse_imbricated('[quote=', '`\[quote=([^\]]+)\](.+)\[/quote\]`suU', '<blockquote class="formatter-container formatter-blockquote"><span class="formatter-title title-perso">$1 :</span><div class="formatter-content">$2</div></blockquote>');
 		}
 
 		if (!in_array('feed', $this->forbidden_tags))
@@ -786,7 +787,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * @param string[] $matches The matched elements
 	 * @return string The dissociated span string
 	 */
-	private function parse_span_color_and_background_style($matches)
+	private function parse_span_color_and_background_style(array $matches): string
 	{
 		return '<span style="color:' . $matches[1] . ';"><span style="background-color:' . $matches[2] . ';">' . $matches[4] . '</span></span>';
 	}
@@ -796,7 +797,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * @param string[] $matches The matched elements
 	 * @return string The dissociated span string
 	 */
-	private function parse_span_style($matches)
+	private function parse_span_style(array $matches): string
 	{
 		$span = $matches[3];
 		$styles = array_merge([$matches[1]], explode(';', $matches[2]));
@@ -804,25 +805,37 @@ class TinyMCEParser extends ContentFormattingParser
 		if (count($styles) > 1)
 		{
 			if (in_array('text-decoration: line-through', $styles))
+            {
 				unset($styles[array_search('text-decoration: line-through', $styles)]);
+            }
 			if (in_array('text-decoration: underline', $styles))
+            {
 				unset($styles[array_search('text-decoration: underline', $styles)]);
+            }
 		}
 
 		foreach ($styles as $style)
 		{
 			if (TextHelper::strstr($style, 'font-size:'))
+            {
 				$style = str_replace('pt', 'px', $style);
+            }
 			if (TextHelper::strstr($style, 'font-family:'))
 			{
 				$font = explode(' ', $style);
 				if ($font[0] != 'font-family:' && self::$fonts_array[$font[0]])
+                {
 					$style = 'font-family: ' . self::$fonts_array[$font[0]];
+                }
 				else
+                {
 					$style = '';
+                }
 			}
 			if ($style)
+            {
 				$span = '<span style="' . trim($style) . ';">' . $span . '</span>';
+            }
 		}
 		return $span;
 	}
@@ -832,7 +845,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * @param string[] $matches The matched elements
 	 * @return string The dissociated div string
 	 */
-	private function parse_div_style($matches)
+	private function parse_div_style(array $matches): string
 	{
 		$span = $matches[3];
 		$styles = array_merge([$matches[1]], explode(';', $matches[2]));
@@ -840,25 +853,38 @@ class TinyMCEParser extends ContentFormattingParser
 		if (count($styles) > 1)
 		{
 			if (in_array('text-decoration: line-through', $styles))
+            {
 				unset($styles[array_search('text-decoration: line-through', $styles)]);
+            }
 			if (in_array('text-decoration: underline', $styles))
+            {
 				unset($styles[array_search('text-decoration: underline', $styles)]);
+            }
 		}
 
+        $div = '';
 		foreach ($styles as $style)
 		{
 			if(TextHelper::strstr($style, 'font-size:'))
+            {
 				$style = str_replace('pt', 'px', $style);
+            }
 			if (TextHelper::strstr($style, 'font-family:'))
 			{
 				$font = explode(' ', $style);
 				if (self::$fonts_array[$font[0]])
+                {
 					$style = 'font-family: ' . self::$fonts_array[$font[0]];
+                }
 				else
+                {
 					$style = '';
+                }
 			}
 			if ($style)
+            {
 				$div = '<div style="' . trim($style) . ';">' . $div . '</div>';
+            }
 		}
 		return $div;
 	}
@@ -872,7 +898,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * @param string[] $matches The matched elements
 	 * @return string The PHPBoost HTML syntax
 	 */
-	private function parse_indent_tag($matches)
+	private function parse_indent_tag(array $matches): string
 	{
 		if ((int)$matches[1] > 0)
 		{
@@ -885,22 +911,22 @@ class TinyMCEParser extends ContentFormattingParser
 		}
 	}
 
-	private function parse_youtube_tag($matches)
+	private function parse_youtube_tag(array $matches): string
 	{
 		return '[[MEDIA]]insertYoutubePlayer(\'https://www.youtube.com/embed/' . $matches[1] . '\', ' . $matches[2] . ', ' . $matches[3] . ');[[/MEDIA]]';
 	}
 
-	private function parse_dailymotion_tag($matches)
+	private function parse_dailymotion_tag(array $matches): string
 	{
 		return '[[MEDIA]]insertDailymotionPlayer(\'https://www.dailymotion.com/embed/video/' . $matches[1] . '\', ' . $matches[2] . ', ' . $matches[3] . ');[[/MEDIA]]';
 	}
 
-	private function parse_vimeo_tag($matches)
+	private function parse_vimeo_tag(array $matches): string
 	{
 		return '[[MEDIA]]insertVimeoPlayer(\'https://player.vimeo.com/video/' . $matches[1] . '\', ' . $matches[2] . ', ' . $matches[3] . ');[[/MEDIA]]';
 	}
 
-	private function parse_movie_tag($matches)
+	private function parse_movie_tag(array $matches): string
 	{
 		$video = '[[MEDIA]]insertMoviePlayer(\'' . $matches[6] . '\', ' . $matches[3] . ', ' . $matches[4] . ');[[/MEDIA]]';
 		if (!empty($matches[1]))
@@ -925,7 +951,7 @@ class TinyMCEParser extends ContentFormattingParser
 		return $video;
 	}
 
-	private function parse_img($matches)
+	private function parse_img(array $matches): string
 	{
 		$img_pathinfo = pathinfo($matches[3]);
 		$file_array = explode('.', $img_pathinfo['filename']);
@@ -993,7 +1019,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * @param string[] $matches The matched elements.
 	 * @return string The good PHPBoost syntax.
 	 */
-	private function parse_size_tag($matches)
+	private function parse_size_tag(array $matches): string
 	{
 		$size = 0;
 		//We retrieve the size (in pt)
@@ -1047,7 +1073,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * @param string[] $matches The matched elements
 	 * @return string The parsed font tag
 	 */
-	private function parse_font_tag($matches)
+	private function parse_font_tag(array $matches): string
 	{
 		if (!empty(self::$fonts_array[$matches[1]]))
 		{
@@ -1065,7 +1091,7 @@ class TinyMCEParser extends ContentFormattingParser
 	 * @param string[] $var The matched elemets
 	 * @return string The clean code.
 	 */
-	private static function clear_html_and_code_tag($var)
+	private static function clear_html_and_code_tag(array $var): string
 	{
 		$var = preg_replace('`</p>\s*<p>`iu', "\n", $var);
 		$var = str_replace('<br />', "\n", $var);
@@ -1076,7 +1102,7 @@ class TinyMCEParser extends ContentFormattingParser
 	/**
 	 * Correct some TinyMCE parse problems
 	 */
-	private function correct()
+	private function correct(): void
 	{
 		// Trim manuel
 		$this->content = preg_replace(
@@ -1100,7 +1126,7 @@ class TinyMCEParser extends ContentFormattingParser
 			$this->content
 		);
 
-		//We delete all remaining HTML tags which are not recognized by the parser
+		// We delete all remaining HTML tags which are not recognized by the parser
 		$this->content = preg_replace(
 			[
 				'`&lt;(?:p|span|div)[^&]*&gt;`isu',
@@ -1110,7 +1136,7 @@ class TinyMCEParser extends ContentFormattingParser
 				'',
 				''
 			],
-				$this->content
+            $this->content
 		);
 	}
 }

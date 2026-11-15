@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 06
  * @since       PHPBoost 6.1 - 2026 04 05
 */
 
@@ -26,7 +26,7 @@ class PagesDisplayItemController extends DefaultDisplayItemController
      *
      * {@inheritdoc}
      */
-    protected function init()
+    protected function init(): void
     {
         $category = $this->get_item()->get_category();
         $this->current_url = PagesUrlBuilder::display(
@@ -43,7 +43,7 @@ class PagesDisplayItemController extends DefaultDisplayItemController
      *
      * {@inheritdoc}
      */
-    protected function generate_response()
+    protected function generate_response(): SiteDisplayResponse
     {
         $response = new SiteDisplayResponse($this->view);
 
@@ -58,10 +58,14 @@ class PagesDisplayItemController extends DefaultDisplayItemController
         $graphical_environment->get_seo_meta_data()->set_canonical_url($this->current_url);
 
         if (self::get_module_configuration()->has_rich_items() && $this->module_item->content_field_enabled())
+        {
             $graphical_environment->get_seo_meta_data()->set_description($this->get_item()->get_real_summary());
+        }
 
         if (self::get_module_configuration()->has_rich_items() && $this->get_item()->has_thumbnail())
+        {
             $graphical_environment->get_seo_meta_data()->set_picture_url($this->get_item()->get_thumbnail());
+        }
 
         // Breadcrumb: module home -> parent categories -> item title
         // Category links use PagesUrlBuilder (root-based, no /pages/ prefix).
@@ -79,10 +83,9 @@ class PagesDisplayItemController extends DefaultDisplayItemController
             foreach ($categories as $id => $category)
             {
                 if ($category->get_id() != Category::ROOT_CATEGORY)
-                    $breadcrumb->add(
-                        $category->get_name(),
-                        PagesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name())
-                    );
+                {
+                    $breadcrumb->add($category->get_name(), PagesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
+                }
             }
         }
 

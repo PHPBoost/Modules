@@ -11,7 +11,7 @@
 				</header>
 				<div class="content">
 					# IF IS_ADMIN #
-						<a href="{PATH_TO_ROOT}/admin/menus/menus.php">
+						<a href="{PATH_TO_ROOT}/admin/content/menus/menus.php">
 							<i class="fa fa-cogs" aria-hidden="true"></i>
 							{@sandbox.menu.management} - {@sandbox.menus}
 						</a>

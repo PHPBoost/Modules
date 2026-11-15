@@ -70,8 +70,8 @@ $lang['default.root.category.description'] = '
             <div class="cell-header"><h4 class="formatter-title">4. Éditeur</h4></div>
             <div class="cell-body">
                 <div class="cell-content">
-                    <p style="text-align: center;"><a class="offload" href="' . AdminContentUrlBuilder::content_configuration()->relative() . '"><i class="far fa-pen-to-square fa-2x" aria-hidden="true"></i></a></p>
-                    <a class="offload" href="' . AdminContentUrlBuilder::content_configuration()->relative() . '">Choisissez un éditeur de texte</a> outil indispensable pour ajouter du contenu.
+                    <p style="text-align: center;"><a class="offload" href="' . AdminContentUrlBuilder::configuration()->relative() . '"><i class="far fa-pen-to-square fa-2x" aria-hidden="true"></i></a></p>
+                    <a class="offload" href="' . AdminContentUrlBuilder::configuration()->relative() . '">Choisissez un éditeur de texte</a> outil indispensable pour ajouter du contenu.
                 </div>
             </div>
         </div>
@@ -79,8 +79,8 @@ $lang['default.root.category.description'] = '
             <div class="cell-header"><h4 class="formatter-title">5. Menus</h4></div>
             <div class="cell-body">
                 <div class="cell-content">
-                    <p style="text-align: center;"><a class="offload" href="/admin/menus/menus.php"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a></p>
-                    <a class="offload" href="/admin/menus/menus.php">Modifiez le menu de lien ou créez d\'autres menus</a> puis configurez leur droits d\'accès.
+                    <p style="text-align: center;"><a class="offload" href="/admin/content/menus/menus.php"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a></p>
+                    <a class="offload" href="/admin/content/menus/menus.php">Modifiez le menu de lien ou créez d\'autres menus</a> puis configurez leur droits d\'accès.
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@ $lang['default.root.category.description'] = '
             <div class="cell-body">
                 <div class="cell-content">
                     <p style="text-align: center;"><i class="fa fa-file-signature fa-2x" aria-hidden="true"></i></p>
-                    Avant de donner l\'accès de votre site à vos visiteurs, prenez un peu de temps pour y mettre du contenu, puis désactivez la <a class="offload" href="/phpboost/dev/pbtnext/admin/maintain/">maintenance</a>
+                    Avant de donner l\'accès de votre site à vos visiteurs, prenez un peu de temps pour y mettre du contenu, puis désactivez la <a class="offload" href="' . AdminMaintainUrlBuilder::maintain()->rel() . '">maintenance</a>
                 </div>
             </div>
         </div>
