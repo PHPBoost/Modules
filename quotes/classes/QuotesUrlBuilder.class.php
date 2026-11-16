@@ -13,26 +13,17 @@ class QuotesUrlBuilder
 {
 	private static $dispatcher = '/quotes';
 
-	/**
-	 * @return Url
-	 */
-	public static function configuration()
+	public static function configuration(): Url
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/admin/config');
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function manage()
+	public static function manage(): Url
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/manage/');
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function display_category($id, $rewrited_name, $page = 1, $subcategories_page = 1)
+	public static function display_category(int $id, string $rewrited_name, int $page = 1, int $subcategories_page = 1): Url
 	{
 		$category = $id > 0 ? $id . '-' . $rewrited_name . '/' : '';
 		$page = $page !== 1 || $subcategories_page !== 1 ? $page . '/' : '';
@@ -40,71 +31,47 @@ class QuotesUrlBuilder
 		return DispatchManager::get_url(self::$dispatcher, '/' . $category . $page . $subcategories_page);
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function display_writer_items($rewrited_writer, $page = 1)
+	public static function display_writer_items(string $rewrited_writer, int $page = 1): Url
 	{
 		$page = $page !== 1 ? $page . '/' : '';
 		return DispatchManager::get_url(self::$dispatcher, '/writer/' . $rewrited_writer . $page);
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function display_pending($page = 1)
+	public static function display_pending(int $page = 1): Url
 	{
 		$page = $page !== 1 ? $page . '/' : '';
 		return DispatchManager::get_url(self::$dispatcher, '/pending/' . $page);
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function display_member_items($user_id = null, $page = 1)
+	public static function display_member_items(?int $user_id = null, int $page = 1): Url
 	{
 		$page = $page !== 1 ? $page . '/' : '';
 		return DispatchManager::get_url(self::$dispatcher, '/member/' . $user_id . '/' . $page);
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function add($id_category = null, $rewrited_writer = null)
+	public static function add(?int $id_category = null, ?string $rewrited_writer = null): Url
 	{
 		$id_category = !empty($id_category) || !empty($rewrited_writer) ? $id_category . '/': '';
 		$rewrited_writer = !empty($rewrited_writer) ? $rewrited_writer . '/': '';
 		return DispatchManager::get_url(self::$dispatcher, '/add/' . $id_category . $rewrited_writer);
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function edit($id)
+	public static function edit(int $id): Url
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/edit/');
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function delete($id)
+	public static function delete(int $id): Url
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/' . $id . '/delete/?token=' . AppContext::get_session()->get_token());
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function ajax_writers()
+	public static function ajax_writers(): Url
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/ajax_writers/');
 	}
 
-	/**
-	 * @return Url
-	 */
-	public static function home()
+	public static function home(): Url
 	{
 		return DispatchManager::get_url(self::$dispatcher, '/');
 	}

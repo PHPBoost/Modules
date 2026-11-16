@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 07 01
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 3.0 - 2011 10 08
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,27 +11,27 @@
 
 class StatsModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__BOTTOM_CENTRAL;
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-stats';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return ModulesManager::get_module('stats')->get_configuration()->get_name();
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return StatsAuthorizationsService::check_authorizations()->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		$lang = LangLoader::get('common', 'stats');
 

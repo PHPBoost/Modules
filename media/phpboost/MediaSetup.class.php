@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 3.0 - 2010 01 17
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      mipel <mipel@phpboost.com>
@@ -12,45 +12,41 @@
 
 class MediaSetup extends DefaultModuleSetup
 {
-	public static $media_table;
-	public static $media_cats_table;
+	public static string $media_table;
+	public static string $media_cats_table;
+	private array $messages;
 
-	/**
-	 * @var string[] localized messages
-	 */
-	private $messages;
-
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$media_table = PREFIX . 'media';
 		self::$media_cats_table = PREFIX . 'media_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('media', 'config');
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$media_table, self::$media_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_media_table();
 		$this->create_media_cats_table();
 	}
 
-	private function create_media_table()
+	private function create_media_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -81,19 +77,19 @@ class MediaSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$media_table, $fields, $options);
 	}
 
-	private function create_media_cats_table()
+	private function create_media_cats_table(): void
 	{
 		MediaCategory::create_categories_table(self::$media_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'media');
 		$this->insert_media_cats_data();
 		$this->insert_media_data();
 	}
 
-	private function insert_media_cats_data()
+	private function insert_media_cats_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$media_cats_table, [
 			'id' => 1,
@@ -108,7 +104,7 @@ class MediaSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_media_data()
+	private function insert_media_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$media_table, [
 			'id' => 1,

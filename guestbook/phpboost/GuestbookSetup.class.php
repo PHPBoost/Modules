@@ -3,48 +3,48 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 1116
  * @since       PHPBoost 3.0 - 2010 05 28
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class GuestbookSetup extends DefaultModuleSetup
 {
-	public static $guestbook_table;
+	public static string $guestbook_table;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$guestbook_table = PREFIX . 'guestbook';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		$this->delete_configuration();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$guestbook_table]);
 	}
 
-	private function delete_configuration()
+	private function delete_configuration(): void
 	{
 		ConfigManager::delete('guestbook', 'config');
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_guestbook_table();
 	}
 
-	private function create_guestbook_table()
+	private function create_guestbook_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,14 +11,14 @@
 
 class QuotesWriterController extends DefaultModuleController
 {
-	private $cache;
+	private QuotesCache $cache;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
-	   return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
+        return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -29,12 +29,12 @@ class QuotesWriterController extends DefaultModuleController
 		return $this->generate_response($request);
 	}
 
-	private function init()
+	private function init(): void
 	{
 		$this->cache = QuotesCache::load();
 	}
 
-	private function build_view(HTTPRequestCustom $request)
+	private function build_view(HTTPRequestCustom $request): void
 	{
 		$authorized_categories = $this->get_authorized_categories();
 		$rewrited_writer = $request->get_getvalue('writer', '');
@@ -48,15 +48,17 @@ class QuotesWriterController extends DefaultModuleController
 
 		$pagination = $this->get_pagination($condition, $parameters, $rewrited_writer, $page);
 
-		$result = PersistenceContext::get_querier()->select('SELECT quotes.*, member.*
-		FROM '. QuotesSetup::$quotes_table .' quotes
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
-		' . $condition . '
-		ORDER BY quotes.creation_date DESC
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT quotes.*, member.*
+            FROM '. QuotesSetup::$quotes_table .' quotes
+            LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
+            ' . $condition . '
+            ORDER BY quotes.creation_date DESC
+            LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
+                'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$this->view->put_all([
 			'C_ITEMS' => $result->get_rows_count() > 0,
@@ -76,7 +78,7 @@ class QuotesWriterController extends DefaultModuleController
 		$result->dispose();
 	}
 
-	private function get_authorized_categories()
+	private function get_authorized_categories(): array
 	{
 		$search_category_children_options = new SearchCategoryChildrensOptions();
 		$search_category_children_options->add_authorizations_bits(Category::READ_AUTHORIZATIONS);
@@ -85,7 +87,7 @@ class QuotesWriterController extends DefaultModuleController
 		return array_keys($categories);
 	}
 
-	private function get_pagination($condition, $parameters, $rewrited_writer, $page)
+	private function get_pagination(string $condition, array $parameters, string $rewrited_writer, int $page): ?ModulePagination
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
@@ -101,7 +103,7 @@ class QuotesWriterController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!CategoriesAuthorizationsService::check_authorizations()->read())
 		{
@@ -110,7 +112,7 @@ class QuotesWriterController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$rewrited_writer = $request->get_getvalue('writer', '');
 		$page = $request->get_getint('page', 1);

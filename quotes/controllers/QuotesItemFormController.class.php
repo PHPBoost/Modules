@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class QuotesItemFormController extends DefaultModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -28,7 +28,7 @@ class QuotesItemFormController extends DefaultModuleController
 		return $this->generate_response($this->view);
 	}
 
-	private function build_form(HTTPRequestCustom $request)
+	private function build_form(HTTPRequestCustom $request): void
 	{
 		$form = new HTMLForm(self::class);
 		$form->set_layout_title($this->item->get_id() === null ? $this->lang['quotes.add.item'] : ($this->lang['quotes.edit.item'] . ': ' . $this->item->get_writer()));
@@ -68,7 +68,7 @@ class QuotesItemFormController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function build_approval_field($fieldset)
+	private function build_approval_field(mixed $fieldset): void
 	{
 		if (!$this->is_contributor_member())
 		{
@@ -76,7 +76,7 @@ class QuotesItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function build_contribution_fieldset($form)
+	private function build_contribution_fieldset(HTMLForm $form): void
 	{
 		if ($this->item->get_id() === null && $this->is_contributor_member())
 		{
@@ -100,22 +100,25 @@ class QuotesItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function is_contributor_member()
+	private function is_contributor_member(): bool
 	{
         $id_category = AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY);
 		return !CategoriesAuthorizationsService::check_authorizations($id_category)->write() && CategoriesAuthorizationsService::check_authorizations($id_category)->contribution();
 	}
 
-	private function get_item()
+	private function get_item(): ?QuotesItem
 	{
 		if ($this->item === null)
 		{
 			$id = AppContext::get_request()->get_getint('id', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->item = QuotesService::get_item($id);
-				} catch (RowNotFoundException $e) {
+				}
+                catch (RowNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
@@ -139,7 +142,7 @@ class QuotesItemFormController extends DefaultModuleController
 		return $this->item;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		$item = $this->get_item();
 
@@ -161,17 +164,21 @@ class QuotesItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function save()
+	private function save(): void
 	{
-		$previous_category_id = $this->item->get_id_category();
-
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
+        {
 			$this->item->set_id_category($this->form->get_value('id_category')->get_raw_value());
+        }
 
 		if (!$this->is_contributor_member() && $this->form->get_value('approved'))
+        {
 			$this->item->approve();
+        }
 		else
+        {
 			$this->item->unapprove();
+        }
 
 		$this->item->set_writer($this->form->get_value('writer'));
 		$this->item->set_content($this->form->get_value('content'));
@@ -182,14 +189,18 @@ class QuotesItemFormController extends DefaultModuleController
 			$this->item->set_id($id);
 
 			if (!$this->is_contributor_member())
+            {
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($this->item->get_properties(), ['item_url' => $this->item->get_item_url()]));
+            }
 		}
 		else
 		{
 			QuotesService::update($this->item);
 
 			if (!$this->is_contributor_member())
+            {
 				HooksService::execute_hook_action('edit', self::$module_id, array_merge($this->item->get_properties(), ['item_url' => $this->item->get_item_url()]));
+            }
 		}
 
 		$this->contribution_actions($this->item);
@@ -197,16 +208,20 @@ class QuotesItemFormController extends DefaultModuleController
 		QuotesService::clear_cache();
 	}
 
-	private function contribution_actions(QuotesItem $item)
+	private function contribution_actions(QuotesItem $item): void
 	{
+        $contribution = new Contribution();
 		if ($this->is_contributor_member())
 		{
-			$contribution = new Contribution();
 			$contribution->set_id_in_module($item->get_id());
 			if ($this->is_new_item)
+            {
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
+            }
 			else
+            {
 				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
+            }
 
 			$contribution->set_entitled(StringVars::replace_vars($this->lang['quotes.form.contribution.title'], ['name' => $item->get_writer()]));
 			$contribution->set_fixing_url(QuotesUrlBuilder::edit($item->get_id())->relative());
@@ -235,10 +250,8 @@ class QuotesItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function redirect()
+	private function redirect(): void
 	{
-		$category = $this->item->get_category();
-
 		if ($this->is_contributor_member())
 		{
 			DispatchManager::redirect(new UserContributionSuccessController());
@@ -246,20 +259,28 @@ class QuotesItemFormController extends DefaultModuleController
 		elseif ($this->item->is_approved())
 		{
 			if ($this->is_new_item)
+            {
 				AppContext::get_response()->redirect(QuotesUrlBuilder::home(), StringVars::replace_vars($this->lang['quotes.message.success.add'], ['writer' => $this->item->get_writer()]));
+            }
 			else
+            {
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::home()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], ['writer' => $this->item->get_writer()]));
+            }
 		}
 		else
 		{
 			if ($this->is_new_item)
+            {
 				AppContext::get_response()->redirect(QuotesUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['quotes.message.success.add'], ['writer' => $this->item->get_writer()]));
+            }
 			else
+            {
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : QuotesUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['quotes.message.success.edit'], ['writer' => $this->item->get_writer()]));
+            }
 		}
 	}
 
-	private function generate_response(View $view)
+	private function generate_response(View $view): SiteDisplayResponse
 	{
 		$location_id = $this->item->get_id() ? 'item-edit-'. $this->item->get_id() : '';
 
@@ -279,7 +300,9 @@ class QuotesItemFormController extends DefaultModuleController
 		else
 		{
 			if (!AppContext::get_session()->location_id_already_exists($location_id))
+            {
 				$graphical_environment->set_location_id($location_id);
+            }
 
 			$graphical_environment->set_page_title($this->lang['quotes.edit.item'], $this->lang['quotes.module.title']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['quotes.edit.item']);
@@ -289,7 +312,9 @@ class QuotesItemFormController extends DefaultModuleController
 			foreach ($categories as $id => $category)
 			{
 				if ($category->get_id() != Category::ROOT_CATEGORY)
+                {
 					$breadcrumb->add($category->get_name(), QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
+                }
 			}
 			$category = $this->item->get_category();
 			$breadcrumb->add($this->lang['quotes.edit.item'], QuotesUrlBuilder::edit($this->item->get_id()));

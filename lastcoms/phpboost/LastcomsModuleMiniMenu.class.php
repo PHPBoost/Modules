@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Geoffrey ROGUELON <liaght@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 3.0 - 2009 07 26
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class LastcomsModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__LEFT;
 	}
@@ -21,22 +21,22 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		return '';
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-lastcoms';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return LangLoader::get_message('lastcoms.module.title', 'common', 'lastcoms');
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return LastcomsAuthorizationsService::check_authorizations()->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		$lang = LangLoader::get_all_langs('lastcoms');
 		$view = new FileTemplate('lastcoms/LastcomsModuleMiniMenu.tpl');
@@ -96,7 +96,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		return $view->render();
 	}
 
-	public function display()
+	public function display(): string
 	{
 		if ($this->is_displayed())
 		{

@@ -26,7 +26,7 @@ class SmalladsCategoriesCache extends DefaultRichCategoriesCache
 		);
 	}
 
-	protected function get_root_category_authorizations(): mixed
+	protected function get_root_category_authorizations(): array
 	{
 		return SmalladsConfig::load()->get_authorizations();
 	}

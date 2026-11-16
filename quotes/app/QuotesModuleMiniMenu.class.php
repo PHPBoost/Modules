@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,27 +11,27 @@
 
 class QuotesModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__NOT_ENABLED;
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-quotes';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return LangLoader::get_message('quotes.module.title', 'common', 'quotes');
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return !Url::is_current_url('/quotes/') && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, 'quotes')->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		//Create file template
 		$view = new FileTemplate('quotes/QuotesModuleMiniMenu.tpl');

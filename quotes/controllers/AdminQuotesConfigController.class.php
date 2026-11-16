@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class AdminQuotesConfigController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): DefaultAdminDisplayResponse
 	{
 		$this->build_form();
 
@@ -26,7 +26,7 @@ class AdminQuotesConfigController extends DefaultAdminModuleController
 		return new DefaultAdminDisplayResponse($this->view);
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -68,7 +68,7 @@ class AdminQuotesConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
 		$this->config->set_categories_per_page($this->form->get_value('categories_per_page'));

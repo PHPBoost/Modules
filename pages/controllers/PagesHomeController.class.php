@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 06
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.2 - 2020 06 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -41,8 +41,6 @@ class PagesHomeController extends DefaultSeveralItemsController
      * Replaces ItemsUrlBuilder-based URLs (which produce /pages/...) with
      * PagesUrlBuilder-based URLs (which produce root URLs) for the
      * frontend category-display case.
-     *
-     * {@inheritdoc}
      */
     protected function init(): void
     {
@@ -82,8 +80,6 @@ class PagesHomeController extends DefaultSeveralItemsController
     /**
      * Builds the list view with root-based frontend URLs for U_CATEGORY and
      * /pages/-prefixed admin URLs for U_REORDER_ITEMS.
-     *
-     * {@inheritdoc}
      */
     protected function build_view(): void
     {
@@ -186,13 +182,13 @@ class PagesHomeController extends DefaultSeveralItemsController
     /**
      * Overrides pagination to use a root-based URL for frontend views.
      * Admin views (tag, member, pending) fall back to the parent implementation.
-     *
-     * {@inheritdoc}
      */
-    protected function get_pagination(): ModulePagination
+    protected function get_pagination(): ?ModulePagination
     {
         if (!$this->is_frontend_request() || !self::get_module_configuration()->has_categories())
+        {
             return parent::get_pagination();
+        }
 
         $items_number = self::get_items_manager()->count($this->sql_condition, $this->sql_parameters);
 
@@ -213,10 +209,8 @@ class PagesHomeController extends DefaultSeveralItemsController
 
     /**
      * Overrides subcategory pagination to use a root-based URL for frontend views.
-     *
-     * {@inheritdoc}
      */
-    protected function get_subcategories_pagination(int $subcategories_number): ModulePagination
+    protected function get_subcategories_pagination(int $subcategories_number): ?ModulePagination
     {
         if (!$this->is_frontend_request() || !self::get_module_configuration()->has_categories())
             return parent::get_subcategories_pagination($subcategories_number);
@@ -240,8 +234,6 @@ class PagesHomeController extends DefaultSeveralItemsController
      * Builds the page response with breadcrumb category links pointing to
      * root-based URLs for frontend views.
      * Admin views delegate entirely to the parent.
-     *
-     * {@inheritdoc}
      */
     protected function generate_response(): SiteDisplayResponse
     {

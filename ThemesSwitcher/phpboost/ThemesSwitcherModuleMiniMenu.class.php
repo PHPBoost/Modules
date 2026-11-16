@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 3.0 - 2012 02 22
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      mipel <mipel@phpboost.com>
@@ -12,7 +12,7 @@
 
 class ThemesSwitcherModuleMiniMenu extends ModuleMiniMenu
 {
-    public function get_default_block()
+    public function get_default_block(): int
     {
         return self::BLOCK_POSITION__RIGHT;
     }
@@ -22,22 +22,22 @@ class ThemesSwitcherModuleMiniMenu extends ModuleMiniMenu
         return '';
     }
 
-    public function get_menu_id()
+    public function get_menu_id(): string
     {
         return 'module-mini-themesswitcher';
     }
 
-    public function get_menu_title()
+    public function get_menu_title(): string
     {
         return LangLoader::get_message('ts.switch.theme', 'common', 'ThemesSwitcher');
     }
 
-    public function is_displayed()
+    public function is_displayed(): bool
     {
         return count(ThemesManager::get_activated_and_authorized_themes_map_sorted_by_localized_name()) > 1;
     }
 
-    public function get_menu_content()
+    public function get_menu_content(): string
     {
         $user = AppContext::get_current_user();
 
@@ -100,7 +100,7 @@ class ThemesSwitcherModuleMiniMenu extends ModuleMiniMenu
         return "$scheme$host$port$path$query$fragment";
     }
 
-    public function display()
+    public function display(): string
     {
         if ($this->is_displayed())
         {

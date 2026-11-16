@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,42 +11,42 @@
 
 class QuotesSetup extends DefaultModuleSetup
 {
-	private $messages;
-	public static $quotes_table;
-	public static $quotes_cats_table;
+	private array $messages;
+	public static string $quotes_table;
+	public static string $quotes_cats_table;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$quotes_table = PREFIX . 'quotes';
 		self::$quotes_cats_table = PREFIX . 'quotes_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('quotes', 'config');
 		CacheManager::invalidate('module', 'quotes');
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$quotes_table, self::$quotes_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_quotes_table();
 		$this->create_quotes_cats_table();
 	}
 
-	private function create_quotes_table()
+	private function create_quotes_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -69,12 +69,12 @@ class QuotesSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$quotes_table, $fields, $options);
 	}
 
-	private function create_quotes_cats_table()
+	private function create_quotes_cats_table(): void
 	{
 		RichCategory::create_categories_table(self::$quotes_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'quotes');
 

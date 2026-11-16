@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 3.0 - 2010 01 17
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,41 +11,41 @@
 
 class GallerySetup extends DefaultModuleSetup
 {
-    private $messages;
-	public static $gallery_table;
-	public static $gallery_cats_table;
+	public static string $gallery_table;
+	public static string $gallery_cats_table;
+    private array $messages;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$gallery_table = PREFIX . 'gallery';
 		self::$gallery_cats_table = PREFIX . 'gallery_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('gallery', 'config');
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$gallery_table, self::$gallery_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_gallery_table();
 		$this->create_gallery_cats_table();
 	}
 
-	private function create_gallery_table()
+	private function create_gallery_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -74,7 +74,7 @@ class GallerySetup extends DefaultModuleSetup
 		RichCategory::create_categories_table(self::$gallery_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'gallery');
 		$this->insert_gallery_cats_data();
@@ -95,7 +95,7 @@ class GallerySetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_gallery_data()
+	private function insert_gallery_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$gallery_table, [
 			'id' => 1,

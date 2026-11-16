@@ -3,45 +3,45 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastSetup extends DefaultModuleSetup
 {
-	public static $broadcast_table;
-	public static $broadcast_cats_table;
+	public static string $broadcast_table;
+	public static string $broadcast_cats_table;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$broadcast_table = PREFIX . 'broadcast';
 		self::$broadcast_cats_table = PREFIX . 'broadcast_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('broadcast', 'config');
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$broadcast_table, self::$broadcast_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_broadcast_table();
 		$this->create_broadcast_cats_table();
 	}
 
-	private function create_broadcast_table()
+	private function create_broadcast_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -69,7 +69,7 @@ class BroadcastSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$broadcast_table, $fields, $options);
 	}
 
-	private function create_broadcast_cats_table()
+	private function create_broadcast_cats_table(): void
 	{
 		RichCategory::create_categories_table(self::$broadcast_cats_table);
 	}

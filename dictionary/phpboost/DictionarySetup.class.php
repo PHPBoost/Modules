@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 3.0 - 2012 11 15
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,12 +11,12 @@
 
 class DictionarySetup extends DefaultModuleSetup
 {
-	private $messages;
-	private $querier;
-	public static $dictionary_table;
-	public static $dictionary_cat_table;
+	private ?DBQuerier $querier = null;
+	public static string $dictionary_table;
+	public static string $dictionary_cat_table;
+	private array $messages;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$dictionary_table = PREFIX . 'dictionary';
 		self::$dictionary_cat_table = PREFIX . 'dictionary_cat';
@@ -27,13 +27,13 @@ class DictionarySetup extends DefaultModuleSetup
 		$this->querier = PersistenceContext::get_querier();
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 	}
 
-	public function upgrade($installed_version)
+	public function upgrade(string $installed_version): string
 	{
 		$columns = PersistenceContext::get_dbms_utils()->desc_table(PREFIX . 'dictionary');
 
@@ -63,30 +63,30 @@ class DictionarySetup extends DefaultModuleSetup
 		return '6.1.0';
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		$this->delete_configuration();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$dictionary_table, self::$dictionary_cat_table]);
 	}
 
-	private function delete_configuration()
+	private function delete_configuration(): void
 	{
 		ConfigManager::delete('dictionary');
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_dictionary_table();
 		$this->create_dictionary_cat_table();
 		$this->insert_data();
 	}
 
-	private function create_dictionary_table()
+	private function create_dictionary_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -107,7 +107,7 @@ class DictionarySetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$dictionary_table, $fields, $options);
 	}
 
-	private function create_dictionary_cat_table()
+	private function create_dictionary_cat_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -121,14 +121,14 @@ class DictionarySetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$dictionary_cat_table, $fields, $options);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'dictionary');
 		$this->insert_dictionary_cat_data();
 		$this->insert_dictionary_data();
 	}
 
-	private function insert_dictionary_cat_data()
+	private function insert_dictionary_cat_data(): void
 	{
 		$this->querier->insert(self::$dictionary_cat_table, [
 			'id' => 1,
@@ -147,7 +147,7 @@ class DictionarySetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_dictionary_data()
+	private function insert_dictionary_data(): void
 	{
 		$this->querier->insert(self::$dictionary_table, [
 			'id' => 1,

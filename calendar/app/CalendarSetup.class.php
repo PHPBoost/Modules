@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Loic ROUCHON <horn@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 3.0 - 2010 01 17
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,12 +11,12 @@
 
 class CalendarSetup extends DefaultModuleSetup
 {
-	public static $calendar_events_table;
-	public static $calendar_events_content_table;
-	public static $calendar_cats_table;
-	public static $calendar_users_relation_table;
+	public static string $calendar_events_table;
+	public static string $calendar_events_content_table;
+	public static string $calendar_cats_table;
+	public static string $calendar_users_relation_table;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$calendar_events_table = PREFIX . 'calendar_events';
 		self::$calendar_events_content_table = PREFIX . 'calendar_events_content';
@@ -24,24 +24,24 @@ class CalendarSetup extends DefaultModuleSetup
 		self::$calendar_users_relation_table = PREFIX . 'calendar_users_relation';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('calendar', 'config');
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$calendar_events_table, self::$calendar_events_content_table, self::$calendar_cats_table, self::$calendar_users_relation_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_calendar_events_table();
 		$this->create_calendar_events_content_table();
@@ -49,7 +49,7 @@ class CalendarSetup extends DefaultModuleSetup
 		$this->create_calendar_users_relation_table();
 	}
 
-	private function create_calendar_events_table()
+	private function create_calendar_events_table(): void
 	{
 		$fields = [
 			'id_event' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -68,7 +68,7 @@ class CalendarSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$calendar_events_table, $fields, $options);
 	}
 
-	private function create_calendar_events_content_table()
+	private function create_calendar_events_content_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -103,12 +103,12 @@ class CalendarSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$calendar_events_content_table, $fields, $options);
 	}
 
-	private function create_calendar_cats_table()
+	private function create_calendar_cats_table(): void
 	{
 		CalendarCategory::create_categories_table(self::$calendar_cats_table);
 	}
 
-	private function create_calendar_users_relation_table()
+	private function create_calendar_users_relation_table(): void
 	{
 		$fields = [
 			'event_id' => ['type' => 'integer', 'length' => 11, 'notnull' => 1, 'default' => 0],

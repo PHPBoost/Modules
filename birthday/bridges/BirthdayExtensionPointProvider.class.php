@@ -15,24 +15,24 @@ class BirthdayExtensionPointProvider extends ExtensionPointProvider
 		parent::__construct('birthday');
 	}
 
-	public function css_files()
+	public function css_files(): ModuleCssFiles
 	{
 		$module_css_files = new ModuleCssFiles();
 		$module_css_files->adding_always_displayed_file('birthday_mini.css');
 		return $module_css_files;
 	}
 
-	public function menus()
+	public function menus(): ModuleMenus
 	{
 		return new ModuleMenus([new BirthdayModuleMiniMenu()]);
 	}
 
-	public function scheduled_jobs()
+	public function scheduled_jobs(): BirthdayScheduledJobs
 	{
 		return new BirthdayScheduledJobs();
 	}
 
-	public function url_mappings()
+	public function url_mappings(): UrlMappings
 	{
 		return new UrlMappings([new DispatcherUrlMapping('/birthday/index.php')]);
 	}

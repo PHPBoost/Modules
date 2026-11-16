@@ -11,10 +11,10 @@
 
 class QuotesItemsManagerController extends DefaultModuleController
 {
-	private $elements_number = 0;
-	private $ids = [];
+	private int $elements_number = 0;
+	private array $ids = [];
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -25,7 +25,7 @@ class QuotesItemsManagerController extends DefaultModuleController
 		return $this->generate_response($current_page);
 	}
 
-	private function build_table()
+	private function build_table(): int
 	{
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
@@ -43,7 +43,9 @@ class QuotesItemsManagerController extends DefaultModuleController
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('creation_date', 'filter2', $this->lang['common.creation.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
 		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $this->lang['common.author']));
 		if ($display_categories)
+        {
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+        }
 
 		$status_list = [Item::PUBLISHED => $this->lang['common.status.approved'], Item::NOT_PUBLISHED => $this->lang['common.status.draft']];
 		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status.publication'], $status_list));
@@ -110,7 +112,7 @@ class QuotesItemsManagerController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!CategoriesAuthorizationsService::check_authorizations()->moderation())
 		{
@@ -119,7 +121,7 @@ class QuotesItemsManagerController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response($page = 1)
+	private function generate_response($page = 1): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 

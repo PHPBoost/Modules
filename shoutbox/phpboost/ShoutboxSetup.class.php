@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 3.0 - 2010 01 17
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,46 +11,43 @@
 
 class ShoutboxSetup extends DefaultModuleSetup
 {
-	public static $shoutbox_table;
-	/**
-	 * @var string[] localized messages
-	 */
-	private $messages;
+	public static string $shoutbox_table;
+	private array $messages;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$shoutbox_table = PREFIX . 'shoutbox';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		$this->delete_configuration();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$shoutbox_table]);
 	}
 
-	private function delete_configuration()
+	private function delete_configuration(): void
 	{
 		ConfigManager::delete('shoutbox', 'config');
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_shoutbox_table();
 	}
 
-	private function create_shoutbox_table()
+	private function create_shoutbox_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -68,13 +65,13 @@ class ShoutboxSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$shoutbox_table, $fields, $options);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'shoutbox');
 		$this->insert_shoutbox_data();
 	}
 
-	private function insert_shoutbox_data()
+	private function insert_shoutbox_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$shoutbox_table, [
 			'id' => 1,

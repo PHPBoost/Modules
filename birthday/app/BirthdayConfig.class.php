@@ -18,87 +18,77 @@ class BirthdayConfig extends AbstractConfigData
 
 	const AUTHORIZATIONS = 'authorizations';
 
-	public function get_coming_next()
+	public function get_coming_next(): mixed
 	{
 		return $this->get_property(self::COMING_NEXT);
 	}
 
-	public function set_coming_next($value)
+	public function set_coming_next(mixed $value): void
 	{
 	$this->set_property(self::COMING_NEXT, $value);
 	}
 
-	public function display_members_age()
+	public function display_members_age(): void
 	{
 		$this->set_property(self::MEMBERS_AGE_DISPLAYED, true);
 	}
 
-	public function hide_members_age()
+	public function hide_members_age(): void
 	{
 		$this->set_property(self::MEMBERS_AGE_DISPLAYED, false);
 	}
 
-	public function is_members_age_displayed()
+	public function is_members_age_displayed(): bool
 	{
 		return $this->get_property(self::MEMBERS_AGE_DISPLAYED);
 	}
 
-	public function enable_pm_for_members_birthday()
+	public function enable_pm_for_members_birthday(): void
 	{
 		$this->set_property(self::PM_FOR_MEMBERS_BIRTHDAY_ENABLED, true);
 	}
 
-	public function disable_pm_for_members_birthday()
+	public function disable_pm_for_members_birthday(): void
 	{
 		$this->set_property(self::PM_FOR_MEMBERS_BIRTHDAY_ENABLED, false);
 	}
 
-	public function is_pm_for_members_birthday_enabled()
+	public function is_pm_for_members_birthday_enabled(): bool
 	{
 		return $this->get_property(self::PM_FOR_MEMBERS_BIRTHDAY_ENABLED);
 	}
 
-	public function get_pm_for_members_birthday_title()
+	public function get_pm_for_members_birthday_title(): string
 	{
 		return $this->get_property(self::PM_FOR_MEMBERS_BIRTHDAY_TITLE);
 	}
 
-	public function set_pm_for_members_birthday_title($value)
+	public function set_pm_for_members_birthday_title(string $value): void
 	{
 	$this->set_property(self::PM_FOR_MEMBERS_BIRTHDAY_TITLE, $value);
 	}
 
 
-	public function get_pm_for_members_birthday_content()
+	public function get_pm_for_members_birthday_content(): string
 	{
 		return $this->get_property(self::PM_FOR_MEMBERS_BIRTHDAY_CONTENT);
 	}
 
-	public function set_pm_for_members_birthday_content($value)
+	public function set_pm_for_members_birthday_content(string $value): void
 	{
 		$this->set_property(self::PM_FOR_MEMBERS_BIRTHDAY_CONTENT, $value);
 	}
 
-	 /**
-	 * @method Get authorizations
-	 */
-	public function get_authorizations()
+	public function get_authorizations(): array
 	{
 		return $this->get_property(self::AUTHORIZATIONS);
 	}
 
-	 /**
-	 * @method Set authorizations
-	 * @params string[] $array Array of authorizations
-	 */
-	public function set_authorizations(Array $authorizations)
+	public function set_authorizations(array $authorizations): void
 	{
 		$this->set_property(self::AUTHORIZATIONS, $authorizations);
 	}
 
-	/**
-	 * @method Get default values.
-	 */
 	public function get_default_values(): array
 	{
 		return [
@@ -111,19 +101,12 @@ class BirthdayConfig extends AbstractConfigData
 		];
 	}
 
-	/**
-	 * @method Load the birthday configuration.
-	 * @return BirthdayConfig
-	 */
-	public static function load()
+	public static function load(): BirthdayConfig
 	{
 		return ConfigManager::load(self::class, 'birthday', 'config');
 	}
 
-	/**
-	 * @method Saves the birthday configuration in the database. It becomes persistent.
-	 */
-	public static function save()
+	public static function save(): void
 	{
 		ConfigManager::save('birthday', self::load(), 'config');
 	}

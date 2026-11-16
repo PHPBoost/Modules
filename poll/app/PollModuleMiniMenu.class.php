@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      xela <xela@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 6.0 - 2020 05 14
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
@@ -20,33 +20,33 @@ class PollModuleMiniMenu extends ModuleMiniMenu
 	private $vote_form;
 	private $vote = [];
 
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__LEFT;
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'poll-module-mini';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return ModulesManager::get_module(self::MODULE_ID)->get_configuration()->get_name();
 	}
 
-	public function default_is_enabled()
+	public function default_is_enabled(): bool
 	{
 		return true;
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return !Url::is_current_url(self::MODULE_ID) && ItemsAuthorizationsService::check_authorizations(self::MODULE_ID)->read();
 	}
 
 	// $msg_return = [key of var lang => const MessageHelper::[SUCCESS, WARNING etc]]
-	public function get_menu_content($item_id = 0, array $msg_return = [])
+	public function get_menu_content($item_id = 0, array $msg_return = []): string
 	{
 		$this->view = new FileTemplate('poll/PollModuleMiniMenu.tpl');
 		MenuService::assign_positions_conditions($this->view, $this->get_block());

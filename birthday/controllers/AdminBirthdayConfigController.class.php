@@ -10,7 +10,7 @@
 
 class AdminBirthdayConfigController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): DefaultAdminDisplayResponse
 	{
 		$this->build_form();
 
@@ -36,7 +36,7 @@ class AdminBirthdayConfigController extends DefaultAdminModuleController
 		return new DefaultAdminDisplayResponse($this->view);
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -55,10 +55,13 @@ class AdminBirthdayConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'top-field custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("pm_for_members_birthday_enabled").getValue()) {
+					if (HTMLForms.getField("pm_for_members_birthday_enabled").getValue())
+                    {
 						HTMLForms.getField("pm_for_members_birthday_title").enable();
 						HTMLForms.getField("pm_for_members_birthday_content").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("pm_for_members_birthday_title").disable();
 						HTMLForms.getField("pm_for_members_birthday_content").disable();
 					}'
@@ -98,7 +101,7 @@ class AdminBirthdayConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function save()
+	private function save(): void
 	{
         $this->config->set_coming_next($this->form->get_value('coming_next'));
 
@@ -107,7 +110,9 @@ class AdminBirthdayConfigController extends DefaultAdminModuleController
 			$this->config->display_members_age();
 		}
 		else
+        {
 			$this->config->hide_members_age();
+        }
 
 		if ($this->form->get_value('pm_for_members_birthday_enabled'))
 		{
@@ -116,7 +121,9 @@ class AdminBirthdayConfigController extends DefaultAdminModuleController
 			$this->config->set_pm_for_members_birthday_content($this->form->get_value('pm_for_members_birthday_content'));
 		}
 		else
+        {
 			$this->config->disable_pm_for_members_birthday();
+        }
 
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());
 

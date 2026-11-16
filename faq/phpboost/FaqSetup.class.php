@@ -3,53 +3,49 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 4.0 - 2014 09 02
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class FaqSetup extends DefaultModuleSetup
 {
-	public static $faq_table;
-	public static $faq_cats_table;
+	public static string $faq_table;
+	public static string $faq_cats_table;
+	private array $messages;
 
-	/**
-	 * @var string[] localized messages
-	 */
-	private $messages;
-
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$faq_table = PREFIX . 'faq';
 		self::$faq_cats_table = PREFIX . 'faq_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('faq', 'config');
 		CacheManager::invalidate('module', 'faq');
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$faq_table, self::$faq_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_faq_table();
 		$this->create_faq_cats_table();
 	}
 
-	private function create_faq_table()
+	private function create_faq_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -72,19 +68,19 @@ class FaqSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$faq_table, $fields, $options);
 	}
 
-	private function create_faq_cats_table()
+	private function create_faq_cats_table(): void
 	{
 		RichCategory::create_categories_table(self::$faq_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'faq');
 		$this->insert_faq_cats_data();
 		$this->insert_faq_data();
 	}
 
-	private function insert_faq_cats_data()
+	private function insert_faq_cats_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$faq_cats_table, [
 			'id' => 1,
@@ -109,7 +105,7 @@ class FaqSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_faq_data()
+	private function insert_faq_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$faq_table, [
 			'id' => 1,

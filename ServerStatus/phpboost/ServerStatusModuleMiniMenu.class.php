@@ -3,24 +3,24 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 4.0 - 2013 08 04
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class ServerStatusModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__LEFT;
 	}
 
-	public function get_formated_title()
+	public function get_formated_title(): string
 	{
 		return LangLoader::get_message('server.module.title', 'common', 'ServerStatus');
 	}
 
-	public function display($view = false)
+	public function display($view = false): string
 	{
 		if (!Url::is_current_url('/ServerStatus/') && ServerStatusAuthorizationsService::check_authorizations()->read())
 		{

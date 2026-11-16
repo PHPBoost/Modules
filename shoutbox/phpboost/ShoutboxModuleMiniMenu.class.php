@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 3.0 - 2011 10 08
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class ShoutboxModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__RIGHT;
 	}
@@ -20,22 +20,22 @@ class ShoutboxModuleMiniMenu extends ModuleMiniMenu
 		return '';
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-shoutbox';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return LangLoader::get_message('shoutbox.module.title', 'common', 'shoutbox');
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return !Url::is_current_url('/shoutbox/') && ShoutboxAuthorizationsService::check_authorizations()->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		//Create file template
 		$view = new FileTemplate('shoutbox/ShoutboxModuleMiniMenu.tpl');

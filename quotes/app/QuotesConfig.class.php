@@ -17,59 +17,56 @@ class QuotesConfig extends AbstractConfigData
 	const ROOT_CATEGORY_DESCRIPTION  = 'root_category_description';
 	const AUTHORIZATIONS             = 'authorizations';
 
-	public function get_items_per_page()
+	public function get_items_per_page(): int
 	{
 		return $this->get_property(self::ITEMS_PER_PAGE);
 	}
 
-	public function set_items_per_page($value)
+	public function set_items_per_page(int $value): void
 	{
 		$this->set_property(self::ITEMS_PER_PAGE, $value);
 	}
 
-	public function get_categories_per_page()
+	public function get_categories_per_page(): int
 	{
 		return $this->get_property(self::CATEGORIES_PER_PAGE);
 	}
 
-	public function set_categories_per_page($value)
+	public function set_categories_per_page(int $value): void
 	{
 		$this->set_property(self::CATEGORIES_PER_PAGE, $value);
 	}
 
-	public function get_categories_per_row()
+	public function get_categories_per_row(): int
 	{
 		return $this->get_property(self::CATEGORIES_PER_ROW);
 	}
 
-	public function set_categories_per_row($value)
+	public function set_categories_per_row(int $value): void
 	{
 		$this->set_property(self::CATEGORIES_PER_ROW, $value);
 	}
 
-	public function get_root_category_description()
+	public function get_root_category_description(): string
 	{
 		return $this->get_property(self::ROOT_CATEGORY_DESCRIPTION);
 	}
 
-	public function set_root_category_description($value)
+	public function set_root_category_description(string $value): void
 	{
 		$this->set_property(self::ROOT_CATEGORY_DESCRIPTION, $value);
 	}
 
-	public function get_authorizations()
+	public function get_authorizations(): array
 	{
 		return $this->get_property(self::AUTHORIZATIONS);
 	}
 
-	public function set_authorizations(Array $authorizations)
+	public function set_authorizations(array $authorizations): void
 	{
 		$this->set_property(self::AUTHORIZATIONS, $authorizations);
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function get_default_values(): array
 	{
 		return [
@@ -81,19 +78,12 @@ class QuotesConfig extends AbstractConfigData
 		];
 	}
 
-	/**
-	 * Returns the configuration.
-	 * @return QuotesConfig
-	 */
-	public static function load()
+	public static function load(): QuotesConfig
 	{
 		return ConfigManager::load(self::class, 'quotes', 'config');
 	}
 
-	/**
-	 * Saves the configuration in the database. Has it become persistent.
-	 */
-	public static function save()
+	public static function save(): void
 	{
 		ConfigManager::save('quotes', self::load(), 'config');
 	}

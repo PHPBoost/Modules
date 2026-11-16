@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,12 +11,12 @@
 
 class QuotesPendingItemsController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
-	   return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
+        return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -25,7 +25,7 @@ class QuotesPendingItemsController extends DefaultModuleController
 		return $this->generate_response($request);
 	}
 
-	public function build_view(HTTPRequestCustom $request)
+	public function build_view(HTTPRequestCustom $request): void
 	{
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY);
 
@@ -40,15 +40,17 @@ class QuotesPendingItemsController extends DefaultModuleController
 		$page = $request->get_getint('page', 1);
 		$pagination = $this->get_pagination($condition, $parameters, $page);
 
-		$result = PersistenceContext::get_querier()->select('SELECT quotes.*, member.*
-		FROM '. QuotesSetup::$quotes_table .' quotes
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
-		' . $condition . '
-		ORDER BY quotes.creation_date DESC
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT quotes.*, member.*
+            FROM '. QuotesSetup::$quotes_table .' quotes
+            LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
+            ' . $condition . '
+            ORDER BY quotes.creation_date DESC
+            LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
+                'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$this->view->put_all([
 			'C_ITEMS' => $result->get_rows_count() > 0,
@@ -67,7 +69,7 @@ class QuotesPendingItemsController extends DefaultModuleController
 		$result->dispose();
 	}
 
-	private function get_pagination($condition, $parameters, $page)
+	private function get_pagination(string $condition, array $parameters, int $page): ?ModulePagination
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
@@ -83,7 +85,7 @@ class QuotesPendingItemsController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!(CategoriesAuthorizationsService::check_authorizations()->write() || CategoriesAuthorizationsService::check_authorizations()->contribution() || CategoriesAuthorizationsService::check_authorizations()->moderation()))
 		{
@@ -92,7 +94,7 @@ class QuotesPendingItemsController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);

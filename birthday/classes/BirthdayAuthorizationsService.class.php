@@ -12,18 +12,18 @@ class BirthdayAuthorizationsService
 {
 	const READ_AUTHORIZATIONS = 1;
 
-	public static function check_authorizations()
+	public static function check_authorizations(): mixed
 	{
 		$instance = new self();
 		return $instance;
 	}
 
-	public function read()
+	public function read(): mixed
 	{
 		return $this->get_authorizations(self::READ_AUTHORIZATIONS);
 	}
 
-	private function get_authorizations($bit)
+	private function get_authorizations(int $bit): bool
 	{
 		return AppContext::get_current_user()->check_auth(BirthdayConfig::load()->get_authorizations(), $bit);
 	}

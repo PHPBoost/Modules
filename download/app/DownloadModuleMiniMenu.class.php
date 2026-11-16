@@ -3,39 +3,39 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class DownloadModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__RIGHT;
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-download';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return DownloadConfig::load()->is_sort_type_date() ? LangLoader::get_message('download.last.items', 'common', 'download') : LangLoader::get_message('download.most.downloaded', 'common', 'download');
 	}
 
-	public function get_formated_title()
+	public function get_formated_title(): string
 	{
 		return LangLoader::get_message('download.module.title', 'common', 'download');
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return DownloadAuthorizationsService::check_authorizations()->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		// Create file template
 		$view = new FileTemplate('download/DownloadModuleMiniMenu.tpl');

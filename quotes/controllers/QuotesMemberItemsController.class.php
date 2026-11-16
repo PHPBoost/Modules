@@ -3,22 +3,22 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 6.0 - 2020 12 20
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class QuotesMemberItemsController extends DefaultModuleController
 {
-	private $member;
-	private $authorized_categories;
+	private ?User $member = null;
+	private array $authorized_categories;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
         return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->init();
 		$this->check_authorizations();
@@ -26,9 +26,13 @@ class QuotesMemberItemsController extends DefaultModuleController
         $this->view->put('C_MEMBER_ITEMS', true);
 
 		if ($this->member === null)
+        {
             $this->build_members_listing_view();
+        }
         else
+        {
             $this->build_view($request);
+        }
 
 		return $this->generate_response($request);
 	}
@@ -42,7 +46,8 @@ class QuotesMemberItemsController extends DefaultModuleController
 	private function build_members_listing_view()
 	{
 		$now = new Date();
-        $result = PersistenceContext::get_querier()->select('SELECT quotes.*, member.*
+        $result = PersistenceContext::get_querier()->select('
+            SELECT quotes.*, member.*
             FROM ' . QuotesSetup::$quotes_table . ' quotes
             LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = quotes.author_user_id
             WHERE id_category IN :authorized_categories
@@ -96,15 +101,17 @@ class QuotesMemberItemsController extends DefaultModuleController
 		$page = $request->get_getint('page', 1);
 		$pagination = $this->get_pagination($condition, $parameters, $page);
 
-		$result = PersistenceContext::get_querier()->select('SELECT quotes.*, member.*
-		FROM '. QuotesSetup::$quotes_table .' quotes
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
-		' . $condition . '
-		ORDER BY quotes.creation_date DESC
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT quotes.*, member.*
+            FROM '. QuotesSetup::$quotes_table .' quotes
+            LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
+            ' . $condition . '
+            ORDER BY quotes.creation_date DESC
+            LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
+                'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$this->view->put_all([
 			'C_ITEMS'        => $result->get_rows_count() > 0,
@@ -125,7 +132,7 @@ class QuotesMemberItemsController extends DefaultModuleController
 		$result->dispose();
 	}
 
-	protected function get_member()
+	protected function get_member(): ?User
 	{
 		if (!$this->member && $this->member !== null)
 		{
@@ -134,12 +141,12 @@ class QuotesMemberItemsController extends DefaultModuleController
 		return $this->member;
 	}
 
-	protected function is_current_member_displayed()
+	protected function is_current_member_displayed(): bool
 	{
 		return $this->member && $this->member->get_id() == AppContext::get_current_user()->get_id();
 	}
 
-	private function get_pagination($condition, $parameters, $page)
+	private function get_pagination(string $condition, array $parameters, int $page): ?ModulePagination
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
@@ -155,7 +162,7 @@ class QuotesMemberItemsController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!CategoriesAuthorizationsService::check_authorizations()->read())
 		{
@@ -164,7 +171,7 @@ class QuotesMemberItemsController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$page = $request->get_getint('page', 1);
 		$page_title = $this->member ? ($this->is_current_member_displayed() ? $this->lang['quotes.my.items'] : $this->get_member()->get_display_name()) : $this->lang['contribution.members.list'];
@@ -187,7 +194,9 @@ class QuotesMemberItemsController extends DefaultModuleController
 		$breadcrumb->add($this->lang['quotes.module.title'], QuotesUrlBuilder::home());
         $breadcrumb->add($this->lang['contribution.members.list'], QuotesUrlBuilder::display_member_items());
         if ($this->member)
+        {
             $breadcrumb->add($page_title, QuotesUrlBuilder::display_member_items($this->get_member()->get_id(), $page));
+        }
 
 		return $response;
 	}

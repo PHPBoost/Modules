@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 6.0 - 2021 03 03
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -20,7 +20,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 		parent::__construct($this->get_formated_title());
 	}
 
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__RIGHT;
 	}
@@ -30,22 +30,22 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 		return '';
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-' . $this->module_id . '-categories';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return $this->module_configuration->get_name() . ' - ' . LangLoader::get_message('category.categories', 'category-lang');
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return ModulesManager::is_module_installed($this->module_id) && ModulesManager::is_module_activated($this->module_id) && CategoriesService::get_categories_manager($this->module_id)->get_categories_cache()->has_categories() && CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, $this->module_id)->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		$view = new FileTemplate('CategoriesMenus/CategoriesMenusModuleMiniMenu.tpl');
 		MenuService::assign_positions_conditions($view, $this->get_block());

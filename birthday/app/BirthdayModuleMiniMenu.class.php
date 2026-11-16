@@ -3,39 +3,39 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 4.0 - 2013 08 27
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BirthdayModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__NOT_ENABLED;
 	}
 
-    public function get_menu_id()
+    public function get_menu_id(): string
     {
         return 'birthday-mini-module';
     }
 
-    public function get_menu_title()
+    public function get_menu_title(): string
     {
         return LangLoader::get_message('birthday.happy.birthday', 'common', 'birthday');
     }
 
-	public function get_formated_title()
+	public function get_formated_title(): string
 	{
 		return LangLoader::get_message('birthday.module.title', 'common', 'birthday');
 	}
 
-    public function is_displayed()
+    public function is_displayed(): bool
     {
         return BirthdayAuthorizationsService::check_authorizations()->read() && !empty($user_born_field) && $user_born_field['display'] || AppContext::get_current_user()->is_admin();
     }
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		$user_born_field = ExtendedFieldsCache::load()->get_extended_field_by_field_name('user_born');
 		$lang = LangLoader::get_all_langs('birthday');
@@ -54,7 +54,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 		{
 			foreach ($users_birthday as $user)
 			{
-				$user_group_color = User::get_group_color($user['user_groups'], $user['level'], false);
+				$user_group_color = User::get_group_color($user['user_groups'], $user['level']);
 
 				$view->assign_block_vars('birthday', [
 					'C_USER_GROUP_COLOR' => !empty($user_group_color),
@@ -73,7 +73,7 @@ class BirthdayModuleMiniMenu extends ModuleMiniMenu
 		{
 			foreach ($upcoming_birthdays as $user)
 			{
-				$user_group_color = User::get_group_color($user['user_groups'], $user['level'], false);
+				$user_group_color = User::get_group_color($user['user_groups'], $user['level']);
 
 				$view->assign_block_vars(
                     'upcoming_birthdays',

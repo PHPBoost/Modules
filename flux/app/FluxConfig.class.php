@@ -29,149 +29,146 @@ class FluxConfig extends AbstractConfigData
 
 	const AUTHORIZATIONS = 'authorizations';
 
-	public function get_module_name()
+	public function get_module_name(): string
 	{
 		return $this->get_property(self::MODULE_NAME);
 	}
 
-	public function set_module_name($value)
+	public function set_module_name(string $value): void
 	{
 		$this->set_property(self::MODULE_NAME, $value);
 	}
 
-	public function get_new_window()
+	public function get_new_window(): bool
 	{
 		return $this->get_property(self::NEW_WINDOW);
 	}
 
-	public function set_new_window($value)
+	public function set_new_window(bool $value): void
 	{
 		$this->set_property(self::NEW_WINDOW, $value);
 	}
 
-	public function get_last_feeds_display()
+	public function get_last_feeds_display(): bool
 	{
 		return $this->get_property(self::DISPLAY_LAST_FEEDS);
 	}
 
-	public function set_last_feeds_display($value)
+	public function set_last_feeds_display(bool $value): void
 	{
 		$this->set_property(self::DISPLAY_LAST_FEEDS, $value);
 	}
 
-	public function get_last_feeds_number()
+	public function get_last_feeds_number(): int
 	{
 		return $this->get_property(self::LAST_FEEDS_NUMBER);
 	}
 
-	public function set_last_feeds_number($value)
+	public function set_last_feeds_number(int $value): void
 	{
 		$this->set_property(self::LAST_FEEDS_NUMBER, $value);
 	}
 
-	public function get_rss_number()
+	public function get_rss_number(): int
 	{
 		return $this->get_property(self::RSS_NUMBER);
 	}
 
-	public function set_rss_number($value)
+	public function set_rss_number(int $value): void
 	{
 		$this->set_property(self::RSS_NUMBER, $value);
 	}
 
-	public function get_characters_number_to_cut()
+	public function get_characters_number_to_cut(): int
 	{
 		return $this->get_property(self::CHARACTERS_NUMBER_TO_CUT);
 	}
 
-	public function set_characters_number_to_cut($value)
+	public function set_characters_number_to_cut(int $value): void
 	{
 		$this->set_property(self::CHARACTERS_NUMBER_TO_CUT, $value);
 	}
 
-	public function get_items_per_page()
+	public function get_items_per_page(): int
 	{
 		return $this->get_property(self::ITEMS_PER_PAGE);
 	}
 
-	public function set_items_per_page($value)
+	public function set_items_per_page(int $value): void
 	{
 		$this->set_property(self::ITEMS_PER_PAGE, $value);
 	}
 
-	public function get_items_per_row()
+	public function get_items_per_row(): int
 	{
 		return $this->get_property(self::ITEMS_PER_ROW);
 	}
 
-	public function set_items_per_row($value)
+	public function set_items_per_row(int $value): void
 	{
 		$this->set_property(self::ITEMS_PER_ROW, $value);
 	}
 
-	public function get_categories_per_page()
+	public function get_categories_per_page(): int
 	{
 		return $this->get_property(self::CATEGORIES_PER_PAGE);
 	}
 
-	public function set_categories_per_page($value)
+	public function set_categories_per_page(int $value): void
 	{
 		$this->set_property(self::CATEGORIES_PER_PAGE, $value);
 	}
 
-	public function get_categories_per_row()
+	public function get_categories_per_row(): int
 	{
 		return $this->get_property(self::CATEGORIES_PER_ROW);
 	}
 
-	public function set_categories_per_row($value)
+	public function set_categories_per_row(int $value): void
 	{
 		$this->set_property(self::CATEGORIES_PER_ROW, $value);
 	}
 
-	public function get_display_type()
+	public function get_display_type(): string
 	{
 		return $this->get_property(self::DISPLAY_TYPE);
 	}
 
-	public function set_display_type($value)
+	public function set_display_type(string $value): void
 	{
 		$this->set_property(self::DISPLAY_TYPE, $value);
 	}
 
-	public function get_root_category_description()
+	public function get_root_category_description(): string
 	{
 		return $this->get_property(self::ROOT_CATEGORY_DESCRIPTION);
 	}
 
-	public function set_root_category_description($value)
+	public function set_root_category_description(string $value): void
 	{
 		$this->set_property(self::ROOT_CATEGORY_DESCRIPTION, $value);
 	}
 
-	public function get_default_content()
+	public function get_default_content(): string
 	{
 		return $this->get_property(self::DEFAULT_CONTENT);
 	}
 
-	public function set_default_content($value)
+	public function set_default_content(string $value): void
 	{
 		$this->set_property(self::DEFAULT_CONTENT, $value);
 	}
 
-	public function get_authorizations()
+	public function get_authorizations(): array
 	{
 		return $this->get_property(self::AUTHORIZATIONS);
 	}
 
-	public function set_authorizations(Array $authorizations)
+	public function set_authorizations(array $authorizations): void
 	{
 		$this->set_property(self::AUTHORIZATIONS, $authorizations);
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function get_default_values(): array
 	{
 		return [
@@ -192,19 +189,12 @@ class FluxConfig extends AbstractConfigData
 		];
 	}
 
-	/**
-	 * Returns the configuration.
-	 * @return FluxConfig
-	 */
-	public static function load()
+	public static function load(): FluxConfig
 	{
 		return ConfigManager::load(self::class, 'flux', 'config');
 	}
 
-	/**
-	 * Saves the configuration in the database. Has it become persistent.
-	 */
-	public static function save()
+	public static function save(): void
 	{
 		ConfigManager::save('flux', self::load(), 'config');
 	}

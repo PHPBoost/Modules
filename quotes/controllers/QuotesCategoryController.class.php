@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,14 +11,14 @@
 
 class QuotesCategoryController extends DefaultModuleController
 {
-	private $category;
+	private ?RichCategory $category = null;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('quotes/QuotesSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -27,7 +27,7 @@ class QuotesCategoryController extends DefaultModuleController
 		return $this->generate_response($request);
 	}
 
-	private function build_view(HTTPRequestCustom $request)
+	private function build_view(HTTPRequestCustom $request): void
 	{
 		$authorized_categories = $this->get_authorized_categories();
 		$page = $request->get_getint('page', 1);
@@ -70,15 +70,17 @@ class QuotesCategoryController extends DefaultModuleController
 		//Category content
 		$pagination = $this->get_pagination($condition, $parameters, $page, $subcategories_page);
 
-		$result = PersistenceContext::get_querier()->select('SELECT quotes.*, member.*
-		FROM '. QuotesSetup::$quotes_table .' quotes
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
-		' . $condition . '
-		ORDER BY quotes.creation_date DESC
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT quotes.*, member.*
+            FROM '. QuotesSetup::$quotes_table .' quotes
+            LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = quotes.author_user_id
+            ' . $condition . '
+            ORDER BY quotes.creation_date DESC
+            LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
+                'number_items_per_page' => (int)$pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 
@@ -116,7 +118,7 @@ class QuotesCategoryController extends DefaultModuleController
 		$result->dispose();
 	}
 
-	private function get_authorized_categories()
+	private function get_authorized_categories(): array
 	{
 		$category = $this->get_category();
 		$authorized_categories = [];
@@ -134,7 +136,7 @@ class QuotesCategoryController extends DefaultModuleController
 		return $authorized_categories;
 	}
 
-	private function get_pagination($condition, $parameters, $page, $subcategories_page)
+	private function get_pagination(string $condition, array $parameters, int $page, int $subcategories_page)
 	{
 		$items_number = QuotesService::count($condition, $parameters);
 
@@ -150,7 +152,7 @@ class QuotesCategoryController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function get_subcategories_pagination($subcategories_number, $categories_per_page, $page, $subcategories_page)
+	private function get_subcategories_pagination(int $subcategories_number, int $categories_per_page, int $page, int $subcategories_page): ?ModulePagination
 	{
 		$pagination = new ModulePagination($subcategories_page, $subcategories_number, (int)$categories_per_page);
 		$pagination->set_url(QuotesUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $page, '%d'));
@@ -164,18 +166,21 @@ class QuotesCategoryController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function get_category()
+	private function get_category(): RichCategory
 	{
 		if ($this->category === null)
 		{
 			$id = AppContext::get_request()->get_getint('id', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->category = CategoriesService::get_categories_manager('quotes')->get_categories_cache()->get_category($id);
-				} catch (CategoryNotFoundException $e) {
+				}
+                catch (CategoryNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
-   					DispatchManager::redirect($error_controller);
+                    DispatchManager::redirect($error_controller);
 				}
 			}
 			else
@@ -186,7 +191,7 @@ class QuotesCategoryController extends DefaultModuleController
 		return $this->category;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id())->read())
 		{
@@ -195,7 +200,7 @@ class QuotesCategoryController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$page = $request->get_getint('page', 1);
 		$response = new SiteDisplayResponse($this->view);
@@ -203,13 +208,19 @@ class QuotesCategoryController extends DefaultModuleController
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->get_category()->get_id() != Category::ROOT_CATEGORY)
+        {
 			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['quotes.module.title'], $page);
+        }
 		else
+        {
 			$graphical_environment->set_page_title($this->lang['quotes.module.title'], '', $page);
+        }
 
 		$description = $this->get_category()->get_description();
 		if (empty($description))
+        {
 			$description = StringVars::replace_vars($this->lang['quotes.seo.description.root'], ['site' => GeneralConfig::load()->get_site_name()]) . ($this->get_category()->get_id() != Category::ROOT_CATEGORY ? ' ' . LangLoader::get_message('category.category', 'category-lang') . ' ' . $this->get_category()->get_name() : '');
+        }
 		$graphical_environment->get_seo_meta_data()->set_description($description, $page);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(QuotesUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $page));
 
@@ -220,13 +231,15 @@ class QuotesCategoryController extends DefaultModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
+            {
 				$breadcrumb->add($category->get_name(), QuotesUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), ($category->get_id() == $this->get_category()->get_id() ? $page : 1)));
+            }
 		}
 
 		return $response;
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self('quotes');
 		$object->check_authorizations();

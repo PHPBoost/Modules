@@ -3,39 +3,35 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 6.0 - 2021 10 30
 */
 
 class FluxSetup extends DefaultModuleSetup
 {
-	public static $flux_table;
-	public static $flux_cats_table;
+	public static string $flux_table;
+	public static string $flux_cats_table;
+	private array $messages;
 
-	/**
-	 * @var string[] localized messages
-	*/
-	private $messages;
-
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$flux_table = PREFIX . 'flux';
 		self::$flux_cats_table = PREFIX . 'flux_cats';
 	}
 
-	public function upgrade($installed_version)
+	public function upgrade(string $installed_version): string
 	{
 		return '6.1.0';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('flux', 'config');
@@ -43,18 +39,18 @@ class FluxSetup extends DefaultModuleSetup
 		FluxService::delete_xml_files();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$flux_table, self::$flux_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_flux_table();
 		$this->create_flux_cats_table();
 	}
 
-	private function create_flux_table()
+	private function create_flux_table(): void
 	{
 		$fields = [
 			'id'             => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -84,19 +80,19 @@ class FluxSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$flux_table, $fields, $options);
 	}
 
-	private function create_flux_cats_table()
+	private function create_flux_cats_table(): void
 	{
 		RichCategory::create_categories_table(self::$flux_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'flux');
 		$this->insert_flux_cats_data();
 		$this->insert_flux_data();
 	}
 
-	private function insert_flux_cats_data()
+	private function insert_flux_cats_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$flux_cats_table, [
 			'id'            => 1,
@@ -109,7 +105,7 @@ class FluxSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_flux_data()
+	private function insert_flux_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$flux_table, [
 			'id'             => 1,

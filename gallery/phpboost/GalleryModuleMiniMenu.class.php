@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 14
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 3.0 - 2011 10 08
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -13,32 +13,32 @@
 
 class GalleryModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__RIGHT;
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-gallery';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return LangLoader::get_message('gallery.random.items', 'common', 'gallery');
 	}
 
-	public function get_formated_title()
+	public function get_formated_title(): string
 	{
 		return LangLoader::get_message('gallery.module.title', 'common', 'gallery');
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return CategoriesAuthorizationsService::check_authorizations(Category::ROOT_CATEGORY, 'gallery')->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		$view = new FileTemplate('gallery/gallery_mini.tpl');
 		$view->add_lang(LangLoader::get_all_langs('gallery'));

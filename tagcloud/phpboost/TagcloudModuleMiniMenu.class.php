@@ -3,33 +3,34 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 6.0 - 2023 01 17
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class TagcloudModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__RIGHT;
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-tagcloud';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return LangLoader::get_message('tagcloud.module.title', 'common', 'tagcloud');
 	}
 
-	public function get_formated_title()
+	public function get_formated_title(): string
 	{
 		return LangLoader::get_message('tagcloud.module.title', 'common', 'tagcloud');
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		$lang = LangLoader::get_all_langs('tagcloud');
 		$view = new FileTemplate('tagcloud/TagcloudModuleMiniMenu.tpl');

@@ -11,17 +11,17 @@
 
 class BirthdaySetup extends DefaultModuleSetup
 {
-	public function upgrade($installed_version)
+	public function upgrade(mixed $installed_version): string
 	{
 		return '6.1.0';
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->delete_configuration();
 	}
 
-	private function delete_configuration()
+	private function delete_configuration(): void
 	{
 		ConfigManager::delete('birthday', 'config');
 	}

@@ -3,13 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 6.0 - 2023 03 05
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class DiscordModuleMiniMenu extends ModuleMiniMenu
 {
-	public function get_default_block()
+	public function get_default_block(): int
 	{
 		return self::BLOCK_POSITION__LEFT;
 	}
@@ -19,22 +20,22 @@ class DiscordModuleMiniMenu extends ModuleMiniMenu
 		return '';
 	}
 
-	public function get_menu_id()
+	public function get_menu_id(): string
 	{
 		return 'module-mini-discord';
 	}
 
-	public function get_menu_title()
+	public function get_menu_title(): string
 	{
 		return LangLoader::get_message('discord.module.title', 'common', 'discord');
 	}
 
-	public function is_displayed()
+	public function is_displayed(): bool
 	{
 		return DiscordAuthorizationsService::check_authorizations()->read();
 	}
 
-	public function get_menu_content()
+	public function get_menu_content(): string
 	{
 		$lang = LangLoader::get_all_langs('discord');
 		$view = new FileTemplate('discord/DiscordModuleMiniMenu.tpl');
@@ -52,12 +53,13 @@ class DiscordModuleMiniMenu extends ModuleMiniMenu
 		return $view->render();
 	}
 
-	public function display()
+	public function display(): string
 	{
 		if ($this->is_displayed())
 		{
             return $this->get_menu_content();
 		}
+		return '';
 	}
 }
 ?>

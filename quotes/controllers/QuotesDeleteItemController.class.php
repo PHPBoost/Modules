@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,9 +11,9 @@
 
 class QuotesDeleteItemController extends ModuleController
 {
-	private $item;
+	private ?QuotesItem $item = null;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): Response
 	{
 		AppContext::get_session()->csrf_get_protect();
 
@@ -29,19 +29,23 @@ class QuotesDeleteItemController extends ModuleController
 		AppContext::get_response()->redirect(($request->get_url_referrer() ? $request->get_url_referrer() : QuotesUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('quotes.message.success.delete', 'common', 'quotes'), ['writer' => $this->item->get_writer()]));
 	}
 
-	private function get_item(HTTPRequestCustom $request)
+	private function get_item(HTTPRequestCustom $request): ?QuotesItem
 	{
 		$id = $request->get_getint('id', 0);
 
-		try {
+		try
+        {
 			$this->item = QuotesService::get_item($id);
-		} catch (RowNotFoundException $e) {
+		}
+        catch (RowNotFoundException $e)
+        {
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
+        return null;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!$this->item->is_authorized_to_delete())
 		{

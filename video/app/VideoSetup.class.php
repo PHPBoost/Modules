@@ -3,34 +3,30 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 6.0 - 2022 10 17
  */
 
 class VideoSetup extends DefaultModuleSetup
 {
-	public static $video_table;
-	public static $video_cats_table;
+	public static string $video_table;
+	public static string $video_cats_table;
+	private array $messages;
 
-	/**
-	 * @var string[] localized messages
-	 */
-	private $messages;
-
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$video_table = PREFIX . 'video';
 		self::$video_cats_table = PREFIX . 'video_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('video', 'config');
@@ -38,18 +34,18 @@ class VideoSetup extends DefaultModuleSetup
 		KeywordsService::get_keywords_manager()->delete_module_relations();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$video_table, self::$video_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_video_table();
 		$this->create_video_cats_table();
 	}
 
-	private function create_video_table()
+	private function create_video_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -84,19 +80,19 @@ class VideoSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$video_table, $fields, $options);
 	}
 
-	private function create_video_cats_table()
+	private function create_video_cats_table(): void
 	{
 		RichCategory::create_categories_table(self::$video_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'video');
 		$this->insert_video_cats_data();
 		$this->insert_video_data();
 	}
 
-	private function insert_video_cats_data()
+	private function insert_video_cats_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$video_cats_table, [
 			'id' => 1,
@@ -110,7 +106,7 @@ class VideoSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_video_data()
+	private function insert_video_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$video_table, [
 			'id' => 1,

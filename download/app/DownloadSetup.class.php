@@ -10,28 +10,24 @@
 
 class DownloadSetup extends DefaultModuleSetup
 {
-	public static $download_table;
-	public static $download_cats_table;
+	public static string $download_table;
+	public static string $download_cats_table;
+	private array $messages;
 
-	/**
-	 * @var string[] localized messages
-	 */
-	private $messages;
-
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$download_table = PREFIX . 'download';
 		self::$download_cats_table = PREFIX . 'download_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('download', 'config');
@@ -39,18 +35,18 @@ class DownloadSetup extends DefaultModuleSetup
 		KeywordsService::get_keywords_manager()->delete_module_relations();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$download_table, self::$download_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_download_table();
 		$this->create_download_cats_table();
 	}
 
-	private function create_download_table()
+	private function create_download_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -87,19 +83,19 @@ class DownloadSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$download_table, $fields, $options);
 	}
 
-	private function create_download_cats_table()
+	private function create_download_cats_table(): void
 	{
 		RichCategory::create_categories_table(self::$download_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'download');
 		$this->insert_download_cats_data();
 		$this->insert_download_data();
 	}
 
-	private function insert_download_cats_data()
+	private function insert_download_cats_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$download_cats_table, [
 			'id'            => 1,

@@ -11,45 +11,42 @@
 
 class SmalladsSetup extends DefaultModuleSetup
 {
-	public static $smallads_table;
-	public static $smallads_cats_table;
-	/**
-	 * @var string[] localized messages
-	 */
-	private $messages;
+	public static string $smallads_table;
+	public static string $smallads_cats_table;
+	private array $messages;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$smallads_table = PREFIX . 'smallads';
 		self::$smallads_cats_table = PREFIX . 'smallads_cats';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('smallads', 'config');
 		KeywordsService::get_keywords_manager()->delete_module_relations();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$smallads_table, self::$smallads_cats_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_smallads_table();
 		$this->create_smallads_cats_table();
 	}
 
-	private function create_smallads_table()
+	private function create_smallads_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -96,19 +93,19 @@ class SmalladsSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$smallads_table, $fields, $options);
 	}
 
-	private function create_smallads_cats_table()
+	private function create_smallads_cats_table(): void
 	{
 		RichCategory::create_categories_table(self::$smallads_cats_table);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->messages = LangLoader::get('install', 'smallads');
 		$this->insert_smallads_data();
 		$this->insert_smallads_cats_data();
 	}
 
-	private function insert_smallads_cats_data()
+	private function insert_smallads_cats_data(): void
 	{
 		PersistenceContext::get_querier()->insert(self::$smallads_cats_table, [
 			'id' => 1,
@@ -122,7 +119,7 @@ class SmalladsSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_smallads_data()
+	private function insert_smallads_data(): void
 	{
 		$common_lang = langloader::get('common', 'smallads');
 		PersistenceContext::get_querier()->insert(self::$smallads_table, [

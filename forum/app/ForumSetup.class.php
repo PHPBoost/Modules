@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Loic ROUCHON <horn@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 16
  * @since       PHPBoost 3.0 - 2010 05 27
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -12,26 +12,22 @@
 
 class ForumSetup extends DefaultModuleSetup
 {
-	public static $forum_alerts_table;
-	public static $forum_cats_table;
-	public static $forum_history_table;
-	public static $forum_message_table;
-	public static $forum_poll_table;
-	public static $forum_topics_table;
-	public static $forum_track_table;
-	public static $forum_view_table;
-	public static $forum_ranks_table;
+	public static string $forum_alerts_table;
+	public static string $forum_cats_table;
+	public static string $forum_history_table;
+	public static string $forum_message_table;
+	public static string $forum_poll_table;
+	public static string $forum_topics_table;
+	public static string $forum_track_table;
+	public static string $forum_view_table;
+	public static string $forum_ranks_table;
 
-	private static $member_extended_field_last_view_forum_column = 'last_view_forum';
+	private static string $member_extended_field_last_view_forum_column = 'last_view_forum';
 
-	private $querier;
+	private ?DBQuerier $querier = null;
+	private array $install_lang;
 
-	/**
-	 * @var string[] localized messages
-	 */
-	private $install_lang;
-
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$forum_alerts_table  = PREFIX . 'forum_alerts';
 		self::$forum_cats_table    = PREFIX . 'forum_cats';
@@ -49,21 +45,21 @@ class ForumSetup extends DefaultModuleSetup
 		$this->querier = PersistenceContext::get_querier();
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('forum', 'config');
 		$this->delete_member_extended_field();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([
 			self::$forum_alerts_table,
@@ -78,7 +74,7 @@ class ForumSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_forum_alerts_table();
 		$this->create_forum_cats_table();
@@ -91,7 +87,7 @@ class ForumSetup extends DefaultModuleSetup
 		$this->create_forum_ranks_table();
 	}
 
-	private function create_forum_alerts_table()
+	private function create_forum_alerts_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -111,12 +107,12 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_alerts_table, $fields, $options);
 	}
 
-	private function create_forum_cats_table()
+	private function create_forum_cats_table(): void
 	{
 		ForumCategory::create_categories_table(self::$forum_cats_table);
 	}
 
-	private function create_forum_history_table()
+	private function create_forum_history_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -133,7 +129,7 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_history_table, $fields, $options);
 	}
 
-	private function create_forum_message_table()
+	private function create_forum_message_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -155,7 +151,7 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_message_table, $fields, $options);
 	}
 
-	private function create_forum_poll_table()
+	private function create_forum_poll_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -173,7 +169,7 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_poll_table, $fields, $options);
 	}
 
-	private function create_forum_topics_table()
+	private function create_forum_topics_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -202,7 +198,7 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_topics_table, $fields, $options);
 	}
 
-	private function create_forum_track_table()
+	private function create_forum_track_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -219,7 +215,7 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_track_table, $fields, $options);
 	}
 
-	private function create_forum_view_table()
+	private function create_forum_view_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -235,7 +231,7 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_view_table, $fields, $options);
 	}
 
-	private function create_forum_ranks_table()
+	private function create_forum_ranks_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -250,14 +246,14 @@ class ForumSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$forum_ranks_table, $fields, $options);
 	}
 
-	private function delete_member_extended_field()
+	private function delete_member_extended_field(): void
 	{
 		ExtendedFieldsService::delete_by_field_name(self::$member_extended_field_last_view_forum_column);
 		ExtendedFieldsService::delete_by_field_name('user_skype');
 		ExtendedFieldsService::delete_by_field_name('user_sign');
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$this->install_lang = LangLoader::get('install', 'forum');
 		$this->create_member_extended_field();
@@ -267,7 +263,7 @@ class ForumSetup extends DefaultModuleSetup
 		$this->insert_forum_ranks_data();
 	}
 
-	private function create_member_extended_field()
+	private function create_member_extended_field(): void
 	{
 		$lang = LangLoader::get_all_langs('forum');
 
@@ -304,7 +300,7 @@ class ForumSetup extends DefaultModuleSetup
 		ExtendedFieldsService::add($extended_field);
 	}
 
-	private function insert_forum_cats_data()
+	private function insert_forum_cats_data(): void
 	{
 		$this->querier->insert(self::$forum_cats_table, [
 			'id'            => 1,
@@ -331,7 +327,7 @@ class ForumSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_forum_topics_data()
+	private function insert_forum_topics_data(): void
 	{
 		$this->querier->insert(self::$forum_topics_table, [
 			'id'             => 1,
@@ -352,11 +348,11 @@ class ForumSetup extends DefaultModuleSetup
 		]);
 	}
 
-	private function insert_forum_msg_data()
+	private function insert_forum_msg_data(): void
 	{
 		$this->querier->insert(self::$forum_message_table, [
 			'id'             => 1,
-		 	'idtopic'        => 1,
+            'idtopic'        => 1,
 			'user_id'        => 1,
 			'content'        => $this->install_lang['forum.sample.topic.message.content'],
 			'timestamp'      => time(),
@@ -370,7 +366,7 @@ class ForumSetup extends DefaultModuleSetup
 		$this->querier->inject("UPDATE " . DB_TABLE_MEMBER . " SET posted_msg = posted_msg + 1 WHERE user_id = '1'");
 	}
 
-	private function insert_forum_ranks_data()
+	private function insert_forum_ranks_data(): void
 	{
 		$this->querier->insert(self::$forum_ranks_table, [
 			'id'      => 1,
