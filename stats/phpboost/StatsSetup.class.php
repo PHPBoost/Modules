@@ -11,40 +11,40 @@
 
 class StatsSetup extends DefaultModuleSetup
 {
-	private static $db_utils;
-	public static $stats_table;
-	public static $stats_referer_table;
+	private static DBMSUtils $db_utils;
+	public static string $stats_table;
+	public static string $stats_referer_table;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$db_utils = PersistenceContext::get_dbms_utils();
 		self::$stats_table = PREFIX . 'stats';
 		self::$stats_referer_table = PREFIX . 'stats_referer';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$stats_table, self::$stats_referer_table,]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_stats_table();
 		$this->create_stats_referer_table();
 	}
 
-	private function create_stats_table()
+	private function create_stats_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -64,7 +64,7 @@ class StatsSetup extends DefaultModuleSetup
 		self::$db_utils->create_table(self::$stats_table, $fields, $options);
 	}
 
-	private function create_stats_referer_table()
+	private function create_stats_referer_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],

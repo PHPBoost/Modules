@@ -9,35 +9,35 @@
 
 class HistorySetup extends DefaultModuleSetup
 {
-	public static $history_table;
+	public static string $history_table;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$history_table = PREFIX . 'history';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$history_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_history_table();
 	}
 
-	private function create_history_table()
+	private function create_history_table(): void
 	{
 		$fields = [
 			'id'            => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
