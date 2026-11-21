@@ -10,6 +10,6 @@
 
 class NewsletterStream extends RichCategory
 {
-	protected $allowed_to_have_childs = false;
+	protected bool $allowed_to_have_childs = false;
 }
 ?>

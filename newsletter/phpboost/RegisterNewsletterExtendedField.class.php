@@ -3,9 +3,10 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 21
  * @since       PHPBoost 3.0 - 2010 02 07
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class RegisterNewsletterExtendedField extends AbstractMemberExtendedField
@@ -18,7 +19,7 @@ class RegisterNewsletterExtendedField extends AbstractMemberExtendedField
 		$this->field_used_once = true;
 	}
 
-	public function display_field_create(MemberExtendedField $member_extended_field)
+	public function display_field_create(MemberExtendedField $member_extended_field): void
 	{
 		$fieldset = $member_extended_field->get_fieldset();
 
@@ -29,7 +30,7 @@ class RegisterNewsletterExtendedField extends AbstractMemberExtendedField
 		}
 	}
 
-	public function display_field_update(MemberExtendedField $member_extended_field)
+	public function display_field_update(MemberExtendedField $member_extended_field): void
 	{
 		$fieldset = $member_extended_field->get_fieldset();
 
@@ -41,18 +42,18 @@ class RegisterNewsletterExtendedField extends AbstractMemberExtendedField
 		}
 	}
 
-	public function delete_field(MemberExtendedField $member_extended_field)
+	public function delete_field(MemberExtendedField $member_extended_field): void
 	{
 		NewsletterService::unsubscriber_all_streams_member($member_extended_field->get_user_id());
 	}
 
-	public function display_field_profile(MemberExtendedField $member_extended_field)
+	public function display_field_profile(MemberExtendedField $member_extended_field): mixed
 	{
 		//The field is not displayed in the member profile
 		return false;
 	}
 
-	public function get_data(HTMLForm $form, MemberExtendedField $member_extended_field)
+	public function get_data(HTMLForm $form, MemberExtendedField $member_extended_field): mixed
 	{
 		$streams = [];
 		foreach ($form->get_value($member_extended_field->get_field_name(), []) as $field => $option)
@@ -80,7 +81,7 @@ class RegisterNewsletterExtendedField extends AbstractMemberExtendedField
 		return '';
 	}
 
-	private function get_streams()
+	private function get_streams(): array
 	{
 		$streams = [];
 		$newsletter_streams = NewsletterStreamsCache::load()->get_streams();
@@ -92,7 +93,7 @@ class RegisterNewsletterExtendedField extends AbstractMemberExtendedField
 		return $streams;
 	}
 
-	private function serialise_value(Array $array)
+	private function serialise_value(array $array): string
 	{
 		return implode('|', $array);
 	}
