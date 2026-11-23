@@ -3,14 +3,15 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 5.2 - 2019 12 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class StatsTreeLinks implements ModuleTreeLinksExtensionPoint
 {
-	public function get_actions_tree_links()
+	public function get_actions_tree_links(): ModuleTreeLinks
 	{
 		$tree = new ModuleTreeLinks();
 

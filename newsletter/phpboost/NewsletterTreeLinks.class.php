@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 4.0 - 2013 11 24
  * @author      xela <xela@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class NewsletterTreeLinks implements ModuleTreeLinksExtensionPoint
 {
-	public function get_actions_tree_links()
+	public function get_actions_tree_links(): ModuleTreeLinks
 	{
 		$lang = LangLoader::get_all_langs('newsletter');
 		$tree = new ModuleTreeLinks();
@@ -25,7 +25,9 @@ class NewsletterTreeLinks implements ModuleTreeLinksExtensionPoint
 		$tree->add_link(new AdminModuleLink($lang['form.configuration'], NewsletterUrlBuilder::configuration()));
 
 		if (ModulesManager::get_module('newsletter')->get_configuration()->get_documentation())
+        {
 			$tree->add_link(new ModuleLink($lang['form.documentation'], ModulesManager::get_module('newsletter')->get_configuration()->get_documentation(), NewsletterAuthorizationsService::default_authorizations()->create_newsletters()));
+        }
 
 		return $tree;
 	}

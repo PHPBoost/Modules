@@ -3,19 +3,19 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 4.0 - 2014 02 03
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class SmalladsTreeLinks extends DefaultTreeLinks
 {
-	protected function display_configuration_link()
+	protected function display_configuration_link(): bool
 	{
 		return false;
 	}
 
-	protected function get_module_additional_actions_tree_links(&$tree)
+	protected function get_module_additional_actions_tree_links(mixed &$tree): void
 	{
 		$lang = LangLoader::get_all_langs($this->get_module_id());
 		$current_user = AppContext::get_current_user()->get_id();

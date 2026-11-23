@@ -3,16 +3,16 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastService
 {
-	private static $db_querier;
-	protected static $module_id = 'broadcast';
+	private static DBQuerier $db_querier;
+	protected static string $module_id = 'broadcast';
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$db_querier = PersistenceContext::get_querier();
 	}
@@ -21,24 +21,24 @@ class BroadcastService
 	 * Count items number.
 	 * @param string $condition (optional) : Restriction to apply to the list of items
 	 */
-	public static function count($condition = '', $parameters = [])
+	public static function count(string $condition = '', array $parameters = []): int
 	{
 		return self::$db_querier->count(BroadcastSetup::$broadcast_table, $condition, $parameters);
 	}
 
-	public static function add(BroadcastItem $item)
+	public static function add(BroadcastItem $item): int
 	{
 		$result = self::$db_querier->insert(BroadcastSetup::$broadcast_table, $item->get_properties());
 
 		return $result->get_last_inserted_id();
 	}
 
-	public static function update(BroadcastItem $item)
+	public static function update(BroadcastItem $item): void
 	{
 		self::$db_querier->update(BroadcastSetup::$broadcast_table, $item->get_properties(), 'WHERE id=:id', ['id' => $item->get_id()]);
 	}
 
-	public static function delete(int $id)
+	public static function delete(int $id): void
 	{
 		if (AppContext::get_current_user()->is_readonly()) {
 			$controller = PHPBoostErrors::user_in_read_only();
@@ -49,12 +49,14 @@ class BroadcastService
 		self::$db_querier->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', ['module' => 'broadcast', 'id' => $id]);
 	}
 
-	public static function get_item(int $id)
+	public static function get_item(int $id): BroadcastItem
 	{
-		$row = self::$db_querier->select_single_row_query('SELECT broadcast.*, member.*
+		$row = self::$db_querier->select_single_row_query('
+            SELECT broadcast.*, member.*
 			FROM ' . BroadcastSetup::$broadcast_table . ' broadcast
 			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = broadcast.author_user_id
-			WHERE ' . self::$module_id . '.id=:id', [
+			WHERE ' . self::$module_id . '.id=:id
+            ', [
 				'module_id'       => self::$module_id,
 				'id'              => $id,
 				'current_user_id' => AppContext::get_current_user()->get_id()
@@ -66,12 +68,12 @@ class BroadcastService
 		return $item;
 	}
 
-	public static function clear_cache()
+	public static function clear_cache(): void
 	{
 		Feed::clear_cache('broadcast');
 		KeywordsCache::invalidate();
 		BroadcastCache::invalidate();
-		CategoriesService::get_categories_manager()->regenerate_cache();
+		CategoriesService::get_categories_manager('broadcast')->regenerate_cache();
 	}
 }
 ?>

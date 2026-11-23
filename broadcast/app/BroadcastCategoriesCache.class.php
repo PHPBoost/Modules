@@ -38,13 +38,13 @@ class BroadcastCategoriesCache extends CategoriesCache
 			]
 		);
 	}
-	
+
 	public function get_root_category(): RichRootCategory
 	{
 		$root = new RichRootCategory();
 		$root->set_authorizations(BroadcastConfig::load()->get_authorizations());
 		$root->set_description(
-			StringVars::replace_vars(LangLoader::get_message('broadcast.seo.description.root', 'common', 'broadcast'), 
+			StringVars::replace_vars(LangLoader::get_message('broadcast.seo.description.root', 'common', 'broadcast'),
 				['site' => GeneralConfig::load()->get_site_name()]
 			));
 		return $root;

@@ -3,24 +3,24 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 06
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.1 - 2026 10 06
  */
 
 class BroadcastPendingItemsController extends DefaultModuleController
 {
-	private $category;
+	private ?RichCategory $category = null;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('broadcast/BroadcastSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
-		$this->build_view($request);
+		$this->build_view();
 
 		return $this->generate_response($request);
 	}
@@ -28,7 +28,7 @@ class BroadcastPendingItemsController extends DefaultModuleController
 	private function build_view()
 	{
 		$this->view->put_all([
-			'C_PENDING_ITEMS' 	   	   => true,
+			'C_PENDING_ITEMS' 	   => true,
 			'C_CATEGORY_THUMBNAIL' => !$this->get_category()->get_id() == Category::ROOT_CATEGORY && !empty($this->get_category()->get_thumbnail()->rel()),
 			'C_ROOT_CATEGORY'  	   => $this->get_category()->get_id() == Category::ROOT_CATEGORY,
 			'C_CALENDAR_VIEW'  	   => $this->config->get_display_type() == BroadcastConfig::CALENDAR_VIEW,
@@ -53,7 +53,7 @@ class BroadcastPendingItemsController extends DefaultModuleController
 		$this->build_day_view('sunday');
 	}
 
-	private function build_day_view($day)
+	private function build_day_view(string $day): void
 	{
 		${$day . '_tpl'} = new FileTemplate('broadcast/BroadcastDayProgramsController.tpl');
 		${$day . '_tpl'}->add_lang($this->lang);
@@ -62,12 +62,14 @@ class BroadcastPendingItemsController extends DefaultModuleController
 		$condition = 'WHERE id_category IN :authorized_categories AND published = 0';
 		$parameters = ['authorized_categories' => $authorized_categories];
 
-		$result = PersistenceContext::get_querier()->select('SELECT broadcast.*, member.*,
-		time (from_unixtime(start_time)) AS hour
-		FROM ' . BroadcastSetup::$broadcast_table . ' broadcast
-		LEFT JOIN  ' . DB_TABLE_MEMBER . ' member ON member.user_id = broadcast.author_user_id
-		' . $condition . '
-		ORDER BY hour ASC', $parameters);
+		$result = PersistenceContext::get_querier()->select('
+            SELECT broadcast.*, member.*, time (from_unixtime(start_time)) AS hour
+            FROM ' . BroadcastSetup::$broadcast_table . ' broadcast
+            LEFT JOIN  ' . DB_TABLE_MEMBER . ' member ON member.user_id = broadcast.author_user_id
+            ' . $condition . '
+            ORDER BY hour ASC
+            ', $parameters
+        );
 
 		${$day . '_tpl'}->put_all([
 			'C_ACCORDION_VIEW' => $this->config->get_display_type() == BroadcastConfig::ACCORDION_VIEW,
@@ -102,23 +104,26 @@ class BroadcastPendingItemsController extends DefaultModuleController
 		$this->view->put(TextHelper::strtoupper($day . '_PRG'), ${$day . '_tpl'});
 	}
 
-	private function get_category()
+	private function get_category(): RichCategory
 	{
 		if ($this->category === null)
 		{
 			$id = AppContext::get_request()->get_getint('id_category', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->category = CategoriesService::get_categories_manager('broadcast')->get_categories_cache()->get_category($id);
-				} catch (CategoryNotFoundException $e) {
+				}
+                catch (CategoryNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
 			}
 			else
 			{
-				$this->category = CategoriesService::get_categories_manager()->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
+				$this->category = CategoriesService::get_categories_manager('broadcast')->get_categories_cache()->get_category(Category::ROOT_CATEGORY);
 			}
 		}
 		return $this->category;
@@ -144,7 +149,7 @@ class BroadcastPendingItemsController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 
@@ -152,9 +157,13 @@ class BroadcastPendingItemsController extends DefaultModuleController
 		$page = $request->get_getint('page', 1);
 
 		if ($this->get_category()->get_id() != Category::ROOT_CATEGORY)
+        {
 			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['broadcast.module.title'], $page);
+        }
 		else
+        {
 			$graphical_environment->set_page_title($this->lang['broadcast.module.title'], '', $page);
+        }
 
 		$graphical_environment->get_seo_meta_data()->set_description($this->get_category()->get_description());
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(BroadcastUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), AppContext::get_request()->get_getint('page', 1)));
@@ -162,21 +171,23 @@ class BroadcastPendingItemsController extends DefaultModuleController
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['broadcast.module.title'], BroadcastUrlBuilder::home());
 
-		$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($this->get_category()->get_id(), true));
+		$categories = array_reverse(CategoriesService::get_categories_manager('broadcast')->get_parents($this->get_category()->get_id(), true));
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
+            {
 				$breadcrumb->add($category->get_name(), BroadcastUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
+            }
 		}
 
 		return $response;
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self('broadcast');
 		$object->check_authorizations();
-		$object->build_view(AppContext::get_request());
+		$object->build_view();
 		return $object->view;
 	}
 }

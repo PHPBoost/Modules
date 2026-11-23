@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 4.0 - 2013 11 23
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      xela <xela@phpboost.com>
@@ -12,7 +12,7 @@
 
 class ForumTreeLinks implements ModuleTreeLinksExtensionPoint
 {
-	public function get_actions_tree_links()
+	public function get_actions_tree_links(): ModuleTreeLinks
 	{
 		$module_id = 'forum';
 
@@ -34,7 +34,9 @@ class ForumTreeLinks implements ModuleTreeLinksExtensionPoint
 		// $tree->add_link(new ModuleLink($lang['forum.unanswered.topics'], ForumUrlBuilder::show_no_answer(), ForumAuthorizationsService::check_authorizations()->read() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL)));
 
 		if (ModulesManager::get_module($module_id)->get_configuration()->get_documentation())
+        {
 			$tree->add_link(new ModuleLink($lang['form.documentation'], ModulesManager::get_module('forum')->get_configuration()->get_documentation(), ForumAuthorizationsService::check_authorizations()->moderation()));
+        }
 
 		return $tree;
 	}

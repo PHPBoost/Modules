@@ -3,15 +3,15 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastDeleteItemController extends ModuleController
 {
-	private $item;
+	private BroadcastItem $item;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): mixed
 	{
 		AppContext::get_session()->csrf_get_protect();
 
@@ -26,27 +26,34 @@ class BroadcastDeleteItemController extends ModuleController
 		BroadcastService::delete($item->get_id());
 
 		if (!CategoriesAuthorizationsService::check_authorizations()->write())
+        {
 			ContributionService::generate_cache();
+        }
 
 		BroadcastService::clear_cache();
 		HooksService::execute_hook_action('delete', self::$module_id, $item->get_properties());
 
 		AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), BroadcastUrlBuilder::display($item->get_category()->get_id(), $item->get_category()->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title())->rel()) ? $request->get_url_referrer() : BroadcastUrlBuilder::home()), StringVars::replace_vars(LangLoader::get_message('broadcast.message.success.delete', 'common', 'broadcast'), ['title' => $item->get_title()]));
+        return null;
 	}
 
-	private function get_item(HTTPRequestCustom $request)
+	private function get_item(HTTPRequestCustom $request): ?BroadcastItem
 	{
 		$id = $request->get_getint('id', 0);
 
 		if (!empty($id))
 		{
-			try {
+			try
+            {
 				return BroadcastService::get_item($id);
-			} catch (RowNotFoundException $e) {
+			}
+            catch (RowNotFoundException $e)
+            {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
 			}
 		}
+        return null;
 	}
 }
 ?>

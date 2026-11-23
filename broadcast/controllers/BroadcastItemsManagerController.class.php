@@ -3,16 +3,16 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastItemsManagerController extends DefaultModuleController
 {
-	private $elements_number = 0;
-	private $ids = [];
+	private int $elements_number = 0;
+	private array $ids = [];
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -23,9 +23,9 @@ class BroadcastItemsManagerController extends DefaultModuleController
 		return $this->generate_response($current_page);
 	}
 
-	private function build_table()
+	private function build_table(): int
 	{
-		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
+		$display_categories = CategoriesService::get_categories_manager('broadcast')->get_categories_cache()->has_categories();
 
 		$columns = [
 			new HTMLTableColumn($this->lang['common.title'], 'aria-label'),
@@ -37,7 +37,9 @@ class BroadcastItemsManagerController extends DefaultModuleController
 		];
 
 		if (!$display_categories)
+        {
 			unset($columns[1]);
+        }
 
 		$table_model = new SQLHTMLTableModel(BroadcastSetup::$broadcast_table, 'broadcast-manager', $columns, new HTMLTableSortingRule('title', HTMLTableSortingRule::ASC));
 
@@ -46,7 +48,9 @@ class BroadcastItemsManagerController extends DefaultModuleController
 		$table_model->set_filters_menu_title($this->lang['broadcast.filter.items']);
 		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter', $this->lang['common.author']));
 		if ($display_categories)
+        {
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter2'));
+        }
 
 		$status_list = [Item::PUBLISHED => $this->lang['common.status.published.alt'], Item::NOT_PUBLISHED => $this->lang['common.status.draft'], Item::DEFERRED_PUBLICATION => $this->lang['common.status.deffered.date']];
 		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('published', 'filter3', $this->lang['common.status.publication'], $status_list));
@@ -90,7 +94,9 @@ class BroadcastItemsManagerController extends DefaultModuleController
 			];
 
 			if (!$display_categories)
+            {
 				unset($row[1]);
+            }
 
 			$results[] = new HTMLTableRow($row);
 		}
@@ -108,13 +114,17 @@ class BroadcastItemsManagerController extends DefaultModuleController
 	// 	}
 	// } 
 
-	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
+	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request): void
 	{
-		if ($request->get_string('delete-selected-elements', false)) {
-			for ($i = 1; $i <= $this->elements_number; $i++) {
-				if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on') {
-					if (isset($this->ids[$i])) {
-						$item = BroadcastService::get_item('WHERE broadcast.id=:id', ['id' => $this->ids[$i]]);
+		if ($request->get_string('delete-selected-elements', false))
+        {
+			for ($i = 1; $i <= $this->elements_number; $i++)
+            {
+				if ($request->get_value('delete-checkbox-' . $i, 'off') == 'on')
+                {
+					if (isset($this->ids[$i]))
+                    {
+						$item = BroadcastService::get_item($this->ids[$i]);
 						BroadcastService::delete($this->ids[$i]);
 						HooksService::execute_hook_action('delete', self::$module_id, $item->get_properties());
 					}
@@ -122,12 +132,11 @@ class BroadcastItemsManagerController extends DefaultModuleController
 			}
 
 			BroadcastService::clear_cache();
-
 			AppContext::get_response()->redirect(BroadcastUrlBuilder::manage(), $this->lang['warning.process.success']);
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!CategoriesAuthorizationsService::check_authorizations()->moderation())
 		{
@@ -136,7 +145,7 @@ class BroadcastItemsManagerController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response($page = 1)
+	private function generate_response(int $page = 1): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 

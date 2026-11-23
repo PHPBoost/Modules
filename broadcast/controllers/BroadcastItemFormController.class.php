@@ -3,13 +3,13 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastItemFormController extends DefaultModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -26,7 +26,7 @@ class BroadcastItemFormController extends DefaultModuleController
 		return $this->generate_response($this->view);
 	}
 
-	private function build_form(HTTPRequestCustom $request)
+	private function build_form(HTTPRequestCustom $request): void
 	{
 		$form = new HTMLForm(self::class);
 		$form->set_layout_title($this->get_item()->get_id() === null ? $this->lang['broadcast.add.item'] : ($this->lang['broadcast.edit.item'] . ': ' . $this->get_item()->get_title()));
@@ -38,12 +38,12 @@ class BroadcastItemFormController extends DefaultModuleController
 			['required' => true]
 		));
 
-		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
+		if (CategoriesService::get_categories_manager('broadcast')->get_categories_cache()->has_categories())
 		{
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 			// $search_category_children_options->add_authorizations_bits(Category::CONTRIBUTION_AUTHORIZATIONS);
 			$search_category_children_options->add_authorizations_bits(Category::WRITE_AUTHORIZATIONS);
-			$fieldset->add_field(CategoriesService::get_categories_manager()->get_select_categories_form_field('id_category', $this->lang['form.category'], $this->get_item()->get_id_category(), $search_category_children_options));
+			$fieldset->add_field(CategoriesService::get_categories_manager('broadcast')->get_select_categories_form_field('id_category', $this->lang['form.category'], $this->get_item()->get_id_category(), $search_category_children_options));
 		}
 
 		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['form.description'], $this->get_item()->get_content(),
@@ -115,9 +115,10 @@ class BroadcastItemFormController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function build_contribution_fieldset($form)
+	private function build_contribution_fieldset(HTMLForm $form): void
 	{
-		if ($this->get_item()->get_id() === null && $this->is_contributor_member()) {
+		if ($this->get_item()->get_id() === null && $this->is_contributor_member())
+        {
 			$fieldset = new FormFieldsetHTML('contribution', $this->lang['contribution.contribution']);
 			$fieldset->set_description(MessageHelper::display($this->lang['contribution.extended.warning'], MessageHelper::WARNING)->render());
 			$form->add_fieldset($fieldset);
@@ -138,22 +139,25 @@ class BroadcastItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function is_contributor_member()
+	private function is_contributor_member(): bool
 	{
         $id_category = AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY);
 		return !CategoriesAuthorizationsService::check_authorizations($id_category)->write() && CategoriesAuthorizationsService::check_authorizations($id_category)->contribution();
 	}
 
-	private function get_item()
+	private function get_item(): BroadcastItem
 	{
 		if ($this->item === null)
 		{
 			$id = AppContext::get_request()->get_getint('id', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->item = BroadcastService::get_item($id);
-				} catch (RowNotFoundException $e) {
+				}
+                catch (RowNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
@@ -168,7 +172,7 @@ class BroadcastItemFormController extends DefaultModuleController
 		return $this->item;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		$item = $this->get_item();
 
@@ -195,15 +199,17 @@ class BroadcastItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$item = $this->get_item();
 
 		$item->set_title($this->form->get_value('title'));
 		$item->set_rewrited_title(Url::encode_rewrite($this->form->get_value('title')));
 
-		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
+		if (CategoriesService::get_categories_manager('broadcast')->get_categories_cache()->has_categories())
+        {
 			$item->set_id_category($this->form->get_value('id_category')->get_raw_value());
+        }
 
 		$item->set_content($this->form->get_value('content'));
 
@@ -223,17 +229,25 @@ class BroadcastItemFormController extends DefaultModuleController
 		if (!CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->moderation())
 		{
 			if ($this->is_new_item)
+            {
 				$item->set_creation_date(new Date());
+            }
 		}
 		else
 		{
 			if ($this->form->get_value('update_creation_date'))
+            {
 				$item->set_creation_date(new Date());
+            }
 			else
+            {
 				$item->set_creation_date($this->form->get_value('creation_date'));
+            }
 
 			if (CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->contribution() && !CategoriesAuthorizationsService::check_authorizations($item->get_id_category())->write())
+            {
 				$item->set_publishing_state(BroadcastItem::NOT_PUBLISHED);
+            }
 			else
 			{
 				$item->set_publishing_state($this->form->get_value('published')->get_raw_value());
@@ -241,19 +255,25 @@ class BroadcastItemFormController extends DefaultModuleController
 			}
 		}
 
-		if ($this->is_new_item) {
+		if ($this->is_new_item)
+        {
 			$id = BroadcastService::add($item);
 			$item->set_id($id);
 
 			if (!$this->is_contributor_member())
+            {
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($item->get_properties(), ['item_url' => $item->get_item_url()]));
+            }
 		}
-		else {
+		else
+        {
 			$item->set_update_date(new Date());
 			BroadcastService::update($item);
 
 			if (!$this->is_contributor_member())
+            {
 				HooksService::execute_hook_action('edit', self::$module_id, array_merge($item->get_properties(), ['item_url' => $item->get_item_url()]));
+            }
 		}
 
 		$this->contribution_actions($item);
@@ -261,16 +281,20 @@ class BroadcastItemFormController extends DefaultModuleController
 		BroadcastService::clear_cache();
 	}
 
-	private function contribution_actions(BroadcastItem $item)
+	private function contribution_actions(BroadcastItem $item): void
 	{
 		if ($this->is_contributor_member())
 		{
 			$contribution = new Contribution();
 			$contribution->set_id_in_module($item->get_id());
 			if ($this->is_new_item)
+            {
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
+            }
 			else
+            {
 				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
+            }
 
 			$contribution->set_entitled($item->get_title());
 			$contribution->set_fixing_url(BroadcastUrlBuilder::edit($item->get_id())->relative());
@@ -278,7 +302,7 @@ class BroadcastItemFormController extends DefaultModuleController
 			$contribution->set_module('broadcast');
 			$contribution->set_auth(
 				Authorizations::capture_and_shift_bit_auth(
-				CategoriesService::get_categories_manager()->get_heritated_authorizations($item->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
+				CategoriesService::get_categories_manager('broadcast')->get_heritated_authorizations($item->get_id_category(), Category::MODERATION_AUTHORIZATIONS, Authorizations::AUTH_CHILD_PRIORITY),
 					Category::MODERATION_AUTHORIZATIONS, Contribution::CONTRIBUTION_AUTH_BIT
 				)
 			);
@@ -301,7 +325,7 @@ class BroadcastItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function redirect()
+	private function redirect(): void
 	{
 		$item = $this->get_item();
 		$category = $item->get_category();
@@ -313,20 +337,28 @@ class BroadcastItemFormController extends DefaultModuleController
 		elseif ($item->is_published())
 		{
 			if ($this->is_new_item)
+            {
 				AppContext::get_response()->redirect(BroadcastUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()), StringVars::replace_vars($this->lang['broadcast.message.success.add'], ['title' => $item->get_title()]));
+            }
 			else
+            {
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : BroadcastUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title())), StringVars::replace_vars($this->lang['broadcast.message.success.edit'], ['title' => $item->get_title()]));
+            }
 		}
 		else
 		{
 			if ($this->is_new_item)
+            {
 				AppContext::get_response()->redirect(BroadcastUrlBuilder::display_pending(), StringVars::replace_vars($this->lang['broadcast.message.success.add'], ['title' => $item->get_title()]));
+            }
 			else
+            {
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : BroadcastUrlBuilder::display_pending()), StringVars::replace_vars($this->lang['broadcast.message.success.edit'], ['title' => $item->get_title()]));
+            }
 		}
 	}
 
-	private function generate_response(View $view)
+	private function generate_response(View $view): SiteDisplayResponse
 	{
 		$item = $this->get_item();
 
@@ -345,19 +377,24 @@ class BroadcastItemFormController extends DefaultModuleController
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['broadcast.add.item'], $this->lang['broadcast.module.title']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(BroadcastUrlBuilder::add($item->get_id_category()));
 		}
-		else {
+		else
+        {
 			if (!AppContext::get_session()->location_id_already_exists($location_id))
+            {
 				$graphical_environment->set_location_id($location_id);
+            }
 
 			$graphical_environment->set_page_title($this->lang['broadcast.edit.item']);
 			$graphical_environment->get_seo_meta_data()->set_description($this->lang['broadcast.edit.item']);
 			$graphical_environment->get_seo_meta_data()->set_canonical_url(BroadcastUrlBuilder::edit($item->get_id()));
 
-			$categories = array_reverse(CategoriesService::get_categories_manager()->get_parents($item->get_id_category(), true));
+			$categories = array_reverse(CategoriesService::get_categories_manager('broadcast')->get_parents($item->get_id_category(), true));
 			foreach ($categories as $id => $category)
 			{
 				if ($category->get_id() != Category::ROOT_CATEGORY)
+                {
 					$breadcrumb->add($category->get_name(), BroadcastUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
+                }
 			}
 			$category = $item->get_category();
 			$breadcrumb->add($item->get_title(), BroadcastUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()));

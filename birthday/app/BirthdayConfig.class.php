@@ -10,10 +10,10 @@
 
 class BirthdayConfig extends AbstractConfigData
 {
-	const COMING_NEXT = 'coming_next';
-	const MEMBERS_AGE_DISPLAYED = 'members_age_displayed';
+	const COMING_NEXT                     = 'coming_next';
+	const MEMBERS_AGE_DISPLAYED           = 'members_age_displayed';
 	const PM_FOR_MEMBERS_BIRTHDAY_ENABLED = 'pm_for_members_birthday_enabled';
-	const PM_FOR_MEMBERS_BIRTHDAY_TITLE = 'pm_for_members_birthday_title';
+	const PM_FOR_MEMBERS_BIRTHDAY_TITLE   = 'pm_for_members_birthday_title';
 	const PM_FOR_MEMBERS_BIRTHDAY_CONTENT = 'pm_for_members_birthday_content';
 
 	const AUTHORIZATIONS = 'authorizations';

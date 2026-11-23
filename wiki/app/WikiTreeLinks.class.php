@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 3.0 - 2013 12 03
  * @author      xela <xela@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class WikiTreeLinks extends DefaultTreeLinks
 {
-	protected function get_module_additional_actions_tree_links(&$tree)
+	protected function get_module_additional_actions_tree_links(mixed &$tree): void
 	{
 		$module_id = 'wiki';
 		$current_user = AppContext::get_current_user()->get_id();
@@ -21,11 +21,13 @@ class WikiTreeLinks extends DefaultTreeLinks
 		$tree->add_link(new ModuleLink(LangLoader::get_message('wiki.my.items', 'common', $module_id), WikiUrlBuilder::display_member_items($current_user), WikiAuthorizationsService::check_authorizations()->write() || WikiAuthorizationsService::check_authorizations()->contribution() || WikiAuthorizationsService::check_authorizations()->moderation()));
 		$tree->add_link(new ModuleLink(LangLoader::get_message('wiki.my.tracked', 'common', $module_id), WikiUrlBuilder::tracked_member_items($current_user), WikiAuthorizationsService::check_authorizations()->write() || WikiAuthorizationsService::check_authorizations()->contribution() || WikiAuthorizationsService::check_authorizations()->moderation()));
 
-        if ($config->get_homepage() !== WikiConfig::OVERVIEW) {
+        if ($config->get_homepage() !== WikiConfig::OVERVIEW)
+        {
             $tree->add_link(new ModuleLink(LangLoader::get_message('wiki.overview', 'common', $module_id), WikiUrlBuilder::overview()));
         }
 
-        if ($config->get_homepage() !== WikiConfig::EXPLORER) {
+        if ($config->get_homepage() !== WikiConfig::EXPLORER)
+        {
             $tree->add_link(new ModuleLink(LangLoader::get_message('wiki.explorer', 'common', $module_id), WikiUrlBuilder::explorer()));
         }
 	}

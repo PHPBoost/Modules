@@ -9,14 +9,14 @@
 
 class BroadcastConfig extends AbstractConfigData
 {
-	const RADIO_NAME    = 'broadcast_name';
-	const RADIO_IMG     = 'broadcast_logo';
-	const PLAYER_TYPE   = 'player_type';
+	const RADIO_NAME        = 'broadcast_name';
+	const RADIO_IMG         = 'broadcast_logo';
+	const PLAYER_TYPE       = 'player_type';
 	const BROADCAST_URL     = 'broadcast_url';
 	const BROADCAST_WIDGET  = 'broadcast_widget';
 	const BROADCAST_COMBO   = 'broadcast_combo';
-	const PLAYER_WIDTH  = 'player_width';
-	const PLAYER_HEIGHT = 'player_height';
+	const PLAYER_WIDTH      = 'player_width';
+	const PLAYER_HEIGHT     = 'player_height';
 
 	const AUTHORIZATIONS = 'authorizations';
 
@@ -25,109 +25,106 @@ class BroadcastConfig extends AbstractConfigData
 	const TABLE_VIEW     = 'table_view';
 	const CALENDAR_VIEW  = 'calendar_view';
 
-	public function get_broadcast_name()
+	public function get_broadcast_name(): string
 	{
 		return $this->get_property(self::RADIO_NAME);
 	}
 
-	public function set_broadcast_name($broadcast_name)
+	public function set_broadcast_name(string $broadcast_name): void
 	{
 		$this->set_property(self::RADIO_NAME, $broadcast_name);
 	}
 
-	public function get_player_type()
+	public function get_player_type(): string
 	{
 		return $this->get_property(self::PLAYER_TYPE);
 	}
 
-	public function set_player_type($value)
+	public function set_player_type(string $value): void
 	{
 		$this->set_property(self::PLAYER_TYPE, $value);
 	}
 
-	public function get_broadcast_url()
+	public function get_broadcast_url(): Url
 	{
 		return new Url($this->get_property(self::BROADCAST_URL));
 	}
 
-	public function set_broadcast_url($broadcast_url)
+	public function set_broadcast_url(Url $broadcast_url): void
 	{
 		$this->set_property(self::BROADCAST_URL, $broadcast_url);
 	}
 
-	public function get_broadcast_widget()
+	public function get_broadcast_widget(): string
 	{
 		return $this->get_property(self::BROADCAST_WIDGET);
 	}
 
-	public function set_broadcast_widget($broadcast_widget)
+	public function set_broadcast_widget(string $broadcast_widget): void
 	{
 		$this->set_property(self::BROADCAST_WIDGET, $broadcast_widget);
 	}
 
-	public function get_broadcast_combo()
+	public function get_broadcast_combo(): string
 	{
 		return $this->get_property(self::BROADCAST_COMBO);
 	}
 
-	public function set_broadcast_combo($broadcast_combo)
+	public function set_broadcast_combo(string $broadcast_combo): void
 	{
 		$this->set_property(self::BROADCAST_COMBO, $broadcast_combo);
 	}
 
-	public function get_player_width()
+	public function get_player_width(): int
 	{
 		return $this->get_property(self::PLAYER_WIDTH);
 	}
 
-	public function set_player_width($player_width)
+	public function set_player_width(int $player_width): void
 	{
 		$this->set_property(self::PLAYER_WIDTH, $player_width);
 	}
 
-	public function get_player_height()
+	public function get_player_height(): int
 	{
 		return $this->get_property(self::PLAYER_HEIGHT);
 	}
 
-	public function set_player_height($player_height)
+	public function set_player_height(int $player_height): void
 	{
 		$this->set_property(self::PLAYER_HEIGHT, $player_height);
 	}
 
-	public function get_broadcast_logo()
+	public function get_broadcast_logo(): Url
 	{
 		return new Url($this->get_property(self::RADIO_IMG));
 	}
 
-	public function set_broadcast_logo($broadcast_logo)
+	public function set_broadcast_logo(Url $broadcast_logo): void
 	{
 		$this->set_property(self::RADIO_IMG, $broadcast_logo);
 	}
 
-	public function get_display_type()
+	public function get_display_type(): string
 	{
 		return $this->get_property(self::DISPLAY_TYPE);
 	}
 
-	public function set_display_type($display_type)
+	public function set_display_type(string $display_type): void
 	{
 		$this->set_property(self::DISPLAY_TYPE, $display_type);
 	}
 
-	public function get_authorizations()
+	public function get_authorizations(): array
 	{
 		return $this->get_property(self::AUTHORIZATIONS);
 	}
 
-	public function set_authorizations(Array $authorizations)
+	public function set_authorizations(array $authorizations): void
 	{
 		$this->set_property(self::AUTHORIZATIONS, $authorizations);
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function get_default_values(): array
 	{
 		return [

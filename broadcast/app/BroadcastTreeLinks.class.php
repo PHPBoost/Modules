@@ -3,13 +3,13 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 06
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.0 - 2022 10 25
  */
 
 class BroadcastTreeLinks implements ModuleTreeLinksExtensionPoint
 {
-	public function get_actions_tree_links()
+	public function get_actions_tree_links(): ModuleTreeLinks
 	{
 		$lang = LangLoader::get_all_langs('broadcast');
 		$tree = new ModuleTreeLinks();
@@ -24,7 +24,9 @@ class BroadcastTreeLinks implements ModuleTreeLinksExtensionPoint
 		$tree->add_link(new AdminModuleLink($lang['form.configuration'], BroadcastUrlBuilder::configuration()));
 
 		if (ModuleConfigurationManager::get('broadcast')->get_documentation())
+        {
 			$tree->add_link(new ModuleLink($lang['form.documentation'], ModulesManager::get_module('broadcast')->get_configuration()->get_documentation(), CategoriesAuthorizationsService::check_authorizations()->write() || CategoriesAuthorizationsService::check_authorizations()->contribution() || CategoriesAuthorizationsService::check_authorizations()->moderation()));
+        }
 
 		return $tree;
 	}

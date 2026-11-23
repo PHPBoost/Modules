@@ -9,17 +9,17 @@
 
 class BroadcastCache implements CacheData
 {
-	private $items = [];
+	private array $items = [];
 
-	/**
-	 * {@inheritdoc}
-		*/
-	public function synchronize(): void {
+	public function synchronize(): void
+    {
 		$result = PersistenceContext::get_querier()->select('
 			SELECT broadcast.*
 			FROM ' . BroadcastSetup::$broadcast_table . ' broadcast
 			WHERE published = 1
-			ORDER BY creation_date DESC', []);
+			ORDER BY creation_date DESC'
+            , []
+        );
 
 		while ($row = $result->fetch())
 		{
@@ -28,17 +28,17 @@ class BroadcastCache implements CacheData
 		$result->dispose();
 	}
 
-	public function get_items()
+	public function get_items(): array
 	{
 		return $this->items;
 	}
 
-	public function item_exists($id)
+	public function item_exists(int $id): bool
 	{
 		return array_key_exists($id, $this->items);
 	}
 
-	public function get_item($id)
+	public function get_item(int $id): ?BroadcastItem
 	{
 		if ($this->item_exists($id))
 		{
@@ -47,7 +47,7 @@ class BroadcastCache implements CacheData
 		return null;
 	}
 
-	public function get_items_number()
+	public function get_items_number(): int
 	{
 		return count($this->items);
 	}
@@ -56,7 +56,7 @@ class BroadcastCache implements CacheData
 	 * Loads and returns the broadcast cached data.
 		* @return BroadcastCache The cached data
 		*/
-	public static function load()
+	public static function load(): BroadcastCache
 	{
 		return CacheManager::load(self::class, 'broadcast', 'minimenu');
 	}
@@ -64,7 +64,7 @@ class BroadcastCache implements CacheData
 	/**
 	 * Invalidates the current broadcast cached data.
 		*/
-	public static function invalidate()
+	public static function invalidate(): void
 	{
 		CacheManager::invalidate('broadcast', 'minimenu');
 	}

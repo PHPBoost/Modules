@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 4.0 - 2013 11 26
  * @author      xela <xela@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -16,14 +16,14 @@ class CalendarTreeLinks extends DefaultTreeLinks
 		parent::__construct('calendar');
 	}
 
-	protected function get_add_item_url()
+	protected function get_add_item_url(): Url
 	{
 		$requested_date = $this->get_requested_date();
 
 		return CalendarUrlBuilder::add_item($requested_date['year'], $requested_date['month'], $requested_date['day']);
 	}
 
-	protected function get_module_additional_items_actions_tree_links(&$tree)
+	protected function get_module_additional_items_actions_tree_links(mixed &$tree): void
 	{
 		$current_user = AppContext::get_current_user()->get_id();
 		$requested_date = $this->get_requested_date();
@@ -35,7 +35,7 @@ class CalendarTreeLinks extends DefaultTreeLinks
 		$tree->add_link(new ModuleLink($lang['calendar.items.list'], CalendarUrlBuilder::display_items_list($requested_date['year'], $requested_date['month'], $requested_date['day']), $this->get_authorizations()->read()));
 	}
 
-	private function get_requested_date()
+	private function get_requested_date(): array
 	{
 		$request = AppContext::get_request();
 		return [
