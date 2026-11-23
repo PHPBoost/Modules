@@ -16,7 +16,7 @@ class LastcomsModuleMiniMenu extends ModuleMiniMenu
 		return self::BLOCK_POSITION__LEFT;
 	}
 
-	public function admin_display()
+	public function admin_display(): string
 	{
 		return '';
 	}

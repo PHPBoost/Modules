@@ -17,7 +17,7 @@ class SearchModuleMiniMenu extends ModuleMiniMenu
 		return self::BLOCK_POSITION__HEADER;
 	}
 
-	public function admin_display()
+	public function admin_display(): string
 	{
 		return '';
 	}
