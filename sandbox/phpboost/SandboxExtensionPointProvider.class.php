@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 3.0 - 2013 02 12
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -11,7 +11,7 @@
 
 class SandboxExtensionPointProvider extends ModuleExtensionPointProvider
 {
-    public function css_files()
+    public function css_files(): mixed
     {
         $module_css_files = parent::css_files();
         if ($module_css_files)
@@ -21,7 +21,7 @@ class SandboxExtensionPointProvider extends ModuleExtensionPointProvider
         return $module_css_files;
     }
 
-	public function js_files()
+	public function js_files(): mixed
 	{
 		$js_file = new ModuleJsFiles();
 		$js_file->adding_running_module_displayed_file('sandbox.menu.js');

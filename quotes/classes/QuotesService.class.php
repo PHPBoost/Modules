@@ -11,7 +11,7 @@
 
 class QuotesService
 {
-	private static ?DBQuerier $db_querier = null;
+	private static DBQuerier $db_querier ;
 
 	public static function __static(): void
 	{

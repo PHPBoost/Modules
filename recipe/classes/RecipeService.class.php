@@ -9,7 +9,7 @@
 
 class RecipeService
 {
-	private static ?DBQuerier $db_querier = null;
+	private static DBQuerier $db_querier ;
 	protected static string $module_id = 'recipe';
 
 	public static function __static(): void

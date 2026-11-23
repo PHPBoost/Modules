@@ -9,7 +9,7 @@
 
 class ArticlesItemController extends DefaultDisplayItemController
 {
-	protected function build_view()
+	protected function build_view(): void
 	{
 		parent::build_view();
 
@@ -32,7 +32,9 @@ class ArticlesItemController extends DefaultDisplayItemController
 		$pages_number = count($array_page[1]);
 
 		if ($pages_number > 1)
+        {
 			$this->build_form($array_page, $current_page);
+        }
 
 		$page_name = (isset($array_page[1][$current_page-1]) && $array_page[1][$current_page-1] != '&nbsp;') ? $array_page[1][($current_page-1)] : '';
 

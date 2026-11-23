@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 5.2 - 2020 06 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class AdminPagesConfigController extends DefaultConfigurationController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): DefaultAdminDisplayResponse
 	{
 		$this->build_form();
 
@@ -28,7 +28,7 @@ class AdminPagesConfigController extends DefaultConfigurationController
 		return new DefaultAdminDisplayResponse($this->view);
 	}
 
-	protected function build_form()
+	protected function build_form(): void
 	{
 		$form = new HTMLForm(self::$module_id . '_config_form');
 
@@ -72,7 +72,7 @@ class AdminPagesConfigController extends DefaultConfigurationController
 		$this->form = $form;
 	}
 
-	protected function save()
+	protected function save(): void
 	{
 		$this->config->set_left_column_disabled($this->form->get_value('left_column_disabled'));
 		$this->config->set_right_column_disabled($this->form->get_value('right_column_disabled'));

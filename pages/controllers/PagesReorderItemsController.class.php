@@ -3,14 +3,15 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 5.2 - 2020 06 15
  * @author      Julien BRISWALTER <j1.beth@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class PagesReorderItemsController extends DefaultSeveralItemsController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->init();
 		$this->check_authorizations();
@@ -33,7 +34,7 @@ class PagesReorderItemsController extends DefaultSeveralItemsController
 		return $this->generate_response();
 	}
 
-	protected function init()
+	protected function init(): void
 	{
 		parent::init();
 		$this->customized_page_title = $this->lang['items.reordering'];
@@ -45,7 +46,7 @@ class PagesReorderItemsController extends DefaultSeveralItemsController
 		);
 	}
 
-	protected function build_view()
+	protected function build_view(): void
 	{
 		$items_number = 0;
 		foreach (self::get_items_manager()->get_items($this->sql_condition, $this->sql_parameters) as $item)
@@ -70,21 +71,23 @@ class PagesReorderItemsController extends DefaultSeveralItemsController
 		]);
 	}
 
-	protected function check_authorizations()
+	protected function check_authorizations(): bool
 	{
 		return CategoriesAuthorizationsService::check_authorizations($this->get_category()->get_id(), self::$module_id)->moderation() ? true : $this->display_user_not_authorized_page();
 	}
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): Template
 	{
 		return new FileTemplate('pages/PagesReorderItemsController.tpl');
 	}
 
-	protected function update_position(HTTPRequestCustom $request)
+	protected function update_position(HTTPRequestCustom $request): void
 	{
+		/** @var PagesManager $items_manager */
+		$items_manager = self::get_items_manager();
 		foreach(json_decode(TextHelper::html_entity_decode($request->get_value('tree'))) as $position => $tree)
 		{
-			self::get_items_manager()->update_position($tree->id, $position);
+			$items_manager->update_position($tree->id, $position);
 		}
 	}
 }

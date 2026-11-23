@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 4.0 - 2013 02 13
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -16,10 +16,7 @@ class NewsConfig extends DefaultRichModuleConfig
 	const ITEMS_SUGGESTIONS_ENABLED = 'items_suggestions_enabled';
 	const ITEMS_NAVIGATION_ENABLED = 'items_navigation_enabled';
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function get_additional_default_values()
+	public function get_additional_default_values(): array
 	{
 		return [
 			self::ITEMS_PER_PAGE            => 10,

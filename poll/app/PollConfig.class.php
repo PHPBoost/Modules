@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      xela <xela@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.0 - 2020 05 14
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
 */
@@ -17,7 +17,7 @@ class PollConfig extends DefaultRichModuleConfig
 	const VOTE_AUTHORIZATIONS = 64;
 	const DISPLAY_VOTES_RESULT_AUTHORIZATIONS = 128;
 
-	public function get_additional_default_values()
+	public function get_additional_default_values(): array
 	{
 		return [
 			self::MINI_MODULE_SELECTED_ITEMS => [$this->get_default_mini_module_selected_item_id()],
@@ -27,22 +27,22 @@ class PollConfig extends DefaultRichModuleConfig
         ];
 	}
 
-	public function get_cookie_lenght_in_seconds()
+	public function get_cookie_lenght_in_seconds(): int
 	{
 		return $this->get_property(self::COOKIE_LENGHT) * (3600 * 24);
 	}
-	
-	public function set_mini_module_selected_items(array $array)
+
+	public function set_mini_module_selected_items(array $array): void
 	{
 		$set_array = [];
 		foreach ($array as $value)
 		{
 			$set_array[] = (string) $value;
 		}
-		return $this->set_property(self::MINI_MODULE_SELECTED_ITEMS, $set_array);
+		$this->set_property(self::MINI_MODULE_SELECTED_ITEMS, $set_array);
 	}
-	
-	public function get_default_mini_module_selected_item_id()
+
+	public function get_default_mini_module_selected_item_id(): string
 	{
 		$selected_id = '';
 		$install_lang = LangLoader::get('install', self::$module_id);

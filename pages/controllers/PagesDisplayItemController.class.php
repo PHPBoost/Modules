@@ -3,8 +3,9 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 06
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 6.1 - 2026 04 05
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 /**
@@ -23,8 +24,6 @@ class PagesDisplayItemController extends DefaultDisplayItemController
      * Sets current_url to the root-based frontend URL of the item.
      * This URL is used for the canonical tag, view-counter referrer check,
      * and is passed to the comments component.
-     *
-     * {@inheritdoc}
      */
     protected function init(): void
     {
@@ -40,8 +39,6 @@ class PagesDisplayItemController extends DefaultDisplayItemController
     /**
      * Builds the page response with a breadcrumb whose category links point to
      * root-based frontend URLs instead of /pages/...
-     *
-     * {@inheritdoc}
      */
     protected function generate_response(): SiteDisplayResponse
     {

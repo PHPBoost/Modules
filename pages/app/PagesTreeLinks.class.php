@@ -3,14 +3,15 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.0 - last update: 2026 05 19
+ * @version     PHPBoost 6.0 - last update: 2026 11 23
  * @since       PHPBoost 4.0 - 2016 11 25
  * @author      xela <xela@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class PagesTreeLinks extends DefaultTreeLinks
 {
-	protected function get_module_additional_actions_tree_links(&$tree)
+	protected function get_module_additional_actions_tree_links(mixed &$tree): void
 	{
 		$module_id = 'pages';
 		$request = AppContext::get_request();

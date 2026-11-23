@@ -11,7 +11,7 @@
 
 class DictionarySetup extends DefaultModuleSetup
 {
-	private ?DBQuerier $querier = null;
+	private DBQuerier $querier ;
 	public static string $dictionary_table;
 	public static string $dictionary_cat_table;
 	private array $messages;

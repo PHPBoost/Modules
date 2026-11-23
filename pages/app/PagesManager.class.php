@@ -17,7 +17,7 @@ class PagesManager extends ItemsManager
 	{
 		$this->get_items_static_sort_field = 'i_order';
 	}
-	
+
 	/**
 	 * Update the position of an item.
 	 * @param int $id_item : id of the item to update

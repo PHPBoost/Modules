@@ -24,7 +24,7 @@ class ForumSetup extends DefaultModuleSetup
 
 	private static string $member_extended_field_last_view_forum_column = 'last_view_forum';
 
-	private ?DBQuerier $querier = null;
+	private DBQuerier $querier ;
 	private array $install_lang;
 
 	public static function __static(): void
