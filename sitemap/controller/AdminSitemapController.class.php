@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 23
  * @since       PHPBoost 3.0 - 2009 12 09
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class AdminSitemapController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request):AdminSitemapResponse
 	{
 		$this->build_form();
 
@@ -29,7 +29,7 @@ class AdminSitemapController extends DefaultAdminModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$this->form = new HTMLForm('sitemap_global_config', SitemapUrlBuilder::get_general_config()->rel());
 		$fieldset = new FormFieldsetHTML('configuration', StringVars::replace_vars($this->lang['form.module.title'], ['module_name' => self::get_module()->get_configuration()->get_name()]));
@@ -56,7 +56,7 @@ class AdminSitemapController extends DefaultAdminModuleController
 		$this->form->add_button(new FormButtonReset());
 	}
 
-	private function handle_form()
+	private function handle_form(): void
 	{
 		if ($this->form->get_value('enable_sitemap_xml'))
 		{
@@ -73,7 +73,7 @@ class AdminSitemapController extends DefaultAdminModuleController
 		HooksService::execute_hook_action('edit_config', self::$module_id, ['title' => StringVars::replace_vars($this->lang['form.module.title'], ['module_name' => self::get_module_configuration()->get_name()]), 'url' => ModulesUrlBuilder::configuration()->rel()]);
 	}
 
-	private function build_response(Template $view)
+	private function build_response(Template $view): AdminSitemapResponse
 	{
 		$response = new AdminSitemapResponse($view);
 		$response->get_graphical_environment()->set_page_title(StringVars::replace_vars($this->lang['form.module.title'], ['module_name' => self::get_module()->get_configuration()->get_name()]));

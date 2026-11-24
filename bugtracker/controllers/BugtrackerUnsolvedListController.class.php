@@ -3,19 +3,19 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 11 12
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BugtrackerUnsolvedListController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('bugtracker/BugtrackerListController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -24,24 +24,24 @@ class BugtrackerUnsolvedListController extends DefaultModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function build_view($request)
+	private function build_view(HTTPRequestCustom $request): Template
 	{
 		$severities = $this->config->get_severities();
 
-		$field = $request->get_value('field', 'date');
-		$sort = $request->get_value('sort', 'desc');
+		$field        = $request->get_value('field', 'date');
+		$sort         = $request->get_value('sort', 'desc');
 		$current_page = $request->get_getint('page', 1);
-		$filter = $request->get_value('filter', '');
-		$filter_id = $request->get_value('filter_id', '');
+		$filter       = $request->get_value('filter', '');
+		$filter_id    = $request->get_value('filter_id', '');
 
 		if (!empty($filter) && empty($filter_id))
 		{
 			$filter = $filter_id = '';
 		}
 
-		$filters = !empty($filter) ? explode('-', $filter) : [];
-		$nb_filters = count($filters);
-		$filters_ids = !empty($filter_id) ? explode('-', $filter_id) : [];
+		$filters        = !empty($filter) ? explode('-', $filter) : [];
+		$nb_filters     = count($filters);
+		$filters_ids    = !empty($filter_id) ? explode('-', $filter_id) : [];
 		$nb_filters_ids = count($filters_ids);
 
 		if ($nb_filters != $nb_filters_ids)
@@ -81,20 +81,21 @@ class BugtrackerUnsolvedListController extends DefaultModuleController
 
 		$pagination = $this->get_pagination($bugs_number, $current_page, $field, $sort, $filter, $filter_id);
 
-		$result = PersistenceContext::get_querier()->select("SELECT b.*, member.*
-		FROM " . BugtrackerSetup::$bugtracker_table . " b
-		LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = b.author_id
-		WHERE status <> '" . BugtrackerItem::FIXED . "' AND status <> '" . BugtrackerItem::REJECTED . "'" .
-		($this->config->is_restrict_display_to_own_elements_enabled() && !BugtrackerAuthorizationsService::check_authorizations()->moderation() ? "AND b.author_id = :user_id " : "") .
-		$select_filters . "
-		ORDER BY " . $field_bdd . " " . $mode . "
-		LIMIT :number_items_per_page OFFSET :display_from",
-			[
-				'user_id' => AppContext::get_current_user()->get_id(),
-				'number_items_per_page' => $pagination->get_number_items_per_page(),
-				'display_from' => $pagination->get_display_from()
-			]
-		);
+		$result = PersistenceContext::get_querier()->select("
+            SELECT b.*, member.*
+            FROM " . BugtrackerSetup::$bugtracker_table . " b
+            LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = b.author_id
+            WHERE status <> '" . BugtrackerItem::FIXED . "' AND status <> '" . BugtrackerItem::REJECTED . "'" .
+            ($this->config->is_restrict_display_to_own_elements_enabled() && !BugtrackerAuthorizationsService::check_authorizations()->moderation() ? "AND b.author_id = :user_id " : "") .
+            $select_filters . "
+            ORDER BY " . $field_bdd . " " . $mode . "
+            LIMIT :number_items_per_page OFFSET :display_from
+            ", [
+                'user_id' => AppContext::get_current_user()->get_id(),
+                'number_items_per_page' => $pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ]
+        );
 
 		$displayed_severities = [];
 
@@ -116,10 +117,22 @@ class BugtrackerUnsolvedListController extends DefaultModuleController
 		$result->dispose();
 
 		$bugs_colspan = BugtrackerAuthorizationsService::check_authorizations()->moderation() ? 5 : 4;
-		if ($this->config->is_type_column_displayed()) $bugs_colspan++;
-		if ($this->config->is_category_column_displayed()) $bugs_colspan++;
-		if ($this->config->is_priority_column_displayed()) $bugs_colspan++;
-		if ($this->config->is_detected_in_column_displayed()) $bugs_colspan++;
+		if ($this->config->is_type_column_displayed())
+        {
+            $bugs_colspan++;
+        }
+		if ($this->config->is_category_column_displayed())
+        {
+            $bugs_colspan++;
+        }
+		if ($this->config->is_priority_column_displayed())
+        {
+            $bugs_colspan++;
+        }
+		if ($this->config->is_detected_in_column_displayed())
+        {
+            $bugs_colspan++;
+        }
 
 		$this->view->put_all([
 			'C_IS_ADMIN'					=> BugtrackerAuthorizationsService::check_authorizations()->moderation(),
@@ -146,12 +159,14 @@ class BugtrackerUnsolvedListController extends DefaultModuleController
 		]);
 
 		if ($this->config->is_restrict_display_to_own_elements_enabled() && !BugtrackerAuthorizationsService::check_authorizations()->moderation() && !AppContext::get_current_user()->is_guest())
+        {
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.restrict_display_to_own_elements_enabled'], MessageHelper::WARNING));
+        }
 
 		return $this->view;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!BugtrackerAuthorizationsService::check_authorizations()->read())
 		{
@@ -160,7 +175,7 @@ class BugtrackerUnsolvedListController extends DefaultModuleController
 		}
 	}
 
-	private function get_pagination($bugs_number, $page, $field, $sort, $filter, $filter_id)
+	private function get_pagination(int $bugs_number, int $page, string $field, string $sort, ?string $filter, string $filter_id): ModulePagination
 	{
 		$pagination = new ModulePagination($page, $bugs_number, (int)BugtrackerConfig::load()->get_items_per_page());
 		$pagination->set_url(BugtrackerUrlBuilder::unsolved($field , $sort, '%d', $filter, $filter_id));
@@ -174,7 +189,7 @@ class BugtrackerUnsolvedListController extends DefaultModuleController
 		return $pagination;
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self('bugtracker');
 		$object->check_authorizations();
@@ -182,7 +197,7 @@ class BugtrackerUnsolvedListController extends DefaultModuleController
 		return BugtrackerViews::build_body_view($object->view, 'unsolved');
 	}
 
-	private function build_response(View $view)
+	private function build_response(View $view): SiteDisplayResponse
 	{
 		$request = AppContext::get_request();
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 10 12
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @author      janus57 <janus57@janus57.fr>
@@ -18,7 +18,7 @@ class BugtrackerPMService
 	 * @param int $bug_id ID of the bug which is concerned
 	 * @param string $message (optional) Message to include in the PM
 	 */
-	public static function send_PM($pm_type, $recipient_id, $bug_id, $message = '')
+	public static function send_PM(string $pm_type, int $recipient_id, int $bug_id, string $message = ''): void
 	{
 		//Load module lang
 		$lang = LangLoader::get_all_langs('bugtracker');
@@ -51,7 +51,7 @@ class BugtrackerPMService
 	 * @param string $message (optional) Message to include in the PM
 	 * @param string[] $recipients_list (optional) Recipients to whom send the PM
 	 */
-	public static function send_PM_to_updaters($pm_type, $bug_id, $message = '', $recipients_list = [])
+	public static function send_PM_to_updaters(string $pm_type, int $bug_id, string $message = '', array $recipients_list = []): void
 	{
 		//Load configuration
 		$config = BugtrackerConfig::load();
@@ -92,7 +92,9 @@ class BugtrackerPMService
 
 		//Retrieve the list of members which updated the bug
 		if (empty($recipients_list))
+        {
 			$recipients_list = BugtrackerService::get_updaters_list($bug_id);
+        }
 
 		//Send the PM to each recipient
 		foreach ($recipients_list as $recipient)

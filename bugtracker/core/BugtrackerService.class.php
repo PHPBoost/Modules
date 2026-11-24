@@ -3,16 +3,16 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 06
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 10 19
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BugtrackerService
 {
-	private static $db_querier;
+	private static DBQuerier $db_querier;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$db_querier = PersistenceContext::get_querier();
 	}
@@ -21,7 +21,7 @@ class BugtrackerService
 	 * Count the bug list.
 	 * @param string $condition (optional) Restriction to apply to the list
 	 */
-	public static function count($condition = '')
+	public static function count(string $condition = ''): int
 	{
 		return self::$db_querier->count(BugtrackerSetup::$bugtracker_table, $condition);
 	}
@@ -30,7 +30,7 @@ class BugtrackerService
 	 * Count the history list of the bug.
 	 * @param int $bug_id ID of the bug which is concerned
 	 */
-	public static function count_history($bug_id)
+	public static function count_history(int $bug_id): int
 	{
 		return self::$db_querier->count(BugtrackerSetup::$bugtracker_history_table, "WHERE bug_id=:id", ['id' => $bug_id]);
 	}
@@ -39,7 +39,7 @@ class BugtrackerService
 	 * Create a new bug.
 	 * @param BugtrackerItem $bug new Bug
 	 */
-	public static function add(BugtrackerItem $bug)
+	public static function add(BugtrackerItem $bug): int
 	{
 		$result = self::$db_querier->insert(BugtrackerSetup::$bugtracker_table, $bug->get_properties());
 
@@ -50,7 +50,7 @@ class BugtrackerService
 	 * Create a line in the history list.
 	 * @param string[] $columns Values of the history
 	 */
-	public static function add_history(array $columns)
+	public static function add_history(array $columns): int
 	{
 		$result = self::$db_querier->insert(BugtrackerSetup::$bugtracker_history_table, $columns);
 
@@ -61,7 +61,7 @@ class BugtrackerService
 	 * Create a line in the users_filters table.
 	 * @param string[] $columns Values of the filters
 	 */
-	public static function add_filter(array $columns)
+	public static function add_filter(array $columns): int
 	{
 		$result = self::$db_querier->insert(BugtrackerSetup::$bugtracker_users_filters_table, $columns);
 
@@ -73,7 +73,7 @@ class BugtrackerService
 	 * @param string $condition Restriction to apply to the list
 	 * @param string[] $parameters Parameters of the condition
 	 */
-	public static function update_parameter(array $columns, $condition, array $parameters)
+	public static function update_parameter(array $columns, string $condition, array $parameters): void
 	{
 		self::$db_querier->update(BugtrackerSetup::$bugtracker_table, $columns, $condition, $parameters);
 	}
@@ -83,7 +83,7 @@ class BugtrackerService
 	 * @param string $condition Restriction to apply to the list
 	 * @param string[] $parameters Parameters of the condition
 	 */
-	public static function update_history(array $columns, $condition, array $parameters)
+	public static function update_history(array $columns, string $condition, array $parameters): void
 	{
 		self::$db_querier->update(BugtrackerSetup::$bugtracker_history_table, $columns, $condition, $parameters);
 	}
@@ -92,7 +92,7 @@ class BugtrackerService
 	 * Update a bug.
 	 * @param BugtrackerItem $bug Bug to update
 	 */
-	public static function update(BugtrackerItem $bug)
+	public static function update(BugtrackerItem $bug): void
 	{
 		self::$db_querier->update(BugtrackerSetup::$bugtracker_table, $bug->get_properties(), 'WHERE id=:id', ['id' => $bug->get_id()]);
 	}
@@ -102,7 +102,7 @@ class BugtrackerService
 	 * @param string $condition Restriction to apply to the list
 	 * @param string[] $parameters Parameters of the condition
 	 */
-	public static function delete($condition, array $parameters)
+	public static function delete(string $condition, array $parameters): void
 	{
 		self::$db_querier->delete(BugtrackerSetup::$bugtracker_table, $condition, $parameters);
 	}
@@ -112,7 +112,7 @@ class BugtrackerService
 	 * @param string $condition Restriction to apply to the list
 	 * @param string[] $parameters Parameters of the condition
 	 */
-	public static function delete_history($condition, array $parameters)
+	public static function delete_history(string $condition, array $parameters): void
 	{
 		self::$db_querier->delete(BugtrackerSetup::$bugtracker_history_table, $condition, $parameters);
 	}
@@ -122,7 +122,7 @@ class BugtrackerService
 	 * @param string $condition Restriction to apply to the list
 	 * @param string[] $parameters Parameters of the condition
 	 */
-	public static function delete_filter($condition, array $parameters)
+	public static function delete_filter(string $condition, array $parameters): void
 	{
 		self::$db_querier->delete(BugtrackerSetup::$bugtracker_users_filters_table, $condition, $parameters);
 	}
@@ -132,12 +132,15 @@ class BugtrackerService
 	 * @param string $condition Restriction to apply to the list of bugs
 	 * @param string[] $parameters Parameters of the condition
 	 */
-	public static function get_bug($condition, array $parameters)
+	public static function get_bug(string $condition, array $parameters): BugtrackerItem
 	{
-		$row = self::$db_querier->select_single_row_query('SELECT bugtracker.*, author.*
-		FROM ' . BugtrackerSetup::$bugtracker_table . ' bugtracker
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = bugtracker.author_id
-		' . $condition, $parameters);
+		$row = self::$db_querier->select_single_row_query('
+            SELECT bugtracker.*, author.*
+            FROM ' . BugtrackerSetup::$bugtracker_table . ' bugtracker
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = bugtracker.author_id
+            ' . $condition
+            , $parameters
+        );
 
 		$bug = new BugtrackerItem();
 		$bug->set_properties($row);
@@ -148,26 +151,31 @@ class BugtrackerService
 	 * Return the list of members which updated the bug.
 	 * @param int $bug_id ID of the bug which is concerned
 	 */
-	public static function get_updaters_list($bug_id)
+	public static function get_updaters_list(int $bug_id): array
 	{
 		$current_user = AppContext::get_current_user();
 		$bug = self::get_bug('WHERE id=:id', ['id' => $bug_id]);
 		$updaters_list = [];
 
 		if ($bug->get_author_user()->get_id() != $current_user->get_id())
+        {
 			$updaters_list[] = $bug->get_author_user()->get_id();
+        }
 
 		if ($bug->get_assigned_to_id() && $bug->get_assigned_to_id() != $bug->get_author_user()->get_id() && $bug->get_assigned_to_id() != $current_user->get_id())
+        {
 			$updaters_list[] = $bug->get_assigned_to_id();
+        }
 
 		$result = self::$db_querier->select_rows(BugtrackerSetup::$bugtracker_history_table, ['updater_id'], '
-		WHERE bug_id = :id AND updater_id NOT IN (:current_user_id, :author_user_id, :assigned_user_id)
-		GROUP BY updater_id', [
-			'id' => $bug_id,
-			'current_user_id' => $current_user->get_id(),
-			'author_user_id' => $bug->get_author_user()->get_id(),
-			'assigned_user_id' => $bug->get_assigned_to_id(),
-		]);
+            WHERE bug_id = :id AND updater_id NOT IN (:current_user_id, :author_user_id, :assigned_user_id)
+            GROUP BY updater_id', [
+                'id' => $bug_id,
+                'current_user_id' => $current_user->get_id(),
+                'author_user_id' => $bug->get_author_user()->get_id(),
+                'assigned_user_id' => $bug->get_assigned_to_id(),
+            ]
+        );
 
 		while ($row = $result->fetch())
 		{

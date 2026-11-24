@@ -1,21 +1,21 @@
-<?php
+SiteDisplayResponse<?php
 /**
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 11 13
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BugtrackerRoadmapListController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('bugtracker/BugtrackerRoadmapListController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_page_exists();
 
@@ -26,7 +26,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function check_page_exists()
+	private function check_page_exists(): void
 	{
 		if (!$this->config->is_roadmap_enabled())
 		{
@@ -35,7 +35,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!BugtrackerAuthorizationsService::check_authorizations()->read())
 		{
@@ -44,7 +44,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		}
 	}
 
-	private function build_view($request)
+	private function build_view(HTTPRequestCustom $request): Template
 	{
 		$severities = $this->config->get_severities();
 		$versions = array_reverse($this->config->get_versions(), true);
@@ -103,17 +103,18 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 
 			$pagination = $this->get_pagination($roadmap_status_bugs_number, $current_page, $roadmap_version, $roadmap_version_name, $roadmap_status, $field, $sort);
 
-			$result = PersistenceContext::get_querier()->select("SELECT b.*, member.*
-			FROM " . BugtrackerSetup::$bugtracker_table . " b
-			LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = b.author_id
-			WHERE fixed_in = " . $roadmap_version . "
-			" . ($roadmap_status != 'all' ? ($roadmap_status == BugtrackerItem::IN_PROGRESS ? "AND (b.status = '" . BugtrackerItem::IN_PROGRESS . "' OR b.status = '" . BugtrackerItem::REOPEN . "')" : "AND b.status = '" . BugtrackerItem::FIXED . "'") : "") . "
-			ORDER BY " . $field_bdd . " " . $mode . "
-			LIMIT :number_items_per_page OFFSET :display_from",
-				[
-					'number_items_per_page' => $pagination->get_number_items_per_page(),
-					'display_from' => $pagination->get_display_from()
-				]
+			$result = PersistenceContext::get_querier()->select("
+                SELECT b.*, member.*
+                FROM " . BugtrackerSetup::$bugtracker_table . " b
+                LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = b.author_id
+                WHERE fixed_in = " . $roadmap_version . "
+                " . ($roadmap_status != 'all' ? ($roadmap_status == BugtrackerItem::IN_PROGRESS ? "AND (b.status = '" . BugtrackerItem::IN_PROGRESS . "' OR b.status = '" . BugtrackerItem::REOPEN . "')" : "AND b.status = '" . BugtrackerItem::FIXED . "'") : "") . "
+                ORDER BY " . $field_bdd . " " . $mode . "
+                LIMIT :number_items_per_page OFFSET :display_from
+                ", [
+                    'number_items_per_page' => $pagination->get_number_items_per_page(),
+                    'display_from' => $pagination->get_display_from()
+                ]
 			);
 
 			$displayed_severities = [];
@@ -133,10 +134,22 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 			$result->dispose();
 
 			$bugs_colspan = 4;
-			if ($this->config->is_type_column_displayed()) $bugs_colspan++;
-			if ($this->config->is_category_column_displayed()) $bugs_colspan++;
-			if ($this->config->is_priority_column_displayed()) $bugs_colspan++;
-			if ($this->config->is_detected_in_column_displayed()) $bugs_colspan++;
+			if ($this->config->is_type_column_displayed())
+            {
+                $bugs_colspan++;
+            }
+			if ($this->config->is_category_column_displayed())
+            {
+                $bugs_colspan++;
+            }
+			if ($this->config->is_priority_column_displayed())
+            {
+                $bugs_colspan++;
+            }
+			if ($this->config->is_detected_in_column_displayed())
+            {
+                $bugs_colspan++;
+            }
 
 			$this->view->put_all([
 				'C_VERSIONS_AVAILABLE'			=> true,
@@ -167,7 +180,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		return $this->view;
 	}
 
-	private function build_form($requested_version_id, $requested_version_name, $requested_status, $nbr_bugs, $requested_version_release_date = 0)
+	private function build_form(int $requested_version_id, string $requested_version_name, string $requested_status, int $nbr_bugs, ?Date $requested_version_release_date = null): HTMLForm
 	{
 		$form = new HTMLForm('version', '', false);
 
@@ -196,7 +209,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		return $form;
 	}
 
-	private function build_select_versions()
+	private function build_select_versions(): array
 	{
 		$versions = array_reverse($this->config->get_versions(), true);
 
@@ -209,7 +222,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		return $array_versions;
 	}
 
-	private function build_select_status()
+	private function build_select_status(): array
 	{
 		$array_status[] = new FormFieldSelectChoiceOption($this->lang['status.' . BugtrackerItem::FIXED] . ' / ' . $this->lang['status.' . BugtrackerItem::IN_PROGRESS], 'all');
 		$array_status[] = new FormFieldSelectChoiceOption($this->lang['status.' . BugtrackerItem::FIXED], BugtrackerItem::FIXED);
@@ -218,7 +231,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		return $array_status;
 	}
 
-	private function get_pagination($bugs_number, $page, $roadmap_version, $roadmap_version_name, $roadmap_status, $field, $sort)
+	private function get_pagination(int $bugs_number, int $page, string $roadmap_version, string $roadmap_version_name, string $roadmap_status, string $field, string $sort): ModulePagination
 	{
 		$pagination = new ModulePagination($page, $bugs_number, (int)$this->config->get_items_per_page());
 		$pagination->set_url(BugtrackerUrlBuilder::roadmap($roadmap_version, $roadmap_version_name, $roadmap_status, $field, $sort, '%d'));
@@ -232,7 +245,7 @@ class BugtrackerRoadmapListController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function build_response(View $view)
+	private function build_response(View $view): SiteDisplayResponse
 	{
 		$versions = array_reverse($this->config->get_versions(), true);
 

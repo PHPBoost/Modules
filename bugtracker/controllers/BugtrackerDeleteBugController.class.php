@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 11 11
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,9 +11,9 @@
 
 class BugtrackerDeleteBugController extends DefaultModuleController
 {
-	private $bug;
+	private BugtrackerItem $bug;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		AppContext::get_session()->csrf_get_protect();
 
@@ -33,19 +33,22 @@ class BugtrackerDeleteBugController extends DefaultModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function init(HTTPRequestCustom $request)
+	private function init(HTTPRequestCustom $request): void
 	{
 		$id = $request->get_int('id', 0);
 
-		try {
+		try
+        {
 			$this->bug = BugtrackerService::get_bug('WHERE id=:id', ['id' => $id]);
-		} catch (RowNotFoundException $e) {
+		}
+        catch (RowNotFoundException $e)
+        {
 			$error_controller = new UserErrorController($this->lang['warning.error'], $this->lang['error.e_unexist_bug']);
 			DispatchManager::redirect($error_controller);
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!BugtrackerAuthorizationsService::check_authorizations()->moderation())
 		{
@@ -59,7 +62,7 @@ class BugtrackerDeleteBugController extends DefaultModuleController
 		}
 	}
 
-	private function build_form(HTTPRequestCustom $request)
+	private function build_form(HTTPRequestCustom $request): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -79,11 +82,8 @@ class BugtrackerDeleteBugController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function save()
+	private function save(): void
 	{
-		$now = new Date();
-		$current_user = AppContext::get_current_user();
-
 		if ($this->config->are_pm_enabled() && $this->config->are_pm_delete_enabled())
 		{
 			//Add comment if needed
@@ -107,7 +107,9 @@ class BugtrackerDeleteBugController extends DefaultModuleController
 		{
 			$alerts = AdministratorAlertService::find_by_criteria($this->bug->get_id(), 'bugtracker');
 			if (!empty($alerts))
+            {
 				AdministratorAlertService::delete_alert($alerts[0]);
+            }
 		}
 
 		BugtrackerStatsCache::invalidate();
@@ -117,7 +119,7 @@ class BugtrackerDeleteBugController extends DefaultModuleController
 		HooksService::execute_hook_action('delete', self::$module_id, $this->bug->get_properties());
 	}
 
-	private function build_response(View $view)
+	private function build_response(View $view): SiteDisplayResponse
 	{
 		$body_view = BugtrackerViews::build_body_view($view, 'delete', $this->bug->get_id(), $this->bug->get_type());
 

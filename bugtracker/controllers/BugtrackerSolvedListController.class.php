@@ -3,19 +3,19 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 11 13
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BugtrackerSolvedListController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('bugtracker/BugtrackerListController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -24,7 +24,7 @@ class BugtrackerSolvedListController extends DefaultModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function build_view($request)
+	private function build_view(HTTPRequestCustom $request): Template
 	{
 		$field = $request->get_value('field', BugtrackerUrlBuilder::DEFAULT_SORT_FIELD);
 		$sort = $request->get_value('sort', BugtrackerUrlBuilder::DEFAULT_SORT_MODE);
@@ -74,20 +74,20 @@ class BugtrackerSolvedListController extends DefaultModuleController
 			$select_filters .= in_array($f, ['type', 'category', 'severity', 'status', 'fixed_in']) && $filters_ids[$key] ? "AND " . $f . " = '" . $filters_ids[$key] . "'" : '';
 		}
 
-		$stats_cache = BugtrackerStatsCache::load();
 		$bugs_number = BugtrackerService::count("WHERE (status = '" . BugtrackerItem::FIXED . "' OR status = '" . BugtrackerItem::REJECTED . "')" . $select_filters);
 
 		$pagination = $this->get_pagination($bugs_number, $current_page, $field, $sort, $filter, $filter_id);
 
-		$result = PersistenceContext::get_querier()->select("SELECT b.*, member.*
-		FROM " . BugtrackerSetup::$bugtracker_table . " b
-		LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = b.author_id
-		WHERE (status = '" . BugtrackerItem::FIXED . "' OR status = '" . BugtrackerItem::REJECTED . "')" .
-		($this->config->is_restrict_display_to_own_elements_enabled() && !BugtrackerAuthorizationsService::check_authorizations()->moderation() ? "AND b.author_id = :user_id " : "") .
-		$select_filters . "
-		ORDER BY " . $field_bdd . " " . $mode . "
-		LIMIT :number_items_per_page OFFSET :display_from",
-			[
+		$result = PersistenceContext::get_querier()->select("
+            SELECT b.*, member.*
+            FROM " . BugtrackerSetup::$bugtracker_table . " b
+            LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = b.author_id
+            WHERE (status = '" . BugtrackerItem::FIXED . "' OR status = '" . BugtrackerItem::REJECTED . "')" .
+            ($this->config->is_restrict_display_to_own_elements_enabled() && !BugtrackerAuthorizationsService::check_authorizations()->moderation() ? "AND b.author_id = :user_id " : "") .
+            $select_filters . "
+            ORDER BY " . $field_bdd . " " . $mode . "
+            LIMIT :number_items_per_page OFFSET :display_from
+            ", [
 				'user_id' => AppContext::get_current_user()->get_id(),
 				'number_items_per_page' => $pagination->get_number_items_per_page(),
 				'display_from' => $pagination->get_display_from()
@@ -104,20 +104,32 @@ class BugtrackerSolvedListController extends DefaultModuleController
 			if (!in_array($bug->get_status(), $displayed_status)) $displayed_status[] = $bug->get_status();
 
 			$this->view->assign_block_vars('bug', array_merge($bug->get_template_vars(), [
-				'C_LINE_COLOR'		=> true,
-				'LINE_COLOR' 		=> $bug->is_fixed() ? $this->config->get_fixed_bug_color() : $this->config->get_rejected_bug_color(),
-				'U_CHANGE_STATUS'	=> BugtrackerUrlBuilder::change_status($bug->get_id())->rel(),
-				'U_EDIT'			=> BugtrackerUrlBuilder::edit($bug->get_id(), 'solved', $current_page, $filter, $filter_id)->rel(),
-				'U_DELETE'			=> BugtrackerUrlBuilder::delete($bug->get_id(), 'solved', $current_page, $filter, $filter_id)->rel(),
+				'C_LINE_COLOR'	  => true,
+				'LINE_COLOR' 	  => $bug->is_fixed() ? $this->config->get_fixed_bug_color() : $this->config->get_rejected_bug_color(),
+				'U_CHANGE_STATUS' => BugtrackerUrlBuilder::change_status($bug->get_id())->rel(),
+				'U_EDIT'		  => BugtrackerUrlBuilder::edit($bug->get_id(), 'solved', $current_page, $filter, $filter_id)->rel(),
+				'U_DELETE'		  => BugtrackerUrlBuilder::delete($bug->get_id(), 'solved', $current_page, $filter, $filter_id)->rel(),
 			]));
 		}
 		$result->dispose();
 
 		$bugs_colspan = BugtrackerAuthorizationsService::check_authorizations()->moderation() ? 5 : 4;
-		if ($this->config->is_type_column_displayed()) $bugs_colspan++;
-		if ($this->config->is_category_column_displayed()) $bugs_colspan++;
-		if ($this->config->is_priority_column_displayed()) $bugs_colspan++;
-		if ($this->config->is_detected_in_column_displayed()) $bugs_colspan++;
+		if ($this->config->is_type_column_displayed())
+        {
+            $bugs_colspan++;
+        }
+		if ($this->config->is_category_column_displayed())
+        {
+            $bugs_colspan++;
+        }
+		if ($this->config->is_priority_column_displayed())
+        {
+            $bugs_colspan++;
+        }
+		if ($this->config->is_detected_in_column_displayed())
+        {
+            $bugs_colspan++;
+        }
 
 		$this->view->put_all([
 			'C_IS_ADMIN'					=> BugtrackerAuthorizationsService::check_authorizations()->moderation(),
@@ -142,12 +154,14 @@ class BugtrackerSolvedListController extends DefaultModuleController
 		]);
 
 		if ($this->config->is_restrict_display_to_own_elements_enabled() && !BugtrackerAuthorizationsService::check_authorizations()->moderation() && !AppContext::get_current_user()->is_guest())
+        {
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['warning.restrict_display_to_own_elements_enabled'], MessageHelper::WARNING));
+        }
 
 		return $this->view;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!BugtrackerAuthorizationsService::check_authorizations()->read())
 		{
@@ -156,7 +170,7 @@ class BugtrackerSolvedListController extends DefaultModuleController
 		}
 	}
 
-	private function get_pagination($bugs_number, $page, $field, $sort, $filter, $filter_id)
+	private function get_pagination(int $bugs_number, string $page, string $field, string $sort, string $filter, string $filter_id): ModulePagination
 	{
 		$pagination = new ModulePagination($page, $bugs_number, (int)BugtrackerConfig::load()->get_items_per_page());
 		$pagination->set_url(BugtrackerUrlBuilder::solved($field, $sort, '%d', $filter, $filter_id));
@@ -170,7 +184,7 @@ class BugtrackerSolvedListController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function build_response(View $view)
+	private function build_response(View $view): SiteDisplayResponse
 	{
 		$request = AppContext::get_request();
 

@@ -10,43 +10,43 @@
 
 class BugtrackerSetup extends DefaultModuleSetup
 {
-	public static $bugtracker_table;
-	public static $bugtracker_history_table;
-	public static $bugtracker_users_filters_table;
+	public static string $bugtracker_table;
+	public static string $bugtracker_history_table;
+	public static string $bugtracker_users_filters_table;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$bugtracker_table = PREFIX . 'bugtracker';
 		self::$bugtracker_history_table = PREFIX . 'bugtracker_history';
 		self::$bugtracker_users_filters_table = PREFIX . 'bugtracker_users_filters';
 	}
 
-	public function install()
+	public function install(): void
 	{
 		$this->drop_tables();
 		$this->create_tables();
 		$this->insert_data();
 	}
 
-	public function uninstall()
+	public function uninstall(): void
 	{
 		$this->drop_tables();
 		ConfigManager::delete('bugtracker', 'config');
 	}
 
-	private function drop_tables()
+	private function drop_tables(): void
 	{
 		PersistenceContext::get_dbms_utils()->drop([self::$bugtracker_table, self::$bugtracker_history_table, self::$bugtracker_users_filters_table]);
 	}
 
-	private function create_tables()
+	private function create_tables(): void
 	{
 		$this->create_bugtracker_table();
 		$this->create_bugtracker_history_table();
 		$this->create_bugtracker_users_filters_table();
 	}
 
-	private function create_bugtracker_table()
+	private function create_bugtracker_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -76,7 +76,7 @@ class BugtrackerSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$bugtracker_table, $fields, $options);
 	}
 
-	private function create_bugtracker_history_table()
+	private function create_bugtracker_history_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -95,7 +95,7 @@ class BugtrackerSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$bugtracker_history_table, $fields, $options);
 	}
 
-	private function create_bugtracker_users_filters_table()
+	private function create_bugtracker_users_filters_table(): void
 	{
 		$fields = [
 			'id' => ['type' => 'integer', 'length' => 11, 'autoincrement' => true, 'notnull' => 1],
@@ -111,7 +111,7 @@ class BugtrackerSetup extends DefaultModuleSetup
 		PersistenceContext::get_dbms_utils()->create_table(self::$bugtracker_users_filters_table, $fields, $options);
 	}
 
-	private function insert_data()
+	private function insert_data(): void
 	{
 		$lang = LangLoader::get('install', 'bugtracker');
 

@@ -11,15 +11,15 @@
 
 class BugtrackerChangeBugStatusController extends DefaultModuleController
 {
-	private $bug;
-	private $current_user;
+	private BugtrackerItem $bug;
+	private CurrentUser $current_user;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('bugtracker/BugtrackerChangeBugStatusController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->init($request);
 
@@ -33,7 +33,9 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 
 			$this->form->get_field_by_id('assigned_to')->set_hidden(!$this->bug->is_assigned());
 			if ($this->config->get_versions_fix())
+            {
 				$this->form->get_field_by_id('fixed_in')->set_hidden(!$this->bug->is_fixed() && !$this->bug->is_in_progress());
+            }
 			$this->form->get_field_by_id('comments_message')->set_value('');
 
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['success.' . $this->bug->get_status()], MessageHelper::SUCCESS, 5));
@@ -43,13 +45,16 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function init(HTTPRequestCustom $request)
+	private function init(HTTPRequestCustom $request): void
 	{
 		$id = $request->get_int('id', 0);
 
-		try {
+		try
+        {
 			$this->bug = BugtrackerService::get_bug('WHERE id=:id', ['id' => $id]);
-		} catch (RowNotFoundException $e) {
+		}
+        catch (RowNotFoundException $e)
+        {
 			$error_controller = new UserErrorController($this->lang['warning.error'], $this->lang['error.e_unexist_bug']);
 			DispatchManager::redirect($error_controller);
 		}
@@ -57,7 +62,7 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 		$this->current_user = AppContext::get_current_user();
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!BugtrackerAuthorizationsService::check_authorizations()->moderation() && ($this->current_user->get_id() != $this->bug->get_assigned_to_id()))
 		{
@@ -71,7 +76,7 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 		}
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$versions = array_reverse($this->config->get_versions_fix(), true);
 		$versions_number = count($versions);
@@ -111,7 +116,9 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 			foreach ($versions as $key => $version)
 			{
 				if ($key > $this->bug->get_detected_in())
+                {
 					$array_versions[] = new FormFieldSelectChoiceOption(stripslashes($version['name']), $key);
+                }
 			}
 
 			$fieldset->add_field(new FormFieldSimpleSelectChoice('fixed_in', $this->lang['labels.fields.fixed_in'], $this->bug->get_fixed_in(), $array_versions,
@@ -119,9 +126,9 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 			]));
 		}
 
-		$fieldset->add_field(new FormFieldRichTextEditor('comments_message', $this->lang['comment.comment'], '', [
-			'description' => $this->lang['explain.change_status_comments_message']
-		]));
+		$fieldset->add_field(new FormFieldRichTextEditor('comments_message', $this->lang['comment.comment'], '',
+            ['description' => $this->lang['explain.change_status_comments_message']]
+        ));
 
 		$this->submit_button = new FormButtonDefaultSubmit();
 		$form->add_button($this->submit_button);
@@ -130,7 +137,7 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function get_status_list()
+	private function get_status_list(): array
 	{
 		return [
 			BugtrackerItem::NEW_BUG     => $this->lang['status.new'],
@@ -143,7 +150,7 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 		];
 	}
 
-	private function generate_status_list_select()
+	private function generate_status_list_select(): array
 	{
 		$options = [];
 		foreach ($this->get_status_list() as $id => $label)
@@ -154,7 +161,7 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 		return $options;
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$now = new Date();
 		$pm_recipients_list = [];
@@ -184,8 +191,10 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 					$this->bug->set_fixed_in($fixed_in);
 				}
 			}
-			else if (in_array($status, [BugtrackerItem::NEW_BUG, BugtrackerItem::REJECTED]))
+			elseif (in_array($status, [BugtrackerItem::NEW_BUG, BugtrackerItem::REJECTED]))
+            {
 				$this->bug->set_fixed_in(0);
+            }
 		}
 
 		if (!$this->form->field_is_disabled('assigned_to'))
@@ -199,7 +208,9 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 				$old_user_assigned = !empty($old_user_assigned_id) ? UserService::get_user($old_user_assigned_id) : 0;
 			}
 			else
+            {
 				$old_user_assigned = 0;
+            }
 
 			$new_user_assigned = !empty($assigned_to) && !empty($assigned_to_id) ? UserService::get_user($assigned_to_id) : 0;
 			$new_assigned_to_id = !empty($new_user_assigned) ? $new_user_assigned->get_id() : 0;
@@ -221,9 +232,13 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 
 				//The PM will only be sent to the assigned user
 				if ($new_assigned_to_id != $this->current_user->get_id())
+                {
 					$pm_recipients_list[] = $new_assigned_to_id;
+                }
 				else
+                {
 					$send_pm = false;
+                }
 			}
 		}
 
@@ -243,9 +258,13 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 			//Bug update
 			$this->bug->set_status($status);
 			if ($this->bug->is_fixed() || $this->bug->is_rejected())
+            {
 				$this->bug->set_fix_date($now);
+            }
 			else
-				$this->bug->set_fix_date(0);
+            {
+				$this->bug->set_fix_date(null);
+            }
 		}
 
 		BugtrackerService::update($this->bug);
@@ -297,7 +316,9 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 
 		//Send PM with comment to updaters if the option is enabled
 		if (!$this->bug->is_new() && $this->config->are_pm_enabled() && $is_pm_enabled && $send_pm)
+        {
 			BugtrackerPMService::send_PM_to_updaters($status, $this->bug->get_id(), $comment, $pm_recipients_list);
+        }
 
 		if (in_array($status, [BugtrackerItem::NEW_BUG, BugtrackerItem::REOPEN, BugtrackerItem::REJECTED, BugtrackerItem::FIXED]) && $this->config->are_admin_alerts_enabled() && in_array($this->bug->get_severity(), $this->config->get_admin_alerts_levels()))
 		{
@@ -318,7 +339,9 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 						AdministratorAlertService::save_alert($alert);
 					}
 					else
+                    {
 						AdministratorAlertService::delete_alert($alert);
+                    }
 				}
 			}
 		}
@@ -330,10 +353,8 @@ class BugtrackerChangeBugStatusController extends DefaultModuleController
 		HooksService::execute_hook_action('bugtracker_change_status', self::$module_id, array_merge(['url' => BugtrackerUrlBuilder::detail($this->bug->get_id() . '-' . $this->bug->get_rewrited_title())->rel()], $this->bug->get_properties()), $hook_description);
 	}
 
-	private function build_response(View $view)
+	private function build_response(View $view): SiteDisplayResponse
 	{
-		$request = AppContext::get_request();
-
 		$body_view = BugtrackerViews::build_body_view($view, 'change_status', $this->bug->get_id(), $this->bug->get_type());
 
 		$response = new SiteDisplayResponse($body_view);

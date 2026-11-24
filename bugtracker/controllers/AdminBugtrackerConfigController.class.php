@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 10 18
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      mipel <mipel@phpboost.com>
@@ -12,9 +12,9 @@
 
 class AdminBugtrackerConfigController extends DefaultAdminModuleController
 {
-	private $max_input = 500;
+	private int $max_input = 500;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminBugtrackerDisplayResponse
 	{
 		$this->build_form();
 
@@ -53,7 +53,7 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		return new AdminBugtrackerDisplayResponse($this->view, StringVars::replace_vars($this->lang['form.module.title'], ['module_name' => self::get_module()->get_configuration()->get_name()]));
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -98,7 +98,8 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("progress_bar_displayed").getValue()) {
+					if (HTMLForms.getField("progress_bar_displayed").getValue())
+                    {
 						HTMLForms.getField("' . BugtrackerItem::NEW_BUG . '").enable();
 						HTMLForms.getField("' . BugtrackerItem::PENDING . '").enable();
 						HTMLForms.getField("' . BugtrackerItem::ASSIGNED . '").enable();
@@ -106,7 +107,9 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 						HTMLForms.getField("' . BugtrackerItem::REJECTED . '").enable();
 						HTMLForms.getField("' . BugtrackerItem::REOPEN . '").enable();
 						HTMLForms.getField("' . BugtrackerItem::FIXED . '").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("' . BugtrackerItem::NEW_BUG . '").disable();
 						HTMLForms.getField("' . BugtrackerItem::PENDING . '").disable();
 						HTMLForms.getField("' . BugtrackerItem::ASSIGNED . '").disable();
@@ -134,10 +137,13 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'top-field custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("admin_alerts_enabled").getValue()) {
+					if (HTMLForms.getField("admin_alerts_enabled").getValue())
+                    {
 						HTMLForms.getField("admin_alerts_fix_action").enable();
 						HTMLForms.getField("admin_alerts_levels").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("admin_alerts_fix_action").disable();
 						HTMLForms.getField("admin_alerts_levels").disable();
 					}'
@@ -170,10 +176,13 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("stats_enabled").getValue()) {
+					if (HTMLForms.getField("stats_enabled").getValue())
+                    {
 						HTMLForms.getField("stats_top_posters_enabled").enable();
 						HTMLForms.getField("stats_top_posters_number").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("stats_top_posters_enabled").disable();
 						HTMLForms.getField("stats_top_posters_number").disable();
 					}'
@@ -186,9 +195,12 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 				'class' => 'custom-checkbox',
 				'hidden' => !$this->config->are_stats_enabled(),
 				'events' => ['click' => '
-					if (HTMLForms.getField("stats_top_posters_enabled").getValue()) {
+					if (HTMLForms.getField("stats_top_posters_enabled").getValue())
+                    {
 						HTMLForms.getField("stats_top_posters_number").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("stats_top_posters_number").disable();
 					}'
 				]
@@ -207,7 +219,8 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("pm_enabled").getValue()) {
+					if (HTMLForms.getField("pm_enabled").getValue())
+                    {
 						HTMLForms.getField("pm_edit_enabled").enable();
 						HTMLForms.getField("pm_delete_enabled").enable();
 						HTMLForms.getField("pm_comment_enabled").enable();
@@ -217,7 +230,9 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 						HTMLForms.getField("pm_fix_enabled").enable();
 						HTMLForms.getField("pm_reject_enabled").enable();
 						HTMLForms.getField("pm_reopen_enabled").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("pm_edit_enabled").disable();
 						HTMLForms.getField("pm_delete_enabled").disable();
 						HTMLForms.getField("pm_comment_enabled").disable();
@@ -376,7 +391,7 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function build_admin_alerts_levels($severities)
+	private function build_admin_alerts_levels(array $severities): array
 	{
 		$list = [];
 
@@ -388,7 +403,7 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		return $list;
 	}
 
-	private function build_types_table()
+	private function build_types_table(): FileTemplate
 	{
 		$types = $this->config->get_types();
 
@@ -417,7 +432,7 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		return $types_table;
 	}
 
-	private function build_categories_table()
+	private function build_categories_table(): FileTemplate
 	{
 		$categories = $this->config->get_categories();
 
@@ -446,7 +461,7 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		return $categories_table;
 	}
 
-	private function build_severities_table()
+	private function build_severities_table(): FileTemplate
 	{
 		$severities = $this->config->get_severities();
 
@@ -473,7 +488,7 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		return $severities_table;
 	}
 
-	private function build_priorities_table()
+	private function build_priorities_table(): FileTemplate
 	{
 		$priorities = $this->config->get_priorities();
 
@@ -499,7 +514,7 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		return $priorities_table;
 	}
 
-	private function build_versions_table()
+	private function build_versions_table(): FileTemplate
 	{
 		$versions = $this->config->get_versions();
 
@@ -525,13 +540,14 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		}
 
 		$versions_table->put_all([
-			'C_VERSIONS'					  => !empty($versions),
-			'MAX_INPUT'						  => $this->max_input,
-			'NEXT_ID'						  => $key + 1,
-			'DAY'							  => date('j'),
-			'MONTH'							  => date('n'),
-			'YEAR'							  => date('Y'),
-			'C_DISPLAY_DEFAULT_DELETE_BUTTON' => $this->config->get_default_version(),
+			'C_VERSIONS' => !empty($versions),
+			'MAX_INPUT'  => $this->max_input,
+			'NEXT_ID'    => $key + 1,
+			'DAY'        => date('j'),
+			'MONTH'      => date('n'),
+			'YEAR'       => date('Y'),
+
+            'C_DISPLAY_DEFAULT_DELETE_BUTTON' => $this->config->get_default_version(),
 			'LINK_DELETE_DEFAULT'			  => BugtrackerUrlBuilder::delete_default_parameter('version')->rel()
 		]);
 
@@ -561,9 +577,13 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			if ($request->has_postparameter($type) && $request->get_poststring($type))
 			{
 				if (empty($nb_types))
+                {
 					$types[1] = addslashes($request->get_poststring($type));
+                }
 				else
+                {
 					$types[] = addslashes($request->get_poststring($type));
+                }
 				$nb_types++;
 			}
 		}
@@ -581,9 +601,13 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			if ($request->has_postparameter($category) && $request->get_poststring($category))
 			{
 				if (empty($nb_categories))
+                {
 					$categories[1] = addslashes($request->get_poststring($category));
+                }
 				else
+                {
 					$categories[] = addslashes($request->get_poststring($category));
+                }
 				$nb_categories++;
 			}
 		}
@@ -624,17 +648,21 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 				$release_date = $release_date ? $release_date->get_timestamp() : '';
 
 				if (empty($nb_versions))
+                {
 					$versions[1] = [
 						'name'		   => addslashes($request->get_poststring($version)),
 						'release_date' => $release_date,
 						'detected_in'  => (bool)$request->get_value('detected_in' . $i, '')
 					];
+                }
 				else
+                {
 					$versions[] = [
 						'name'		   => addslashes($request->get_poststring($version)),
 						'release_date' => $release_date,
 						'detected_in'  => (bool)$request->get_value('detected_in' . $i, '')
 					];
+                }
 				$nb_versions++;
 			}
 		}
@@ -644,14 +672,22 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 		$this->config->set_fixed_bug_color($this->form->get_value('fixed_bug_color'));
 
 		if ($this->form->get_value('roadmap_enabled'))
+        {
 			$this->config->enable_roadmap();
+        }
 		else
+        {
 			$this->config->disable_roadmap();
+        }
 
 		if ($this->form->get_value('restrict_display_to_own_elements_enabled'))
+        {
 			$this->config->enable_restrict_display_to_own_elements();
+        }
 		else
+        {
 			$this->config->disable_restrict_display_to_own_elements();
+        }
 
 		if ($this->form->get_value('progress_bar_displayed'))
 		{
@@ -665,7 +701,9 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			$this->config->set_status_list($status_list);
 		}
 		else
+        {
 			$this->config->hide_progress_bar();
+        }
 
 		if ($this->form->get_value('admin_alerts_enabled'))
 		{
@@ -680,7 +718,9 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 			$this->config->set_admin_alerts_levels($admin_alerts_levels);
 		}
 		else
+        {
 			$this->config->disable_admin_alerts();
+        }
 
 		if ($this->form->get_value('stats_enabled'))
 		{
@@ -691,121 +731,199 @@ class AdminBugtrackerConfigController extends DefaultAdminModuleController
 				$this->config->set_stats_top_posters_number($this->form->get_value('stats_top_posters_number'));
 			}
 			else
+            {
 				$this->config->disable_stats_top_posters();
+            }
 		}
 		else
+        {
 			$this->config->disable_stats();
+        }
 
 		if ($this->form->get_value('pm_enabled'))
 		{
 			$this->config->enable_pm();
 
 			if ($this->form->get_value('pm_comment_enabled'))
+            {
 				$this->config->enable_pm_comment();
+            }
 			else
+            {
 				$this->config->disable_pm_comment();
+            }
 
 			if ($this->form->get_value('pm_in_progress_enabled'))
+            {
 				$this->config->enable_pm_in_progress();
+            }
 			else
+            {
 				$this->config->disable_pm_in_progress();
+            }
 
 			if ($this->form->get_value('pm_fix_enabled'))
+            {
 				$this->config->enable_pm_fix();
+            }
 			else
+            {
 				$this->config->disable_pm_fix();
+            }
 
 			if ($this->form->get_value('pm_pending_enabled'))
+            {
 				$this->config->enable_pm_pending();
+            }
 			else
+            {
 				$this->config->disable_pm_pending();
+            }
 
 			if ($this->form->get_value('pm_assign_enabled'))
+            {
 				$this->config->enable_pm_assign();
+            }
 			else
+            {
 				$this->config->disable_pm_assign();
+            }
 
 			if ($this->form->get_value('pm_edit_enabled'))
+            {
 				$this->config->enable_pm_edit();
+            }
 			else
+            {
 				$this->config->disable_pm_edit();
+            }
 
 			if ($this->form->get_value('pm_reject_enabled'))
+            {
 				$this->config->enable_pm_reject();
+            }
 			else
+            {
 				$this->config->disable_pm_reject();
+            }
 
 			if ($this->form->get_value('pm_reopen_enabled'))
+            {
 				$this->config->enable_pm_reopen();
+            }
 			else
+            {
 				$this->config->disable_pm_reopen();
+            }
 
 			if ($this->form->get_value('pm_delete_enabled'))
+            {
 				$this->config->enable_pm_delete();
+            }
 			else
+            {
 				$this->config->disable_pm_delete();
+            }
 		}
 		else
+        {
 			$this->config->disable_pm();
+        }
 
 		$this->config->set_content_value($this->form->get_value('content_value'));
 
 		if ($this->form->get_value('type_mandatory'))
+        {
 			$this->config->type_mandatory();
+        }
 		else
+        {
 			$this->config->type_not_mandatory();
+        }
 
 		if ($this->form->get_value('display_type_column'))
+        {
 			$this->config->display_type_column();
+        }
 		else
+        {
 			$this->config->hide_type_column();
+        }
 
 		$this->config->set_types($types);
 		$this->config->set_default_type($request->get_value('default_type', 0));
 
 		if ($this->form->get_value('category_mandatory'))
+        {
 			$this->config->category_mandatory();
+        }
 		else
+        {
 			$this->config->category_not_mandatory();
+        }
 
 		if ($this->form->get_value('display_category_column'))
+        {
 			$this->config->display_category_column();
+        }
 		else
+        {
 			$this->config->hide_category_column();
+        }
 
 		$this->config->set_categories($categories);
 		$this->config->set_default_category($request->get_value('default_category', 0));
 
 		if ($this->form->get_value('severity_mandatory'))
+        {
 			$this->config->severity_mandatory();
+        }
 		else
+        {
 			$this->config->severity_not_mandatory();
+        }
 
 		$this->config->set_severities($severities);
 		$this->config->set_default_severity($request->get_value('default_severity', 0));
 
 		if ($this->form->get_value('priority_mandatory'))
+        {
 			$this->config->priority_mandatory();
+        }
 		else
+        {
 			$this->config->priority_not_mandatory();
+        }
 
 		if ($this->form->get_value('display_priority_column'))
+        {
 			$this->config->display_priority_column();
+        }
 		else
+        {
 			$this->config->hide_priority_column();
+        }
 
 		$this->config->set_priorities($priorities);
 		$this->config->set_default_priority($request->get_value('default_priority', 0));
 
 		if ($this->form->get_value('detected_in_version_mandatory'))
+        {
 			$this->config->detected_in_version_mandatory();
+        }
 		else
+        {
 			$this->config->detected_in_version_not_mandatory();
+        }
 
 		if ($this->form->get_value('display_detected_in_column'))
+        {
 			$this->config->display_detected_in_column();
+        }
 		else
+        {
 			$this->config->hide_detected_in_column();
+        }
 
 		$this->config->set_versions($versions);
 		$this->config->set_default_version($request->get_value('default_version', 0));

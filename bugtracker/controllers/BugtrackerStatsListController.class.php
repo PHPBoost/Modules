@@ -11,12 +11,12 @@
 
 class BugtrackerStatsListController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('bugtracker/BugtrackerStatsListController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_page_exists();
 
@@ -27,7 +27,7 @@ class BugtrackerStatsListController extends DefaultModuleController
 		return $this->build_response($this->view);
 	}
 
-	private function build_view($request)
+	private function build_view(HTTPRequestCustom $request): Template
 	{
 		$versions = $this->config->get_versions();
 		$display_versions = count($versions);
@@ -97,7 +97,7 @@ class BugtrackerStatsListController extends DefaultModuleController
 		return $this->view;
 	}
 
-	private function check_page_exists()
+	private function check_page_exists(): void
 	{
 		if (!BugtrackerConfig::load()->are_stats_enabled())
 		{
@@ -106,7 +106,7 @@ class BugtrackerStatsListController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!BugtrackerAuthorizationsService::check_authorizations()->read())
 		{
@@ -115,7 +115,7 @@ class BugtrackerStatsListController extends DefaultModuleController
 		}
 	}
 
-	private function build_response(View $view)
+	private function build_response(View $view): SiteDisplayResponse
 	{
 		$body_view = BugtrackerViews::build_body_view($view, 'stats');
 

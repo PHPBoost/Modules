@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2014 01 29
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,11 +11,11 @@
 
 class BugtrackerFormController extends DefaultModuleController
 {
-	private $bug;
-	private $current_user;
-	private $is_new_bug;
+	private BugtrackerItem $bug;
+	private CurrentUser $current_user;
+	private bool $is_new_bug;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->init();
 
@@ -33,12 +33,12 @@ class BugtrackerFormController extends DefaultModuleController
 		return $this->generate_response($this->view);
 	}
 
-	private function init()
+	private function init(): void
 	{
 		$this->current_user = AppContext::get_current_user();
 	}
 
-	private function build_form(HTTPRequestCustom $request)
+	private function build_form(HTTPRequestCustom $request): void
 	{
 		$bug = $this->get_bug();
 
@@ -67,8 +67,8 @@ class BugtrackerFormController extends DefaultModuleController
 
 		$fieldset->add_field(new FormFieldTextEditor('title', $this->lang['form.title'], $bug->get_title(), ['required' => true]));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['form.description'], $bug->get_content(), [
-			'description' => $this->lang['explain.content'], 'rows' => 15, 'required' => true]
+		$fieldset->add_field(new FormFieldRichTextEditor('content', $this->lang['form.description'], $bug->get_content(),
+            ['description' => $this->lang['explain.content'], 'rows' => 15, 'required' => true]
 		));
 
 		//Types
@@ -84,8 +84,8 @@ class BugtrackerFormController extends DefaultModuleController
 				$array_types[] = new FormFieldSelectChoiceOption(stripslashes($type), $key);
 			}
 
-			$fieldset->add_field(new FormFieldSimpleSelectChoice('type', $this->lang['labels.fields.type'], $bug->get_type(), $array_types, [
-				'required' => $this->config->is_type_mandatory()]
+			$fieldset->add_field(new FormFieldSimpleSelectChoice('type', $this->lang['labels.fields.type'], $bug->get_type(), $array_types,
+                ['required' => $this->config->is_type_mandatory()]
 			));
 		}
 
@@ -102,8 +102,8 @@ class BugtrackerFormController extends DefaultModuleController
 				$array_categories[] = new FormFieldSelectChoiceOption(stripslashes($category), $key);
 			}
 
-			$fieldset->add_field(new FormFieldSimpleSelectChoice('category', $this->lang['labels.fields.category'], $bug->get_category(), $array_categories, [
-				'required' => $this->config->is_category_mandatory()]
+			$fieldset->add_field(new FormFieldSimpleSelectChoice('category', $this->lang['labels.fields.category'], $bug->get_category(), $array_categories,
+                ['required' => $this->config->is_category_mandatory()]
 			));
 		}
 
@@ -122,8 +122,8 @@ class BugtrackerFormController extends DefaultModuleController
 					$array_severities[] = new FormFieldSelectChoiceOption(stripslashes($severity['name']), $key);
 				}
 
-				$fieldset->add_field(new FormFieldSimpleSelectChoice('severity', $this->lang['labels.fields.severity'], $bug->get_severity(), $array_severities, [
-					'required' => $this->config->is_severity_mandatory()]
+				$fieldset->add_field(new FormFieldSimpleSelectChoice('severity', $this->lang['labels.fields.severity'], $bug->get_severity(), $array_severities,
+                    ['required' => $this->config->is_severity_mandatory()]
 				));
 			}
 
@@ -140,8 +140,8 @@ class BugtrackerFormController extends DefaultModuleController
 					$array_priorities[] = new FormFieldSelectChoiceOption(stripslashes($priority), $key);
 				}
 
-				$fieldset->add_field(new FormFieldSimpleSelectChoice('priority', $this->lang['labels.fields.priority'], $bug->get_priority(), $array_priorities, [
-					'required' => $this->config->is_priority_mandatory()]
+				$fieldset->add_field(new FormFieldSimpleSelectChoice('priority', $this->lang['labels.fields.priority'], $bug->get_priority(), $array_priorities,
+                    ['required' => $this->config->is_priority_mandatory()]
 				));
 			}
 		}
@@ -159,22 +159,28 @@ class BugtrackerFormController extends DefaultModuleController
 				$array_versions[] = new FormFieldSelectChoiceOption(stripslashes($version['name']), $key);
 			}
 
-			$fieldset->add_field(new FormFieldSimpleSelectChoice('detected_in', $this->lang['labels.fields.detected_in'], $bug->get_detected_in(), $array_versions, [
-				'required' => $this->config->is_detected_in_version_mandatory()]
+			$fieldset->add_field(new FormFieldSimpleSelectChoice('detected_in', $this->lang['labels.fields.detected_in'], $bug->get_detected_in(), $array_versions,
+                ['required' => $this->config->is_detected_in_version_mandatory()]
 			));
 		}
 
 		$fieldset->add_field(new FormFieldCheckbox('reproductible', $this->lang['labels.fields.reproductible'], $bug->is_reproductible() ? FormFieldCheckbox::CHECKED : FormFieldCheckbox::UNCHECKED,
-			['events' => ['click' => '
-			if (HTMLForms.getField("reproductible").getValue()) {
-				HTMLForms.getField("reproduction_method").enable();
-			} else {
-				HTMLForms.getField("reproduction_method").disable();
-			}']
-		]));
+			[
+                'events' => ['click' => '
+                    if (HTMLForms.getField("reproductible").getValue())
+                    {
+                        HTMLForms.getField("reproduction_method").enable();
+                    }
+                    else
+                    {
+                        HTMLForms.getField("reproduction_method").disable();
+                    }'
+                ]
+            ]
+        ));
 
-		$fieldset->add_field(new FormFieldRichTextEditor('reproduction_method', $this->lang['labels.fields.reproduction_method'], FormatingHelper::unparse($bug->get_reproduction_method()), [
-			'rows' => 15, 'hidden' => !$bug->is_reproductible()]
+		$fieldset->add_field(new FormFieldRichTextEditor('reproduction_method', $this->lang['labels.fields.reproduction_method'], FormatingHelper::unparse($bug->get_reproduction_method()),
+            ['rows' => 15, 'hidden' => !$bug->is_reproductible()]
 		));
 
 		$fieldset->add_field(new FormFieldHidden('referrer', $request->get_url_referrer()));
@@ -186,7 +192,7 @@ class BugtrackerFormController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function get_bug()
+	private function get_bug(): BugtrackerItem
 	{
 		if ($this->bug === null)
 		{
@@ -194,9 +200,12 @@ class BugtrackerFormController extends DefaultModuleController
 			$id = $request->get_getint('id', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->bug = BugtrackerService::get_bug('WHERE id=:id', ['id' => $id]);
-				} catch (RowNotFoundException $e) {
+				}
+                catch (RowNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
@@ -211,7 +220,7 @@ class BugtrackerFormController extends DefaultModuleController
 		return $this->bug;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		$bug = $this->get_bug();
 
@@ -238,7 +247,7 @@ class BugtrackerFormController extends DefaultModuleController
 		}
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$bug = $this->get_bug();
 
@@ -257,7 +266,9 @@ class BugtrackerFormController extends DefaultModuleController
 			$bug->set_reproductible($this->form->get_value('reproductible') ? true : 0);
 
 			if ($bug->is_reproductible())
+            {
 				$bug->set_reproduction_method($this->form->get_value('reproduction_method'));
+            }
 
 			//Bug creation
 			$bug->set_id(BugtrackerService::add($bug));
@@ -278,41 +289,34 @@ class BugtrackerFormController extends DefaultModuleController
 							case 1 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_VERY_LOW_PRIORITY;
 								break;
-
 							case 2 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_LOW_PRIORITY;
 								break;
-
 							default :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_MEDIUM_PRIORITY;
 								break;
 						}
 						break;
-
 					case 2 :
 						switch ($bug->get_severity())
 						{
 							case 1 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_LOW_PRIORITY;
 								break;
-
 							default :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_MEDIUM_PRIORITY;
 								break;
 						}
 						break;
-
 					case 3 :
 						switch ($bug->get_severity())
 						{
 							case 1 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_LOW_PRIORITY;
 								break;
-
 							case 2 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_MEDIUM_PRIORITY;
 								break;
-
 							case 3 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_HIGH_PRIORITY;
 								break;
@@ -322,56 +326,46 @@ class BugtrackerFormController extends DefaultModuleController
 								break;
 						}
 						break;
-
 					case 4 :
 						switch ($bug->get_severity())
 						{
 							case 2 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_MEDIUM_PRIORITY;
 								break;
-
 							case 3 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_HIGH_PRIORITY;
 								break;
-
 							default :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_LOW_PRIORITY;
 								break;
 						}
 						break;
-
 					case 5 :
 						switch ($bug->get_severity())
 						{
 							case 2 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_HIGH_PRIORITY;
 								break;
-
 							case 3 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_VERY_HIGH_PRIORITY;
 								break;
-
 							default :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_MEDIUM_PRIORITY;
 								break;
 						}
 						break;
-
 					default :
 						switch ($bug->get_severity())
 						{
 							case 1 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_LOW_PRIORITY;
 								break;
-
 							case 2 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_MEDIUM_PRIORITY;
 								break;
-
 							case 3 :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_HIGH_PRIORITY;
 								break;
-
 							default :
 								$alert_priority = AdministratorAlert::ADMIN_ALERT_MEDIUM_PRIORITY;
 								break;
@@ -396,8 +390,6 @@ class BugtrackerFormController extends DefaultModuleController
 			$severities = $this->config->get_severities();
 			$priorities = $this->config->get_priorities();
 			$versions = $this->config->get_versions();
-			$display_versions = count($versions) > 1;
-			$status_list = $this->config->get_status_list();
 
 			$title = $this->form->get_value('title', $old_values->get_title());
 
@@ -437,53 +429,43 @@ class BugtrackerFormController extends DefaultModuleController
 							$o_values[$field] = addslashes($o_values[$field]);
 							$comment = '';
 							break;
-
 						case 'content' :
-								$o_values[$field] = '';
-								$n_values[$field] = '';
-								$comment = $this->lang['notice.content_update'];
-								break;
-
+                            $o_values[$field] = '';
+                            $n_values[$field] = '';
+                            $comment = $this->lang['notice.content_update'];
+                            break;
 						case 'reproduction_method' :
-								$o_values[$field] = '';
-								$n_values[$field] = '';
-								$comment = $this->lang['notice.reproduction_method_update'];
-								break;
-
+                            $o_values[$field] = '';
+                            $n_values[$field] = '';
+                            $comment = $this->lang['notice.reproduction_method_update'];
+                            break;
 						case 'type':
 							$new_value = !empty($n_values[$field]) ? stripslashes($types[$n_values[$field]]) : $this->lang['notice.none'];
 							break;
-
 						case 'category':
 							$new_value = !empty($n_values[$field]) ? stripslashes($categories[$n_values[$field]]) : $this->lang['notice.none_e'];
 							break;
-
 						case 'priority':
 							$new_value = !empty($n_values[$field]) ? stripslashes($priorities[$n_values[$field]]) : $this->lang['notice.none_e'];
 							break;
-
 						case 'severity':
 							$new_value = !empty($n_values[$field]) ? stripslashes($severities[$n_values[$field]]['name']) : $this->lang['notice.none'];
 							break;
-
 						case 'detected_in':
 							$new_value = !empty($n_values[$field]) ? stripslashes($versions[$n_values[$field]]['name']) : $this->lang['notice.none_e'];
 							break;
-
 						case 'status':
 							$new_value = $this->lang['status.' . $n_values[$field]];
 							break;
-
 						case 'reproductible':
 							$new_value = $n_values[$field] ? $this->lang['common.yes'] : $this->lang['common.no'];
 							break;
-
 						default:
 							$new_value = $n_values[$field];
 							$comment = '';
+							break;
 					}
-					$pm_comment .= ($field != 'content' && $field != 'reproduction_method') ? $this->lang['labels.fields.' . $field] . ' : ' . stripslashes($new_value) . '
-	' : '';
+					$pm_comment .= ($field != 'content' && $field != 'reproduction_method') ? $this->lang['labels.fields.' . $field] . ' : ' . stripslashes($new_value) . '' : '';
 					//Bug history update
 					BugtrackerService::add_history([
 						'bug_id'		=> $bug->get_id(),
@@ -506,7 +488,9 @@ class BugtrackerFormController extends DefaultModuleController
 
 				//Send PM to updaters if the option is enabled
 				if ($this->config->are_pm_enabled() && $this->config->are_pm_edit_enabled() && !empty($pm_comment))
+                {
 					BugtrackerPMService::send_PM_to_updaters('edit', $bug->get_id(), $pm_comment);
+                }
 			}
 		}
 
@@ -523,7 +507,7 @@ class BugtrackerFormController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(View $tpl)
+	private function generate_response(View $tpl): SiteDisplayResponse
 	{
 		$bug = $this->get_bug();
 

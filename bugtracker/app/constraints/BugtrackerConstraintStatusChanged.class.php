@@ -3,18 +3,18 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2014 02 21
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class BugtrackerConstraintStatusChanged extends AbstractFormFieldConstraint
 {
-	private $bug_id = 0;
-	private $bug_status = BugtrackerItem::NEW_BUG;
-	private $error_message;
+	private int $bug_id = 0;
+	private string $bug_status = BugtrackerItem::NEW_BUG;
+	private string $error_message;
 
-	public function __construct($bug_id = 0, $bug_status = '', $error_message = '')
+	public function __construct(int $bug_id = 0, string $bug_status = '', string $error_message = '')
 	{
 		if (!empty($bug_id))
 		{
@@ -34,12 +34,12 @@ class BugtrackerConstraintStatusChanged extends AbstractFormFieldConstraint
 		$this->error_message = TextHelper::to_js_string($error_message);
 	}
 
-	public function validate(FormField $field)
+	public function validate(FormField $field): bool
 	{
 		return (!empty($this->bug_id) && $this->bug_status != $field->get_value()->get_raw_value());
 	}
 
-	public function get_js_validation(FormField $field)
+	public function get_js_validation(FormField $field): string
 	{
 		return 'BugtrackerStatusChangedValidator(' . $this->error_message . ', ' . $this->bug_id . ', \'' . $this->bug_status . '\')';
 	}

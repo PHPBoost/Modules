@@ -3,17 +3,17 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 10 22
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleController
 {
-	private $parameter;
-	private $id;
+	private string $parameter;
+	private int $id;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminBugtrackerDisplayResponse
 	{
 		$this->init($request);
 
@@ -45,7 +45,7 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 		return new AdminBugtrackerDisplayResponse($this->view, $this->lang['config.delete_parameter.' . $this->parameter]);
 	}
 
-	private function init(HTTPRequestCustom $request)
+	private function init(HTTPRequestCustom $request): void
 	{
 		//Get the parameter to delete
 		$this->parameter = $request->get_string('parameter', '');
@@ -95,7 +95,7 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 		}
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -103,9 +103,9 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 		$fieldset->set_description($this->lang['config.delete_parameter.description.' . $this->parameter]);
 		$form->add_fieldset($fieldset);
 
-		$fieldset->add_field(new FormFieldCheckbox('delete_parameter_and_content', $this->lang['config.delete_parameter.parameter_and_content.' . $this->parameter], FormFieldCheckbox::UNCHECKED),
+		$fieldset->add_field(new FormFieldCheckbox('delete_parameter_and_content', $this->lang['config.delete_parameter.parameter_and_content.' . $this->parameter], FormFieldCheckbox::UNCHECKED,
 			['class' => 'custom-checkbox']
-		);
+		));
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('move_into_another', $this->lang['config.delete_parameter.move_into_another'], '', $this->get_move_into_another_options()));
 
@@ -116,12 +116,12 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 		$this->form = $form;
 	}
 
-	private function get_parameter_items_exists()
+	private function get_parameter_items_exists(): string
 	{
 		return PersistenceContext::get_querier()->row_exists(BugtrackerSetup::$bugtracker_table, 'WHERE ' . ($this->parameter == 'version' ? 'detected_in=:id_parameter OR fixed_in' : $this->parameter) . '=:id_parameter', ['id_parameter' => $this->id]);
 	}
 
-	private function get_move_into_another_options()
+	private function get_move_into_another_options(): array
 	{
 		$other = [];
 		$other[] = new FormFieldSelectChoiceOption(' ', 0);
@@ -136,21 +136,27 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 				foreach ($types as $key => $type)
 				{
 					if ($key != $this->id)
+                    {
 						$other[] = new FormFieldSelectChoiceOption(stripslashes($type), $key);
+                    }
 				}
 				break;
 			case 'category':
 				foreach ($categories as $key => $category)
 				{
 					if ($key != $this->id)
+                    {
 						$other[] = new FormFieldSelectChoiceOption(stripslashes($category), $key);
+                    }
 				}
 				break;
 			case 'version':
 				foreach ($versions as $key => $version)
 				{
 					if ($key != $this->id)
+                    {
 						$other[] = new FormFieldSelectChoiceOption(stripslashes($version['name']), $key);
+                    }
 				}
 				break;
 		}
@@ -158,7 +164,7 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 		return $other;
 	}
 
-	private function delete_parameter_in_config()
+	private function delete_parameter_in_config(): void
 	{
 		$types = $this->config->get_types();
 		$categories = $this->config->get_categories();
@@ -171,28 +177,34 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 				unset($types[$this->id]);
 				$this->config->set_types($types);
 				if ($this->config->get_default_type() == $this->id)
+                {
 					$this->config->set_default_type(0);
+                }
 				break;
 			case 'category':
 				//Delete the category in the list of categories
 				unset($categories[$this->id]);
 				$this->config->set_categories($categories);
 				if ($this->config->get_default_category() == $this->id)
+                {
 					$this->config->set_default_category(0);
+                }
 				break;
 			case 'version':
 				//Delete the version in the list of versions
 				unset($versions[$this->id]);
 				$this->config->set_versions($versions);
 				if ($this->config->get_default_version() == $this->id)
+                {
 					$this->config->set_default_version(0);
+                }
 				break;
 		}
 
 		BugtrackerConfig::save();
 	}
 
-	private function delete_parameter_and_bugs()
+	private function delete_parameter_and_bugs(): void
 	{
 		$bugs_list = [];
 		switch ($this->parameter)
@@ -238,7 +250,7 @@ class AdminBugtrackerDeleteParameterController extends DefaultAdminModuleControl
 		BugtrackerService::delete_history("WHERE bug_id IN (:bugs_list)", ['bugs_list' => implode(',', $bugs_list)]);
 	}
 
-	private function move_into_another($new_id)
+	private function move_into_another(int $new_id): void
 	{
 		switch ($this->parameter)
 		{

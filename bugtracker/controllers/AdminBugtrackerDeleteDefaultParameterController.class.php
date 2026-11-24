@@ -10,7 +10,7 @@
 
 class AdminBugtrackerDeleteDefaultParameterController extends AdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): mixed
 	{
 		AppContext::get_session()->csrf_get_protect();
 
@@ -48,6 +48,7 @@ class AdminBugtrackerDeleteDefaultParameterController extends AdminModuleControl
 			$controller->set_response_classname(UserErrorController::ADMIN_RESPONSE);
 			DispatchManager::redirect($controller);
 		}
+        return null;
 	}
 }
 ?>

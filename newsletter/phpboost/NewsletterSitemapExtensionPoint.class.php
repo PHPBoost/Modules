@@ -15,7 +15,7 @@ class NewsletterSitemapExtensionPoint extends SitemapCategoriesModule
 		parent::__construct(NewsletterService::get_streams_manager());
 	}
 
-	protected function get_category_url(Category $category)
+	protected function get_category_url(Category $category): Url
 	{
 		return NewsletterUrlBuilder::archives($category->get_id(), $category->get_rewrited_name());
 	}

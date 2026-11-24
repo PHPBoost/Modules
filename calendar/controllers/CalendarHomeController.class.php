@@ -12,7 +12,7 @@ class CalendarHomeController extends DefaultModuleController
 {
 	private $category;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -84,15 +84,12 @@ class CalendarHomeController extends DefaultModuleController
 		return $this->category;
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('calendar/CalendarSeveralItemsController.tpl');
 	}
 
-	private function generate_response()
+	private function generate_response(): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
