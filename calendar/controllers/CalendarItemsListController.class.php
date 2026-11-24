@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 07
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.1 - 2015 04 13
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,12 +11,12 @@
 
 class CalendarItemsListController extends DefaultModuleController
 {
-	private $items_number = 0;
-	private $ids = [];
-	private $hide_delete_input = [];
-	private $display_multiple_delete = true;
+	private int $items_number = 0;
+	private array $ids = [];
+	private array $hide_delete_input = [];
+	private bool $display_multiple_delete = true;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -25,18 +25,22 @@ class CalendarItemsListController extends DefaultModuleController
 		$current_page = $this->build_table();
 
 		if ($this->display_multiple_delete)
+        {
 			$this->execute_multiple_delete_if_needed($request);
+        }
 
 		return $this->generate_response($current_page);
 	}
 
-	private function init(HTTPRequestCustom $request)
+	private function init(HTTPRequestCustom $request): void
 	{
 		if ($request->get_value('display_current_day_events', 0))
+        {
 			AppContext::get_response()->redirect(CalendarUrlBuilder::display_items_list());
+        }
 	}
 
-	private function build_table()
+	private function build_table(): int
 	{
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
@@ -50,7 +54,9 @@ class CalendarItemsListController extends DefaultModuleController
 		];
 
 		if (!$display_categories)
+        {
 			unset($columns[1]);
+        }
 
 		$table_model = new SQLHTMLTableModel(CalendarSetup::$calendar_events_table, 'items-list', $columns, new HTMLTableSortingRule('start_date', HTMLTableSortingRule::ASC));
 
@@ -62,7 +68,9 @@ class CalendarItemsListController extends DefaultModuleController
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['calendar.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
 		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $this->lang['common.author']));
 		if ($display_categories)
+        {
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+        }
 
 		$table = new HTMLTable($table_model);
 		$table->set_filters_fieldset_class_HTML();
@@ -87,7 +95,9 @@ class CalendarItemsListController extends DefaultModuleController
 				$this->ids[$this->items_number] = $item->get_id();
 			}
 			else
+            {
 				$this->hide_delete_input[] = $item->get_id();
+            }
 		}
 
 		if (empty($moderation_link_number))
@@ -128,11 +138,15 @@ class CalendarItemsListController extends DefaultModuleController
 				];
 
 				if (!$display_categories)
+                {
 					unset($row[1]);
+                }
 
 				$table_row = new HTMLTableRow($row);
 				if (in_array($item->get_id(), $this->hide_delete_input))
+                {
 					$table_row->hide_delete_input();
+                }
 
 				$results[] = $table_row;
 			}
@@ -144,7 +158,7 @@ class CalendarItemsListController extends DefaultModuleController
 		return $table->get_page_number();
 	}
 
-	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
+	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request): void
 	{
 		if ($request->get_string('delete-selected-elements', false))
 		{
@@ -155,9 +169,11 @@ class CalendarItemsListController extends DefaultModuleController
 					if (isset($this->ids[$i]) && !in_array($this->ids[$i], $this->hide_delete_input))
 					{
 						$item = '';
-						try {
+						try
+                        {
 							$item = CalendarService::get_item($this->ids[$i]);
-						} catch (RowNotFoundException $e) {}
+						}
+                        catch (RowNotFoundException $e) {}
 
 						if ($item)
 						{
@@ -172,7 +188,9 @@ class CalendarItemsListController extends DefaultModuleController
 							CalendarService::delete_item($item->get_id());
 
 							if (!$this->item->get_parent_id())
+                            {
 								PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', ['module' => 'calendar', 'id' => $item->get_id()]);
+                            }
 
 							// Delete item comments
 							CommentsService::delete_comments_topic_module('calendar', $item->get_id());
@@ -189,7 +207,7 @@ class CalendarItemsListController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!CategoriesAuthorizationsService::check_authorizations()->read())
 		{
@@ -198,7 +216,7 @@ class CalendarItemsListController extends DefaultModuleController
 		}
 	}
 
-	private function get_repeat_type_label(CalendarItem $item)
+	private function get_repeat_type_label(CalendarItem $item): string
 	{
 		$label = CalendarItemContent::NEVER;
 
@@ -207,15 +225,12 @@ class CalendarItemsListController extends DefaultModuleController
 			case CalendarItemContent::DAILY :
 				$label = $this->lang['date.every.day'];
 				break;
-
 			case CalendarItemContent::WEEKLY :
 				$label = $this->lang['date.every.week'];
 				break;
-
 			case CalendarItemContent::MONTHLY :
 				$label = $this->lang['date.every.month'];
 				break;
-
 			case CalendarItemContent::YEARLY :
 				$label = $this->lang['date.every.year'];
 				break;
@@ -224,7 +239,7 @@ class CalendarItemsListController extends DefaultModuleController
 		return $label;
 	}
 
-	private function generate_response($page = 1)
+	private function generate_response(int $page = 1): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();

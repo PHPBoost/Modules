@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2013 08 21
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class CalendarHomeController extends DefaultModuleController
 {
-	private $category;
+	private mixed $category = null;
 
 	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
@@ -21,7 +21,7 @@ class CalendarHomeController extends DefaultModuleController
 		return $this->generate_response();
 	}
 
-	private function build_view(HTTPRequestCustom $request)
+	private function build_view(HTTPRequestCustom $request): Template
 	{
 		$year = $request->get_getint('year', date('Y'));
 		$month = $request->get_getint('month', date('n'));
@@ -52,7 +52,7 @@ class CalendarHomeController extends DefaultModuleController
 		return $this->view;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		$id_cat = $this->get_category()->get_id();
 		if (!CategoriesAuthorizationsService::check_authorizations($id_cat)->read())
@@ -62,16 +62,19 @@ class CalendarHomeController extends DefaultModuleController
 		}
 	}
 
-	private function get_category()
+	private function get_category(): mixed
 	{
 		if ($this->category === null)
 		{
 			$id = AppContext::get_request()->get_getint('id_category', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->category = CategoriesService::get_categories_manager('calendar')->get_categories_cache()->get_category($id);
-				} catch (CategoryNotFoundException $e) {
+				}
+                catch (CategoryNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
@@ -95,9 +98,13 @@ class CalendarHomeController extends DefaultModuleController
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->get_category()->get_id() != Category::ROOT_CATEGORY)
+        {
 			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['calendar.module.title']);
+        }
 		else
+        {
 			$graphical_environment->set_page_title($this->lang['calendar.module.title']);
+        }
 
 		$graphical_environment->get_seo_meta_data()->set_description(StringVars::replace_vars($this->lang['calendar.seo.description.root'], ['site' => GeneralConfig::load()->get_site_name()]));
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(CalendarUrlBuilder::home());
@@ -109,13 +116,15 @@ class CalendarHomeController extends DefaultModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
+            {
 				$breadcrumb->add($category->get_name(), CalendarUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
+            }
 		}
 
 		return $response;
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self('calendar');
 		$object->check_authorizations();

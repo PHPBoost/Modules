@@ -3,16 +3,16 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2013 09 29
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class CalendarPendingItemsController extends DefaultModuleController
 {
-	private $items_view;
+	private Template $items_view;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -23,20 +23,22 @@ class CalendarPendingItemsController extends DefaultModuleController
 		return $this->generate_response();
 	}
 
-	public function init()
+	public function init(): void
 	{
 		$this->items_view = new FileTemplate('calendar/CalendarAjaxEventsController.tpl');
 		$this->items_view->add_lang($this->lang);
 	}
 
-	public function build_view(HTTPRequestCustom $request)
+	public function build_view(HTTPRequestCustom $request): Template
 	{
 		$authorized_categories = CategoriesService::get_authorized_categories();
 
-		$condition = 'WHERE approved = 0
-		AND parent_id = 0
-		AND id_category IN :authorized_categories
-		' . (!CategoriesAuthorizationsService::check_authorizations()->moderation() ? ' AND event_content.author_user_id = :user_id' : '');
+		$condition = '
+            WHERE approved = 0
+            AND parent_id = 0
+            AND id_category IN :authorized_categories
+            ' . (!CategoriesAuthorizationsService::check_authorizations()->moderation() ? ' AND event_content.author_user_id = :user_id' : '')
+        ;
 		$parameters = [
 			'authorized_categories' => $authorized_categories,
 			'user_id' => AppContext::get_current_user()->get_id()
@@ -45,17 +47,20 @@ class CalendarPendingItemsController extends DefaultModuleController
 		$page = $request->get_getint('page', 1);
 		$pagination = $this->get_pagination($condition, $parameters, $page);
 
-		$result = PersistenceContext::get_querier()->select('SELECT *
-		FROM ' . CalendarSetup::$calendar_events_table . ' event
-		LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
-		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = event.id_event AND com.module_id = \'calendar\'
-		' . $condition . '
-		ORDER BY start_date DESC
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT *
+            FROM ' . CalendarSetup::$calendar_events_table . ' event
+            LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
+            LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = event.id_event AND com.module_id = \'calendar\'
+            ' . $condition . '
+            ORDER BY start_date DESC
+            LIMIT :number_items_per_page OFFSET :display_from
+            ', array_merge($parameters, [
+                'number_items_per_page' => $pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$this->items_view->put_all([
 			'C_ITEMS'         => $result->get_rows_count() > 0,
@@ -81,7 +86,7 @@ class CalendarPendingItemsController extends DefaultModuleController
 		return $this->view;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!(CategoriesAuthorizationsService::check_authorizations()->write() || CategoriesAuthorizationsService::check_authorizations()->contribution() || CategoriesAuthorizationsService::check_authorizations()->moderation()))
 		{
@@ -90,12 +95,15 @@ class CalendarPendingItemsController extends DefaultModuleController
 		}
 	}
 
-	private function get_pagination($condition, $parameters, $page)
+	private function get_pagination(string $condition, array $parameters, int $page): ModulePagination
 	{
-		$row = PersistenceContext::get_querier()->select_single_row_query('SELECT COUNT(*) AS events_number
-		FROM ' . CalendarSetup::$calendar_events_table . ' event
-		LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
-		' . $condition, $parameters);
+		$row = PersistenceContext::get_querier()->select_single_row_query('
+            SELECT COUNT(*) AS events_number
+            FROM ' . CalendarSetup::$calendar_events_table . ' event
+            LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+            ' . $condition
+            , $parameters
+        );
 
 		$pagination = new ModulePagination($page, $row['events_number'], (int)CalendarConfig::load()->get_items_per_page());
 		$pagination->set_url(CalendarUrlBuilder::display_pending_items('%d'));
@@ -108,16 +116,13 @@ class CalendarPendingItemsController extends DefaultModuleController
 
 		return $pagination;
 	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function get_template_to_use()
+
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('calendar/CalendarSeveralItemsController.tpl');
 	}
 
-	private function generate_response()
+	private function generate_response(): SiteDisplayResponse
 	{
 		$page = AppContext::get_request()->get_getint('page', 1);
 

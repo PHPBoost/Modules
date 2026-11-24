@@ -13,7 +13,7 @@
 
 class ArticlesItemFormController extends DefaultItemFormController
 {
-	protected function build_post_content_fields(FormFieldset $fieldset)
+	protected function build_post_content_fields(FormFieldset $fieldset): void
 	{
 		$fieldset->add_field(new FormFieldActionLink('add_page', $this->lang['articles.add.page'] , 'javascript:bbcode_page();', '', '', '', 'fa fa-file-circle-plus'));
 

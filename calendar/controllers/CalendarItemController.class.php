@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2013 07 29
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,7 +12,7 @@
 
 class CalendarItemController extends DefaultModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -21,27 +21,32 @@ class CalendarItemController extends DefaultModuleController
 		return $this->generate_response();
 	}
 
-	private function get_item()
+	private function get_item(): CalendarItem
 	{
 		if ($this->item === null)
 		{
 			$id = AppContext::get_request()->get_getint('id', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->item = CalendarService::get_item($id);
-				} catch (RowNotFoundException $e) {
+				}
+                catch (RowNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
 			}
 			else
+            {
 				$this->item = new CalendarItem();
+            }
 		}
 		return $this->item;
 	}
 
-	private function build_view()
+	private function build_view(): void
 	{
 		$item = $this->get_item();
 		$category = $item->get_content()->get_category();
@@ -74,7 +79,7 @@ class CalendarItemController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		$item = $this->get_item();
 
@@ -97,15 +102,12 @@ class CalendarItemController extends DefaultModuleController
 		}
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('calendar/CalendarItemController.tpl');
 	}
 
-	private function generate_response()
+	private function generate_response(): SiteDisplayResponse
 	{
 		$item = $this->get_item();
 		$category = $item->get_content()->get_category();
@@ -122,12 +124,16 @@ class CalendarItemController extends DefaultModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
+            {
 				$breadcrumb->add($category->get_name(), CalendarUrlBuilder::home());
+            }
 		}
 		$breadcrumb->add($item->get_content()->get_title(), CalendarUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_content()->get_rewrited_title()));
 
 		if ($item->get_content()->has_thumbnail())
+        {
 			$graphical_environment->get_seo_meta_data()->set_picture_url($item->get_content()->get_thumbnail());
+        }
 
 		return $response;
 	}

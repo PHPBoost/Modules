@@ -40,15 +40,15 @@ class CalendarLobbyProvider extends DefaultModuleLobbyProvider
 		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, true, $module_id);
 
 		$result = PersistenceContext::get_querier()->select('
-                SELECT *
-                FROM ' . CalendarSetup::$calendar_events_table . ' event
-                LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
-                LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
-                LEFT JOIN ' . CalendarSetup::$calendar_cats_table . ' cat ON cat.id = event_content.id_category
-                WHERE approved = 1 AND id_category IN :authorized_categories
-                AND start_date >= :timestamp_today
-                ORDER BY start_date
-                LIMIT :limit
+            SELECT *
+            FROM ' . CalendarSetup::$calendar_events_table . ' event
+            LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
+            LEFT JOIN ' . CalendarSetup::$calendar_cats_table . ' cat ON cat.id = event_content.id_category
+            WHERE approved = 1 AND id_category IN :authorized_categories
+            AND start_date >= :timestamp_today
+            ORDER BY start_date
+            LIMIT :limit
             ', [
 				'authorized_categories' => $authorized_categories,
 				'timestamp_today'       => $today->get_timestamp(),

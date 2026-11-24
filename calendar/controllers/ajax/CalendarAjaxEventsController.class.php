@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2014 03 04
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,41 +12,41 @@
 
 class CalendarAjaxEventsController extends AbstractController
 {
-	private $lang;
-	private $view;
-	private $year;
-	private $month;
-	private $day;
-	private $id_category;
+	private array $lang;
+	private Template $view;
+	private int $year = 0;
+	private int $month = 0;
+	private int $day = 0;
+	private int $id_category;
 
-	public function set_year($year)
+	public function set_year(int $year): void
 	{
 		$this->year = $year;
 	}
 
-	public function set_month($month)
+	public function set_month(int $month): void
 	{
 		$this->month = $month;
 	}
 
-	public function set_day($day)
+	public function set_day(int $day): void
 	{
 		$this->day = $day;
 	}
 
-	public function set_id_category($id_category)
+	public function set_id_category(int $id_category): void
 	{
 		$this->id_category = $id_category;
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteNodisplayResponse
 	{
 		$this->init($request);
 		$this->build_view($request);
 		return new SiteNodisplayResponse($this->view);
 	}
 
-	private function build_view(HTTPRequestCustom $request)
+	private function build_view(HTTPRequestCustom $request): void
 	{
 		$db_querier = PersistenceContext::get_querier();
 
@@ -72,19 +72,22 @@ class CalendarAjaxEventsController extends AbstractController
 
 		$first_day_hour = DateTime::createFromFormat('Y-m-d H:i:s', $year . '-' . $month . '-' . ($day ? $day : 1) . ' 00:00:00', Timezone::get_timezone(Timezone::USER_TIMEZONE));
 		$last_day_hour = DateTime::createFromFormat('Y-m-d H:i:s', $year . '-' . $month . '-' . ($day ? $day : $month_days) . ' 23:59:59', Timezone::get_timezone(Timezone::USER_TIMEZONE));
-		$result = $db_querier->select("SELECT *
-		FROM " . CalendarSetup::$calendar_events_table . " event
-		LEFT JOIN " . CalendarSetup::$calendar_events_content_table . " event_content ON event_content.id = event.content_id
-		LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = event_content.author_user_id
-		LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " com ON com.id_in_module = event.id_event AND com.module_id = 'calendar'
-		WHERE approved = 1
-		AND ((start_date BETWEEN :first_day_hour AND :last_day_hour) OR (end_date BETWEEN :first_day_hour AND :last_day_hour) OR (:first_day_hour BETWEEN start_date AND end_date))
-		AND id_category IN :authorized_categories
-		ORDER BY start_date ASC", [
-			'first_day_hour' => $first_day_hour->getTimestamp(),
-			'last_day_hour' => $last_day_hour->getTimestamp(),
-			'authorized_categories' => $authorized_categories
-		]);
+		$result = $db_querier->select("
+            SELECT *
+            FROM " . CalendarSetup::$calendar_events_table . " event
+            LEFT JOIN " . CalendarSetup::$calendar_events_content_table . " event_content ON event_content.id = event.content_id
+            LEFT JOIN " . DB_TABLE_MEMBER . " member ON member.user_id = event_content.author_user_id
+            LEFT JOIN " . DB_TABLE_COMMENTS_TOPIC . " com ON com.id_in_module = event.id_event AND com.module_id = 'calendar'
+            WHERE approved = 1
+            AND ((start_date BETWEEN :first_day_hour AND :last_day_hour) OR (end_date BETWEEN :first_day_hour AND :last_day_hour) OR (:first_day_hour BETWEEN start_date AND end_date))
+            AND id_category IN :authorized_categories
+            ORDER BY start_date ASC
+            ", [
+                'first_day_hour' => $first_day_hour->getTimestamp(),
+                'last_day_hour' => $last_day_hour->getTimestamp(),
+                'authorized_categories' => $authorized_categories
+            ]
+        );
 
 		while ($row = $result->fetch())
 		{
@@ -92,7 +95,9 @@ class CalendarAjaxEventsController extends AbstractController
 			$item->set_properties($row);
 
 			if ($item->is_authorized_to_edit() || $item->is_authorized_to_delete())
+            {
 				$controls_displayed = true;
+            }
 
 			if (CategoriesAuthorizationsService::check_authorizations($item->get_content()->get_id_category(), 'calendar')->read())
 			{
@@ -122,12 +127,15 @@ class CalendarAjaxEventsController extends AbstractController
 
 		if (!empty($items_list))
 		{
-			$result = $db_querier->select('SELECT event_id, member.user_id, display_name, level, user_groups
-			FROM ' . CalendarSetup::$calendar_users_relation_table . ' participants
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = participants.user_id
-			WHERE event_id IN :events_list', [
-				'events_list' => array_keys($items_list)
-			]);
+			$result = $db_querier->select('
+                SELECT event_id, member.user_id, display_name, level, user_groups
+                FROM ' . CalendarSetup::$calendar_users_relation_table . ' participants
+                LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = participants.user_id
+                WHERE event_id IN :events_list
+                ', [
+                    'events_list' => array_keys($items_list)
+                ]
+            );
 
 			while($row = $result->fetch())
 			{
@@ -143,7 +151,9 @@ class CalendarAjaxEventsController extends AbstractController
 			foreach ($items_list as $item)
 			{
 				if (isset($participants[$item->get_id()]))
+                {
 					$item->set_participants($participants[$item->get_id()]);
+                }
 
 				$this->view->assign_block_vars('items', $item->get_template_vars());
 
@@ -160,27 +170,35 @@ class CalendarAjaxEventsController extends AbstractController
 		}
 	}
 
-	private function init(HTTPRequestCustom $request)
+	private function init(HTTPRequestCustom $request): void
 	{
 		$this->lang = LangLoader::get_all_langs('calendar');
 		$this->view = new FileTemplate('calendar/CalendarAjaxEventsController.tpl');
 		$this->view->add_lang($this->lang);
 
 		if ($request->has_getparameter('id_category'))
+        {
 			$this->set_id_category($request->get_getvalue('id_category'));
+        }
 	}
 
-	public static function get_view($year = 0, $month = 0, $day = 0, $id_category = Category::ROOT_CATEGORY)
+	public static function get_view(int $year = 0, int $month = 0, int $day = 0, int $id_category = Category::ROOT_CATEGORY): mixed
 	{
 		$request = AppContext::get_request();
 		$object = new self();
 		$object->init($request);
 		if ($year)
+        {
 			$object->set_year($year);
+        }
 		if ($month)
+        {
 			$object->set_month($month);
+        }
 		if ($day)
+        {
 			$object->set_day($day);
+        }
 		$object->set_id_category($id_category);
 		$object->build_view($request);
 		return $object->view;

@@ -3,16 +3,17 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 11
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2013 08 24
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class CalendarCache implements CacheData
 {
-	private $items = [];
+	private array $items = [];
 
-	public function synchronize(): void {
+	public function synchronize(): void
+    {
 		$year = date('Y');
 		$month = date('n');
 		$bissextile = (date("L", mktime(0, 0, 0, 1, 1, $year)) == 1) ? 29 : 28;
@@ -22,16 +23,16 @@ class CalendarCache implements CacheData
 		$this->items = CalendarService::get_all_current_month_items($month, $year, $month_days);
 	}
 
-	public function get_items()
+	public function get_items(): array
 	{
 		return $this->items;
 	}
 
 	/**
 	 * Loads and returns current month items cached data.
-	 * @return CalendarCurrentMonthEventsCache The cached data
+	 * @return CalendarCache The cached data
 	 */
-	public static function load()
+	public static function load(): CalendarCache
 	{
 		return CacheManager::load(self::class, 'calendar', 'currentmonthevents');
 	}
@@ -39,7 +40,7 @@ class CalendarCache implements CacheData
 	/**
 	 * Invalidates the current Calendar month items cached data.
 	 */
-	public static function invalidate()
+	public static function invalidate(): void
 	{
 		CacheManager::invalidate('calendar', 'currentmonthevents');
 	}

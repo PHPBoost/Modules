@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2013 07 25
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,10 +11,10 @@
 
 class CalendarItemsManagerController extends DefaultModuleController
 {
-	private $items_number = 0;
-	private $ids = [];
+	private int $items_number = 0;
+	private array $ids = [];
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -25,7 +25,7 @@ class CalendarItemsManagerController extends DefaultModuleController
 		return $this->generate_response($current_page);
 	}
 
-	private function build_table()
+	private function build_table(): int
 	{
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
@@ -40,7 +40,9 @@ class CalendarItemsManagerController extends DefaultModuleController
 		];
 
 		if (!$display_categories)
+        {
 			unset($columns[1]);
+        }
 
 		$table_model = new SQLHTMLTableModel(CalendarSetup::$calendar_events_table, 'items-manager', $columns, new HTMLTableSortingRule('start_date', HTMLTableSortingRule::DESC));
 
@@ -52,7 +54,9 @@ class CalendarItemsManagerController extends DefaultModuleController
 		$table_model->add_filter(new HTMLTableDateLessThanOrEqualsToSQLFilter('start_date', 'filter2', $this->lang['calendar.start.date'] . ' ' . TextHelper::lcfirst($this->lang['common.maximum'])));
 		$table_model->add_filter(new HTMLTableAjaxUserAutoCompleteSQLFilter('display_name', 'filter3', $this->lang['common.author']));
 		if ($display_categories)
+        {
 			$table_model->add_filter(new HTMLTableCategorySQLFilter('filter4'));
+        }
 		$table_model->add_filter(new HTMLTableEqualsFromListSQLFilter('approved', 'filter5', $this->lang['common.status.publication'], [1 => $this->lang['common.status.published'], 0 => $this->lang['common.status.draft']]));
 
 		$table = new HTMLTable($table_model);
@@ -92,7 +96,9 @@ class CalendarItemsManagerController extends DefaultModuleController
 			];
 
 			if (!$display_categories)
+            {
 				unset($row[1]);
+            }
 
 			$results[] = new HTMLTableRow($row);
 		}
@@ -103,7 +109,7 @@ class CalendarItemsManagerController extends DefaultModuleController
 		return $table->get_page_number();
 	}
 
-	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
+	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request): void
 	{
 		if ($request->get_string('delete-selected-elements', false))
 		{
@@ -114,9 +120,11 @@ class CalendarItemsManagerController extends DefaultModuleController
 					if (isset($this->ids[$i]))
 					{
 						$item = '';
-						try {
+						try
+                        {
 							$item = CalendarService::get_item($this->ids[$i]);
-						} catch (RowNotFoundException $e) {}
+						}
+                        catch (RowNotFoundException $e) {}
 
 						if ($item)
 						{
@@ -129,7 +137,7 @@ class CalendarItemsManagerController extends DefaultModuleController
 							{
 								CalendarService::delete_item_content($item->get_id());
 							}
-							
+
 							HooksService::execute_hook_action('delete', self::$module_id, array_merge($item->get_content()->get_properties(), $item->get_properties()));
 						}
 					}
@@ -142,7 +150,7 @@ class CalendarItemsManagerController extends DefaultModuleController
 		}
 	}
 
-	private function get_repeat_type_label(CalendarItem $item)
+	private function get_repeat_type_label(CalendarItem $item): string
 	{
 		$label = CalendarItemContent::NEVER;
 
@@ -151,15 +159,12 @@ class CalendarItemsManagerController extends DefaultModuleController
 			case CalendarItemContent::DAILY :
 				$label = $this->lang['date.every.day'];
 				break;
-
 			case CalendarItemContent::WEEKLY :
 				$label = $this->lang['date.every.week'];
 				break;
-
 			case CalendarItemContent::MONTHLY :
 				$label = $this->lang['date.every.month'];
 				break;
-
 			case CalendarItemContent::YEARLY :
 				$label = $this->lang['date.every.year'];
 				break;
@@ -168,7 +173,7 @@ class CalendarItemsManagerController extends DefaultModuleController
 		return $label;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!CategoriesAuthorizationsService::check_authorizations()->moderation())
 		{
@@ -177,7 +182,7 @@ class CalendarItemsManagerController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response($page = 1)
+	private function generate_response($page = 1): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 

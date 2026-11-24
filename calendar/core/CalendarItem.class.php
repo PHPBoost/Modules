@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 01
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2013 02 25
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,147 +12,143 @@
 
 class CalendarItem
 {
-	private $id;
+	private int $id = 0;
+	private CalendarItemContent $content;
+	private Date $start_date;
+	private Date $end_date;
+	private int $parent_id;
+	private array $participants = [];
 
-	private $content;
-
-	private $start_date;
-	private $end_date;
-
-	private $parent_id;
-
-	private $participants = [];
-
-	public function set_id($id)
-	{
-		$this->id = $id;
-	}
-
-	public function get_id()
+	public function get_id(): int
 	{
 		return $this->id;
 	}
 
-	public function set_content(CalendarItemContent $content)
+	public function set_id(int $id): void
 	{
-		$this->content = $content;
+		$this->id = $id;
 	}
 
-	public function get_content()
+	public function get_content(): CalendarItemContent
 	{
 		return $this->content;
 	}
 
-	public function set_start_date(Date $start_date)
+	public function set_content(CalendarItemContent $content): void
 	{
-		$this->start_date = $start_date;
+		$this->content = $content;
 	}
 
-	public function get_start_date()
+	public function get_start_date(): Date
 	{
 		return $this->start_date;
 	}
 
-	public function set_end_date(Date $end_date)
+	public function set_start_date(Date $start_date): void
 	{
-		$this->end_date = $end_date;
+		$this->start_date = $start_date;
 	}
 
-	public function get_end_date()
+	public function get_end_date(): Date
 	{
 		return $this->end_date;
 	}
 
-	public function set_parent_id($id)
+	public function set_end_date(Date $end_date): void
 	{
-		$this->parent_id = $id;
+		$this->end_date = $end_date;
 	}
 
-	public function get_parent_id()
+	public function get_parent_id(): int
 	{
 		return $this->parent_id;
 	}
 
-	public function set_participants(Array $participants)
+	public function set_parent_id(int $id): void
 	{
-		$this->participants = $participants;
+		$this->parent_id = $id;
 	}
 
-	public function get_participants()
+	public function get_participants(): array
 	{
 		return $this->participants;
 	}
 
-	public function belongs_to_a_serie()
+	public function set_participants(array $participants): void
+	{
+		$this->participants = $participants;
+	}
+
+	public function belongs_to_a_serie(): bool
 	{
 		return $this->parent_id || $this->content->is_repeatable();
 	}
 
-	public function get_registered_members_number()
+	public function get_registered_members_number(): int
 	{
 		return count($this->participants);
 	}
 
-	public function is_authorized_to_add()
+	public function is_authorized_to_add(): bool
 	{
 		return CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->write() || CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->contribution();
 	}
 
-	public function is_authorized_to_edit()
+	public function is_authorized_to_edit(): bool
 	{
 		return CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->write() || (CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->contribution())) && $this->content->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
-	public function is_authorized_to_duplicate()
+	public function is_authorized_to_duplicate(): bool
 	{
         return ModulesManager::get_module('calendar')->get_configuration()->has_duplication() && (CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->write() || (CategoriesAuthorizationsService::check_authorizations()->contribution($this->content->get_id_category()) && CategoriesAuthorizationsService::check_authorizations()->duplication($this->content->get_id_category())));
     }
 
-	public function is_authorized_to_delete()
+	public function is_authorized_to_delete(): bool
 	{
 		return CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->moderation() || ((CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->write() || (CategoriesAuthorizationsService::check_authorizations($this->content->get_id_category())->contribution() && !$this->content->is_approved())) && $this->content->get_author_user()->get_id() == AppContext::get_current_user()->get_id() && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL));
 	}
 
-	public function get_properties()
+	public function get_properties(): array
 	{
 		return [
-			'id_event' => $this->get_id(),
+			'id_event'   => $this->get_id(),
 			'content_id' => $this->content->get_id(),
 			'start_date' => ($this->get_start_date() !== null ? $this->get_start_date()->get_timestamp() : ''),
-			'end_date' => ($this->get_end_date() !== null ? $this->get_end_date()->get_timestamp() : ''),
-			'parent_id' => $this->get_parent_id()
+			'end_date'   => ($this->get_end_date() !== null ? $this->get_end_date()->get_timestamp() : ''),
+			'parent_id'  => $this->get_parent_id()
 		];
 	}
 
-	public function set_properties(array $properties)
+	public function set_properties(array $properties): void
 	{
 		$content = new CalendarItemContent();
 		$content->set_properties($properties);
 
-		$this->id = $properties['id_event'];
-		$this->content = $content;
+		$this->id         = $properties['id_event'];
+		$this->content    = $content;
 		$this->start_date = !empty($properties['start_date']) ? new Date($properties['start_date'], Timezone::SERVER_TIMEZONE) : null;
-		$this->end_date = !empty($properties['end_date']) ? new Date($properties['end_date'], Timezone::SERVER_TIMEZONE) : null;
-		$this->parent_id = $properties['parent_id'];
+		$this->end_date   = !empty($properties['end_date']) ? new Date($properties['end_date'], Timezone::SERVER_TIMEZONE) : null;
+		$this->parent_id  = $properties['parent_id'];
 	}
 
-	public function init_default_properties($year, $month, $day)
+	public function init_default_properties(int $year, int $month, int $day): void
 	{
 		$date = mktime(date('H'), date('i'), date('s'), $month, $day, $year);
 
-		$this->start_date = new Date($this->round_to_five_minutes($date), Timezone::SERVER_TIMEZONE);
-		$this->end_date = new Date($this->round_to_five_minutes($date + 3600), Timezone::SERVER_TIMEZONE);
-		$this->parent_id = 0;
+		$this->start_date   = new Date($this->round_to_five_minutes($date), Timezone::SERVER_TIMEZONE);
+		$this->end_date     = new Date($this->round_to_five_minutes($date + 3600), Timezone::SERVER_TIMEZONE);
+		$this->parent_id    = 0;
 		$this->participants = [];
 	}
 
-	public function get_item_url()
+	public function get_item_url(): string
 	{
 		$category = $this->content->get_category();
 		return CalendarUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $this->id, $this->content->get_rewrited_title())->rel();
 	}
 
-	public function get_template_vars()
+	public function get_template_vars(): array
 	{
 		$lang = LangLoader::get_all_langs('calendar');
 
@@ -171,9 +167,13 @@ class CalendarItem
 
 		$location = '';
 		if (is_array($location_value) && isset($location_value['address']))
+        {
 			$location = $location_value['address'];
-		else if (!is_array($location_value))
+        }
+		elseif (!is_array($location_value))
+        {
 			$location = $location_value;
+        }
 
 		$location_map = '';
 		$has_location_map = false;
@@ -260,12 +260,16 @@ class CalendarItem
 		);
 	}
 
-	private function round_to_five_minutes($timestamp)
+	private function round_to_five_minutes(int $timestamp): int
 	{
 		if (($timestamp % 300) < 150)
+        {
 			return $timestamp - ($timestamp % 300);
+        }
 		else
+        {
 			return $timestamp - ($timestamp % 300) + 300;
+        }
 	}
 }
 ?>

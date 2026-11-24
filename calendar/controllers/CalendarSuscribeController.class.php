@@ -10,7 +10,7 @@
 
 class CalendarSuscribeController extends DefaultModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): ?Response
 	{
 		$item_id = $request->get_getint('event_id', 0);
 		$current_user_id = AppContext::get_current_user()->get_id();
@@ -36,19 +36,24 @@ class CalendarSuscribeController extends DefaultModuleController
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
+        return null;
 	}
 
-	private function get_item($id)
+	private function get_item(int $id): ?CalendarItem
 	{
-		try {
+		try
+        {
 			$this->item = CalendarService::get_item($id);
-		} catch (RowNotFoundException $e) {
+		}
+        catch (RowNotFoundException $e)
+        {
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
+        return null;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!$this->item->get_content()->is_registration_authorized() || !$this->item->get_content()->is_authorized_to_register() || ($this->item->get_content()->is_registration_authorized() && $this->item->get_content()->get_max_registered_members() && $this->item->get_registered_members_number() == $this->item->get_content()->get_max_registered_members()))
 		{

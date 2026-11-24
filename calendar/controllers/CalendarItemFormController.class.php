@@ -12,7 +12,7 @@
 
 class CalendarItemFormController extends DefaultModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -29,7 +29,7 @@ class CalendarItemFormController extends DefaultModuleController
 		return $this->generate_response($this->view);
 	}
 
-	private function build_form(HTTPRequestCustom $request)
+	private function build_form(HTTPRequestCustom $request): void
 	{
 		$item_content = $this->get_item()->get_content();
 
@@ -77,9 +77,12 @@ class CalendarItemFormController extends DefaultModuleController
 			],
 			[
 				'events' => ['change' => '
-					if (HTMLForms.getField("repeat_type").getValue() != "' . CalendarItemContent::NEVER . '") {
+					if (HTMLForms.getField("repeat_type").getValue() != "' . CalendarItemContent::NEVER . '")
+                    {
 						HTMLForms.getField("repeat_number").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("repeat_number").disable();
 					}'
 				]
@@ -98,18 +101,25 @@ class CalendarItemFormController extends DefaultModuleController
 
 		$location = '';
 		if (is_array($location_value) && isset($location_value['address']))
+        {
 			$location = $location_value['address'];
-		else if (!is_array($location_value))
+        }
+		elseif (!is_array($location_value))
+        {
 			$location = $location_value;
+        }
 
 		if ($this->config->is_googlemaps_available())
 		{
 			$fieldset->add_field(new GoogleMapsFormFieldMapAddress('location', $this->lang['calendar.location'], $location,
 				[
 					'events' => ['blur' => '
-						if (HTMLForms.getField("location").getValue()) {
+						if (HTMLForms.getField("location").getValue())
+                        {
 							HTMLForms.getField("map_displayed").enable();
-						} else {
+						}
+                        else
+                        {
 							HTMLForms.getField("map_displayed").disable();
 						}'
 					]
@@ -126,11 +136,14 @@ class CalendarItemFormController extends DefaultModuleController
 		$fieldset->add_field(new FormFieldCheckbox('registration_authorized', $this->lang['calendar.form.enable.registration'], $item_content->is_registration_authorized(),
 			[
 				'events' => ['click' => '
-					if (HTMLForms.getField("registration_authorized").getValue()) {
+					if (HTMLForms.getField("registration_authorized").getValue())
+                    {
 						HTMLForms.getField("registration_limit").enable();
 						HTMLForms.getField("last_registration_date_enabled").enable();
 						jQuery("#' . self::class . '_register_authorizations").show();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("registration_limit").disable();
 						HTMLForms.getField("last_registration_date_enabled").disable();
 						jQuery("#' . self::class . '_register_authorizations").hide();
@@ -143,9 +156,12 @@ class CalendarItemFormController extends DefaultModuleController
 			[
 				'hidden' => ($request->is_post_method() ? !$request->get_postbool(self::class . '_registration_authorized', false) : !$item_content->is_registration_authorized()),
 				'events' => ['click' => '
-					if (HTMLForms.getField("registration_limit").getValue()) {
+					if (HTMLForms.getField("registration_limit").getValue())
+                    {
 						HTMLForms.getField("max_registered_members").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("max_registered_members").disable();
 					}'
 				]
@@ -161,9 +177,12 @@ class CalendarItemFormController extends DefaultModuleController
 			[
 				'hidden' => ($request->is_post_method() ? !$request->get_postbool(self::class . '_registration_authorized', false) : !$item_content->is_registration_authorized()),
 				'events' => ['click' => '
-					if (HTMLForms.getField("last_registration_date_enabled").getValue()) {
+					if (HTMLForms.getField("last_registration_date_enabled").getValue())
+                    {
 						HTMLForms.getField("last_registration_date").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("last_registration_date").disable();
 					}'
 				]
@@ -185,10 +204,14 @@ class CalendarItemFormController extends DefaultModuleController
 		$fieldset->add_field($auth_setter);
 
 		if ($this->get_item()->get_id() !== null)
+        {
 			$fieldset->add_field(new FormFieldCheckbox('cancelled', $this->lang['calendar.form.cancel'], $this->get_item()->get_content()->is_cancelled()));
+        }
 
 		if (CategoriesAuthorizationsService::check_authorizations($item_content->get_id_category())->moderation())
+        {
 			$fieldset->add_field(new FormFieldCheckbox('approved', $this->lang['form.approve'], $item_content->is_approved()));
+        }
 
 		$this->build_contribution_fieldset($form);
 
@@ -201,7 +224,7 @@ class CalendarItemFormController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function build_contribution_fieldset($form)
+	private function build_contribution_fieldset(HTMLForm $form): void
 	{
 		if (($this->is_new_item || $this->is_duplication) && $this->is_contributor_member())
 		{
@@ -223,13 +246,13 @@ class CalendarItemFormController extends DefaultModuleController
 		}
 	}
 
-	private function is_contributor_member()
+	private function is_contributor_member(): bool
 	{
         $id_category = AppContext::get_request()->get_getint('id_category', Category::ROOT_CATEGORY);
 		return !CategoriesAuthorizationsService::check_authorizations($id_category)->write() && CategoriesAuthorizationsService::check_authorizations($id_category)->contribution();
 	}
 
-	private function get_item()
+	private function get_item(): CalendarItem
 	{
 		if ($this->item === null)
 		{
@@ -237,9 +260,12 @@ class CalendarItemFormController extends DefaultModuleController
 			$id = $request->get_getint('id', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->item = CalendarService::get_item($id);
-				} catch (RowNotFoundException $e) {
+				}
+                catch (RowNotFoundException $e)
+                {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
@@ -259,7 +285,7 @@ class CalendarItemFormController extends DefaultModuleController
 		return $this->item;
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		$item = $this->get_item();
 
@@ -294,12 +320,18 @@ class CalendarItemFormController extends DefaultModuleController
 		$item_content->set_rewrited_title(Url::encode_rewrite($this->form->get_value('title')));
 
 		if (CategoriesService::get_categories_manager()->get_categories_cache()->has_categories())
+        {
 			$item_content->set_id_category($this->form->get_value('id_category')->get_raw_value());
+        }
 
         if ($this->is_duplication)
+        {
             $item_content->set_content($this->form->get_value('content') . $this->get_duplication_source());
+        }
         else
+        {
             $item_content->set_content($this->form->get_value('content'));
+        }
 
 		$item_content->set_thumbnail($this->form->get_value('thumbnail'));
 		$item_content->set_location($this->form->get_value('location'));
@@ -307,15 +339,23 @@ class CalendarItemFormController extends DefaultModuleController
 		if ($this->config->is_googlemaps_available())
 		{
 			if ($this->form->get_value('map_displayed'))
+            {
 				$item_content->display_map();
+            }
 			else
+            {
 				$item_content->hide_map();
+            }
 		}
 
 		if ($item->get_id() !== null && $this->form->get_value('cancelled'))
+        {
 			$item_content->cancel();
+        }
 		if ($item->get_id() !== null && !$this->form->get_value('cancelled'))
+        {
 			$item_content->uncancel();
+        }
 
 		if (CategoriesAuthorizationsService::check_authorizations($item_content->get_id_category())->moderation())
 		{
@@ -323,13 +363,19 @@ class CalendarItemFormController extends DefaultModuleController
 			{
 				$item_content->approve();
 				if ($item->get_id() !== null)
+                {
 					$item_content->set_update_date(new Date());
+                }
 			}
 			else
+            {
 				$item_content->unapprove();
+            }
 		}
 		else if (CategoriesAuthorizationsService::check_authorizations($item_content->get_id_category())->contribution() && !CategoriesAuthorizationsService::check_authorizations($item_content->get_id_category())->write())
+        {
 			$item_content->unapprove();
+        }
 
 		if ($this->form->get_value('registration_authorized'))
 		{
@@ -359,12 +405,16 @@ class CalendarItemFormController extends DefaultModuleController
 			$item_content->set_register_authorizations($this->form->get_value('register_authorizations', $item_content->get_register_authorizations())->build_auth_array());
 		}
 		else
+        {
 			$item_content->unauthorize_registration();
+        }
 
 		$item_content->set_repeat_type($this->form->get_value('repeat_type')->get_raw_value());
 
 		if ($item_content->get_repeat_type() != CalendarItemContent::NEVER)
+        {
 			$item_content->set_repeat_number($this->form->get_value('repeat_number'));
+        }
 
 		$item->set_start_date($this->form->get_value('start_date'));
 		$item->set_end_date($this->form->get_value('end_date'));
@@ -380,7 +430,9 @@ class CalendarItemFormController extends DefaultModuleController
 			$item->set_id($item_id);
 
 			if (!$this->is_contributor_member())
+            {
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($item_content->get_properties(), $item->get_properties(), ['item_url' => $item->get_item_url()]));
+            }
 
 			if ($item->get_content()->is_repeatable())
 			{
@@ -418,7 +470,9 @@ class CalendarItemFormController extends DefaultModuleController
 			$item->set_id($item_id);
 
 			if (!$this->is_contributor_member())
+            {
 				HooksService::execute_hook_action('add', self::$module_id, array_merge($item_content->get_properties(), $item->get_properties(), ['item_url' => $item->get_item_url()]));
+            }
 
 			if ($item->get_content()->is_repeatable())
 			{
@@ -446,7 +500,9 @@ class CalendarItemFormController extends DefaultModuleController
 			$item_id = CalendarService::update_item($item);
 
 			if (!$this->is_contributor_member())
+            {
 				HooksService::execute_hook_action('edit', self::$module_id, array_merge($item_content->get_properties(), $item->get_properties(), ['item_url' => $item->get_item_url()]));
+            }
 
 			if ($item->get_content()->is_repeatable() || $item_content->is_repeatable() && ($item->get_content()->get_repeat_number() != $item_content->get_repeat_number() || $item->get_content()->get_repeat_type() != $item_content->get_repeat_type()))
 			{
@@ -465,9 +521,13 @@ class CalendarItemFormController extends DefaultModuleController
 						$e = $this->set_event_start_and_end_date($e, $new_start_date, $new_end_date);
 
 						if ($i <= $item_content->get_repeat_number())
+                        {
 							CalendarService::update_item($e);
+                        }
 						else
+                        {
 							CalendarService::delete_item($e->get_id());
+                        }
 
 						$new_start_date = $e->get_start_date();
 						$new_end_date = $e->get_end_date();
@@ -499,14 +559,14 @@ class CalendarItemFormController extends DefaultModuleController
 		CalendarService::clear_cache();
 	}
 
-    private function get_duplication_source()
+    private function get_duplication_source(): string
     {
         $url = GeneralConfig::load()->get_site_url() . CalendarService::get_item($this->request->get_value('id'))->get_item_url();
         $title = CalendarService::get_item($this->request->get_value('id'))->get_content()->get_title();
         return StringVars::replace_vars($this->lang['common.duplication.source'], ['url' => $url, 'title' => $title]);
     }
 
-	private function set_event_start_and_end_date(CalendarItem $item, $new_start_date, $new_end_date)
+	private function set_event_start_and_end_date(CalendarItem $item, Date $new_start_date, Date $new_end_date): CalendarItem
 	{
 		switch ($item->get_content()->get_repeat_type())
 		{
@@ -530,7 +590,9 @@ class CalendarItemFormController extends DefaultModuleController
 					$new_start_date->set_year($new_start_date->get_year() + 1);
 				}
 				else
+                {
 					$new_start_date->set_month($new_start_month);
+                }
 				$new_end_month = $new_end_date->get_month() + 1;
 				if ($new_end_month > 12)
 				{
@@ -538,7 +600,9 @@ class CalendarItemFormController extends DefaultModuleController
 					$new_end_date->set_year($new_end_date->get_year() + 1);
 				}
 				else
+                {
 					$new_end_date->set_month($new_end_month);
+                }
 				$item->set_start_date($new_start_date);
 				$item->set_end_date($new_end_date);
 				break;
@@ -557,16 +621,20 @@ class CalendarItemFormController extends DefaultModuleController
 		return $item;
 	}
 
-	private function contribution_actions(CalendarItem $item)
+	private function contribution_actions(CalendarItem $item): void
 	{
 		if($this->is_contributor_member())
 		{
 			$contribution = new Contribution();
 			$contribution->set_id_in_module($item->get_id());
 			if ($this->is_new_item || $this->is_duplication)
+            {
 				$contribution->set_description(stripslashes($this->form->get_value('contribution_description')));
+            }
 			else
+            {
 				$contribution->set_description(stripslashes($this->form->get_value('edition_description')));
+            }
 
 			$contribution->set_entitled($item->get_content()->get_title());
 			$contribution->set_fixing_url(CalendarUrlBuilder::edit_item($item->get_id())->relative());
@@ -608,20 +676,28 @@ class CalendarItemFormController extends DefaultModuleController
 		elseif ($item->get_content()->is_approved())
 		{
 			if ($this->is_new_item || $this->is_duplication)
+            {
 				AppContext::get_response()->redirect(CalendarUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true), StringVars::replace_vars($this->lang['calendar.message.success.add'], ['title' => $item->get_content()->get_title()]));
+            }
 			else
+            {
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : CalendarUrlBuilder::home($item->get_start_date()->get_year(), $item->get_start_date()->get_month(), $item->get_start_date()->get_day() , true)), StringVars::replace_vars($this->lang['calendar.message.success.edit'], ['title' => $item->get_content()->get_title()]));
+            }
 		}
 		else
 		{
 			if ($this->is_new_item || $this->is_duplication)
+            {
 				AppContext::get_response()->redirect(CalendarUrlBuilder::display_pending_items(), StringVars::replace_vars($this->lang['calendar.message.success.add'], ['title' => $item->get_content()->get_title()]));
+            }
 			else
+            {
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : CalendarUrlBuilder::display_pending_items()), StringVars::replace_vars($this->lang['calendar.message.success.edit'], ['title' => $item->get_content()->get_title()]));
+            }
 		}
 	}
 
-	private function generate_response(View $view)
+	private function generate_response(View $view): SiteDisplayResponse
 	{
 		$item = $this->get_item();
 
@@ -644,7 +720,9 @@ class CalendarItemFormController extends DefaultModuleController
 		else
 		{
 			if (!AppContext::get_session()->location_id_already_exists($location_id))
+            {
 				$graphical_environment->set_location_id($location_id);
+            }
 
             $page_title = $this->is_duplication ? $this->lang['calendar.item.duplicate'] : $this->lang['calendar.item.edit'];
             $page_url = $this->is_duplication ? CalendarUrlBuilder::duplicate_item($item->get_id()) : CalendarUrlBuilder::edit_item($item->get_id());

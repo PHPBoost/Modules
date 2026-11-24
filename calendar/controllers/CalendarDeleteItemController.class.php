@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 11 20
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,7 +11,7 @@
 
 class CalendarDeleteItemController extends DefaultModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		AppContext::get_session()->csrf_get_protect();
 
@@ -20,7 +20,9 @@ class CalendarDeleteItemController extends DefaultModuleController
 		$this->check_authorizations();
 
 		if ($this->item->belongs_to_a_serie())
+        {
 			$this->build_form($request);
+        }
 
 		if (($this->item->belongs_to_a_serie() && $this->submit_button->has_been_submited() && $this->form->validate()) || !$this->item->belongs_to_a_serie())
 		{
@@ -56,19 +58,23 @@ class CalendarDeleteItemController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function get_item(HTTPRequestCustom $request)
+	private function get_item(HTTPRequestCustom $request): ?CalendarItem
 	{
 		$id = $request->get_getint('id', 0);
 
-		try {
+		try
+        {
 			$this->item = CalendarService::get_item($id);
-		} catch (RowNotFoundException $e) {
+		}
+        catch (RowNotFoundException $e)
+        {
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
+        return null;
 	}
 
-	private function delete_item($delete_all_serie_items = false)
+	private function delete_item(bool $delete_all_serie_items = false): void
 	{
 		$items_list = CalendarService::get_serie_items($this->item->get_content()->get_id());
 
@@ -101,7 +107,7 @@ class CalendarDeleteItemController extends DefaultModuleController
 		HooksService::execute_hook_action('delete', self::$module_id, array_merge($this->item->get_content()->get_properties(), $this->item->get_properties()));
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!$this->item->is_authorized_to_delete())
 		{
@@ -115,15 +121,19 @@ class CalendarDeleteItemController extends DefaultModuleController
 		}
 	}
 
-	private function redirect(HTTPRequestCustom $request)
+	private function redirect(HTTPRequestCustom $request): void
 	{
 		if ($this->item->belongs_to_a_serie())
+        {
 			AppContext::get_response()->redirect(($this->form->get_value('referrer') && !TextHelper::strstr($request->get_url_referrer(), CalendarUrlBuilder::display($this->item->get_content()->get_category()->get_id(), $this->item->get_content()->get_category()->get_rewrited_name(), $this->item->get_id(), $this->item->get_content()->get_rewrited_title())->rel()) ? $this->form->get_value('referrer') : CalendarUrlBuilder::home($this->item->get_start_date()->get_year(), $this->item->get_start_date()->get_month())), StringVars::replace_vars($this->lang['calendar.message.success.delete'], ['title' => $this->item->get_content()->get_title()]));
+        }
 		else
+        {
 			AppContext::get_response()->redirect(($request->get_url_referrer() && !TextHelper::strstr($request->get_url_referrer(), CalendarUrlBuilder::display($this->item->get_content()->get_category()->get_id(), $this->item->get_content()->get_category()->get_rewrited_name(), $this->item->get_id(), $this->item->get_content()->get_rewrited_title())->rel()) ? $request->get_url_referrer() : CalendarUrlBuilder::home($this->item->get_start_date()->get_year(), $this->item->get_start_date()->get_month())), StringVars::replace_vars($this->lang['calendar.message.success.delete'], ['title' => $this->item->get_content()->get_title()]));
+        }
 	}
 
-	private function generate_response(View $view)
+	private function generate_response(View $view): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($view);
 		$graphical_environment = $response->get_graphical_environment();

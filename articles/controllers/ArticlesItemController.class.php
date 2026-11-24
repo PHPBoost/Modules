@@ -136,28 +136,36 @@ class ArticlesItemController extends DefaultDisplayItemController
 		return $pagination;
 	}
 
-	protected function get_additionnal_seo_properties()
+	protected function get_additionnal_seo_properties(): array
 	{
 		$additionnal_properties = [];
 
 		$additionnal_properties['article:published_time'] = $this->get_item()->get_creation_date()->format(Date::FORMAT_ISO8601);
 
 		if ($this->get_item()->get_category()->get_id() != Category::ROOT_CATEGORY)
+        {
 			$additionnal_properties['article:section'] = $this->get_item()->get_category()->get_name();
+        }
 
 		if ($this->get_item()->get_keywords())
+        {
 			$additionnal_properties['article:tag'] = $this->get_item()->get_keywords_name();
+        }
 
 		if ($this->get_item()->get_update_date() !== null)
+        {
 			$additionnal_properties['article:modified_time'] = $this->get_item()->get_update_date()->format(Date::FORMAT_ISO8601);
+        }
 
 		if ($this->get_item()->get_publishing_end_date() !== null)
+        {
 			$additionnal_properties['article:expiration_time'] = $this->get_item()->get_publishing_end_date()->format(Date::FORMAT_ISO8601);
+        }
 
 		return $additionnal_properties;
 	}
 
-	protected function get_seo_page_type()
+	protected function get_seo_page_type(): string
 	{
 		return 'article';
 	}

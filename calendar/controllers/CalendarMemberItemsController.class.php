@@ -3,18 +3,18 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 5.2 - 2020 08 28
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class CalendarMemberItemsController extends DefaultModuleController
 {
-	private $items_view;
-	private $member;
-	private $authorized_categories;
+	private Template $items_view;
+	private ?User $member;
+	private array $authorized_categories;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -23,14 +23,18 @@ class CalendarMemberItemsController extends DefaultModuleController
 		$this->view->put('C_MEMBER_ITEMS', true);
 
         if ($this->member === null)
+        {
             $this->build_members_listing_view();
+        }
         else
+        {
             $this->build_view($request);
+        }
 
 		return $this->generate_response();
 	}
 
-	public function init()
+	public function init(): void
 	{
 		$this->items_view = new FileTemplate('calendar/CalendarAjaxEventsController.tpl');
 		$this->items_view->add_lang($this->lang);
@@ -38,16 +42,18 @@ class CalendarMemberItemsController extends DefaultModuleController
 		$this->authorized_categories = CategoriesService::get_authorized_categories();
     }
 
-	private function build_members_listing_view()
+	private function build_members_listing_view(): void
 	{
 		$now = new Date();
-        $result = PersistenceContext::get_querier()->select('SELECT *
+        $result = PersistenceContext::get_querier()->select('
+            SELECT *
             FROM ' . CalendarSetup::$calendar_events_table . ' event
             LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
             LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
             WHERE id_category IN :authorized_categories
             AND approved = 1
-            ORDER BY member.display_name', [
+            ORDER BY member.display_name
+            ', [
                 'authorized_categories' => $this->authorized_categories,
                 'timestamp_now' => $now->get_timestamp()
             ]
@@ -82,13 +88,15 @@ class CalendarMemberItemsController extends DefaultModuleController
         }
     }
 
-	public function build_view(HTTPRequestCustom $request)
+	public function build_view(HTTPRequestCustom $request): Template
 	{
-		$condition = 'WHERE approved = 1
-		AND author_user_id = :user_id
-		AND parent_id = 0
-		AND id_category IN :authorized_categories
-		' . (!CategoriesAuthorizationsService::check_authorizations()->moderation() ? ' AND event_content.author_user_id = :user_id' : '');
+		$condition = '
+            WHERE approved = 1
+            AND author_user_id = :user_id
+            AND parent_id = 0
+            AND id_category IN :authorized_categories
+            ' . (!CategoriesAuthorizationsService::check_authorizations()->moderation() ? ' AND event_content.author_user_id = :user_id' : '')
+        ;
 		$parameters = [
 			'authorized_categories' => $this->authorized_categories,
 			'user_id' => $this->get_member()->get_id()
@@ -97,17 +105,20 @@ class CalendarMemberItemsController extends DefaultModuleController
 		$page = $request->get_getint('page', 1);
 		$pagination = $this->get_pagination($condition, $parameters, $page);
 
-		$result = PersistenceContext::get_querier()->select('SELECT *
-		FROM ' . CalendarSetup::$calendar_events_table . ' event
-		LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
-		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = event.id_event AND com.module_id = \'calendar\'
-		' . $condition . '
-		ORDER BY start_date DESC
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT *
+            FROM ' . CalendarSetup::$calendar_events_table . ' event
+            LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = event_content.author_user_id
+            LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = event.id_event AND com.module_id = \'calendar\'
+            ' . $condition . '
+            ORDER BY start_date DESC
+            LIMIT :number_items_per_page OFFSET :display_from
+            ', array_merge($parameters, [
+                'number_items_per_page' => $pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$this->items_view->put_all([
 			'C_ITEMS' => $result->get_rows_count() > 0,
@@ -157,7 +168,7 @@ class CalendarMemberItemsController extends DefaultModuleController
 		}
 	}
 
-	private function get_pagination($condition, $parameters, $page)
+	private function get_pagination(string $condition, array $parameters, int $page): ModulePagination
 	{
 		$row = PersistenceContext::get_querier()->select_single_row_query('SELECT COUNT(*) AS events_number
 		FROM ' . CalendarSetup::$calendar_events_table . ' event
@@ -175,16 +186,13 @@ class CalendarMemberItemsController extends DefaultModuleController
 
 		return $pagination;
 	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function get_template_to_use()
+
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('calendar/CalendarSeveralItemsController.tpl');
 	}
 
-	private function generate_response()
+	private function generate_response(): SiteDisplayResponse
 	{
 		$page = AppContext::get_request()->get_getint('page', 1);
 		$page_title = $this->member ? ($this->is_current_member_displayed() ? $this->lang['calendar.my.items'] : $this->get_member()->get_display_name()) : $this->lang['contribution.members.list'];
@@ -207,7 +215,9 @@ class CalendarMemberItemsController extends DefaultModuleController
 		$breadcrumb->add($this->lang['calendar.module.title'], CalendarUrlBuilder::home());
 		$breadcrumb->add($this->lang['contribution.members.list'], CalendarUrlBuilder::display_member_items());
         if ($this->member)
+        {
             $breadcrumb->add($this->lang['calendar.my.items'], CalendarUrlBuilder::display_member_items($this->member ? $this->get_member()->get_id() : null, $page));
+        }
 
 		return $response;
 	}

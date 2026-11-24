@@ -51,10 +51,12 @@ class CalendarFeedProvider implements FeedProvider
                 WHERE approved = 1
                 AND id_category IN :cats_ids
                 AND start_date > :timestamp_now
-                ORDER BY start_date ASC', [
+                ORDER BY start_date ASC
+                ', [
                     'cats_ids' => $ids_categories,
                     'timestamp_now' => $now->get_timestamp()
-            ]);
+                ]
+            );
 
 			while ($row = $result->fetch())
 			{

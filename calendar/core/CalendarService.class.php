@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 11
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 3.0 - 2012 11 20
  * @author      Mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -13,7 +13,7 @@ class CalendarService
 {
 	private static DBQuerier $db_querier ;
 
-	public static function __static()
+	public static function __static(): void
 	{
 		self::$db_querier = PersistenceContext::get_querier();
 	}
@@ -22,7 +22,7 @@ class CalendarService
 	 * Create a new item.
 	 * @param CalendarItem $item new CalendarItem
 	 */
-	public static function add_item(CalendarItem $item)
+	public static function add_item(CalendarItem $item): int
 	{
 		$result = self::$db_querier->insert(CalendarSetup::$calendar_events_table, $item->get_properties());
 
@@ -33,7 +33,7 @@ class CalendarService
 	 * Create a new item content.
 	 * @param CalendarItemContent $item_content new CalendarItemContent
 	 */
-	public static function add_item_content(CalendarItemContent $item_content)
+	public static function add_item_content(CalendarItemContent $item_content): int
 	{
 		$result = self::$db_querier->insert(CalendarSetup::$calendar_events_content_table, $item_content->get_properties());
 
@@ -45,7 +45,7 @@ class CalendarService
 	 * @param int $item_id id of the item
 	 * @param int $user_id id of the participant to add
 	 */
-	public static function add_participant($item_id, $user_id)
+	public static function add_participant(int $item_id, int $user_id)
 	{
 		self::$db_querier->insert(CalendarSetup::$calendar_users_relation_table, [
 			'event_id' => $item_id,
@@ -57,7 +57,7 @@ class CalendarService
 	 * Update an item.
 	 * @param CalendarItem $item CalendarItem to update
 	 */
-	public static function update_item(CalendarItem $item)
+	public static function update_item(CalendarItem $item): int
 	{
 		self::$db_querier->update(CalendarSetup::$calendar_events_table, $item->get_properties(), 'WHERE id_event = :id', [
 			'id' => $item->get_id()
@@ -70,7 +70,7 @@ class CalendarService
 	 * Update the content of an item.
 	 * @param CalendarItemContent $item_content CalendarItemContent to update
 	 */
-	public static function update_item_content(CalendarItemContent $item_content)
+	public static function update_item_content(CalendarItemContent $item_content): void
 	{
 		self::$db_querier->update(CalendarSetup::$calendar_events_content_table, $item_content->get_properties(), 'WHERE id = :id', [
 			'id' => $item_content->get_id()
@@ -83,7 +83,7 @@ class CalendarService
 	 * @param bool $has_parent Complete delete if event doesn't have a parent (complete delete), false per default
 	 * @param string $id_label table column to take into consideration. id_event per default
 	 */
-	public static function delete_item(int $id, bool $has_parent = false, $id_label = 'id_event')
+	public static function delete_item(int $id, bool $has_parent = false, string $id_label = 'id_event'): void
 	{
 		if (AppContext::get_current_user()->is_readonly())
 		{
@@ -94,7 +94,9 @@ class CalendarService
 		self::$db_querier->delete(CalendarSetup::$calendar_events_table, 'WHERE ' . $id_label . '=:id', ['id' => $id]);
 
 		if (!$has_parent)
+        {
 			PersistenceContext::get_querier()->delete(DB_TABLE_EVENTS, 'WHERE module=:module AND id_in_module=:id', ['module' => 'calendar', 'id' => $id]);
+        }
 
 		CommentsService::delete_comments_topic_module('calendar', $id);
 
@@ -106,7 +108,7 @@ class CalendarService
 	 * Delete the content of an item.
 	 * @param int $id id of the content of the item
 	 */
-	public static function delete_item_content($id)
+	public static function delete_item_content(int $id): void
 	{
 		self::$db_querier->delete(CalendarSetup::$calendar_events_content_table, 'WHERE id = :id', ['id' => $id]);
 	}
@@ -115,7 +117,7 @@ class CalendarService
 	 * Delete a serie of items.
 	 * @param int $content_id id of the content of the item
 	 */
-	public static function delete_all_serie_items($content_id)
+	public static function delete_all_serie_items(int $content_id): void
 	{
 		self::delete_item_content($content_id);
 		self::delete_item($content_id, false, 'content_id');
@@ -125,7 +127,7 @@ class CalendarService
 	 * Delete the participants of an item.
 	 * @param int $item_id id of the item
 	 */
-	public static function delete_all_participants($item_id)
+	public static function delete_all_participants(int $item_id): void
 	{
 		self::$db_querier->delete(CalendarSetup::$calendar_users_relation_table, 'WHERE event_id = :id', [
 			'id' => $item_id
@@ -137,7 +139,7 @@ class CalendarService
 	 * @param int $item_id id of the item
 	 * @param int $user_id id of the participant to delete
 	 */
-	public static function delete_participant($item_id, $user_id)
+	public static function delete_participant(int $item_id, int $user_id): void
 	{
 		self::$db_querier->delete(CalendarSetup::$calendar_users_relation_table, 'WHERE event_id = :event_id AND user_id = :user_id', [
 			'event_id' => $item_id,
@@ -149,15 +151,18 @@ class CalendarService
 	 * Return the content of an item.
 	 * @param int $id Item identifier
 	 */
-	public static function get_item(int $id)
+	public static function get_item(int $id): CalendarItem
 	{
-		$row = self::$db_querier->select_single_row_query('SELECT *
-		FROM ' . CalendarSetup::$calendar_events_table . ' event
-		LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = event_content.author_user_id
-		WHERE event.id_event=:id', [
-			'id' => $id
-		]);
+		$row = self::$db_querier->select_single_row_query('
+            SELECT *
+            FROM ' . CalendarSetup::$calendar_events_table . ' event
+            LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = event_content.author_user_id
+            WHERE event.id_event=:id
+            ', [
+                'id' => $id
+            ]
+        );
 
 		$item = new CalendarItem();
 		$item->set_properties($row);
@@ -170,16 +175,19 @@ class CalendarService
 	 * Return the participants of an item.
 	 * @param int $item_id id of the item
 	 */
-	public static function get_item_participants($item_id)
+	public static function get_item_participants(int $item_id): array
 	{
 		$participants = [];
 
-		$result = self::$db_querier->select('SELECT event_id, member.user_id, display_name, level, user_groups
-		FROM ' . CalendarSetup::$calendar_users_relation_table . ' participants
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = participants.user_id
-		WHERE event_id = :id', [
-			'id' => $item_id
-		]);
+		$result = self::$db_querier->select('
+            SELECT event_id, member.user_id, display_name, level, user_groups
+            FROM ' . CalendarSetup::$calendar_users_relation_table . ' participants
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = participants.user_id
+            WHERE event_id = :id
+            ', [
+                'id' => $item_id
+            ]
+        );
 
 		while($row = $result->fetch())
 		{
@@ -199,17 +207,20 @@ class CalendarService
 	 * Return the items of a serie.
 	 * @param int $content_id id of the content of the item
 	 */
-	public static function get_serie_items($content_id)
+	public static function get_serie_items(int $content_id): array
 	{
 		$items = [];
 
-		$result = self::$db_querier->select('SELECT *
-		FROM ' . CalendarSetup::$calendar_events_table . ' event
-		LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = event_content.author_user_id
-		WHERE content_id = :id', [
-			'id' => $content_id
-		]);
+		$result = self::$db_querier->select('
+            SELECT *
+            FROM ' . CalendarSetup::$calendar_events_table . ' event
+            LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' author ON author.user_id = event_content.author_user_id
+            WHERE content_id = :id
+            ', [
+                'id' => $content_id
+            ]
+        );
 
 		while($row = $result->fetch())
 		{

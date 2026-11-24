@@ -68,7 +68,7 @@ class AdminBroadcastConfigController extends DefaultAdminModuleController
 						HTMLForms.getField("broadcast_url").enable();
 						HTMLForms.getField("broadcast_widget").disable();
 					}
-                    elseif (HTMLForms.getField("player_type").getValue() == \'' . BroadcastConfig::BROADCAST_WIDGET . '\')
+                    else if (HTMLForms.getField("player_type").getValue() == \'' . BroadcastConfig::BROADCAST_WIDGET . '\')
                     {
 						HTMLForms.getField("broadcast_url").disable();
 						HTMLForms.getField("broadcast_widget").enable();

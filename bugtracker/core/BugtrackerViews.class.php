@@ -11,7 +11,7 @@
 
 class BugtrackerViews
 {
-	public static function build_body_view(View $view, int $current_page, int $bug_id = 0, string $bug_type = ""): FileTemplate
+	public static function build_body_view(View $view, string $current_page, int $bug_id = 0, string $bug_type = ""): FileTemplate
 	{
 		$lang = LangLoader::get_all_langs('bugtracker');
 		$config = BugtrackerConfig::load();
@@ -37,7 +37,7 @@ class BugtrackerViews
 		return $body_view;
 	}
 
-	public static function build_filters(int $current_page, int $nbr_bugs = 0): FileTemplate
+	public static function build_filters(string $current_page, int $nbr_bugs = 0): FileTemplate
 	{
 		$lang   = LangLoader::get_all_langs('bugtracker');
 		$object = new self();
@@ -169,7 +169,7 @@ class BugtrackerViews
 		return $filters_view;
 	}
 
-	public static function build_legend(array $list, int $current_page): Template
+	public static function build_legend(array $list, string $current_page): Template
 	{
 		$lang = LangLoader::get_all_langs('bugtracker');
 
@@ -201,7 +201,7 @@ class BugtrackerViews
 		return ($legend_colspan ? $legend_view : new StringTemplate(''));
 	}
 
-	private function build_types_form(int $current_page, string $requested_type, array $filters, array $filters_ids): HTMLForm
+	private function build_types_form(string $current_page, string $requested_type, array $filters, array $filters_ids): HTMLForm
 	{
 		if (in_array('type', $filters))
 		{
@@ -249,7 +249,7 @@ class BugtrackerViews
 		return $array_types;
 	}
 
-	private function build_categories_form(int $current_page, string $requested_category, array $filters, array $filters_ids): HTMLForm
+	private function build_categories_form(string $current_page, string $requested_category, array $filters, array $filters_ids): HTMLForm
 	{
 		if (in_array('category', $filters))
 		{
@@ -297,7 +297,7 @@ class BugtrackerViews
 		return $array_categories;
 	}
 
-	private function build_severities_form(int $current_page, string $requested_severity, array $filters, array $filters_ids): HTMLForm
+	private function build_severities_form(string $current_page, string $requested_severity, array $filters, array $filters_ids): HTMLForm
 	{
 		if (in_array('severity', $filters))
 		{
@@ -345,7 +345,7 @@ class BugtrackerViews
 		return $array_severities;
 	}
 
-	private function build_status_form(int $current_page, string $requested_status, array $filters, array $filters_ids, array $lang): HTMLForm
+	private function build_status_form(string $current_page, string $requested_status, array $filters, array $filters_ids, array $lang): HTMLForm
 	{
 		if (in_array('status', $filters))
 		{
@@ -380,7 +380,7 @@ class BugtrackerViews
 		return $form;
 	}
 
-	private function build_select_status(int $current_page, array $lang): array
+	private function build_select_status(string $current_page, array $lang): array
 	{
 		$status_list = BugtrackerConfig::load()->get_status_list();
 
@@ -396,7 +396,7 @@ class BugtrackerViews
 		return $array_status;
 	}
 
-	private function build_versions_form(int $current_page, string $requested_version, array $filters, array $filters_ids): HTMLForm
+	private function build_versions_form(string $current_page, string $requested_version, array $filters, array $filters_ids): HTMLForm
 	{
 		$search_field = ($current_page == 'unsolved' ? 'detected_in' : 'fixed_in');
 
@@ -433,7 +433,7 @@ class BugtrackerViews
 		return $form;
 	}
 
-	private function build_select_versions(int $current_page): array
+	private function build_select_versions(string $current_page): array
 	{
 		$versions = ($current_page == 'unsolved' ? BugtrackerConfig::load()->get_versions_detected() : BugtrackerConfig::load()->get_versions());
 		$versions = array_reverse($versions, true);

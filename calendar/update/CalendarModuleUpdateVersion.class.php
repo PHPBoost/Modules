@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 4.0 - 2014 02 11
  * @author      xela <xela@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -64,7 +64,7 @@ class CalendarModuleUpdateVersion extends ModuleUpdateVersion
 		];
 	}
 
-	protected function execute_module_specific_changes()
+	protected function execute_module_specific_changes(): void
 	{
 		// Set registration_limit enabled where max registered members id different of 0
 		$this->querier->update(PREFIX . 'calendar_events_content', ['registration_limit' => 1], 'WHERE max_registered_members <> 0');

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 06
+ * @version     PHPBoost 6.1 - last update: 2026 11 24
  * @since       PHPBoost 6.0 - 2021 03 24
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -21,10 +21,15 @@ class CalendarCategoriesManager extends CategoriesManager
 			throw new CategoryNotFoundException($id);
 		}
 
-		$result = PersistenceContext::get_querier()->select('SELECT id_event
-		FROM ' . CalendarSetup::$calendar_events_table . ' event
-		LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
-		WHERE id_category = :id_category', ['id_category' => $id]);
+		$result = PersistenceContext::get_querier()->select('
+            SELECT id_event
+            FROM ' . CalendarSetup::$calendar_events_table . ' event
+            LEFT JOIN ' . CalendarSetup::$calendar_events_content_table . ' event_content ON event_content.id = event.content_id
+            WHERE id_category = :id_category
+            ', [
+                'id_category' => $id
+            ]
+        );
 		while ($row = $result->fetch())
 		{
 			CalendarService::delete_item($row['id_event']);
