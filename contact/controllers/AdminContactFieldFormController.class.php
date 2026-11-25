@@ -14,12 +14,12 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 	private $id;
 	private $is_new_field;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('contact/AdminContactFieldFormController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminContactDisplayResponse
 	{
 		$this->init($request);
 
@@ -29,25 +29,31 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		{
 			$this->save();
 			if ($this->is_new_field)
+            {
 				AppContext::get_response()->redirect(ContactUrlBuilder::manage_fields(), StringVars::replace_vars($this->lang['contact.message.success.add'], ['name' => $this->get_field()->get_name()]));
+            }
 			else
+            {
 				AppContext::get_response()->redirect(($this->form->get_value('referrer') ? $this->form->get_value('referrer') : ContactUrlBuilder::manage_fields()), StringVars::replace_vars($this->lang['contact.message.success.edit'], ['name' => $this->get_field()->get_name()]));
+            }
 		}
 
 		$this->view->put('CONTENT', $this->form->display());
 
 		if (!$this->get_field()->is_readonly())
+        {
 			$this->view->put('JS_EVENT_SELECT_TYPE', $this->get_events_select_type());
+        }
 
 		return new AdminContactDisplayResponse($this->view, !empty($this->id) ? $this->lang['form.field.edit'] : $this->lang['form.field.add']);
 	}
 
-	private function init(HTTPRequestCustom $request)
+	private function init(HTTPRequestCustom $request): void
 	{
 		$this->id = $request->get_getint('id', 0);
 	}
 
-	private function build_form(HTTPRequestCustom $request)
+	private function build_form(HTTPRequestCustom $request): void
 	{
 		$field = $this->get_field();
 
@@ -84,7 +90,10 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('field_type', $this->lang['form.field.type'], $field->get_field_type(),
 			$this->get_array_select_type($field->get_field_name()),
-			['class' => 'top-field', 'disabled' => $field->is_readonly(), 'events' => ['change' => $this->get_events_select_type()]]
+			[
+                'class' => 'top-field', 'disabled' => $field->is_readonly(),
+                'events' => ['change' => $this->get_events_select_type()]
+            ]
 		));
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('regex_type', $this->lang['form.regex'], $regex_type,
@@ -93,10 +102,13 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 				'disabled' => $field->is_readonly(),
 				'description' => $this->lang['form.regex.clue'],
 				'events' => ['change' => '
-					if (HTMLForms.getField("regex_type").getValue() == 6) {
+					if (HTMLForms.getField("regex_type").getValue() == 6)
+                    {
 						HTMLForms.getField("regex").enable();
 						jQuery("#' . self::class . '_regex").focus();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("regex").disable();
 					}'
 				]
@@ -156,7 +168,7 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function get_field()
+	private function get_field(): ContactField
 	{
 		if ($this->field === null)
 		{
@@ -170,31 +182,39 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 				$this->field->set_properties($properties);
 			}
 			else
+            {
 				$this->is_new_field = true;
+            }
 		}
 		return $this->field;
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$field = $this->get_field();
 		$fields = $this->config->get_fields();
 
 		if ($field->is_deletable())
+        {
 			$field->set_field_name(ContactField::rewrite_field_name($this->form->get_value('name')));
+        }
 
 		$field->set_name($this->form->get_value('name'));
 		$field->set_description($this->form->get_value('description'));
 
 		if (!$this->form->field_is_disabled('field_type'))
+        {
 			$field->set_field_type($this->form->get_value('field_type')->get_raw_value());
+        }
 
 		if (!$field->is_readonly() && !$this->form->field_is_disabled('regex_type'))
 		{
 			$regex = $regex_type = $this->form->get_value('regex_type')->get_raw_value();
 
 			if (!$this->form->field_is_disabled('regex'))
+            {
 				$regex = $regex_type != 6 ? $regex_type : $this->form->get_value('regex');
+            }
 
 			$field->set_regex($regex);
 		}
@@ -202,9 +222,13 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		if (!$this->form->field_is_disabled('field_required'))
 		{
 			if ((bool)$this->form->get_value('field_required'))
+            {
 				$field->required();
+            }
 			else
+            {
 				$field->not_required();
+            }
 		}
 
 		if (!$this->form->field_is_disabled('possible_values'))
@@ -213,21 +237,31 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		}
 
 		if (!$this->form->field_is_disabled('default_value_small'))
+        {
 			$field->set_default_value($this->form->get_value('default_value_small'));
+        }
 
 		if (!$this->form->field_is_disabled('default_value_medium'))
+        {
 			$field->set_default_value($this->form->get_value('default_value_medium'));
+        }
 
 		if (!$this->form->field_is_disabled('display'))
 		{
 			if ((bool)$this->form->get_value('display'))
+            {
 				$field->displayed();
+            }
 			else
+            {
 				$field->not_displayed();
+            }
 		}
 
 		if (!$this->form->field_is_disabled('authorizations'))
+        {
 			$field->set_authorization($this->form->get_value('authorizations', $field->get_authorization())->build_auth_array());
+        }
 
 		$fields[!empty($this->id) ? $this->id : count($this->config->get_fields()) + 1] = $field->get_properties();
 
@@ -236,7 +270,7 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		ContactConfig::save();
 	}
 
-	private function get_array_select_type($field_name)
+	private function get_array_select_type(string $field_name): array
 	{
 		$types = [];
 
@@ -247,7 +281,7 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		return $types;
 	}
 
-	private function get_array_select_regex()
+	private function get_array_select_regex(): array
 	{
 		return [
 			new FormFieldSelectChoiceOption('--', 0),
@@ -262,7 +296,7 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		];
 	}
 
-	private function get_events_select_type()
+	private function get_events_select_type(): string
 	{
 		$event = '';
 		$disable_fields = $this->get_disable_fields();
@@ -295,14 +329,14 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		return $event;
 	}
 
-	private function get_disable_fields()
+	private function get_disable_fields(): array
 	{
 		$disable_field = [
-			'name' => [],
-			'description' => [],
-			'regex' => [],
-			'possible_values' => [],
-			'default_value_small' => [],
+			'name'                 => [],
+			'description'          => [],
+			'regex'                => [],
+			'possible_values'      => [],
+			'default_value_small'  => [],
 			'default_value_medium' => [],
 		];
 
@@ -321,7 +355,7 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 		return $disable_field;
 	}
 
-	private function get_fields_class_name($field_name = '')
+	private function get_fields_class_name($field_name = ''): array
 	{
 		if ($field_name == 'f_recipients')
 		{
@@ -332,7 +366,7 @@ class AdminContactFieldFormController extends DefaultAdminModuleController
 				new ContactMultipleChoiceField(),
 			];
 		}
-		else if ($field_name == 'f_subject')
+		elseif ($field_name == 'f_subject')
 		{
 			return [
 				new ContactShortTextField(),

@@ -48,7 +48,7 @@ class ArticlesItemController extends DefaultDisplayItemController
 		$this->build_pages_pagination($current_page, $pages_number, $array_page);
 	}
 
-	private function build_form($array_page, $current_page)
+	private function build_form(array $array_page, string $current_page): void
 	{
 		$form = new HTMLForm(self::class, '', false);
 		$form->set_css_class('options');
@@ -69,7 +69,7 @@ class ArticlesItemController extends DefaultDisplayItemController
 		$this->view->put('FORM', $form->display());
 	}
 
-	private function build_pages_pagination($current_page, $pages_number, $array_page)
+	private function build_pages_pagination(string $current_page, int $pages_number, array $array_page)
 	{
 		if ($pages_number > 1)
 		{
@@ -109,7 +109,7 @@ class ArticlesItemController extends DefaultDisplayItemController
 		}
 	}
 
-	private function list_article_pages($array_page)
+	private function list_article_pages(array $array_page): array
 	{
 		$options = [];
 
@@ -122,7 +122,7 @@ class ArticlesItemController extends DefaultDisplayItemController
 		return $options;
 	}
 
-	private function get_pagination($pages_number, $current_page)
+	private function get_pagination(int $pages_number, string $current_page): ModulePagination
 	{
 		$pagination = new ModulePagination($current_page, $pages_number, 1, Pagination::LIGHT_PAGINATION);
 		$pagination->set_url(ItemsUrlBuilder::display($this->item->get_category()->get_id(), $this->item->get_category()->get_rewrited_name(), $this->item->get_id(), $this->item->get_rewrited_title(), 'articles', '', '%d'));

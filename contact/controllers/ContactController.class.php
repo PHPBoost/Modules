@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 25
  * @since       PHPBoost 3.0 - 2010 05 02
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,12 +11,12 @@
 
 class ContactController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('contact/ContactController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -25,12 +25,14 @@ class ContactController extends DefaultModuleController
 		return $this->generate_response();
 	}
 
-	public function build_view()
+	public function build_view(): void
 	{
 		$this->build_form();
 
 		if ($this->config->is_map_enabled())
+        {
 			$this->build_map_view();
+        }
 
 		if ($this->submit_button->has_been_submited() && $this->form->validate())
 		{
@@ -40,7 +42,9 @@ class ContactController extends DefaultModuleController
 				$this->view->put('C_MAIL_SENT', true);
 			}
 			else
+            {
 				$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang['contact.message.error.email'], MessageHelper::ERROR, 5));
+            }
 		}
 
 		$this->view->put('FORM', $this->form->display());
@@ -58,19 +62,20 @@ class ContactController extends DefaultModuleController
 		]);
 	}
 
-	public function build_map_view()
+	public function build_map_view(): void
 	{
 		$map = new GoogleMapsDisplayMap($this->config->get_map_markers());
 		$this->view->put('MAP', $map->display());
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
 		$this->config = ContactConfig::load();
 
-		$fieldset = new FormFieldsetHTML('send_a_mail', $this->config->get_title());
+		$fieldset_title = $this->config->get_title() ?? LangLoader::get_message('contact.fieldset.title', 'common', 'contact');
+		$fieldset = new FormFieldsetHTML('send_a_mail', $fieldset_title);
 		$form->add_fieldset($fieldset);
 
 		foreach($this->config->get_fields() as $id => $properties)
@@ -81,7 +86,9 @@ class ContactController extends DefaultModuleController
 			if ($field->is_displayed() && $field->is_authorized())
 			{
 				if ($field->get_field_name() == 'f_sender_mail')
+                {
 					$field->set_default_value(AppContext::get_current_user()->get_email());
+                }
 				$field->set_fieldset($fieldset);
 				ContactFieldsService::display_field($field);
 			}
@@ -94,7 +101,7 @@ class ContactController extends DefaultModuleController
 		$this->form = $form;
 	}
 
-	private function send_mail()
+	private function send_mail(): bool
 	{
 		$message = '';
 		$current_user = AppContext::get_current_user();
@@ -112,9 +119,13 @@ class ContactController extends DefaultModuleController
 		$subjects = $subject_field->get_possible_values();
 
 		if ($subject_field->get_field_type() == 'ContactShortTextField')
+        {
 			$subject = $this->form->get_value('f_subject');
+        }
 		else
+        {
 			$subject = $this->form->get_value('f_subject') && $this->form->get_value('f_subject')->get_raw_value() ? $this->form->get_value('f_subject')->get_raw_value() : '';
+        }
 
 		$display_message_title = false;
 		if ($this->config->is_tracking_number_enabled())
@@ -123,9 +134,7 @@ class ContactController extends DefaultModuleController
 
 			$tracking_number = $this->config->get_last_tracking_number();
 			$tracking_number++;
-			$message .= $this->lang['contact.tracking.number'] . ' : ' . ($this->config->is_date_in_tracking_number_enabled() ? $now->get_year() . $now->get_month() . $now->get_day_two_digits() . '-' : '') . $tracking_number . '
-
-';
+			$message .= $this->lang['contact.tracking.number'] . ' : ' . ($this->config->is_date_in_tracking_number_enabled() ? $now->get_year() . $now->get_month() . $now->get_day_two_digits() . '-' : '') . $tracking_number . '';
 			$this->config->set_last_tracking_number($tracking_number);
 			ContactConfig::save();
 
@@ -141,12 +150,13 @@ class ContactController extends DefaultModuleController
 
 			if ($field->is_displayed() && $field->is_authorized() && $field->is_deletable())
 			{
-				try{
+				try
+                {
 					$value = ContactFieldsService::get_value($this->form, $field);
-						$message .= $field->get_name() . ': ' . $value . '
-
-';
-				} catch(Exception $e) {
+                    $message .= $field->get_name() . ': ' . $value . '';
+				}
+                catch(Exception $e)
+                {
 					throw new Exception($e->getMessage());
 				}
 
@@ -155,8 +165,9 @@ class ContactController extends DefaultModuleController
 		}
 
 		if ($display_message_title)
-			$message .= $this->lang['contact.form.message'] . ':
-';
+        {
+			$message .= $this->lang['contact.form.message'] . ':';
+        }
 
 		$message .= $this->form->get_value('f_message');
 
@@ -169,7 +180,9 @@ class ContactController extends DefaultModuleController
 		if ($recipients_field->is_displayed() && $recipients_field->is_authorized())
 		{
 			if (in_array($recipients_field->get_field_type(), ['ContactSimpleSelectField', 'ContactSimpleChoiceField']))
+            {
 				$recipients_mails = explode(';', $recipients[$this->form->get_value('f_recipients')->get_raw_value()]['email']);
+            }
 			else
 			{
 				$selected_recipients = $this->form->get_value('f_recipients');
@@ -189,7 +202,7 @@ class ContactController extends DefaultModuleController
 				$mail->add_recipient($mail_address);
 			}
 		}
-		else if ($subject_field->get_field_type() != 'ContactShortTextField')
+		elseif ($subject_field->get_field_type() != 'ContactShortTextField')
 		{
 			if ($this->form->get_value('f_subject') && $this->form->get_value('f_subject')->get_raw_value())
 			{
@@ -197,7 +210,9 @@ class ContactController extends DefaultModuleController
 				$recipients_mails = explode(';', $recipients[$recipient]['email']);
 			}
 			else
+            {
 				$recipients_mails = MailServiceConfig::load()->get_administrators_mails();
+            }
 
 			foreach ($recipients_mails as $mail_address)
 			{
@@ -229,7 +244,7 @@ class ContactController extends DefaultModuleController
 		return $mail_service->try_to_send($mail);
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!ContactAuthorizationsService::check_authorizations()->read())
 		{
@@ -238,7 +253,7 @@ class ContactController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response()
+	private function generate_response(): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
@@ -252,7 +267,7 @@ class ContactController extends DefaultModuleController
 		return $response;
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self();
 		$object->check_authorizations();

@@ -12,7 +12,7 @@
 
 class ArticlesPrintItemController extends AbstractItemController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteNodisplayResponse
 	{
 		$this->get_item();
 		$this->check_authorizations();
@@ -22,7 +22,7 @@ class ArticlesPrintItemController extends AbstractItemController
 		return new SiteNodisplayResponse($this->view);
 	}
 
-	private function get_item()
+	private function get_item(): ArticlesItem
 	{
 		if ($this->item === null)
 		{
@@ -38,7 +38,7 @@ class ArticlesPrintItemController extends AbstractItemController
 		return $this->item;
 	}
 
-	private function build_view()
+	private function build_view(): void
 	{
 		$content = preg_replace('`\[page\](.*)\[/page\]`u', '<h2>$1</h2>', $this->item->get_content());
 		$this->view->put_all([
@@ -48,12 +48,12 @@ class ArticlesPrintItemController extends AbstractItemController
         ]);
 	}
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('framework/content/print.tpl');
 	}
 
-	protected function check_authorizations()
+	protected function check_authorizations(): mixed
 	{
 		$not_authorized = !CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->write() && (!CategoriesAuthorizationsService::check_authorizations($this->item->get_id_category())->moderation() && $this->item->get_author_user()->get_id() != AppContext::get_current_user()->get_id());
 
@@ -64,23 +64,24 @@ class ArticlesPrintItemController extends AbstractItemController
 				{
 					$this->display_user_not_authorized_page();
 				}
-			break;
+                break;
 			case ArticlesItem::NOT_PUBLISHED:
 				if ($not_authorized)
 				{
 					$this->display_user_not_authorized_page();
 				}
-			break;
+                break;
 			case ArticlesItem::DEFERRED_PUBLICATION:
 				if (!$this->item->is_published() && $not_authorized)
 				{
 					$this->display_user_not_authorized_page();
 				}
-			break;
+                break;
 			default:
 				$this->display_unexisting_page();
-			break;
+                break;
 		}
+        return null;
 	}
 }
 ?>

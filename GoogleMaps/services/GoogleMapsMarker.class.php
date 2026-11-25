@@ -13,7 +13,7 @@ class GoogleMapsMarker
 	private string $address = '';
 	private string $latitude = '';
 	private string $longitude = '';
-	private int $zoom = 0;
+	private int|string $zoom = 0;
 	private bool $address_displayed_on_label = true;
 
 	/**
@@ -24,7 +24,7 @@ class GoogleMapsMarker
 	 * @param string $name Marker name
 	 * @param int $zoom Map zoom
 	 */
-	public function __construct(string $address = '', string $latitude = '', string $longitude = '', string $name = '', int $zoom = 0, bool $address_displayed_on_label = true)
+	public function __construct(string $address = '', string $latitude = '', string $longitude = '', string $name = '', int|string $zoom = 0, bool $address_displayed_on_label = true)
 	{
 		$this->address = $address;
 		$this->latitude = $latitude;
@@ -74,12 +74,12 @@ class GoogleMapsMarker
 		return $this->longitude;
 	}
 
-	public function set_zoom(int $zoom)
+	public function set_zoom(int|string $zoom)
 	{
 		$this->zoom = $zoom;
 	}
 
-	public function get_zoom(): int
+	public function get_zoom(): int|string
 	{
 		return $this->zoom;
 	}

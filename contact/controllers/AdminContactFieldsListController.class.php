@@ -3,19 +3,19 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 25
  * @since       PHPBoost 4.0 - 2013 03 01
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminContactFieldsListController extends DefaultAdminModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('contact/AdminContactFieldsListController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminContactDisplayResponse
 	{
 		$this->update_fields($request);
 
@@ -45,7 +45,7 @@ class AdminContactFieldsListController extends DefaultAdminModuleController
 		return new AdminContactDisplayResponse($this->view, $this->lang['form.fields.management']);
 	}
 
-	private function update_fields(HTTPRequestCustom $request)
+	private function update_fields(HTTPRequestCustom $request): void
 	{
 		if ($request->get_value('submit', false))
 		{
@@ -54,8 +54,8 @@ class AdminContactFieldsListController extends DefaultAdminModuleController
 		}
 	}
 
-	private function update_position(HTTPRequestCustom $request)
-	{
+	private function update_position(HTTPRequestCustom $request): void
+    {
 		$fields = $this->config->get_fields();
 		$sorted_fields = [];
 

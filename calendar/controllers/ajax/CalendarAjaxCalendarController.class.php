@@ -322,11 +322,17 @@ class CalendarAjaxCalendarController extends AbstractController
 		$object = new self();
 		$object->init($request);
 		if ($is_mini)
+        {
 			$object->set_mini_calendar();
+        }
 		if ($year)
+        {
 			$object->set_year($year);
+        }
 		if ($month)
+        {
 			$object->set_month($month);
+        }
 		$object->set_id_category($id_category);
 		$object->build_view($request);
 		return $object->view;

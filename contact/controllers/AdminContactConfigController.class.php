@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 25
  * @since       PHPBoost 4.0 - 2013 03 01
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminContactConfigController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminContactDisplayResponse
 	{
 		$this->build_form();
 
@@ -52,9 +52,12 @@ class AdminContactConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("tracking_number_enabled").getValue()) {
+					if (HTMLForms.getField("tracking_number_enabled").getValue())
+                    {
 						HTMLForms.getField("date_in_tracking_number_enabled").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("date_in_tracking_number_enabled").disable();
 					}'
 				]
@@ -76,10 +79,13 @@ class AdminContactConfigController extends DefaultAdminModuleController
 				'class' => 'custom-checkbox',
 				'description' => $this->lang['contact.informations.clue'],
 				'events' => ['click' => '
-					if (HTMLForms.getField("informations_enabled").getValue()) {
+					if (HTMLForms.getField("informations_enabled").getValue())
+                    {
 						HTMLForms.getField("informations_position").enable();
 						HTMLForms.getField("informations").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("informations_position").disable();
 						HTMLForms.getField("informations").disable();
 					}'
@@ -115,10 +121,13 @@ class AdminContactConfigController extends DefaultAdminModuleController
 					'class' => 'top-field custom-checkbox',
 					'hidden' => !$this->config->is_googlemaps_available(),
 					'events' => ['click' => '
-						if (HTMLForms.getField("map_enabled").getValue()) {
+						if (HTMLForms.getField("map_enabled").getValue())
+                        {
 							HTMLForms.getField("map_position").enable();
 							HTMLForms.getField("map_markers").enable();
-						} else {
+						}
+                        else
+                        {
 							HTMLForms.getField("map_position").disable();
 							HTMLForms.getField("map_markers").disable();
 						}'
@@ -130,7 +139,7 @@ class AdminContactConfigController extends DefaultAdminModuleController
 				[
 					new FormFieldSelectChoiceOption($this->lang['contact.map.position.top'], ContactConfig::MAP_TOP),
 					new FormFieldSelectChoiceOption($this->lang['contact.map.position.bottom'], ContactConfig::MAP_BOTTOM),
-					],
+                ],
 				[
 					'class' => 'top-field',
 					'hidden' => !$this->config->is_map_enabled()
@@ -173,23 +182,35 @@ class AdminContactConfigController extends DefaultAdminModuleController
 			$this->config->set_informations_position($this->form->get_value('informations_position')->get_raw_value());
 		}
 		else
+        {
 			$this->config->disable_informations();
+        }
 
 		if ($this->form->get_value('tracking_number_enabled'))
 		{
 			$this->config->enable_tracking_number();
 			if ($this->form->get_value('date_in_tracking_number_enabled'))
+            {
 				$this->config->enable_date_in_tracking_number();
+            }
 			else
+            {
 				$this->config->disable_date_in_tracking_number();
+            }
 		}
 		else
+        {
 			$this->config->disable_tracking_number();
+        }
 
 		if ($this->form->get_value('sender_acknowledgment_enabled'))
+        {
 			$this->config->enable_sender_acknowledgment();
+        }
 		else
+        {
 			$this->config->disable_sender_acknowledgment();
+        }
 
 		if ($this->config->is_googlemaps_available())
 		{
@@ -200,7 +221,9 @@ class AdminContactConfigController extends DefaultAdminModuleController
 				$this->config->set_map_markers($this->form->get_value('map_markers'));
 			}
 			else
+            {
 				$this->config->disable_map();
+            }
 		}
 
 		$this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());

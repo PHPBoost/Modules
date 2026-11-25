@@ -18,12 +18,12 @@ class BroadcastCategoriesCache extends CategoriesCache
 	{
 		return BroadcastSetup::$broadcast_table;
 	}
-	
+
 	public function get_category_class(): mixed
 	{
 		return CategoriesManager::RICH_CATEGORY_CLASS;
 	}
-	
+
 	public function get_module_identifier(): string
 	{
 		return 'broadcast';

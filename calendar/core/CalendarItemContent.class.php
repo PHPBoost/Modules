@@ -1,4 +1,4 @@
-int <?php
+<?php
 /**
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
