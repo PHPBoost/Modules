@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 06
+ * @version     PHPBoost 6.1 - last update: 2026 11 25
  * @since       PHPBoost 3.0 - 2012 11 24
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -177,8 +177,8 @@ class CalendarAjaxCalendarController extends AbstractController
 									'name'          => $categories[$item['id_category']]->get_name(),
 									'rewrited_name' => $categories[$item['id_category']]->get_rewrited_name(),
 									'color'         => $categories[$item['id_category']]->get_color(),
-									'year'          => $month == date('n') && $year == date('Y') ? '' : $year,
-									'month'         => $month == date('n') && $year == date('Y') ? '' : $month
+									'year'          => $month == date('n') && $year == date('Y') ? null : $year,
+									'month'         => $month == date('n') && $year == date('Y') ? null : $month
 								];
 							}
 						}
