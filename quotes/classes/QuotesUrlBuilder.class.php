@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 5.0 - 2016 02 18
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -23,7 +23,7 @@ class QuotesUrlBuilder
 		return DispatchManager::get_url(self::$dispatcher, '/manage/');
 	}
 
-	public static function display_category(int $id, string $rewrited_name, int $page = 1, int $subcategories_page = 1): Url
+	public static function display_category(int $id, string $rewrited_name, int|string $page = 1, int|string $subcategories_page = 1): Url
 	{
 		$category = $id > 0 ? $id . '-' . $rewrited_name . '/' : '';
 		$page = $page !== 1 || $subcategories_page !== 1 ? $page . '/' : '';

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 2.0 - 2007 12 11
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -22,11 +22,11 @@ function forum_list_user_online($condition)
 	]);
 	while ($row = $result->fetch())
 	{
-		$group_color = User::get_group_color($row['user_groups'], $row['level']);
-		switch ($row['level']) //Coloration du membre suivant son level d'autorisation.
+		$level = $row['level'] === null || $row['level'] === '' ? User::VISITOR_LEVEL : (int) $row['level'];
+		$group_color = User::get_group_color($row['user_groups'], $level);
+		switch ($level) //Coloration du membre suivant son level d'autorisation.
 		{
 			case -1:
-			case '':
 			$total_visit++;
 			break;
 			case 0:
@@ -39,8 +39,8 @@ function forum_list_user_online($condition)
 			$total_admin++;
 			break;
 		}
-		$coma = !empty($users_list) && $row['level'] != -1 ? ', ' : '';
-		$users_list .= (!empty($row['display_name']) && $row['level'] != -1) ?  $coma . '<a href="'. UserUrlBuilder::profile($row['user_id'])->rel() .'" class="' . UserService::get_level_class($row['level']) . ' offload"' . (!empty($group_color) ? ' style="color:' . $group_color . '"' : '') . '>' . $row['display_name'] . '</a>' : '';
+		$coma = !empty($users_list) && $level != User::VISITOR_LEVEL ? ', ' : '';
+		$users_list .= (!empty($row['display_name']) && $level != User::VISITOR_LEVEL) ?  $coma . '<a href="'. UserUrlBuilder::profile($row['user_id'])->rel() .'" class="' . UserService::get_level_class($level) . ' offload"' . (!empty($group_color) ? ' style="color:' . $group_color . '"' : '') . '>' . $row['display_name'] . '</a>' : '';
 	}
 	$result->dispose();
 
