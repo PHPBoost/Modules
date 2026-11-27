@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 4.1 - 2015 10 08
  * @author      mipel <mipel@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,12 +11,12 @@
 
 class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleController
 {
-	private $templates_path = '/templates/';
-	private $default_tpl_files_path = '/__default__/';
-	private $tpl_files_path = '/';
-	private $tpl_modules_files_path = '/modules/';
+	private string $templates_path = '/templates/';
+	private string $default_tpl_files_path = '/__default__/';
+	private string $tpl_files_path = '/';
+	private string $tpl_modules_files_path = '/modules/';
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminCustomizationDisplayResponse
 	{
 		$id_theme = $request->get_value('id_theme', '');
 		$id_module = '';
@@ -29,27 +29,30 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 			$file_name = $split[1] . '.tpl';
 		}
 		else
+        {
 			$file_name = $file_selected . '.tpl';
+        }
 
 		$this->build_form($id_theme, $id_module, $file_name, $file_selected);
 
 		if (!empty($id_theme) && !empty($file_selected) && $this->submit_button->has_been_submited() && $this->form->validate())
+        {
 			$this->save($id_theme, $id_module, $file_name);
+        }
 
 		$this->view->put('CONTENT', $this->form->display());
 
 		return new AdminCustomizationDisplayResponse($this->view, $this->lang['customization.editor.tpl.files']);
 	}
 
-	private function build_form($theme_selected, $module_selected, $file_name, $file_selected)
+	private function build_form(string $theme_selected, string $module_selected, string $file_name, string $file_selected): void
 	{
 		$form = new HTMLForm(self::class);
 
 		$theme_choise_fieldset = new FormFieldsetHTML('theme-choice', $this->lang['customization.interface.theme.choice']);
 		$form->add_fieldset($theme_choise_fieldset);
 
-		$theme_choise_fieldset->add_field(
-			new FormFieldSimpleSelectChoice('select_theme', $this->lang['customization.interface.select.theme'], $theme_selected,
+		$theme_choise_fieldset->add_field(new FormFieldSimpleSelectChoice('select_theme', $this->lang['customization.interface.select.theme'], $theme_selected,
 				$this->list_themes(),
 				[
 					'class'  => 'third-field',
@@ -63,8 +66,7 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 			$file_editor_fieldset = new FormFieldsetHTML('file-editor', $this->lang['customization.editor.tpl.files']);
 			$form->add_fieldset($file_editor_fieldset);
 
-			$file_editor_fieldset->add_field(
-				new FormFieldSimpleSelectChoice('select_file', $this->lang['customization.editor.files.select'], $file_selected,
+			$file_editor_fieldset->add_field(new FormFieldSimpleSelectChoice('select_file', $this->lang['customization.editor.files.select'], $file_selected,
 					$this->list_files($theme_selected),
 					[
 						'class'       => 'third-field',
@@ -80,14 +82,18 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 				{
 					$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module_selected . '/' . $file_name);
 					if (!$tpl_file->exists())
+                    {
 						$tpl_file = new File(PATH_TO_ROOT . '/modules/' . $module_selected . '/templates/' . $file_name);
+                    }
 				}
 				else
 				{
 					$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_files_path . $file_name);
-					
+
 					if (!$tpl_file->exists())
+                    {
 						$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $this->default_tpl_files_path . $file_name);
+                    }
 				}
 
 				if ($tpl_file->exists())
@@ -96,20 +102,24 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 						['rows' => 30, 'class' => "lined"]
 					));
 				}
-				
+
 				$display_remove_override_button = false;
 				if (!empty($module_selected) && $module_selected != '__default__')
 				{
 					$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module_selected . '/' . $file_name);
 					if ($tpl_file->exists())
+                    {
 						$display_remove_override_button = true;
+                    }
 				}
 				else
 				{
 					$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_files_path . $file_name);
 					$default_tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $this->default_tpl_files_path . $file_name);
 					if ($tpl_file->exists() && $default_tpl_file->exists())
+                    {
 						$display_remove_override_button = true;
+                    }
 				}
 
 				if ($display_remove_override_button)
@@ -134,7 +144,7 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 		$this->form = $form;
 	}
 
-	private function save($theme_selected, $module_selected, $file_name)
+	private function save(string $theme_selected, string $module_selected, string $file_name): void
 	{
 		if ($this->form->get_value('remove_override'))
 		{
@@ -142,24 +152,32 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 			{
 				$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module_selected . '/' . $file_name);
 				if ($tpl_file->exists())
+                {
 					$tpl_file->delete();
+                }
 
 				$module_folder = new Folder(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module_selected);
 				if ($module_folder->exists() && !$module_folder->get_all_content())
+                {
 					$module_folder->delete();
+                }
 
 				$modules_folder = new Folder(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path);
 				if ($modules_folder->exists() && !$modules_folder->get_all_content())
+                {
 					$modules_folder->delete();
-				
+                }
+
 				$redirect_url = AdminCustomizeUrlBuilder::editor_tpl_file($theme_selected, $module_selected . '/' . str_replace('.tpl' , '', $file_name));
 			}
 			else
 			{
 				$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_files_path . $file_name);
 				if ($tpl_file->exists())
+                {
 					$tpl_file->delete();
-				
+                }
+
 				$redirect_url = AdminCustomizeUrlBuilder::editor_tpl_file($theme_selected, '__default__/' . str_replace('.tpl' , '', $file_name));
 			}
 		}
@@ -169,16 +187,22 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 			{
 				$modules_folder = new Folder(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path);
 				if (!$modules_folder->exists())
+                {
 					$modules_folder->create();
+                }
 
 				$module_folder = new Folder(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module_selected);
 				if (!$module_folder->exists())
+                {
 					$module_folder->create();
+                }
 
 				$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module_selected . '/' . $file_name);
 
 				if (!$tpl_file->exists())
+                {
 					copy(PATH_TO_ROOT . '/modules/' . $module_selected . '/templates/' . $file_name, PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module_selected . '/' . $file_name);
+                }
 
 				$redirect_url = AdminCustomizeUrlBuilder::editor_tpl_file($theme_selected, $module_selected . '/' . str_replace('.tpl' , '', $file_name));
 			}
@@ -196,7 +220,7 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 
 			$tpl_file->write(TextHelper::html_entity_decode($this->form->get_value('tpl_file')));
 		}
-		
+
 		AppContext::get_response()->redirect($redirect_url, $this->lang['warning.process.success']);
 	}
 
@@ -211,7 +235,7 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 		return $choices_list;
 	}
 
-	private function list_files($theme_selected)
+	private function list_files(string $theme_selected): array
 	{
 		$files = $theme_tpl_files_list = [];
 		$files[] = new FormFieldSelectChoiceOption('--', '');
@@ -227,7 +251,9 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 			}
 		}
 		else
+        {
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display(LangLoader::get_message('warning.page.unexists', 'warning-lang'), MessageHelper::WARNING));
+        }
 
 		// __default__ TPL files
 		$folder = new Folder(PATH_TO_ROOT . $this->templates_path . $this->default_tpl_files_path);
@@ -236,7 +262,9 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 			foreach ($folder->get_files('`\.tpl$`') as $file)
 			{
 				if (!in_array($file->get_name(), $theme_tpl_files_list))
+                {
 					$files[] = new FormFieldSelectChoiceOption($this->lang['customization.default.theme'] . ' : ' . $file->get_name(), '__default__/' . $file->get_name_without_extension());
+                }
 			}
 		}
 
@@ -251,8 +279,10 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 					$is_override = false;
 					$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . $module->get_id() . '/' . $file->get_name());
 					if ($tpl_file->exists())
+                    {
 						$is_override = true;
-					
+                    }
+
 					$files[] = new FormFieldSelectChoiceOption(LangLoader::get_message('common.module', 'common-lang') . ' ' . ModulesManager::get_module($module->get_id())->get_configuration()->get_name() . ' : ' . $file->get_name() . ($is_override ? ' *' : ''), $module->get_id() . '/' . $file->get_name_without_extension());
 				}
 			}
@@ -267,8 +297,10 @@ class AdminCustomizeEditorTPLFilesController extends DefaultAdminModuleControlle
 				$is_override = false;
 				$tpl_file = new File(PATH_TO_ROOT . $this->templates_path . $theme_selected . $this->tpl_modules_files_path . 'user/' . $file->get_name());
 				if ($tpl_file->exists())
+                {
 					$is_override = true;
-				
+                }
+
 				$files[] = new FormFieldSelectChoiceOption(LangLoader::get_message('user.users', 'user-lang') . ' : ' . $file->get_name() . ($is_override ? ' *' : ''), 'user/' . $file->get_name_without_extension());
 			}
 		}

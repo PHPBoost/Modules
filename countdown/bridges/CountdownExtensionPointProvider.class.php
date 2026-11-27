@@ -14,26 +14,26 @@ class CountdownExtensionPointProvider extends ExtensionPointProvider
         parent::__construct('countdown');
     }
 
-    public function menus()
+    public function menus(): mixed
     {
         return new ModuleMenus([new CountdownModuleMiniMenu()]);
     }
 
-    public function css_files()
+    public function css_files(): mixed
     {
         $module_css_files = new ModuleCssFiles();
         $module_css_files->adding_always_displayed_file('countdown_mini.css');
         return $module_css_files;
     }
 
-    public function js_files()
+    public function js_files(): mixed
     {
         $js_file = new ModuleJsFiles();
         $js_file->adding_always_displayed_file('countdown.js');
         return $js_file;
     }
 
-    public function url_mappings()
+    public function url_mappings(): mixed
     {
         return new UrlMappings([new DispatcherUrlMapping('/countdown/index.php')]);
     }

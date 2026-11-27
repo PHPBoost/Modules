@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 3.0 - 2011 08 29
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      xela <xela@phpboost.com>
@@ -12,7 +12,7 @@
 
 class AdminCustomizationDisplayResponse extends AdminMenuDisplayResponse
 {
-	public function __construct($view, $page_title)
+	public function __construct(Template $view, string $page_title)
 	{
 		parent::__construct($view);
 

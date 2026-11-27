@@ -16,24 +16,24 @@ class DatabaseExtensionPointProvider extends ExtensionPointProvider
 		parent::__construct('database');
 	}
 
-	public function commands()
+	public function commands(): mixed
 	{
 		return new CLICommandsList(['dump' => 'CLIDumpCommand', 'restoredb' => 'CLIRestoreDBCommand']);
 	}
 
-	public function css_files()
+	public function css_files(): mixed
 	{
 		$module_css_files = new ModuleCssFiles();
 		$module_css_files->adding_running_module_displayed_file('database.css');
 		return $module_css_files;
 	}
 
-	public function tree_links()
+	public function tree_links(): mixed
 	{
 		return new DatabaseTreeLinks();
 	}
 
-	public function url_mappings()
+	public function url_mappings(): mixed
 	{
 		return new UrlMappings([new DispatcherUrlMapping('/database/index.php')]);
 	}

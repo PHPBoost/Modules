@@ -5,7 +5,6 @@
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
  * @version     PHPBoost 6.1 - last update: 2026 11 15
  * @since       PHPBoost 4.1 - 2014 12 12
- * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class CountdownModuleMiniMenu extends ModuleMiniMenu

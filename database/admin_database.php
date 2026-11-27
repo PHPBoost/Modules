@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Benoit SAUTEL <ben.popeye@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 06 26
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 1.5 - 2006 08 06
  * @author      Regis VIARRE <crowkait@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
@@ -19,7 +19,7 @@ require_once(PATH_TO_ROOT . '/admin/admin_begin.php');
 $request = AppContext::get_request();
 
 // If file is readable
-$read_file = $request->get_getvalue('read_file', '', TSTRING_UNCHANGE);
+$read_file = $request->get_getvalue('read_file', '');
 if (!empty($read_file) && (TextHelper::substr($read_file, -4) == '.sql' || TextHelper::substr($read_file, -4) == '.zip'))
 {
     // Read file if it exists
@@ -68,15 +68,15 @@ $lang = LangLoader::get_all_langs('database');
 define('TITLE', $lang['database.management']);
 require_once(PATH_TO_ROOT . '/admin/admin_header.php');
 
-$repair = $request->get_postvalue('repair', false);
-$optimize = $request->get_postvalue('optimize', false);
+$repair        = $request->get_postvalue('repair', false);
+$optimize      = $request->get_postvalue('optimize', false);
 $tables_backup = $request->get_postvalue('backup', false);
-$query = $request->get_getint('query', 0);
-$del = $request->get_getvalue('del', '');
-$file = $request->get_getvalue('file', '');
-$error = $request->get_getvalue('error', '');
-$get_table = $request->get_getvalue('table', '');
-$action = $request->get_getvalue('action', '');
+$query         = $request->get_getint('query', 0);
+$del           = $request->get_getvalue('del', '');
+$file          = $request->get_getvalue('file', '');
+$error         = $request->get_getvalue('error', '');
+$get_table     = $request->get_getvalue('table', '');
+$action        = $request->get_getvalue('action', '');
 
 if ($action == 'backup_table' && !empty($get_table))
 {
@@ -90,7 +90,7 @@ $view->put('TABLE_NAME', $get_table);
 
 if (!empty($query))
 {
-    $query = TextHelper::html_entity_decode($request->get_postvalue('query', '', TSTRING_UNCHANGE));
+    $query = TextHelper::html_entity_decode($request->get_postvalue('query', ''));
 
     $view->put('C_DATABASE_QUERY', true);
 
@@ -491,7 +491,7 @@ else
 
     if ($tables_backup)
     {
-        $tables = PersistenceContext::get_dbms_utils()->list_tables(true);
+        $tables = PersistenceContext::get_dbms_utils()->list_tables();
         $view->put_all([
             'C_DATABASE_BACKUP' => true,
             'NBR_TABLES' => count($tables),

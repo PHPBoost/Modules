@@ -3,12 +3,13 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 2.0 - 2008 04 08
  * @author      Loic ROUCHON <horn@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      mipel <mipel@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class DatabaseService
@@ -18,7 +19,7 @@ class DatabaseService
 	 * @param string $query Query to indent.
 	 * @return string The indented SQL query.
 	 */
-	public static function indent_query($query)
+	public static function indent_query(string $query): string
 	{
 		$query = ' ' . TextHelper::strtolower($query) . ' ';
 
@@ -42,7 +43,7 @@ class DatabaseService
 	 * @param string $query Query to highlight
 	 * @return string HTML code corresponding to the highlighted query.
 	 */
-	public static function highlight_query($query)
+	public static function highlight_query(string $query): string
 	{
 		$query = ' ' . TextHelper::strtolower($query) . ' ';
 

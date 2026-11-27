@@ -4,7 +4,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 25
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 4.0 - 2013 07 31
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -227,7 +227,7 @@ class ContactField
 		$this->field_name      = $properties['field_name'];
 		$this->description     = $properties['description'];
 		$this->field_type      = $properties['field_type'];
-		$this->default_value   = $properties['default_value'];
+		$this->default_value   = $properties['default_value'] ?? '';
 		$this->possible_values = !empty($properties['possible_values']) ? TextHelper::unserialize($properties['possible_values']) : [];
 		$this->required        = (bool)$properties['required'];
 		$this->displayed       = (bool)$properties['displayed'];

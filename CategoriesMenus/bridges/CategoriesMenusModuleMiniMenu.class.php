@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 25
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 6.0 - 2021 03 03
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -17,7 +17,7 @@ class CategoriesMenusModuleMiniMenu extends ModuleMiniMenu
 	{
 		$this->module_id = $module_id;
 		$this->module_configuration = $module_configuration;
-		parent::__construct($this->get_formated_title());
+		parent::__construct();
 	}
 
 	public function get_default_block(): int

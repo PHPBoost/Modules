@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 4.1 - 2015 09 30
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminDatabaseConfigController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminDatabaseDisplayResponse
 	{
 		$this->build_form();
 
@@ -26,7 +26,7 @@ class AdminDatabaseConfigController extends DefaultAdminModuleController
 		return new AdminDatabaseDisplayResponse($this->view, StringVars::replace_vars($this->lang['form.module.title'], ['module_name' => self::get_module()->get_configuration()->get_name()]));
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -37,9 +37,12 @@ class AdminDatabaseConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'half-field top-field custom-checkbox',
 				'events' => ['change' => '
-					if (HTMLForms.getField("database_tables_optimization_enabled").getValue()) {
+					if (HTMLForms.getField("database_tables_optimization_enabled").getValue())
+                    {
 						HTMLForms.getField("database_tables_optimization_day").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("database_tables_optimization_day").disable();
 					}'
 				]
@@ -70,7 +73,7 @@ class AdminDatabaseConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$this->config->set_database_tables_optimization_enabled($this->form->get_value('database_tables_optimization_enabled'));
 

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 09 14
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 3.0 - 2011 09 26
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,7 +12,7 @@
 
 class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminCustomizationDisplayResponse
 	{
 		$theme = $request->get_value('theme', 'all');
 
@@ -58,21 +58,20 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 		return new AdminCustomizationDisplayResponse($this->view, $this->lang['customization.interface.title']);
 	}
 
-	private function build_form(string $theme_selected)
+	private function build_form(string $theme_selected): void
 	{
 		$form = new HTMLForm(self::class);
 
 		$theme_choise_fieldset = new FormFieldsetHTML('theme-choice', $this->lang['customization.interface.theme.choice']);
 		$form->add_fieldset($theme_choise_fieldset);
 
-		$theme_choise_fieldset->add_field(
-			new FormFieldSimpleSelectChoice('select_theme', $this->lang['customization.interface.select.theme'], $theme_selected, $this->list_themes(),
-				[
-					'class' => 'top-field third-field',
-					'events' => ['change' => 'document.location.href = "' . AdminCustomizeUrlBuilder::customize_interface()->rel() . '" + HTMLForms.getField(\'select_theme\').getValue()']
-				]
-			)
-		);
+		$theme_choise_fieldset->add_field(new FormFieldSimpleSelectChoice('select_theme', $this->lang['customization.interface.select.theme'], $theme_selected,
+            $this->list_themes(),
+            [
+                'class' => 'top-field third-field',
+                'events' => ['change' => 'document.location.href = "' . AdminCustomizeUrlBuilder::customize_interface()->rel() . '" + HTMLForms.getField(\'select_theme\').getValue()']
+            ]
+		));
 
 		$customize_interface_fieldset = new FormFieldsetHTML('customize_interface', $this->lang['customization.interface.title']);
 		$form->add_fieldset($customize_interface_fieldset);
@@ -122,7 +121,7 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function save($header_logo, $theme_selected)
+	private function save(mixed $header_logo, string $theme_selected): void
 	{
 		$save_destination = new File(PATH_TO_ROOT . '/images/customization/' . $theme_selected . '_'. $header_logo->get_name());
 		$header_logo->save($save_destination);
@@ -155,7 +154,7 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 		}
 	}
 
-	private function delete_pictures_saved($theme_selected)
+	private function delete_pictures_saved(string $theme_selected): void
 	{
 		$this->delete_older($theme_selected);
 
@@ -180,7 +179,7 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 		}
 	}
 
-	private function list_themes()
+	private function list_themes(): array
 	{
 		$choices_list = [];
 		$choices_list[] = new FormFieldSelectChoiceOption($this->lang['customization.interface.all.themes'], 'all');
@@ -191,7 +190,7 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 		return $choices_list;
 	}
 
-	private function get_header_logo_path($theme)
+	private function get_header_logo_path(string $theme): string
 	{
 		if ($theme == 'all')
 		{
@@ -205,7 +204,7 @@ class AdminCustomizeInterfaceController extends DefaultAdminModuleController
 		}
 	}
 
-	private function delete_older($theme)
+	private function delete_older(string $theme): void
 	{
 		$logo = $this->get_header_logo_path($theme);
 		if (!empty($logo))

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Regis VIARRE <crowkait@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 2.0 - 2008 08 06
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -124,7 +124,9 @@ elseif (!empty($table) && $action == 'delete')
 	$value = $request->get_getvalue('value', '');
 
 	if (!empty($value) && !empty($field))
+    {
 		PersistenceContext::get_querier()->delete($table, 'WHERE '.$field.'=:value', ['value' => $value]);
+    }
 
 	AppContext::get_response()->redirect('/database/admin_database_tools.php?table=' . $table . '&action=data');
 }
@@ -141,7 +143,9 @@ elseif (!empty($table) && $action == 'update') // Update
 	{
 		$infos = [];
 		foreach ($table_structure['fields'] as $fields_info)
+        {
 			$infos[$fields_info['name']] = $request->get_postvalue($fields_info['name'], '', TSTRING_HTML);
+        }
 
 		PersistenceContext::get_querier()->update($table, $infos, 'WHERE ' . $field . ' = :value', ['value' => $value]);
 		AppContext::get_response()->redirect('/database/admin_database_tools.php?table=' . $table . '&action=data');
@@ -200,8 +204,10 @@ elseif (!empty($table) && $action == 'insert') // Update
 		foreach ($table_structure['fields'] as $fields_info)
 		{
 			if ($fields_info['name'] == $primary_key  && empty($field_value)) // Ignore if primary key is empty
+            {
 				continue;
-			$infos[$fields_info['name']] = $request->get_postvalue($fields_info['name'], '', TSTRING_HTML);
+            }
+			$infos[$fields_info['name']] = $request->get_postvalue($fields_info['name'], '');
 		}
 
 		PersistenceContext::get_querier()->insert($table, $infos);
@@ -252,7 +258,7 @@ elseif (!empty($table) && $action == 'drop')
 }
 elseif (!empty($table) && $action == 'query')
 {
-	$query = $request->get_postvalue('query', '', TSTRING_UNCHANGE);
+	$query = $request->get_postvalue('query', '');
 
 	$view->put('C_DATABASE_TABLE_QUERY', true);
 
@@ -308,7 +314,9 @@ elseif (!empty($table))
 {
 	$table_structure = $backup->extract_table_structure([$table]); // build table structure
 	if (!isset($backup->tables[$table])) // If table does not exist
+    {
 		AppContext::get_response()->redirect('/database/admin_database.php');
+    }
 
 	foreach ($table_structure['fields'] as $fields_info)
 	{
@@ -371,7 +379,9 @@ elseif (!empty($table))
 	]);
 }
 else
+{
 	AppContext::get_response()->redirect('/database/admin_database.php');
+}
 
 $view->display();
 

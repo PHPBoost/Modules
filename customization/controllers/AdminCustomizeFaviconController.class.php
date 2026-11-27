@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Kevin MASSY <reidlos@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 09 14
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 3.0 - 2011 08 30
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,7 +12,7 @@
 
 class AdminCustomizeFaviconController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminCustomizationDisplayResponse
 	{
 		$this->build_form();
 
@@ -43,7 +43,7 @@ class AdminCustomizeFaviconController extends DefaultAdminModuleController
 		return new AdminCustomizationDisplayResponse($this->view, $this->lang['customization.interface.title']);
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -86,7 +86,7 @@ class AdminCustomizeFaviconController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function save($favicon)
+	private function save(mixed $favicon): void
 	{
 		$save_destination = new File(PATH_TO_ROOT . '/' . $favicon->get_name());
 		$favicon->save($save_destination);

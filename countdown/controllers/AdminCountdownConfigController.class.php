@@ -3,15 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 26
  * @since       PHPBoost 4.1 - 2014 12 12
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminCountdownConfigController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): DefaultAdminDisplayResponse
 	{
 		$this->build_form();
 
@@ -29,7 +28,7 @@ class AdminCountdownConfigController extends DefaultAdminModuleController
 		return new DefaultAdminDisplayResponse($this->view);
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm('countdown');
 
@@ -65,10 +64,13 @@ class AdminCountdownConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("stop_counter").getValue()) {
+					if (HTMLForms.getField("stop_counter").getValue())
+                    {
 						HTMLForms.getField("hidden_counter").enable();
 						HTMLForms.getField("stopped_event").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("hidden_counter").disable();
 						HTMLForms.getField("stopped_event").disable();
 					}'
@@ -97,9 +99,12 @@ class AdminCountdownConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("timer_disabled").getValue()) {
+					if (HTMLForms.getField("timer_disabled").getValue())
+                    {
 						HTMLForms.getField("no_event").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("no_event").disable();
 					}'
                 ]
@@ -128,7 +133,7 @@ class AdminCountdownConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$this->config->set_event_date($this->form->get_value('event_date'));
 		$this->config->set_no_js($this->form->get_value('no_js'));
@@ -138,11 +143,14 @@ class AdminCountdownConfigController extends DefaultAdminModuleController
 		$this->config->set_timer_disabled($this->form->get_value('timer_disabled'));
 
 		if ($this->form->get_value('timer_disabled'))
+        {
 			$this->config->set_no_event($this->form->get_value('no_event'));
+        }
 
 		$this->config->set_stop_counter($this->form->get_value('stop_counter'));
 
-		if ($this->form->get_value('stop_counter')) {
+		if ($this->form->get_value('stop_counter'))
+        {
 			$this->config->set_hidden_counter($this->form->get_value('hidden_counter'));
 			$this->config->set_stopped_event($this->form->get_value('stopped_event'));
 		}
