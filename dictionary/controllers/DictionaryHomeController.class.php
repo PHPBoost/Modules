@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
  * @since       PHPBoost 4.1 - 2016 02 15
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,25 +11,27 @@
 
 class DictionaryHomeController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('dictionary/dictionary.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->build_view($request);
 
-		return $this->generate_response($request);
+		return $this->generate_response();
 	}
 
 	private function build_view(HTTPRequestCustom $request)
 	{
 		$config = DictionaryConfig::load();
 
-		$get_l_error = retrieve(GET, 'erroru', '');
+		$get_l_error = $request->get_getstring('erroru', '');
 		if (!empty($get_l_error))
+        {
 			$this->view->put('MESSAGE_HELPER', MessageHelper::display($this->lang[$get_l_error], MessageHelper::ERROR));
+        }
 
 		if (DictionaryAuthorizationsService::check_authorizations()->read())
 		{
@@ -51,41 +53,50 @@ class DictionaryHomeController extends DefaultModuleController
 			$quotes_approved = 1;
 			if (empty($letter))
 			{
-				$result1 = PersistenceContext::get_querier()->select("SELECT l.id, l.description, l.word,l.cat,c.images,l.approved
-				FROM ".PREFIX."dictionary AS l
-				LEFT JOIN ".PREFIX."dictionary_cat AS c ON l.cat = c.id
-				WHERE `approved`  = '" . $quotes_approved . "'
-				ORDER BY l.word
-				LIMIT :number_items_per_page OFFSET :display_from", [
-					'number_items_per_page' => $pagination->get_number_items_per_page(),
-					'display_from' => $pagination->get_display_from()
-				]);
+				$result1 = PersistenceContext::get_querier()->select("
+                    SELECT l.id, l.description, l.word,l.cat,c.images,l.approved
+                    FROM ".PREFIX."dictionary AS l
+                    LEFT JOIN ".PREFIX."dictionary_cat AS c ON l.cat = c.id
+                    WHERE `approved`  = '" . $quotes_approved . "'
+                    ORDER BY l.word
+                    LIMIT :number_items_per_page OFFSET :display_from
+                    ", [
+                        'number_items_per_page' => $pagination->get_number_items_per_page(),
+                        'display_from' => $pagination->get_display_from()
+                    ]
+                );
 				$words_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE (approved = 1)");
 			}
 			elseif (!empty($letter) && TextHelper::strlen($letter) > 1)
 			{
-				$result1 = PersistenceContext::get_querier()->select("SELECT l.id, l.description, l.word, l.cat, c.images
-				FROM ".PREFIX."dictionary AS l
-				LEFT JOIN ".PREFIX."dictionary_cat AS c ON l.cat = c.id
-				WHERE l.word LIKE '" .$letter[0]. "%' AND `approved`  = '" . $quotes_approved . "'
-				ORDER BY l.word
-				LIMIT :number_items_per_page OFFSET :display_from", [
-					'number_items_per_page' => $pagination->get_number_items_per_page(),
-					'display_from' => $pagination->get_display_from()
-				]);
+				$result1 = PersistenceContext::get_querier()->select("
+                    SELECT l.id, l.description, l.word, l.cat, c.images
+                    FROM ".PREFIX."dictionary AS l
+                    LEFT JOIN ".PREFIX."dictionary_cat AS c ON l.cat = c.id
+                    WHERE l.word LIKE '" .$letter[0]. "%' AND `approved`  = '" . $quotes_approved . "'
+                    ORDER BY l.word
+                    LIMIT :number_items_per_page OFFSET :display_from
+                    ", [
+                        'number_items_per_page' => $pagination->get_number_items_per_page(),
+                        'display_from' => $pagination->get_display_from()
+                    ]
+                );
 				$aff=true;
 			}
 			else
 			{
-				$result1 = PersistenceContext::get_querier()->select("SELECT l.id, l.description, l.word,l.cat,c.images
-				FROM ".PREFIX."dictionary AS l
-				LEFT JOIN ".PREFIX."dictionary_cat AS c ON l.cat = c.id
-				WHERE l.word LIKE '" .$letter. "%' AND `approved`  = '" . $quotes_approved . "'
-				ORDER BY l.word
-				LIMIT :number_items_per_page OFFSET :display_from", [
-					'number_items_per_page' => $pagination->get_number_items_per_page(),
-					'display_from' => $pagination->get_display_from()
-				]);
+				$result1 = PersistenceContext::get_querier()->select("
+                    SELECT l.id, l.description, l.word,l.cat,c.images
+                    FROM ".PREFIX."dictionary AS l
+                    LEFT JOIN ".PREFIX."dictionary_cat AS c ON l.cat = c.id
+                    WHERE l.word LIKE '" .$letter. "%' AND `approved`  = '" . $quotes_approved . "'
+                    ORDER BY l.word
+                    LIMIT :number_items_per_page OFFSET :display_from
+                    ", [
+                        'number_items_per_page' => $pagination->get_number_items_per_page(),
+                        'display_from' => $pagination->get_display_from()
+                    ]
+                );
 			}
 
 			$edit = $del = false;
@@ -127,9 +138,12 @@ class DictionaryHomeController extends DefaultModuleController
 				]);
 			}
 
-			$result_cat = PersistenceContext::get_querier()->select("SELECT id, name
-			FROM ".PREFIX."dictionary_cat
-			ORDER BY id");
+			$result_cat = PersistenceContext::get_querier()->select("
+                SELECT id, name
+                FROM ".PREFIX."dictionary_cat
+                ORDER BY id
+                "
+            );
 
 			while ($row_cat = $result_cat->fetch())
 			{
@@ -140,9 +154,12 @@ class DictionaryHomeController extends DefaultModuleController
 			}
 			$result_cat->dispose();
 
-			$result_cat = PersistenceContext::get_querier()->select("SELECT id, name
-			FROM ".PREFIX."dictionary_cat
-			ORDER BY id");
+			$result_cat = PersistenceContext::get_querier()->select("
+                SELECT id, name
+                FROM ".PREFIX."dictionary_cat
+                ORDER BY id
+                "
+            );
 			while ($row_cat = $result_cat->fetch())
 			{
 				$this->view->assign_block_vars('cat_list', [
@@ -173,7 +190,7 @@ class DictionaryHomeController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 		$graphical_environment = $response->get_graphical_environment();
@@ -186,7 +203,7 @@ class DictionaryHomeController extends DefaultModuleController
 		return $response;
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self('dictionary');
 		$object->build_view(AppContext::get_request());

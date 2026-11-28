@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 07
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
  * @since       PHPBoost 4.1 - 2016 02 15
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminDictionaryConfigController extends DefaultAdminModuleController
 {
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): AdminDictionaryDisplayResponse
 	{
 		$this->build_form();
 
@@ -28,7 +28,7 @@ class AdminDictionaryConfigController extends DefaultAdminModuleController
 		return new AdminDictionaryDisplayResponse($this->view, $this->lang['dictionary.config.module.title']);
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -63,7 +63,7 @@ class AdminDictionaryConfigController extends DefaultAdminModuleController
 		$this->form = $form;
 	}
 
-	private function generate_forbidden_tags_option()
+	private function generate_forbidden_tags_option(): array
 	{
 		$options = [];
 		foreach (AppContext::get_content_formatting_service()->get_available_tags() as $identifier => $name)
@@ -73,7 +73,7 @@ class AdminDictionaryConfigController extends DefaultAdminModuleController
 		return $options;
 	}
 
-	private function save()
+	private function save(): void
 	{
 		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
 

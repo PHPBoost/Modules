@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,17 +12,17 @@
 
 class DownloadCategoryController extends DefaultModuleController
 {
-	private $comments_config;
-	private $content_management_config;
+	private CommentsConfig $comments_config;
+	private ContentManagementConfig $content_management_config;
 
-	private $category;
+	private mixed $category = null;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('download/DownloadSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->init();
 
@@ -33,13 +33,13 @@ class DownloadCategoryController extends DefaultModuleController
 		return $this->generate_response($request);
 	}
 
-	private function init()
+	private function init(): void
 	{
 		$this->comments_config = CommentsConfig::load();
 		$this->content_management_config = ContentManagementConfig::load();
 	}
 
-	private function build_view(HTTPRequestCustom $request)
+	private function build_view(HTTPRequestCustom $request): void
 	{
 		$now = new Date();
 		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
@@ -74,8 +74,10 @@ class DownloadCategoryController extends DefaultModuleController
 			}
 		}
 
-		$condition = 'WHERE id_category = :id_category
-		AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))';
+		$condition = '
+            WHERE id_category = :id_category
+            AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
+        ';
 		$parameters = [
 			'id_category' => $this->get_category()->get_id(),
 			'timestamp_now' => $now->get_timestamp()
@@ -91,19 +93,22 @@ class DownloadCategoryController extends DefaultModuleController
 		else
 			$sort_field = $this->config->get_items_default_sort_field();
 
-		$result = PersistenceContext::get_querier()->select('SELECT download.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
-		FROM ' . DownloadSetup::$download_table . ' download
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = download.author_user_id
-		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
-		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
-		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = :user_id
-		' . $condition . '
-		ORDER BY ' . $sort_field . ' ' . $sort_mode . '
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'user_id' => AppContext::get_current_user()->get_id(),
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT download.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
+            FROM ' . DownloadSetup::$download_table . ' download
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = download.author_user_id
+            LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
+            LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
+            LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = :user_id
+            ' . $condition . '
+            ORDER BY ' . $sort_field . ' ' . $sort_mode . '
+            LIMIT :number_items_per_page OFFSET :display_from
+            ', array_merge($parameters, [
+                'user_id' => AppContext::get_current_user()->get_id(),
+                'number_items_per_page' => $pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$category_description = FormatingHelper::second_parse($this->get_category()->get_description());
 
@@ -156,7 +161,9 @@ class DownloadCategoryController extends DefaultModuleController
 			]));
 
 			if ($has_keywords)
+            {
 				$this->build_keywords_view($keywords);
+            }
 
 			foreach ($item->get_sources() as $name => $url)
 			{
@@ -168,7 +175,7 @@ class DownloadCategoryController extends DefaultModuleController
 		$this->build_sorting_form($field, TextHelper::strtolower($sort_mode));
 	}
 
-	private function build_sorting_form($field, $mode)
+	private function build_sorting_form(string $field, string $mode): void
 	{
 		$form = new HTMLForm(self::class, '', false);
 		$form->set_css_class('options');
@@ -186,10 +193,14 @@ class DownloadCategoryController extends DefaultModuleController
 		];
 
 		if ($this->comments_config->module_comments_is_enabled('download'))
+        {
 			$sort_options[] = new FormFieldSelectChoiceOption($this->lang['common.sort.by.comments.number'], DownloadItem::SORT_FIELDS_URL_VALUES[DownloadItem::SORT_COMMENTS_NUMBER], ['data_option_icon' => 'far fa-comments']);
+        }
 
 		if ($this->content_management_config->module_notation_is_enabled('download'))
+        {
 			$sort_options[] = new FormFieldSelectChoiceOption($this->lang['common.sort.by.best.note'], DownloadItem::SORT_FIELDS_URL_VALUES[DownloadItem::SORT_NOTATION], ['data_option_icon' => 'far fa-star']);
+        }
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_fields', '', $field, $sort_options,
 			['select_to_list' => true, 'events' => ['change' => 'document.location = "'. DownloadUrlBuilder::display_category($this->category->get_id(), $this->category->get_rewrited_name())->rel() .'" + HTMLForms.getField("sort_fields").getValue() + "/" + HTMLForms.getField("sort_mode").getValue();']]
@@ -206,7 +217,7 @@ class DownloadCategoryController extends DefaultModuleController
 		$this->view->put('SORT_FORM', $form->display());
 	}
 
-	private function get_pagination($condition, $parameters, $field, $mode, $page, $subcategories_page)
+	private function get_pagination(string $condition, array $parameters, string $field, string $mode, int|string $page, int|string $subcategories_page): ModulePagination
 	{
 		$items_number = DownloadService::count($condition, $parameters);
 
@@ -222,7 +233,7 @@ class DownloadCategoryController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function get_subcategories_pagination($subcategories_number, $categories_per_page, $field, $mode, $page, $subcategories_page)
+	private function get_subcategories_pagination(int $subcategories_number, int $categories_per_page, string $field, string $mode, int|string $page, int|string $subcategories_page): ModulePagination
 	{
 		$pagination = new ModulePagination($subcategories_page, $subcategories_number, (int)$categories_per_page);
 		$pagination->set_url(DownloadUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $field, $mode, $page, '%d'));
@@ -236,16 +247,19 @@ class DownloadCategoryController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function get_category()
+	private function get_category(): mixed
 	{
 		if ($this->category === null)
 		{
 			$id = AppContext::get_request()->get_getint('id_category', 0);
 			if (!empty($id))
 			{
-				try {
+				try
+                {
 					$this->category = CategoriesService::get_categories_manager('download')->get_categories_cache()->get_category($id);
-				} catch (CategoryNotFoundException $e) {
+				}
+                catch
+                (CategoryNotFoundException $e) {
 					$error_controller = PHPBoostErrors::unexisting_page();
 					DispatchManager::redirect($error_controller);
 				}
@@ -258,7 +272,7 @@ class DownloadCategoryController extends DefaultModuleController
 		return $this->category;
 	}
 
-	private function build_keywords_view($keywords)
+	private function build_keywords_view(array $keywords): void
 	{
 		$nbr_keywords = count($keywords);
 
@@ -274,7 +288,7 @@ class DownloadCategoryController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (AppContext::get_current_user()->is_guest())
 		{
@@ -294,7 +308,7 @@ class DownloadCategoryController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$sort_field = $request->get_getstring('field', DownloadItem::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
 		$sort_mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
@@ -304,13 +318,19 @@ class DownloadCategoryController extends DefaultModuleController
 		$graphical_environment = $response->get_graphical_environment();
 
 		if ($this->get_category()->get_id() != Category::ROOT_CATEGORY)
+        {
 			$graphical_environment->set_page_title($this->get_category()->get_name(), $this->lang['download.module.title'], $page);
+        }
 		else
+        {
 			$graphical_environment->set_page_title($this->lang['download.module.title'], '', $page);
+        }
 
 		$description = $this->get_category()->get_description();
 		if (empty($description))
+        {
 			$description = StringVars::replace_vars($this->lang['download.seo.description.root'], ['site' => GeneralConfig::load()->get_site_name()]) . ($this->get_category()->get_id() != Category::ROOT_CATEGORY ? ' ' . $this->lang['category.category'] . ' ' . $this->get_category()->get_name() : '');
+        }
 		$graphical_environment->get_seo_meta_data()->set_description($description, $page);
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(DownloadUrlBuilder::display_category($this->get_category()->get_id(), $this->get_category()->get_rewrited_name(), $sort_field, $sort_mode, $page));
 
@@ -321,13 +341,15 @@ class DownloadCategoryController extends DefaultModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
+            {
 				$breadcrumb->add($category->get_name(), DownloadUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name(), $sort_field, $sort_mode, ($category->get_id() == $this->get_category()->get_id() ? $page : 1)));
+            }
 		}
 
 		return $response;
 	}
 
-	public static function get_view()
+	public static function get_view(): mixed
 	{
 		$object = new self('download');
 		$object->init();

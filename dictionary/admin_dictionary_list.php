@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
  * @since       PHPBoost 2.0 - 2012 11 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -23,7 +23,7 @@ $view = new FileTemplate('dictionary/admin_dictionary_list.tpl');
 $view->add_lang($lang);
 $words_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table);
 
-//On crée une pagination si le nombre de web est trop important.
+// We create a pagination if the number of pages is too high.
 $page = AppContext::get_request()->get_getint('p', 1);
 $pagination = new ModulePagination($page, $words_number, $config->get_items_per_page());
 $pagination->set_url(new Url('/dictionary/admin_dictionary_list.php?p=%d'));
@@ -40,18 +40,21 @@ $view->put_all([
 	'PAGINATION' => $pagination->display(),
 ]);
 
-$result = PersistenceContext::get_querier()->select("SELECT l.word ,l.id AS dictionary_id,l.cat,l.approved AS dictionary_approved,l.timestamp,cat.id,cat.name,cat.images
-FROM " . PREFIX . "dictionary AS l
-LEFT JOIN " . PREFIX . "dictionary_cat cat ON cat.id = l.cat
-ORDER BY timestamp DESC
-LIMIT :number_items_per_page OFFSET :display_from", [
-	'number_items_per_page' => $pagination->get_number_items_per_page(),
-	'display_from' => $pagination->get_display_from()
-]);
+$result = PersistenceContext::get_querier()->select("
+    SELECT l.word ,l.id AS dictionary_id,l.cat,l.approved AS dictionary_approved,l.timestamp,cat.id,cat.name,cat.images
+    FROM " . PREFIX . "dictionary AS l
+    LEFT JOIN " . PREFIX . "dictionary_cat cat ON cat.id = l.cat
+    ORDER BY timestamp DESC
+    LIMIT :number_items_per_page OFFSET :display_from
+    ", [
+        'number_items_per_page' => $pagination->get_number_items_per_page(),
+        'display_from' => $pagination->get_display_from()
+    ]
+);
 while ($row = $result->fetch())
 {
 	$aprob = ($row['dictionary_approved'] == 1) ? $lang['common.yes'] : $lang['common.no'];
-	//On reccourci le lien si il est trop long pour éviter de déformer l'administration.s
+	// The link is shortened if it is too long to avoid distorting the administration.
 	$title = $row['word'];
 	$title = TextHelper::strlen($title) > 45 ? TextHelper::substr($title, 0, 45) . '...' : $title;
 	$img = empty($row['images']) ? '<i class="fa fa-folder"></i>' : '<img src="' . $row['images'] . '" alt="' . $row['images'] . '" />';

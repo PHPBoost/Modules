@@ -1,0 +1,73 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2026 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
+ * @since       PHPBoost 4.1 - 2016 02 15
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+*/
+
+class DictionaryConfig extends AbstractConfigData
+{
+	const ITEMS_PER_PAGE = 'items_per_page';
+	const FORBIDDEN_TAGS = 'forbidden_tags';
+	const AUTHORIZATIONS = 'authorizations';
+
+	public function get_items_per_page(): int
+	{
+		return $this->get_property(self::ITEMS_PER_PAGE);
+	}
+
+	public function set_items_per_page(int $value): void
+	{
+		$this->set_property(self::ITEMS_PER_PAGE, $value);
+	}
+
+	public function get_forbidden_tags(): array
+	{
+		return $this->get_property(self::FORBIDDEN_TAGS);
+	}
+
+	public function set_forbidden_tags(array $array): void
+	{
+		$this->set_property(self::FORBIDDEN_TAGS, $array);
+	}
+
+	public function get_authorizations(): array
+	{
+		return $this->get_property(self::AUTHORIZATIONS);
+	}
+
+	public function set_authorizations(array $authorizations): void
+	{
+		$this->set_property(self::AUTHORIZATIONS, $authorizations);
+	}
+
+	public function get_default_values(): array
+	{
+		return [
+			self::ITEMS_PER_PAGE => 15,
+			self::FORBIDDEN_TAGS => ['swf', 'movie', 'sound', 'code', 'math', 'mail', 'html', 'feed', 'youtube'],
+			self::AUTHORIZATIONS => ['r-1' => 1, 'r0' => 5, 'r1' => 13]
+		];
+	}
+
+	/**
+	 * Returns the configuration.
+	 * @return DictionaryConfig
+	 */
+	public static function load(): DictionaryConfig
+	{
+		return ConfigManager::load(self::class, 'dictionary', 'config');
+	}
+
+	/**
+	 * Saving the configuration in database.
+	 */
+	public static function save(): void
+	{
+		ConfigManager::save('dictionary', self::load(), 'config');
+	}
+}
+?>

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      janus57 <janus57@janus57.fr>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -11,17 +11,20 @@
 
 class DownloadFileController extends AbstractController
 {
-	private $item;
+	private DownloadItem $item;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): ?SiteDisplayResponse
 	{
 		$id = $request->get_getint('id', 0);
 
 		if (!empty($id))
 		{
-			try {
+			try
+            {
 				$this->item = DownloadService::get_item($id);
-			} catch (RowNotFoundException $e) {
+			}
+            catch (RowNotFoundException $e)
+            {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
 			}
@@ -32,7 +35,7 @@ class DownloadFileController extends AbstractController
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
 		}
-		else if ($this->item !== null && $this->item->is_published())
+		elseif ($this->item !== null && $this->item->is_published())
 		{
 			$this->item->set_downloads_number($this->item->get_downloads_number() + 1);
 			DownloadService::update_downloads_number($this->item);
@@ -59,9 +62,10 @@ class DownloadFileController extends AbstractController
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
+        return null;
 	}
 
-	private function generate_response()
+	private function generate_response(): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse(new StringTemplate(''));
 

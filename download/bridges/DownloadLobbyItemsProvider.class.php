@@ -37,19 +37,19 @@ class DownloadLobbyItemsProvider extends DefaultItemsLobbyProvider
         ';
 
 		$result = PersistenceContext::get_querier()->select('
-                SELECT 
-                    item.*,
-                    member.*,
-                    cat.rewrited_name AS rewrited_name_cat,
-                    notes.average_notes, notes.notes_number, note.note
-                FROM ' . PREFIX . $module_id . ' item
-                LEFT JOIN ' . PREFIX . $module_id . '_cats cat ON cat.id = item.id_category
-                LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = item.author_user_id
-                LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = item.id AND notes.module_name = \'' . $module_id . '\'
-                LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = item.id AND note.module_name = \'' . $module_id . '\'
-                ' . $sql_conditions . '
-                ORDER BY item.rewrited_title ASC
-                LIMIT :limit
+            SELECT 
+                item.*,
+                member.*,
+                cat.rewrited_name AS rewrited_name_cat,
+                notes.average_notes, notes.notes_number, note.note
+            FROM ' . PREFIX . $module_id . ' item
+            LEFT JOIN ' . PREFIX . $module_id . '_cats cat ON cat.id = item.id_category
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = item.author_user_id
+            LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = item.id AND notes.module_name = \'' . $module_id . '\'
+            LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = item.id AND note.module_name = \'' . $module_id . '\'
+            ' . $sql_conditions . '
+            ORDER BY item.rewrited_title ASC
+            LIMIT :limit
             ', [
                 'categories'    => $categories,
                 'now' => $now->get_timestamp(),

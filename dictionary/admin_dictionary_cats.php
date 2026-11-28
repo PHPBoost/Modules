@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 07
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
  * @since       PHPBoost 2.0 - 2012 11 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -24,9 +24,9 @@ $config = DictionaryConfig::load();
 
 $view = new FileTemplate('dictionary/admin_dictionary_cats.tpl');
 $view->add_lang($lang);
-$request = AppContext::get_request();
 
-$get_error = $request->get_getvalue('error', '');
+$request     = AppContext::get_request();
+$get_error   = $request->get_getvalue('error', '');
 $get_l_error = $request->get_getvalue('erroru', '');
 
 $categories_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_cat_table);
@@ -62,11 +62,13 @@ if ($request->get_getvalue('add', false))
 		$view->put('MESSAGE_HELPER', MessageHelper::display($lang[$get_l_error], MessageHelper::WARNING));
 		$name = "";
 
-		if ($id = $request->get_getvalue('id_cat',false,TINTEGER))
+		if ($id = $request->get_getvalue('id_cat',false))
 		{
-			try {
+			try
+            {
 				$row = PersistenceContext::get_querier()->select_single_row(DictionarySetup::$dictionary_cat_table, ['id', 'name', 'images'], 'WHERE id=:id', ['id' => $id]);
-			} catch (RowNotFoundException $e) {}
+			}
+            catch (RowNotFoundException $e) {}
 			$name = $row ? $row['name'] : '';
 		}
 		else
@@ -81,10 +83,12 @@ if ($request->get_getvalue('add', false))
 		$name = "";
 		$id = "";
 	}
-	elseif ($id = $request->get_getvalue('id',false,TINTEGER)){
-		try {
+	elseif ($id = $request->get_getvalue('id',false)){
+		try
+        {
 			$row = PersistenceContext::get_querier()->select_single_row(DictionarySetup::$dictionary_cat_table, ['id', 'name', 'images'], 'WHERE id=:id', ['id' => $id]);
-		} catch (RowNotFoundException $e) {}
+		}
+        catch (RowNotFoundException $e) {}
 		$name = $row ? $row['name'] : '';
 	}
 	else
@@ -114,11 +118,14 @@ if ($request->get_getvalue('add', false))
 
 	$view->display();
 
-	if ($request->get_postvalue('valid',false) && $id_cat = $request->get_postvalue('id_cat',false,TINTEGER))
+	if ($request->get_postvalue('valid',false) && $id_cat = $request->get_postvalue('id_cat',false))
 	{
-		try {
+		try
+        {
 			$row = PersistenceContext::get_querier()->select_single_row(DictionarySetup::$dictionary_cat_table, ['id', 'name', 'images'], 'WHERE id=:id', ['id' => $id_cat]);
-		} catch (RowNotFoundException $e) {
+		}
+        catch (RowNotFoundException $e)
+        {
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
@@ -154,13 +161,17 @@ if ($request->get_getvalue('add', false))
 		{
 			$path = TextHelper::strprotect($request->get_postvalue('image', ''));
 			$error = $Upload->check_img(16, 16,false);
-			if (!empty($error)) //Erreur, on arrête ici
+			if (!empty($error))
+            {
 				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $error) . '#message_helper&id_cat='.$id_cat);
+            }
 			else
-				$cat_img = $dir . $path; //image uploadé et validé.
+            {
+				$cat_img = $dir . $path;
+            }
 		}
 		$cat_img = !empty($cat_img) ? $cat_img : (!empty($row['images']) ? $row['images'] : '');
-		$name_cat = $request->get_postvalue('name_cat','',TSTRING);
+		$name_cat = $request->get_postvalue('name_cat','');
 
 		PersistenceContext::get_querier()->update(DictionarySetup::$dictionary_cat_table, [
 			'name' => addslashes(TextHelper::strtoupper($name_cat)),
@@ -180,7 +191,7 @@ if ($request->get_getvalue('add', false))
 			{
 				$Upload->file('images', '`([a-z0-9()_-])+\.(jpg|gif|png|webp|bmp)+$`iu',Upload::UNIQ_NAME, 20*1024);
 				$upload_error = $Upload->get_error();
-				if ($upload_error != '') //Erreur, on arrête ici
+				if ($upload_error != '')
 				{
 					AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $upload_error) . '#message_helper');
 				}
@@ -203,12 +214,16 @@ if ($request->get_getvalue('add', false))
 		{
 			$path = TextHelper::strprotect($request->get_postvalue('image', ''));
 			$error = $Upload->check_img(16, 16,false);
-			if (!empty($error)) //Erreur, on arrête ici
+			if (!empty($error))
+            {
 				AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats' . url('.php?add=1&erroru=' . $error) . '#message_helper');
+            }
 			else
+            {
 				$cat_img = $dir . $path; //image uploadée et validée.
+            }
 		}
-		$name_cat = $request->get_postvalue('name_cat','',TSTRING);
+		$name_cat = $request->get_postvalue('name_cat','');
 
 		PersistenceContext::get_querier()->insert(DictionarySetup::$dictionary_cat_table, [
 			'name' => $name_cat,
@@ -218,10 +233,10 @@ if ($request->get_getvalue('add', false))
 		AppContext::get_response()->redirect(HOST . SCRIPT);
 	}
 }
-elseif ($request->get_postvalue('cat_to_del',0,TINTEGER) && $request->get_postvalue('id_del_a',0,TINTEGER) && $request->get_postvalue('submit',false))
+elseif ($request->get_postvalue('cat_to_del',0) && $request->get_postvalue('id_del_a',0) && $request->get_postvalue('submit',false))
 {
 	AppContext::get_session()->csrf_get_protect();
-	$id_del = $request->get_postvalue('id_del_a',0,TINTEGER);
+	$id_del = $request->get_postvalue('id_del_a',0);
 	$action = $request->get_postvalue('action', '');
 
 	$delete_content = ($action && $action == 'move') ? false : true;
@@ -233,13 +248,15 @@ elseif ($request->get_postvalue('cat_to_del',0,TINTEGER) && $request->get_postva
 	}
 	else
 	{
-		if ($request->get_postvalue('category-move',0,TINTEGER))
+		if ($request->get_postvalue('category-move',0))
 		{
-			$id_move = $request->get_postvalue('category-move',0,TINTEGER);
-			$result = PersistenceContext::get_querier()->select("SELECT id, cat
+			$id_move = $request->get_postvalue('category-move',0);
+			$result = PersistenceContext::get_querier()->select("
+                SELECT id, cat
                 FROM ".PREFIX."dictionary
                 WHERE `cat`  = '" . $id_del . "'
-                ORDER BY id"
+                ORDER BY id
+                "
             );
 			while ($row = $result->fetch())
 			{
@@ -252,7 +269,7 @@ elseif ($request->get_postvalue('cat_to_del',0,TINTEGER) && $request->get_postva
 		AppContext::get_response()->redirect(HOST . DIR . '/dictionary/admin_dictionary_cats.php');
 	}
 }
-elseif ($request->get_getvalue('del', false) && $id_del = $request->get_getvalue('id', false, TINTEGER))
+elseif ($request->get_getvalue('del', false) && $id_del = $request->get_getvalue('id', false))
 {
 	AppContext::get_session()->csrf_get_protect();
 	$categories_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_cat_table);
@@ -270,10 +287,13 @@ elseif ($request->get_getvalue('del', false) && $id_del = $request->get_getvalue
 			'CATEGORY_NAME' => stripslashes($row_name['name']),
 		]);
 
-		$result = PersistenceContext::get_querier()->select("SELECT id, name
-		FROM ".PREFIX."dictionary_cat
-		WHERE `id` != '" . $id_del . "'
-		ORDER BY name");
+		$result = PersistenceContext::get_querier()->select("
+            SELECT id, name
+            FROM ".PREFIX."dictionary_cat
+            WHERE `id` != '" . $id_del . "'
+            ORDER BY name
+            "
+        );
 		while ($row = $result->fetch())
 		{
 			$view->assign_block_vars('cat_list', [
@@ -293,13 +313,16 @@ elseif ($request->get_getvalue('del', false) && $id_del = $request->get_getvalue
 }
 else
 {
-	$result_cat = PersistenceContext::get_querier()->select("SELECT id, name,images
-	FROM ".PREFIX."dictionary_cat
-	ORDER BY name
-	LIMIT :number_items_per_page OFFSET :display_from", [
-		'number_items_per_page' => $pagination->get_number_items_per_page(),
-		'display_from' => $pagination->get_display_from()
-	]);
+	$result_cat = PersistenceContext::get_querier()->select("
+        SELECT id, name,images
+        FROM ".PREFIX."dictionary_cat
+        ORDER BY name
+        LIMIT :number_items_per_page OFFSET :display_from
+        ", [
+            'number_items_per_page' => $pagination->get_number_items_per_page(),
+            'display_from' => $pagination->get_display_from()
+        ]
+    );
 
 	while ($row_cat = $result_cat->fetch())
 	{

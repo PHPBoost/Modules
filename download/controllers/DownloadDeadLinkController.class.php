@@ -3,24 +3,27 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class DownloadDeadLinkController extends AbstractController
 {
-	private $item;
+	private DownloadItem $item;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): mixed
 	{
 		$id = $request->get_getint('id', 0);
 
 		if (!empty($id) && AppContext::get_current_user()->check_level(User::MEMBER_LEVEL))
 		{
-			try {
+			try
+            {
 				$this->item = DownloadService::get_item($id);
-			} catch (RowNotFoundException $e) {
+			}
+            catch (RowNotFoundException $e)
+            {
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
 			}
@@ -31,7 +34,7 @@ class DownloadDeadLinkController extends AbstractController
 			$error_controller = PHPBoostErrors::user_not_authorized();
 			DispatchManager::redirect($error_controller);
 		}
-		else if ($this->item !== null && $this->item->is_published())
+		elseif ($this->item !== null && $this->item->is_published())
 		{
 			if (!PersistenceContext::get_querier()->row_exists(PREFIX . 'events', 'WHERE id_in_module=:id_in_module AND module=\'download\' AND current_status = 0', ['id_in_module' => $this->item->get_id()]))
 			{
@@ -60,6 +63,7 @@ class DownloadDeadLinkController extends AbstractController
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
+        return null;
 	}
 }
 ?>

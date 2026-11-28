@@ -116,21 +116,24 @@ if (!empty($id_get))
 		$authorized_categories = CategoriesService::get_authorized_categories($id_get);
 
 		//On liste les sous-catégories.
-		$result = PersistenceContext::get_querier()->select('SELECT
-			c.id AS cid, c.id_parent, c.name, c.rewrited_name, c.description as subname, c.url, c.thumbnail, c.icon, c.color, c.last_topic_id, c.status AS cat_status,
-			t.id AS tid, t.id_category, t.title, t.last_timestamp, t.last_user_id, t.last_msg_id, t.nbr_msg AS t_nbr_msg, t.display_msg, t.status,
-			m.user_id, m.display_name, m.level AS user_level, m.user_groups,
-			v.last_view_id
-		FROM ' . ForumSetup::$forum_cats_table . ' c
-		LEFT JOIN ' . ForumSetup::$forum_topics_table . ' t ON t.id = c.last_topic_id
-		LEFT JOIN ' . ForumSetup::$forum_view_table . ' v ON v.user_id = :user_id AND v.idtopic = t.id
-		LEFT JOIN ' . DB_TABLE_MEMBER . ' m ON m.user_id = t.last_user_id
-		WHERE c.id_parent = :id_cat AND c.id IN :authorized_categories
-		ORDER BY c.id_parent, c.c_order', [
-			'user_id' => AppContext::get_current_user()->get_id(),
-			'id_cat' => $category->get_id(),
-			'authorized_categories' => $authorized_categories
-		]);
+		$result = PersistenceContext::get_querier()->select('
+            SELECT
+                c.id AS cid, c.id_parent, c.name, c.rewrited_name, c.description as subname, c.url, c.thumbnail, c.icon, c.color, c.last_topic_id, c.status AS cat_status,
+                t.id AS tid, t.id_category, t.title, t.last_timestamp, t.last_user_id, t.last_msg_id, t.nbr_msg AS t_nbr_msg, t.display_msg, t.status,
+                m.user_id, m.display_name, m.level AS user_level, m.user_groups,
+                v.last_view_id
+            FROM ' . ForumSetup::$forum_cats_table . ' c
+            LEFT JOIN ' . ForumSetup::$forum_topics_table . ' t ON t.id = c.last_topic_id
+            LEFT JOIN ' . ForumSetup::$forum_view_table . ' v ON v.user_id = :user_id AND v.idtopic = t.id
+            LEFT JOIN ' . DB_TABLE_MEMBER . ' m ON m.user_id = t.last_user_id
+            WHERE c.id_parent = :id_cat AND c.id IN :authorized_categories
+            ORDER BY c.id_parent, c.c_order
+            ', [
+                'user_id' => AppContext::get_current_user()->get_id(),
+                'id_cat' => $category->get_id(),
+                'authorized_categories' => $authorized_categories
+            ]
+        );
 
 		$categories = [];
 		while ($row = $result->fetch())

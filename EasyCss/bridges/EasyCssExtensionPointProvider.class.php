@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 11
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 5.0 - 2016 04 22
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
@@ -17,7 +17,7 @@ class EasyCssExtensionPointProvider extends ExtensionPointProvider
 
     public function url_mappings(): mixed
     {
-        return new UrlMappings([new DispatcherUrlMapping('/EasyCss/index.php', '([\w/_-]*)$')]);
+        return new UrlMappings([new DispatcherUrlMapping('/EasyCss/index.php', '([\w@/_-]*)$')]);
     }
 
     public function css_files(): mixed

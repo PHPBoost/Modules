@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
  * @since       PHPBoost 2.0 - 2012 11 15
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -25,15 +25,16 @@ $view->add_lang($lang);
 
 $Bread_crumb->add($lang['dictionary.module.title'], url('dictionary.php'));
 
-$get_l_error = retrieve(GET, 'erroru', '');
+$request     = AppContext::get_request();
+$get_l_error = $request->get_getstring('erroru', '');
 if (!empty($get_l_error))
 {
 	$view->put('MESSAGE_HELPER', MessageHelper::display($lang[$get_l_error], MessageHelper::WARNING));
 }
 
-if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(POST, 'valid', false) || $id_get = retrieve(GET, 'edit', 0, TINTEGER)) // Add, preview, edition.
+if ($request->get_getbool('add', false) || $request->get_postbool('preview', false) || $request->get_postbool('valid', false) || $id_get =$request->get_getint('edit', 0)) // Add, preview, edition.
 {
-	if(retrieve(GET, 'add', false)) $Bread_crumb->add($lang['dictionary.add.item'], url('dictionary.php?add=1'));
+	if($request->get_getbool('add', false)) $Bread_crumb->add($lang['dictionary.add.item'], url('dictionary.php?add=1'));
 	$user_id = AppContext::get_current_user()->get_id();
 
 	if (!(DictionaryAuthorizationsService::check_authorizations()->write() || DictionaryAuthorizationsService::check_authorizations()->contribution() || DictionaryAuthorizationsService::check_authorizations()->moderation()))
@@ -42,9 +43,12 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 		DispatchManager::redirect($error_controller);
 	}
 
-	$result_cat = $result = PersistenceContext::get_querier()->select("SELECT id, name
-	FROM ".PREFIX."dictionary_cat
-	ORDER BY id");
+	$result_cat = $result = PersistenceContext::get_querier()->select("
+        SELECT id, name
+        FROM ".PREFIX."dictionary_cat
+        ORDER BY id
+        "
+    );
 	while ($row_cat = $result_cat->fetch())
 	{
 		$view->assign_block_vars('cat_list_add', [
@@ -55,7 +59,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 	$result_cat->dispose();
 
 	$contents_editor = AppContext::get_content_formatting_service()->get_default_editor();
-	$contents_editor->set_identifier('description', $config->get_forbidden_tags());
+	$contents_editor->set_identifier('description');
 
 	$counterpart_editor = AppContext::get_content_formatting_service()->get_default_editor();
 	$counterpart_editor->set_identifier('counterpart');
@@ -77,13 +81,13 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 		'REWRITE'             => (int)ServerEnvironmentConfig::load()->is_url_rewriting_enabled(),
 	]);
 
-	if (retrieve(POST, 'preview', false)) // prévisualisation
+	if ($request->get_postbool('preview', false)) // prévisualisation
 	{
-		$word = retrieve(POST, 'word', 'word', TSTRING);
-		$contents = retrieve(POST, 'description', '', TSTRING_AS_RECEIVED);
-		$contents_preview = retrieve(POST, 'description', '' , TSTRING_UNCHANGE);
-		$category_id = retrieve(POST,'category_add','',TINTEGER);
-		$id = retrieve(POST,'dictionary_id','');
+		$word             = $request->get_poststring('word', 'word');
+		$contents         = $request->get_poststring('description', '');
+		$contents_preview = $request->get_poststring('description', '' );
+		$category_id      = $request->get_poststring('category_add','');
+		$id               = $request->get_poststring('dictionary_id','');
 
 		$cat_name = '';
 		try {
@@ -100,23 +104,28 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 			'CATEGORY_ID'     => $category_id,
 		]);
 	}
-	elseif (retrieve(POST, 'valid', false)) // Add
+	elseif ($request->get_postbool('valid', false)) // Add
 	{
-		$timestamp = time();
-		$id = retrieve(POST,'dictionary_id','');
-		$word = retrieve(POST, 'word', 'word', TSTRING);
-		$contents = retrieve(POST, 'description', 'description', TSTRING_AS_RECEIVED);
-		$contents_cat = retrieve(POST,'category_add','',TINTEGER);
-		$contents = FormatingHelper::second_parse(stripslashes(FormatingHelper::strparse($contents,$config->get_forbidden_tags())));
+		$timestamp    = time();
+		$id           = $request->get_poststring('dictionary_id','');
+		$word         = $request->get_poststring('word', 'word');
+		$contents     = $request->get_poststring('description', 'description');
+		$contents_cat = $request->get_poststring('category_add','');
+
+        $contents = FormatingHelper::second_parse(stripslashes(FormatingHelper::strparse($contents, $config->get_forbidden_tags())));
 
 		$row = $row1 = '';
-		try {
+		try
+        {
 			$row = PersistenceContext::get_querier()->select_single_row(DictionarySetup::$dictionary_table, ['id', 'word', 'description'], 'WHERE id=:id', ['id' => $id]);
-		} catch (RowNotFoundException $e) {}
+		}
+        catch (RowNotFoundException $e) {}
 
-		try {
+		try
+        {
 			$row1 = PersistenceContext::get_querier()->select_single_row(DictionarySetup::$dictionary_table, ['id', 'word', 'description', 'approved'], 'WHERE word=:word', ['word' => $word]);
-		} catch (RowNotFoundException $e) {}
+		}
+        catch (RowNotFoundException $e) {}
 
 		if ($row && $row['id'] != '')
 		{
@@ -132,7 +141,8 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 
 			if (count($contributions) > 0)
 			{
-				foreach($contributions as $contribution) {
+				foreach($contributions as $contribution)
+                {
 					$contribution->set_status(Event::EVENT_STATUS_PROCESSED);
 					ContributionService::save_contribution($contribution);
 				}
@@ -168,7 +178,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 			{
 				$dictionary_contribution = new Contribution();
 				$dictionary_contribution->set_id_in_module($last_msg_id);
-				$dictionary_contribution->set_description(retrieve(POST, 'counterpart', '', TSTRING_PARSE));
+				$dictionary_contribution->set_description($request->get_poststring('counterpart', ''));
 				$dictionary_contribution->set_entitled(sprintf($lang['dictionary.contribution.entitled'], $last_msg_id));
 				$dictionary_contribution->set_fixing_url('/dictionary/dictionary.php?edit=' . $last_msg_id);
 				$dictionary_contribution->set_poster_id($user_id);
@@ -182,7 +192,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 		}
 		AppContext::get_response()->redirect(HOST . DIR . '/dictionary/dictionary.php');
 	}
-	elseif ($id_get = retrieve(GET, 'edit', 0, TINTEGER)) // édition
+	elseif ($id_get = $request->get_getstring('edit', 0)) // édition
 	{
 		$Bread_crumb->add($lang['dictionary.edit.item'], url('dictionary.php?edit=' . $id_get));
 		if (!DictionaryAuthorizationsService::check_authorizations()->moderation())
@@ -191,13 +201,19 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 			DispatchManager::redirect($error_controller);
 		}
 
-		$row = PersistenceContext::get_querier()->select_single_row_query("SELECT q.*, m.display_name AS mlogin,c.id AS cat,c.name AS cat_name
-		FROM ".PREFIX."dictionary q
-		LEFT JOIN ".PREFIX."member m ON m.user_id = q.user_id
-		LEFT JOIN ".PREFIX."dictionary_cat c ON q.cat = c.id
-		WHERE q.id = :id", ['id' => $id_get]);
+		$row = PersistenceContext::get_querier()->select_single_row_query("
+            SELECT q.*, m.display_name AS mlogin,c.id AS cat,c.name AS cat_name
+            FROM ".PREFIX."dictionary q
+            LEFT JOIN ".PREFIX."member m ON m.user_id = q.user_id
+            LEFT JOIN ".PREFIX."dictionary_cat c ON q.cat = c.id
+            WHERE q.id = :id
+            ", [
+                'id' => $id_get
+            ]
+        );
 
-		if (empty($row)) {
+		if (empty($row))
+        {
 			$error_controller = PHPBoostErrors::unexisting_page();
 			DispatchManager::redirect($error_controller);
 		}
@@ -219,7 +235,7 @@ if (retrieve(GET, 'add', false) || retrieve(POST, 'preview', false) || retrieve(
 	DictionaryCache::invalidate(); // Refresh cache
 	$view->display();
 }
-elseif ($id_get = retrieve(GET, 'del', 0, TINTEGER)) // Delete
+elseif ($id_get = $request->get_getstring('del', 0)) // Delete
 {
 	AppContext::get_session()->csrf_get_protect();
 	$words_number = PersistenceContext::get_querier()->count(DictionarySetup::$dictionary_table, "WHERE (approved = 1)");

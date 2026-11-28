@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 11
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Mipel <mipel@phpboost.com>
@@ -41,249 +41,246 @@ class DownloadConfig extends AbstractConfigData
 
 	const AUTO_CUT_CHARACTERS_NUMBER = 'auto_cut_characters_number';
 
-	public function get_categories_per_page()
+	public function get_categories_per_page(): int
 	{
 		return $this->get_property(self::CATEGORIES_PER_PAGE);
 	}
 
-	public function set_categories_per_page($value)
+	public function set_categories_per_page(int $value): void
 	{
 		$this->set_property(self::CATEGORIES_PER_PAGE, $value);
 	}
 
-	public function get_categories_per_row()
+	public function get_categories_per_row(): int
 	{
 		return $this->get_property(self::CATEGORIES_PER_ROW);
 	}
 
-	public function set_categories_per_row($value)
+	public function set_categories_per_row(int $value): void
 	{
 		$this->set_property(self::CATEGORIES_PER_ROW, $value);
 	}
 
-	public function get_items_per_page()
+	public function get_items_per_page(): int
 	{
 		return $this->get_property(self::ITEMS_PER_PAGE);
 	}
 
-	public function set_items_per_page($value)
+	public function set_items_per_page(int $value): void
 	{
 		$this->set_property(self::ITEMS_PER_PAGE, $value);
 	}
 
-	public function get_items_per_row()
+	public function get_items_per_row(): int
 	{
 		return $this->get_property(self::ITEMS_PER_ROW);
 	}
 
-	public function set_items_per_row($value)
+	public function set_items_per_row(int $value): void
 	{
 		$this->set_property(self::ITEMS_PER_ROW, $value);
 	}
 
-	public function display_full_item()
+	public function display_full_item(): void
 	{
 		$this->set_property(self::FULL_ITEM_DISPLAY, true);
 	}
 
-	public function display_condensed_item()
+	public function display_condensed_item(): void
 	{
 		$this->set_property(self::FULL_ITEM_DISPLAY, false);
 	}
 
-	public function is_full_item_displayed()
+	public function is_full_item_displayed(): bool
 	{
 		return $this->get_property(self::FULL_ITEM_DISPLAY);
 	}
 
-	public function get_display_type()
+	public function get_display_type(): string
 	{
 		return $this->get_property(self::DISPLAY_TYPE);
 	}
 
-	public function set_display_type($value)
+	public function set_display_type(string $value): void
 	{
 		$this->set_property(self::DISPLAY_TYPE, $value);
 	}
 
-	public function get_items_default_sort_field()
+	public function get_items_default_sort_field(): string
 	{
 		return $this->get_property(self::ITEMS_DEFAULT_SORT_FIELD);
 	}
 
-	public function set_items_default_sort_field($value)
+	public function set_items_default_sort_field(string $value):void
 	{
 		$this->set_property(self::ITEMS_DEFAULT_SORT_FIELD, $value);
 	}
 
-	public function get_items_default_sort_mode()
+	public function get_items_default_sort_mode(): string
 	{
 		return $this->get_property(self::ITEMS_DEFAULT_SORT_MODE);
 	}
 
-	public function set_items_default_sort_mode($value)
+	public function set_items_default_sort_mode(string $value):void
 	{
 		$this->set_property(self::ITEMS_DEFAULT_SORT_MODE, $value);
 	}
 
-	public function get_default_content()
+	public function get_default_content(): string
 	{
 		return $this->get_property(self::DEFAULT_CONTENT);
 	}
 
-	public function set_default_content($value)
+	public function set_default_content(string $value): void
 	{
 		$this->set_property(self::DEFAULT_CONTENT, $value);
 	}
 
-	public function display_summary_to_guests()
+	public function display_summary_to_guests(): void
 	{
 		$this->set_property(self::SUMMARY_DISPLAYED_TO_GUESTS, true);
 	}
 
-	public function hide_summary_to_guests()
+	public function hide_summary_to_guests(): void
 	{
 		$this->set_property(self::SUMMARY_DISPLAYED_TO_GUESTS, false);
 	}
 
-	public function is_summary_displayed_to_guests()
+	public function is_summary_displayed_to_guests(): bool
 	{
 		return $this->get_property(self::SUMMARY_DISPLAYED_TO_GUESTS);
 	}
 
-	public function display_author()
+	public function display_author(): void
 	{
 		$this->set_property(self::AUTHOR_DISPLAYED, true);
 	}
 
-	public function hide_author()
+	public function hide_author(): void
 	{
 		$this->set_property(self::AUTHOR_DISPLAYED, false);
 	}
 
-	public function is_author_displayed()
+	public function is_author_displayed(): bool
 	{
 		return $this->get_property(self::AUTHOR_DISPLAYED);
 	}
 
-	public function get_enabled_views_number()
+	public function get_enabled_views_number(): bool
 	{
 		return $this->get_property(self::NB_VIEW_ENABLED);
 	}
 
-	public function set_enabled_views_number($nb_view_enabled)
+	public function set_enabled_views_number(bool $nb_view_enabled): void
 	{
 		$this->set_property(self::NB_VIEW_ENABLED, $nb_view_enabled);
 	}
 
-	public function get_root_category_description()
+	public function get_root_category_description(): string
 	{
 		return $this->get_property(self::ROOT_CATEGORY_DESCRIPTION);
 	}
 
-	public function set_root_category_description($value)
+	public function set_root_category_description(string $value): void
 	{
 		$this->set_property(self::ROOT_CATEGORY_DESCRIPTION, $value);
 	}
 
-	public function get_sort_type()
+	public function get_sort_type(): string
 	{
 		return $this->get_property(self::SORT_TYPE);
 	}
 
-	public function set_sort_type($value)
+	public function set_sort_type(string $value): void
 	{
 		$this->set_property(self::SORT_TYPE, $value);
 	}
 
-	public function is_sort_type_date()
+	public function is_sort_type_date(): bool
 	{
 		return $this->get_property(self::SORT_TYPE) == DownloadItem::SORT_DATE || $this->get_property(self::SORT_TYPE) == DownloadItem::SORT_UPDATE_DATE;
 	}
 
-	public function is_sort_type_downloads_number()
+	public function is_sort_type_downloads_number(): bool
 	{
 		return $this->get_property(self::SORT_TYPE) == DownloadItem::SORT_DOWNLOADS_NUMBER;
 	}
 
-	public function is_sort_type_views_numbers()
+	public function is_sort_type_views_numbers(): bool
 	{
 		return $this->get_property(self::SORT_TYPE) == DownloadItem::SORT_VIEWS_NUMBERS;
 	}
 
-	public function is_sort_type_notation()
+	public function is_sort_type_notation(): bool
 	{
 		return $this->get_property(self::SORT_TYPE) == DownloadItem::SORT_NOTATION;
 	}
 
-	public function get_files_number_in_menu()
+	public function get_files_number_in_menu(): int
 	{
 		return $this->get_property(self::FILES_NUMBER_IN_MENU);
 	}
 
-	public function set_files_number_in_menu($value)
+	public function set_files_number_in_menu(int $value): void
 	{
 		$this->set_property(self::FILES_NUMBER_IN_MENU, $value);
 	}
 
-	public function enable_limit_oldest_file_day_in_menu()
+	public function enable_limit_oldest_file_day_in_menu(): void
 	{
 		$this->set_property(self::LIMIT_OLDEST_FILE_DAY_IN_MENU_ENABLED, true);
 	}
 
-	public function disable_limit_oldest_file_day_in_menu()
+	public function disable_limit_oldest_file_day_in_menu(): void
 	{
 		$this->set_property(self::LIMIT_OLDEST_FILE_DAY_IN_MENU_ENABLED, false);
 	}
 
-	public function is_limit_oldest_file_day_in_menu_enabled()
+	public function is_limit_oldest_file_day_in_menu_enabled(): bool
 	{
 		return $this->get_property(self::LIMIT_OLDEST_FILE_DAY_IN_MENU_ENABLED);
 	}
 
-	public function get_oldest_file_day_in_menu()
+	public function get_oldest_file_day_in_menu(): int
 	{
 		return $this->get_property(self::OLDEST_FILE_DAY_IN_MENU);
 	}
 
-	public function set_oldest_file_day_in_menu($value)
+	public function set_oldest_file_day_in_menu(int $value): void
 	{
 		$this->set_property(self::OLDEST_FILE_DAY_IN_MENU, $value);
 	}
 
-	public function get_authorizations()
+	public function get_authorizations(): array
 	{
 		return $this->get_property(self::AUTHORIZATIONS);
 	}
 
-	public function set_authorizations(Array $authorizations)
+	public function set_authorizations(array $authorizations)
 	{
 		$this->set_property(self::AUTHORIZATIONS, $authorizations);
 	}
 
-	public function get_deferred_operations()
+	public function get_deferred_operations(): array
 	{
 		return $this->get_property(self::DEFERRED_OPERATIONS);
 	}
 
-	public function set_deferred_operations(Array $deferred_operations)
+	public function set_deferred_operations(array $deferred_operations)
 	{
 		$this->set_property(self::DEFERRED_OPERATIONS, $deferred_operations);
 	}
 
-	public function get_auto_cut_characters_number()
+	public function get_auto_cut_characters_number(): int
 	{
 		return $this->get_property(self::AUTO_CUT_CHARACTERS_NUMBER);
 	}
 
-	public function set_auto_cut_characters_number($number)
+	public function set_auto_cut_characters_number(int $number): void
 	{
 		$this->set_property(self::AUTO_CUT_CHARACTERS_NUMBER, $number);
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function get_default_values(): array
 	{
 		return [
@@ -314,7 +311,7 @@ class DownloadConfig extends AbstractConfigData
 	 * Returns the configuration.
 	 * @return DownloadConfig
 	 */
-	public static function load()
+	public static function load(): DownloadConfig
 	{
 		return ConfigManager::load(self::class, 'download', 'config');
 	}
@@ -322,7 +319,7 @@ class DownloadConfig extends AbstractConfigData
 	/**
 	 * Saves the configuration in the database. Has it become persistent.
 	 */
-	public static function save()
+	public static function save(): void
 	{
 		ConfigManager::save('download', self::load(), 'config');
 	}

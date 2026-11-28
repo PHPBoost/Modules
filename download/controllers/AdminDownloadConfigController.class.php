@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -13,10 +13,10 @@
 
 class AdminDownloadConfigController extends DefaultAdminModuleController
 {
-	private $comments_config;
-	private $content_management_config;
+	private CommentsConfig $comments_config;
+	private ContentManagementConfig $content_management_config;
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): DefaultAdminDisplayResponse
 	{
 		$this->init();
 
@@ -44,7 +44,7 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 		$this->content_management_config = ContentManagementConfig::load();
 	}
 
-	private function build_form()
+	private function build_form(): void
 	{
 		$form = new HTMLForm(self::class);
 
@@ -79,27 +79,36 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 			[
 				'select_to_list' => true,
 				'events' => ['change' => '
-				if (HTMLForms.getField("display_type").getValue() == \'' . DownloadConfig::GRID_VIEW . '\') {
-					HTMLForms.getField("items_per_row").enable();
-					HTMLForms.getField("display_summary_to_guests").enable();
-						HTMLForms.getField("auto_cut_characters_number").enable();
-					HTMLForms.getField("full_item_display").disable();
-				} else if (HTMLForms.getField("display_type").getValue() == \'' . DownloadConfig::LIST_VIEW . '\') {
-					HTMLForms.getField("full_item_display").enable();
-					HTMLForms.getField("display_summary_to_guests").enable();
-					HTMLForms.getField("items_per_row").disable();
-					if (HTMLForms.getField("full_item_display").getValue()) {
-						HTMLForms.getField("auto_cut_characters_number").disable();
-					} else {
-						HTMLForms.getField("auto_cut_characters_number").enable();
-					}
-				} else {
-					HTMLForms.getField("items_per_row").disable();
-					HTMLForms.getField("display_summary_to_guests").disable();
-					HTMLForms.getField("full_item_display").disable();
-					HTMLForms.getField("auto_cut_characters_number").disable();
-				}'
-			]]
+                    if (HTMLForms.getField("display_type").getValue() == \'' . DownloadConfig::GRID_VIEW . '\')
+                    {
+                        HTMLForms.getField("items_per_row").enable();
+                        HTMLForms.getField("display_summary_to_guests").enable();
+                            HTMLForms.getField("auto_cut_characters_number").enable();
+                        HTMLForms.getField("full_item_display").disable();
+                    }
+                    else if (HTMLForms.getField("display_type").getValue() == \'' . DownloadConfig::LIST_VIEW . '\')
+                    {
+                        HTMLForms.getField("full_item_display").enable();
+                        HTMLForms.getField("display_summary_to_guests").enable();
+                        HTMLForms.getField("items_per_row").disable();
+                        if (HTMLForms.getField("full_item_display").getValue())
+                        {
+                            HTMLForms.getField("auto_cut_characters_number").disable();
+                        }
+                        else
+                        {
+                            HTMLForms.getField("auto_cut_characters_number").enable();
+                        }
+                    }
+                    else
+                    {
+                        HTMLForms.getField("items_per_row").disable();
+                        HTMLForms.getField("display_summary_to_guests").disable();
+                        HTMLForms.getField("full_item_display").disable();
+                        HTMLForms.getField("auto_cut_characters_number").disable();
+                    }'
+                ]
+            ]
 		));
 
 		$fieldset->add_field(new FormFieldNumberEditor('items_per_row', $this->lang['form.items.per.row'], $this->config->get_items_per_row(),
@@ -115,9 +124,12 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 				'class' => 'custom-checkbox',
 				'hidden' => $this->config->get_display_type() !== DownloadConfig::LIST_VIEW,
 				'events' => ['click' => '
-					if (HTMLForms.getField("full_item_display").getValue()) {
+					if (HTMLForms.getField("full_item_display").getValue())
+                    {
 						HTMLForms.getField("auto_cut_characters_number").disable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("auto_cut_characters_number").enable();
 					}'
 				]
@@ -166,10 +178,14 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 		];
 
 		if ($this->comments_config->module_comments_is_enabled('download'))
+        {
 			$sort_options[] = new FormFieldSelectChoiceOption($this->lang['common.sort.by.comments.number'], DownloadItem::SORT_COMMENTS_NUMBER, ['data_option_icon' => 'far fa-comments']);
+        }
 
 		if ($this->content_management_config->module_notation_is_enabled('download'))
+        {
 			$sort_options[] = new FormFieldSelectChoiceOption($this->lang['common.sort.by.best.note'], DownloadItem::SORT_NOTATION, ['data_option_icon' => 'far fa-star']);
+        }
 
 		$fieldset->add_field(new FormFieldSimpleSelectChoice('sort_type', $this->lang['common.sort.direction'], $this->config->get_sort_type(), $sort_options,
 			['select_to_list' => true, 'description' => $this->lang['download.config.sort.type.clue']]
@@ -184,9 +200,12 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 			[
 				'class' => 'custom-checkbox',
 				'events' => ['click' => '
-					if (HTMLForms.getField("limit_oldest_file_day_in_menu").getValue()) {
+					if (HTMLForms.getField("limit_oldest_file_day_in_menu").getValue())
+                    {
 						HTMLForms.getField("oldest_file_day_in_menu").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("oldest_file_day_in_menu").disable();
 					}'
 				]
@@ -253,12 +272,18 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 		$this->config->set_items_per_page($this->form->get_value('items_per_page'));
 
 		if($this->form->get_value('display_type')->get_raw_value() == DownloadConfig::GRID_VIEW)
+        {
             $this->config->set_items_per_row($this->form->get_value('items_per_row'));
+        }
 
 		if ($this->form->get_value('full_item_display'))
+        {
 			$this->config->display_full_item();
+        }
 		else
+        {
 			$this->config->display_condensed_item();
+        }
 
 		$this->config->set_categories_per_page($this->form->get_value('categories_per_page'));
 		$this->config->set_categories_per_row($this->form->get_value('categories_per_row'));
@@ -272,15 +297,23 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 		if ($this->config->get_display_type() != DownloadConfig::TABLE_VIEW)
 		{
 			if ($this->form->get_value('display_summary_to_guests'))
+            {
 				$this->config->display_summary_to_guests();
+            }
 			else
+            {
 				$this->config->hide_summary_to_guests();
+            }
 		}
 
 		if ($this->form->get_value('author_displayed'))
+        {
 			$this->config->display_author();
+        }
 		else
+        {
 			$this->config->hide_author();
+        }
 
 		$this->config->set_auto_cut_characters_number($this->form->get_value('auto_cut_characters_number', $this->config->get_auto_cut_characters_number()));
 		$this->config->set_enabled_views_number($this->form->get_value('nb_view_enabled'));
@@ -294,7 +327,9 @@ class AdminDownloadConfigController extends DefaultAdminModuleController
 			$this->config->set_oldest_file_day_in_menu($this->form->get_value('oldest_file_day_in_menu'));
 		}
 		else
+        {
 			$this->config->disable_limit_oldest_file_day_in_menu();
+        }
 
 		$this->config->set_default_content($this->form->get_value('default_content'));
         $this->config->set_authorizations($this->form->get_value('authorizations')->build_auth_array());

@@ -1,0 +1,52 @@
+<?php
+/**
+ * @copyright   &copy; 2005-2026 PHPBoost
+ * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
+ * @author      Julien BRISWALTER <j1.seth@phpboost.com>
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
+ * @since       PHPBoost 3.0 - 2012 11 15
+ * @author      xela <xela@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
+*/
+
+class DictionaryExtensionPointProvider extends ExtensionPointProvider
+{
+	public function __construct()
+	{
+		parent::__construct('dictionary');
+	}
+
+	public function css_files(): mixed
+	{
+		$module_css_files = new ModuleCssFiles();
+		$module_css_files->adding_running_module_displayed_file('dictionary.css');
+		$module_css_files->adding_always_displayed_file('dictionary_mini.css');
+		return $module_css_files;
+	}
+
+	public function home_page(): mixed
+	{
+		return new DefaultHomePageDisplay($this->get_id(), DictionaryHomeController::get_view());
+	}
+
+	public function menus(): mixed
+	{
+		return new ModuleMenus([new DictionaryModuleMiniMenu()]);
+	}
+
+	public function search(): mixed
+	{
+		return new DictionarySearchable();
+	}
+
+	public function tree_links(): mixed
+	{
+		return new DictionaryTreeLinks();
+	}
+
+	public function url_mappings(): mixed
+	{
+		return new UrlMappings([new DispatcherUrlMapping('/dictionary/index.php')]);
+	}
+}
+?>

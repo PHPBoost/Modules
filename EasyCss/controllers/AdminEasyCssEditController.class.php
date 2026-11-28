@@ -1,6 +1,6 @@
 <?php
 /**
- * Cette page permet la modification des fichiers CSS contenus dans le dossier 'theme' des thèmes installés
+ * This page allows editing CSS files contained in the 'theme' folder of installed themes
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      PaperToss <t0ssp4p3r@gmail.com>
@@ -8,48 +8,40 @@
  * @since       PHPBoost 5.0 - 2016 04 22
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminEasyCssEditController extends ModuleController
 {
 
-    /** @var \FileTemplate  Vue */
-    private $view;
-
-    /** @staticvar array          Array de langue */
-    private static $lang;
-
-    /** @var \File          Fichier CSS chargé */
-    private $file;
-
-    /** @var string         Nom du thème */
-    private $theme_id;
-
-    /** @var string         Nom du fichier css */
-    private $css_id;
-
-    /** @staticvar int      Compteur de remplacement */
-    public static $counter;
-
-    /** @staticvar array    Elements remplacés */
-    public static $vars;
-
-    /** @staticvar string   Contenu du champ hidden (ID des éléments à modifier) */
-    private static $hidden_input_content = '';
-
-    /** @staticvar array    Erreurs à afficher */
-    private static $errors = [];
-
-    /** @staticvar \EasyCssMainBlock  Bloc Principal du CSS */
-    private static $main_block;
+    /** View */
+    private FileTemplate $view;
+    /** Language array */
+    private static array $lang;
+    /** Loaded CSS file */
+    private File $file;
+    /** Theme name */
+    private string $theme_id;
+    /** CSS file name */
+    private string $css_id;
+    /** Replacement counter */
+    public static int $counter;
+    /** Replaced elements */
+    public static array $vars;
+    /** Hidden field content (IDs of the elements to edit) */
+    private static string $hidden_input_content = '';
+    /** Errors to display */
+    private static array $errors = [];
+    /** Main CSS block */
+    private static EasyCssMainBlock $main_block;
 
     /**
-     * Exécution de la page
+     * Page execution
      *
      * @param \HTTPRequestCustom $request
      * @return \AdminDisplayResponse
      */
-    public function execute(\HTTPRequestCustom $request)
+    public function execute(\HTTPRequestCustom $request): AdminDisplayResponse
     {
         $this->get_file($request);
         $this->init();
@@ -68,25 +60,25 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Création de la langue et la vue
+     * Creates the language and the view
      */
-    private function init()
+    private function init(): void
     {
         self::$lang = LangLoader::get('common', 'EasyCss');
         $this->view = new FileTemplate('EasyCss/AdminEditController.tpl');
         $this->view->add_lang(self::$lang);
     }
 
-    public static function get_lang($title)
+    public static function get_lang(string $title): string
     {
         return isset(self::$lang[$title]) ? self::$lang[$title] : '';
     }
     /**
-     * Récupération du fichier CSS à modifier
+     * Retrieves the CSS file to edit
      *
      * @param \HTTPRequestCustom $request
      */
-    private function get_file(\HTTPRequestCustom $request)
+    private function get_file(\HTTPRequestCustom $request): void
     {
         $this->theme_id = $request->get_getstring('theme', false);
         $this->theme_id = trim($this->theme_id, '/');
@@ -98,25 +90,27 @@ class AdminEasyCssEditController extends ModuleController
         $this->file = new File($file_path);
 
         if (!$this->file->exists())
+        {
             DispatchManager::redirect(PHPBoostErrors::unexisting_page());
+        }
     }
 
     /**
-     * Création de l'objet MainBlock et de tous ses enfants
-     * Parsage du CSS
+     * Creates the MainBlock object and all its children
+     * CSS parsing
      */
-    private function create_objects_elements()
+    private function create_objects_elements(): void
     {
         $css = $this->file->read();
         self::$main_block = new EasyCssMainBlock($css);
     }
 
     /**
-     * Envoi des templates et du contenu du hidden à la vue
+     * Sends the templates and the hidden field content to the view
      */
-    private function put_templates()
+    private function put_templates(): void
     {
-        // Templates des attributs
+        // Element templates
         $forms_tpl = self::$main_block->get_templates();
         $tpls = [];
         foreach ($forms_tpl as $tpl)
@@ -124,14 +118,14 @@ class AdminEasyCssEditController extends ModuleController
             $tpls[] = ['SUBTEMPLATE' => $tpl];
         }
 
-        // Templates des erreurs
+        // Error templates
         $error_tpls = [];
         foreach (self::$errors as $error_tpl)
         {
             $error_tpls[] = ['SUBTEMPLATE' => $error_tpl];
         }
 
-        // Pousse à la vue
+        // Push to the view
         $this->view->put_all([
             'errors' => $error_tpls,
             'elements' => $tpls,
@@ -141,13 +135,13 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Exécution des éléments POST
-     * Récupération du champ hidden, remplacement des objets avec les nouvelles valeurs
-     * Ecriture du CSS et suppression du cache CSS
+     * Processes the POST elements
+     * Retrieves the hidden field, replaces the objects with the new values
+     * Writes the CSS and clears the CSS cache
      *
      * @param \HTTPRequestCustom $request
      */
-    private function post_process(\HTTPRequestCustom $request)
+    private function post_process(\HTTPRequestCustom $request): void
     {
         $post_elements = $request->get_poststring(self::class . '_elements_fields', false);
         self::$main_block->replace_with_post($post_elements, $request);
@@ -157,12 +151,12 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Création et retour de la reponse
+     * Creates and returns the response
      *
      * @param View $view
      * @return \AdminDisplayResponse
      */
-    private function build_response(View $view)
+    private function build_response(View $view): AdminDisplayResponse
     {
         $response = new AdminDisplayResponse($view);
         $response->get_graphical_environment()->set_page_title(self::$lang['module_title']);
@@ -170,16 +164,16 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Ecriture du fichier CSS
+     * Writes the CSS file
      */
-    private function write_to_file()
+    private function write_to_file(): void
     {
         $this->file->write(trim(self::$main_block->get_css_to_save()));
         $this->clear_css_cache();
     }
 
     /**
-     * Suppression du cache CSS si activé
+     * Clears the CSS cache if enabled
      */
     private function clear_css_cache()
     {
@@ -191,37 +185,37 @@ class AdminEasyCssEditController extends ModuleController
     }
 
     /**
-     * Ajoute un élément au champ hidden
+     * Adds an element to the hidden field
      *
      * @static
-     * @param string    ID complet du champ à ajouter
+     * @param string  $id  Full ID of the field to add
      */
-    public static function add_field_to_hidden_input($id)
+    public static function add_field_to_hidden_input(string $id): void
     {
         self::$hidden_input_content .= $id . ';';
     }
 
     /**
-     * Ajoute une erreur de contenu
+     * Adds a content error
      *
      * @static
-     * @param string    Erreur à afficher
+     * @param Template $tpl Error to display
      */
-    public static function add_error(\Template $tpl)
+    public static function add_error(\Template $tpl): void
     {
         self::$errors[] = $tpl;
     }
 
     /**
-     * Retourne un attribut depuis son ID
+     * Returns an attribute from its ID
      *
      * @static
-     * @param string    ID complet de l'élément
+     * @param string $id Full ID of the element
      * @return \EasyCssAbstractAttribut
      */
-    public static function get_element($id)
+    public static function get_element(string $id): EasyCssAbstractAttribut
     {
         return self::$main_block->find_id($id);
     }
-
 }
+?>

@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,12 +12,12 @@
 
 class DownloadItemController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('download/DownloadItemController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->build_view();
 		$this->count_views_number($request);
@@ -26,7 +26,7 @@ class DownloadItemController extends DefaultModuleController
 		return $this->generate_response();
 	}
 
-	private function get_item()
+	private function get_item(): DownloadItem
 	{
 		if ($this->item === null)
 		{
@@ -41,12 +41,14 @@ class DownloadItemController extends DefaultModuleController
 				}
 			}
 			else
+            {
 				$this->item = new DownloadItem();
+            }
 		}
 		return $this->item;
 	}
 
-	private function count_views_number(HTTPRequestCustom $request)
+	private function count_views_number(HTTPRequestCustom $request): int
 	{
 		if (!$this->item->is_published())
 		{
@@ -60,9 +62,10 @@ class DownloadItemController extends DefaultModuleController
 				DownloadService::update_views_number($this->item);
 			}
 		}
+        return 0;
 	}
 
-	private function build_view()
+	private function build_view(): void
 	{
 		$config = DownloadConfig::load();
 		$comments_config = CommentsConfig::load();
@@ -92,7 +95,9 @@ class DownloadItemController extends DefaultModuleController
 		}
 
 		if ($has_keywords)
+        {
 			$this->build_keywords_view($keywords);
+        }
 
 		foreach ($item->get_sources() as $name => $url)
 		{
@@ -100,7 +105,7 @@ class DownloadItemController extends DefaultModuleController
 		}
 	}
 
-	private function build_keywords_view($keywords)
+	private function build_keywords_view(array $keywords): void
 	{
 		$nbr_keywords = count($keywords);
 
@@ -116,43 +121,44 @@ class DownloadItemController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		$item = $this->get_item();
 
 		$current_user = AppContext::get_current_user();
 		$not_authorized = !DownloadAuthorizationsService::check_authorizations($item->get_id_category())->moderation() && !DownloadAuthorizationsService::check_authorizations($item->get_id_category())->write() && (!DownloadAuthorizationsService::check_authorizations($item->get_id_category())->contribution() || $item->get_author_user()->get_id() != $current_user->get_id());
 
-		switch ($item->get_publishing_state()) {
+		switch ($item->get_publishing_state())
+        {
 			case DownloadItem::PUBLISHED:
 				if (!DownloadAuthorizationsService::check_authorizations($item->get_id_category())->read())
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
 					DispatchManager::redirect($error_controller);
 				}
-			break;
+                break;
 			case DownloadItem::NOT_PUBLISHED:
 				if ($not_authorized || ($current_user->get_id() == User::VISITOR_LEVEL))
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
 					DispatchManager::redirect($error_controller);
 				}
-			break;
+                break;
 			case DownloadItem::DEFERRED_PUBLICATION:
 				if (!$item->is_published() && ($not_authorized || ($current_user->get_id() == User::VISITOR_LEVEL)))
 				{
 					$error_controller = PHPBoostErrors::user_not_authorized();
 					DispatchManager::redirect($error_controller);
 				}
-			break;
+                break;
 			default:
 				$error_controller = PHPBoostErrors::unexisting_page();
 				DispatchManager::redirect($error_controller);
-			break;
+                break;
 		}
 	}
 
-	private function generate_response()
+	private function generate_response(): SiteDisplayResponse
 	{
 		$item = $this->get_item();
 		$category = $item->get_category();
@@ -164,7 +170,9 @@ class DownloadItemController extends DefaultModuleController
 		$graphical_environment->get_seo_meta_data()->set_canonical_url(DownloadUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()));
 
 		if ($item->has_thumbnail())
+        {
 			$graphical_environment->get_seo_meta_data()->set_picture_url($item->get_thumbnail());
+        }
 
 		$breadcrumb = $graphical_environment->get_breadcrumb();
 		$breadcrumb->add($this->lang['download.module.title'],DownloadUrlBuilder::home());
@@ -173,7 +181,9 @@ class DownloadItemController extends DefaultModuleController
 		foreach ($categories as $id => $category)
 		{
 			if ($category->get_id() != Category::ROOT_CATEGORY)
+            {
 				$breadcrumb->add($category->get_name(), DownloadUrlBuilder::display_category($category->get_id(), $category->get_rewrited_name()));
+            }
 		}
 		$breadcrumb->add($item->get_title(), DownloadUrlBuilder::display($category->get_id(), $category->get_rewrited_name(), $item->get_id(), $item->get_rewrited_title()));
 

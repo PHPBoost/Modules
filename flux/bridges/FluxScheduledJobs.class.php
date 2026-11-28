@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 11 11
+ * @version     PHPBoost 6.1 - last update: 2026 11 27
  * @since       PHPBoost 6.0 - 2022 05 20
 */
 
@@ -53,7 +53,11 @@ class FluxScheduledJobs extends AbstractScheduledJobExtensionPoint
                 // Truncate and save
                 $content = substr($content, 0, strpos($content, '</rss>'));
                 $content .= '</rss>';
-                file_put_contents(PATH_TO_ROOT . $filename, $content);
+                $cache_file = PATH_TO_ROOT . $filename;
+                if (!File::replace_content($cache_file, $content))
+                {
+                    error_log('Unable to write RSS cache file ' . $cache_file);
+                }
             }
         }
     }

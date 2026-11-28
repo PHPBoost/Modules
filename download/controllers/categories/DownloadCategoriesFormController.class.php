@@ -3,14 +3,14 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 10 07
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class DownloadCategoriesFormController extends DefaultCategoriesFormController
 {
-	protected function build_form(HTTPRequestCustom $request)
+	protected function build_form(HTTPRequestCustom $request): void
 	{
 		self::$lang = LangLoader::get_all_langs('download');
 		$form = new HTMLForm(self::class);
@@ -24,9 +24,12 @@ class DownloadCategoriesFormController extends DefaultCategoriesFormController
 		$fieldset->add_field(new FormFieldCheckbox('personalize_rewrited_name', self::$lang['form.rewrited.title.personalize'], $this->get_category()->rewrited_name_is_personalized(),
 			[
 				'events' => ['click' => '
-					if (HTMLForms.getField("personalize_rewrited_name").getValue()) {
+					if (HTMLForms.getField("personalize_rewrited_name").getValue())
+                    {
 						HTMLForms.getField("rewrited_name").enable();
-					} else {
+					}
+                    else
+                    {
 						HTMLForms.getField("rewrited_name").disable();
 					}'
 				]
@@ -41,11 +44,14 @@ class DownloadCategoriesFormController extends DefaultCategoriesFormController
 			[new FormFieldConstraintRegex('`^[a-z0-9\-]+$`iu')]
 		));
 
-		if ($this->get_category()->is_allowed_to_have_childs()) {
+		if ($this->get_category()->is_allowed_to_have_childs())
+        {
 			$search_category_children_options = new SearchCategoryChildrensOptions();
 
 			if ($this->get_category()->get_id())
+            {
 				$search_category_children_options->add_category_in_excluded_categories($this->get_category()->get_id());
+            }
 
 			$fieldset->add_field(self::$categories_manager->get_select_categories_form_field('id_parent', self::$lang['category.location'], $this->get_category()->get_id_parent(), $search_category_children_options));
 		}
@@ -68,9 +74,12 @@ class DownloadCategoriesFormController extends DefaultCategoriesFormController
 				'description' => self::$lang['category.form.authorizations.clue'],
 				'events' => [
 					'click' => '
-					if (HTMLForms.getField("special_authorizations").getValue()) {
+					if (HTMLForms.getField("special_authorizations").getValue())
+                    {
 						jQuery("#' . self::class . '_authorizations").show();
-					} else {
+					}
+                    else
+                    {
 						jQuery("#' . self::class . '_authorizations").hide();
 					}'
 				]
@@ -101,7 +110,7 @@ class DownloadCategoriesFormController extends DefaultCategoriesFormController
 		$this->form = $form;
 	}
 
-	protected function set_properties()
+	protected function set_properties(): void
 	{
 		parent::set_properties();
 		$this->get_category()->set_additional_property('description', $this->form->get_value('description'));
@@ -112,7 +121,7 @@ class DownloadCategoriesFormController extends DefaultCategoriesFormController
 			$this->get_category()->set_special_authorizations(true);
 			$autorizations = $this->form->get_value('authorizations')->build_auth_array();
 		}
-		else 
+		else
 		{
 			$this->get_category()->set_special_authorizations(false);
 			$autorizations = [];
@@ -120,7 +129,7 @@ class DownloadCategoriesFormController extends DefaultCategoriesFormController
 		$this->get_category()->set_authorizations($autorizations);
 	}
 
-	protected function check_authorizations()
+	protected function check_authorizations(): void
 	{
 		if (!DownloadAuthorizationsService::check_authorizations()->manage())
 		{

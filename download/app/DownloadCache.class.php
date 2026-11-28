@@ -10,12 +10,13 @@
 
 class DownloadCache implements CacheData
 {
-	private $items = [];
+	private array $items = [];
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function synchronize(): void {
+	public function synchronize(): void
+    {
 		$this->items = [];
 
 		$now = new Date();
@@ -29,11 +30,13 @@ class DownloadCache implements CacheData
 			WHERE (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
 			' . ($config->is_limit_oldest_file_day_in_menu_enabled() ? 'AND update_date > :oldest_file_date' : '') . '
 			ORDER BY ' . $config->get_sort_type() . ' DESC
-			LIMIT :files_number_in_menu OFFSET 0', [
+			LIMIT :files_number_in_menu OFFSET 0
+            ', [
 				'timestamp_now' => $now->get_timestamp(),
 				'files_number_in_menu' => (int)$config->get_files_number_in_menu(),
 				'oldest_file_date' => $oldest_file_date->get_timestamp()
-		]);
+            ]
+        );
 
 		while ($row = $result->fetch())
 		{
@@ -42,17 +45,17 @@ class DownloadCache implements CacheData
 		$result->dispose();
 	}
 
-	public function get_items()
+	public function get_items(): array
 	{
 		return $this->items;
 	}
 
-	public function item_exists($id)
+	public function item_exists(int $id): bool
 	{
 		return array_key_exists($id, $this->items);
 	}
 
-	public function get_item($id)
+	public function get_item(int $id): mixed
 	{
 		if ($this->item_exists($id))
 		{
@@ -61,7 +64,7 @@ class DownloadCache implements CacheData
 		return null;
 	}
 
-	public function get_items_number()
+	public function get_items_number(): int
 	{
 		return count($this->items);
 	}
@@ -70,7 +73,7 @@ class DownloadCache implements CacheData
 	 * Loads and returns the download cached data.
 	 * @return DownloadCache The cached data
 	 */
-	public static function load()
+	public static function load(): DownloadCache
 	{
 		return CacheManager::load(self::class, 'download', 'minimenu');
 	}
@@ -78,7 +81,7 @@ class DownloadCache implements CacheData
 	/**
 	 * Invalidates the current download cached data.
 	 */
-	public static function invalidate()
+	public static function invalidate(): void
 	{
 		CacheManager::invalidate('download', 'minimenu');
 	}

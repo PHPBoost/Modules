@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Arnaud GENET <elenwii@phpboost.com>
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
@@ -12,10 +12,10 @@
 
 class DownloadItemsManagerController extends DefaultModuleController
 {
-	private $elements_number = 0;
-	private $ids = [];
+	private int $elements_number = 0;
+	private array $ids = [];
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -26,7 +26,7 @@ class DownloadItemsManagerController extends DefaultModuleController
 		return $this->generate_response($current_page);
 	}
 
-	private function build_table()
+	private function build_table(): int
 	{
 		$display_categories = CategoriesService::get_categories_manager()->get_categories_cache()->has_categories();
 
@@ -60,12 +60,16 @@ class DownloadItemsManagerController extends DefaultModuleController
 		$table->set_filters_fieldset_class_HTML();
 
 		$results = [];
-		$result = $table_model->get_sql_results('download
+		$result = $table_model->get_sql_results('
+            download
 			LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
 			LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
 			LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = ' . AppContext::get_current_user()->get_id() . '
-			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = download.author_user_id',
-			['*', 'download.id']
+			LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = download.author_user_id
+            ', [
+                '*',
+                'download.id'
+            ]
 		);
 		foreach ($result as $row)
 		{
@@ -80,7 +84,7 @@ class DownloadItemsManagerController extends DefaultModuleController
 			$edit_link = new EditLinkHTMLElement(DownloadUrlBuilder::edit($item->get_id()));
 			$delete_link = new DeleteLinkHTMLElement(DownloadUrlBuilder::delete($item->get_id()));
 
-			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level(), true);
+			$user_group_color = User::get_group_color($user->get_groups(), $user->get_level());
 			$author = $user->get_id() !== User::VISITOR_LEVEL ? new LinkHTMLElement(UserUrlBuilder::profile($user->get_id()), $user->get_display_name(), (!empty($user_group_color) ? ['style' => 'color: ' . $user_group_color] : []), UserService::get_level_class($user->get_level())) : $user->get_display_name();
 
 			$row = [
@@ -93,7 +97,9 @@ class DownloadItemsManagerController extends DefaultModuleController
 			];
 
 			if (!$display_categories)
+            {
 				unset($row[1]);
+            }
 
 			$results[] = new HTMLTableRow($row);
 		}
@@ -104,7 +110,7 @@ class DownloadItemsManagerController extends DefaultModuleController
 		return $table->get_page_number();
 	}
 
-	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request)
+	private function execute_multiple_delete_if_needed(HTTPRequestCustom $request): void
     {
         if ($request->get_string('delete-selected-elements', false))
         {
@@ -126,7 +132,7 @@ class DownloadItemsManagerController extends DefaultModuleController
         }
     }
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!DownloadAuthorizationsService::check_authorizations()->moderation())
 		{
@@ -135,7 +141,7 @@ class DownloadItemsManagerController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response($page = 1)
+	private function generate_response(int $page = 1): SiteDisplayResponse
 	{
 		$response = new SiteDisplayResponse($this->view);
 

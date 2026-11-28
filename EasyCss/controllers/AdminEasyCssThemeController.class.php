@@ -9,16 +9,15 @@
  * @author      mipel <mipel@phpboost.com>
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
+ * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class AdminEasyCssThemeController extends ModuleController
 {
-    /** @var \FileTemplate */
-    private $view;
+    private FileTemplate $view;
+    private array $lang;
 
-    private $lang;
-
-    public function execute(\HTTPRequestCustom $request)
+    public function execute(\HTTPRequestCustom $request): AdminDisplayResponse
     {
         $this->init();
 
@@ -27,14 +26,14 @@ class AdminEasyCssThemeController extends ModuleController
         return $this->build_response($this->view);
     }
 
-    private function init()
+    private function init(): void
     {
         $this->lang = LangLoader::get('common', 'EasyCss');
         $this->view = new FileTemplate('EasyCss/AdminThemeController.tpl');
         $this->view->add_lang($this->lang);
     }
 
-    private function build_response(View $view)
+    private function build_response(View $view): AdminDisplayResponse
     {
         $response = new AdminDisplayResponse($view);
         $response->get_graphical_environment()->set_page_title($this->lang['module_title']);
@@ -42,14 +41,10 @@ class AdminEasyCssThemeController extends ModuleController
     }
 
     /**
-     * Retourne les dossiers 'theme' des différents thèmes installés
-     *
-     * @return \Folder
+     * Gets all folder containing css files
      */
-    private function get_themes_folders()
+    private function get_themes_folders(): void
     {
-
-        /** @var \Theme */
         $obj_themes = ThemesManager::get_installed_themes_map();
 
         foreach ($obj_themes as $theme)
@@ -71,3 +66,4 @@ class AdminEasyCssThemeController extends ModuleController
         }
     }
 }
+?>

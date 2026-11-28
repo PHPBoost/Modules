@@ -3,7 +3,7 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Julien BRISWALTER <j1.seth@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 4.0 - 2014 08 24
  * @author      Kevin MASSY <reidlos@phpboost.com>
  * @author      Arnaud GENET <elenwii@phpboost.com>
@@ -12,12 +12,12 @@
 
 class DownloadPendingItemsController extends DefaultModuleController
 {
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('download/DownloadSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->check_authorizations();
 
@@ -26,7 +26,7 @@ class DownloadPendingItemsController extends DefaultModuleController
 		return $this->generate_response($request);
 	}
 
-	public function build_view(HTTPRequestCustom $request)
+	public function build_view(HTTPRequestCustom $request): void
 	{
 		$now = new Date();
 		$comments_config = CommentsConfig::load();
@@ -35,9 +35,11 @@ class DownloadPendingItemsController extends DefaultModuleController
 		$mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());
 		$field = $request->get_getstring('field', DownloadItem::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
 
-		$condition = 'WHERE id_category IN :authorized_categories
-		' . (!DownloadAuthorizationsService::check_authorizations()->moderation() ? ' AND author_user_id = :user_id' : '') . '
-		AND (published = 0 OR (published = 2 AND (publishing_start_date > :timestamp_now OR (publishing_end_date != 0 AND publishing_end_date < :timestamp_now))))';
+		$condition = '
+            WHERE id_category IN :authorized_categories
+            ' . (!DownloadAuthorizationsService::check_authorizations()->moderation() ? ' AND author_user_id = :user_id' : '') . '
+            AND (published = 0 OR (published = 2 AND (publishing_start_date > :timestamp_now OR (publishing_end_date != 0 AND publishing_end_date < :timestamp_now))))
+        ';
 		$parameters = [
 			'user_id' => AppContext::get_current_user()->get_id(),
 			'authorized_categories' => $authorized_categories,
@@ -55,18 +57,21 @@ class DownloadPendingItemsController extends DefaultModuleController
 		else
 			$sort_field = DownloadItem::SORT_DATE;
 
-		$result = PersistenceContext::get_querier()->select('SELECT download.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
-		FROM '. DownloadSetup::$download_table .' download
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = download.author_user_id
-		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
-		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
-		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = :user_id
-		' . $condition . '
-		ORDER BY ' . $sort_field . ' ' . $sort_mode . '
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT download.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
+            FROM '. DownloadSetup::$download_table .' download
+            LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = download.author_user_id
+            LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
+            LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
+            LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = :user_id
+            ' . $condition . '
+            ORDER BY ' . $sort_field . ' ' . $sort_mode . '
+            LIMIT :number_items_per_page OFFSET :display_from
+            ', array_merge($parameters, [
+                'number_items_per_page' => $pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$this->view->put_all([
 			'C_PENDING'              => true,
@@ -101,7 +106,9 @@ class DownloadPendingItemsController extends DefaultModuleController
 			]));
 
 			if ($has_keywords)
+            {
 				$this->build_keywords_view($keywords);
+            }
 
 			foreach ($item->get_sources() as $name => $url)
 			{
@@ -112,7 +119,7 @@ class DownloadPendingItemsController extends DefaultModuleController
 		$this->build_sorting_form($field, TextHelper::strtolower($sort_mode));
 	}
 
-	private function build_sorting_form($field, $mode)
+	private function build_sorting_form(string $field, string $mode): void
 	{
 		$form = new HTMLForm(self::class, '', false);
 		$form->set_css_class('options');
@@ -140,7 +147,7 @@ class DownloadPendingItemsController extends DefaultModuleController
 		$this->view->put('SORT_FORM', $form->display());
 	}
 
-	private function get_pagination($condition, $parameters, $field, $mode, $page)
+	private function get_pagination(string $condition, array $parameters, string $field, string $mode, int|string $page): ModulePagination
 	{
 		$items_number = DownloadService::count($condition, $parameters);
 
@@ -156,7 +163,7 @@ class DownloadPendingItemsController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function build_keywords_view($keywords)
+	private function build_keywords_view(array $keywords): void
 	{
 		$nbr_keywords = count($keywords);
 
@@ -172,7 +179,7 @@ class DownloadPendingItemsController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!(DownloadAuthorizationsService::check_authorizations()->write() || DownloadAuthorizationsService::check_authorizations()->contribution() || DownloadAuthorizationsService::check_authorizations()->moderation()))
 		{
@@ -181,7 +188,7 @@ class DownloadPendingItemsController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$sort_field = $request->get_getstring('field', DownloadItem::SORT_FIELDS_URL_VALUES[$this->config->get_items_default_sort_field()]);
 		$sort_mode = $request->get_getstring('sort', $this->config->get_items_default_sort_mode());

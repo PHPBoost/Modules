@@ -69,12 +69,12 @@ class ContactField
 		return $this->description;
 	}
 
-	public function set_default_value(string $default_value): void
+	public function set_default_value(?string $default_value): void
 	{
 		$this->default_value = $default_value;
 	}
 
-	public function get_default_value(): string
+	public function get_default_value(): ?string
 	{
 		return $this->default_value;
 	}
@@ -174,12 +174,12 @@ class ContactField
 		return AppContext::get_current_user()->check_auth($this->authorization, self::DISPLAY_FIELD_AUTHORIZATION);
 	}
 
-	public function set_fieldset($fieldset): void
+	public function set_fieldset(mixed $fieldset): void
 	{
 		$this->fieldset = $fieldset;
 	}
 
-	public function get_fieldset()
+	public function get_fieldset(): mixed
 	{
 		return $this->fieldset;
 	}

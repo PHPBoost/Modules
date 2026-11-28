@@ -3,22 +3,22 @@
  * @copyright   &copy; 2005-2026 PHPBoost
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL-3.0
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
- * @version     PHPBoost 6.1 - last update: 2026 05 19
+ * @version     PHPBoost 6.1 - last update: 2026 11 28
  * @since       PHPBoost 6.0 - 2020 12 04
  * @author      Sebastien LARTIGUE <babsolune@phpboost.com>
 */
 
 class DownloadMemberItemsController extends DefaultModuleController
 {
-	private $member;
-	private $authorized_categories;
+	private ?User $member = null;
+	private array $authorized_categories;
 
-	protected function get_template_to_use()
+	protected function get_template_to_use(): FileTemplate
 	{
 		return new FileTemplate('download/DownloadSeveralItemsController.tpl');
 	}
 
-	public function execute(HTTPRequestCustom $request)
+	public function execute(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$this->init();
 		$this->check_authorizations();
@@ -26,14 +26,18 @@ class DownloadMemberItemsController extends DefaultModuleController
         $this->view->put('C_MEMBER_ITEMS', true);
 
 		if ($this->member === null)
+        {
             $this->build_members_listing_view();
+        }
         else
+        {
             $this->build_view($request);
+        }
 
 		return $this->generate_response($request);
 	}
 
-	private function init()
+	private function init(): void
 	{
         $this->member = AppContext::get_request()->get_getint('user_id', 0) ? UserService::get_user(AppContext::get_request()->get_getint('user_id', 0)) : null;
 		$this->authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->is_summary_displayed_to_guests());
@@ -42,12 +46,14 @@ class DownloadMemberItemsController extends DefaultModuleController
 	private function build_members_listing_view()
 	{
 		$now = new Date();
-        $result = PersistenceContext::get_querier()->select('SELECT download.*, member.*
+        $result = PersistenceContext::get_querier()->select('
+            SELECT download.*, member.*
             FROM ' . DownloadSetup::$download_table . ' download
             LEFT JOIN ' . DB_TABLE_MEMBER . ' member ON member.user_id = download.author_user_id
             WHERE id_category IN :authorized_categories
             AND (published = 1 OR (published = 2 AND publishing_start_date < :timestamp_now AND (publishing_end_date > :timestamp_now OR publishing_end_date = 0)))
-            ORDER BY member.display_name, download.creation_date DESC', [
+            ORDER BY member.display_name, download.creation_date DESC
+            ', [
                 'authorized_categories' => $this->authorized_categories,
                 'timestamp_now' => $now->get_timestamp()
             ]
@@ -83,16 +89,17 @@ class DownloadMemberItemsController extends DefaultModuleController
         }
     }
 
-	public function build_view(HTTPRequestCustom $request)
+	public function build_view(HTTPRequestCustom $request): void
 	{
 		$now = new Date();
 		$comments_config = CommentsConfig::load();
 		$content_management_config = ContentManagementConfig::load();
-		$authorized_categories = CategoriesService::get_authorized_categories(Category::ROOT_CATEGORY, $this->config->is_summary_displayed_to_guests());
 
-		$condition = 'WHERE id_category IN :authorized_categories
-		AND author_user_id = :user_id
-		AND (published = 1 OR (published = 2 AND (publishing_start_date > :timestamp_now OR (publishing_end_date != 0 AND publishing_end_date < :timestamp_now))))';
+		$condition = '
+            WHERE id_category IN :authorized_categories
+            AND author_user_id = :user_id
+            AND (published = 1 OR (published = 2 AND (publishing_start_date > :timestamp_now OR (publishing_end_date != 0 AND publishing_end_date < :timestamp_now))))
+        ';
 		$parameters = [
 			'user_id' => $this->get_member()->get_id(),
 			'authorized_categories' => $this->authorized_categories,
@@ -102,18 +109,21 @@ class DownloadMemberItemsController extends DefaultModuleController
 		$page = $request->get_getint('page', 1);
 		$pagination = $this->get_pagination($condition, $parameters, $page);
 
-		$result = PersistenceContext::get_querier()->select('SELECT download.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
-		FROM '. DownloadSetup::$download_table .' download
-		LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = download.author_user_id
-		LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
-		LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
-		LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = :user_id
-		' . $condition . '
-		ORDER BY update_date
-		LIMIT :number_items_per_page OFFSET :display_from', array_merge($parameters, [
-			'number_items_per_page' => $pagination->get_number_items_per_page(),
-			'display_from' => $pagination->get_display_from()
-		]));
+		$result = PersistenceContext::get_querier()->select('
+            SELECT download.*, member.*, com.comments_number, notes.average_notes, notes.notes_number, note.note
+            FROM '. DownloadSetup::$download_table .' download
+            LEFT JOIN '. DB_TABLE_MEMBER .' member ON member.user_id = download.author_user_id
+            LEFT JOIN ' . DB_TABLE_COMMENTS_TOPIC . ' com ON com.id_in_module = download.id AND com.module_id = \'download\'
+            LEFT JOIN ' . DB_TABLE_AVERAGE_NOTES . ' notes ON notes.id_in_module = download.id AND notes.module_name = \'download\'
+            LEFT JOIN ' . DB_TABLE_NOTE . ' note ON note.id_in_module = download.id AND note.module_name = \'download\' AND note.user_id = :user_id
+            ' . $condition . '
+            ORDER BY update_date
+            LIMIT :number_items_per_page OFFSET :display_from
+            ', array_merge($parameters, [
+                'number_items_per_page' => $pagination->get_number_items_per_page(),
+                'display_from' => $pagination->get_display_from()
+            ])
+        );
 
 		$this->view->put_all([
 			'C_MY_ITEMS'             => $this->is_current_member_displayed(),
@@ -149,7 +159,9 @@ class DownloadMemberItemsController extends DefaultModuleController
 			]));
 
 			if ($has_keywords)
+            {
 				$this->build_keywords_view($keywords);
+            }
 
 			foreach ($item->get_sources() as $name => $url)
 			{
@@ -159,7 +171,7 @@ class DownloadMemberItemsController extends DefaultModuleController
 		$result->dispose();
 	}
 
-	protected function get_member()
+	protected function get_member(): User
 	{
 		if (!$this->member && $this->member !== null)
 		{
@@ -168,12 +180,12 @@ class DownloadMemberItemsController extends DefaultModuleController
 		return $this->member;
 	}
 
-	protected function is_current_member_displayed()
+	protected function is_current_member_displayed(): bool
 	{
 		return $this->member && $this->member->get_id() == AppContext::get_current_user()->get_id();
 	}
 
-	private function get_pagination($condition, $parameters, $page)
+	private function get_pagination(string $condition, array $parameters, int|string $page): ModulePagination
 	{
 		$items_number = DownloadService::count($condition, $parameters);
 
@@ -189,7 +201,7 @@ class DownloadMemberItemsController extends DefaultModuleController
 		return $pagination;
 	}
 
-	private function build_keywords_view($keywords)
+	private function build_keywords_view(array $keywords): void
 	{
 		$nbr_keywords = count($keywords);
 
@@ -205,7 +217,7 @@ class DownloadMemberItemsController extends DefaultModuleController
 		}
 	}
 
-	private function check_authorizations()
+	private function check_authorizations(): void
 	{
 		if (!DownloadAuthorizationsService::check_authorizations()->read())
 		{
@@ -214,7 +226,7 @@ class DownloadMemberItemsController extends DefaultModuleController
 		}
 	}
 
-	private function generate_response(HTTPRequestCustom $request)
+	private function generate_response(HTTPRequestCustom $request): SiteDisplayResponse
 	{
 		$page = $request->get_getint('page', 1);
 		$page_title = $this->member ? ($this->is_current_member_displayed() ? $this->lang['download.my.items'] : $this->get_member()->get_display_name()) : $this->lang['contribution.members.list'];
@@ -237,7 +249,9 @@ class DownloadMemberItemsController extends DefaultModuleController
 		$breadcrumb->add($this->lang['download.module.title'], DownloadUrlBuilder::home());
 		$breadcrumb->add($this->lang['contribution.members.list'], DownloadUrlBuilder::display_member_items());
         if ($this->member)
+        {
             $breadcrumb->add($page_title, DownloadUrlBuilder::display_member_items($this->member ? $this->get_member()->get_id() : null, $page));
+        }
 
 		return $response;
 	}
